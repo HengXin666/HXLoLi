@@ -6,11 +6,11 @@ import remarkMath from 'remark-math';   // 数学渲染
 import rehypeKatex from 'rehype-katex'; // katex渲染
 
 // 基础路径, 末尾不带 '/'
-const BaseUrl = "/HXLoLiHub";
+const BaseUrl = "/HXLoLi";
 
 // 站点配置
 const config: Config = {
-  title: "HXLoLiHub", // 项目名称
+  title: "HXLoL", // 项目名称
   tagline: "ここから先は一方通行だ!", // 项目的 tagline（副标题）
   favicon: "img/favicon.ico", // 项目图标, 可以根据实际情况更换
 
@@ -21,7 +21,7 @@ const config: Config = {
 
   // GitHub Pages 部署配置, 修改为你的 GitHub 项目名称
   organizationName: "HengXin666", // GitHub 用户名或组织名
-  projectName: "HXLoLiHub", // GitHub 项目名称
+  projectName: "HXLoLi", // GitHub 项目名称
 
   onBrokenLinks: "warn", // 如果链接损坏则发出警告
   onBrokenMarkdownLinks: "warn", // Markdown 链接损坏警告
@@ -61,7 +61,7 @@ const config: Config = {
           sidebarPath: "./sidebars.ts", // 引入自定义的侧边栏配置文件
           remarkPlugins: [remarkGithubAlerts, remarkMath],
           rehypePlugins: [rehypeKatex],
-          editUrl: "https://github.com/HengXin666/HXLoLiHub/edit/main/", // 文档编辑链接, 指向 GitHub 项目
+          editUrl: "https://github.com/HengXin666/HXLoLi/edit/main/", // 文档编辑链接, 指向 GitHub 项目
           showLastUpdateTime: true,   // 显示最后编辑时间
           showLastUpdateAuthor: true, // 显示更新作者
         },
@@ -74,7 +74,7 @@ const config: Config = {
             type: ["rss", "atom"], // 支持的博客订阅格式
             xslt: true,
           },
-          editUrl: "https://github.com/HengXin666/HXLoLiHub/edit/main/", // 博客编辑链接, 指向 GitHub 项目
+          editUrl: "https://github.com/HengXin666/HXLoLi/edit/main/", // 博客编辑链接, 指向 GitHub 项目
           showReadingTime: true,      // 显示博客阅读时间
           showLastUpdateTime: true,   // 显示最后编辑时间
           showLastUpdateAuthor: true, // 显示更新作者
@@ -100,7 +100,7 @@ const config: Config = {
     // 评论设置
     giscus: {
       // 此处获取配置: https://giscus.app/zh-CN
-      repo: 'HengXin666/HXLoLiHub',
+      repo: 'HengXin666/HXLoLi',
       repoId: 'R_kgDOOY3jRQ',
       category: 'General',
       categoryId: 'DIC_kwDOOY3jRc4CpSQj',
@@ -114,9 +114,9 @@ const config: Config = {
     // 导航栏配置
     navbar: {
       hideOnScroll: true, // 自动隐藏导航栏
-      title: "HXLoLiHub", // 导航栏标题
+      title: "HXLoLi", // 导航栏标题
       logo: {
-        alt: "HXLoLiHub Logo",
+        alt: "HXLoLi Logo",
         src: "img/logo.png", // 站点的 logo 图片
       },
       items: [
@@ -142,7 +142,7 @@ const config: Config = {
           ]
         },
         {
-          href: "https://github.com/HengXin666/HXLoLiHub", // 项目的 GitHub 地址
+          href: "https://github.com/HengXin666/HXLoLi", // 项目的 GitHub 地址
           label: "GitHub",
           position: "right",
         },
@@ -158,7 +158,7 @@ const config: Config = {
           items: [
             {
               label: "GitHub",
-              href: "https://github.com/HengXin666/HXLoLiHub",
+              href: "https://github.com/HengXin666/HXLoLi",
             },
           ],
         },
@@ -179,7 +179,7 @@ const config: Config = {
         },
       ],
       // 页脚版权信息
-      copyright: `版权所有 © 2025 - ${new Date().getFullYear()} HXLoLiHub, Inc. 由 Docusaurus 构建.`,
+      copyright: `版权所有 © 2025 - ${new Date().getFullYear()} HXLoLi, Inc. 由 Docusaurus 构建.`,
     },
 
     // 代码块配置
