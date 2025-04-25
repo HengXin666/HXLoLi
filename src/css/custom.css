@@ -1,0 +1,143 @@
+/* 导入Github Tip样式 */
+@import "remark-github-alerts/styles/github-base.css";
+@import "remark-github-alerts/styles/github-colors-light.css";
+
+/* https://dino.castamerego.com/docs/Server/Docusaurus-Theme */
+.tailwind {
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  @tailwind screens;
+}
+
+/* === 全局主题色 === */
+:root {
+  --ifm-color-primary: #ff88ff;
+  --ifm-color-primary-dark: #ff61ff;
+  --ifm-color-primary-darker: #ff4dff;
+  --ifm-color-primary-darkest: #ff13ff;
+  --ifm-color-primary-light: #ffafff;
+  --ifm-color-primary-lighter: #ffc3ff;
+  --ifm-color-primary-lightest: #fffdff;
+  --ifm-background-color: #ffffff;
+}
+
+[data-theme='dark'] {
+  --ifm-background-color: #121212;
+}
+
+/* ===== Markdown 样式 ===== */
+
+/* 包裹 Markdown 内容的区域 */
+.markdown {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* ===== 图片样式：支持自定义宽度和居中 ===== */
+
+/* 限定在文档内容区域 */
+.markdown img {
+  display: block;
+  margin: 0rem auto;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+/* 鼠标悬停时稍微放大 */
+.markdown img:hover {
+  transform: scale(1.02);
+}
+
+/* ===== 表格居中 ===== */
+/* 参照: https://github.com/facebook/docusaurus/issues/7640 */
+.markdown table {
+  display: table;      /* 确保表格的 display 属性是 table */
+  margin-left: auto;   /* 左右外边距为自动, 水平居中 */
+  margin-right: auto;  /* 左右外边距为自动, 水平居中 */
+}
+
+/* ===== 修复 Docusaurus 额外的 Padding ===== */
+.markdown {
+  padding: 0 !important;
+}
+
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === github h1 h2 h3 下划线样式 === */
+/* 设置 h1, h2, h3 的样式 */
+.markdown h1, .markdown h2 {
+  border-bottom: 1px solid #3d444db3;
+}
+
+/* 设置 h1, h2, h3 的字体 */
+.markdown h1 {
+  font-size: 2rem; /* GitHub 的 h1 大小 */
+  padding-bottom: .3em;
+}
+
+.markdown h2 {
+  font-size: 1.5rem; /* GitHub 的 h2 大小 */
+  padding-bottom: .3em;
+}
+
+.markdown h3 {
+  font-size: 1.25rem; /* GitHub 的 h3 大小 */
+}
+
+/* === TOC栏(页面目录) 样式 === */
+
+/* 原左侧竖线样式 (根据实际情况调整) */
+.table-of-contents__left-border {
+  border-left: 1px solid var(--ifm-toc-border-color); /* 默认颜色 */
+  padding-left: 10px; /* 确保与伪元素的 left 值匹配 */
+}
+
+/* 高亮激活状态的竖线 */
+li:has(> .table-of-contents__link--active) {
+  position: relative;
+}
+
+/* 覆盖默认竖线颜色的伪元素 */
+li:has(> .table-of-contents__link--active)::before { /* h2 */
+  content: '';
+  position: absolute;
+  left: -19px; /* 与 padding-left -19 与 padding-left + 9 的 距离相等 (总之我看得是对齐的) */
+  top: 0;
+  bottom: 0;
+  border-left: 1.2px solid var(--ifm-color-primary); /* 高亮颜色 */
+  z-index: 1; /* 确保覆盖原边框 */
+}
+
+/* 处理嵌套层级的缩进（根据实际结构调整） */
+ul ul li:has(> .table-of-contents__link--active)::before { /* h3 */
+  left: -35px; /* 第二层: 16 * 2 + li:left */
+}
+
+ul ul ul li:has(> .table-of-contents__link--active)::before { /* h4 */
+  left: -51px; /* 第三层: 16 * 3 + li:left */
+}
+
+ul ul ul ul li:has(> .table-of-contents__link--active)::before { /* h5 */
+  left: -67px; /* 第四层: 16 * 4 + li:left */
+}
+
+ul ul ul ul ul li:has(> .table-of-contents__link--active)::before { /* h6 */
+  left: -83px; /* 第五层: 16 * 5 + li:left */
+}

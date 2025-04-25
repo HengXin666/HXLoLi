@@ -1,0 +1,40 @@
+.icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.icon {
+  width: 24px;
+  transition: transform 0.3s ease;
+}
+
+.qr-code {
+  display: none;
+  position: absolute;
+  top: 110%; /* 调整到图标底部 */
+  transform: translateX(-75%);
+  width: 120px !important; /* 强制宽度 */
+  height: 120px !important; /* 强制高度 */
+  min-width: 120px; /* 防止尺寸压缩 */
+  border-radius: 8px; /* 圆角 */
+  background: white; /* 设置背景色 */
+  padding: 8px; /* 内边距 */
+}
+
+.icon-container:hover .icon {
+  transform: scale(1.5);
+}
+
+.icon-container:hover .qr-code {
+  display: block;
+  animation: fadeIn 0.3s ease; /* 添加渐显动画 */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,13 @@
+.animated-box {
+  padding: 20px;
+  margin: 20px;
+  width: 30%;
+  background-color: #202126;
+  border-radius: 10px;
+  box-shadow: 0px 15px 20px 10px #6be4f600;
+  transition: box-shadow 1s ease;
+}
+
+.animated-box:hover {
+  box-shadow: 0px 0px 2px 2px #6be4f6;
+}
