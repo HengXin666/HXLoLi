@@ -1,0 +1,86 @@
+{
+  "name": "hx-loli-hub",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^3.7.0",
+    "@docusaurus/preset-classic": "3.7.0",
+    "@docusaurus/theme-live-codeblock": "^3.7.0",
+    "@docusaurus/theme-mermaid": "^3.7.0",
+    "@docusaurus/utils": "^3.7.0",
+    "@giscus/react": "^3.1.0",
+    "@mdx-js/react": "^3.0.0",
+    "@monaco-editor/react": "^4.7.0",
+    "@types/node": "^22.14.1",
+    "autoprefixer": "^10.4.20",
+    "classnames": "^2.5.1",
+    "clsx": "^2.0.0",
+    "docusaurus-graph": "^2.0.0",
+    "framer-motion": "^12.7.4",
+    "fs-extra": "^11.3.0",
+    "github-markdown-css": "^5.8.1",
+    "lodash": "^4.17.21",
+    "mitt": "^3.0.1",
+    "monaco-editor": "^0.52.2",
+    "monaco-editor-chinese-plugin": "^0.0.4",
+    "monaco-themes": "^0.4.4",
+    "next": "^15.3.1",
+    "plugin-image-zoom": "github:flexanalytics/plugin-image-zoom",
+    "postcss-cli": "^11.0.0",
+    "postcss-nested": "^6.2.0",
+    "postcss-preset-env": "^10.0.3",
+    "prism-react-renderer": "^2.3.0",
+    "prism-themes": "^1.9.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-drawio": "^1.0.4",
+    "react-icons": "^5.5.0",
+    "react-monaco-editor": "^0.58.0",
+    "react-tooltip": "^5.28.1",
+    "rehype-katex": "^7.0.1",
+    "remark": "^15.0.1",
+    "remark-github-alerts": "^0.1.1",
+    "remark-math": "^6.0.0",
+    "unist-util-visit": "^5.0.0",
+    "zustand": "^5.0.3",
+    "tailwindcss": "^3.4.12"
+  },
+  "devDependencies": {
+    "@docusaurus/module-type-aliases": "3.7.0",
+    "@docusaurus/tsconfig": "3.7.0",
+    "@docusaurus/types": "3.7.0",
+    "@types/lodash": "^4.17.16",
+    "@types/react-katex": "^3.0.4",
+    "css-loader": "^7.1.2",
+    "monaco-editor-webpack-plugin": "^7.1.0",
+    "style-loader": "^4.0.0",
+    "typescript": "~5.6.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0"
+  }
+}

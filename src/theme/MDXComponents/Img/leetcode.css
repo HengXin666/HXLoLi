@@ -1,0 +1,58 @@
+/* 自定义 Tab 样式 (LeetCode风格) */
+.leetcode_tabs {
+  display: flex;
+  align-items: center;
+  background-color: #303030; /* 深灰色背景 */
+  padding: 0px 6px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* 删除默认的选中下划线和背景 */
+.leetcode_tabs .tabs__item {
+  color: #656567; /* 未选中的字体颜色 */
+  padding: 8px 12px;
+  cursor: pointer;
+  margin-right: 0;
+  position: relative;
+  font-family: Menlo, sans-serif;
+  font-size: 14px;
+  text-decoration: none; /* 去除下划线 */
+  border: none; /* 去除任何边框 */
+}
+
+/* 去掉选中状态下的下划线和背景色 */
+.leetcode_tabs .tabs__item--active {
+  color: #ffffff; /* 选中的字体颜色 */
+  text-decoration: none; /* 确保没有下划线 */
+  border: none; /* 去除边框 */
+}
+
+/* 添加选中项和非选中项的悬停效果 */
+.leetcode_tabs .tabs__item:not(.tabs__item--active):hover {
+  color: #ffffff; /* 悬停时，未选中的字体颜色变白 */
+}
+
+/* === 下方矩形, 左右下带圆角 === */
+
+/* 删除多余的上边距，确保代码块紧贴顶部 */
+.leetcode-tabs-content {
+  background-color: #3C3C3C; /* 设置背景色 */
+  padding: 8px; /* 为代码块添加内边距 */
+  border-bottom-left-radius: 6.4px;
+  border-bottom-right-radius: 6.4px;
+}
+
+/* === 被选择的组合代码块的标题 (此处仅为vscode作为语言标题) === */
+
+.leetcode-vscode-title {
+  color: #ffffff;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin-right: 0;
+  position: relative;
+  font-family: Menlo, sans-serif;
+  font-size: 14px;
+  text-decoration: none; /* 去除下划线 */
+  border: none; /* 去除任何边框 */
+}
