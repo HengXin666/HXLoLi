@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkhx_loli_hub=self.webpackChunkhx_loli_hub||[]).push([[1903],{1912:l=>{l.exports=JSON.parse('{"blogBasePath":"/HXLoLi/blog","blogTitle":"Blog","authorsListPath":"/HXLoLi/blog/authors"}')}}]);

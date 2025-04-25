@@ -1,5 +1,0 @@
-*.ts linguist-language=TypeScript
-*.tsx linguist-language=TypeScript
-
-static/katex/ linguist-vendored
-static/katex/** linguist-vendored

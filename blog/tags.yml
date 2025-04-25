@@ -1,9 +1,0 @@
-docusaurus:
-  label: 'Docusaurus'
-  permalink: '/docusaurus'
-  description: '与 Docusaurus 框架相关的博客文章'
-
-vscode:
-  label: 'VsCode'
-  permalink: '/vscode'
-  description: '与 VsCode 配置相关的博客文章'

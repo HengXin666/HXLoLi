@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">HXLoL</title><meta data-rh="true" property="og:title" content="HXLoL"><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/drawio"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/drawio"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/drawio" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/drawio" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoL RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoL Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.f1724922.css">
+<script src="/HXLoLi/assets/js/runtime~main.a3bccec1.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.3d5037b4.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><div style="height:100vh;display:flex;flex-direction:column"><p>未找到图形文件: </p></div></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>
