@@ -7,3 +7,8 @@ vscode:
   label: 'VsCode'
   permalink: '/vscode'
   description: '与 VsCode 配置相关的博客文章'
+
+nitijyo:
+  label: '日常'
+  permalink: '/日常'
+  description: '一些日常的记录 (大多是碎碎念)'
