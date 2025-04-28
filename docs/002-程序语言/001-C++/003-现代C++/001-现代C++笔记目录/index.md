@@ -20,6 +20,6 @@
 - [实现一个JSON解析器](../003-现代C++项目实战/002-实现一个JSON解析器/index.md)
 - [现代CMake模块化项目管理指南](../003-现代C++项目实战/003-现代CMake模块化项目管理指南/index.md)
 - [从零手搓HTTP服务器](../003-现代C++项目实战/004-从零手搓HTTP服务器/index.md)
-- [C++黑科技【__PRETTY_FUNCTION__】非侵入式的编译期反射](../003-现代C++项目实战/005-C++黑科技【丶丶PRETTY丶FUNCTION丶丶】非侵入式的编译期反射/index.md)
+- [C++黑科技【_\_PRETTY_FUNCTION__】非侵入式的编译期反射](../003-现代C++项目实战/005-C++黑科技【丶丶PRETTY丶FUNCTION丶丶】非侵入式的编译期反射/index.md)
 - [类型擦除+工厂模式,告别if-else](https://blog.HXLoLi.com/blog/#/articles?articleId=21007 "##21007##")
 - [文件流的缓冲机制探究](https://blog.HXLoLi.com/blog/#/articles?articleId=21016 "##21016##")
