@@ -6,7 +6,7 @@ const sidebar = {
     tutorialSidebar: []
 };
 
-const baseUrl = "/HXLoLiHub";
+const baseUrl = "/HXLoLi";
 
 // 默认图标路径，位于 static/icons 下
 const defaultFolderIcon = `${baseUrl}/default-icons/default_folder.svg`;  // 默认文件夹图标

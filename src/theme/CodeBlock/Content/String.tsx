@@ -119,7 +119,7 @@ function initComponent () {
  * @param language 
  * @returns 
  */
-function languageEscape (language: string | undefined): string | undefined {
+function VsCodeCodeBlockLanguageEscape (language: string | undefined): string | undefined {
     language = language?.toLowerCase();
     switch (language) {
         case 'c':
@@ -143,6 +143,20 @@ function languageEscape (language: string | undefined): string | undefined {
         case 'css':
             return 'yaml';
         case 'json':
+            return 'cpp';
+    }
+    return language;
+}
+
+/**
+ * 处理语言映射(对于普通代码块)
+ * @param language 
+ * @returns 
+ */
+function simpleCodeBlocLanguageEscape(language: string | undefined): string | undefined {
+    language = language?.toLowerCase();
+    switch (language) {
+        case 'c++':
             return 'cpp';
     }
     return language;
@@ -259,8 +273,10 @@ function MakeSimpleCodeBlock (
         prism: { defaultLanguage, magicComments },
     } = useThemeConfig();
 
-    const language = normalizeLanguage(
-        languageProp ?? parseLanguage(blockClassName) ?? defaultLanguage,
+    const language = simpleCodeBlocLanguageEscape(
+        normalizeLanguage(
+            languageProp ?? parseLanguage(blockClassName) ?? defaultLanguage,
+        )
     );
 
     // We still parse the metastring in case we want to support more syntax in the
@@ -373,7 +389,7 @@ function makeVsCodeCodeBlock ({
     const [isSelected, setIsSelected] = useState(false); // 控制是否显示钩选图标(还原时候)
     const [tooltipVisible, setTooltipVisible] = useState(false); // 控制提示框显示
 
-    const fkLanguageEscape = languageEscape(fkPrefixLanguage);
+    const fkLanguageEscape = VsCodeCodeBlockLanguageEscape(fkPrefixLanguage);
 
     // 复制到剪贴板函数
     const copyToClipboard = () => {

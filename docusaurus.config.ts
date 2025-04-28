@@ -10,7 +10,7 @@ const BaseUrl = "/HXLoLi";
 
 // 站点配置
 const config: Config = {
-  title: "HXLoL", // 项目名称
+  title: "HXLoLi", // 项目名称
   tagline: "ここから先は一方通行だ!", // 项目的 tagline（副标题）
   favicon: "img/favicon.ico", // 项目图标, 可以根据实际情况更换
 
@@ -60,7 +60,15 @@ const config: Config = {
           include: ["**/*.{md,mdx}"],
           sidebarPath: "./sidebars.ts", // 引入自定义的侧边栏配置文件
           remarkPlugins: [remarkGithubAlerts, remarkMath],
-          rehypePlugins: [rehypeKatex],
+          rehypePlugins: [
+            [
+              rehypeKatex,
+              {
+                strict: false, // 设置为 false 禁用严格模式
+                errorColor: "#cc0000", // 可以自定义错误颜色
+              },
+            ],
+          ],
           editUrl: "https://github.com/HengXin666/HXLoLi/edit/main/", // 文档编辑链接, 指向 GitHub 项目
           showLastUpdateTime: true,   // 显示最后编辑时间
           showLastUpdateAuthor: true, // 显示更新作者
@@ -69,7 +77,15 @@ const config: Config = {
           blogSidebarTitle: '所有文章', // 侧边栏标题
           blogSidebarCount: 'ALL',     // 显示所有的文章
           remarkPlugins: [remarkGithubAlerts, remarkMath],
-          rehypePlugins: [rehypeKatex],
+          rehypePlugins: [
+            [
+              rehypeKatex,
+              {
+                strict: false, // 设置为 false 禁用严格模式
+                errorColor: "#cc0000", // 可以自定义错误颜色
+              },
+            ],
+          ],
           feedOptions: {
             type: ["rss", "atom"], // 支持的博客订阅格式
             xslt: true,
@@ -101,9 +117,9 @@ const config: Config = {
     giscus: {
       // 此处获取配置: https://giscus.app/zh-CN
       repo: 'HengXin666/HXLoLi',
-      repoId: 'R_kgDOOY3jRQ',
+      repoId: 'R_kgDOOfrrwA',
       category: 'General',
-      categoryId: 'DIC_kwDOOY3jRc4CpSQj',
+      categoryId: 'DIC_kwDOOfrrwM4CpdxE',
       // 颜色主题
       theme: 'light_high_contrast',
       darkTheme: 'dark_tritanopia'
@@ -213,6 +229,7 @@ const config: Config = {
   // 支持渲染 Mermaid 图表, 但是我们自己渲染! 以支持兼容组合代码块
   markdown: {
     mermaid: false,
+    format: 'detect', // 自动根据文件扩展名选择格式 (而不是默认的mdx!)
   },
   themes: ['@docusaurus/theme-mermaid'],
 };

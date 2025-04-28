@@ -200,9 +200,10 @@ export default function DocSidebarItemCategory ({
                     role={collapsible && !href ? 'button' : undefined}
                     aria-expanded={collapsible && !href ? !collapsed : undefined}
                     href={collapsible ? hrefWithSSRFallback ?? '#' : hrefWithSSRFallback}
+                    style={{fontSize: '14px'}}
                     {...props}
                 >
-                    {iconSrc && <img src={iconSrc} style={{ width: tagsArr ? '32px' : '24px', marginRight: '5px' }} />}
+                    {iconSrc && <img src={iconSrc} style={{ width: tagsArr ? '20px' : '20px', marginRight: '5px' }} />}
                     <div
                         style={{
                             display: 'flex',
