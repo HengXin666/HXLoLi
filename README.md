@@ -1,5 +1,7 @@
 <h1 align="center">HXLoLi</h1>
 
+<!-- HXLoLi: Heng_Xin Loli Optimizes Loli Iteratively -->
+
 <div align="center"><img src="https://hengxin666.github.io/HXLoLiHub/img/main_menu_misaka.png" style="width:50%;height:auto;border-radius:10px;box-shadow:0px 5px 10px 1px #6BE4F6" /></div>
 
 <h3 align="center">マスコット: <ruby>最后之作<rt>「Last Order」</rt></ruby></h3>

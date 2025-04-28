@@ -1,0 +1,2 @@
+# @ImportResource注解
+springboot默认是不识别xml配置文件的，如果我们实在想在springboot项目中使用xml配置文件，需要使用`@ImportResource`注解导入xml配置文件。

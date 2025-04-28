@@ -103,6 +103,10 @@
 
 /* === TOC栏(页面目录) 样式 === */
 
+/*
+  @todo 如果是 缩放为 100% 则看不见这个... 必需是 >= 110% 或者 <= 80% 的缩放
+*/
+
 /* 原左侧竖线样式 (根据实际情况调整) */
 .table-of-contents__left-border {
   border-left: 1px solid var(--ifm-toc-border-color); /* 默认颜色 */

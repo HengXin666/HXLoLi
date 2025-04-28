@@ -72,7 +72,7 @@ export default function DocItemLayout ({ children }: Props): ReactNode {
                         </div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <p style={{fontSize: '12px'}}>本文遵循 <img src={`${config.baseUrl}/default-icons/cc.svg`} alt="CC" style={{width: '14px'}} /> <MDXA href='https://creativecommons.org/licenses/by-sa/4.0/'>CC 4.0 BY-SA</MDXA> 版权协议, 转载请标明出处</p>
+                        <span style={{fontSize: '12px'}}>本文遵循 <img src={`${config.baseUrl}/default-icons/cc.svg`} alt="CC" style={{width: '14px'}} /> <MDXA href='https://creativecommons.org/licenses/by-sa/4.0/'>CC 4.0 BY-SA</MDXA> 版权协议, 转载请标明出处</span>
                     </div>
                     <div>
                         <DocItemPaginator />
