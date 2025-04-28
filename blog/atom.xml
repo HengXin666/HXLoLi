@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://HengXin666.github.io/HXLoLi/blog</id>
-    <title>HXLoL Blog</title>
+    <title>HXLoLi Blog</title>
     <updated>2025-04-25T20:04:36.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://HengXin666.github.io/HXLoLi/blog"/>
-    <subtitle>HXLoL Blog</subtitle>
+    <subtitle>HXLoLi Blog</subtitle>
     <icon>https://HengXin666.github.io/HXLoLi/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Blossom迁移笔记记录]]></title>

@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-计佬常識/计算机组成原理/第四章中央处理器/流水线技术/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">流水线技术 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/流水线技术"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="流水线技术 | HXLoLi"><meta data-rh="true" name="description" content="流水线(pipelining) 技术是一种在处理器设计和其他领域中广泛采用的并行处理技术,其核心思想是在程序执行期间, 通过将指令处理过程分解为多个连续的阶段(如取指、译码、执行、访存和写回等), 使得多条指令能够在不同阶段上同时执行, 尽管每个单独的指令仍然按照顺序完成这些阶段。这种重叠执行的方式显著提高了处理器的吞吐量和效率,允许在一个时钟周期内启动多条指令的不同部分,从而加速了整体的计算过程。"><meta data-rh="true" property="og:description" content="流水线(pipelining) 技术是一种在处理器设计和其他领域中广泛采用的并行处理技术,其核心思想是在程序执行期间, 通过将指令处理过程分解为多个连续的阶段(如取指、译码、执行、访存和写回等), 使得多条指令能够在不同阶段上同时执行, 尽管每个单独的指令仍然按照顺序完成这些阶段。这种重叠执行的方式显著提高了处理器的吞吐量和效率,允许在一个时钟周期内启动多条指令的不同部分,从而加速了整体的计算过程。"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/流水线技术"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/流水线技术" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/流水线技术" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.38e40bb0.css">
+<script src="/HXLoLi/assets/js/runtime~main.8b732061.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.b8a270d9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/default_folder.svg"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计佬常識</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据结构与算法</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/相关面试题"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">设计模式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机网络/一、计算机网络基础"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机网络</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机组成原理</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录">【计组】目录</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机的分类及其特性"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第一章计算机概要与技术</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第二章指令系统/计算机硬件的操作与操作数"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第二章指令系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第三章计算机算术运算/定点数加减法"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第三章计算机算术运算</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/MIPS核心子集及实现方式"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第四章中央处理器</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/MIPS核心子集及实现方式">MIPS核心子集及实现方式</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/逻辑设计基础">逻辑设计基础</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/构建一个基本算数逻辑单元">构建一个基本算数逻辑单元</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/逻辑设计的一般方法">逻辑设计的一般方法</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/建立一个数据通路">建立一个数据通路</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/实现MIPS子集">实现MIPS子集</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/流水线技术">流水线技术</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/流水线冒险">流水线冒险</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/异常和中断">异常和中断</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/存储器技术"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第五章存储器</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第六章IO设备/外部设备及总线"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第六章IO设备</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第七章并行系统/并行系统"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第七章并行系统</div><div style="flex:1"></div></div></a></div></li></ul></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">程序语言</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">游戏引擎</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/DevOps与版本控制/Linux/【Linux】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">DevOps与版本控制</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">中间件</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/数据库/MySQL数据库/とある「MySQL」の禁庫目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据库</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/刷题日志/做题记录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">刷题日志</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/嵌入式/杂项/IC通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">嵌入式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/Game/MineCraft/服务器/脚本"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Game</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/HXLoLi/docs/关于">关于</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计佬常識</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计算机组成原理</span><meta itemprop="position" content="2"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">第四章中央处理器</span><meta itemprop="position" content="3"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">流水线技术</span><meta itemprop="position" content="4"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>流水线技术</h1></header>
+<p><strong>流水线(pipelining)</strong> 技术是一种在处理器设计和其他领域中广泛采用的并行处理技术,其核心思想是在程序执行期间, 通过将指令处理过程分解为多个连续的阶段(如取指、译码、执行、访存和写回等), 使得多条指令能够在不同阶段上同时执行, 尽管每个单独的指令仍然按照顺序完成这些阶段。这种重叠执行的方式显著提高了处理器的吞吐量和效率,允许在一个时钟周期内启动多条指令的不同部分,从而加速了整体的计算过程。</p>
+<p>可从两方面提高处理机的并行性:</p>
+<ol>
+<li>
+<p>时间上的并行技术, 将一个任务分解为几个不同的子阶段, 每个子阶段在不同的功能部件上并行执行, 以便在同一时刻能够同时执行多个任务, 进而提升系统性能, 这种方法被称为<strong>流水线技术</strong>。</p>
+</li>
+<li>
+<p>空间上的并行技术, 在一个处理机内设置多个执行相同任务的功能部件, 并让这些功能部件并行工作, 这样的处理机被称为<strong>超标量处理机</strong>。</p>
+</li>
+</ol>
+<p>比如在餐厅中, 顾客点餐到用餐完毕的整个过程可以看作是一条指令的执行。而餐厅的厨房和服务员们则构成了流水线的各个阶段:</p>
+<ol>
+<li>
+<p><strong>取指阶段(点餐)</strong>: 顾客坐下后, 服务员会前来询问顾客想要点什么菜。这相当于指令的取指阶段, 服务员记录下顾客的点餐要求。</p>
+</li>
+<li>
+<p><strong>译码阶段(下单)</strong>: 服务员将顾客的点餐要求传达给厨房, 并告诉厨房哪些菜需要准备。这类似于指令的译码阶段, 将顾客的点餐要求转化为具体的烹饪指令。</p>
+</li>
+<li>
+<p><strong>执行阶段(烹饪)</strong>: 厨房接收到指令后, 开始准备各种食材并进行烹饪。这相当于指令的执行阶段, 厨房按照烹饪指令完成菜肴的制作。</p>
+</li>
+<li>
+<p><strong>访存阶段(取料)</strong>: 在烹饪过程中, 厨师可能需要从冰箱或储物柜中取出一些食材。这类似于指令的访存阶段, 从内存中获取数据或指令。</p>
+</li>
+<li>
+<p><strong>写回阶段(上菜)</strong>: 当菜肴制作完成后, 服务员将其送到顾客的桌子上。这相当于指令的写回阶段, 将执行结果返回给顾客(即指令的发起者)。</p>
+</li>
+</ol>
+<p>一条指令的执行过程可分解为若干阶段, 每个阶段由相应的功能部件完成。如果将各阶段视为相应的流水段, 则指令的执行过程就构成了一条指令流水线。</p>
+<p>同样地, 在计算机处理器中, 流水线技术使得处理器可以同时处理多条指令的不同阶段, 从而提高了处理器的吞吐量和执行效率。这种并行处理的方式大大提高了计算机的性能, 使得我们能够更快地完成任务和处理数据。</p>
+<p>流水线技术不仅限于CPU设计, 在现代计算机体系结构中, 它还应用于图形处理器(GPU)的渲染流水线、内存系统、网络设备的数据包处理以及其他需要高效并行处理的场景。此外, 流水线技术的概念也扩展到了软件工程和数据分析中, 比如 <strong>持续集成/持续部署(CI/CD)</strong> 流程以及数据流水线, 这些应用帮助快速处理大量数据或任务, 提高开发和分析的效率。</p>
+<p>随着技术的进步, 现代处理器的流水线可能包含更多的阶段, 并且引入了更复杂的机制来处理指令间的依赖关系、分支预测、以及乱序执行等问题, 以进一步提升性能。同时, 针对特定领域的应用(如深度学习加速器)也会设计定制化的流水线架构以优化特定类型的工作负载。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="基本的指令处理步骤">基本的指令处理步骤<a href="#基本的指令处理步骤" class="hash-link" aria-label="基本的指令处理步骤的直接链接" title="基本的指令处理步骤的直接链接">​</a></h2>
+<p>计算机实际处理指令的一个基本的步骤: 取指、译码、执行、访存和写回。</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-light-bulb mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>注: 这个划分不是唯一的, 不同的架构 不同的教材可能有不同的划分, 要灵活处理。</p>
+</div>
+<ol>
+<li>
+<p>[IF]<strong>从指令存储器中读取指令(取指Fetch)</strong>: 这是流水线的第一步, 处理器从内存中读取下一条指令, 并将其送入指令寄存器。在MIIPS中, 这通常伴随着PC(程序计数器)的自动递增, 以便指向下一个指令的位置。</p>
+</li>
+<li>
+<p>[ID]<strong>指令译码的同时读取寄存器(译码Decode+部分执行Execute准备)</strong>: MIPS架构设计允许在译码指令的同时访问寄存器以读取操作数。这意味着在确定了指令的操作码和操作数之后, 可以立即开始从寄存器文件中读取源操作数, 这个过程可以与译码并行进行。虽然这里将读寄存器归入译码阶段, 实际的处理器设计可能会将此步骤稍微细化, 作为执行阶段的前期准备工作。</p>
+</li>
+<li>
+<p>[EX]<strong>执行操作或计算地址(执行Execute)</strong>: 在这一阶段, 根据指令类型进行实际的运算(如加法、逻辑运算)或计算内存访问的地址(对于load/store指令)。例如, 对于add指令, 会在这一阶段执行寄存器内容的加法运算。</p>
+</li>
+<li>
+<p>[MEM]<strong>从数据存储器中读取操作数(访存 Memory Access)</strong>: 对于<code>lw</code>(Load Word)之类的指令, 这一阶段涉及从数据存储器(内存)中读取数据。计算出的有效地址在上一阶段得出, 现在根据这个地址读取数据并准备将数据送回处理器。</p>
+</li>
+<li>
+<p>[WB]<strong>将结果写回寄存器(写回Write Back)</strong>: 最后, 计算或读取的结果被写入目的寄存器, 完成指令的执行。对于存储指令(如<code>sw</code>Store Word), 则是将寄存器中的数据写入内存。对于条件转移指令(如beq), 这一阶段可能涉及根据比较结果更新PC。</p>
+</li>
+</ol>
+<p>通过流水线技术, 这些步骤可以在不同指令间重叠执行。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-07-06_21-47-30.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-07-06_21-47-30-d9c13c94184407fa36fc2cfec4767556.png" width="841" height="282" style="width:600px"></td></tr><tr><td style="text-align:center">一个5段指令流水线</td></tr></tbody></table>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="创建流水线结构">创建流水线结构<a href="#创建流水线结构" class="hash-link" aria-label="创建流水线结构的直接链接" title="创建流水线结构的直接链接">​</a></h2>
+<p>为了使问题具体化, 我们首先创建一个流水线结构, 用我们接触过的8条指令(lw, sw, add, sub,AND, OR, slt, beq)去对应我们的各个阶段。</p>
+<p>基于提供的指令集(lw, sw, add, sub, AND, OR, slt, beq), 我们可以将其划分为取指(Fetch)、译码(Decode)、执行(Execute)、访存(Memory Access)和写回(Write Back)。请注意, 实际处理器的流水线可能更加复杂, 包括更多预取、分支预测等高级功能, 但这里我们专注于基础概念。</p>
+<p>流水线设计的原则是: <del>(考研有考过)</del></p>
+<ul>
+<li><span style="color:red">指令流水<code>段个数</code>以 <strong>最复杂</strong> 指令所用的功能<code>段个数</code>为准;</span></li>
+<li><span style="color:red"><code>流水段的长度</code>(即一段花费的时间)以 <strong>最复杂</strong> 的操作所花<code>时间</code>为准。</span></li>
+</ul>
+<ol>
+<li>
+<p><strong>取指(Instruction Fetch,IF)</strong>:</p>
+<p>在这一阶段, 处理器从内存中读取下一条指令。通常, 处理器会有一个程序计数器(PC), 它指向当前正在执行指令的下一条指令的地址。处理器根据PC的值从内存中取出指令, 并将其放入指令缓存或队列中准备解码。</p>
+<ul>
+<li><strong>功能</strong>: 从内存中读取下一条指令。</li>
+<li><strong>对于各指令</strong>: 所有指令都需要从内存中取出, 因此这一阶段对所有指令都是相同的。</li>
+</ul>
+</li>
+<li>
+<p><strong>译码/寄存器读取(InstructionDecode/RegisterFetch,ID)</strong>:</p>
+<p>处理器在这一阶段对取指阶段获取的指令进行解码, 确定指令的操作类型(如加法、减法、跳转等)、操作数以及目标寄存器。同时, 如果指令需要用到寄存器中的数据, 这一阶段还会从寄存器文件中读取这些数据作为操作数。</p>
+<ul>
+<li><strong>功能</strong>: 解析取出的指令, 确定操作类型、操作数等信息。</li>
+<li><strong>对于各指令</strong>:
+<ul>
+<li><strong>lw, sw</strong>: 需要识别内存地址和寄存器。</li>
+<li><strong>add, sub, AND, OR, slt</strong>: 识别操作数寄存器和目标寄存器。</li>
+<li><strong>beq</strong>: 识别两个比较寄存器和分支地址。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>执行(Execution, EX)</strong>:</p>
+<p>根据指令的操作类型, 实际的运算在这个阶段执行。例如, 如果是加法指令, ALU(算术逻辑单元)会执行加法运算。如果指令包含条件转移或逻辑运算, 相应的逻辑处理也会在此阶段完成。</p>
+<ul>
+<li><strong>功能</strong>: 根据指令执行相应的算术逻辑运算。</li>
+<li><strong>对于各指令</strong>:
+<ul>
+<li><strong>lw, sw</strong>: 无直接运算, 跳过或准备访存阶段的地址计算。</li>
+<li><strong>add, sub, AND, OR, slt</strong>: 执行相应的运算。</li>
+<li><strong>beq</strong>: 比较两个寄存器值, 决定是否分支。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>存储器访问(MemoryAccess,MEM)</strong>:</p>
+<p>如果指令涉及内存访问, 比如加载(LOAD)或存储(STORE)操作, 这一阶段会与内存交互。对于LOAD指令, 从内存中读取数据；对于STORE指令, 则是将数据写入内存。并非所有指令都需要这一阶段, 比如纯粹的寄存器到寄存器操作就不需要访问内存。</p>
+<ul>
+<li><strong>功能</strong>: 对于涉及内存访问的指令(lw,sw), 进行读/写操作。</li>
+<li><strong>对于各指令</strong>:
+<ul>
+<li><strong>lw</strong>: 从内存读取数据到寄存器。</li>
+<li><strong>sw</strong>: 将寄存器数据写入内存。</li>
+<li><strong>其余指令</strong>: 无需访问内存, 直接跳到写回阶段或等待前一阶段的结果。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>写回(WriteBack,WB)</strong>:</p>
+<p>在最后一个阶段, 计算或加载得到的结果会被写回到寄存器文件中, 或者在某些情况下(如STORE指令执行后), 确认数据已正确写入内存。这个阶段标志着指令执行的完成, 之后处理器可以开始处理下一条指令。</p>
+<ul>
+<li><strong>功能</strong>: 将执行或访存阶段的结果写入寄存器或更新PC(对于分支指令)。</li>
+<li><strong>对于各指令</strong>:
+<ul>
+<li><strong>lw, add, sub, AND, OR, slt</strong>: 将计算结果写入指定寄存器。</li>
+<li><strong>sw</strong>: 此时内存操作已完成, 无须写回(在M阶段已处理)。</li>
+<li><strong>beq</strong>: 根据比较结果更新程序计数器(PC), 实现分支跳转。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="流水线的性能">流水线的性能<a href="#流水线的性能" class="hash-link" aria-label="流水线的性能的直接链接" title="流水线的性能的直接链接">​</a></h2>
+<p>我们为了比较流水线指令执行与单周期指令执行的平均执行时间, 首先需要确定在单周期模型中时钟周期的长度, 然后计算在流水线模型下指令的平均执行时间。</p>
+<p>在<strong>单周期模型</strong>中, <code>所有指令的执行都花费一个时钟周期</code>。因此, <strong>时钟周期的长度必须是最慢操作所需的时间</strong>, 即存储器访问和ALU操作中的较大者, 因为它们<strong>不能直接并行执行</strong>。</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-text codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">注意区分:</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain" style="display:inline-block"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">单周期模型: 时钟周期 = 指令周期</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain" style="display:inline-block"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">流水线: 时钟周期 = 指令的一个阶段的周期 (机器周期)</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">text</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>假设, 我们的时间规定为:</p>
+<ul>
+<li>存储器访问: 200ps</li>
+<li>ALU操作: 200ps</li>
+<li>寄存器堆的读写: 100ps</li>
+</ul>
+<p>我们来看, 每一条指令执行的时候所需要的时间:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">指令类型</th><th style="text-align:center">取指令</th><th style="text-align:center">读寄存器</th><th style="text-align:center">ALU操作</th><th style="text-align:center">数据存取</th><th style="text-align:center">写寄存器</th><th style="text-align:center">总时间</th></tr></thead><tbody><tr><td style="text-align:center">取字lw</td><td style="text-align:center">200</td><td style="text-align:center">100</td><td style="text-align:center">200</td><td style="text-align:center">200</td><td style="text-align:center">100</td><td style="text-align:center">800</td></tr><tr><td style="text-align:center">存字sw</td><td style="text-align:center">200</td><td style="text-align:center">100</td><td style="text-align:center">200</td><td style="text-align:center">200</td><td style="text-align:center"></td><td style="text-align:center">700</td></tr><tr><td style="text-align:center">R型指令</td><td style="text-align:center">200</td><td style="text-align:center">100</td><td style="text-align:center">200</td><td style="text-align:center"></td><td style="text-align:center">100</td><td style="text-align:center">600</td></tr><tr><td style="text-align:center">分支beq</td><td style="text-align:center">200</td><td style="text-align:center">100</td><td style="text-align:center">200</td><td style="text-align:center"></td><td style="text-align:center"></td><td style="text-align:center">500</td></tr></tbody></table>
+<p>假设所有的操作, 如多选器, 控制单元没有时延的前提下, 这个就是我们的总时间。也就是说。单周期下, 我们的执行顺序是:</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-07-06_22-04-48.png ##w700##" src="/HXLoLi/assets/images/Clip_2024-07-06_22-04-48-8046b12914975198dd3d7b412e6a3e53.png" width="1404" height="228" style="width:700px"></td></tr></tbody></table>
+<p>如果使用流水线, 我们的执行方式就变成了:</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-07-06_22-05-12.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-07-06_22-05-12-840fa35cf28e9fdb582e09ee24f1b345.png" width="999" height="327" style="width:600px"></td></tr></tbody></table>
+<p>这种情况下, 我们流水线下的单周期能缩短到200ps, 性能提高的四倍。第一与第四条指令之间的时间差距缩短为 3 * 200ps =600ps 。单周期下, 执行第四条指令的话, 我们需要2400ps的时间。</p>
+<p>流水线的性能加速比: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>指令执行时间</mtext><mo stretchy="false">(</mo><mtext>流水线</mtext><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mtext>指令执行时间</mtext><mo stretchy="false">(</mo><mtext>非流水线</mtext><mo stretchy="false">)</mo></mrow><mtext>流水线级数</mtext></mfrac></mrow><annotation encoding="application/x-tex">指令执行时间(流水线) = \frac{指令执行时间(非流水线)}{流水线级数}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord cjk_fallback">指令执行时间</span><span class="mopen">(</span><span class="mord cjk_fallback">流水线</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:1.355em;vertical-align:-0.345em"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em"><span style="top:-2.655em"><span class="pstrut" style="height:3em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">流水线级数</span></span></span></span><span style="top:-3.23em"><span class="pstrut" style="height:3em"></span><span class="frac-line" style="border-bottom-width:0.04em"></span></span><span style="top:-3.485em"><span class="pstrut" style="height:3em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">指令执行时间</span><span class="mopen mtight">(</span><span class="mord cjk_fallback mtight">非流水线</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> 在理想情况且有大量指令的情况下, 流水线所带来的加速比与流水线的级数近似相同。 例如一个5级流水线能获得的加速比接近于5。当然, 这是在理想状况下。</p>
+<p>理想情况下, 如果流水线的各个阶段完美平衡, 且<strong>没有流水线冲突</strong>(比如数据冒险、结构冒险、控制冒险等导致的停顿 既流水线填充和排空的时间, 以及可能存在的数据相关性和分支预测错误等因素后面我们会讲这些开销问题), 那么理论上确实可以通过增加流水线级数来提高执行效率。但是, 提到的“加速比接近于流水线级数”是指在长时间运行大量指令的前提下的<strong>平均加速效果</strong>, 而<strong>非单个指令的加速比</strong>。</p>
+<p>具体来说, 对于一个5级流水线, 在理想情况下, 一旦流水线填满(即经过了最初的5个时钟周期后), 之后理论上每周期可以完成一条指令。相比非流水线操作(如果非流水线每条指令执行时间为5个时钟周期), 流水线的优势在大量指令执行时体现为:</p>
+<ul>
+<li>
+<p>非流水线执行 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em"></span><span class="mord mathnormal">n</span></span></span></span> 条指令需要 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">5n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">5</span><span class="mord mathnormal">n</span></span></span></span> 个时钟周期。</p>
+</li>
+<li>
+<p>流水线在度过初期的5个空周期后, 之后每条指令只需要1个时钟周期, 因此n条指令需要 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mo>+</mo><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">5+(n-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span> 个时钟周期。</p>
+</li>
+</ul>
+<p>在这种理想化的分析中, 加速比 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord mathnormal" style="margin-right:0.05764em">S</span></span></span></span> 可以通过总时钟周期比来计算: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>≈</mo><mfrac><mrow><mtext>指令执行时间</mtext><mo stretchy="false">(</mo><mtext>非流水线</mtext><mo stretchy="false">)</mo></mrow><mtext>流水线级数</mtext></mfrac><mo>=</mo><mfrac><mrow><mn>5</mn><mi>n</mi></mrow><mrow><mn>5</mn><mo>+</mo><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">S≈\frac{指令执行时间(非流水线)}{流水线级数}=\frac{5n}{5 + (n - 1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord mathnormal" style="margin-right:0.05764em">S</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:1.355em;vertical-align:-0.345em"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em"><span style="top:-2.655em"><span class="pstrut" style="height:3em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">流水线级数</span></span></span></span><span style="top:-3.23em"><span class="pstrut" style="height:3em"></span><span class="frac-line" style="border-bottom-width:0.04em"></span></span><span style="top:-3.485em"><span class="pstrut" style="height:3em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">指令执行时间</span><span class="mopen mtight">(</span><span class="mord cjk_fallback mtight">非流水线</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:1.3651em;vertical-align:-0.52em"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em"><span style="top:-2.655em"><span class="pstrut" style="height:3em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span><span class="mbin mtight">+</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em"><span class="pstrut" style="height:3em"></span><span class="frac-line" style="border-bottom-width:0.04em"></span></span><span style="top:-3.394em"><span class="pstrut" style="height:3em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<p>当 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em"></span><span class="mord mathnormal">n</span></span></span></span> 趋向于无穷大时, 加速比 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord mathnormal" style="margin-right:0.05764em">S</span></span></span></span> 接近于流水线级数, 即 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>≈</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">S≈5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord mathnormal" style="margin-right:0.05764em">S</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">5</span></span></span></span>。</p>
+<p>同时, 我们一直在强调, 是大量指令。</p>
+<p>刚才的例子, 即使我们在前面的分析中断言能将指令的执行速度提高 4 倍, 但在本例中并没有反映出来, 它实际获得的加速比为 2 400ps/1 400ps, 这是因为执行指令的数量不够多。如果我们提高指令数量, 那么差异将会非常明显.</p>
+<p>在流水线处理器中, 性能的提高主要是通过增加指令的吞吐率来实现的, 而不是通过减少单条指令的执行时间。当执行指令的数量足够多时, 流水线填充和排空的时间相对于整个执行时间来说变得微不足道, 因此流水线的性能加速比将趋近于流水线的级数。
+这在实际应用中是非常重要的, 因为现代处理器通常都会执行数百万甚至数十亿条指令, 因此流水线的性能优势将非常明显。所以指令的吞吐率的提升至关重要, 使得系统能够更高效地完成任务。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="面向流水线的指令集设计">面向流水线的指令集设计<a href="#面向流水线的指令集设计" class="hash-link" aria-label="面向流水线的指令集设计的直接链接" title="面向流水线的指令集设计的直接链接">​</a></h2>
+<p>MIPS指令集具有如下特点, 利于实现流水线:</p>
+<ol>
+<li>
+<p><strong>指令长度统一</strong>: MIPS指令长度固定为32位(4字节), 这简化了取指(Fetch)和译码(Decode)阶段的设计。因为指令长度一致, 硬件设计者可以精确地安排何时从内存读取下一条指令, 而不必在指令边界上做复杂的判断, 这减少了流水线的复杂性和潜在的延迟</p>
+</li>
+<li>
+<p><strong>指令格式的对称性</strong>: MIPS指令集中的指令格式虽有几种, 但它们遵循一定的规律, 特别是源寄存器字段的位置固定。这意味着译码阶段可以快速确定操作数来源, 同时开始读取寄存器, 这有助于提高流水线的效率。非对称的指令格式会要求更复杂的译码逻辑, 可能需要额外的流水线阶段。</p>
+</li>
+<li>
+<p><strong>存储器操作的明确分离</strong>: MIPS指令集中, 存储器访问仅限于特定的指令(如lw和sw), 这使得流水线可以在执行阶段(执行ALU操作)和访存阶段(Memory Access)之间清晰地划分。这与x86等架构不同, 后者允许指令直接操作内存中的数据, 增加了设计上的复杂度, 可能需要更复杂的地址计算与数据访问流程。</p>
+</li>
+<li>
+<p><strong>数据对齐要求</strong>: MIPS要求数据在内存中对齐, 比如双字必须位于偶数地址, 这样保证了一次内存访问就能完整地读取或写入所需数据, 无需额外的对齐处理步骤, 这对于流水线的效率至关重要。避免了复杂的跨边界访问, 保持了流水线的连续性。</p>
+</li>
+</ol>
+<p>但是流水线指令执行过程中也可能出现的一些问题: 下一节: 流水线冒险</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/docs/001-计佬常識/005-计算机组成原理/005-第四章中央处理器/007-流水线技术/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-04-28T14:52:39.000Z" itemprop="dateModified">2025年4月28日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/实现MIPS子集"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">实现MIPS子集</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/流水线冒险"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">流水线冒险</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#基本的指令处理步骤" class="table-of-contents__link toc-highlight">基本的指令处理步骤</a></li><li><a href="#创建流水线结构" class="table-of-contents__link toc-highlight">创建流水线结构</a></li><li><a href="#流水线的性能" class="table-of-contents__link toc-highlight">流水线的性能</a></li><li><a href="#面向流水线的指令集设计" class="table-of-contents__link toc-highlight">面向流水线的指令集设计</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>

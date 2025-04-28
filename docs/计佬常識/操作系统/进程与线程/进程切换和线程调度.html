@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-计佬常識/操作系统/进程与线程/进程切换和线程调度/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">进程切换 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/docs/计佬常識/操作系统/进程与线程/进程切换和线程调度"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="进程切换 | HXLoLi"><meta data-rh="true" name="description" content="| ##container## |"><meta data-rh="true" property="og:description" content="| ##container## |"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/操作系统/进程与线程/进程切换和线程调度"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/操作系统/进程与线程/进程切换和线程调度" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/操作系统/进程与线程/进程切换和线程调度" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.38e40bb0.css">
+<script src="/HXLoLi/assets/js/runtime~main.8b732061.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.b8a270d9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/default_folder.svg"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计佬常識</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据结构与算法</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/相关面试题"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">设计模式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机网络/一、计算机网络基础"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机网络</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス">とあるOSのインデックス</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/操作系统总览/操作系统概述"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统总览</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/进程简介及进程编程模型"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">进程与线程</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/进程简介及进程编程模型">进程简介及进程编程模型</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/进程切换和线程调度">进程切换和线程调度</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/线程编程模型和进程间通信概述">线程编程模型和进程间通信概述</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/同步互斥机制和编程方法">同步互斥机制和编程方法</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/信号量机制与生产者消费者问题">信号量机制与生产者消费者问题</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/管程、消息通信、屏障等">管程、消息通信、屏障等</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/进程调度">进程调度</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/内存管理/地址空间"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">内存管理</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/文件系统/文件系统概述及文件概念"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">文件系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/输入输出/设备输入输出之硬件模型"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">输入输出</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/死锁/死锁丶"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">死锁</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机组成原理</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">程序语言</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">游戏引擎</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/DevOps与版本控制/Linux/【Linux】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">DevOps与版本控制</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">中间件</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/数据库/MySQL数据库/とある「MySQL」の禁庫目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据库</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/刷题日志/做题记录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">刷题日志</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/嵌入式/杂项/IC通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">嵌入式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/Game/MineCraft/服务器/脚本"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Game</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/HXLoLi/docs/关于">关于</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计佬常識</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">操作系统</span><meta itemprop="position" content="2"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">进程与线程</span><meta itemprop="position" content="3"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">进程切换和线程调度</span><meta itemprop="position" content="4"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>进程切换</h1></header>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-10-15_23-51-42.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-10-15_23-51-42-fca8adfafc60b611d23e3cb985711e20.png" width="1681" height="992" style="width:800px"></td></tr></tbody></table>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1-进程的终止">1. 进程的终止<a href="#1-进程的终止" class="hash-link" aria-label="1. 进程的终止的直接链接" title="1. 进程的终止的直接链接">​</a></h2>
+<p>进程在创建之后, 它就开始运行并做完成任务。然而, 没有什么事儿是永不停歇的, 包括进程也一样。进程早晚会发生终止, 但是通常是由于以下情况触发的</p>
+<ul>
+<li>正常退出(自愿的)</li>
+<li>错误退出(自愿的)</li>
+<li>严重错误(非自愿的)</li>
+<li>被其他进程杀死(非自愿的)</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="11-正常退出">1.1 正常退出<a href="#11-正常退出" class="hash-link" aria-label="1.1 正常退出的直接链接" title="1.1 正常退出的直接链接">​</a></h3>
+<p>首先我们知道, <code>echo $?</code>是可以查看上一条命令的进程退出的返回值的.</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-sh codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">╰─ </span><span class="token builtin class-name" style="color:hsl(29, 54%, 61%)">cd</span><span class="token plain"> ~</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain" style="display:inline-block"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">╭─    ~                                                                                              ✔  </span><span class="token number" style="color:hsl(29, 54%, 61%)">23</span><span class="token plain">:11:23 </span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">╰─ </span><span class="token builtin class-name" style="color:hsl(29, 54%, 61%)">echo</span><span class="token plain"> </span><span class="token variable" style="color:hsl(207, 82%, 66%)">$?</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token number" style="color:hsl(29, 54%, 61%)">0</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">sh</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>比如在Linux中, 返回<code>0</code>就是正常退出.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12-错误退出">1.2 错误退出<a href="#12-错误退出" class="hash-link" aria-label="1.2 错误退出的直接链接" title="1.2 错误退出的直接链接">​</a></h3>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-sh codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">╰─ </span><span class="token builtin class-name" style="color:hsl(29, 54%, 61%)">cd</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">1</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">cd: no such </span><span class="token function" style="color:hsl(207, 82%, 66%)">file</span><span class="token plain"> or directory: </span><span class="token number" style="color:hsl(29, 54%, 61%)">1</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain" style="display:inline-block"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">╭─    ~                                                                                            </span><span class="token number" style="color:hsl(29, 54%, 61%)">1</span><span class="token plain"> ✘  </span><span class="token number" style="color:hsl(29, 54%, 61%)">23</span><span class="token plain">:11:31 </span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">╰─ </span><span class="token builtin class-name" style="color:hsl(29, 54%, 61%)">echo</span><span class="token plain"> </span><span class="token variable" style="color:hsl(207, 82%, 66%)">$?</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token number" style="color:hsl(29, 54%, 61%)">1</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">sh</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>错误退出, 是进程捕获了错误, 回显后才调用<code>exit(1)</code>退出的, 是进程主动退出, 是自愿的.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="13-严重错误">1.3 严重错误<a href="#13-严重错误" class="hash-link" aria-label="1.3 严重错误的直接链接" title="1.3 严重错误的直接链接">​</a></h3>
+<p>进程终止的第三个主要原因源于程序内部错误, 这些错误通常由编程疏忽、逻辑错误或运行时异常引起。这些错误能够导致进程的运行状态变得不稳定或不可预测, 进而可能触发终止过程。具体实例包括执行非法指令、尝试访问不存在的内存地址, 以及执行除数为零的运算等。</p>
+<div class="language-C++ language-cpp codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-cpp codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token keyword" style="color:hsl(286, 60%, 67%)">void</span><span class="token plain"> </span><span class="token function" style="color:hsl(207, 82%, 66%)">test</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">{</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    </span><span class="token keyword" style="color:hsl(286, 60%, 67%)">char</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">*</span><span class="token plain">str </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">&quot;1234&quot;</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    str</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token number" style="color:hsl(29, 54%, 61%)">0</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token char" style="color:hsl(95, 38%, 62%)">&#x27;a&#x27;</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"> </span><span class="token comment" style="color:hsl(220, 10%, 40%)">// 严重错误, 不能修改常量区! 直接被OS杀死</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">}</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">C++</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>在像UNIX这样的操作系统中, 为了增强程序的健壮性和灵活性, 提供了一种机制允许进程对特定类型的错误进行捕获和处理, 而不是直接终止。这种机制通过 <strong>信号(signal)</strong> 来实现, 信号可以被视为一种软中断, 它通知进程发生了某个特定事件。</p>
+<p>当进程接收到一个信号时, 它可以根据信号的类型和自身的设置来决定如何响应。对于某些类型的信号, 进程可以选择忽略它们(如果系统允许的话), 或者通过提供一个 <strong>信号处理程序(signal handler)</strong> 来定制对信号的响应。例如, 当进程尝试访问一个非法内存地址时, 操作系统会向该进程发送一个 <strong>段错误(segmentation fault)</strong> 信号(通常是SIGSEGV)。如果进程没有为该信号提供处理程序, 那么它将被默认行为终止；但如果进程已经注册了一个信号处理程序, 那么它可以在处理程序内部执行一些清理工作, 然后安全地终止, 或者尝试恢复到一个稳定的状态并继续执行。</p>
+<p>通过信号机制, UNIX系统为进程提供了一种强大的错误处理手段, 使得进程能够在面对错误时做出更加灵活和适当的响应。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="14-被其他进程杀死">1.4 被其他进程杀死<a href="#14-被其他进程杀死" class="hash-link" aria-label="1.4 被其他进程杀死的直接链接" title="1.4 被其他进程杀死的直接链接">​</a></h3>
+<p>第四个导致进程终止的原因是, 当某个进程(通常具有相应的权限)主动执行一个特定的操作来请求操作系统结束另一个进程的执行。在UNIX操作系统中, 这一操作通过<code>kill</code>系统调用来实现。<code>kill</code>系统调用允许进程向另一个进程发送一个信号, 而该信号可以被接收进程解释为终止执行的指令。例如, 如果进程A希望结束进程B的运行, 它可以通过<code>kill</code>系统调用发送一个 <strong>SIGTERM(软件终止信号)</strong> 给进程B, 进程B在接收到此信号后通常会进行清理工作并退出。</p>
+<p>而在Windows操作系统中, 虽然没有直接等同于UNIX中<code>kill</code>系统调用的系统级接口, 但提供了<code>TerminateProcess</code>函数来实现类似的功能。值得注意的是, <code>TerminateProcess</code>函数并非一个系统调用, 而是Win32 API的一部分, 它直接由Windows的应用程序接口层提供。该函数允许一个进程立即终止另一个进程的执行, 而不给目标进程任何清理资源或保存状态的机会。因此, 使用<code>TerminateProcess</code>时需要格外小心, 因为它可能导致数据丢失或其他不期望的副作用。</p>
+<p>举例来说, 在UNIX环境下, 如果用户想要终止一个名为<code>example_process</code>的进程, 他们可能会首先使用<code>ps</code>命令查找该进程的进程<code>ID(PID)</code>, 然后执行<code>kill [PID]</code>命令来发送终止信号。而在Windows中, 如果有一个类似的需求, 用户可能需要使用任务管理器或通过编程方式调用<code>TerminateProcess</code>函数, 并传入目标进程的句柄或PID作为参数来实现进程的终止。然而, 由于<code>TerminateProcess</code>的潜在风险, 更推荐的做法是使用更温和的终止方法, 如发送<code>WM_CLOSE</code>消息给应用程序窗口, 以便应用程序有机会进行有序的关闭过程。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="2-进程状态--进程切换">2. 进程状态 &amp; 进程切换<a href="#2-进程状态--进程切换" class="hash-link" aria-label="2. 进程状态 &amp; 进程切换的直接链接" title="2. 进程状态 &amp; 进程切换的直接链接">​</a></h2>
+<p>尽管每个进程在操作系统中被视为一个独立的执行实体, 拥有其专属的程序计数器以追踪指令执行位置及内部状态以管理资源, 但进程间的协作与依赖是不可或缺的。</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-sh codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token function" style="color:hsl(207, 82%, 66%)">cat</span><span class="token plain"> chapter1 chapter2 chapter3 </span><span class="token operator" style="color:hsl(207, 82%, 66%)">|</span><span class="token plain"> </span><span class="token function" style="color:hsl(207, 82%, 66%)">grep</span><span class="token plain"> tree</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">sh</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>在此例中, <code>cat</code>进程作为第一个进程, 负责读取并连续输出<code>chapter1</code> 、<code>chapter2</code>和<code>chapter3</code>这三个文件的内容。而<code>grep</code>进程则作为第二个进程, 其任务是从接收到的输入中筛选出包含特定关键字(如 &quot;tree&quot;)的行。</p>
+<p>由于进程的执行速度受其内部逻辑复杂度、系统资源分配(特别是 CPU 时间片)等多种因素影响, 因此这两个进程的运行速度可能并不一致。具体而言, 可能会出现<code>grep</code>进程已经准备就绪, 准备开始处理输入数据, 但此时<code>cat</code>进程尚未完成所有文件的读取与输出。在这种情况下, 为了防止数据丢失或处理错误, 操作系统会采取同步机制, 使<code>grep</code>进程进入阻塞状态, 即暂停执行, 直到<code>cat</code>进程完成其输出并将数据完全传递给<code>grep</code>进程。这种机制确保了数据流的完整性和处理顺序的正确性。</p>
+<p>尽管进程间保持独立, 但它们通过如管道这样的机制实现高效的数据交换与协作, 共同完成任务, 而进程间的同步与阻塞控制则是确保这一过程顺利进行的关键。</p>
+<p>当一个进程开始运行时, 它可能会经历下面这几种状态</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="21-三态模型">2.1 三态模型<a href="#21-三态模型" class="hash-link" aria-label="2.1 三态模型的直接链接" title="2.1 三态模型的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-10-15_23-32-55.png ##w700##" src="/HXLoLi/assets/images/Clip_2024-10-15_23-32-55-e8f8441c41896f889a90ae84f46e4f29.png" width="1607" height="684" style="width:700px"></td></tr><tr><td style="text-align:center">进程间的状态切换图</td></tr></tbody></table>
+<p>在探讨进程的状态转换时, 我们主要关注三种核心状态及其相互转换机制, 这些状态共同构成了进程生命周期中的关键阶段:</p>
+<ol>
+<li>
+<p><strong>运行态(Running State)</strong>:<br>
+此状态表明进程当前正实际占用CPU的时间片进行执行。例如, 当一个文本编辑器进程正在处理用户的键盘输入并实时显示在屏幕上时, 它就处于运行态。</p>
+</li>
+<li>
+<p><strong>就绪态(Ready State)</strong>:<br>
+就绪态的进程已准备好执行, 但由于CPU资源正被其他进程占用, 因此它暂时处于等待CPU时间片的状态。这类似于多个运动员在起跑线上等待发令枪响, 都已做好起跑准备, 但尚未开始比赛。</p>
+</li>
+<li>
+<p><strong>阻塞态(Blocked State)</strong>:<br>
+阻塞态的进程因等待某个外部事件(如I/O操作完成、信号量释放等)而无法继续执行。除非该事件发生, 否则即使CPU空闲, 该进程也无法运行。比如, 一个进程尝试从网络读取数据, 但数据尚未到达, 此时该进程就会进入阻塞态。</p>
+</li>
+</ol>
+<p>逻辑上, 运行态和就绪态在“可运行性”上相似, 主要区别在于是否实际获得了CPU时间。而阻塞态则与前两者显著不同, 因为它在外部条件未满足时无法执行, 即使CPU空闲亦然。</p>
+<blockquote>
+<p><strong>程序调度</strong>是操作系统中至关重要的功能, 它决定了哪个进程优先获得CPU资源以及运行多久。为了平衡系统整体效率和各个进程间的公平性, 已经发展出多种调度算法, 如轮转调度(Round-Robin)、优先级调度(Priority Scheduling)等。</p>
+</blockquote>
+<p>对于上图的<code>d: 唤醒</code>, 请问是谁唤醒? CPU在运行态处, 怎么还会理会阻塞态的呢?</p>
+<p>我们以<code>scanf()</code>的运行过程来理解一下:</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-10-15_23-48-05.png ##w700##" src="/HXLoLi/assets/images/Clip_2024-10-15_23-48-05-d9e84b5596fd3c3677764a195f7d3cc0.png" width="1361" height="938" style="width:700px"></td></tr></tbody></table>
+<p>说白了就是中断~~, 然后回调~~</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="22-五态模型">2.2 五态模型<a href="#22-五态模型" class="hash-link" aria-label="2.2 五态模型的直接链接" title="2.2 五态模型的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-10-15_23-53-36.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-10-15_23-53-36-19444682b5515e0d72bd6b99436ce0a3.png" width="899" height="617" style="width:600px"></td></tr><tr><td style="text-align:center">五态模型</td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="23-七态模型">2.3 七态模型<a href="#23-七态模型" class="hash-link" aria-label="2.3 七态模型的直接链接" title="2.3 七态模型的直接链接">​</a></h3>
+<p>实际上就是多了<code>挂起阻塞</code>和<code>挂起就绪</code>态.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-10-15_23-41-47.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-10-15_23-41-47-845d8e7d05b7015210c41449a56bbc89.png" width="888" height="611" style="width:600px"></td></tr><tr><td style="text-align:center">七态模型</td></tr></tbody></table>
+<p>注意区分:</p>
+<ul>
+<li>挂起: 将数据结构从内存 搬移到 磁盘</li>
+<li>阻塞、睡眠: 等待 事件发生 任务在内存</li>
+<li>运行: CPU、单核CPU运行程序</li>
+<li>就绪: ~ 多个</li>
+</ul>
+<h1>线程调度</h1>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-10-15_23-55-10.png ##w700##" src="/HXLoLi/assets/images/Clip_2024-10-15_23-55-10-08b6b5cd7a33a35cb7e3955d7a75a3f5.png" width="1515" height="458" style="width:700px"></td></tr></tbody></table>
+<p>在传统的操作系统设计中, 进程是资源分配的基本单位, 每个进程都拥有独立的地址空间和至少一个控制线程。然而, 随着并发编程需求的增加, 人们发现单一进程内运行多个控制流(即线程)能够带来诸多优势。这些线程虽然彼此独立执行, 但它们共享同一进程的地址空间及其中的所有数据, 这种模式为多线程编程提供了基础。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1-线程的使用">1. 线程的使用<a href="#1-线程的使用" class="hash-link" aria-label="1. 线程的使用的直接链接" title="1. 线程的使用的直接链接">​</a></h2>
+<p>要理解为何在进程基础上引入线程的概念, 我们可以从以下几个方面探讨进程模型和线程模型:</p>
+<ol>
+<li>
+<p><strong>资源共享</strong>:<br>
+线程之间的主要优势在于它们能够共享同一块地址空间。这意味着线程可以直接访问进程中的全局变量、静态变量以及通过指针或引用访问的内存区域, 而无需进行进程间通信(IPC)的复杂操作。<br>
+例如, 在一个文本编辑器中, 多个线程可以同时访问并修改文档的同一部分, 因为它们共享文档的内存表示。</p>
+</li>
+<li>
+<p><strong>轻量级与高效性</strong>:<br>
+相比进程, 线程是更加轻量级的执行单元。线程的创建和销毁通常比进程快得多, 因为线程不需要为每个实例分配独立的地址空间和其他系统资源。在许多现代操作系统中, 创建一个新线程的速度可以比创建一个新进程快10到100倍。这种高效性使得线程成为处理高并发任务时的理想选择。</p>
+</li>
+<li>
+<p><strong>性能提升</strong>:<br>
+在涉及大量计算和I/O处理的场景中, 多线程编程能够显著提升应用程序的性能。当CPU密集型任务与I/O密集型任务交替执行时, 多线程允许这些任务重叠进行, 从而减少了CPU的空闲时间。<br>
+例如, 在Web服务器中, 一个线程可以处理客户端的连接请求, 而另一个线程则负责从磁盘读取数据并准备响应。这种并行处理方式提高了服务器的吞吐量和响应速度。</p>
+</li>
+</ol>
+<p>总结: 线程作为进程内的一种轻量级执行单元, 通过共享地址空间和高效性, 为并发编程提供了强大的支持。在现代软件开发中, 多线程编程已经成为一种普遍采用的技术手段, 用于提高应用程序的并发性和性能。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="11-多线程解决方案">1.1 多线程解决方案<a href="#11-多线程解决方案" class="hash-link" aria-label="1.1 多线程解决方案的直接链接" title="1.1 多线程解决方案的直接链接">​</a></h3>
+<p>在探讨线程应用的实例时, 我们可以聚焦于万维网服务器的工作机制。在这样的场景中, 客户端向服务器发送对特定页面的请求, 而服务器则负责将这些请求的页面返回给客户端。值得注意的是, 在多数Web站点上, 访问频率呈现出显著差异, 即比如某些页面(如XX公司的主页)相较于其他页面(如一些产品介绍的详情页)会接收到更多的访问请求。</p>
+<p>为了优化性能和响应速度, Web服务器采用了一种高效策略: 将那些访问量极高的页面集合预先加载并保存在内存中, 这一过程减少了每当这些热门页面被请求时从磁盘读取的需要。这种存储高访问率页面以加速访问的技术所依赖的存储空间, 我们称之为“高速缓存”(cache)。</p>
+<p>高速缓存的概念不仅局限于Web服务器领域, 它在多个技术领域中均有着广泛的应用。以CPU为例, 现代CPU内部集成了多层缓存结构(如L1、L2、L3缓存), 旨在通过减少对主存的直接访问次数来显著提升数据访问速度和整体计算性能。在这些场景下, 高速缓存同样扮演着至关重要的角色, 通过存储近期可能被频繁访问的数据和指令, 显著降低了延迟, 提高了系统效率。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-10-16_00-00-16.png ##w700##" src="/HXLoLi/assets/images/Clip_2024-10-16_00-00-16-f9107fc678b0a643cba985aae3259731.png" width="994" height="734" style="width:700px"></td></tr><tr><td style="text-align:center">一个多线程的Web服务器</td></tr></tbody></table>
+<p>在Web服务器的架构中, 存在一种特定的组织方式, 其核心是一个名为“调度线程(dispatcher thread)”的组件。该线程负责从网络接收工作请求, 并作为中央调度器运作。一旦调度线程接收到请求并完成初步检查, 它会智能地选择一个当前处于空闲(或阻塞)状态的工作线程来处理该请求。这一选择过程通常涉及将指向请求消息的指针写入到每个工作线程相关联的特定数据结构(如队列或特殊字)中。随后, 调度线程会唤醒处于休眠状态的工作线程, 将其状态从阻塞态转变为就绪态, 以便其能够开始处理请求。</p>
+<p>被唤醒的工作线程启动后, 首先会检查请求所需的Web页面是否已存在于一个共享的高速缓存中。这个高速缓存对所有工作线程都是可访问的, 它用于存储频繁访问的页面, 以减少对磁盘的访问次数。例如, 如果客户端请求的是网站的首页, 而该页面恰好位于高速缓存中, 那么工作线程就能迅速地从缓存中检索并返回该页面, 而无需进行磁盘I/O操作。</p>
+<p>然而, 如果请求的Web页面不在高速缓存中, 工作线程将不得不执行一个<code>read</code>操作, 从磁盘中读取该页面。由于磁盘I/O操作通常耗时较长, 这会导致工作线程进入阻塞状态, 等待磁盘操作完成。在此期间, 为了最大化服务器的资源利用率和吞吐量, 调度线程会灵活地选择其他就绪的工作线程来执行, 或者从等待队列中挑选新的工作线程来运行, 从而确保服务器能够持续处理新的请求。</p>
+<p>这种模型巧妙地利用了线程间的协作与调度, 将服务器构建为一组顺序执行的线程集合。调度线程通过一个包含死循环的程序不断获取新的工作请求, 并将它们分派给合适的工作线程。每个工作线程则专注于处理分派给它的请求, 首先检查高速缓存, 然后根据情况从磁盘加载页面, 并最终将页面返回给客户端。在完成一次请求处理后, 工作线程会再次进入阻塞状态, 等待下一个新请求的到来, 从而形成一个高效、循环的工作流程。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12-单线程解决方案">1.2 单线程解决方案<a href="#12-单线程解决方案" class="hash-link" aria-label="1.2 单线程解决方案的直接链接" title="1.2 单线程解决方案的直接链接">​</a></h3>
+<p>在没有多线程的环境下设计Web服务器时, 我们通常会面临单线程处理的局限性。这种设计意味着服务器的主循环会连续不断地获取客户端的请求, 并依次处理它们, 但在处理每个请求的过程中, 如果涉及到磁盘I/O等耗时操作, 服务器将不得不等待这些操作完成, 期间无法响应新的请求。这种“空转”状态显著降低了服务器的处理效率, 每秒能够处理的请求数量非常有限, 从而凸显了多线程对于提升程序并行性和整体性能的重要性。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="13-状态机解决方案">1.3 状态机解决方案<a href="#13-状态机解决方案" class="hash-link" aria-label="1.3 状态机解决方案的直接链接" title="1.3 状态机解决方案的直接链接">​</a></h3>
+<p>为了克服单线程与多线程方案的不足, 我们引入了一种称为“状态机解决方案”的设计思路。该方案特别适用于那些仅能提供非阻塞系统调用(如非阻塞<code>read</code>)的环境。</p>
+<blockquote>
+<p>非阻塞系统调用, 如非阻塞 read , 在Linux系统编程中是一种常见的IO模型, 用于提高程序在处理IO时的效率。</p>
+<p>非阻塞系统调用通常用于那些希望立即返回结果, 而不愿意等待IO操作完成的场景。在Linux中, 通过特定的方式设置文件描述符为非阻塞模式, 可以实现非阻塞的 read 、 write 等系统调用。当文件描述符被设置为非阻塞模式后, 如果IO操作不能立即完成(例如, 从网络读取数据但当前没有数据到达), 系统调用会立即返回一个错误码(如EAGAIN或EWOULDBLOCK), 而不是让调用线程进入休眠状态等待。</p>
+<p>假设我们有一个程序需要从一个网络连接中读取数据, 但我们不希望程序在等待数据时阻塞。此时, 我们可以将网络连接的文件描述符设置为非阻塞模式, 并使用非阻塞的 read 调用。</p>
+<p>非阻塞系统调用(如非阻塞 read )在需要处理多个IO源或希望提高程序响应速度的场景中非常有用。通过将文件描述符设置为非阻塞模式, 并使用适当的错误处理逻辑, 程序可以在IO操作无法立即完成时继续执行其他任务, 而不是阻塞等待。这有助于提高程序的并发性和整体性能。</p>
+</blockquote>
+<p>其工作流程如下:</p>
+<p>当请求到达服务器时, 负责接收请求的单一线程会立即检查是否能够立即从内存中的高速缓存满足该请求。如果可以, 则立即返回响应, 无需任何等待。若缓存中不存在所需数据, 则启动一个非阻塞的磁盘读取操作, 并将该请求的状态(如请求标识符、预期的数据位置等)记录在服务器的内部状态表中。</p>
+<p>随后, 服务器进入一个事件循环, 不断监听和响应两类事件: 新的工作请求到达和先前磁盘操作的完成(通常通过信号中断机制通知)。每当有新请求到来时, 服务器检查其状态, 如果处于可立即处理状态, 则开始处理；若需等待磁盘响应, 则跳过处理, 继续监听。一旦收到磁盘操作的完成通知, 服务器从状态表中检索对应的请求状态, 并根据获取的数据完成响应的准备工作, 最终将响应发送给客户端。</p>
+<p>这种设计实际上体现了有限状态机(Finite-State Machine, FSM)的核心思想。在FSM中, 每个计算或请求都被视为一个具有有限数量状态的系统, 系统根据外部事件(如新请求到达、磁盘操作完成)从一个状态转移到另一个状态。每个状态转移都伴随着状态的保存和恢复, 以确保系统能够正确地继续执行或响应。</p>
+<p>有限状态机在计算机科学中有着广泛的应用, 不仅限于Web服务器设计。它提供了一种强大而灵活的方式来建模和控制系统行为, 尤其是在需要处理并发和异步事件时。然而, 使用FSM也增加了编程的复杂度, 因为开发者需要显式地管理状态转移和状态信息的保存与恢复。</p>
+<p>单线程、多线程和状态机解决方案各有利弊。多线程方案通过并行处理提高了性能, 但增加了复杂性和潜在的线程安全问题；单线程方案简单但性能受限；而状态机方案则通过非阻塞调用和中断机制实现了高性能的并行处理, 尽管编程难度较高。在实际应用中, 选择哪种方案取决于具体需求、系统资源以及开发团队的技能与偏好。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">模型</th><th style="text-align:center">特性</th></tr></thead><tbody><tr><td style="text-align:center">单线程</td><td style="text-align:center">无并行性, 性能较差, 阻塞系统调用</td></tr><tr><td style="text-align:center">多线程</td><td style="text-align:center">有并行性, 阻塞系统调用</td></tr><tr><td style="text-align:center">有限状态机</td><td style="text-align:center">并行性, 非阻塞系统调用、中断</td></tr></tbody></table>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="2-经典的线程模型">2. 经典的线程模型<a href="#2-经典的线程模型" class="hash-link" aria-label="2. 经典的线程模型的直接链接" title="2. 经典的线程模型的直接链接">​</a></h2>
+<p>从另一个维度审视进程, 可以理解为一种高效整合并管理相关资源的方式。进程不仅承载着程序的主体代码(即程序正文)与数据, 还汇聚了诸如已打开文件句柄、派生的子进程、待触发的定时器、特定的信号处理机制、以及用户账号信息等多元化资源。将这些资源统一封装在进程内部, 极大地简化了资源的组织与访问流程。</p>
+<p>与此同时, 进程内部的核心执行单元是线程, 这一术语常被简称为“线程(thread)”。每个线程都配备了关键的执行状态组件: 程序计数器, 负责精确追踪即将执行的指令位置；寄存器集合, 用于暂存线程当前操作所依赖的变量值；以及堆栈, 它记录着方法调用与返回的路径, 是程序执行流程的重要映射。值得注意的是, 尽管线程的运行依托于进程, 但进程与线程在概念上是截然分开的实体, 各自承载着不同的职责与特性, 并允许独立处理。简而言之, 进程是资源的容器, 而线程则是CPU直接调度的执行单位。</p>
+<p>线程概念的引入, 为进程模型增添了新的维度——即在同一进程内部, 允许多个线程以较高程度的独立性并行运行, 彼此间互不干扰。这种架构类似于在单一计算机上同时运行多个独立进程的场景, 但区别在于, 线程间的资源共享更为紧密, 它们共同访问同一地址空间及其他进程资源。相比之下, 不同进程间虽也共享物理内存、磁盘、外设等资源, 但资源的访问与隔离机制更为复杂。</p>
+<p>鉴于线程在继承进程资源的同时, 保持了较轻量的执行上下文, 因此常被形象地称为“轻量级进程(lightweight processes)”。而“多线程(multithreading)”这一术语, 则特指在单个进程内部, 多个线程并行执行、共享资源并协同工作的模式。这种模式极大地提高了程序的响应速度与处理能力, 是现代操作系统与应用程序设计中不可或缺的重要特性。</p>
+<p>下图我们可以看到三个传统的进程, 每个进程有自己的地址空间和单个控制线程。每个线程都在不同的地址空间中运行</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-10-16_00-14-33.png ##w500##" src="/HXLoLi/assets/images/Clip_2024-10-16_00-14-33-a0fe377a7d64567d2fb834ab2f7737b2.png" width="549" height="419" style="width:500px"></td></tr></tbody></table>
+<p>下图中, 我们可以看到有一个进程三个线程的情况。每个线程都在相同的地址空间中运行。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-10-16_00-15-03.png ##w500##" src="/HXLoLi/assets/images/Clip_2024-10-16_00-15-03-7b466d9a2fef1ed45cf90494ee3cbc25.png" width="597" height="454" style="width:500px"></td></tr></tbody></table>
+<p>线程与进程在独立性方面存在显著差异。具体来说, 线程并不具备进程所拥有的那种强独立性。在同一个进程内, 所有线程共享一个共同的地址空间, 这一特性意味着它们不仅能够访问相同的程序代码和数据段, 还共享着包括全局变量在内的所有进程资源。</p>
+<p>由于这种共享机制, 每个线程都被赋予了访问进程地址空间内任意内存地址的能力。然而, 这一能力也带来了潜在的冲突和复杂性。具体来说, 一个线程不仅能读取或修改自身的局部变量和堆栈内容, 在理论上, 它还可以访问并修改同一进程中其他线程的堆栈或全局变量。<strong>例如, 一个线程错误地写入了一个被其他线程用作控制流程的变量, 或者覆盖了一个线程栈上的关键返回值, 都可能导致难以预料的行为, 甚至是程序崩溃。</strong></p>
+<p>因此, 尽管线程间的资源共享提高了程序的执行效率和响应速度, 但也要求开发者在设计和实现多线程程序时, 必须采取额外的同步和协调机制, 以确保线程间的正确交互和数据一致性。这包括但不限于使用互斥锁(mutexes)、信号量(semaphores)、条件变量(condition variables)等同步原语, 以及合理的线程调度策略, 来避免数据竞争(race conditions)和其他并发问题。</p>
+<p>线程之间除了共享同一内存空间外, 还具有如下不同的内容</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-10-16_00-16-23.png ##w500##" src="/HXLoLi/assets/images/Clip_2024-10-16_00-16-23-666ad27d54594323de7fbadf1ecdc628.png" width="698" height="432" style="width:500px"></td></tr></tbody></table>
+<p>线程, 作为操作系统调度的基本单位, 其生命周期可以划分为多个状态。这些状态与进程的状态类似, 但更侧重于CPU的调度与执行。线程可以处于以下几种状态: <strong>运行中</strong>、<strong>阻塞</strong>、<strong>就绪</strong>, 以及虽然进程图中未明确画出但理论上存在的<strong>终止</strong>状态。</p>
+<ol>
+<li>
+<p><strong>运行中(Running)</strong>:<br>
+当线程获得CPU的时间片时, 它便进入运行状态, 此时线程正在执行其任务。CPU时间片是操作系统分配给线程用于执行的时间段, 时间片结束后, 线程可能需要让出CPU给其他线程使用。</p>
+</li>
+<li>
+<p><strong>阻塞(Blocked)</strong>:<br>
+线程在执行过程中, 可能会因为某些原因而暂停执行, 进入阻塞状态。这些原因通常涉及等待外部事件或资源的就绪。例如, 当线程执行一个从键盘读取数据的系统调用时, 它会等待用户输入, 直到有数据可读为止, 此时线程便处于阻塞状态。<br>
+其他常见的阻塞原因还包括等待文件I/O操作完成、等待网络响应等。线程通常会保持阻塞状态, 直到它所等待的事件发生或资源变得可用, 或者由其他线程通过某种机制(如信号或条件变量)来唤醒它。</p>
+</li>
+<li>
+<p><strong>就绪(Ready)</strong>:<br>
+线程已准备好执行, 但由于CPU资源被其他线程占用, 它暂时无法运行。处于就绪状态的线程已经完成了所有必要的准备工作, 只需等待CPU时间片的分配即可继续执行。</p>
+</li>
+<li>
+<p><strong>终止(Terminated)</strong>:<br>
+线程完成了其执行任务, 或者因为某种原因(如错误、异常或程序逻辑)而被终止。虽然进程图中可能未明确展示终止状态, 但它是线程生命周期中的一个重要阶段, 标志着线程执行的结束。</p>
+</li>
+</ol>
+<p>值得注意的是, <strong>线程之间的状态转换与进程之间的状态转换在本质上是相似的</strong>, 都遵循着相似的规则和逻辑。</p>
+<p>例如, 一个正在运行的线程可能因为等待I/O操作而进入阻塞状态, 当I/O操作完成后, 它可能再次进入就绪状态, 等待CPU时间片的分配；或者, 一个处于就绪状态的线程在获得CPU时间片后将开始执行, 进入运行状态。这些状态转换共同构成了线程和进程在操作系统中的动态行为。</p>
+<p>每个线程都会有自己的堆栈, 正如图所示。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-10-16_00-18-56.png ##w500##" src="/HXLoLi/assets/images/Clip_2024-10-16_00-18-56-98e4b2e5bae8756b3aa3cdd01a87f4fd.png" width="800" height="578" style="width:500px"></td></tr></tbody></table></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/docs/001-计佬常識/004-操作系统/003-进程与线程/002-进程切换和线程调度/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-04-28T14:52:39.000Z" itemprop="dateModified">2025年4月28日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/进程简介及进程编程模型"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">进程简介及进程编程模型</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/线程编程模型和进程间通信概述"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">线程编程模型和进程间通信概述</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#1-进程的终止" class="table-of-contents__link toc-highlight">1. 进程的终止</a><ul><li><a href="#11-正常退出" class="table-of-contents__link toc-highlight">1.1 正常退出</a></li><li><a href="#12-错误退出" class="table-of-contents__link toc-highlight">1.2 错误退出</a></li><li><a href="#13-严重错误" class="table-of-contents__link toc-highlight">1.3 严重错误</a></li><li><a href="#14-被其他进程杀死" class="table-of-contents__link toc-highlight">1.4 被其他进程杀死</a></li></ul></li><li><a href="#2-进程状态--进程切换" class="table-of-contents__link toc-highlight">2. 进程状态 &amp; 进程切换</a><ul><li><a href="#21-三态模型" class="table-of-contents__link toc-highlight">2.1 三态模型</a></li><li><a href="#22-五态模型" class="table-of-contents__link toc-highlight">2.2 五态模型</a></li><li><a href="#23-七态模型" class="table-of-contents__link toc-highlight">2.3 七态模型</a></li></ul></li><li><a href="#1-线程的使用" class="table-of-contents__link toc-highlight">1. 线程的使用</a><ul><li><a href="#11-多线程解决方案" class="table-of-contents__link toc-highlight">1.1 多线程解决方案</a></li><li><a href="#12-单线程解决方案" class="table-of-contents__link toc-highlight">1.2 单线程解决方案</a></li><li><a href="#13-状态机解决方案" class="table-of-contents__link toc-highlight">1.3 状态机解决方案</a></li></ul></li><li><a href="#2-经典的线程模型" class="table-of-contents__link toc-highlight">2. 经典的线程模型</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkhx_loli=self.webpackChunkhx_loli||[]).push([[82024],{82024:(e,c,h)=>{h.d(c,{createArchitectureServices:()=>l.S});var l=h(98815);h(73579)}}]);

@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-计佬常識/数据结构与算法/【数据结构】高阶搜索树/B树/B树丶/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">B树 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/B树/B树丶"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="B树 | HXLoLi"><meta data-rh="true" name="description" content="前言"><meta data-rh="true" property="og:description" content="前言"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/B树/B树丶"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/B树/B树丶" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/B树/B树丶" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.38e40bb0.css">
+<script src="/HXLoLi/assets/js/runtime~main.8b732061.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.b8a270d9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/default_folder.svg"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计佬常識</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据结构与算法</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">【algorithm】目録</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【导论】基础/【开端】时空复杂度"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【导论】基础</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】线性表/线性表"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【数据结构】线性表</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】树/树"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【数据结构】树</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】图/图的概念及重要术语"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【数据结构】图</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【算法】排序算法/排序的基本概念"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【算法】排序算法</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【算法】动态规划/初探动态规划"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【算法】动态规划</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/经典查找"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【数据结构】高阶搜索树</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/经典查找">经典查找</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/红黑树/红黑树丶"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">红黑树</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/B树/B树丶"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">B树</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/B树/B树丶">B树丶</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/B树/B树代码实现">B树代码实现</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/B+树/B+树丶"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">B+树</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【算法】前缀和/一维前缀和"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【算法】前缀和</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】线段树/普通线段树"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【数据结构】线段树</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【算法】数学/最大公约数【GCD】与最小公倍数【LCM】/求最大公约数or最小公倍数"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【算法】数学</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【算法】贪心/【中位数贪心】货仓寻址问题"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【算法】贪心</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】字典树/字典树"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【数据结构】字典树</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【板子】算法模版/字符串/C++字符串切分"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【板子】算法模版</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/相关面试题"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">设计模式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机网络/一、计算机网络基础"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机网络</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机组成原理</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">程序语言</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">游戏引擎</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/DevOps与版本控制/Linux/【Linux】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">DevOps与版本控制</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">中间件</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/数据库/MySQL数据库/とある「MySQL」の禁庫目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据库</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/刷题日志/做题记录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">刷题日志</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/嵌入式/杂项/IC通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">嵌入式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/Game/MineCraft/服务器/脚本"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Game</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/HXLoLi/docs/关于">关于</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计佬常識</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">数据结构与算法</span><meta itemprop="position" content="2"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">【数据结构】高阶搜索树</span><meta itemprop="position" content="3"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">B树</span><meta itemprop="position" content="4"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">B树丶</span><meta itemprop="position" content="5"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>B树</h1></header>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="前言">前言<a href="#前言" class="hash-link" aria-label="前言的直接链接" title="前言的直接链接">​</a></h2>
+<p>前面学习了平衡二叉树和红黑树，我们知道了平衡的概念就是让树尽量的“胖”，让它的高度不会线性增长，那么我们这章，将结合数据存储设备的结构和再次优化查找效率的角度来学习B树和B+树。</p>
+<p>之前我们学习的树，数据保存在内存上，而如果数据很大的话，往往数据是存储在硬盘的。硬盘是以块为单位进行管理的。</p>
+<p>对于红黑树等二叉树, 一般是访问内存上面的内容, 所以io交互会比较快,
+但如果是查找硬盘上面的内容, 就需要在硬盘上面查找, 而访问硬盘的速度远远不及内存的速度, 也就是说, 如果我们要访问一次硬盘, 可能需要经过100次内存运行单位时间, 那么这个时间内内存什么也没有干, 就只是等待数据, 这样即便是二叉树, 我们一次访问可以排除的数据量也很少,其次,内存访问是通过字节为单位的, 而硬盘访问的最小单位是「块/扇区(机械硬盘)」</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>CPU</th><th>CPU x 级缓存</th><th>内存</th><th>硬盘</th></tr></thead><tbody><tr><td>4GHz</td><td>~</td><td>5600MHz</td><td>1000Mb/s</td></tr></tbody></table>
+<p>---&gt; 速度逐渐下降</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-21_11-42-42.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_11-42-42-b98edc125d7842ed5f1e822823edf4db.png" width="1847" height="374" style="width:800px"></td></tr><tr><td style="text-align:center">By GPT-3.5</td></tr></tbody></table>
+<p>B树（又称B-树）和B+树其实差别不大，理解了B树，只需要了解他们之间的差异化即可。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="b-树的定义">B-树的定义<a href="#b-树的定义" class="hash-link" aria-label="B-树的定义的直接链接" title="B-树的定义的直接链接">​</a></h2>
+<p>B-树，又称多路平衡查找树，B树中所有结点的孩子个数的最大值称为B树的阶，通常用 m表示。当<code>m = 2</code>时，就是常见的二叉搜索树。</p>
+<p>一颗 m 阶的 B树 定义如下:</p>
+<ol>
+<li>每个结点最多有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">1</span></span></span></span> 个关键字;</li>
+<li>根节点最少可以只有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">1</span></span></span></span> 个关键字;</li>
+<li>非根节点至少有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mi>e</mi><mi>i</mi><mi>l</mi><mo stretchy="false">(</mo><mi>m</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">)</mo><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">ceil(m/2)-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal">ce</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.01968em">l</span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mord">/2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">1</span></span></span></span> 个关键字;</li>
+<li>每个节点中的关键字都按照从小到大的顺序排列，每个关键字的左子树的所有关键字都小于它, 而右子树中的所有关键字都大于它;</li>
+<li>所有叶子节点都位于同一层，或者说根节点到每个叶子节点的长度相同;</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-21_11-47-21.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_11-47-21-c90e37e6f8c8a1640a43e962789fbbae.png" width="1306" height="529" style="width:800px"></td></tr></tbody></table>
+<p><span style="margin-left:30px">上图是一颗阶数为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">4</span></span></span></span> 的B树。在实际应用中的B树的阶数<code>m</code>都非常大（通常大于100），所以即使存储大量的数据，B树的高度仍然比较小。每个结点中存储了关键字（key）和关键字对应的数据（data），以及孩子结点的指针。我们将一个<code>key</code>和其对应的<code>data</code>称为一个<code>记录</code>。</span></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="为什么要有b树的结构">为什么要有B树的结构<a href="#为什么要有b树的结构" class="hash-link" aria-label="为什么要有B树的结构的直接链接" title="为什么要有B树的结构的直接链接">​</a></h2>
+<p>对于访问物理介质（如硬盘）所需的时间，希望越少越好，B树这种类型就是为了最小化磁盘访问次数，达到减少磁盘访问时间。</p>
+<p>其他数据结构，例如二叉查找树、avI树、红黑树等，只能在一个节点中存储一个键值。如果必须存储大量的键值，那么这些树的高度就会变得非常大，访问时间也会增加。</p>
+<p>但是，B-tree可以在单个节点中存储许多键，并且可以有多个子节点。这大大降低了高度，从而允许更快的磁盘访问。</p>
+<h1>B-树的操作</h1>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="b-树的查找">B-树的查找<a href="#b-树的查找" class="hash-link" aria-label="B-树的查找的直接链接" title="B-树的查找的直接链接">​</a></h2>
+<p>B-树的查找操作与二叉排序树（BST）极为类似，只不过B-树中的每个结点包含多个关键字。从根节点开始，从上往下递归的遍历树。在每一层节点上，使用<strong>二分查找法</strong>匹配目标键，或者通过键的范围来确定子树。</p>
+<ul>
+<li>B-树查找的思路
+<ol>
+<li>先让查找值和B树的根节点的第一个关键字比较，若是匹配，则查找成功</li>
+<li>若是匹配不成功继续和后面的关键字匹配，若是找到匹配，则匹配成功</li>
+<li>若是找到一个大于查找值的关键字，那么就需要往这个关键字和前一个关键字之间的分支节点往下搜索，继续重复上面关键字匹配的操作</li>
+<li>若是当前节点最后一个关键字比当前查找的值还小，那么就继续往该节点的最右分支往下继续搜索，重复上面的操作</li>
+<li>若是节点查找到了空节点，那么说明查找失败</li>
+</ol>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="b-树的中序遍历">B-树的中序遍历<a href="#b-树的中序遍历" class="hash-link" aria-label="B-树的中序遍历的直接链接" title="B-树的中序遍历的直接链接">​</a></h2>
+<p>B-树的中序遍历与二叉树的中序遍历也很相似，我们从最左边的孩子结点开始，递归地打印最左边的孩子结点，然后对剩余的孩子和关键字重复相同的过程。最后，递归打印最右边的孩子。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="b-树的插入操作">B-树的插入操作<a href="#b-树的插入操作" class="hash-link" aria-label="B-树的插入操作的直接链接" title="B-树的插入操作的直接链接">​</a></h2>
+<p>B树的插入操作一般分为<code>回溯法</code>和<code>主动插入法</code>，但原理是一样的，我们先看回溯法，这个是最好理解的。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="b-树的回溯法插入">B-树的回溯法插入<a href="#b-树的回溯法插入" class="hash-link" aria-label="B-树的回溯法插入的直接链接" title="B-树的回溯法插入的直接链接">​</a></h3>
+<p>先通过上面的定位操作定位到一个查找失败的节点，然后检查该节点的父节点的关键字个数，若是关键字个数小于<code>m - 1</code>，那么说明可以直接插入到该节点（叶子节点），否则的话插入后会引起节点的分裂。具体分裂的方法:</p>
+<ol>
+<li>
+<p>取一个新节点，在插入key后的原节点，从中间位置<code>ceil(m/2)</code>将其中的关键字分为两部分</p>
+</li>
+<li>
+<p><strong>左部分</strong>包含的关键字放在原节点中，<strong>右部分</strong>包含的关键字放到新节点中，<strong>中间位置</strong><code>ceil(m/2)</code>的节点插入原节点的父节点</p>
+</li>
+<li>
+<p>若此时导致其父节点的关键字个数也超过了上限，则继续进行这种分裂操作，直到这个过程传到根节点为止。当然B-树的高度也增加 (递归查找, 回溯往上)(注意会产生新的根)</p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center">如图所示:</td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-21_12-04-00.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_12-04-00-2a5e089adf65734301b9ece75d0330d6.png" width="1266" height="232" style="width:800px"></td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="b-树主动插入法">B-树主动插入法<a href="#b-树主动插入法" class="hash-link" aria-label="B-树主动插入法的直接链接" title="B-树主动插入法的直接链接">​</a></h3>
+<div class="language-B-树主动插入伪代码 language-b-树主动插入伪代码 codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-b-树主动插入伪代码 codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">1. 初始化 x 作为根结点</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">2. 当 x 不是叶子结点，执行如下操作：</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">	a. 找到 x 的下一个要被访问的孩子结点 y</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">	b. 如果 y 没有满，则将结点 y 作为新的 x</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">	c. 如果 y 已经满了，拆分，结点 x 的指针指向结点y的两部分。</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">		如果 k 比y 中间的关键字小，则将的第一部分作为新的 x，</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">		否则将的第二部分作为新的 x，当将拆分后，将 中的一个关键字移动到它的父结点 x 当中。</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">3. 当 x 是叶子结点时，第二步结束；</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">	由于我们已经提前查分了所有结点，x 必定至少有一个额外的关键字空间，进行简单的插入即可。</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">B</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>事实上B-树的插入操作是一种主动插入算法，因为在插入新的关键字之前，我们会将所有已满的结点进行拆分，提前拆分的好处就是，我们不必进行回溯，遍历结点两次。如果我们不事先拆分一个已满的结点，而仅仅在插入新的关键字时才拆分它，那么最终可能需要再次从根结点出发遍历所有结点，比如在我们到达叶子结点时，将叶结点进行拆分，并将其中的一个关键字上移导致父结点分裂（因为上移导致父结点超出可存储的关键字的个数），父结点的分裂后，新的关键字继续上移，将可能导致新的父结点分裂，从而出现大量的回溯操作。但是B-树这种主动插入算法中，就不会发生级联效应。当然，这种主动插入的<code>缺点</code>也很明显，我们<strong>可能进行很多不必要的拆分操作</strong>。</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="实例">实例<a href="#实例" class="hash-link" aria-label="实例的直接链接" title="实例的直接链接">​</a></h4>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-21_12-10-37.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_12-10-37-6dc8f266213638e28cfc5465d421fcf4.png" width="1243" height="771" style="width:800px"><br><img decoding="async" loading="lazy" alt="Clip_2024-02-21_12-10-51.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_12-10-51-73ac02ca259627707424192f8c214761.png" width="1252" height="600" style="width:800px"><br><img decoding="async" loading="lazy" alt="Clip_2024-02-21_12-11-20.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_12-11-20-da6436ec2e50f0993d4e96764e5a39e2.png" width="1255" height="1103" style="width:800px"></td></tr></tbody></table>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="b-树的删除操作">B-树的删除操作<a href="#b-树的删除操作" class="hash-link" aria-label="B-树的删除操作的直接链接" title="B-树的删除操作的直接链接">​</a></h2>
+<p>B-树的删除就复杂的多了，分为下面几种情况:</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="删除叶子节点中的元素">删除叶子节点中的元素<a href="#删除叶子节点中的元素" class="hash-link" aria-label="删除叶子节点中的元素的直接链接" title="删除叶子节点中的元素的直接链接">​</a></h3>
+<ol>
+<li>搜索要删除的元素</li>
+<li>如果它在叶子节点上，直接将其删除</li>
+<li>如果删除后产生了下溢出（键数小于最小值），则向其兄弟节点借元素。即将其父节点元素下移至当前节点，将兄弟节点中元素上移至父节点（若是左节点，上移最大元素；若是右节点，上移最小元素)</li>
+<li>若兄弟节点也达到下限，则合并兄弟节点与分割键。</li>
+</ol>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="删除内部节点中的元素">删除内部节点中的元素<a href="#删除内部节点中的元素" class="hash-link" aria-label="删除内部节点中的元素的直接链接" title="删除内部节点中的元素的直接链接">​</a></h3>
+<ol>
+<li>内部节点中元素为其左右子节点的分割值，需要从左子节点最大元素或右子节点中最小元素中选一个新的分割符。被选中的分割符从原子节点中移除，作为新的分隔值替换掉被删除的元素。</li>
+<li>上一步中，若左右子节点元素均达到下限，则合并左右子节点</li>
+<li>若删除元素后，其中节点元素小于下限，则继续合并。</li>
+</ol>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="案例">案例<a href="#案例" class="hash-link" aria-label="案例的直接链接" title="案例的直接链接">​</a></h3>
+<p>5阶B-树删除案例<br>
+5阶B树中，结点最多有4个key，最少有2个key。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-21_13-41-32.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_13-41-32-e2a5c6ae8c39f1238896d208cc0ddd74.png" width="1762" height="498" style="width:800px"></td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-21_13-41-45.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_13-41-45-c7c0314f3d0ce6991be2308d29ada319.png" width="1753" height="505" style="width:800px"></td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-21_13-41-58.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_13-41-58-b4dd9adc7b3b90c17bfc85dbf96956e5.png" width="1760" height="906" style="width:800px"></td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-21_13-42-28.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_13-42-28-61fc5957cc8e3a223d226700bffdc578.png" width="1761" height="1138" style="width:800px"></td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-21_13-42-50.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_13-42-50-c73b96f4eb014780de4316b81bad3575.png" width="1760" height="791" style="width:800px"></td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-21_13-43-04.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_13-43-04-20bcf3374242d5a4cb2fbf2a86bca385.png" width="1720" height="530" style="width:800px"></td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-21_13-43-16.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-21_13-43-16-8fdbeda28fdd3ecd3075abdff9e5849e.png" width="1713" height="353" style="width:800px"></td></tr></tbody></table>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="代码实现">代码实现<a href="#代码实现" class="hash-link" aria-label="代码实现的直接链接" title="代码实现的直接链接">​</a></h2>
+<blockquote>
+<p>因为这个基本上是数据库才用得到, 手撕的机会就更少了 =-=</p>
+</blockquote>
+<p><span class="tailwind"><a href="/HXLoLi/docs/%E8%AE%A1%E4%BD%AC%E5%B8%B8%E8%AD%98/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E9%AB%98%E9%98%B6%E6%90%9C%E7%B4%A2%E6%A0%91/B%E6%A0%91/B%E6%A0%91%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">B树代码实现<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/docs/001-计佬常識/001-数据结构与算法/008-【数据结构】高阶搜索树/003-B树/001-B树丶/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-04-28T14:52:39.000Z" itemprop="dateModified">2025年4月28日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/红黑树/红黑树代码实现"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">红黑树代码实现</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/B树/B树代码实现"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">B树代码实现</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#前言" class="table-of-contents__link toc-highlight">前言</a></li><li><a href="#b-树的定义" class="table-of-contents__link toc-highlight">B-树的定义</a></li><li><a href="#为什么要有b树的结构" class="table-of-contents__link toc-highlight">为什么要有B树的结构</a></li><li><a href="#b-树的查找" class="table-of-contents__link toc-highlight">B-树的查找</a></li><li><a href="#b-树的中序遍历" class="table-of-contents__link toc-highlight">B-树的中序遍历</a></li><li><a href="#b-树的插入操作" class="table-of-contents__link toc-highlight">B-树的插入操作</a><ul><li><a href="#b-树的回溯法插入" class="table-of-contents__link toc-highlight">B-树的回溯法插入</a></li><li><a href="#b-树主动插入法" class="table-of-contents__link toc-highlight">B-树主动插入法</a><ul><li><a href="#实例" class="table-of-contents__link toc-highlight">实例</a></li></ul></li></ul></li><li><a href="#b-树的删除操作" class="table-of-contents__link toc-highlight">B-树的删除操作</a><ul><li><a href="#删除叶子节点中的元素" class="table-of-contents__link toc-highlight">删除叶子节点中的元素</a></li><li><a href="#删除内部节点中的元素" class="table-of-contents__link toc-highlight">删除内部节点中的元素</a></li><li><a href="#案例" class="table-of-contents__link toc-highlight">案例</a></li></ul></li><li><a href="#代码实现" class="table-of-contents__link toc-highlight">代码实现</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>

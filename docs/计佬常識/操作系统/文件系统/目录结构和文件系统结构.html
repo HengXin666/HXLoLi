@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-计佬常識/操作系统/文件系统/目录结构和文件系统结构/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">目录结构和文件系统结构 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/docs/计佬常識/操作系统/文件系统/目录结构和文件系统结构"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="目录结构和文件系统结构 | HXLoLi"><meta data-rh="true" name="description" content="一、目录"><meta data-rh="true" property="og:description" content="一、目录"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/操作系统/文件系统/目录结构和文件系统结构"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/操作系统/文件系统/目录结构和文件系统结构" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/操作系统/文件系统/目录结构和文件系统结构" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.38e40bb0.css">
+<script src="/HXLoLi/assets/js/runtime~main.8b732061.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.b8a270d9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/default_folder.svg"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计佬常識</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据结构与算法</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/相关面试题"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">设计模式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机网络/一、计算机网络基础"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机网络</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス">とあるOSのインデックス</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/操作系统总览/操作系统概述"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统总览</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/进程简介及进程编程模型"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">进程与线程</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/内存管理/地址空间"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">内存管理</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/文件系统/文件系统概述及文件概念"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">文件系统</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/文件系统/文件系统概述及文件概念">文件系统概述及文件概念</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/文件系统/目录结构和文件系统结构">目录结构和文件系统结构</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/文件系统/文件系统实现">文件系统实现</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/文件系统/空闲空间管理及文件系统优化">空闲空间管理及文件系统优化</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/输入输出/设备输入输出之硬件模型"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">输入输出</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/死锁/死锁丶"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">死锁</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机组成原理</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">程序语言</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">游戏引擎</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/DevOps与版本控制/Linux/【Linux】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">DevOps与版本控制</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">中间件</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/数据库/MySQL数据库/とある「MySQL」の禁庫目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据库</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/刷题日志/做题记录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">刷题日志</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/嵌入式/杂项/IC通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">嵌入式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/Game/MineCraft/服务器/脚本"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Game</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/HXLoLi/docs/关于">关于</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计佬常識</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">操作系统</span><meta itemprop="position" content="2"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">文件系统</span><meta itemprop="position" content="3"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">目录结构和文件系统结构</span><meta itemprop="position" content="4"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>目录结构和文件系统结构</h1></header>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="一目录">一、目录<a href="#一目录" class="hash-link" aria-label="一、目录的直接链接" title="一、目录的直接链接">​</a></h2>
+<p>文件系统普遍采用<code>目录(directories)</code>或<code>文件夹(folders)</code>的概念来记录和管理文件的位置。在许多系统中, 目录本身也被视为一种特殊的文件。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="11-一级目录系统">1.1 一级目录系统<a href="#11-一级目录系统" class="hash-link" aria-label="1.1 一级目录系统的直接链接" title="1.1 一级目录系统的直接链接">​</a></h3>
+<p>目录系统的最基本形态是包含一个能够容纳所有文件的单一目录, 这个目录被命名为<code>根目录(root directory)</code>。在根目录的架构下, 由于其独一无二的地位, 其命名实际上并不重要, 因为它始终是文件系统的起点。</p>
+<p>在早期的个人计算机时代, 这种简单的目录结构相当普遍, 这在很大程度上是因为当时的计算机系统往往只服务于单一用户。</p>
+<p>这种设计的优势在于其简洁性, 以及文件定位的高效性。由于所有文件都集中在根目录下, 因此用户无需进行复杂的目录导航, 就能快速地找到目标文件。然而, 随着计算机系统的发展, 用户数量和文件数量的激增, 这种简单的目录结构逐渐无法满足实际需求。</p>
+<p>尽管如此, 这种目录组织形式在现代仍然有其应用场景。例如, 在一些简单的嵌入式设备中, 如 <strong>数码相机</strong> 和某些便携式音乐播放器, 由于这些设备的存储空间有限, 且主要服务于单一用户或单一功能, 因此仍然采用这种简单的目录结构。在这些设备中, 用户无需在复杂的目录结构中寻找文件, 只需在根目录或有限的子目录中就能找到所需的图片、音乐等文件。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12-层次目录系统">1.2 层次目录系统<a href="#12-层次目录系统" class="hash-link" aria-label="1.2 层次目录系统的直接链接" title="1.2 层次目录系统的直接链接">​</a></h3>
+<p>对于简单的应用场景, 单层目录方式可能足够, 即将所有文件和文件夹都放在根目录下。然而, 这种组织形式并不适用于现代计算机, 因为现代计算机系统中通常包含成千上万个文件和文件夹。如果都放在根目录下, 不仅会导致目录变得极其庞大, 而且查找特定文件或文件夹也会变得非常困难。</p>
+<p>为了解决这一问题, 人们设计出了<code>层次目录系统(Hierarchical Directory Systems)</code>, 也称为<code>目录树</code>。在层次目录系统中, 文件被组织在多个目录中, 这些目录可以进一步嵌套成子目录。通过这种方式, 可以用多个目录对文件进行分组, 使得文件系统更加有序和易于管理。这种方式的组织结构如下:</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="PixPin_2025-01-18_23-24-51.png ##w600##" src="/HXLoLi/assets/images/PixPin_2025-01-18_23-24-51-dafe27f0bb03c946c316faffbcceeaaa.png" width="1192" height="770" style="width:600px"></td></tr></tbody></table>
+<p>进一步地, 如果多个用户共享同一个文件服务器, 比如在一个公司的网络系统中, 每个用户都可以为自己的目录树拥有一个私人根目录。这样, 每个用户都可以在自己的私人根目录下创建和管理自己的文件和文件夹, 而不会与其他用户的文件混淆。这种方式的组织结构不仅提高了文件系统的可扩展性, 还增强了文件的安全性。</p>
+<p>现代文件系统通常都是按照层次目录系统的方式组织的, 这种方式使得文件系统更加有序、易于管理和扩展。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="13-路径名">1.3 路径名<a href="#13-路径名" class="hash-link" aria-label="1.3 路径名的直接链接" title="1.3 路径名的直接链接">​</a></h3>
+<p>当目录树用于组织文件系统时, 需要采用特定方式来指明文件名。通常有两种常用的方法来实现这一目标。第一种方式是为每个文件分配一个<code>绝对路径名(absolute path name)</code>, 该路径名由根目录开始, 逐级指向目标文件。举例来说, 路径名<code>/usr/ast/mailbox</code>表示根目录下有一个名为<code>usr</code>的子目录, <code>usr</code>目录下又有一个名为<code>ast</code>的子目录, 而<code>ast</code>目录下则包含了一个名为<code>mailbox</code>的文件。绝对路径名总是以根目录符号<code>/</code>开头, 并且在文件系统中具有唯一性。</p>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><span class="octicon octicon-note" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-info mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Note</p>
+<p>在 UNIX 系统中, 路径的各个组件由斜杠<code>/</code>分隔。相比之下, 在 Windows 系统中, 路径分隔符为反斜杠<code>\</code>。而在 MULTICS 系统中, 路径分隔符则为大于号<code>&gt;</code>。</p>
+<div class="language-C++ language-cpp codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-cpp codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">Windows</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> \usr\ast\mailbox</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">UNIX</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain">    </span><span class="token operator" style="color:hsl(207, 82%, 66%)">/</span><span class="token plain">usr</span><span class="token operator" style="color:hsl(207, 82%, 66%)">/</span><span class="token plain">ast</span><span class="token operator" style="color:hsl(207, 82%, 66%)">/</span><span class="token plain">mailbox </span><span class="token comment" style="color:hsl(220, 10%, 40%)">// 一般记(用)这个</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">MULTICS</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">&gt;</span><span class="token plain">usr</span><span class="token operator" style="color:hsl(207, 82%, 66%)">&gt;</span><span class="token plain">ast</span><span class="token operator" style="color:hsl(207, 82%, 66%)">&gt;</span><span class="token plain">mailbox</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">C++</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</div>
+<p>无论采用哪种系统, 如果路径名的第一个字符是对应的路径分隔符(<code>/</code>、<code>\</code>、<code>&gt;</code>), 则该路径名即为绝对路径名。</p>
+<p>另外一种用于指定文件名的方法是采用“相对路径名(relative path name)”, 这种方法通常与“工作目录(working directory)”或“当前目录(current directory)”相结合使用。用户可以选择一个目录作为当前的工作目录, 随后在引用文件时, 可以使用相对于这个工作目录的路径。</p>
+<hr>
+<p>尽管相对路径和绝对路径在表现形式上有所不同, 但它们所实现的功能是完全相同的。相对路径通过简化路径名的表示方式, 提高了用户在处理文件时的效率和便捷性。</p>
+<p>在计算机文件系统中, 一些程序需要访问特定的文件, 而无需关心当前的工作目录。为了实现这一点, 程序会使用绝对路径名来定位文件。绝对路径名是从根目录开始, 依次经过各个子目录, 最终到达目标文件的完整路径。</p>
+<p>大多数支持层次目录结构的操作系统中, 每个目录都包含两个特殊的目录项: <code>.</code>和<code>..</code>。<code>.</code>代表当前目录, 而<code>..</code>代表其父目录(在根目录中, <code>..</code>指向自身)。这些特殊目录项在文件路径的解析中起着重要作用。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="14-目录操作">1.4 目录操作<a href="#14-目录操作" class="hash-link" aria-label="1.4 目录操作的直接链接" title="1.4 目录操作的直接链接">​</a></h3>
+<p>为了探讨目录管理系统调用的种类及其工作机制, 可以参考 UNIX 系统中的实践案例。以下是 UNIX 系统中用于管理目录的主要系统调用:</p>
+<ol>
+<li>
+<p>创建目录(<code>mkdir</code> 或 <code>create</code>)</p>
+<ul>
+<li>用途: 新建一个目录。</li>
+<li>特点: 新创建的目录包含两个特殊的目录项:
+<ul>
+<li><code>.</code>: 代表当前目录。</li>
+<li><code>..</code>: 代表父目录。</li>
+</ul>
+</li>
+<li>这些特殊目录项是目录结构的基础, 通常不允许被删除。</li>
+</ul>
+</li>
+<li>
+<p>删除目录(<code>rmdir</code> 或 <code>delete</code>)</p>
+<ul>
+<li>用途: 移除一个目录。</li>
+<li>限制条件: 目录必须为空, 仅包含 <code>.</code> 和 <code>..</code> 时被视为空目录。</li>
+<li>注意: 即使删除目录, 这两个特殊目录项也不会被删除, 以保持目录结构的完整性。</li>
+</ul>
+</li>
+<li>
+<p>打开目录(<code>opendir</code>)</p>
+<ul>
+<li>用途: 在读取目录内容之前打开目录。</li>
+<li>作用: 如需列出某目录中的所有文件, 需先调用 <code>opendir</code> 打开目录。</li>
+</ul>
+</li>
+<li>
+<p>关闭目录(<code>closedir</code>)</p>
+<ul>
+<li>用途: 在完成目录内容的读取后, 关闭目录。</li>
+<li>功能: 释放内部表空间和其他相关资源。</li>
+</ul>
+</li>
+<li>
+<p>读取目录(<code>readdir</code>)</p>
+<ul>
+<li>用途: 返回打开目录中的下一个目录项。</li>
+<li>优势: 与早期的 <code>read</code> 系统调用相比, <code>readdir</code> 不需要程序员了解或处理目录的内部结构, 返回统一格式的目录项, 简化编程。</li>
+</ul>
+</li>
+<li>
+<p>重命名目录(<code>rename</code>)</p>
+<ul>
+<li>用途: 为目录更换新名称。</li>
+<li>特点: 目录的重命名方式与文件类似。</li>
+</ul>
+</li>
+<li>
+<p>创建硬链接(<code>link</code>)</p>
+<ul>
+<li>用途: 在多个目录中为同一文件创建链接。</li>
+<li>方法:
+<ul>
+<li>指定已存在的文件和一个新路径名。</li>
+<li>通过链接, 文件可以在多个目录中被访问。</li>
+</ul>
+</li>
+<li>特性: 这种链接称为硬链接(Hard Link)。</li>
+</ul>
+</li>
+<li>
+<p>删除链接(<code>unlink</code>)</p>
+<ul>
+<li>用途: 删除一个目录项(即文件或目录的链接)。</li>
+<li>特性:
+<ul>
+<li>如果文件只有一个链接, 则删除该文件及其内容。</li>
+<li>如果文件有多个链接, <code>unlink</code> 仅删除指定路径名的链接, 而不影响其他链接。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="二文件系统的实现">二、文件系统的实现<a href="#二文件系统的实现" class="hash-link" aria-label="二、文件系统的实现的直接链接" title="二、文件系统的实现的直接链接">​</a></h2>
+<blockquote>
+<p>在掌握了文件的基本概念之后, 我们的关注点将转向文件系统的具体“实现”层面。以往, 用户主要关注的是文件的命名规则、可执行的操作类型、目录树的结构, 以及如何准确地定位文件路径等问题。然而, 对于文件系统的设计人员而言, 他们更为关心的是文件和目录在物理存储层面的组织方式、磁盘空间的有效管理策略, 以及如何确保文件系统的高效顺畅运行。接下来, 我们将深入探讨这些核心议题。</p>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="21-文件系统布局">2.1 文件系统布局<a href="#21-文件系统布局" class="hash-link" aria-label="2.1 文件系统布局的直接链接" title="2.1 文件系统布局的直接链接">​</a></h3>
+<p>文件系统被存储在磁盘之中。磁盘通常可以划分为一个或多个区域, 这些区域被称为<code>磁盘分区(disk partitioning)</code>或<code>磁盘分片(disk slicing)</code>。每个分区都拥有独立的文件系统, 并且这些文件系统的类型可以各不相同。</p>
+<p>在磁盘的起始位置, 即<code>0号扇区</code>, 存在一个特殊的区域叫做<code>主引导记录(Master Boot Record, MBR)</code>。MBR的主要职责是<code>引导(boot)</code>计算机启动。在MBR的末尾部分, 紧跟着一个<code>分区表(partition table)</code>, 该表详细记录了磁盘上每个分区的起始和结束地址。系统管理员会借助一种名为分区编辑器的工具来创建、调整大小、删除以及管理这些分区。然而, 传统的分区方式存在一个显著的缺陷: 调整分区大小的过程相对复杂且困难。这往往导致一种情况出现: 一个分区拥有大量的未使用空间, 而另一个分区则几乎被完全占用, 空间分配极不均衡。</p>
+<blockquote>
+<p>例如, 假设我们有一个1TB的硬盘, 最初被划分为两个分区: C盘和D盘。随着时间的推移, C盘上的数据不断增长, 导致其空间变得紧张, 而D盘却还有大量的空闲空间。在这种情况下, 如果我们想要从D盘划分一些空间给C盘使用, 就需要进行复杂的分区调整操作, 这可能会涉及到数据的备份、恢复以及分区的重新划分, 过程繁琐且存在风险。</p>
+</blockquote>
+<p>因此, 为了更加灵活地管理磁盘空间, 现代操作系统和磁盘管理工具开始支持更为先进的分区和卷管理技术, 如<code>动态磁盘(Dynamic Disks)</code>和<code>逻辑卷管理(Logical Volume Manager, LVM)</code>, 这些技术允许我们在不重新划分分区的情况下动态地调整卷的大小和分配。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="PixPin_2025-01-18_23-40-38.png" src="/HXLoLi/assets/images/PixPin_2025-01-18_23-40-38-ab4d870854d012bf754086583bd59c7e.png" width="2280" height="951"></td></tr></tbody></table>
+<p>上图展示了一个使用 GParted 工具进行分区管理的计算机硬盘界面。在这个界面中, 我们可以看到多个分区, 它们都被视为“活动的(active)”, 意味着它们当前处于可用状态并可以被操作系统访问。</p>
+<p>具体来说, 该硬盘(以<code>/dev/sda</code>标识)的总容量为931.51 GiB, 上面划分了多个分区, 每个分区都有自己独特的名称、文件系统类型、挂载点(Mount Point)、标签(Label)、大小、已使用空间和未使用空间等信息。例如, <code>/dev/sda1</code>是一个EFI系统分区, 采用fat32 文件系统, 挂载在<code>/boot/efi</code>目录下, 标签为<code>SYSTEM_DRV</code>, 大小为260.00 MiB, 其中已使用49.77 MiB, 未使用210.23 MiB, 并且被标记为<code>boot</code>和<code>esp</code>, 这表明它是用于启动系统的关键分区。</p>
+<p>以下为流程图:</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>计算机启动</mtext><mo stretchy="false">(</mo><mi>B</mi><mi>I</mi><mi>O</mi><mi>S</mi><mo stretchy="false">)</mo><mspace linebreak="newline"></mspace><mo>↓</mo><mspace linebreak="newline"></mspace><mtext>读取</mtext><mi>M</mi><mi>B</mi><mi>R</mi><mo stretchy="false">(</mo><mi mathvariant="normal">/</mi><mi>d</mi><mi>e</mi><mi>v</mi><mi mathvariant="normal">/</mi><mi>s</mi><mi>d</mi><mi>a</mi><mo stretchy="false">)</mo><mspace linebreak="newline"></mspace><mo>↓</mo><mspace linebreak="newline"></mspace><mtext>分区表加载成功？</mtext><mspace linebreak="newline"></mspace><mrow><mo fence="true">{</mo><mtable rowspacing="0.36em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>是:</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>加载操作系统</mtext></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mo lspace="0em" rspace="0em">↓</mo></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>加载用户数据和应用程序</mtext></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>否:</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>显示错误信息</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">计算机启动 (BIOS) \\
+\downarrow \\
+读取 MBR (/dev/sda) \\
+\downarrow \\
+\text{分区表加载成功？} \\
+\begin{cases}
+\text{是:} &amp; \text{加载操作系统} \\
+&amp; \downarrow \\
+&amp; \text{加载用户数据和应用程序} \\
+\text{否:} &amp; \text{显示错误信息} \\
+\end{cases}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord cjk_fallback">计算机启动</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em">B</span><span class="mord mathnormal" style="margin-right:0.07847em">I</span><span class="mord mathnormal" style="margin-right:0.05764em">OS</span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em"></span><span class="mrel">↓</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord cjk_fallback">读取</span><span class="mord mathnormal" style="margin-right:0.00773em">MBR</span><span class="mopen">(</span><span class="mord">/</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em">v</span><span class="mord">/</span><span class="mord mathnormal">s</span><span class="mord mathnormal">d</span><span class="mord mathnormal">a</span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em"></span><span class="mrel">↓</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord text"><span class="mord cjk_fallback">分区表加载成功？</span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:5.76em;vertical-align:-2.63em"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.95em"><span style="top:-1.6em"><span class="pstrut" style="height:3.15em"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-1.592em"><span class="pstrut" style="height:3.15em"></span><span style="height:0.916em;width:0.8889em"><svg xmlns="http://www.w3.org/2000/svg" width="0.8889em" height="0.916em" style="width:0.8889em" viewBox="0 0 888.89 916" preserveAspectRatio="xMinYMin"><path d="M384 0 H504 V916 H384z M384 0 H504 V916 H384z"></path></svg></span></span><span style="top:-3.15em"><span class="pstrut" style="height:3.15em"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.292em"><span class="pstrut" style="height:3.15em"></span><span style="height:0.916em;width:0.8889em"><svg xmlns="http://www.w3.org/2000/svg" width="0.8889em" height="0.916em" style="width:0.8889em" viewBox="0 0 888.89 916" preserveAspectRatio="xMinYMin"><path d="M384 0 H504 V916 H384z M384 0 H504 V916 H384z"></path></svg></span></span><span style="top:-5.2em"><span class="pstrut" style="height:3.15em"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.45em"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.13em"><span style="top:-5.13em"><span class="pstrut" style="height:3.008em"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">是</span><span class="mord">:</span></span></span></span><span style="top:-3.69em"><span class="pstrut" style="height:3.008em"></span><span class="mord"></span></span><span style="top:-2.25em"><span class="pstrut" style="height:3.008em"></span><span class="mord"></span></span><span style="top:-0.81em"><span class="pstrut" style="height:3.008em"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">否</span><span class="mord">:</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.63em"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.13em"><span style="top:-5.13em"><span class="pstrut" style="height:3.008em"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">加载操作系统</span></span></span></span><span style="top:-3.69em"><span class="pstrut" style="height:3.008em"></span><span class="mord"><span class="mrel">↓</span></span></span><span style="top:-2.25em"><span class="pstrut" style="height:3.008em"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">加载用户数据和应用程序</span></span></span></span><span style="top:-0.81em"><span class="pstrut" style="height:3.008em"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">显示错误信息</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.63em"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="22-引导块">2.2 引导块<a href="#22-引导块" class="hash-link" aria-label="2.2 引导块的直接链接" title="2.2 引导块的直接链接">​</a></h3>
+<p>在计算机启动的过程中, MBR(主引导记录)扮演着至关重要的角色。其首要任务是“确定活动分区”。在这一步骤中, MBR会识别并选定一个特定的分区作为启动分区, 这个分区通常被称为活动分区。紧接着, MBR会读取该活动分区的第一个块, 这个块被专门称为“引导块(boot block)”。</p>
+<p>引导块, 作为文件系统的起始部分, 占据了前4096个字节的空间, 从磁盘的字节偏移量0处开始。这个区域的重要性不言而喻, 因为它包含了用于启动操作系统的关键程序。当MBR成功读取并执行引导块中的程序时, 这些程序会进一步加载并运行活动分区中的操作系统。</p>
+<p>值得注意的是, 为了确保文件系统的一致性, 每个分区都会从引导块开始布局。这意味着, 即使某个分区的引导块并不包含操作系统(例如, 它可能是一个数据分区), 该分区仍然会保留这个引导块的结构。这样的设计有助于简化磁盘管理和维护, 因为系统可以统一地处理所有分区, 而无需区分它们是否包含操作系统。</p>
+<blockquote>
+<p>举例来说, 在一个安装了Windows和Linux双系统的计算机上, MBR会识别并选择一个活动分区来启动。如果选择了Windows作为活动分区, 那么MBR会读取并执行Windows分区中的引导块, 进而加载并启动Windows操作系统。同样地, 如果选择了Linux作为活动分区, 那么MBR会执行Linux分区中的引导块来启动Linux。</p>
+</blockquote>
+<p>磁盘分区的布局并非一成不变, 而是会根据所采用的文件系统类型有所差异。不过, 它们通常都会遵循一个共同的起始点——引导块。紧接着引导块之后的关键组成部分是“超级块(Superblock)”。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="PixPin_2025-01-18_23-50-34.png ##w500##" src="/HXLoLi/assets/images/PixPin_2025-01-18_23-50-34-b11c61c34cb0c7a70f8a303daa80d502.png" width="1174" height="758" style="width:500px"></td></tr><tr><td style="text-align:center">文件系统布局</td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="23-超级块">2.3 超级块<a href="#23-超级块" class="hash-link" aria-label="2.3 超级块的直接链接" title="2.3 超级块的直接链接">​</a></h3>
+<p>超级块是一个重要的数据结构, 占据磁盘上字节偏移 4096 开始的 4096 字节区域。它存储了文件系统的核心参数, 是文件系统正常运行的关键。</p>
+<p>超级块包含的信息:</p>
+<ol>
+<li><strong>文件系统的大小</strong>: 指明文件系统的总容量, 例如支持 1TB 存储空间。</li>
+<li><strong>数据块总数</strong>: 记录文件系统中数据块的数量, 用于数据存储和管理。</li>
+<li><strong>文件系统状态标志</strong>: 指示当前状态(如已满、只读), 提供文件系统健康状况的反馈。</li>
+<li><strong>分配组大小</strong>: 记录分配组的大小, 以优化文件存储和检索效率。</li>
+</ol>
+<p><strong>超级块的作用</strong>:</p>
+<ul>
+<li>当计算机启动或文件系统挂载(mount)时, 超级块会被加载到内存。操作系统通过解析其中的信息, 了解文件系统的结构和参数, 从而实现高效的存储管理。</li>
+</ul>
+<blockquote>
+<p>例如, Linux 在挂载 ext4 文件系统时会读取超级块, 了解文件系统的容量、数据块数量、状态标志和分配组大小等信息。在此基础上, 操作系统能够实现文件的创建、删除、读取和写入等操作。</p>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="24-空闲空间块">2.4 空闲空间块<a href="#24-空闲空间块" class="hash-link" aria-label="2.4 空闲空间块的直接链接" title="2.4 空闲空间块的直接链接">​</a></h3>
+<p>接着是文件系统中空闲块的信息, 在文件系统中, 关于“空闲块”的信息是至关重要的, 它帮助系统追踪哪些磁盘块是可用的, 哪些已经被分配。为了有效地管理这些信息, 文件系统可以采用多种数据结构, 其中位图(BitMap)或位向量(Bit vector)是两种常见的方法。</p>
+<p>位图或位向量由一系列位(bit)组成, 每个位都对应一个磁盘块。这些位可以取两个值: 0或1。在位图中, <code>0</code>通常表示对应的磁盘块 <strong>已被分配</strong>, 而<code>1</code>则表示该磁盘块是<strong>空闲的</strong>。这种表示方法简洁明了, 非常适合用于快速查找和标记空闲块。</p>
+<p>以下是一个具体的例子来说明位图的应用。假设我们有一个包含16个磁盘块的磁盘(如图片所示, 这些磁盘块被标记为Block1到Block16)。如果其中一些磁盘块已经被分配(在图片中以绿色标签表示), 而其他磁盘块仍然是空闲的, 那么我们可以使用一个16位的位图来表示这个状态。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="PixPin_2025-01-18_23-54-40.png ##w300##" src="/HXLoLi/assets/images/PixPin_2025-01-18_23-54-40-42bde24098a2be5e7b3ffcc3f2ee7b43.png" width="490" height="806" style="width:300px"></td></tr></tbody></table>
+<p>例如, 假设Block1、Block2、Block9、Block10、Block13和Block14已经被分配, 而其他磁盘块都是空闲的。那么, 这个状态可以用以下的16位位图来表示: 0000 1110 0000 0110。在这个位图中, 前两位是0(表示Block1和Block2已被分配), 接下来的四位是1110(表示Block3、Block4、Block5和Block6是空闲的), 以此类推。</p>
+<p>通过这种方法, 文件系统可以快速地查询和更新空闲块的信息, 从而确保磁盘空间的有效利用。位图或位向量的使用不仅提高了文件系统的性能, 还简化了空闲块的管理过程。</p>
+<hr>
+<p><strong>使用链表进行管理</strong></p>
+<p>在磁盘空间管理中, 一种高效的方法是采用空闲块链表。这种方法中, 空闲的磁盘块被链接在一起, 形成一个链表结构。每个空闲块都包含一个指向下一个空闲块的指针, 从而形成一个连续的链。</p>
+<p>链表的起始点, 即第一个空闲块, 其块号被特别存储在磁盘上的一个独立位置。这个位置通常是文件系统的元数据区, 用于记录文件系统的关键信息。此外, 为了提高访问速度, 这个块号还会被缓存在内存中。当系统需要分配或释放磁盘空间时, 可以直接从内存中访问这个块号, 从而快速定位到链表的起始点。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="PixPin_2025-01-18_23-56-25.png ##w400##" src="/HXLoLi/assets/images/PixPin_2025-01-18_23-56-25-3a27610aba84cc0658dc28d224f9f458.png" width="724" height="792" style="width:400px"></td></tr></tbody></table>
+<p>假设我们有一个磁盘, 其上分布着多个磁盘块, 分别标记为&#x27;Block1&#x27;、&#x27;Block2&#x27;、&#x27;Block3&#x27;等。在磁盘的某个位置, 我们存储了第一个空闲块的块号, 比如说是&#x27;Block1&#x27;。同时, 这个块号也被缓存在内存中。</p>
+<p>现在, &#x27;Block5&#x27;作为链表的起始点, 它包含一个指向下一个空闲块的指针, 比如说
+是&#x27;Block6&#x27;。&#x27;Block6&#x27;又包含一个指向&#x27;Block7&#x27;的指针, 以此类推。这样, 就形成了一个由空闲块组成的链表。</p>
+<p>空闲块链表是一种高效管理磁盘空间的方法。它通过将空闲块链接在一起, 形成了一个连续的链表结构, 从而方便系统快速定位和分配空闲块。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="25-碎片">2.5 碎片<a href="#25-碎片" class="hash-link" aria-label="2.5 碎片的直接链接" title="2.5 碎片的直接链接">​</a></h3>
+<p>在探讨数据存储和管理时, 我们不得不提及一个关键概念——“碎片(fragment)”, 也被称为片段。碎片通常指的是那些零散分布的单个数据单元。在磁盘存储的上下文中, 磁盘块可以被进一步划分为固定大小的分配单元, 而碎片则是指那些由于文件被分割存储而在驱动器上不相邻的文件片段。</p>
+<p>假设你正在使用一台Windows电脑, 并创建了一个新的文件。这个文件可以被你保存在任何位置, 比如桌面、磁盘中的某个文件夹, 或者其他任何你指定的地方。你可以自由地打开、编辑、删除这个文件, 而无需关心其底层的存储细节。</p>
+<p>然而, 文件的存储并不像我们想象的那样简单。由于磁盘空间的分配和管理机制, 硬盘驱动器可能会将文件的不同部分存储在不同的区域。这意味着, 即使你看到一个完整的文件, 它的各个部分可能实际上分散在硬盘的不同位置。</p>
+<p>当你需要打开这个文件时, 硬盘驱动器会迅速地进行一系列操作, 将这些分散的文件片段汇总在一起, 以便你的计算机系统可以像处理一个完整文件那样来处理它。这个过程通常被称为“<strong>文件碎片整理</strong>”, 尽管在现代操作系统中, 文件的读取和写入操作通常是由文件系统自动管理的, 用户无需手动进行碎片整理。</p>
+<p>文件碎片可能会对系统的性能产生负面影响。当文件被分散存储在多个位置时, 硬盘驱动器需要花费更多的时间来定位和读取这些片段, 从而导致文件访问速度变慢。因此, 一些操作系统提供了碎片整理工具, 用于定期将分散的文件片段重新组织在一起, 以提高系统的整体性能。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="PixPin_2025-01-18_23-59-24.png ##w500##" src="/HXLoLi/assets/images/PixPin_2025-01-18_23-59-24-210f676ca11179cec3d9fb8865d38216.png" width="1290" height="951" style="width:500px"></td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="26-inode">2.6 inode<a href="#26-inode" class="hash-link" aria-label="2.6 inode的直接链接" title="2.6 inode的直接链接">​</a></h3>
+<p>在文件系统中, <code>inode(index node)</code>, 也被称为索引节点, 扮演着至关重要的角色。它是一个复杂的数据结构, 通常以数组的形式存在, 每个文件在文件系统中都对应着一个唯一的inode。inode的重要性不言而喻, 因为它详细记录了文件的各项属性和信息。</p>
+<p>具体来说, 每个索引节点(inode)都存储着与其关联的对象数据的属性, 以及这些数据在磁盘上的块位置。这些属性包括但不限于:</p>
+<ul>
+<li>
+<p><strong>模式/权限(保护)</strong>: 这决定了文件的访问权限, 比如哪些用户或组可以读取、写入或执行该文件。</p>
+</li>
+<li>
+<p><strong>所有者ID</strong>: 这标识了文件的拥有者, 通常是一个用户账号。</p>
+</li>
+<li>
+<p><strong>组ID</strong>: 这标识了文件所属的组, 组内的用户可能拥有特定的访问权限。</p>
+</li>
+<li>
+<p><strong>文件大小</strong>: 这表示文件占用的磁盘空间大小。</p>
+</li>
+<li>
+<p><strong>文件的硬链接数</strong>: 这表示链接到该文件的硬链接数量。当硬链接数为0时, 文件将被删除。</p>
+</li>
+<li>
+<p><strong>上次访问时间</strong>: 这记录了文件最后一次被访问的时间。</p>
+</li>
+<li>
+<p><strong>最后修改时间</strong>: 这记录了文件内容最后一次被修改的时间。</p>
+</li>
+<li>
+<p><strong>inode上次修改时间</strong>: 这记录了inode本身最后一次被修改的时间, 比如权限或属性的更改。</p>
+</li>
+</ul>
+<p>要查找系统中的inode, 可以使用<code>ls -lai</code>命令。这个命令会列出当前目录下的所有文件和目录, 包括它们的inode号、权限、所有者、组、大小、链接数以及时间戳等信息。</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-sh codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"> root@Loli  ~/HXcode/HXLibs   main  </span><span class="token function" style="color:hsl(207, 82%, 66%)">ls</span><span class="token plain"> </span><span class="token parameter variable" style="color:hsl(207, 82%, 66%)">-lai</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">total </span><span class="token number" style="color:hsl(29, 54%, 61%)">36</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">74489</span><span class="token plain"> drwxr-xr-x </span><span class="token number" style="color:hsl(29, 54%, 61%)">1</span><span class="token plain"> root root   </span><span class="token number" style="color:hsl(29, 54%, 61%)">242</span><span class="token plain"> Jan </span><span class="token number" style="color:hsl(29, 54%, 61%)">18</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">16</span><span class="token plain">:32 </span><span class="token builtin class-name" style="color:hsl(29, 54%, 61%)">.</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">74077</span><span class="token plain"> drwxr-xr-x </span><span class="token number" style="color:hsl(29, 54%, 61%)">1</span><span class="token plain"> root root   </span><span class="token number" style="color:hsl(29, 54%, 61%)">362</span><span class="token plain"> Jan </span><span class="token number" style="color:hsl(29, 54%, 61%)">13</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">14</span><span class="token plain">:56 </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">..</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token number" style="color:hsl(29, 54%, 61%)">313408</span><span class="token plain"> drwxr-xr-x </span><span class="token number" style="color:hsl(29, 54%, 61%)">1</span><span class="token plain"> root root   </span><span class="token number" style="color:hsl(29, 54%, 61%)">258</span><span class="token plain"> Jan </span><span class="token number" style="color:hsl(29, 54%, 61%)">18</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">20</span><span class="token plain">:41 build</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">74539</span><span class="token plain"> drwxr-xr-x </span><span class="token number" style="color:hsl(29, 54%, 61%)">1</span><span class="token plain"> root root    </span><span class="token number" style="color:hsl(29, 54%, 61%)">62</span><span class="token plain"> Oct </span><span class="token number" style="color:hsl(29, 54%, 61%)">17</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">13</span><span class="token plain">:35 certs</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token number" style="color:hsl(29, 54%, 61%)">252351</span><span class="token plain"> drwxr-xr-x </span><span class="token number" style="color:hsl(29, 54%, 61%)">1</span><span class="token plain"> root root   </span><span class="token number" style="color:hsl(29, 54%, 61%)">200</span><span class="token plain"> Jan </span><span class="token number" style="color:hsl(29, 54%, 61%)">13</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">23</span><span class="token plain">:40 cmake</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">74540</span><span class="token plain"> drwxr-xr-x </span><span class="token number" style="color:hsl(29, 54%, 61%)">1</span><span class="token plain"> root root   </span><span class="token number" style="color:hsl(29, 54%, 61%)">100</span><span class="token plain"> Jan </span><span class="token number" style="color:hsl(29, 54%, 61%)">10</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">16</span><span class="token plain">:30 documents</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">sh</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>文件在文件系统中的存储结构通常分为两部分: <code>索引节点(inode)</code>和<code>块(block)</code>。一旦文件被创建, 其包含的块数就是固定的。这意味着, 我们不能在现有的分区上增加inode的数量, 也不能增加磁盘块的数量(除非进行分区扩展或重新格式化)</p>
+<p>紧跟在inode结构之后的是<code>根目录(root directory)</code>。根目录是文件系统目录树的起点, 它包含了指向其他所有目录和文件的指针。换句话说, 根目录是文件系统的“入口点”, 通过它可以访问到文件系统中的所有内容。</p>
+<p>最后, 磁盘的剩余部分用于存放除根目录以外的其他所有目录和文件。这些目录和文件通过链表等数据结构相互连接, 形成了一个庞大的文件系统网络。</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>Inode Table 与 Data Blocks:</summary><div><div class="collapsibleContent_i85q">
+<!-- -->
+<blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="inode-table-与-data-blocks">Inode Table 与 Data Blocks<a href="#inode-table-与-data-blocks" class="hash-link" aria-label="Inode Table 与 Data Blocks的直接链接" title="Inode Table 与 Data Blocks的直接链接">​</a></h3>
+<p>在磁盘存储系统中, 文件由两部分组成: <strong>文件属性</strong>和<strong>文件数据</strong>。</p>
+<ul>
+<li><strong>Inode Table</strong>: 存放文件的属性信息。</li>
+<li><strong>Data Blocks</strong>: 存储文件的具体数据。</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="data-blocks">Data Blocks<a href="#data-blocks" class="hash-link" aria-label="Data Blocks的直接链接" title="Data Blocks的直接链接">​</a></h4>
+<p>Data Blocks 是文件的实际存储区域, 由多个数据块组成, 每个数据块都有唯一编号。所有数据块共同构成文件的内容。</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="inode-table">Inode Table<a href="#inode-table" class="hash-link" aria-label="Inode Table的直接链接" title="Inode Table的直接链接">​</a></h4>
+<p>Inode Table 是一个索引表, 每个 inode(索引节点)记录了一个文件的属性信息, 包括:</p>
+<ul>
+<li>文件大小</li>
+<li>文件权限</li>
+<li>所有者等属性</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="inode-的工作原理">Inode 的工作原理<a href="#inode-的工作原理" class="hash-link" aria-label="Inode 的工作原理的直接链接" title="Inode 的工作原理的直接链接">​</a></h4>
+<ol>
+<li>
+<p><strong>创建文件</strong>:</p>
+<ul>
+<li>系统找到一个空闲的 inode, 并将文件属性填充到该 inode 中。</li>
+<li>向文件写入数据时, 系统找到一个空闲数据块, 将数据写入, 并将 inode 与数据块关联。</li>
+</ul>
+</li>
+<li>
+<p><strong>关联方式</strong>:</p>
+<ul>
+<li>inode 结构体中维护一个指向数据块的指针数组(blocks 数组)。</li>
+<li>blocks 数组记录了与 inode 关联的所有数据块编号。</li>
+</ul>
+</li>
+<li>
+<p><strong>唯一标识</strong>:</p>
+<ul>
+<li>每个文件都有唯一的 inode 编号, 是文件的真正标识。</li>
+<li>即使文件名改变或删除, 只要 inode 编号未变, 文件内容仍可访问。</li>
+</ul>
+</li>
+</ol>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="文件访问流程">文件访问流程<a href="#文件访问流程" class="hash-link" aria-label="文件访问流程的直接链接" title="文件访问流程的直接链接">​</a></h4>
+<ol>
+<li>系统根据文件的 inode 编号, 在 inode Table 中找到对应的 inode。</li>
+<li>通过 inode 的 blocks 数组找到关联的数据块编号。</li>
+<li>在 Data Blocks 中找到对应的数据块并读取内容。</li>
+</ol>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="动态扩展机制">动态扩展机制<a href="#动态扩展机制" class="hash-link" aria-label="动态扩展机制的直接链接" title="动态扩展机制的直接链接">​</a></h4>
+<ul>
+<li>当 blocks 数组空间不足时, 系统通过链接等方式扩展数组容量, 以支持更多数据块。</li>
+<li>这种机制增加了复杂性, 但提高了文件存储的灵活性。</li>
+</ul>
+</blockquote>
+</div></div></details></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/docs/001-计佬常識/004-操作系统/005-文件系统/002-目录结构和文件系统结构/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-04-28T14:52:39.000Z" itemprop="dateModified">2025年4月28日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/docs/计佬常識/操作系统/文件系统/文件系统概述及文件概念"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">文件系统概述及文件概念</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/docs/计佬常識/操作系统/文件系统/文件系统实现"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">文件系统实现</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#一目录" class="table-of-contents__link toc-highlight">一、目录</a><ul><li><a href="#11-一级目录系统" class="table-of-contents__link toc-highlight">1.1 一级目录系统</a></li><li><a href="#12-层次目录系统" class="table-of-contents__link toc-highlight">1.2 层次目录系统</a></li><li><a href="#13-路径名" class="table-of-contents__link toc-highlight">1.3 路径名</a></li><li><a href="#14-目录操作" class="table-of-contents__link toc-highlight">1.4 目录操作</a></li></ul></li><li><a href="#二文件系统的实现" class="table-of-contents__link toc-highlight">二、文件系统的实现</a><ul><li><a href="#21-文件系统布局" class="table-of-contents__link toc-highlight">2.1 文件系统布局</a></li><li><a href="#22-引导块" class="table-of-contents__link toc-highlight">2.2 引导块</a></li><li><a href="#23-超级块" class="table-of-contents__link toc-highlight">2.3 超级块</a></li><li><a href="#24-空闲空间块" class="table-of-contents__link toc-highlight">2.4 空闲空间块</a></li><li><a href="#25-碎片" class="table-of-contents__link toc-highlight">2.5 碎片</a></li><li><a href="#26-inode" class="table-of-contents__link toc-highlight">2.6 inode</a></li><li><a href="#inode-table-与-data-blocks" class="table-of-contents__link toc-highlight">Inode Table 与 Data Blocks</a><ul><li><a href="#data-blocks" class="table-of-contents__link toc-highlight">Data Blocks</a></li><li><a href="#inode-table" class="table-of-contents__link toc-highlight">Inode Table</a></li><li><a href="#inode-的工作原理" class="table-of-contents__link toc-highlight">Inode 的工作原理</a></li><li><a href="#文件访问流程" class="table-of-contents__link toc-highlight">文件访问流程</a></li><li><a href="#动态扩展机制" class="table-of-contents__link toc-highlight">动态扩展机制</a></li></ul></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>

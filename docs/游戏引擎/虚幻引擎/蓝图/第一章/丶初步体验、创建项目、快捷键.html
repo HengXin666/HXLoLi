@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-游戏引擎/虚幻引擎/蓝图/第一章/丶初步体验、创建项目、快捷键/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">1.2 初步体验虚幻引擎: 熟悉常用操作 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶初步体验、创建项目、快捷键"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="1.2 初步体验虚幻引擎: 熟悉常用操作 | HXLoLi"><meta data-rh="true" name="description" content="1.2.1 直接启动虚幻引擎"><meta data-rh="true" property="og:description" content="1.2.1 直接启动虚幻引擎"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶初步体验、创建项目、快捷键"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶初步体验、创建项目、快捷键" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶初步体验、创建项目、快捷键" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.38e40bb0.css">
+<script src="/HXLoLi/assets/js/runtime~main.8b732061.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.b8a270d9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/default_folder.svg"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计佬常識</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">程序语言</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">游戏引擎</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">虚幻引擎</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录">【虚幻】目录</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶虚幻引擎的安装与文件命名规范与版本管理"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">蓝图</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶虚幻引擎的安装与文件命名规范与版本管理"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第一章</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶虚幻引擎的安装与文件命名规范与版本管理">丶虚幻引擎的安装与文件命名规范与版本管理</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶初步体验、创建项目、快捷键">丶初步体验、创建项目、快捷键</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶修改派生缓存路径">丶修改派生缓存路径</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶蓝图基础，组件机制，创建一个发光的发射物">丶蓝图基础，组件机制，创建一个发光的发射物</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶函数与参数，复制与继承，发射不同颜色的球">丶函数与参数，复制与继承，发射不同颜色的球</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶触发区域，当球进入区域时，发出秒绿光">丶触发区域，当球进入区域时，发出秒绿光</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶蓝图调试，两种延迟，用类型转换判断角色">丶蓝图调试，两种延迟，用类型转换判断角色</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶简单UI，自定义事件，变量计算，得分显示">丶简单UI，自定义事件，变量计算，得分显示</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶地图触发器，摄像机控制，后期盒子，关卡蓝图">丶地图触发器，摄像机控制，后期盒子，关卡蓝图</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶虚幻商城，免费资源导入">丶虚幻商城，免费资源导入</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶播放特效、自制特效，发射冰球，销毁actor">丶播放特效、自制特效，发射冰球，销毁actor</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶外部资源导入音乐图片模型动画">丶外部资源导入音乐图片模型动画</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶游戏打包到电脑、VS安装、独立运行游戏">丶游戏打包到电脑、VS安装、独立运行游戏</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶补充资产库Quixel丶Bridge介绍">丶补充资产库Quixel丶Bridge介绍</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第二章/丶做一个完整俯视角动作游戏"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第二章</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第三章/丶理解蓝图，全局通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第三章</div><div style="flex:1"></div></div></a></div></li></ul></li></ul></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/DevOps与版本控制/Linux/【Linux】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">DevOps与版本控制</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">中间件</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/数据库/MySQL数据库/とある「MySQL」の禁庫目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据库</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/刷题日志/做题记录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">刷题日志</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/嵌入式/杂项/IC通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">嵌入式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/Game/MineCraft/服务器/脚本"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Game</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/HXLoLi/docs/关于">关于</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">游戏引擎</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">虚幻引擎</span><meta itemprop="position" content="2"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">蓝图</span><meta itemprop="position" content="3"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">第一章</span><meta itemprop="position" content="4"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">丶初步体验、创建项目、快捷键</span><meta itemprop="position" content="5"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>1.2 初步体验虚幻引擎: 熟悉常用操作</h1></header>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="121-直接启动虚幻引擎">1.2.1 直接启动虚幻引擎<a href="#121-直接启动虚幻引擎" class="hash-link" aria-label="1.2.1 直接启动虚幻引擎的直接链接" title="1.2.1 直接启动虚幻引擎的直接链接">​</a></h2>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-light-bulb mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>可能会遇到需要安装.NET组件, 你安装就OK</p>
+<p>然后就是提示要允许网络什么的, 你全部允许就OK</p>
+</div>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="122-虚幻项目浏览器-界面">1.2.2 虚幻项目浏览器 界面<a href="#122-虚幻项目浏览器-界面" class="hash-link" aria-label="1.2.2 虚幻项目浏览器 界面的直接链接" title="1.2.2 虚幻项目浏览器 界面的直接链接">​</a></h2>
+<ul>
+<li>
+<p>选择: <code>游戏&gt;第三人称游戏</code>, 设置<code>项目位置</code>和<code>项目名称</code>, 注意全部使用英文或者数字, (阿斯克码字符!!!, 不然必然偶然突然出现BUG!!!)</p>
+</li>
+<li>
+<p>其他的就默认就OK, 因为你也还是可以进入到里面才设置的!</p>
+</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_15-09-16.png" src="/HXLoLi/assets/images/Clip_2024-06-02_15-09-16-2adfe22af313df041c2ba39ff01a37a8.png" width="1794" height="1200"></p>
+<blockquote>
+<p>(注: 上图的<code>项目名称</code>没有使用全英文!!!, 你要记得改!!!)</p>
+</blockquote>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="123-进入到游戏界面">1.2.3 进入到游戏界面<a href="#123-进入到游戏界面" class="hash-link" aria-label="1.2.3 进入到游戏界面的直接链接" title="1.2.3 进入到游戏界面的直接链接">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_15-24-33.png" src="/HXLoLi/assets/images/Clip_2024-06-02_15-24-33-25cde378a8d8b871fe13c74276c612ab.png" width="2560" height="1600"></p>
+<p>(注: 可能会有两个窗口, 一个是实时预览, 一个是<code>内容浏览器</code>; 你可以像我这样, 把<code>内容浏览器</code>的窗口拖到 <strong>下面</strong>, 然后就会合成为一个窗口了(或者CTRL + 空格), 固定到左下)</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="124-视野移动">1.2.4 视野移动<a href="#124-视野移动" class="hash-link" aria-label="1.2.4 视野移动的直接链接" title="1.2.4 视野移动的直接链接">​</a></h2>
+<ol>
+<li>
+<p><code>按住鼠标右键 + WASD</code>, 可以四处移动 (类似于MineCraft的旁观者模式), (当然单纯按住鼠标右键是可以移动视角的(摄像机方向)) (移动方向相对于摄像机)</p>
+</li>
+<li>
+<p><code>按住鼠标右键 + E</code>(上升), <code>按住鼠标右键 + Q</code>(下降) (均是相对于世界坐标)</p>
+</li>
+<li>
+<p><code>按住鼠标右键 + 鼠标左键</code>, 也是移动, 但是更加细致, 类似于固定摄像机视角, 然后平移</p>
+</li>
+<li>
+<p><code>按住鼠标右键 + C</code>(放大), <code>按住鼠标右键 + Z</code>(缩小(拉伸(就像高斯冲刺一样的视角))) (均是点一次放缩一个单位, 可以长按, 放开右键视角变回正常)</p>
+</li>
+</ol>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="125-自然光设置-太阳方位">1.2.5 自然光设置 (太阳方位)<a href="#125-自然光设置-太阳方位" class="hash-link" aria-label="1.2.5 自然光设置 (太阳方位)的直接链接" title="1.2.5 自然光设置 (太阳方位)的直接链接">​</a></h2>
+<p>长按<code>CTRL + L</code>, 然后移动鼠标即可, (注: 你可以使用<code>右CTRL</code>键, 而不是骂骂咧咧的说单手怎么按)</p>
+<p><img decoding="async" loading="lazy" alt="PixPin_2024-06-02_15-38-46.gif" src="/HXLoLi/assets/images/PixPin_2024-06-02_15-38-46-c71aa2df75b914fefde3b109bb1cfb09.gif" width="2560" height="1528"></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="126-反悔与反反悔-程序员最会的操作">1.2.6 反悔与反反悔 <del>(程序员最会的操作)</del><a href="#126-反悔与反反悔-程序员最会的操作" class="hash-link" aria-label="126-反悔与反反悔-程序员最会的操作的直接链接" title="126-反悔与反反悔-程序员最会的操作的直接链接">​</a></h2>
+<ul>
+<li>
+<p>CTRL + Z 是撤销 (回到上一步)</p>
+</li>
+<li>
+<p>CTRL + Y 是<del>撤销撤销</del>(回到下一步)</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="127-放置物体-与-物体的简单操作">1.2.7 放置物体 与 物体的简单操作<a href="#127-放置物体-与-物体的简单操作" class="hash-link" aria-label="1.2.7 放置物体 与 物体的简单操作的直接链接" title="1.2.7 放置物体 与 物体的简单操作的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1271-放置物体">1.2.7.1 放置物体<a href="#1271-放置物体" class="hash-link" aria-label="1.2.7.1 放置物体的直接链接" title="1.2.7.1 放置物体的直接链接">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_15-52-58.png" src="/HXLoLi/assets/images/Clip_2024-06-02_15-52-58-e5ede638ae7875086bbbdde7458b7d23.png" width="2005" height="1026"></p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1272-移动物体-轴">1.2.7.2 移动物体 &lt;轴&gt;<a href="#1272-移动物体-轴" class="hash-link" aria-label="1.2.7.2 移动物体 &lt;轴&gt;的直接链接" title="1.2.7.2 移动物体 &lt;轴&gt;的直接链接">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_15-58-39.png" src="/HXLoLi/assets/images/Clip_2024-06-02_15-58-39-a2814512a8c3c32bfae4a1ea70acc816.png" width="1714" height="812"></p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1273-旋转--缩放--单位增量">1.2.7.3 旋转 / 缩放 / 单位增量<a href="#1273-旋转--缩放--单位增量" class="hash-link" aria-label="1.2.7.3 旋转 / 缩放 / 单位增量的直接链接" title="1.2.7.3 旋转 / 缩放 / 单位增量的直接链接">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_16-07-46.png" src="/HXLoLi/assets/images/Clip_2024-06-02_16-07-46-59be855ac565d139a770111b6575f4e0.png" width="2044" height="956"></p>
+<p>大同小异</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="128-摄像机速度">1.2.8 摄像机速度<a href="#128-摄像机速度" class="hash-link" aria-label="1.2.8 摄像机速度的直接链接" title="1.2.8 摄像机速度的直接链接">​</a></h2>
+<ul>
+<li><code>鼠标右键 + 滚轮</code>也可以调节</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_16-08-39.png" src="/HXLoLi/assets/images/Clip_2024-06-02_16-08-39-f7cecb8c4ed39649f52026497ceef54a.png" width="662" height="225"></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="129-tp-物体-快速定义">1.2.9 tp 物体 (快速定义)<a href="#129-tp-物体-快速定义" class="hash-link" aria-label="1.2.9 tp 物体 (快速定义)的直接链接" title="1.2.9 tp 物体 (快速定义)的直接链接">​</a></h2>
+<p>我们可以通过<code>大纲</code>, 快速移动到物体前 (双击 或者 选择 + f)</p>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_16-12-11.png" src="/HXLoLi/assets/images/Clip_2024-06-02_16-12-11-369b861d5370ab79a382cef63f1c4a43.png" width="711" height="777"></p>
+<p>(如果你飞到无尽的虚空, 就需要用这个回来~)</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1210-选项模式">1.2.10 选项模式<a href="#1210-选项模式" class="hash-link" aria-label="1.2.10 选项模式的直接链接" title="1.2.10 选项模式的直接链接">​</a></h2>
+<p>上面的工具栏是很常见的, 我们初学, 先不用理这么细的.</p>
+<p>下面这个<code>选项模式</code>, 是我们最常用的模式, 其他的你也可以看看, 玩玩.</p>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_16-14-41.png" src="/HXLoLi/assets/images/Clip_2024-06-02_16-14-41-53836044741d7b730093ab78e66837e0.png" width="1074" height="477"></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1211-添加光源--在大纲中的布局--细节">1.2.11 添加光源 | 在大纲中的布局 | 细节<a href="#1211-添加光源--在大纲中的布局--细节" class="hash-link" aria-label="1.2.11 添加光源 | 在大纲中的布局 | 细节的直接链接" title="1.2.11 添加光源 | 在大纲中的布局 | 细节的直接链接">​</a></h2>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-light-bulb mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>当然你可以添加其他的</p>
+</div>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_16-45-57.png" src="/HXLoLi/assets/images/Clip_2024-06-02_16-45-57-a1f71a68189e0adabe3df56e023a5882.png" width="1320" height="638"></p>
+<p>在大纲中, 你可以对你的对象分类, 比如某些场景的灯, 可以统一开关(是否可见)等等...</p>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_16-48-50.png" src="/HXLoLi/assets/images/Clip_2024-06-02_16-48-50-06c4d79145c0625098c25413a56581cb.png" width="1474" height="700"></p>
+<p>可以在细节中对对象的各种属性进行微调</p>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_16-50-02.png" src="/HXLoLi/assets/images/Clip_2024-06-02_16-50-02-9e438d74b17e3246dcc5b7090e2ca73e.png" width="1402" height="1022"></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1212-保存--全部保存">1.2.12 保存 | 全部保存<a href="#1212-保存--全部保存" class="hash-link" aria-label="1.2.12 保存 | 全部保存的直接链接" title="1.2.12 保存 | 全部保存的直接链接">​</a></h2>
+<ul>
+<li>
+<p>CTRL + S -&gt; 保存当前编辑</p>
+</li>
+<li>
+<p>CTRL + SHIFT + S -&gt; 全部保存</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1213-蓝图--关卡蓝图">1.2.13 蓝图 | 关卡蓝图<a href="#1213-蓝图--关卡蓝图" class="hash-link" aria-label="1.2.13 蓝图 | 关卡蓝图的直接链接" title="1.2.13 蓝图 | 关卡蓝图的直接链接">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_16-55-06.png" src="/HXLoLi/assets/images/Clip_2024-06-02_16-55-06-0dc75cad88f3ae49fa5237384580064d.png" width="1085" height="410"></p>
+<p>我们打开关卡蓝图, 先玩一玩. (实际开发的时候很少使用这个, 的说)</p>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_16-57-12.png" src="/HXLoLi/assets/images/Clip_2024-06-02_16-57-12-af9b0e1c445cd096ef7488ac2ba6fa91.png" width="907" height="816"></p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-light-bulb mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>这里如果蓝图节点是英文的话，在上面“编辑”-“编辑器偏好设置”-“区域和语言”里把“使用本地化图表编辑器节点”打勾.<sup>[弹幕大佬的提醒]</sup></p>
+</div>
+<p>然后这样: 创建开始结点后, 在三角形处拉一条线, 搜索打印, 然后这样...</p>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-01-00.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-01-00-c2c7d3c7c770e737942ffe15e0ee3eba.png" width="1040" height="464"></p>
+<p>这样进入游戏就会打印内容:</p>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-00-44.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-00-44-68f04bbf13f028744bbdce84af472725.png" width="1292" height="800"></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1214-运行此关卡">1.2.14 运行此关卡<a href="#1214-运行此关卡" class="hash-link" aria-label="1.2.14 运行此关卡的直接链接" title="1.2.14 运行此关卡的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12141-关卡预览窗口设置">1.2.14.1 关卡预览窗口设置<a href="#12141-关卡预览窗口设置" class="hash-link" aria-label="1.2.14.1 关卡预览窗口设置的直接链接" title="1.2.14.1 关卡预览窗口设置的直接链接">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-05-26.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-05-26-e6e6f380a52f2aa10b9bb6683bc13136.png" width="838" height="739"></p>
+<p>建议使用上图选项, 因为第一个的话, 结束退出, 你原本的位置也会变成你在预览关卡时候移动到的位置.</p>
+<ul>
+<li>按<code>ESC</code>可以退出</li>
+</ul>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-light-bulb mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p><span style="color:red">如果是实际大测试, 请使用「独立进程游戏」. (退出需要直接关闭窗口)</span></p>
+</div>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12142-多人联机本地测试">1.2.14.2 多人联机本地测试<a href="#12142-多人联机本地测试" class="hash-link" aria-label="1.2.14.2 多人联机本地测试的直接链接" title="1.2.14.2 多人联机本地测试的直接链接">​</a></h3>
+<p>如此设置:
+<img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-11-28.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-11-28-7cc4e23ab2cd72a4f6ff09b6d32436db.png" width="659" height="272"></p>
+<p>然后就OK了:
+<img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-12-51.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-12-51-f1b5e31b38cb6864e5c0f82e5237420b.png" width="2078" height="1462"></p>
+<p>(注: 可以使用TAB+ALT切换窗口(鼠标), 或者SHIFT+F1或者<code>~</code>键(命令窗口, 但是小心命令窗口下按ESC会退出游戏, 除非是<code>独立进程模式</code>))</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12143-逐帧细看">1.2.14.3 逐帧细看<a href="#12143-逐帧细看" class="hash-link" aria-label="1.2.14.3 逐帧细看的直接链接" title="1.2.14.3 逐帧细看的直接链接">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-19-45.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-19-45-433ee6f71c0994747eba7b06744bc2fb.png" width="998" height="963"></p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12144-运行关卡时-场景编辑">1.2.14.4 运行关卡时, 场景编辑<a href="#12144-运行关卡时-场景编辑" class="hash-link" aria-label="1.2.14.4 运行关卡时, 场景编辑的直接链接" title="1.2.14.4 运行关卡时, 场景编辑的直接链接">​</a></h3>
+<p>你可以在<code>选中窗口视图</code>模式下启动游戏, 然后按<code>F8</code>进入编辑模式, 但是不会保存, 当然你可以设置它. (没啥用好像qwq?)</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1215-文件夹视图多开">1.2.15 文件夹视图多开<a href="#1215-文件夹视图多开" class="hash-link" aria-label="1.2.15 文件夹视图多开的直接链接" title="1.2.15 文件夹视图多开的直接链接">​</a></h2>
+<p>如下操作:</p>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-26-30.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-26-30-426a015da6423fc02e7728eff50552b2.png" width="1218" height="1484"></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1216-全局搜索资产">1.2.16 全局搜索资产<a href="#1216-全局搜索资产" class="hash-link" aria-label="1.2.16 全局搜索资产的直接链接" title="1.2.16 全局搜索资产的直接链接">​</a></h2>
+<ul>
+<li>CTRL + P 召唤这个窗口, 你可以使用搜索来搜索, 等价于所有<code>内容浏览器</code>的文件去掉文件夹平铺到这里. 可以双击预览等等... <del>(考验硬盘的时候到啦)</del></li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-27-35.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-27-35-0927e59f4c69bc198345a871bcab7b5e.png" width="1509" height="909"></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1217-打开多个视口">1.2.17 打开多个视口<a href="#1217-打开多个视口" class="hash-link" aria-label="1.2.17 打开多个视口的直接链接" title="1.2.17 打开多个视口的直接链接">​</a></h2>
+<p>比如这样:</p>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-31-17.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-31-17-d18f81bac5fc670261fe0e47a3a77182.png" width="686" height="179"></p>
+<p>然后是这样的视角: (三视图)</p>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-32-40.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-32-40-9e973a6a15931db2f93a2153611acbe9.png" width="2042" height="925"></p>
+<p>当然这样可能还是很难看, 比如我们希望在左上角看向这个物体, 然后右上也看向这个物体, 可以这样:</p>
+<ul>
+<li><code>窗口 &gt; 视口</code>, 这样开多个:</li>
+</ul>
+<p>可以互相跨窗口实时显示的操作</p>
+<p><img decoding="async" loading="lazy" alt="PixPin_2024-06-02_17-40-20.gif" src="/HXLoLi/assets/images/PixPin_2024-06-02_17-40-20-b2f81b6055a885dca7260d2760c55557.gif" width="1879" height="1205"></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1218-显示设置">1.2.18 显示设置<a href="#1218-显示设置" class="hash-link" aria-label="1.2.18 显示设置的直接链接" title="1.2.18 显示设置的直接链接">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-42-21.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-42-21-38d23755cba7b08a0d2c0ec408307eec.png" width="292" height="1269"></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1219-光照设置">1.2.19 光照设置<a href="#1219-光照设置" class="hash-link" aria-label="1.2.19 光照设置的直接链接" title="1.2.19 光照设置的直接链接">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-42-52.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-42-52-556847c7dcdccdcc64a10333648d973e.png" width="339" height="892"></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1220-杂项设置">1.2.20 杂项设置<a href="#1220-杂项设置" class="hash-link" aria-label="1.2.20 杂项设置的直接链接" title="1.2.20 杂项设置的直接链接">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-44-26.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-44-26-3c6cddfaf0ef0301dde5bd2b46a19acd.png" width="385" height="801"> <img decoding="async" loading="lazy" alt="Clip_2024-06-02_17-45-19.png" src="/HXLoLi/assets/images/Clip_2024-06-02_17-45-19-d952b13cbf7440df7e3179d910501d4e.png" width="413" height="1028"></p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/docs/003-游戏引擎/001-虚幻引擎/002-蓝图/001-第一章/002-丶初步体验、创建项目、快捷键/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-04-28T14:52:39.000Z" itemprop="dateModified">2025年4月28日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶虚幻引擎的安装与文件命名规范与版本管理"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">丶虚幻引擎的安装与文件命名规范与版本管理</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/docs/游戏引擎/虚幻引擎/蓝图/第一章/丶修改派生缓存路径"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">丶修改派生缓存路径</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#121-直接启动虚幻引擎" class="table-of-contents__link toc-highlight">1.2.1 直接启动虚幻引擎</a></li><li><a href="#122-虚幻项目浏览器-界面" class="table-of-contents__link toc-highlight">1.2.2 虚幻项目浏览器 界面</a></li><li><a href="#123-进入到游戏界面" class="table-of-contents__link toc-highlight">1.2.3 进入到游戏界面</a></li><li><a href="#124-视野移动" class="table-of-contents__link toc-highlight">1.2.4 视野移动</a></li><li><a href="#125-自然光设置-太阳方位" class="table-of-contents__link toc-highlight">1.2.5 自然光设置 (太阳方位)</a></li><li><a href="#126-反悔与反反悔-程序员最会的操作" class="table-of-contents__link toc-highlight">1.2.6 反悔与反反悔 <del>(程序员最会的操作)</del></a></li><li><a href="#127-放置物体-与-物体的简单操作" class="table-of-contents__link toc-highlight">1.2.7 放置物体 与 物体的简单操作</a><ul><li><a href="#1271-放置物体" class="table-of-contents__link toc-highlight">1.2.7.1 放置物体</a></li><li><a href="#1272-移动物体-轴" class="table-of-contents__link toc-highlight">1.2.7.2 移动物体 &lt;轴&gt;</a></li><li><a href="#1273-旋转--缩放--单位增量" class="table-of-contents__link toc-highlight">1.2.7.3 旋转 / 缩放 / 单位增量</a></li></ul></li><li><a href="#128-摄像机速度" class="table-of-contents__link toc-highlight">1.2.8 摄像机速度</a></li><li><a href="#129-tp-物体-快速定义" class="table-of-contents__link toc-highlight">1.2.9 tp 物体 (快速定义)</a></li><li><a href="#1210-选项模式" class="table-of-contents__link toc-highlight">1.2.10 选项模式</a></li><li><a href="#1211-添加光源--在大纲中的布局--细节" class="table-of-contents__link toc-highlight">1.2.11 添加光源 | 在大纲中的布局 | 细节</a></li><li><a href="#1212-保存--全部保存" class="table-of-contents__link toc-highlight">1.2.12 保存 | 全部保存</a></li><li><a href="#1213-蓝图--关卡蓝图" class="table-of-contents__link toc-highlight">1.2.13 蓝图 | 关卡蓝图</a></li><li><a href="#1214-运行此关卡" class="table-of-contents__link toc-highlight">1.2.14 运行此关卡</a><ul><li><a href="#12141-关卡预览窗口设置" class="table-of-contents__link toc-highlight">1.2.14.1 关卡预览窗口设置</a></li><li><a href="#12142-多人联机本地测试" class="table-of-contents__link toc-highlight">1.2.14.2 多人联机本地测试</a></li><li><a href="#12143-逐帧细看" class="table-of-contents__link toc-highlight">1.2.14.3 逐帧细看</a></li><li><a href="#12144-运行关卡时-场景编辑" class="table-of-contents__link toc-highlight">1.2.14.4 运行关卡时, 场景编辑</a></li></ul></li><li><a href="#1215-文件夹视图多开" class="table-of-contents__link toc-highlight">1.2.15 文件夹视图多开</a></li><li><a href="#1216-全局搜索资产" class="table-of-contents__link toc-highlight">1.2.16 全局搜索资产</a></li><li><a href="#1217-打开多个视口" class="table-of-contents__link toc-highlight">1.2.17 打开多个视口</a></li><li><a href="#1218-显示设置" class="table-of-contents__link toc-highlight">1.2.18 显示设置</a></li><li><a href="#1219-光照设置" class="table-of-contents__link toc-highlight">1.2.19 光照设置</a></li><li><a href="#1220-杂项设置" class="table-of-contents__link toc-highlight">1.2.20 杂项设置</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>

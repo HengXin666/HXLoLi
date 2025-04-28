@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-计佬常識/计算机组成原理/第七章并行系统/并行系统/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">并行系统 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第七章并行系统/并行系统"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="并行系统 | HXLoLi"><meta data-rh="true" name="description" content="随着信息技术的飞速发展,人们对计算机系统处理能力的要求越来越高。气象、生物、医药、天文等领域的高性能计算,互联网以及移动通信应用领域的海量“大数据”处理, 银行、保险、证券等大型数据库系统开发, 游戏、航空模拟等各种媒体处理软件方面的开发, 都需要计算机系统具有极其快速的处理能力。采用传统的单处理器系统中的串行计算方式,远远不能满足现代社会实际应用问题对计算能力的需求。"><meta data-rh="true" property="og:description" content="随着信息技术的飞速发展,人们对计算机系统处理能力的要求越来越高。气象、生物、医药、天文等领域的高性能计算,互联网以及移动通信应用领域的海量“大数据”处理, 银行、保险、证券等大型数据库系统开发, 游戏、航空模拟等各种媒体处理软件方面的开发, 都需要计算机系统具有极其快速的处理能力。采用传统的单处理器系统中的串行计算方式,远远不能满足现代社会实际应用问题对计算能力的需求。"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第七章并行系统/并行系统"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第七章并行系统/并行系统" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第七章并行系统/并行系统" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.38e40bb0.css">
+<script src="/HXLoLi/assets/js/runtime~main.8b732061.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.b8a270d9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/default_folder.svg"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计佬常識</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据结构与算法</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/相关面试题"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">设计模式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机网络/一、计算机网络基础"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机网络</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机组成原理</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录">【计组】目录</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机的分类及其特性"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第一章计算机概要与技术</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第二章指令系统/计算机硬件的操作与操作数"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第二章指令系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第三章计算机算术运算/定点数加减法"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第三章计算机算术运算</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/MIPS核心子集及实现方式"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第四章中央处理器</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/存储器技术"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第五章存储器</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第六章IO设备/外部设备及总线"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第六章IO设备</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第七章并行系统/并行系统"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第七章并行系统</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第七章并行系统/并行系统">并行系统</a></li></ul></li></ul></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">程序语言</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">游戏引擎</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/DevOps与版本控制/Linux/【Linux】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">DevOps与版本控制</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">中间件</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/数据库/MySQL数据库/とある「MySQL」の禁庫目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据库</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/刷题日志/做题记录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">刷题日志</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/嵌入式/杂项/IC通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">嵌入式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/Game/MineCraft/服务器/脚本"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Game</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/HXLoLi/docs/关于">关于</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计佬常識</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计算机组成原理</span><meta itemprop="position" content="2"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">第七章并行系统</span><meta itemprop="position" content="3"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">并行系统</span><meta itemprop="position" content="4"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>并行系统</h1></header>
+<p>随着信息技术的飞速发展,人们对计算机系统处理能力的要求越来越高。气象、生物、医药、天文等领域的高性能计算,互联网以及移动通信应用领域的海量“大数据”处理, 银行、保险、证券等大型数据库系统开发, 游戏、航空模拟等各种媒体处理软件方面的开发, 都需要计算机系统具有极其快速的处理能力。采用传统的单处理器系统中的串行计算方式,远远不能满足现代社会实际应用问题对计算能力的需求。</p>
+<p>为了追求更高的计算性能,出现了各种不同的并行处理系统。通过采用多个功能部件或多个处理核或多个CPU或多台计算机的互连,使得一个系统中可同时进行多条指令或多个数据或多个线程或多个任务的处理,从而实现计算速度和计算能力的大幅提升。</p>
+<p>在计算机科学中, 尤其是多处理器和并行计算领域, 通过简单地增加处理器的数量, 就能线性地提升系统的整体性能, 同时保持系统的可扩展性和高效性, 是一个我们长期追求的理想状态。也就是说, 在并行计算和分布式系统领域的一个重要趋势就是——利用<strong>多处理器</strong>(或称多核)架构来提高计算性能和效率。然而, 在实际应用中, 达到这种理想状态面临着诸多挑战。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="多处理器multiprocessor系统的挑战">多处理器(Multiprocessor)系统的挑战<a href="#多处理器multiprocessor系统的挑战" class="hash-link" aria-label="多处理器(Multiprocessor)系统的挑战的直接链接" title="多处理器(Multiprocessor)系统的挑战的直接链接">​</a></h2>
+<hr>
+<ol>
+<li>
+<p>可伸缩性(Scalability): 又称可扩展性,是指通过扩展系统规模来提高性能,来处理更大数量的用户和通过扩展系统规模来提高系统的容错能力等。</p>
+</li>
+<li>
+<p>功耗问题: 多处理器系统需要更有效地管理功耗, 以避免过热和能源浪费。采用小型高性能处理器可以在功耗上有所优化, 但也需要更精细的功耗管理技术, 如动态电压和频率调整(DVFS)、功耗感知的任务调度等。</p>
+</li>
+<li>
+<p>同步与通信: 多处理器系统中的进程或线程之间需要频繁通信和同步, 这可能导致瓶颈和延迟。
+设计高效的通信机制和同步原语对于提升系统性能至关重要。</p>
+</li>
+<li>
+<p>编程复杂性: 编写能够充分利用多处理器资源的程序比编写单线程程序要复杂得多。程序员需要熟悉并行编程模型、并发控制、数据一致性等概念。</p>
+</li>
+</ol>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="容错或高可用性系统">容错或高可用性系统<a href="#容错或高可用性系统" class="hash-link" aria-label="容错或高可用性系统的直接链接" title="容错或高可用性系统的直接链接">​</a></h2>
+<hr>
+<p>容错性(Fault Tolerance)是指系统在出现故障时仍能继续提供服务的能力。在多处理器系统中, 即使某个处理器发生故障, 其他处理器仍然可以继续执行任务, 从而保证了系统的稳定运行。</p>
+<p>高可用性(High Availability, HA)通常指的是系统能够在预定的服务时间内提供不间断的服务。这通常涉及冗余组件、故障检测和自动恢复机制等技术</p>
+<p>技术支持: 处理器冗余, 动态负载平衡, 高可用性设计, 热插拔和在线维护, 故障检测和隔离。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="任务级并行和进程级并行">任务级并行和进程级并行<a href="#任务级并行和进程级并行" class="hash-link" aria-label="任务级并行和进程级并行的直接链接" title="任务级并行和进程级并行的直接链接">​</a></h2>
+<hr>
+<p><strong>任务级并行</strong></p>
+<ul>
+<li>定义: 任务级并行是指将多个独立的任务分发到不同的处理器上执行的一种并行方式。每个任务都是一个独立的单线程应用程序, 它们之间没有直接的数据依赖关系。</li>
+<li>应用场景: 适用于可以分解成许多独立子任务的应用场景, 例如批处理作业、图像处理、科学计算中的蒙特卡罗模拟等。</li>
+<li>优势: 易于实现, 因为任务之间不需要频繁的数据交互, 减少了通信开销。</li>
+<li>示例: 在图像处理中, 可以将一张大图像分割成多个小块, 然后分别在不同的处理器上进行处理。</li>
+</ul>
+<p><strong>进程级并行</strong></p>
+<ul>
+<li>定义: 进程级并行类似于任务级并行, 但它更侧重于将多个独立的进程分发到不同的处理器上执行。每个进程可以是一个完整的应用程序, 具有自己的地址空间。</li>
+<li>应用场景: 适用于需要运行多个独立应用程序的情况, 例如在服务器集群中同时运行多个Web服务实例。</li>
+<li>优势: 每个进程都可以独立运行, 简化了并行编程的复杂度。</li>
+<li>示例: 在Web服务器集群中, 可以启动多个Web服务实例, 每个实例运行在一个不同的处理器上。</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="并行处理程序">并行处理程序<a href="#并行处理程序" class="hash-link" aria-label="并行处理程序的直接链接" title="并行处理程序的直接链接">​</a></h2>
+<hr>
+<p>并行处理程序是指能够同时在多个处理器上运行的单一程序。也就是说, 一个单一的程序, 与任务级并行不同, 并行处理程序内部包含了并行执行的部分, 它可以被拆分成多个部分并在不同的处理器上同时执行。这些部分之间可能需要进行数据交换和同步操作。</p>
+<p>并行处理程序通常使用并行算法和数据结构来优化性能。它们通过并行执行多个子任务来减少总体执行时间, 并通过共享内存或消息传递等方式来协调子任务之间的数据交换和同步。</p>
+<p>比如, 在科学计算中, 一个复杂的物理模拟程序可能需要将模拟区域划分为多个子域, 每个子域由不同的处理器负责计算, 并在必要时交换边界数据。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="集群">集群<a href="#集群" class="hash-link" aria-label="集群的直接链接" title="集群的直接链接">​</a></h2>
+<hr>
+<p>在科学领域, 随着计算需求的不断增加, 传统的单机计算已经无法满足一些复杂问题对计算资源的需求。因此, 集群计算应运而生, 它将多个独立的服务器或计算节点通过网络连接起来, 形成一个强大的计算资源池。</p>
+<p>这种分布式计算环境能够同时处理大量数据, 加速复杂计算过程, 从而极大地推动了天文学、生物学、物理学、化学、气候科学等多个领域的研究进展。</p>
+<p>例如, 在天文学中, 模拟宇宙大爆炸后的演化过程需要巨大的计算量; 在生物学中, 基因测序和蛋白质结构预测也离不开高性能计算的支持。这些任务都可以通过集群计算来加速完成, 为科学家们提供更为准确和全面的研究结果。</p>
+<p>除了科学研究外, 集群计算还在商业和互联网服务中发挥着重要作用。如搜索引擎、Web服务器、电子邮件服务器和数据库等, 都是集群计算的重要应用场景。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="核心-多核微处理器">核心: 多核微处理器<a href="#核心-多核微处理器" class="hash-link" aria-label="核心: 多核微处理器的直接链接" title="核心: 多核微处理器的直接链接">​</a></h2>
+<hr>
+<p>传统的提高处理器性能的方法, 如增加主频(CPU时钟频率)和改进CPI(每条指令的时钟周期数), 虽然在一定程度上能够提升性能, 但同时也带来了显著的功耗增加。这种功耗的增加不仅限制了处理器在移动设备等能源受限环境中的应用, 还对环境产生了不利影响。因此, <strong>多核微处理器作为一种有效的解决方案应运而生, 它通过在同一芯片上集成多个处理器核心来并行处理任务, 从而在保持较低功耗的同时提高整体性能</strong>。</p>
+<p>多核处理器通过在同一芯片上集成多个处理器核心来实现并行计算, 从而提高整体性能, 而不是仅仅依靠提高单个核心的主频。这种方法可以有效分散功耗, 并利用并行处理能力来提高性能。在多核处理器中, 每个处理器单元被称为一个“核心”。</p>
+<p>多核微处理器通常采用共享内存架构, 即所有核心共享同一个物理地址空间。这种架构简化了内存访问和数据共享的过程, 使得核心之间的通信更加高效。然而, 共享内存也带来了一些挑战, 如缓存一致性问题和内存带宽限制等。因此, 在设计多核微处理器时, 需要综合考虑这些因素, 以优化整体性能和功耗。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="创建并行处理程序的难点">创建并行处理程序的难点<a href="#创建并行处理程序的难点" class="hash-link" aria-label="创建并行处理程序的难点的直接链接" title="创建并行处理程序的难点的直接链接">​</a></h2>
+<hr>
+<p>构建易于编写且能高效执行的并行程序软硬件系统是当前业界面临的巨大挑战。这要求软件设计要充分考虑并行性, 提供直观、高效的并行编程模型和工具; 同时, 硬件设计也需要支持高效的线程间通信、同步和数据共享机制, 以减少并行开销并优化性能。此外, 随着单芯片内核数量的不断增加, 如何确保性能和功耗能够随着内核数量的增加而相应调整, 也是一个亟待解决的问题。</p>
+<p>另一个难点是如何让并发程序在多处理器上随处理器数量增加而提高性能。</p>
+<p><strong>并行编程的挑战</strong></p>
+<ul>
+<li>任务划分: 确定哪些部分可以并行执行, 哪些部分必须保持串行是并行编程的一个挑战。</li>
+<li>数据依赖性: 处理并行执行时的数据依赖性, 确保正确的数据一致性和同步是非常重要的。</li>
+<li>负载均衡: 确保所有核心都被合理利用, 避免某些核心过载而其他核心空闲的情况。</li>
+<li>通信开销: 在多核环境下, 核心之间的数据交换会产生额外的开销, 需要优化数据传输策略以减少这种开销。</li>
+<li>调试与验证: 并行程序的调试和验证比串行程序更复杂, 因为并发错误可能难以重现。</li>
+</ul>
+<hr>
+<ol>
+<li>
+<p>任务划分: 负载均衡 + 数据依赖</p>
+</li>
+<li>
+<p>调度算法</p>
+</li>
+<li>
+<p>同步: 同步开销 + 死锁和活锁</p>
+</li>
+<li>
+<p>通信: 通信开销 + 数据局部性</p>
+</li>
+<li>
+<p>可扩展性: Amdahl 定律</p>
+</li>
+<li>
+<p>软件工程问题: 调试和测试 + 可维护性</p>
+</li>
+<li>
+<p>技术因素: 硬件特性</p>
+</li>
+</ol>
+<hr>
+<p>并行处理系统面临各种技术问题的挑战,为此,人们提出了各种并行处理解决方案, 对这些解决方案,又有不同的并行处理技术分类, 在20世纪60年代, 提出了一种并行硬件的分类方法, 该方法基于<strong>指令流的数量和数据流的数量</strong>来对计算机体系结构进行分类。这种方法至今仍然被广泛使用。</p>
+<p>常规的单处理器具有单一的指令流和单一的数据流, 而常规的多处理器具有多个指令流和多个数据流。 这两种称之为<code>SISD(单指令流单数据流)</code>和<code>MIMD(多指令流多数据流)</code>。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="sisd-单指令流单数据流">SISD (单指令流单数据流)<a href="#sisd-单指令流单数据流" class="hash-link" aria-label="SISD (单指令流单数据流)的直接链接" title="SISD (单指令流单数据流)的直接链接">​</a></h2>
+<hr>
+<ul>
+<li>定义: SISD是一种传统的串行计算机结构, 其中只有一个处理器和一个存储器。处理器在一段时间内仅执行一条指令, 并且按照指令流规定的顺序串行执行指令流中的多条指令。</li>
+<li>特点:
+<ul>
+<li>单一指令流: 在同一时刻, 只有一个指令被处理。</li>
+<li>单一数据流: 数据流与指令流同步, 每次只有一个数据项被处理。</li>
+<li>串行执行: 指令和数据都是顺序处理的。</li>
+</ul>
+</li>
+<li>应用: 尽管现代计算机设计常常包含并行元素, 但许多基本编程任务和算法教学仍然以SISD模型为基础。</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="mimd-多指令流多数据流">MIMD (多指令流多数据流)<a href="#mimd-多指令流多数据流" class="hash-link" aria-label="MIMD (多指令流多数据流)的直接链接" title="MIMD (多指令流多数据流)的直接链接">​</a></h2>
+<hr>
+<ul>
+<li>定义: MIMD是指多个处理器各自提取自己的指令, 并对自己的数据进行操作的一种并行系统。每个处理器都可以独立地执行不同的指令流, 并对不同的数据流进行操作。</li>
+<li>特点:
+<ul>
+<li>多指令流: 系统中同时存在多个指令流, 每个处理器执行不同的指令序列。</li>
+<li>多数据流: 每个处理器处理不同的数据集合, 数据流与指令流相对应。</li>
+<li>高并行性: 系统能够同时处理多个任务和多个数据集, 从而显著提高计算性能。</li>
+</ul>
+</li>
+<li>应用: MIMD系统广泛应用于高性能计算、数据中心、云计算等领域, 其中多个处理器共同协作以完成大规模计算任务。</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="spmd-单程序多数据">SPMD (单程序多数据)<a href="#spmd-单程序多数据" class="hash-link" aria-label="SPMD (单程序多数据)的直接链接" title="SPMD (单程序多数据)的直接链接">​</a></h2>
+<hr>
+<p>在MIMD(多指令流多数据流)计算机上, 虽然理论上可以编写完全独立的程序并在不同的处理器上运行, 但在实践中, 为了管理和维护的便捷性, 编程人员更倾向于采用一种称为&quot;单程序多数据&quot;(SPMD,Single Program Multiple Data)的编程风格。</p>
+<p>SPMD是一种并行编程模型, 其中单个程序被设计来在多个处理器上同时运行, 但每个处理器实例处理不同的数据集。这种模型允许程序员编写一个统一的程序, 然后通过不同的输入数据或配置参数来控制每个处理器实例的行为。由于所有处理器都在执行相同的程序代码, 因此SPMD模型简化了程序的编写和维护过程。</p>
+<p>在SPMD模型中, 程序员通常会在程序中嵌入条件控制语句或利用并行编程框架提供的同步和通信机制来确保不同的处理器能够协同工作, 完成共同的大型目标。这些机制可能包括共享内存、消息传递、锁、信号量等, 具体取决于所使用的并行编程环境和硬件平台。</p>
+<p>SPMD模型在高性能计算(HPC)和分布式计算领域非常常见, 特别是在处理大规模数据集和复杂计算任务时。它允许程序员充分利用多处理器系统的并行处理能力, 同时保持代码的清晰和可维护性。</p>
+<p>然而, SPMD模型并不是MIMD计算机编程的唯一方式。在某些情况下, 根据具体的应用需求和并行编程框架的能力, 程序员可能会选择编写完全独立的程序并在多个处理器上运行, 或者采用其他并行编程模型(如主从模型、数据并行模型等)来更好地适应特定的计算任务。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="simd-单指令流多数据流">SIMD (单指令流多数据流)<a href="#simd-单指令流多数据流" class="hash-link" aria-label="SIMD (单指令流多数据流)的直接链接" title="SIMD (单指令流多数据流)的直接链接">​</a></h2>
+<hr>
+<p>SIMD架构允许单一指令控制多个数据元素的处理。这种架构非常适合于数据并行的应用程序, 如图形处理和科学计算。</p>
+<p>特点:</p>
+<ul>
+<li>单一指令可以同时应用于多个数据点。</li>
+<li>并行处理能力来自于数据级并行。</li>
+<li>适用于数据密集型任务, 如图像处理、信号处理等。</li>
+<li>通常出现在图形处理单元(GPU)和向量处理器中。</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>同步性: 所有并行执行单元都是同步的, 它们都对源自同一程序计数器(PC)的同一指令作出响应。</li>
+<li>接近SISD: 从程序员的角度来看, SIMD架构非常接近于已经熟悉的SISD架构。尽管每个单元都执行相同的指令, 但是每个执行单元都有自己的地址寄存器, 这样每个单元都有不同的数据地址。</li>
+<li>控制单元成本分摊: SIMD架构的初衷是在几十个执行单元之间均摊控制单元的成本, 从而降低了每个执行单元的成本。</li>
+<li>降低指令宽度和空间: SIMD只需要同时执行代码的一个副本, 而消息传递的MIMD可能需要在每个处理器都有一份副本, 共享存储器MIMD可能需要多个指令缓存。这有助于减少内存占用和提高效率。</li>
+</ul>
+<p>SIMD的应用场景</p>
+<ul>
+<li>for循环: SIMD在使用for循环语句处理数组时最为有效。在这种情况下, 需要有大量相同结构的数据, 通常称之为数据级并行(data-level parallelism)。</li>
+<li>case或switch语句: SIMD在使用case或switch语句时效率最低, 此时每个执行单元必须根据不同的数据执行不同的操作。带有错误数据的执行单元必须被摒弃, 而带有正确数据的执行单元将继续执行。如果有几个case, SIMD处理器可能会以最高1/n的性能运行, 其中n是case的数量。</li>
+</ul>
+<blockquote>
+<p>可以看看: <span class="tailwind"><a href="/HXLoLi/docs/%E7%A8%8B%E5%BA%8F%E8%AF%AD%E8%A8%80/C++/%E7%8E%B0%E4%BB%A3C++/%E9%AB%98%E6%80%A7%E8%83%BD%E5%B9%B6%E8%A1%8C%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BC%98%E5%8C%96/%E5%9B%9B%E3%80%81%E4%BB%8E%E6%B1%87%E7%BC%96%E8%A7%92%E5%BA%A6%E7%9C%8B%E7%BC%96%E8%AF%91%E5%99%A8%E4%BC%98%E5%8C%96/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">四、从汇编角度看编译器优化<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+</blockquote>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="向量机">向量机<a href="#向量机" class="hash-link" aria-label="向量机的直接链接" title="向量机的直接链接">​</a></h2>
+<hr>
+<p>SIMD架构的一个具体实现形式, 就是我们的向量体系结构。向量体系结构是一种并行计算模型, 它允许单一指令控制多个数据元素的处理。这种架构非常适合于数据并行的应用程序, 如科学计算和图形处理。</p>
+<p>向量体系结构是一种并行计算模型, 它允许单一指令控制多个数据元素的处理。这种架构非常适合于数据并行的应用程序, 如科学计算和图形处理。</p>
+<p>向量体系结构的特点是允许同时对一组数据执行相同的操作, 这组数据通常被称为向量。每个向量通常包含多个数据元素, 这些元素可以是整数、浮点数或其他类型的数值。向量体系结构通常具有流水线化的执行单元, 这意味着可以在一个时钟周期内处理多个数据元素。</p>
+<p>向量体系结构的关键特征:</p>
+<ul>
+<li>向量寄存器, 流水线化的执行单元, 数据收集与存储</li>
+</ul>
+<p>向量体系结构的优点:</p>
+<ul>
+<li>
+<p>高性能, 低成本, 数据级并行</p>
+</li>
+<li>
+<p>向量与标量(常规的指令集体系结构)的区别</p>
+<ul>
+<li>
+<p>减少取指和译码带宽需求:</p>
+</li>
+<li>
+<p>简化数据相关性检查:</p>
+</li>
+<li>
+<p>促进高效代码编写:</p>
+</li>
+<li>
+<p>降低能耗:</p>
+</li>
+<li>
+<p>优化内存访问:</p>
+</li>
+<li>
+<p>消除控制相关:</p>
+</li>
+<li>
+<p>提升性能:</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="硬件多线程">硬件多线程<a href="#硬件多线程" class="hash-link" aria-label="硬件多线程的直接链接" title="硬件多线程的直接链接">​</a></h2>
+<hr>
+<p>硬件多线程是一种并行计算技术, 它允许多个线程以重叠的方式共享一个处理器的功能单元, 从而有效地利用硬件资源。与传统的单线程处理器相比, 硬件多线程处理器可以在同一时间处理多个线程, 从而提高处理器的利用率。</p>
+<p>从程序员的角度来看, 硬件多线程(Hardware Multithreading, HMT)是一个与多指令多数据(MIMD)架构紧密相关的概念。硬件多线程旨在通过允许多个线程在单个处理器的核心上并行执行, 从而提高处理器的资源利用率和整体性能。这种技术尤其适用于那些能够并行处理多个独立任务或数据流的应用程序</p>
+<p>特点:</p>
+<ul>
+<li>资源共享与状态独立, 高效线程切换, 虚拟存储器支持, 编程模型与同步。</li>
+</ul>
+<p>优势:</p>
+<ul>
+<li>提高处理器利用率, 增强应用程序性能, 降低功耗。</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="细粒度多线程">细粒度多线程<a href="#细粒度多线程" class="hash-link" aria-label="细粒度多线程的直接链接" title="细粒度多线程的直接链接">​</a></h3>
+<hr>
+<p>特点:</p>
+<ul>
+<li>在每条指令执行后都进行线程切换。</li>
+<li>线程切换非常频繁, 以循环方式在每个时钟周期进行。</li>
+<li>能够在每个时钟周期跳过处于阻塞状态的线程, 执行其他线程的指令。</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>能够有效隐藏由短阻塞和长阻塞引起的吞吐量损失。</li>
+<li>提高了系统的整体资源利用率, 因为当一个线程阻塞时, 其他线程可以继续执行。</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>降低了单个线程的执行速度, 因为就绪状态的线程可能会因为其他线程的切换而延迟执行。</li>
+<li>增加了线程管理的复杂性, 因为需要频繁地切换线程上下文。</li>
+</ul>
+<p>适用场景:</p>
+<ul>
+<li>适用于线程间切换开销较低且线程阻塞频繁的场景。</li>
+<li>在需要大量并行处理以充分利用处理器资源的应用中表现良好。</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="粗粒度多线程">粗粒度多线程<a href="#粗粒度多线程" class="hash-link" aria-label="粗粒度多线程的直接链接" title="粗粒度多线程的直接链接">​</a></h3>
+<hr>
+<p>特点:</p>
+<ul>
+<li>仅在遇到高开销阻塞事件(如最后一级缓存缺失)时才进行线程切换。</li>
+<li>线程切换频率较低, 减少了线程管理的开销。</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>几乎不会降低单个线程的执行速度, 因为线程切换只在必要时进行。</li>
+<li>减少了线程管理的复杂性, 因为线程切换不频繁。</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>在隐藏短阻塞引起的吞吐量损失方面能力有限, 因为短阻塞不足以触发线程切换。</li>
+<li>流水线启动开销可能较大, 特别是在从阻塞状态恢复时。</li>
+</ul>
+<p>适用场景:</p>
+<ul>
+<li>适用于线程间切换开销较高且阻塞事件较少的场景。</li>
+<li>特别适用于处理高开销阻塞事件, 如缓存缺失或长延迟I/O操作, 以最小化这些事件对性能的影响。</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="同时多线程">同时多线程<a href="#同时多线程" class="hash-link" aria-label="同时多线程的直接链接" title="同时多线程的直接链接">​</a></h3>
+<hr>
+<p>同时多线程(Simultaneous Multithreading, SMT)是硬件多线程技术的一种重要形式, 它旨在通过利用多发射动态调度流水线处理器的资源来挖掘线程级并行, 并同时保持指令级并行。</p>
+<p>SMT技术允许一个处理器在单个时钟周期内同时处理来自多个线程的指令。这种技术通过复制处理器上的结构状态, 让同一个处理器上的多个线程同步执行并共享处理器的执行资源, 从而最大限度地实现宽发射、乱序的超标量处理, 提高处理器运算部件的利用率。</p>
+<p>当存在多个可执行线程时, SMT处理器中同时处于发射就绪状态的指令可以来自不同的线程, 处理器中的控制逻辑从中选择能够在同一个周期中执行的指令分配到多个功能部件流水线同时执行。</p>
+<p>SMT的关键特征:</p>
+<ul>
+<li>多发射动态调度, 指令级并行, 利用未充分利用的资源。</li>
+</ul>
+<p>SMT的优势:</p>
+<ul>
+<li>提高处理器利用率,  提升系统性能, 成本效益高。</li>
+</ul>
+<p>SMT的不足:</p>
+<ul>
+<li>设计复杂度增加, 缓存压力增大, 单个线程性能下降。</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="共享内存多存储器架构">共享内存多存储器架构<a href="#共享内存多存储器架构" class="hash-link" aria-label="共享内存多存储器架构的直接链接" title="共享内存多存储器架构的直接链接">​</a></h2>
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-09-17_14-39-20.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-09-17_14-39-20-a2f4c8429a05151435414594bc84483f.png" width="714" height="329" style="width:600px"></td></tr></tbody></table>
+<p>共享内存多处理器(SMP, Shared Memory Multiprocessor)架构, 是现代高性能计算系统中常见的一种设计。这种架构通过提供跨越所有处理器的单一物理地址空间, 极大地简化了并行编程的复杂性, 使得程序员可以更容易地利用多核处理器的计算能力。</p>
+<p>共享内存多处理器(SMP)的关键特点:</p>
+<ol>
+<li>
+<p><strong>单一物理地址空间</strong>: 所有处理器共享同一个物理内存地址空间, 这意味着任何一个处理器都可以直接访问内存中的任何位置, 无需进行复杂的地址转换或数据迁移。这种设计简化了数据共享和通信的过程。</p>
+</li>
+<li>
+<p><strong>缓存一致性</strong>: 由于多个处理器可能同时访问同一块内存区域, 因此必须由硬件来维护缓存的一致性。这通常通过缓存一致性协议(如MESI协议)来实现, 以确保每个处理器看到的内存数据都是最新的。</p>
+</li>
+<li>
+<p><strong>并行执行</strong>: SMP架构允许程序中的多个线程或进程在不同的处理器上并行执行, 从而显著提高计算效率。程序员可以通过编写并行代码来利用这种并行性, 但无需过多关注数据在物理内存中的具体位置。</p>
+</li>
+<li>
+<p><strong>虚拟地址空间</strong>: 尽管SMP系统共享同一个物理地址空间, 但每个处理器(或更准确地说是每个操作系统进程)都可以在自己的虚拟地址空间中运行程序。这是通过操作系统的内存管理功能(如分页和分段)来实现的, 它提供了额外的安全性和灵活性。</p>
+</li>
+</ol>
+<p>统一存储访问 (UMA) 多处理器:</p>
+<ul>
+<li>在UMA架构中, 所有处理器访问主存中的任何位置时, 其访问时间都是相同的, 不依赖于是哪个处理器发起的访问或访问的是哪个特定的内存位置。这种架构简化了内存访问的复杂性, 因为它消除了内存访问的延迟差异, 从而简化了编程模型和同步机制的设计。然而, 随着处理器数量的增加, UMA架构可能会面临扩展性问题, 因为所有的处理器都竞争访问同一个物理内存总线。</li>
+</ul>
+<p>定义:</p>
+<ul>
+<li>UMA多处理器是一种多处理器架构, 其中所有处理器对内存的访问时间是相同的, 不论是哪个处理器提出访存请求, 也不论要访问哪个内存位置。</li>
+</ul>
+<p>特点:</p>
+<ul>
+<li>访存时间是统一的。</li>
+<li>适合于规模较小的系统。</li>
+<li>简化了编程模型。</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-09-17_14-42-44.png ##w400##" src="/HXLoLi/assets/images/Clip_2024-09-17_14-42-44-875648820752c7033eb91fed1bec73b5.png" width="576" height="266" style="width:400px"></td></tr></tbody></table>
+<p>非统一存储访问 (NUMA) 多处理器:</p>
+<ul>
+<li>与UMA不同, NUMA架构中的主存被划分为多个内存节点, 每个节点由一组处理器和/或内存控制器共享。处理器访问其本地内存节点(即与处理器物理位置接近的内存)的速度通常比访问远程节点(与其他处理器共享的内存)的速度要快。这种架构支持更好的扩展性, 因为可以独立地增加处理器和内存的数量。然而, NUMA架构增加了编程的复杂性, 因为开发者需要考虑内存访问的局部性, 以优化性能和降低延迟。</li>
+</ul>
+<p>定义:</p>
+<ul>
+<li>NUMA多处理器是一种多处理器架构, 其中一些访存请求会比其他的快, 这取决于哪个处理器访问哪个内存位置。这是因为主存被分割并分配给了同一个芯片上的不同的处理器或内存控制器。</li>
+</ul>
+<p>特点:</p>
+<ul>
+<li>访存时间不是统一的。</li>
+<li>适合于规模较大的系统。</li>
+<li>编程难度相对较高, 但可以扩展到更大的规模。</li>
+<li>当访问附近的存储器时具有较低的延迟。</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-09-17_14-43-39.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-09-17_14-43-39-de7ad4bd007258f0115737c04401c728.png" width="790" height="228" style="width:600px"></td></tr></tbody></table>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="图形处理单元-gpu">图形处理单元: GPU<a href="#图形处理单元-gpu" class="hash-link" aria-label="图形处理单元: GPU的直接链接" title="图形处理单元: GPU的直接链接">​</a></h2>
+<hr>
+<p>GPU与CPU之间的关键差异:</p>
+<ol>
+<li>
+<p>设计目标和任务类型</p>
+<p>GPU: 最初设计用于处理图形渲染任务, 如视频游戏、3D图形渲染等。随着技术的发展, GPU也被用于通用计算(GPGPU), 执行如深度学习、科学计算等大规模并行计算任务。</p>
+</li>
+<li>
+<p>处理能力和任务规模</p>
+<p>GPU: 拥有大量的处理单元(如CUDA核心、流处理器等), 能够同时处理成百上千个简单的并行任务, 非常适合处理大规模数据集(如几百MB到GB)。然而, 对于非并行或逻辑复杂的任务, GPU的效率可能不如CPU。</p>
+</li>
+<li>
+<p>内存架构</p>
+<p>GPU: 虽然GPU的内存容量相对较小(通常几GB), 但其内存带宽非常高, 专为并行处理设计。GPU不依赖多级缓存来隐藏内存访问延迟, 而是通过硬件多线程和大量的并行处理器来隐藏这种延迟。</p>
+</li>
+<li>
+<p>并行处理能力</p>
+<p>GPU: GPU的并行处理能力极强, 拥有成百上千个处理单元, 可以同时执行大量简单的并行任务。这种能力使得GPU在处理大规模并行计算任务时非常高效。</p>
+</li>
+<li>
+<p>协处理器角色</p>
+<p>在一个同时具有GPU和CPU的系统中, GPU通常作为协处理器存在, 与CPU协同工作。CPU负责处理逻辑复杂或顺序性强的任务, 而GPU则专注于大规模并行计算任务。这种协同工作可以显著提高系统的整体性能。</p>
+</li>
+</ol>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="并行执行单元-cuda">并行执行单元: CUDA<a href="#并行执行单元-cuda" class="hash-link" aria-label="并行执行单元: CUDA的直接链接" title="并行执行单元: CUDA的直接链接">​</a></h3>
+<hr>
+<p>CUDA的基本概念</p>
+<ul>
+<li>
+<p>CUDA线程(CUDA Thread): CUDA将GPU上的所有并行计算单元都抽象为CUDA线程。这些线程是CUDA编程中最基本的并行执行单元。</p>
+</li>
+<li>
+<p>线程块(Thread Block): 为了更有效地管理和调度这些线程, CUDA将它们组织成线程块。每个线程块通常包含几十到几百个线程, 具体数量取决于GPU的架构和配置。在您的描述中, 提到线程块通常以32个线程为一组一起执行, 这是NVIDIA GPU中一个常见的配置, 因为这样可以优化内存访问和指令分发。</p>
+</li>
+<li>
+<p>流多处理器(Streaming Multiprocessor, SM): GPU内部包含多个流多处理器, 它们是执行线程块的硬件单元。每个SM可以并行处理多个线程块, 从而进一步增加并行度。不同型号的GPU可能包含不同数量的SM, 从几个到几十个不等。</p>
+</li>
+</ul>
+<blockquote>
+<p>CUDA 的编程模型</p>
+<ul>
+<li>线程和线程块: CUDA程序由多个线程组成, 这些线程被组织成线程块。每个线程块中的线程可以协同执行, 共享某些资源。</li>
+<li>网格: 线程块又被进一步组织成网格(Grid), 网格中的每个线程块可以独立执行。</li>
+<li>并行执行: GPU可以同时执行多个线程块, 每个线程块中的线程也可以并行执行。</li>
+<li>资源管理: CUDA提供了不同的内存区域, 包括全局内存、共享内存、常量内存和寄存器等, 用于管理和优化数据的存储和访问。</li>
+</ul>
+</blockquote>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="集群-1">集群<a href="#集群-1" class="hash-link" aria-label="集群的直接链接" title="集群的直接链接">​</a></h2>
+<hr>
+<p>集群是由多台计算机通过高速局域网络连接而成的系统, 这些计算机通常位于同一地理位置(如数据中心)。集群中的计算机通过消息传递机制进行通信, 这种通信方式通常比直接访问共享内存要慢, 但由于采用了高速网络, 因此整体性能仍然相当高。集群系统通常用于需要高计算能力和高可用性的应用, 如大数据分析、科学计算和Web服务等。</p>
+<p>集群的主要类型:</p>
+<ul>
+<li>
+<p>高可用性集群 (High Availability Cluster): 这种类型的集群主要关注的是系统的可靠性, 确保即使某个节点出现故障, 其他节点也能接管其工作, 从而保证服务的不间断运行。</p>
+</li>
+<li>
+<p>负载均衡集群 (Load Balancing Cluster): 通过在多个节点之间分配负载来优化资源使用、最大化吞吐量、最小化响应时间, 并避免任何单一节点过载。</p>
+</li>
+<li>
+<p>高性能计算集群 (High Performance Computing Cluster): 主要用于执行大规模并行计算任务, 如科学计算、工程模拟等, 通常需要大量的计算资源和快速的数据交换。</p>
+</li>
+<li>
+<p>分布式文件系统集群 (Distributed File System Cluster): 用于存储和管理大量数据, 如HadoopHDFS, 能够处理PB级别的数据量。</p>
+</li>
+</ul>
+<p>集群的特点:</p>
+<ul>
+<li>可扩展性: 集群的性能不局限于单一的服务实体, 新的服务实体可以动态地添加到集群中, 从而增强集群的整体性能。</li>
+<li>高可用性: 集群通过节点间的冗余和故障转移机制, 确保在部分节点出现故障时, 其他节点能够接管其任务, 保证服务的连续性。</li>
+<li>负载均衡: 集群能够将任务均匀地分布到各个节点上, 以提高系统的吞吐量和响应速度。</li>
+<li>错误恢复: 在集群中, 如果某一台服务器由于故障或维护需要无法使用, 资源和应用程序将自动转移到其他可用的集群节点上, 确保任务的连续性。</li>
+</ul>
+<p>集群的关键组件:</p>
+<ul>
+<li>节点 (Nodes): 构成集群的基本单元, 通常是具有相同配置的物理服务器或虚拟机。</li>
+<li>网络 (Network): 节点之间的通信渠道, 可以是局域网、高速互连网络等。</li>
+<li>集群管理软件 (Cluster Management Software): 用于管理和监控集群中的各个节点, 实现自动化的故障检测与恢复等功能。</li>
+<li>负载均衡器 (Load Balancer): 在不同节点间分发请求或任务, 确保每个节点的工作负载大致相等</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="网格">网格<a href="#网格" class="hash-link" aria-label="网格的直接链接" title="网格的直接链接">​</a></h2>
+<hr>
+<p>网格则是一种更为松散耦合的多计算机系统, 是一种分布式计算模型, 它通常通过广域网络(如互联网)连接地理位置分散的计算机资源。网格计算的目标是在不同的机构之间共享资源, 以解决需要大规模计算能力的问题。网格系统中的计算机可以是各种不同类型的设备, 包括个人电脑、工作站、服务器等。网格计算利用这些分散的资源, 通过特定的软件中间件来协调和管理它们, 以实现大规模的分布式计算任务。网格计算特别适用于需要处理海量数据或需要高度可扩展性的应用, 如天气预报、基因序列分析和全球模拟等。</p>
+<p>特征:</p>
+<ul>
+<li>异构性: 网格可以连接不同类型的资源, 这些资源可能来自不同的操作系统、编程环境和硬件平台。</li>
+<li>地理分布: 网格资源通常分布在不同的地理位置上, 甚至跨越国界。</li>
+<li>动态性: 网格资源的可用性可能会随时间变化, 因为它们通常属于不同的组织和个人。</li>
+<li>资源共享: 网格计算鼓励资源的共享, 使得用户可以利用不属于他们自己的计算资源。</li>
+<li>安全性: 网格需要确保只有授权用户才能访问特定的资源。</li>
+</ul>
+<p>网格计算的关键组件:</p>
+<ul>
+<li>资源提供者 (Resource Providers): 提供计算资源的组织或个人。</li>
+<li>网格中间件 (Grid Middleware): 用于管理网格资源、调度任务、提供安全性和认证等功能的软件层。</li>
+<li>网格门户 (Grid Portals): 用户与网格交互的界面, 可以是一个网站或桌面应用程序。</li>
+<li>网格服务 (Grid Services): 为网格用户提供特定功能的服务, 例如数据存储服务、计算服务等。</li>
+</ul>
+<p>网格计算的关键技术:</p>
+<ul>
+<li>资源发现 (Resource Discovery): 自动发现可用资源及其位置。</li>
+<li>任务调度 (Task Scheduling): 将计算任务分配给最合适的资源。</li>
+<li>数据管理 (Data Management): 管理数据的存储、传输和访问。</li>
+<li>身份认证与授权 (Authentication and Authorization): 确保只有授权用户可以访问资源。</li>
+<li>安全性 (Security): 保护网格中的数据和资源不被未经授权的访问。</li>
+</ul>
+<p>随着云计算的兴起, 网格计算的一些概念和技术也被整合到云服务中。现代云平台提供了类似于网格的功能, 但通常具有更高级别的自动化和管理特性。尽管如此, 网格计算在特定领域仍然有着不可替代的作用, 特别是在那些需要跨组织协作和资源共享的科研项目中。</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/docs/001-计佬常識/005-计算机组成原理/008-第七章并行系统/001-并行系统/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-04-28T14:52:39.000Z" itemprop="dateModified">2025年4月28日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/docs/计佬常識/计算机组成原理/第六章IO设备/IO数据传送控制方式"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">IO数据传送控制方式</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">【C艹】目录大纲</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#多处理器multiprocessor系统的挑战" class="table-of-contents__link toc-highlight">多处理器(Multiprocessor)系统的挑战</a></li><li><a href="#容错或高可用性系统" class="table-of-contents__link toc-highlight">容错或高可用性系统</a></li><li><a href="#任务级并行和进程级并行" class="table-of-contents__link toc-highlight">任务级并行和进程级并行</a></li><li><a href="#并行处理程序" class="table-of-contents__link toc-highlight">并行处理程序</a></li><li><a href="#集群" class="table-of-contents__link toc-highlight">集群</a></li><li><a href="#核心-多核微处理器" class="table-of-contents__link toc-highlight">核心: 多核微处理器</a></li><li><a href="#创建并行处理程序的难点" class="table-of-contents__link toc-highlight">创建并行处理程序的难点</a></li><li><a href="#sisd-单指令流单数据流" class="table-of-contents__link toc-highlight">SISD (单指令流单数据流)</a></li><li><a href="#mimd-多指令流多数据流" class="table-of-contents__link toc-highlight">MIMD (多指令流多数据流)</a></li><li><a href="#spmd-单程序多数据" class="table-of-contents__link toc-highlight">SPMD (单程序多数据)</a></li><li><a href="#simd-单指令流多数据流" class="table-of-contents__link toc-highlight">SIMD (单指令流多数据流)</a></li><li><a href="#向量机" class="table-of-contents__link toc-highlight">向量机</a></li><li><a href="#硬件多线程" class="table-of-contents__link toc-highlight">硬件多线程</a><ul><li><a href="#细粒度多线程" class="table-of-contents__link toc-highlight">细粒度多线程</a></li><li><a href="#粗粒度多线程" class="table-of-contents__link toc-highlight">粗粒度多线程</a></li><li><a href="#同时多线程" class="table-of-contents__link toc-highlight">同时多线程</a></li></ul></li><li><a href="#共享内存多存储器架构" class="table-of-contents__link toc-highlight">共享内存多存储器架构</a></li><li><a href="#图形处理单元-gpu" class="table-of-contents__link toc-highlight">图形处理单元: GPU</a><ul><li><a href="#并行执行单元-cuda" class="table-of-contents__link toc-highlight">并行执行单元: CUDA</a></li></ul></li><li><a href="#集群-1" class="table-of-contents__link toc-highlight">集群</a></li><li><a href="#网格" class="table-of-contents__link toc-highlight">网格</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>

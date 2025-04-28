@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-计佬常識/设计模式/各模式关系总结/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">index | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/docs/计佬常識/设计模式/各模式关系总结"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="index | HXLoLi"><meta data-rh="true" name="description" content="各模式关系总结"><meta data-rh="true" property="og:description" content="各模式关系总结"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/设计模式/各模式关系总结"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/设计模式/各模式关系总结" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/设计模式/各模式关系总结" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.38e40bb0.css">
+<script src="/HXLoLi/assets/js/runtime~main.8b732061.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.b8a270d9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/default_folder.svg"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计佬常識</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据结构与算法</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/相关面试题"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">设计模式</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/相关面试题">相关面试题</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/【设计模式】目錄大綱">【设计模式】目錄大綱</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/初识设计模式">初识设计模式</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/UML">UML</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/面向对象设计原则/优秀设计的特征"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">面向对象设计原则</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/反模式">反模式</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/创建型模式/简单工厂模式"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">创建型模式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/结构型模式/适配器模式"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">结构型模式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/行为型模式/责任链模式"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">行为型模式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/各模式关系总结">各模式关系总结</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机网络/一、计算机网络基础"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机网络</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机组成原理</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">程序语言</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">游戏引擎</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/DevOps与版本控制/Linux/【Linux】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">DevOps与版本控制</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">中间件</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/数据库/MySQL数据库/とある「MySQL」の禁庫目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据库</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/刷题日志/做题记录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">刷题日志</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/嵌入式/杂项/IC通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">嵌入式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/Game/MineCraft/服务器/脚本"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Game</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/HXLoLi/docs/关于">关于</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计佬常識</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">设计模式</span><meta itemprop="position" content="2"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">各模式关系总结</span><meta itemprop="position" content="3"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>index</h1></header><h1 style="text-align:center;background-color:rgb(72,72,72)">各模式关系总结</h1>
+<style>
+    h2 {
+        background-color: rgb(64,64,64);
+        padding: 6px;
+        border-radius:10px;
+        text-shadow: -2.4px -2.4px 6px red;
+    }
+</style>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="工厂模式">工厂模式<a href="#工厂模式" class="hash-link" aria-label="工厂模式的直接链接" title="工厂模式的直接链接">​</a></h2>
+<ul>
+<li>
+<p><strong>简单工厂-&gt;工厂方法</strong>: 由于简单工厂模式违背开闭原则，当系统复杂的时候不易扩展，使用工厂方法模式来替代简单工厂模式，将对象的构建延迟到子类。</p>
+</li>
+<li>
+<p><strong>工厂方法-&gt;抽象工厂</strong>: 由于工厂方法模式每个工厂类只能生产一种产品，如果产品种类过多会导致工厂类急剧增加，抽象工厂能够构建一个产品族的产品，极大的减少了由于产品种类过多，带来的问题。</p>
+</li>
+<li>
+<p><strong>工厂模式与单例模式</strong>: 通常情况下工厂方法模式、简单工厂模式会与单例模式结合使用，确保工厂对象唯一。</p>
+</li>
+<li>
+<p><strong>工厂方法与模板方法</strong>: 工厂方法模式是模板方法的一种特殊形式，工厂方法可以作为模板方法的中的一个步骤。</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="单例模式">单例模式<a href="#单例模式" class="hash-link" aria-label="单例模式的直接链接" title="单例模式的直接链接">​</a></h2>
+<p>抽象工厂模型、建造者模式、原型模式都可以用单例模式来实现。</p>
+<ul>
+<li><strong>单例与外观</strong>: 外观模式类通常可以转换为单例模式类，因为在大部分情况下一个外观对象就足够了。</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="建造者模式">建造者模式<a href="#建造者模式" class="hash-link" aria-label="建造者模式的直接链接" title="建造者模式的直接链接">​</a></h2>
+<ul>
+<li>
+<p><strong>建造者与抽象工厂</strong>: 建造者关注如何分布生成对象，在生成对象前允许执行一些额外的构造步骤。抽象工厂用于生产一系列相关对象，会返回完整的对象，不需要额外操作。</p>
+</li>
+<li>
+<p><strong>建造者与组合</strong>: 当你创建复杂的树形结构的时候，结合建造者模式以递归的方式构建。</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="原型模式">原型模式<a href="#原型模式" class="hash-link" aria-label="原型模式的直接链接" title="原型模式的直接链接">​</a></h2>
+<ul>
+<li>
+<p><strong>原型与工厂方法</strong>: 原型模式没有继承的特点，但是需要进行复杂原型对象的初始化工作才能使用。工厂方法模式基于继承，但它不需要初始化步骤。</p>
+</li>
+<li>
+<p><strong>原型与抽象工厂</strong>: 抽象工厂模式通常基于一组工厂方法，这也是它最大的缺点（需要构建与一个继承体系的产品类对应的复杂的工厂类继承体系）。也可以利用原型模式思想，把工厂方法合并到产品类中，就可以合并两个继承体系，其中对应的工厂方法就是<code>clone</code>。</p>
+</li>
+<li>
+<p><strong>原型与组合、装饰</strong>: 大量使用组合模式和装饰模式的设计，可以考虑搭配原型模式来复制复杂的结构，避免重新构建结构。</p>
+</li>
+<li>
+<p><strong>原型与命令</strong>: 在使用命令模式保存历史记录的时候，通常利用原型模式构建命令的副本。</p>
+</li>
+<li>
+<p><strong>原型与备忘录</strong>: 有时候可以把原型模式作为备忘录模式的一个简化版本，其条件是你需要在历史记录中存储的对象的状态比较简单， 不需要链接其他外部资源， 或者链接可以方便地重建。</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="适配器模式">适配器模式<a href="#适配器模式" class="hash-link" aria-label="适配器模式的直接链接" title="适配器模式的直接链接">​</a></h2>
+<ul>
+<li>
+<p><strong>适配器与桥接</strong>: 桥接模式通常在开发前期完成结构设计，确定可以独立开发的部分。适配器模式通常在已有程序结构的基础上，让互不兼容的类能协同工作。</p>
+</li>
+<li>
+<p><strong>适配器与装饰</strong>: 适配器可以对已有的对象接口进行修改。装饰能在不改变对象接口的前提下增强对象的功能，此外它还支持递归组合。</p>
+</li>
+<li>
+<p><strong>适配器与外观</strong>: 外观模式为现有对象定义新的接口，通常作用于多个对象子系统。适配器则是想要将已有的接口运用于系统，通常作用于单个对象。</p>
+</li>
+<li>
+<p><strong>适配器与代理</strong>: 适配器能为封装对象提供不同的接口。代理模式能为原对象提供相同的接口。</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="桥接模式">桥接模式<a href="#桥接模式" class="hash-link" aria-label="桥接模式的直接链接" title="桥接模式的直接链接">​</a></h2>
+<ul>
+<li>
+<p><strong>桥接与抽象工厂</strong>: 如果由桥接定义的抽象只能与特定实现结合，这一模式搭配就非常有用。在这种情况下，抽象工厂可以对这些关系进行封装，并且对客户端代码隐藏其复杂性。</p>
+</li>
+<li>
+<p><strong>桥接与建造者</strong>: 桥接类负责抽象工作，各种不同的生成器负责实现工作。</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="组合模式">组合模式<a href="#组合模式" class="hash-link" aria-label="组合模式的直接链接" title="组合模式的直接链接">​</a></h2>
+<p>桥接模式、 状态模式和策略模式（在某种程度上包括适配器模式） 的接口非常相似。实际上，它们都基于组合模式（即将工作委派给其他对象， 不过也各自解决了不同的问题）。</p>
+<ul>
+<li>
+<p><strong>组合与职责链</strong>: 二者可以结合使用，在这种情况下， 叶组件接收到请求后， 可以将请求沿包含全体父组件的链一直传递至对象树的底部。</p>
+</li>
+<li>
+<p><strong>组合与迭代器</strong>: 可以使用迭代器模式来遍历组合树。</p>
+</li>
+<li>
+<p><strong>组合与访问者</strong>: 可以使用访问者模式对整个组合树进行操作。</p>
+</li>
+<li>
+<p><strong>组合与享元</strong>: 可以使用享元模式共享叶节点节省内存。</p>
+</li>
+<li>
+<p><strong>组合与装饰</strong>:</p>
+<ul>
+<li>二者的结构非常相似，两者都是通过递归组合来组织无限数量的对象。</li>
+<li>装饰模式只有一个子组件，它能为被装饰对象添加额外职责，而组合模式仅对其子节点的结果进行求和。</li>
+<li>你可以使用装饰器来扩展组合树种特定对象的行为。</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="装饰模式">装饰模式<a href="#装饰模式" class="hash-link" aria-label="装饰模式的直接链接" title="装饰模式的直接链接">​</a></h2>
+<ul>
+<li>
+<p><strong>装饰与职责链</strong>:</p>
+<ul>
+<li>二者的类结构非常相似，两者都是通过递归组合将需要执行的操作传递给一系列对象。</li>
+<li>职责链的管理者可以相互独立地执行一切操作，也可以随时停止请求传递。</li>
+<li>装饰可以在遵循基本接口的情况下扩展对象行为，但无法中断请求的传递。</li>
+</ul>
+</li>
+<li>
+<p><strong>装饰与代理</strong>:</p>
+<ul>
+<li>二者拥有相似的结构，二者构建都是基于组合的原则（一个对象应有一部分工作委派给另一个对象）。</li>
+<li>代理通常自行管理其服务对象的生命周期，装饰模式则由客户端进行管控。</li>
+</ul>
+</li>
+<li>
+<p><strong>装饰与策略</strong>: 装饰模式可以让你更改对象的外表，策略模式则是改变对对象的本质。</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="外观模式">外观模式<a href="#外观模式" class="hash-link" aria-label="外观模式的直接链接" title="外观模式的直接链接">​</a></h2>
+<ul>
+<li>
+<p><strong>外观与抽象工厂</strong>: 当只需要对客户端隐藏子系统创建对象方式时，可以使用抽象工厂模式代替外观模式。</p>
+</li>
+<li>
+<p><strong>外观与代理</strong>: 二者相似之处在于都缓存了一个复杂的实体并对其进行初始化，而代理模式需要遵循与其服务对象保持相同的接口，使得代理对象可以和服务对象进行互换。</p>
+</li>
+<li>
+<p><strong>外观与享元</strong>: 享元模式用于在相同的资源环境下如何生成大量小型对象，外观模式实现如何用一个对象来代表一个或多个子系统。</p>
+</li>
+<li>
+<p><strong>外观与中介者</strong>:</p>
+<ul>
+<li>二者的职责类似，都尝试在大量紧耦合的类中起组织作用。</li>
+<li>外观的目标为子系统提供一个简单的访问接口，子系统本身感知不到外观的存在，子系统中的类可以直接通讯。</li>
+<li>中介者将系统中组件的沟通中心化，各组件都知道中介者的存在，且各组件无法直接通讯。</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="享元模式">享元模式<a href="#享元模式" class="hash-link" aria-label="享元模式的直接链接" title="享元模式的直接链接">​</a></h2>
+<ul>
+<li><strong>享元与单例</strong>:
+<ul>
+<li>如果能够将对象的所有共享状态简化成一个享元对象，此时二者就是类似的。</li>
+<li>单例类只能有一个实体，但享元类可以有多个实体，各实体的内在状态可以不同。</li>
+<li>单例对象是可变的，享元对象是不可变的。</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="职责链模式">职责链模式<a href="#职责链模式" class="hash-link" aria-label="职责链模式的直接链接" title="职责链模式的直接链接">​</a></h2>
+<ul>
+<li>
+<p><strong>职责链与命令</strong>:</p>
+<ul>
+<li>职责链的管理者可以使用命令模式实现，这样你可以对同一个请求执行不同的操作。</li>
+<li>也可以把请求自身定义成命令对象，这样可以对不同的请求执行相同链式操作。</li>
+</ul>
+</li>
+<li>
+<p><strong>职责链模式、命令模式、中介者模式以及观察者模式处理发送者与接收者不同的连接方式</strong>:</p>
+<ul>
+<li>职责链模式按照一定顺序将请求传递给一系列潜在接收者，直到有一个请求者处理为止。</li>
+<li>命令模式在发送者与接收者直接建立单向连接。</li>
+<li>中介者消除了发送者和接收者的直接连接，强制通过中介对象进行通讯。</li>
+<li>观察模式允许接收者动态的订阅和取消接收请求。</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="命令模式">命令模式<a href="#命令模式" class="hash-link" aria-label="命令模式的直接链接" title="命令模式的直接链接">​</a></h2>
+<ul>
+<li>
+<p><strong>命令与备忘录</strong>: 二者可以结合来实现撤销操作。在这种情况下，命令用于对目标对象执行各种不同的操作，备忘录用来保存一条命令执行前该对象的状态。</p>
+</li>
+<li>
+<p><strong>命令与策略</strong>:</p>
+<ul>
+<li>二者看起来类似，它们都能通过某些行为来参数化对象。</li>
+<li>可以使用命令模式将任何操作转换成对象，通过转换来延迟操作的执行、将操作放入队列、保存历史命令或发送远程服务命令。</li>
+<li>策略模式通常用于描述完成某个事件的不同方式，能够在同一个上下文类中切换算法。</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="迭代器模式">迭代器模式<a href="#迭代器模式" class="hash-link" aria-label="迭代器模式的直接链接" title="迭代器模式的直接链接">​</a></h2>
+<ul>
+<li>
+<p><strong>迭代器与工厂方法</strong>: 二者可以一起使用，用来让子类集合返回不同类型的迭代器，并使得迭代器与集合相匹配。</p>
+</li>
+<li>
+<p><strong>迭代器与备忘录</strong>: 二者可以一起使用，用来获取当前迭代器的状态，在需要的时候可以进行回滚。</p>
+</li>
+<li>
+<p><strong>迭代器与访问者</strong>: 二者可以一起使用，用来遍历复杂的数据结构，并对其中的元素执行所需操作，即使这些元素所属的类完全不同。</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="中介者模式">中介者模式<a href="#中介者模式" class="hash-link" aria-label="中介者模式的直接链接" title="中介者模式的直接链接">​</a></h2>
+<ul>
+<li><strong>中介者与观察者</strong>:
+<ul>
+<li>中介者的主要目标是消除一系列系统组件之间的相互依赖。观察者的目标是在对象之间建立动态的单向连接，使得部分对象可作为其他对象的附属发挥作用。</li>
+<li>二者结合使用时，中介者对象担当发布者的角色，其他组件则作为订阅者，可以订阅中介者的事件或取消订阅。此时中介者模式和观察者模式看起来非常类似。</li>
+<li>如何区分二者呢？
+<ul>
+<li>如果你将所有组件永久性的连接到同一中介者对象中，此时就是使用的中介者模式。</li>
+<li>当程序中所有组件都变成了发布者，它们之间建立了动态的连接，这样程序就没有中心化的中介者对象，此时就是使用的观察者模式。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="状态模式">状态模式<a href="#状态模式" class="hash-link" aria-label="状态模式的直接链接" title="状态模式的直接链接">​</a></h2>
+<ul>
+<li><strong>状态与策略</strong>:
+<ul>
+<li>状态可以看成策略模式的扩展。</li>
+<li><strong>两者都基于组合机制</strong>: 它们都通过将部分工作委派给 “帮手” 对象来改变其在不同情景下的行为。
+<ul>
+<li>策略模式使得这些对象相互之间完全独立，它们不知道其他对象的存在。</li>
+<li>但状态模式没有限制具体状态之间的依赖，且允许它们自行改变在不同情景下的状态。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="策略模式">策略模式<a href="#策略模式" class="hash-link" aria-label="策略模式的直接链接" title="策略模式的直接链接">​</a></h2>
+<ul>
+<li><strong>策略与模板方法</strong>:
+<ul>
+<li><strong>机制不同</strong>:
+<ul>
+<li><strong>模板方法模式基于继承机制</strong>: 它允许你通过扩展子类中的部分内容来改变部分算法。</li>
+<li><strong>策略模式基于组合机制</strong>: 你可以通过对相应行为提供不同的策略来改变对象的部分行为。</li>
+</ul>
+</li>
+<li><strong>范围不同</strong>:
+<ul>
+<li>模板方法模式在类层次上运作，因此它是静态的。</li>
+<li>策略模式在对象层次上运作，因此允许在运行时切换行为。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/docs/001-计佬常識/002-设计模式/010-各模式关系总结/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-04-28T14:52:39.000Z" itemprop="dateModified">2025年4月28日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/docs/计佬常識/设计模式/行为型模式/访问者模式"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">访问者模式</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/docs/计佬常識/计算机网络/一、计算机网络基础"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">一、计算机网络基础</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#工厂模式" class="table-of-contents__link toc-highlight">工厂模式</a></li><li><a href="#单例模式" class="table-of-contents__link toc-highlight">单例模式</a></li><li><a href="#建造者模式" class="table-of-contents__link toc-highlight">建造者模式</a></li><li><a href="#原型模式" class="table-of-contents__link toc-highlight">原型模式</a></li><li><a href="#适配器模式" class="table-of-contents__link toc-highlight">适配器模式</a></li><li><a href="#桥接模式" class="table-of-contents__link toc-highlight">桥接模式</a></li><li><a href="#组合模式" class="table-of-contents__link toc-highlight">组合模式</a></li><li><a href="#装饰模式" class="table-of-contents__link toc-highlight">装饰模式</a></li><li><a href="#外观模式" class="table-of-contents__link toc-highlight">外观模式</a></li><li><a href="#享元模式" class="table-of-contents__link toc-highlight">享元模式</a></li><li><a href="#职责链模式" class="table-of-contents__link toc-highlight">职责链模式</a></li><li><a href="#命令模式" class="table-of-contents__link toc-highlight">命令模式</a></li><li><a href="#迭代器模式" class="table-of-contents__link toc-highlight">迭代器模式</a></li><li><a href="#中介者模式" class="table-of-contents__link toc-highlight">中介者模式</a></li><li><a href="#状态模式" class="table-of-contents__link toc-highlight">状态模式</a></li><li><a href="#策略模式" class="table-of-contents__link toc-highlight">策略模式</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>

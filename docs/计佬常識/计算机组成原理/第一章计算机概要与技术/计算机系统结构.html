@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-计佬常識/计算机组成原理/第一章计算机概要与技术/计算机系统结构/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">计算机系统结构 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机系统结构"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="计算机系统结构 | HXLoLi"><meta data-rh="true" name="description" content="八个伟大思想"><meta data-rh="true" property="og:description" content="八个伟大思想"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机系统结构"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机系统结构" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机系统结构" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.38e40bb0.css">
+<script src="/HXLoLi/assets/js/runtime~main.8b732061.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.b8a270d9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/default_folder.svg"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计佬常識</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据结构与算法</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/相关面试题"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">设计模式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机网络/一、计算机网络基础"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机网络</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机组成原理</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录">【计组】目录</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机的分类及其特性"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第一章计算机概要与技术</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机的分类及其特性">计算机的分类及其特性</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机系统结构">计算机系统结构</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/程序概念入门">程序概念入门</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机硬件组成">计算机硬件组成</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机性能">计算机性能</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第二章指令系统/计算机硬件的操作与操作数"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第二章指令系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第三章计算机算术运算/定点数加减法"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第三章计算机算术运算</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/MIPS核心子集及实现方式"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第四章中央处理器</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/存储器技术"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第五章存储器</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第六章IO设备/外部设备及总线"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第六章IO设备</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第七章并行系统/并行系统"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第七章并行系统</div><div style="flex:1"></div></div></a></div></li></ul></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">程序语言</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">游戏引擎</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/DevOps与版本控制/Linux/【Linux】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">DevOps与版本控制</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">中间件</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/数据库/MySQL数据库/とある「MySQL」の禁庫目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据库</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/刷题日志/做题记录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">刷题日志</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/嵌入式/杂项/IC通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">嵌入式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/Game/MineCraft/服务器/脚本"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Game</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/HXLoLi/docs/关于">关于</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计佬常識</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计算机组成原理</span><meta itemprop="position" content="2"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">第一章计算机概要与技术</span><meta itemprop="position" content="3"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">计算机系统结构</span><meta itemprop="position" content="4"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>计算机系统结构</h1></header>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="八个伟大思想">八个伟大思想<a href="#八个伟大思想" class="hash-link" aria-label="八个伟大思想的直接链接" title="八个伟大思想的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1-面向摩尔定律的设计">1. 面向摩尔定律的设计<a href="#1-面向摩尔定律的设计" class="hash-link" aria-label="1. 面向摩尔定律的设计的直接链接" title="1. 面向摩尔定律的设计的直接链接">​</a></h3>
+<p>指出在一个芯片上集成的晶体管数量每18到24个月就会翻一番。（目前已经废除）</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="2-使用抽象简化设计">2. 使用抽象简化设计<a href="#2-使用抽象简化设计" class="hash-link" aria-label="2. 使用抽象简化设计的直接链接" title="2. 使用抽象简化设计的直接链接">​</a></h3>
+<p>使用抽象用来表示不同的设计层次，高层次的看不见低层次的细节，只能看见一个简化的模型。</p>
+<blockquote>
+<p>怎么分层提高效率呢？在计算机系统的设计中，我们可以有以下几层:</p>
+<ol>
+<li>
+<p><strong>应用层</strong>: 这是用户直接交互的层，如浏览器、文字处理软件等.在这个层次上，我们看不到硬件的具体细节，只能看到各种应用程序.</p>
+</li>
+<li>
+<p><strong>操作系统层</strong>: 这一层管理计算机的硬件资源，并为应用程序提供服务.在这一层，我们看不到硬件的具体操作，只能看到操作系统提供的接口和功能.</p>
+</li>
+<li>
+<p><strong>硬件驱动层</strong>: 这一层是操作系统和硬件之间的桥梁，负责控制和管理硬件设备.在这一层，我们看不到硬件的物理结构，只能看到驱动程序提供的接口.</p>
+</li>
+<li>
+<p><strong>硬件层</strong>: 这是系统的最底层，包括处理器、内存、硬盘等硬件设备.在这一层，我们可以看到物理设备的具体细节.</p>
+</li>
+</ol>
+<p>通过使用抽象，设计师和程序员可以更加高效地工作，因为他们不需要同时关注所有的细节.</p>
+<p>每个层次的抽象都为上一层提供了一个简化的模型，使得设计和开发过程更加可控和可管理.</p>
+</blockquote>
+<blockquote>
+<p>在软件设计中也是同理.抽象通常通过以下几个层次来实现:</p>
+<ol>
+<li>
+<p><strong>概念层次</strong>: 这是最高层次的抽象，通常涉及系统或应用程序的整体概念和设计.在这一层次，设计师关注系统的功能需求、用户交互和整体架构，而不涉及具体的实现细节.（产品、架构）</p>
+</li>
+<li>
+<p><strong>逻辑层次</strong>: 在这一层次，设计师开始关注如何实现系统的各个部分.他们设计算法、数据结构和对象模型，但仍然不涉及具体的编程语言或平台.（架构师）</p>
+</li>
+<li>
+<p><strong>物理层次</strong>: 这是最低层次的抽象，涉及具体的编程语言和工具.在这一层次，程序员编写代码、进行测试和调试，以确保系统按照设计正确运行.（码农）</p>
+</li>
+</ol>
+<p>通过使用抽象，设计师和程序员可以更加高效地工作，因为他们不需要同时关注所有的细节.</p>
+<p>每个层次的抽象都为上一层提供了一个简化的模型，使得设计和开发过程更加可控和可管理.</p>
+</blockquote>
+<p>可以看见，抽象之所以能够提高我们的效率，主要是因为<code>它允许我们关注问题的核心，而不是被不必要的细节所困扰</code>。通过将复杂系统分解为更小、更易于管理的部分，并定义这些部分之间的接口和行为，我们可以更高效地设计、开发和维护系统。这样，高层次的设计者可以不必关心底层的实现细节，只需关注高层次的设计问题，从而提高了开发效率。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="3-加速大概率事件">3. 加速大概率事件<a href="#3-加速大概率事件" class="hash-link" aria-label="3. 加速大概率事件的直接链接" title="3. 加速大概率事件的直接链接">​</a></h3>
+<p>是优先关注那些对系统性能影响最大的操作或组件，并对其进行优化。通过集中资源和精力在这些关键点上，我们可以更有效地提升系统的整体性能和效率。</p>
+<p>也正是由于这个思想，我们诞生出了非常多有名的策略. 比如缓存，比如数据压缩，比如预处理，预测和推测执行等等.</p>
+<blockquote>
+<ul>
+<li>
+<p><strong>缓存</strong>: 是一种常用的优化技术，用于加速数据的访问速度。通过将频繁访问的数据存储在高速缓存中，可以减少对慢速存储设备的访问，从而提高整体性能。</p>
+</li>
+<li>
+<p><strong>数据压缩</strong>: 在数据传输或存储时，通过压缩数据可以减少所需的空间或带宽。这有助于减少I/O操作、提高存储效率，并加速数据传输。</p>
+</li>
+<li>
+<p><strong>预处理</strong>: 通过提前对数据进行处理或计算，可以避免在实时处理时的复杂性和延迟。预处理可以包括数据清洗、索引创建、聚合计算等。</p>
+</li>
+<li>
+<p><strong>预测和推测执行</strong>: 这些技术试图提前预测或猜测未来的操作或需求，从而提前进行准备或执行。例如，预测模型可以预测用户的下一个操作，而推测执行则可以尝试提前执行某些操作以提高响应速度。</p>
+</li>
+</ul>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="4-通过并行来提高性能">4. 通过并行来提高性能<a href="#4-通过并行来提高性能" class="hash-link" aria-label="4. 通过并行来提高性能的直接链接" title="4. 通过并行来提高性能的直接链接">​</a></h3>
+<p>并行与并发的区别:</p>
+<ul>
+<li>并行是指同一<strong>时刻</strong>做多件事情</li>
+<li>并发是在一个<strong>时间段</strong>内做多件事情</li>
+</ul>
+<p>从计算机诞生到现在，包括我们日常的学习，并行随处可见.也是我们后续课程将会十分强调的一点.这个后面会慢慢学到. (通俗的讲, 对于多核就是同时工作; 对于单核就是宏观上的同时工作, 微观上的串行工作 (比如一个人可以同时烧水喝煮饭, 看起来是同一个时间段内做的, 但实际上肯定是两件事分开单独做的)(此处没有讨论操作系统的线程以及超线程等))</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="5-通过流水线来提高性能">5. 通过流水线来提高性能<a href="#5-通过流水线来提高性能" class="hash-link" aria-label="5. 通过流水线来提高性能的直接链接" title="5. 通过流水线来提高性能的直接链接">​</a></h3>
+<p><strong>流水线（Pipeline）</strong> 是一种经典的并行处理技术，它将一个复杂的计算任务拆分成多个连续且相对独立的阶段，并让这些阶段像工厂流水线一样依次执行。</p>
+<div style="text-indent:35px">
+<blockquote>
+<p>例如，在处理器设计中，指令执行通常可以分为取指（Fetch）、译码（Decode）、执行（Execute）、访存（Memory Access）、写回（Write Back）等多个阶段。通过流水线技术，不同的指令可以在不同的流水线阶段同时进行处理，每个阶段都有专门的硬件单元来处理，从而实现并行执行。</p>
+<p>当一条指令进入流水线时，它依次经过每个阶段，并在每个阶段完成一部分操作。同时，下一条指令也开始进入流水线，并在前一个指令还在流水线中执行时开始执行。这样，流水线中的每个阶段都在处理不同的指令，从而实现了指令的并行执行。</p>
+<p>流水线的设计可以显著提高处理器的性能。通过并行执行指令的不同阶段，处理器可以在同一时间内处理多条指令，从而提高了吞吐量。此外，流水线还可以减少指令之间的依赖关系，使得处理器可以更加高效地执行指令序列。</p>
+<p>然而，流水线也面临着一些挑战和限制。例如，流水线的性能受到流水线深度的限制，即流水线中分的阶段的数量。如果流水线过深，可能会导致处理器的延迟增加，从而影响性能。此外，流水线的效率还受到指令之间数据依赖关系的影响，如果指令之间存在数据依赖关系，那么它们就不能在流水线中并行执行。</p>
+</blockquote>
+</div>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="6-通过预测来提高性能">6. 通过预测来提高性能<a href="#6-通过预测来提高性能" class="hash-link" aria-label="6. 通过预测来提高性能的直接链接" title="6. 通过预测来提高性能的直接链接">​</a></h3>
+<p>预测技术通过预测未来的指令或数据，提前进行预取和预处理，从而减少等待时间和提高处理速度。</p>
+<blockquote>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="指令预测">指令预测<a href="#指令预测" class="hash-link" aria-label="指令预测的直接链接" title="指令预测的直接链接">​</a></h4>
+</blockquote>
+<p>指令预测是一种预测技术，用于预测下一个要执行的指令。处理器可以基于之前的指令序列来预测未来的指令，并提前进行解码和准备。这样，当实际的指令到达时，处理器可以更快地执行它，从而提高执行速度。</p>
+<blockquote>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="分支预测">分支预测<a href="#分支预测" class="hash-link" aria-label="分支预测的直接链接" title="分支预测的直接链接">​</a></h4>
+<p>分支预测是另一种常见的预测技术，用于预测条件分支指令的结果。处理器会尝试预测分支指令是否会被执行（即条件为真或假），并提前加载和执行相应的指令。这样，当分支指令的结果确定时，处理器已经准备好了要执行的指令，从而避免了延迟。</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="缓存预取">缓存预取<a href="#缓存预取" class="hash-link" aria-label="缓存预取的直接链接" title="缓存预取的直接链接">​</a></h4>
+<p>缓存预取是一种预测技术，用于预测哪些数据将被访问，并提前将这些数据加载到缓存中。处理器可以基于之前的访问模式来预测未来的数据访问，并提前从内存中加载这些数据到缓存中。当实际访问这些数据时，它们已经位于缓存中，从而提高了访问速度。</p>
+</blockquote>
+<p>然而，预测技术也存在挑战和限制。预测算法可能出错，导致预测不准确。当预测失误时，系统需要进行恢复操作，这可能会引入额外的延迟和开销。因此，设计预测算法时需要权衡预测准确率和恢复操作的代价。</p>
+<p>因此，设计高效的预测算法并在硬件实现中持续优化它们是现代高性能计算系统的重要研究领域之一。随着技术的发展，新的预测策略和技术不断涌现，比如更复杂的动态分支预测器、基于机器学习的预测算法等，以期进一步提高预测准确率并减少预测失败带来的损失。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="7-存储器层次结构">7. 存储器层次结构<a href="#7-存储器层次结构" class="hash-link" aria-label="7. 存储器层次结构的直接链接" title="7. 存储器层次结构的直接链接">​</a></h3>
+<p>旨在解决不同存储器设备在速度、容量和价格之间的矛盾。这种层次结构通过将不同类型的存储器按照其特性和成本效益组织成多个层次，从而实现了高效的数据访问和管理。</p>
+<p>存储器层次结构是计算机系统设计中的一个核心概念，旨在解决不同存储器设备在速度、容量和价格之间的矛盾。这种层次结构通过将不同类型的存储器按照其特性和成本效益组织成多个层次，从而实现了高效的数据访问和管理。</p>
+<blockquote>
+<ol>
+<li>
+<p>最顶层通常是寄存器（Registers）或者缓存（Cache），它们速度最快，但容量最小，且单位容量的成本最高。CPU可以直接访问寄存器，而高速缓存则用来临时存储最近频繁使用的数据或指令以减少主存访问次数。</p>
+</li>
+<li>
+<p>下一层是主存（RAM，Random Access Memory），其速度相较于寄存器和缓存慢，但容量大得多，价格也相应降低。主存是CPU直接寻址和交换数据的主要区域。</p>
+</li>
+<li>
+<p>再下一层可能包括虚拟内存（Virtual Memory）、磁盘缓存（Disk Cache）等，它们的速度进一步下降，但提供更大的存储空间，同时价格相对更低。</p>
+</li>
+<li>
+<p>底层则是硬盘驱动器（HDD）和固态硬盘（SSD）等永久性存储介质，它们的访问速度最慢，但提供了TB级别的大容量存储，并且单位存储成本最低。</p>
+</li>
+</ol>
+</blockquote>
+<p>在这个结构中，速度慢，容量大，价格便宜的在最底层。速度快，容量小，价格贵的在最上层。</p>
+<p>通过这种分层设计，当程序需要数据时，优先从最快的存储层级查找，如果未命中，则逐级向下查找，并在较高级别存储中保留一份副本，以便后续再次访问时能更快地获取数据。（也就是让最常用的数据离CPU最近）这样，即使是最慢的存储层也可以提供足够的存储空间，而最快的层保证了大部分时间内的高效数据访问，从而提升了整体性能并平衡了各种需求之间的矛盾。</p>
+<p>通过合理地组织和管理不同层次的存储器设备，可以减少访问时间和等待时间，提高系统的整体性
+能.后面我们会专门学习到这一部分的内容.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="8-通过冗余提高可靠性">8. 通过冗余提高可靠性<a href="#8-通过冗余提高可靠性" class="hash-link" aria-label="8. 通过冗余提高可靠性的直接链接" title="8. 通过冗余提高可靠性的直接链接">​</a></h3>
+<p>是通过增加额外的硬件组件来提高系统的可靠性和容错能力。</p>
+<p>尤其是在需要高度可靠性的应用中，如服务器集群、航空航天、医疗设备等。冗余部件的引入意味着在系统中增加了额外的硬件组件，这些组件通常是关键部分（如处理器、存储器、通信通道等）的复制品，它们处于待命状态，一旦原始组件发生故障，冗余组件可以立即接管工作，从而确保系统的连续运行和数据的安全性。</p>
+<p>常见的冗余方式</p>
+<blockquote>
+<ol>
+<li>
+<p><strong>处理器冗余</strong>: 使用多核处理器或者构建集群系统，当一个核心或节点失效时，其他部分可以接管任务，保证服务不中断。例如，云计算平台中的服务器集群就广泛采用了这种
+策略。</p>
+</li>
+<li>
+<p><strong>存储冗余</strong>: RAID（Redundant Array of Independent Disks）技术是一种常见的存储冗余方法，通过磁盘阵列将数据分布在多个硬盘上，实现数据备份、错误校验以及在单个硬盘故障时仍能正常读写数据。</p>
+</li>
+<li>
+<p><strong>网络冗余</strong>: 在网络设备中设置备用路径或备用设备，如负载均衡器、交换机的链路聚合（Link Aggregation）、路由协议中的热备路径等，当主路径出现问题时，流量可以迅速切换到备份路径或设备。</p>
+</li>
+<li>
+<p><strong>电源冗余</strong>: 数据中心通常会采用双路供电或多路供电系统，确保一路电源故障时另一路电源能够继续为服务器和其他关键设备供电。</p>
+</li>
+<li>
+<p><strong>冷却冗余</strong>: 大型数据中心还会对冷却系统进行冗余设计，以防止因冷却系统故障导致服务器过热而宕机。</p>
+</li>
+</ol>
+</blockquote>
+<p>这个方式随处可见，比如每次双十一，阿里巴巴都会弄很多台服务器，一台服务器崩了，另一台立刻接管. 包括我们日常生活，汽车都会搞个备用轮胎等等的意思是一样的。</p>
+<p>然而，冗余策略并非没有代价。它增加了系统的成本、复杂性和能耗。因此，在设计系统时，需要在性能、可靠性和成本之间进行权衡。</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/docs/001-计佬常識/005-计算机组成原理/002-第一章计算机概要与技术/002-计算机系统结构/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-04-28T14:52:39.000Z" itemprop="dateModified">2025年4月28日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机的分类及其特性"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">计算机的分类及其特性</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/程序概念入门"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">程序概念入门</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#八个伟大思想" class="table-of-contents__link toc-highlight">八个伟大思想</a><ul><li><a href="#1-面向摩尔定律的设计" class="table-of-contents__link toc-highlight">1. 面向摩尔定律的设计</a></li><li><a href="#2-使用抽象简化设计" class="table-of-contents__link toc-highlight">2. 使用抽象简化设计</a></li><li><a href="#3-加速大概率事件" class="table-of-contents__link toc-highlight">3. 加速大概率事件</a></li><li><a href="#4-通过并行来提高性能" class="table-of-contents__link toc-highlight">4. 通过并行来提高性能</a></li><li><a href="#5-通过流水线来提高性能" class="table-of-contents__link toc-highlight">5. 通过流水线来提高性能</a></li><li><a href="#6-通过预测来提高性能" class="table-of-contents__link toc-highlight">6. 通过预测来提高性能</a><ul><li><a href="#指令预测" class="table-of-contents__link toc-highlight">指令预测</a></li><li><a href="#分支预测" class="table-of-contents__link toc-highlight">分支预测</a></li><li><a href="#缓存预取" class="table-of-contents__link toc-highlight">缓存预取</a></li></ul></li><li><a href="#7-存储器层次结构" class="table-of-contents__link toc-highlight">7. 存储器层次结构</a></li><li><a href="#8-通过冗余提高可靠性" class="table-of-contents__link toc-highlight">8. 通过冗余提高可靠性</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>

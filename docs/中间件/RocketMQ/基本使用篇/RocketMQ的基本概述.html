@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-中间件/RocketMQ/基本使用篇/RocketMQ的基本概述/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">一、RocketMQ的基本概述 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/docs/中间件/RocketMQ/基本使用篇/RocketMQ的基本概述"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="一、RocketMQ的基本概述 | HXLoLi"><meta data-rh="true" name="description" content="1.1 MQ的基本概述"><meta data-rh="true" property="og:description" content="1.1 MQ的基本概述"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/docs/中间件/RocketMQ/基本使用篇/RocketMQ的基本概述"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/中间件/RocketMQ/基本使用篇/RocketMQ的基本概述" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/中间件/RocketMQ/基本使用篇/RocketMQ的基本概述" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.38e40bb0.css">
+<script src="/HXLoLi/assets/js/runtime~main.8b732061.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.b8a270d9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/default_folder.svg"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计佬常識</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">程序语言</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">游戏引擎</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/DevOps与版本控制/Linux/【Linux】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">DevOps与版本控制</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">中间件</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Redis</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/中间件/RocketMQ/【RocketMQ】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">RocketMQ</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/中间件/RocketMQ/【RocketMQ】目录">【RocketMQ】目录</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/中间件/RocketMQ/基本使用篇/RocketMQ的基本概述"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">基本使用篇</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/docs/中间件/RocketMQ/基本使用篇/RocketMQ的基本概述">RocketMQ的基本概述</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/中间件/RocketMQ/基本使用篇/RocketMQ的安装">RocketMQ的安装</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/中间件/RocketMQ/基本使用篇/RocketMQ快速入门">RocketMQ快速入门</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/中间件/RocketMQ/基本使用篇/RocketMQ中的标签【Tag】和key">RocketMQ中的标签【Tag】和key</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/中间件/RocketMQ/基本使用篇/RocketMQ消息重复消费问题">RocketMQ消息重复消费问题</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/中间件/RocketMQ/基本使用篇/RocketMQ的消息重试和死信队列">RocketMQ的消息重试和死信队列</a></li></ul></li></ul></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/数据库/MySQL数据库/とある「MySQL」の禁庫目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据库</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/刷题日志/做题记录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">刷题日志</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/嵌入式/杂项/IC通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">嵌入式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/Game/MineCraft/服务器/脚本"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Game</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/HXLoLi/docs/关于">关于</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">中间件</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">RocketMQ</span><meta itemprop="position" content="2"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">基本使用篇</span><meta itemprop="position" content="3"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">RocketMQ的基本概述</span><meta itemprop="position" content="4"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>一、RocketMQ的基本概述</h1></header>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="11-mq的基本概述">1.1 MQ的基本概述<a href="#11-mq的基本概述" class="hash-link" aria-label="1.1 MQ的基本概述的直接链接" title="1.1 MQ的基本概述的直接链接">​</a></h2>
+<p><strong>MQ，Message Queue</strong>，是一种提供消息队列服务的<strong>中间件</strong>，也称为消息中间件。是一套提供了消息生产、存储、消费全过程API的软件系统。消息即数据。一般消息的体量不会很大。</p>
+<p>中间件可以分为很多种类型(缓存中间件 redis memcache, 数据库中间件 mycat canal, 消息中间件mq)，面向消息的<strong>中间件</strong>(message-oriented middleware)可以利用<strong>高效可靠的消息传递机制进行与平台无关(跨平台)的数据交流</strong>，并基于数据通信来进行分布式系统的集成。通过<strong>提供消息传递和消息排队模型</strong>在分布式环境下提供应用解耦，弹性伸缩，冗余存储，流量削峰，异步通信，数据同步等。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="111-mq的作用">1.1.1 MQ的作用<a href="#111-mq的作用" class="hash-link" aria-label="1.1.1 MQ的作用的直接链接" title="1.1.1 MQ的作用的直接链接">​</a></h3>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="异步通信">异步通信<a href="#异步通信" class="hash-link" aria-label="异步通信的直接链接" title="异步通信的直接链接">​</a></h4>
+<p>消息发送者可以发送一个消息而无需等待响应，消息发送者把消息发送到一条虚拟的通道(主题或队列)上;消息接收者则订阅或监听该通道。一条信息可能最终转发给一个或多个消息接收者，这些接收者都无需对消息发送者做出回应。整个过程都是异步的。</p>
+<p>案例: 一个系统和另一个系统间进行通信的时候，假如系统A希望发送一个消息给系统B，让它去处理，但是系统A不关注系统B到底怎么处理或者有没有处理好，所以系统A把消息发送给MQ，然后就不管这条消息的“死活” 了，接着系统B从MQ里面消费出来处理即可。至于怎么处理，是否处理完毕，什么时候处理，都是系统B的事，与系统A无关。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-05-01_11-28-54.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-05-01_11-28-54-d15cfb0f24a5491306b02e8e45dd4416.png" width="1165" height="482" style="width:600px"></td></tr></tbody></table>
+<p>这样的一种通信方式，就是所谓的“异步”通信方式，对于系统A来说，只要把消息发给MQ,然后系统B就会异步处去进行处理了，系统A不能“同步”的等待系统B处理完。这样的好处是什么呢? 提高系统间的通信效率。</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="应用解耦">应用解耦<a href="#应用解耦" class="hash-link" aria-label="应用解耦的直接链接" title="应用解耦的直接链接">​</a></h4>
+<p>上游系统对下游系统的调用若为同步调用，则会大大降低系统的吞吐量与并发度，且系统耦合度太高。而异步调用则会解决这些问题。所以两层之间若要实现由同步到异步的转化，一般性做法就是，在这两层间添加一个MQ层。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-05-01_11-32-20.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-05-01_11-32-20-8c258c7baff5f2c0b70ed2611c7371d8.png" width="1011" height="521" style="width:600px"></td></tr></tbody></table>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="限流削峰">限流削峰<a href="#限流削峰" class="hash-link" aria-label="限流削峰的直接链接" title="限流削峰的直接链接">​</a></h4>
+<p>MQ可以将系统的超量请求暂存其中，以便系统后期可以慢慢进行处理，从而避免了请求的丢失或系统被压垮。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-05-01_11-34-12.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-05-01_11-34-12-b99b3a4510dbfd2b16f81a095bb76282.png" width="1360" height="626" style="width:600px"></td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="112-常见的mq产品">1.1.2 常见的MQ产品<a href="#112-常见的mq产品" class="hash-link" aria-label="1.1.2 常见的MQ产品的直接链接" title="1.1.2 常见的MQ产品的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">特性</th><th style="text-align:center">ActiveMQ</th><th style="text-align:center">RabbitMQ</th><th style="text-align:center">RocketMQ</th><th style="text-align:center">Kafka</th></tr></thead><tbody><tr><td style="text-align:center">开发语言</td><td style="text-align:center">Java</td><td style="text-align:center">Erlang</td><td style="text-align:center">Java</td><td style="text-align:center">Scala</td></tr><tr><td style="text-align:center">单机吞吐量</td><td style="text-align:center">万级</td><td style="text-align:center">万级</td><td style="text-align:center">10万级</td><td style="text-align:center">10万级</td></tr><tr><td style="text-align:center">时效性</td><td style="text-align:center">ms级</td><td style="text-align:center">us级(微秒级)</td><td style="text-align:center">ms级</td><td style="text-align:center">ms级以内</td></tr><tr><td style="text-align:center">可用性</td><td style="text-align:center">高(主从架构)</td><td style="text-align:center">高(主从架构)</td><td style="text-align:center">非常高(分布式架构)</td><td style="text-align:center">非常高(分布式架构)</td></tr><tr><td style="text-align:center">功能特性</td><td style="text-align:center">成熟的产品，早期得到很多公司的应用，但因为吞吐量较低，现在用的较少。</td><td style="text-align:center">基于Erlang语言开发，并发性能强，性能极好，延时很低，管理界面丰富。</td><td style="text-align:center">MQ功能完善，扩展性佳。</td><td style="text-align:center">只支持主要的MQ功能，像一些消息查询，消息回溯功能没有提供，毕竟为大数据准备的，在大数据领域应用广泛。</td></tr></tbody></table>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12-什么是rocketmq">1.2 什么是RocketMQ<a href="#12-什么是rocketmq" class="hash-link" aria-label="1.2 什么是RocketMQ的直接链接" title="1.2 什么是RocketMQ的直接链接">​</a></h2>
+<ul>
+<li><span class="tailwind"><a href="https://rocketmq.apache.org/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">RocketMQ官网<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></li>
+</ul>
+<p>RocketMQ是一个统一消息引擎、轻量级数据处理平台。RocketMQ是一款阿里巴巴开源的消息中间件。2016 年 11 月 28 日，阿里巴巴向 Apache 软件基金会捐赠RocketMQ，成为 Apache 孵化项目。2017 年 9 月 25 日，Apache 宣布 RocketMQ孵化成为 Apache 顶级项目(TLP)，成为国内首个互联网中间件在 Apache 上的顶级项目。</p>
+<p>RocketMQ的发展历程:</p>
+<blockquote>
+<ul>
+<li>
+<p>2007 年，阿里开始五彩石项目，Notify作为项目中交易核心消息流转系统，应运而生。Notify系统是 RocketMQ 的雏形。</p>
+</li>
+<li>
+<p>2010 年，B2B 大规模使用 ActiveMQ 作为阿里的消息内核。阿里急需一个具有海量堆积能力的消息系统。</p>
+</li>
+<li>
+<p>2011 年初，Kafka 开源。淘宝中间件团队在对 Kafka 进行了深入研究后，开发了一款新的 MQ，MetaQ。</p>
+</li>
+<li>
+<p>2012 年，MetaQ 发展到了 v3.0 版本，在它基础上进行了进一步的抽象，形成了 RocketMQ，然后就将其进行了开源。</p>
+</li>
+<li>
+<p>2015 年，阿里在 RocketMQ 的基础上，又推出了一款专门针对阿里云上用户的消息系统 Aliware MQ。</p>
+</li>
+<li>
+<p>2016 年双十一，RocketMQ 承载了万亿级消息的流转，跨越了一个新的里程碑。11 月 28 日，阿里巴巴向 Apache 软件基金会捐赠 RocketMQ，成为 Apache 孵化项目。</p>
+</li>
+<li>
+<p>2017 年 9 月 25 日，Apache 宣布 RocketMQ 孵化成为 Apache 顶级项目（TLP），成为国内首个互联网中间件在 Apache 上的顶级项目。</p>
+</li>
+</ul>
+</blockquote>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="13-rocketmq的整体架构">1.3 RocketMQ的整体架构<a href="#13-rocketmq的整体架构" class="hash-link" aria-label="1.3 RocketMQ的整体架构的直接链接" title="1.3 RocketMQ的整体架构的直接链接">​</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-05-01_11-42-33.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-05-01_11-42-33-5d5c8c78900c814b7a2283421c2f4f2d.png" width="1237" height="825" style="width:600px"></td></tr></tbody></table>
+<p>如上图所示，整体可以分成4个角色，分别是: NameServer，Broker，Producer，Consumer。</p>
+<ul>
+<li>
+<p><strong>Producer</strong>: 消息的发送者，生产者。举例: 发件人</p>
+</li>
+<li>
+<p><strong>Consumer</strong>: 消息接收者，消费者。举例: 收件人</p>
+</li>
+<li>
+<p><strong>Broker</strong>: 暂存和传输消息的通道。举例: 快递</p>
+</li>
+<li>
+<p><strong>NameServer</strong>: 管理Broker，举例：各个快递公司的管理机构,相当于broker的注册中心，保留了broker的信息。(MQ做高可用会用到NameServer)。</p>
+</li>
+<li>
+<p><strong>Queue</strong>: 队列，消息存放的位置，一个Broker中可以有多个队列。</p>
+</li>
+<li>
+<p><strong>Topic</strong>: 主题，消息的分类。</p>
+</li>
+<li>
+<p><strong>ProducerGroup</strong>: 生产者组 。RocketMQ中的消息生产者都是以生产者组（Producer Group）的形式出现的。生产者组是同一类生产者的集合，这类Producer发送相同Topic类型的消息。一个生产者组可以同时发送多个主题的消息。</p>
+</li>
+<li>
+<p><strong>ConsumerGroup</strong>: 消费者组，RocketMQ中的消息消费者都是以 <strong>消费者组(Consumer Group)</strong> 的形式出现的。消费者组是同一类消费者的集合，这类Consumer消费的是同一个Topic类型的消息。消费者组使得在消息消费方面，实现<code>负载均衡</code>(将一个Topic中的不同的Queue平均分配给同一个Consumer Group的不同的Consumer，注意，并不是将消息负载均衡)和<code>容错</code>(一个Consmer挂了，该Consumer Group中的其它Consumer可以接着消费原Consumer消费的Queue)的目标变得非常容易。</p>
+</li>
+</ul>
+<p>现在我们对这些概念进行详细的介绍:</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="131-topic-主题">1.3.1 Topic (主题)<a href="#131-topic-主题" class="hash-link" aria-label="1.3.1 Topic (主题)的直接链接" title="1.3.1 Topic (主题)的直接链接">​</a></h4>
+<blockquote>
+<p>用来区分不同类型的消息。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-05-01_11-50-42.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-05-01_11-50-42-2f931992e644c93e813ffb3ebc5a04e1.png" width="945" height="929" style="width:600px"></td></tr></tbody></table>
+<p>Topic表示一类消息的集合，每个主题包含若干条消息，每条消息只能属于一个主题，是RocketMQ进行消息订阅的基本单位。1个Topic里面可以有多条消息(topic:message 是1:n)，但是1条消息只能隶属于一个Topic(message:topic 1:1)。</p>
+<p><strong>一个生产者可以同时发送多种Topic的消息</strong>；而<strong>一个消费者只对某种特定的Topic感兴趣</strong>，即只可以<code>订阅</code>和<code>消费</code>一种Topic的消息。(producer:topic 1:n consumer:topic 1:1)</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="132-tag-标签">1.3.2 Tag (标签)<a href="#132-tag-标签" class="hash-link" aria-label="1.3.2 Tag (标签)的直接链接" title="1.3.2 Tag (标签)的直接链接">​</a></h4>
+<blockquote>
+<p>为消息设置的标签，用于同一主题下区分不同类型的消息。来自同一业务单元的消息，可以根据不同业务目的在同一主题下设置不同标签。标签能够有效地保持代码的清晰度和连贯性，并优化RocketMQ提供的查询系统。消费者可以根据Tag实现对不同子主题的不同消费逻辑，实现更好的扩展性。</p>
+</blockquote>
+<p>Topic是消息的一级分类，Tag是消息的二级分类:</p>
+<blockquote>
+<p>Topic: 货物</p>
+<ul>
+<li>tag = 家用电器</li>
+<li>tag = 数码产品</li>
+<li>tag = 日用品</li>
+</ul>
+</blockquote>
+<p>在消费者这边可以这样定义:</p>
+<blockquote>
+<ul>
+<li>topic = 货物 tag = 家用电器</li>
+<li>topic = 货物 tag = 家用电器 | 数码产品</li>
+<li>topic = 货物 tag = *</li>
+</ul>
+</blockquote>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="133-queue-队列">1.3.3 Queue (队列)<a href="#133-queue-队列" class="hash-link" aria-label="1.3.3 Queue (队列)的直接链接" title="1.3.3 Queue (队列)的直接链接">​</a></h4>
+<blockquote>
+<p>存储消息的物理实体。一个Topic中可以包含多个Queue，每个Queue中存放的就是该Topic的消息。一个Topic的Queue也被称为一个Topic中消息的分区(Partition)。</p>
+</blockquote>
+<p>一个Topic的Queue中的消息只能被一个消费者组中的一个消费者消费。一个Queue中的消息不允许同一个消费者组中的多个消费者同时消费。一个Queue中的消息允许不同消费者组里面的多个消费者同时消费。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-05-01_13-35-03.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-05-01_13-35-03-24f4c0f38dab52add6c61916214d6769.png" width="944" height="906" style="width:600px"></td></tr></tbody></table>
+<p>为什么一个Topic中可以包含多个Queue，主要是为了提高消息被消费的效率。</p>
+<p>在学习参考其它相关资料时，还会看到一个概念: <strong>分片(Sharding)</strong>。分片不同于分区。在RocketMQ中，分片指的是存放相应Topic的Broker。每个分片中会创建出相应数量的分区，即Queue，每个Queue的大小都是相同的。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-05-01_13-37-07.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-05-01_13-37-07-455b904c13c52b717556314afd083f94.png" width="1146" height="831" style="width:600px"></td></tr></tbody></table>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="134-消息标识messageidkey">1.3.4 消息标识（MessageId/Key)<a href="#134-消息标识messageidkey" class="hash-link" aria-label="1.3.4 消息标识（MessageId/Key)的直接链接" title="1.3.4 消息标识（MessageId/Key)的直接链接">​</a></h4>
+<blockquote>
+<p>RocketMQ中每个消息拥有<strong>唯一</strong>的 MessageId，且可以携带具有业务标识的 Key，以方便对消息的查询。不过需要注意的是，MessageId 有两个: 在生产者<code>send()</code>消息时会自动生成一个 MessageId (msgId)，当消息到达 Broker 后，Broker 也会自动生成一个 offsetMsgId。msgId、offsetMsgId 与 key 都称为消息标识。</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>msgId</strong>: 由<code>producer</code>端生成，其生成规则为: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>r</mi><mi>o</mi><mi>d</mi><mi>u</mi><mi>c</mi><mi>e</mi><mi>r</mi><mi>I</mi><mi>p</mi><mo>+</mo><mtext>进程</mtext><mi>p</mi><mi>i</mi><mi>d</mi><mo>+</mo><mi>M</mi><mi>e</mi><mi>s</mi><mi>s</mi><mi>a</mi><mi>g</mi><mi>e</mi><mi>C</mi><mi>l</mi><mi>i</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>I</mi><mi>D</mi><mi>S</mi><mi>e</mi><mi>t</mi><mi>t</mi><mi>e</mi><mi>r</mi><mtext>类的</mtext><mi>C</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mi>L</mi><mi>o</mi><mi>a</mi><mi>d</mi><mi>e</mi><mi>r</mi><mtext>的</mtext><mi>h</mi><mi>a</mi><mi>s</mi><mi>h</mi><mi>C</mi><mi>o</mi><mi>d</mi><mi>e</mi><mo>+</mo><mtext>当前时间</mtext><mo>+</mo><mi>A</mi><mi>u</mi><mi>t</mi><mi>o</mi><mi>m</mi><mi>i</mi><mi>c</mi><mi>I</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>e</mi><mi>r</mi><mtext>自增计数器</mtext></mrow><annotation encoding="application/x-tex">producerIp + 进程pid + MessageClientIDSetter类的ClassLoader的hashCode + 当前时间 + AutomicInteger自增计数器</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">ro</span><span class="mord mathnormal">d</span><span class="mord mathnormal">u</span><span class="mord mathnormal" style="margin-right:0.02778em">cer</span><span class="mord mathnormal" style="margin-right:0.07847em">I</span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em"></span><span class="mord cjk_fallback">进程</span><span class="mord mathnormal">p</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em"></span><span class="mord mathnormal" style="margin-right:0.10903em">M</span><span class="mord mathnormal">ess</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.03588em">g</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.01968em">Cl</span><span class="mord mathnormal">i</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.07847em">I</span><span class="mord mathnormal" style="margin-right:0.02778em">D</span><span class="mord mathnormal" style="margin-right:0.05764em">S</span><span class="mord mathnormal">e</span><span class="mord mathnormal">tt</span><span class="mord mathnormal" style="margin-right:0.02778em">er</span><span class="mord cjk_fallback">类的</span><span class="mord mathnormal" style="margin-right:0.01968em">Cl</span><span class="mord mathnormal">a</span><span class="mord mathnormal">ss</span><span class="mord mathnormal">L</span><span class="mord mathnormal">o</span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.02778em">er</span><span class="mord cjk_fallback">的</span><span class="mord mathnormal">ha</span><span class="mord mathnormal">s</span><span class="mord mathnormal">h</span><span class="mord mathnormal" style="margin-right:0.07153em">C</span><span class="mord mathnormal">o</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em"></span><span class="mord cjk_fallback">当前时间</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em"></span><span class="mord mathnormal">A</span><span class="mord mathnormal">u</span><span class="mord mathnormal">t</span><span class="mord mathnormal">o</span><span class="mord mathnormal">mi</span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.07847em">I</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em">g</span><span class="mord mathnormal" style="margin-right:0.02778em">er</span><span class="mord cjk_fallback">自增计数器</span></span></span></span></p>
+</li>
+<li>
+<p><strong>offsetMsgId</strong>: 由<code>broker</code>端生成，其生成规则为: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mi>r</mi><mi>o</mi><mi>k</mi><mi>e</mi><mi>r</mi><mi>I</mi><mi>p</mi><mo>+</mo><mtext>物理分区的</mtext><mi>o</mi><mi>f</mi><mi>f</mi><mi>s</mi><mi>e</mi><mi>t</mi><mo stretchy="false">(</mo><mi>Q</mi><mi>u</mi><mi>e</mi><mi>u</mi><mi>e</mi><mtext>中的偏移量</mtext><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">brokerIp + 物理分区的offset(Queue中的偏移量)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em"></span><span class="mord mathnormal">b</span><span class="mord mathnormal">ro</span><span class="mord mathnormal" style="margin-right:0.03148em">k</span><span class="mord mathnormal" style="margin-right:0.02778em">er</span><span class="mord mathnormal" style="margin-right:0.07847em">I</span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord cjk_fallback">物理分区的</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.10764em">ff</span><span class="mord mathnormal">se</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">Q</span><span class="mord mathnormal">u</span><span class="mord mathnormal">e</span><span class="mord mathnormal">u</span><span class="mord mathnormal">e</span><span class="mord cjk_fallback">中的偏移量</span><span class="mclose">)</span></span></span></span></p>
+</li>
+<li>
+<p><strong>key</strong>: 由用户指定的业务相关的唯一标识</p>
+</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="135-name-server">1.3.5 Name Server<a href="#135-name-server" class="hash-link" aria-label="1.3.5 Name Server的直接链接" title="1.3.5 Name Server的直接链接">​</a></h4>
+<blockquote>
+<p>NameServer 是一个<code>Broker</code>与<code>Topic</code>路由的注册中心，支持Broker的动态注册与发现。</p>
+</blockquote>
+<p>RocketMQ的思想来自于Kafka，而Kafka是依赖了Zookeeper的。所以，在RocketMQ的早期版本，即在MetaQ v1.0与v2.0版本中，也是依赖于Zookeeper的。从MetaQ v3.0，即RocketMQ开始去掉了Zookeeper依赖，使用了自己的NameServer。</p>
+<p>NameServer 主要包含两个功能:</p>
+<ul>
+<li>
+<p><code>Broker管理</code>: 接受<code>Broker</code>集群的注册信息并且保存下来作为路由信息的基本数据；提供心跳检测机制，检查<code>Broker</code>是否还存活。</p>
+</li>
+<li>
+<p><code>路由信息管理</code>: 每个<code>NameServer</code>中都保存着<code>Broker</code>集群的整个路由信息和用于客户端查询的队列信息。<code>Producer</code>和<code>Conumser</code>通过<code>NameServer</code>可以获取整个<code>Broker</code>集群的路由信息，从而进行消息的投递和消费。</p>
+</li>
+</ul>
+<p><strong>路由注册</strong></p>
+<p>NameServer通常也是以集群的方式部署，不过，<strong>NameServer是无状态的，即NameServer集群中的各个节点间是无差异的，各节点间相互不进行信息通讯</strong>。所以nameserver节点之间是相互独立，没有数据同步，一个挂了不会有任何影响。在Broker节点启动时，轮询NameServer列表，与每个NameServer节点建立<strong>长连接</strong>，发起注册请求。在NameServer内部维护着一个Broker列表，用来动态存储Broker的信息。</p>
+<blockquote>
+<p>注意，这是与其它像zk、Eureka、Nacos等注册中心不同的地方。这种NameServer的无状态方式，有什么优缺点:</p>
+<ul>
+<li>
+<p>优点: NameServer集群搭建简单，扩容简单。</p>
+</li>
+<li>
+<p>缺点: 对于Broker，必须明确指出所有NameServer地址。否则未指出的将不会去注册。也正因为如此，NameServer并不能随便扩容。因为，若Broker不重新配置，新增的NameServer对于Broker来说是不可见的，其不会向这个NameServer进行注册。</p>
+</li>
+</ul>
+</blockquote>
+<p>Broker节点为了证明自己是活着的，为了维护与NameServer间的长连接，会将最新的信息以心跳包的方式上报给NameServer，每 30 秒发送一次心跳。心跳包中包含 BrokerId、Broker地址(IP + Port)、Broker名称、Broker所属集群名称等等。NameServer在接收到心跳包后，会更新心跳时间戳，记录这个Broker的最新存活时间。</p>
+<p><strong>路由剔除</strong></p>
+<p>由于Broker关机、宕机或网络抖动等原因，NameServer没有收到Broker的心跳，NameServer可能会将其从Broker列表中剔除。</p>
+<p>NameServer中有一个定时任务，每隔 10 秒就会扫描一次Broker表，查看每一个Broker的最新心跳时间戳距离当前时间是否超过 120 秒，如果超过，则会判定Broker失效，然后将其从Broker列表中剔除。</p>
+<p><strong>路由发现</strong></p>
+<p>RocketMQ的路由发现采用的是Pull模型。当Topic路由信息出现变化时，NameServer不会主动推送给客户端，而是客户端定时拉取主题最新的路由。默认客户端每 30 秒会拉取一次最新的路由。</p>
+<blockquote>
+<p>扩展:</p>
+<ol>
+<li>
+<p>Push模型：推送模型。其实时性较好，是一个“发布-订阅”模型，需要维护一个长连接。而长连接的维护是需要资源成本的。该模型适合于的场景:
+- 实时性要求较高
+- Client数量不多，Server数据变化较频繁</p>
+</li>
+<li>
+<p>Pull模型: 拉取模型。存在的问题是，实时性较差。</p>
+</li>
+<li>
+<p>Long Polling模型: 长轮询模型。其是对Push与Pull模型的整合，充分利用了这两种模型的优势，屏蔽了它们的劣势。</p>
+</li>
+</ol>
+</blockquote>
+<p><strong>客户端NameServer选择策略</strong></p>
+<p>客户端(这里的客户端指的是producer和consumer)在配置时必须要写上NameServer集群的地址，那么客户端到底连接的是哪个NameServer节点呢？<strong>客户端首先会生产一个随机数，然后再与NameServer节点数量取模，此时得到的就是所要连接的节点索引，然后就会进行连接</strong>。如果连接失败，则会采用<code>round-robin</code>策略，逐个尝试着去连接其它节点。</p>
+<p>首先采用的是<code>随机策略</code>进行的选择，失败后采用的是<code>轮询策略</code>。</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="136-broker">1.3.6 Broker<a href="#136-broker" class="hash-link" aria-label="1.3.6 Broker的直接链接" title="1.3.6 Broker的直接链接">​</a></h4>
+<blockquote>
+<p>Broker充当着消息中转角色，负责存储消息、转发消息。Broker在RocketMQ系统中负责接收并存储从生产者发送来的消息，同时为消费者的拉取请求作准备。Broker同时也存储着消息相关的元数据，包括消费者组消费进度偏移offset、主题、队列等。</p>
+</blockquote>
+<p>下图为Broker Server的功能模块示意图:</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-05-01_13-55-24.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-05-01_13-55-24-2cb4742f987a4cdea1d58f4e9e25b486.png" width="1069" height="700" style="width:600px"></td></tr></tbody></table>
+<ul>
+<li>
+<p><strong>Remoting Module</strong>: 整个Broker的实体，负责处理来自clients端的请求。而这个Broker实体则由以下模块构成。</p>
+</li>
+<li>
+<p><strong>Client Manager</strong>: 客户端管理器。负责接收、解析客户端(Producer/Consumer)请求，管理客户端。例如，维护Consumer的Topic订阅信息</p>
+</li>
+<li>
+<p><strong>Store Service</strong>: 存储服务。提供方便简单的API接口，处理消息存储到物理硬盘和消息查询功能。</p>
+</li>
+<li>
+<p><strong>HA Service</strong>: 高可用服务，提供Master Broker 和 Slave Broker之间的数据同步功能。</p>
+</li>
+<li>
+<p><strong>Index Service</strong>: 索引服务。根据特定的Message key，对投递到Broker的消息进行索引服务，同时也提供根据Message Key对消息进行快速查询的功能。</p>
+</li>
+</ul>
+<p><strong>Broker集群部署</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-05-01_13-57-40.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-05-01_13-57-40-d662797c74c218a2f38734f15cf2fff4.png" width="1543" height="636" style="width:800px"></td></tr></tbody></table>
+<p>为了增强Broker性能与吞吐量，Broker一般都是以集群形式出现的。各集群节点中可能存放着相同Topic的不同Queue。不过，这里有个问题，如果某Broker节点宕机，如何保证数据不丢失呢？其解决方案是，将每个Broker集群节点进行横向扩展，即将Broker节点再建为一个HA集群，解决单点问题。</p>
+<p>Broker节点集群是一个主备集群，即集群中具有Master与Slave两种角色。Master负责处理读写操作请求，Slave负责对Master中的数据进行备份。当Master挂掉了，Slave则会自动切换为Master去工作。所以这个Broker集群是主备集群。一个Master可以包含多个Slave，但一个Slave只能隶属于一个Master。Master 与 Slave 的对应关系是通过指定相同的BrokerName、不同的BrokerId 来确定的。BrokerId为 0 表示Master，非 0 表示Slave。每个Broker与NameServer集群中的所有节点建立长连接，定时注册Topic信息到所有NameServer。</p>
+<p>到目前我们可以总结RocketMQ的工作流程:</p>
+<ul>
+<li>
+<p>启动NameServer，NameServer启动后开始监听端口，等待Broker、Producer、Consumer连接。</p>
+</li>
+<li>
+<p>启动Broker时，Broker会与所有的NameServer建立并保持长连接，然后每 30 秒向NameServer定时发送心跳包。</p>
+</li>
+<li>
+<p>发送消息前，可以先创建Topic，创建Topic时需要指定该Topic要存储在哪些Broker上，当然，在创建Topic时也会将Topic与Broker的关系写入到NameServer中。不过，这步是可选的，也可以在发送消息时自动创建Topic。</p>
+</li>
+<li>
+<p>Producer发送消息，启动时先跟NameServer集群中的其中一台建立长连接，并从NameServer中获取路由信息，即当前发送的Topic消息的Queue与Broker的地址（IP+Port）的映射关系。然后根据算法策略从队选择一个Queue，与队列所在的Broker建立长连接从而向Broker发消息。当然，在获取到路由信息后，Producer会首先将路由信息缓存到本地，再每 30 秒从NameServer更新一次路由信息。</p>
+</li>
+<li>
+<p>Consumer跟Producer类似，跟其中一台NameServer建立长连接，获取其所订阅Topic的路由信息，然后根据算法策略从路由信息中获取到其所要消费的Queue，然后直接跟Broker建立长连接，开始消费其中的消息。Consumer在获取到路由信息后，同样也会每 30 秒从NameServer更新一次路由信息。不过不同于Producer的是，Consumer还会向Broker发送心跳，以确保Broker的存活状态。</p>
+</li>
+</ul>
+<p><strong>Topic的创建方式</strong></p>
+<p>手动创建Topic时，有两种模式:</p>
+<ul>
+<li>集群模式: 该模式下创建的Topic在该集群中，所有Broker中的Queue数量是相同的。</li>
+<li>Broker模式: 该模式下创建的Topic在该集群中，每个Broker中的Queue数量可以不同。</li>
+</ul>
+<p>自动创建Topic时，默认采用的是Broker模式，会为每个Broker默认创建 4 个Queue。</p>
+<p><strong>读写队列</strong></p>
+<p>从物理上来讲，读/写队列是同一个队列。所以，不存在读/写队列数据同步问题。读/写队列是逻辑上进行区分的概念。一般情况下，读/写队列数量是相同的。</p>
+<blockquote>
+<p>例如，创建Topic时设置的写队列数量为 8 ，读队列数量为 4 ，此时系统会创建 8 个Queue，分别是0 1 2 3 4 5 6 7。Producer会将消息写入到这 8 个队列，但Consumer只会消费0 1 2 3这4 个队列中的消息，4 5 6 7 中的消息是不会被消费到的。
+再如，创建Topic时设置的写队列数量为 4 ，读队列数量为 8 ，此时系统会创建 8 个Queue，分别是0 1 2 3 4 5 6 7。Producer会将消息写入到0 1 2 3 这 4 个队列，但Consumer只会消费0 1 2 3 4 5 6 7这 8 个队列中的消息，但是4 5 6 7中是没有消息的。此时假设Consumer Group中包含两个Consumer，Consumer1消费0 1 2 3，而Consumer2消费4 5 6 7。但实际情况是，Consumer2是没有消息可消费的。</p>
+</blockquote>
+<p>也就是说，当读/写队列数量设置不同时，总是有问题的。那么，为什么要这样设计呢?</p>
+<p>其这样设计的目的是为了，<strong>方便Topic的Queue的缩容</strong>。</p>
+<p>例如，原来创建的Topic中包含 16 个Queue，如何能够使其Queue缩容为 8 个，还不会丢失消息? 可以动态修改写队列数量为 8 ，读队列数量不变。此时新的消息只能写入到前 8 个队列，而消费都消费的却是 16 个队列中的数据。当发现后 8 个Queue中的消息消费完毕后，就可以再将读队列数量动态设置为 8。整个缩容过程，没有丢失任何消息。</p>
+<p>perm用于设置对当前创建Topic的操作权限: 2 表示只写， 4 表示只读， 6 表示读写。</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/docs/005-中间件/002-RocketMQ/002-基本使用篇/001-RocketMQ的基本概述/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-04-28T14:52:39.000Z" itemprop="dateModified">2025年4月28日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/docs/中间件/RocketMQ/【RocketMQ】目录"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">【RocketMQ】目录</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/docs/中间件/RocketMQ/基本使用篇/RocketMQ的安装"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">RocketMQ的安装</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#11-mq的基本概述" class="table-of-contents__link toc-highlight">1.1 MQ的基本概述</a><ul><li><a href="#111-mq的作用" class="table-of-contents__link toc-highlight">1.1.1 MQ的作用</a><ul><li><a href="#异步通信" class="table-of-contents__link toc-highlight">异步通信</a></li><li><a href="#应用解耦" class="table-of-contents__link toc-highlight">应用解耦</a></li><li><a href="#限流削峰" class="table-of-contents__link toc-highlight">限流削峰</a></li></ul></li><li><a href="#112-常见的mq产品" class="table-of-contents__link toc-highlight">1.1.2 常见的MQ产品</a></li></ul></li><li><a href="#12-什么是rocketmq" class="table-of-contents__link toc-highlight">1.2 什么是RocketMQ</a></li><li><a href="#13-rocketmq的整体架构" class="table-of-contents__link toc-highlight">1.3 RocketMQ的整体架构</a><ul><li><a href="#131-topic-主题" class="table-of-contents__link toc-highlight">1.3.1 Topic (主题)</a></li><li><a href="#132-tag-标签" class="table-of-contents__link toc-highlight">1.3.2 Tag (标签)</a></li><li><a href="#133-queue-队列" class="table-of-contents__link toc-highlight">1.3.3 Queue (队列)</a></li><li><a href="#134-消息标识messageidkey" class="table-of-contents__link toc-highlight">1.3.4 消息标识（MessageId/Key)</a></li><li><a href="#135-name-server" class="table-of-contents__link toc-highlight">1.3.5 Name Server</a></li><li><a href="#136-broker" class="table-of-contents__link toc-highlight">1.3.6 Broker</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>

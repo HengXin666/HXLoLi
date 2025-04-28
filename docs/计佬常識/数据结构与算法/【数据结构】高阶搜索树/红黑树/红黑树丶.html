@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-计佬常識/数据结构与算法/【数据结构】高阶搜索树/红黑树/红黑树丶/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">红黑树概述 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/红黑树/红黑树丶"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="红黑树概述 | HXLoLi"><meta data-rh="true" name="description" content="什么是红黑树"><meta data-rh="true" property="og:description" content="什么是红黑树"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/红黑树/红黑树丶"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/红黑树/红黑树丶" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/红黑树/红黑树丶" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.38e40bb0.css">
+<script src="/HXLoLi/assets/js/runtime~main.8b732061.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.b8a270d9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/default_folder.svg"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计佬常識</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据结构与算法</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">【algorithm】目録</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【导论】基础/【开端】时空复杂度"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【导论】基础</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】线性表/线性表"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【数据结构】线性表</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】树/树"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【数据结构】树</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】图/图的概念及重要术语"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【数据结构】图</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【算法】排序算法/排序的基本概念"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【算法】排序算法</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【算法】动态规划/初探动态规划"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【算法】动态规划</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/经典查找"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【数据结构】高阶搜索树</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/经典查找">经典查找</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/红黑树/红黑树丶"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">红黑树</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/红黑树/红黑树丶">红黑树丶</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/红黑树/红黑树代码实现">红黑树代码实现</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/B树/B树丶"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">B树</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/B+树/B+树丶"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">B+树</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【算法】前缀和/一维前缀和"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【算法】前缀和</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】线段树/普通线段树"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【数据结构】线段树</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【算法】数学/最大公约数【GCD】与最小公倍数【LCM】/求最大公约数or最小公倍数"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【算法】数学</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【算法】贪心/【中位数贪心】货仓寻址问题"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【算法】贪心</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】字典树/字典树"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【数据结构】字典树</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【板子】算法模版/字符串/C++字符串切分"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">【板子】算法模版</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/相关面试题"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">设计模式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机网络/一、计算机网络基础"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机网络</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机组成原理</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">程序语言</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">游戏引擎</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/DevOps与版本控制/Linux/【Linux】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">DevOps与版本控制</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">中间件</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/数据库/MySQL数据库/とある「MySQL」の禁庫目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据库</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/刷题日志/做题记录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">刷题日志</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/嵌入式/杂项/IC通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">嵌入式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/Game/MineCraft/服务器/脚本"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Game</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/HXLoLi/docs/关于">关于</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计佬常識</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">数据结构与算法</span><meta itemprop="position" content="2"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">【数据结构】高阶搜索树</span><meta itemprop="position" content="3"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">红黑树</span><meta itemprop="position" content="4"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">红黑树丶</span><meta itemprop="position" content="5"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>红黑树概述</h1></header>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="什么是红黑树">什么是红黑树<a href="#什么是红黑树" class="hash-link" aria-label="什么是红黑树的直接链接" title="什么是红黑树的直接链接">​</a></h2>
+<ul>
+<li><strong>红黑树(Red-Black Tree，简称R-B Tree)</strong>，它一种特殊的二叉查找树。</li>
+</ul>
+<blockquote>
+<p>红黑树是特殊的二叉查找树，意味着它满足二叉查找树的特征：任意一个节点所包含的键值，大于等于左孩子的键值，小于等于右孩子的键值。</p>
+<p>除了具备该特性之外，红黑树还包括许多额外的信息。</p>
+</blockquote>
+<ul>
+<li>红黑树的特性:
+<ol>
+<li>每个节点或者是黑色，或者是红色。</li>
+<li>根节点是黑色。</li>
+<li>每个叶子节点是黑色。[注意：这里叶子节点，是指为空的叶子节点!]</li>
+<li>如果一个节点是红色的，则它的子节点必须是黑色的。[不存在两个相邻的红色节点]</li>
+<li>从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。[黑高相同]</li>
+</ol>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-18_11-14-23.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-18_11-14-23-4fd415b9644a95c834104d820bcb102e.png" width="1328" height="518" style="width:800px"></td></tr></tbody></table>
+<p><em>注: 红黑树的高度是指「<span style="color:yellow">黑高</span>」, 即 从当前结点(不包含自己)往下直到任意叶的 黑色结点的个数 (详见下文&lt;&lt;什么是一颗红黑树的黑高&gt;&gt;)</em></p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-18_11-16-04.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-18_11-16-04-e76090cfc53d5f59d67cb001482a18aa.png" width="1057" height="495" style="width:800px"></td></tr></tbody></table>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="为什么要有红黑树">为什么要有红黑树<a href="#为什么要有红黑树" class="hash-link" aria-label="为什么要有红黑树的直接链接" title="为什么要有红黑树的直接链接">​</a></h2>
+<p>大多数二叉排序树BST的操作（查找、最大值、最小值、插入、删除等等）都是O(h)的时间复杂度，h 为树的高度。但对于斜树而言（BST极端情况下出现），BST的这些操作的时间复杂度将达到O(N)。为了保证BST的所有操作的时间复杂度的上限为O(logN），就要想办法把一颗BST树的高度一直维持在logN。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="红黑树rbt与平衡二叉树avl比较">红黑树RBT与平衡二叉树AVL比较:<a href="#红黑树rbt与平衡二叉树avl比较" class="hash-link" aria-label="红黑树RBT与平衡二叉树AVL比较:的直接链接" title="红黑树RBT与平衡二叉树AVL比较:的直接链接">​</a></h3>
+<p>AVL树比红黑树更加平衡，但AVL树在插入和删除的时候也会存在大量的旋转操作。所以当你的应用涉及到频繁的插入和删除操作，切记放弃AVL树，选择性能更好的红黑树；当然，如果你的应用中涉及的插入和删除操作并不频繁，而是查找操作相对更频繁，那么就优先选择AVL树进行实现。</p>
+<p>RBTree有着接近于AVL树的查找效率 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>N</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(logN)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal" style="margin-right:0.02778em">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em">g</span><span class="mord mathnormal" style="margin-right:0.10903em">N</span><span class="mclose">)</span></span></span></span></p>
+<p>但过优于AVL树的构建速度, 是一个优异的动态数据查找的好东西</p>
+<ul>
+<li>AVL树构建 --&gt; 大量的旋转</li>
+<li>红黑树构建 --&gt; 着色 + 少量的旋转</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="一颗红黑树是如何保持平衡的">一颗红黑树是如何保持平衡的<a href="#一颗红黑树是如何保持平衡的" class="hash-link" aria-label="一颗红黑树是如何保持平衡的的直接链接" title="一颗红黑树是如何保持平衡的的直接链接">​</a></h2>
+<p>假设有3个节点的序列，那么在红黑树当中，不可能出现3个节点的单链表，如图:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-18_11-24-17.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-18_11-24-17-b11de2de1c080006185e0907a89aea99.png" width="1517" height="470" style="width:800px"></td></tr><tr><td style="text-align:center">1-3黑高不等, 4不能出现&quot;红红&quot;</td></tr></tbody></table>
+<p>将根结点9涂黑色，其他结点分四种情况着色，结果都不满足红黑树的性质要求。唯一的办法就是调整树的高度和染色。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-18_11-25-55.png ##w500##" src="/HXLoLi/assets/images/Clip_2024-02-18_11-25-55-0200653061d18aeb1606488dcdca6c86.png" width="1055" height="393" style="width:500px"></td></tr></tbody></table>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="什么是一颗红黑树的黑高">什么是一颗红黑树的黑高<a href="#什么是一颗红黑树的黑高" class="hash-link" aria-label="什么是一颗红黑树的黑高的直接链接" title="什么是一颗红黑树的黑高的直接链接">​</a></h2>
+<p>在一颗红黑树中，从某个结点×出发（不包含该结点）到达一个叶结点的任意一条简单路径上包含的黑色结点的数目称为黑高，记为 bh(x)。</p>
+<p>例如下图的节点6的黑高和红色节点15的黑高是一样的，都是2。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-18_11-16-04.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-18_11-16-04-e76090cfc53d5f59d67cb001482a18aa.png" width="1057" height="495" style="width:800px"></td></tr></tbody></table>
+<p>计算结点 6 的黑高，从结点 6 到结点 c 的路径是6→15→10→9→C，其中黑色结点为 6、10、C, 但是在计算黑高时，并不包含结点本身，所以从结点6 到结点c的路径上的黑色结点个数为2，那么bh(6)=2；从结点 15 到结点c 的路径为 15→10→9→C，其中黑色结点为 10、C，所以从结点 15 到结点c 的路径上黑色结点数目为 2，bh(15)=2 。</p>
+<p>红黑树的黑高则为其根结点的黑高。根据红黑树的性质 4、5，一颗红黑树的黑高 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>h</mi></msub><mo>&gt;</mo><mo>=</mo><mi>h</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">b_h &gt;= h/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">&gt;=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal">h</span><span class="mord">/2</span></span></span></span>。</p>
+<blockquote>
+<p>Number of nodes from a node to its farthest descendant leaf is no more than twice as the number of nodes to the nearest descendant leaf.</p>
+<p>从一个结点到其最远的后代叶结点的顶点数目不会超过从该结点到其最近的叶结点的结点数目的两倍。</p>
+</blockquote>
+<p>这句话的意思就是公式 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>h</mi></msub><mo>&gt;</mo><mo>=</mo><mi>h</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">b_h &gt;= h/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">&gt;=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal">h</span><span class="mord">/2</span></span></span></span>，其中黑高 bh 就表示从根结点 6 到离它最近的叶结点 2 包含的结点数 2，而h 则表示从根结点 6 到其最远的叶结点 9所包含的结点数目 4，显然这一公式是合理的。</p>
+<ul>
+<li>引理：一棵有n个内部结点的红黑树的高度 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>&lt;</mo><mo>=</mo><mn>2</mn><mi>l</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h &lt;= 2lg(n+1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335em;vertical-align:-0.0391em"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">&lt;=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.01968em">l</span><span class="mord mathnormal" style="margin-right:0.03588em">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span> 。</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="红黑树的应用">红黑树的应用<a href="#红黑树的应用" class="hash-link" aria-label="红黑树的应用的直接链接" title="红黑树的应用的直接链接">​</a></h2>
+<p><span style="color:yellow">实际上, 工程中如果用到树, 那么一般都是红黑树!<span></span></span></p>
+<ul>
+<li>
+<p>大多数自平衡BST(self-balancing BST）库函数都是用红黑树实现的，比如C++中的map 和 set (或者 Java 中的 TreeSet 和 TreeMap)</p>
+</li>
+<li>
+<p>红黑树也用于实现 Linux 操作系统的 CPU 调度。完全公平调度（Completely Fair Scheduler）使用的就是红黑树。</p>
+</li>
+<li>
+<p>红黑树也用于Linux提供的epoll多路复用的底层结构，便于快速增加、删除和查找网络连接的节点。(<span class="tailwind"><a href="/HXLoLi/docs/%E7%A8%8B%E5%BA%8F%E8%AF%AD%E8%A8%80/C++/tmp%E4%B8%B6C++%E4%B8%B6memo/C++%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/%E5%AE%9E%E8%B7%B5%E7%89%88%E6%9C%AC/epoll%E6%A8%A1%E5%BC%8F/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">epoll模式<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span>)</p>
+</li>
+</ul>
+<h1>红黑树的插入</h1>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="将红黑树当作一颗二叉查找树-将节点插入">将红黑树当作一颗二叉查找树, 将节点插入<a href="#将红黑树当作一颗二叉查找树-将节点插入" class="hash-link" aria-label="将红黑树当作一颗二叉查找树, 将节点插入的直接链接" title="将红黑树当作一颗二叉查找树, 将节点插入的直接链接">​</a></h2>
+<p><span style="margin-left:30px">红黑树本身就是一颗二叉查找树，将节点插入后，该树仍然是一颗二叉查找树。也就意味着，树的键值仍然是有序的。此外，无论是左旋还是右旋，若旋转之前这棵树是二叉查找树，旋转之后它一定还是二叉查找树。这也就意味着，任何的旋转和重新着色操作，都不会改变它仍然是一颗二叉查找树的事实。</span></p>
+<p><span style="margin-left:30px">那接下来，我们就来想方设法的旋转以及重新着色，使这颗树重新成为红黑树！</span></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="将插入的节点着色为红色">将插入的节点着色为红色<a href="#将插入的节点着色为红色" class="hash-link" aria-label="将插入的节点着色为红色的直接链接" title="将插入的节点着色为红色的直接链接">​</a></h2>
+<p>为什么着色成红色，而不是黑色呢？为什么呢？再看红黑树的性质:</p>
+<blockquote>
+<ol>
+<li>每个节点或者是黑色，或者是红色。</li>
+<li>根节点是黑色。</li>
+<li>每个叶子节点是黑色。</li>
+<li>如果一个节点是红色的，则它的子节点必须是黑色的。</li>
+<li>从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。</li>
+</ol>
+</blockquote>
+<p><span style="margin-left:30px">将插入的节点着色为红色，不会违背&quot;特性(5)&quot;！少违背一条特性，就意味着我们需要处理的情况越少。接下来，就要努力的让这棵树满足其它性质即可；满足了的话，它就又是一颗红黑树了。</span></p>
+<p><strong>如果插入节点是根节点，将该节点转换为黑色</strong>。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="通过一系列的旋转或着色等操作-使之重新成为一颗红黑树">通过一系列的旋转或着色等操作, 使之重新成为一颗红黑树<a href="#通过一系列的旋转或着色等操作-使之重新成为一颗红黑树" class="hash-link" aria-label="通过一系列的旋转或着色等操作, 使之重新成为一颗红黑树的直接链接" title="通过一系列的旋转或着色等操作, 使之重新成为一颗红黑树的直接链接">​</a></h2>
+<p>在第二步中插入红色节点不会违背<code>特性5</code>那么会违背那些特性呢?</p>
+<p>显然, <code>特性4</code>有可能会被违背!</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="红黑树红红节点的处理">红黑树红红节点的处理<a href="#红黑树红红节点的处理" class="hash-link" aria-label="红黑树红红节点的处理的直接链接" title="红黑树红红节点的处理的直接链接">​</a></h2>
+<p>插入操作需要调整的情况，变为了<code>特性4</code>的违背后的调整了，那么，如何进行调整呢？</p>
+<p>红红节点一定有叔叔节点，调整的核心就是看叔叔节点的颜色，分情况讨论。</p>
+<p>一个是叔叔节点是红色，一个是叔叔节点是黑色。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="叔叔节点是红色">叔叔节点是红色<a href="#叔叔节点是红色" class="hash-link" aria-label="叔叔节点是红色的直接链接" title="叔叔节点是红色的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_10-25-33.png ##w700##" src="/HXLoLi/assets/images/Clip_2024-02-19_10-25-33-9869e02e40a35646810061871b8fd169.png" width="931" height="430" style="width:700px"></td></tr></tbody></table>
+<p>处理方法: <del>(<em>科学家发现的, 你不需要因为不是自己推理出来的而导致出现心理问题</em>)</del></p>
+<p>第一步: 将 p 和 u 的颜色设置为 黑色<br>
+第二步: 将 g 的颜色设置为红色<br>
+第三步: 将 x = g, 对 g 重复执行算法框架<br></p>
+<blockquote>
+<p>(01) 将“父节点”设为黑色。</p>
+<p>(02) 将“叔叔节点”设为黑色。</p>
+<p>(03) 将“祖父节点”设为“红色”。</p>
+<p>(04) 将“祖父节点”设为“当前节点”；</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_10-29-13.png ##w700##" src="/HXLoLi/assets/images/Clip_2024-02-19_10-29-13-d1105d2a57bd473c3798a6727c436a3f.png" width="888" height="577" style="width:700px"></td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="叔叔节点是黑色">叔叔节点是黑色<a href="#叔叔节点是黑色" class="hash-link" aria-label="叔叔节点是黑色的直接链接" title="叔叔节点是黑色的直接链接">​</a></h3>
+<p>当叔叔节点是黑色时，从LL,LR,RR,RL中进行考虑。</p>
+<blockquote>
+<p>本文章只演示 LL, LR 情况, RR, RL 实际上同理!</p>
+</blockquote>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="ll">LL<a href="#ll" class="hash-link" aria-label="LL的直接链接" title="LL的直接链接">​</a></h4>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_10-32-30.png ##w700##" src="/HXLoLi/assets/images/Clip_2024-02-19_10-32-30-e6a1a61322aa24469ddbf155adebc227.png" width="889" height="396" style="width:700px"></td></tr></tbody></table>
+<blockquote>
+<p>(01) 将“父节点”设为“黑色<br>
+(02) 将“祖父节点”设为“红色<br>
+(03) 以“祖父节点”为支点进行右旋<br></p>
+</blockquote>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="lr">LR<a href="#lr" class="hash-link" aria-label="LR的直接链接" title="LR的直接链接">​</a></h4>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_10-33-53.png ##w700##" src="/HXLoLi/assets/images/Clip_2024-02-19_10-33-53-0c5107fe1d8e30bc7edfa99c9878e698.png" width="840" height="532" style="width:700px"></td></tr></tbody></table>
+<blockquote>
+<p>(01) 左旋p<br>
+(02) 重新标记x和p, 就成为LL的情况<br></p>
+</blockquote>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="总结">总结<a href="#总结" class="hash-link" aria-label="总结的直接链接" title="总结的直接链接">​</a></h2>
+<p><del>自创的小诗?</del></p>
+<div style="color:yellow">
+<ol>
+<li>插入位置在<b style="color:green">叶子</b></li>
+<li>插入节点着<b style="color:red">红色</b></li>
+<li>辨<b style="color:rgb(61,174,255)">叔</b>着色选对策</li>
+<li>如是<b style="color:rgb(61,174,255)">红色</b>就<b style="color:red">改色 (记得递归判红红)</b></li>
+<li>如是<b style="color:rgb(61,174,255)">黑色</b>就<b style="color:red">旋转 (LL,LR,RL,RR)</b></li>
+</ol>
+</div>
+<h1>红黑树的删除</h1>
+<ul>
+<li>将红黑树内的某一个节点删除。需要执行的操作依次是：
+<ol>
+<li>将红黑树当作一颗二叉查找树，将该节点从二叉查找树中删除；</li>
+<li>通过&quot;旋转和重新着色&quot;等一系列来修正该树，使之重新成为一棵红黑树。
+详细描述如下：</li>
+</ol>
+<ul>
+<li>假设y是要删除的节点，x是用来替换的节点(当y是叶节点时，x是NULL节点，当做黑色节点处理)</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>
+<p>执行标准的BST删除操作</p>
+<p>在标准的<code>BST</code>删除操作中，我们最终都会以<strong>删除一个叶子结点或者只有一个孩子的结点</strong>而结束（对于内部节点，就是要删除结点左右孩子都存在的情况，最终都会退化到删除结点是叶子结点或者是只有一个孩子的情况）。所以我们仅需要处理被删除结点是叶结点或者仅有一个孩子的情况。</p>
+</li>
+<li>
+<p>简单情况: y或者x有一个是红色节点</p>
+<p>如果x或者y是红色，我们将替换结点y的结点x标记为黑色结点（这样黑高就不会变化）。</p>
+<p><em>注意这里是x或者y是红色结点，因为在一棵红黑树中，是不允许有两个相邻的红色结点的，而结点y是结点x的父结点，因此只能是x或者y是红色结点。</em></p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_11-41-14.png ##w700##" src="/HXLoLi/assets/images/Clip_2024-02-19_11-41-14-57f15bdebf68f28e119a0f8c221366c3.png" width="1201" height="461" style="width:700px"></td></tr><tr><td style="text-align:center">需要变色</td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_11-32-17.png ##w300##" src="/HXLoLi/assets/images/Clip_2024-02-19_11-32-17-20cb711cad8750025abf0c464b8a1d62.png" width="551" height="355" style="width:300px"></td></tr><tr><td style="text-align:center">直接删除Y即可(X是黑 标记为黑色==没有变色)</td></tr></tbody></table>
+<ol start="3">
+<li>
+<p>复杂情况: y和x都是黑色节点</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-light-bulb mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>双黑节点的定义：</p>
+<p><span style="margin-left:30px">当要删除结点 y 和孩子结点 x 都是黑色结点，删除结点 y ，导致结点 x 变为双黑结点。</span></p>
+<p><span style="margin-left:30px">当x变成双黑结点时，我们的主要任务将变成将该双黑结点 x 变成普通的单黑结点。一定要特别注意，NULL结点为黑色结点，所以删除黑色的叶子结点就会产生一个双黑结点。</span></p>
+</div>
+<blockquote>
+<p>##yellow##
+3.1 当前节点x是双黑节点且不是根节点</p>
+<p>(a) x 的兄弟节点 w 是黑色且w的孩子节点至少有一个是红色的<br>
+(b) x 的兄弟节点 w 是黑色且它的两个孩子都是黑色的<br>
+(c) x 的兄弟节点 w 是红色<br></p>
+</blockquote>
+<blockquote>
+<p>3.2 当前节点x是双黑节点且是根节点</p>
+</blockquote>
+</li>
+</ol>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="当前节点x是双黑节点且不是根节点">当前节点x是双黑节点且不是根节点<a href="#当前节点x是双黑节点且不是根节点" class="hash-link" aria-label="当前节点x是双黑节点且不是根节点的直接链接" title="当前节点x是双黑节点且不是根节点的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="a-x的兄弟节点w是黑色且w的孩子节点至少有一个红色">(a) x的兄弟节点w是黑色且w的孩子节点至少有一个红色<a href="#a-x的兄弟节点w是黑色且w的孩子节点至少有一个红色" class="hash-link" aria-label="(a) x的兄弟节点w是黑色且w的孩子节点至少有一个红色的直接链接" title="(a) x的兄弟节点w是黑色且w的孩子节点至少有一个红色的直接链接">​</a></h3>
+<p>对于这种情况，需要对x的兄弟节点w进行旋转操作，将w的一个红色节点用r表示，x和w的父节点用p表示。</p>
+<p>那么p，w和r将出现四种可能性（LL、LR、RR、RL)</p>
+<h5 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="ll-1">LL<a href="#ll-1" class="hash-link" aria-label="LL的直接链接" title="LL的直接链接">​</a></h5>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_12-01-06.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-19_12-01-06-b5945abec018c6e46e2b0bae98cb2321.png" width="1552" height="796" style="width:800px"></td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_12-01-48.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-19_12-01-48-350214dd16c1b3b60c5159cb25fb215f.png" width="1452" height="716" style="width:800px"></td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_12-02-28.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-19_12-02-28-9b1f6bcb9f7cc79269021d7380c2600e.png" width="1503" height="654" style="width:800px"></td></tr></tbody></table>
+<h5 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="lr-1">LR<a href="#lr-1" class="hash-link" aria-label="LR的直接链接" title="LR的直接链接">​</a></h5>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_12-04-59.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-19_12-04-59-be89df5036fa7402b2769de289541b76.png" width="1541" height="726" style="width:800px"></td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_12-06-05.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-19_12-06-05-84adfc175a20737e2c2532133c114a32.png" width="1490" height="808" style="width:800px"></td></tr><tr><td style="text-align:center">此时变为LL</td></tr></tbody></table>
+<h5 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="rr">RR<a href="#rr" class="hash-link" aria-label="RR的直接链接" title="RR的直接链接">​</a></h5>
+<p>练习一下:</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_12-18-47.png" src="/HXLoLi/assets/images/Clip_2024-02-19_12-18-47-4e9bb306ccf689e786035c589450e47f.png" width="1466" height="597"></td></tr></tbody></table>
+<h5 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="rl">RL<a href="#rl" class="hash-link" aria-label="RL的直接链接" title="RL的直接链接">​</a></h5>
+<blockquote>
+<p>404</p>
+</blockquote>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="总结-1">总结<a href="#总结-1" class="hash-link" aria-label="总结的直接链接" title="总结的直接链接">​</a></h4>
+<p>对于兄弟是黑节点，兄弟节点的子孩子至少有一个红色节点的情况：</p>
+<p>(1）其中LR想办法转为LL，RL想办法转为RR的形式。</p>
+<ul>
+<li>LR --&gt;LL的方法：w的右孩子变为黑色，w变为红色，以w为节点进行左旋。</li>
+<li>RL --&gt;RR的方法：w的左孩子变为黑色，w变为红色，以w为节点进行右旋。</li>
+</ul>
+<p>(2）LL的调整方法，r节点(w的左孩子)变为黑色，w节点变为父节点颜色，父节点变为黑色，右旋父节点</p>
+<p>(3）RR的调整方法，r节点(w的右孩子)变为黑色，w节点变为父节点颜色，父节点变为黑色，左旋父节点</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="b-x的兄弟节点w是黑色且两个孩子节点都是黑色">(b) x的兄弟节点w是黑色，且两个孩子节点都是黑色<a href="#b-x的兄弟节点w是黑色且两个孩子节点都是黑色" class="hash-link" aria-label="(b) x的兄弟节点w是黑色，且两个孩子节点都是黑色的直接链接" title="(b) x的兄弟节点w是黑色，且两个孩子节点都是黑色的直接链接">​</a></h3>
+<p>对于这种情况需要递归地进行处理，如果删除结点后得到的双黑结点的父结点此时为黑色，则结点 u 变单黑，且结点 u 的父结点 p 变双黑，然后对结点 u 的父结点 p 继续进行处理，直到当前处理的双黑结点的父结点为红色结点，此时将双黑结点的父结点设置为黑色，双黑结点变为单黑结点 (红色 + 双黑 = 单黑)。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_13-49-09.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-19_13-49-09-cb96e8d499da43ff81955aaf93c1b945.png" width="1198" height="442" style="width:800px"></td></tr><tr><td style="text-align:center">假设以 10 为根结点的子树为整棵树的左子树，删除结点 9 ，产生双黑结点 c 且其兄弟结点 12（s） 为黑色，兄弟结点的左右孩子均为黑色。</td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_13-49-36.png" src="/HXLoLi/assets/images/Clip_2024-02-19_13-49-36-8d0296b4e1b4278c6077c681fb639f96.png" width="1130" height="403"></td></tr><tr><td style="text-align:center">此时双黑结点的兄弟结点 12 变为红色结点，然后将 u 的父结点 10 变为双黑结点，一直向上判断。</td></tr></tbody></table>
+<p>至于这一过程何时结束，我们再看下面一个例子。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_13-50-30.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-19_13-50-30-401c03b3728901eb848cf864a6251e9c.png" width="1209" height="426" style="width:800px"></td></tr><tr><td style="text-align:center">删除下图中的结点 12 ，得到一个双黑结点 u ，双黑结点的兄弟结点 31 及兄弟结点的孩子结点均为黑色，且<strong>双黑结点的父结点 19 为红色结点</strong>，刚好是不再继续向上判断的情况。</td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_13-51-59.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-19_13-51-59-3b9324d36211de3ce8c045a5e8fd5956.png" width="1186" height="429" style="width:800px"></td></tr><tr><td style="text-align:center">此时<strong>只需要将结点 u 的兄弟结点 31 的颜色变为红色，双黑结点 u 的父结点 19 由红色变为黑色结点，双黑结点 u 变为单黑结点</strong>。</td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="c-x的兄弟节点w是红色节点">(c) x的兄弟节点w是红色节点<a href="#c-x的兄弟节点w是红色节点" class="hash-link" aria-label="(c) x的兄弟节点w是红色节点的直接链接" title="(c) x的兄弟节点w是红色节点的直接链接">​</a></h3>
+<p>当前 x 的兄弟结点 W 是红色结点时，通过旋转操作将 x 当前的兄弟结点向上移动，并对 x 的父结点和其旋转前的兄弟结点重新着色，接着继续对结点 x 旋转后的兄弟结点W进行判断，确定相应的平衡操作。旋转操作将 x 的兄弟结点情况又会转换为前面的（a）和（b）的情况。</p>
+<blockquote>
+<p>(1) 将 w 设置为黑色<br>
+(2) 将 p 设置为红色<br>
+(3) 对父进行旋转(兄弟在左则右旋, 在右则左旋)<br>
+(4) 重新设置 w (变为a/b的情况)<br></p>
+</blockquote>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="u-的兄弟结点-s-是父结点-p-的左孩子-对结点-p-进行右旋操作">u 的兄弟结点 s 是父结点 p 的左孩子, 对结点 p 进行右旋操作<a href="#u-的兄弟结点-s-是父结点-p-的左孩子-对结点-p-进行右旋操作" class="hash-link" aria-label="u 的兄弟结点 s 是父结点 p 的左孩子, 对结点 p 进行右旋操作的直接链接" title="u 的兄弟结点 s 是父结点 p 的左孩子, 对结点 p 进行右旋操作的直接链接">​</a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_13-59-45.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-19_13-59-45-96c1bc7e95b8f6dbe796575f1788b858.png" width="1234" height="435" style="width:800px"></td></tr><tr><td style="text-align:center">删除结点 18 ，产生一个双黑结点 u ，且 u 的兄弟结点 s 是红色，兄弟结点 s 是其父结点的左孩子，接着就是对其父结点 15 进行右旋操作。</td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_14-00-26.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-19_14-00-26-7c74e770d679337b66b9fb66a33657ef.png" width="1250" height="456" style="width:800px"></td></tr><tr><td style="text-align:center">对结点 15 进行右旋操作，并且对旋转前的 p 和 s 进行重新着色后，继续对双黑结点旋转后的兄弟结点进行判断，发现此时正好和3.2（b）的情况是一样，进行相应处理，如下图所示。</td></tr><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_14-01-01.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-19_14-01-01-96300a826386dc4efc54d9ffa73847cf.png" width="1193" height="451" style="width:800px"></td></tr></tbody></table>
+<h5 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="u-的兄弟结点-s-是父结点-p-的左孩子-对结点-p-进行左旋操作这种情况与上面的是对称的">u 的兄弟结点 s 是父结点 p 的左孩子, 对结点 p 进行左旋操作(这种情况与上面的是对称的)<a href="#u-的兄弟结点-s-是父结点-p-的左孩子-对结点-p-进行左旋操作这种情况与上面的是对称的" class="hash-link" aria-label="u 的兄弟结点 s 是父结点 p 的左孩子, 对结点 p 进行左旋操作(这种情况与上面的是对称的)的直接链接" title="u 的兄弟结点 s 是父结点 p 的左孩子, 对结点 p 进行左旋操作(这种情况与上面的是对称的)的直接链接">​</a></h5>
+<p>自己练习一下</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-19_14-01-50.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-19_14-01-50-e25f192d9302576832bc0fdac67718bb.png" width="1287" height="433" style="width:800px"></td></tr></tbody></table>
+<p><em>注: (b), (c)的图片来源和参考: <span class="tailwind"><a href="https://zhuanlan.zhihu.com/p/145006031" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">知乎: 图解: 红黑树删除篇(一文读懂)<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></em></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="总结-2">总结<a href="#总结-2" class="hash-link" aria-label="总结的直接链接" title="总结的直接链接">​</a></h2>
+<p>y 是要删除的节点, x 是用来替换的. (y为叶子, 可视x是NULL)</p>
+<div class="language-markmap codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-markmap codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"># 红黑树的删除</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">## 1. 执行标准的BST删除操作</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">## 2. 简单情况: x 或 y 为红色节点</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">### 直接替换并且染色为黑</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">## 3. 复杂情况: x 和 y 都是黑色节点</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">### 3.1 当前 节点x 是双黑节点且不是根节点</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">#### (a) x的兄弟节点w是黑色且w的孩子节点至少有一个红色</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">##### LL</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">##### LR</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">##### RR</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">##### RL</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">#### (b) x的兄弟节点w是黑色，且两个孩子节点都是黑色</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">##### 递归上浮父节点, 直到父节点为红或者为根节点(3.2)</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">#### (c) x的兄弟节点w是红色节点</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">##### 变色+旋转 转化为 (a)/(b) 情况</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">### 3.2 当前 节点x 是双黑节点且是根节点</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">markmap</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>务必反复看图以便记忆!</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-02-20_12-36-04.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-02-20_12-36-04-478cf3e0439e9d11d48e173e7c124bb8.png" width="1514" height="722" style="width:800px"></td></tr><tr><td style="text-align:center">可以结合<span class="tailwind"><a href="/HXLoLi/docs/%E8%AE%A1%E4%BD%AC%E5%B8%B8%E8%AD%98/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E9%AB%98%E9%98%B6%E6%90%9C%E7%B4%A2%E6%A0%91/%E7%BA%A2%E9%BB%91%E6%A0%91/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">红黑树代码实现<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span>的代码理解</td></tr></tbody></table></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/docs/001-计佬常識/001-数据结构与算法/008-【数据结构】高阶搜索树/002-红黑树/001-红黑树丶/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-04-28T14:52:39.000Z" itemprop="dateModified">2025年4月28日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/经典查找"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">经典查找</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】高阶搜索树/红黑树/红黑树代码实现"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">红黑树代码实现</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#什么是红黑树" class="table-of-contents__link toc-highlight">什么是红黑树</a></li><li><a href="#为什么要有红黑树" class="table-of-contents__link toc-highlight">为什么要有红黑树</a><ul><li><a href="#红黑树rbt与平衡二叉树avl比较" class="table-of-contents__link toc-highlight">红黑树RBT与平衡二叉树AVL比较:</a></li></ul></li><li><a href="#一颗红黑树是如何保持平衡的" class="table-of-contents__link toc-highlight">一颗红黑树是如何保持平衡的</a></li><li><a href="#什么是一颗红黑树的黑高" class="table-of-contents__link toc-highlight">什么是一颗红黑树的黑高</a></li><li><a href="#红黑树的应用" class="table-of-contents__link toc-highlight">红黑树的应用</a></li><li><a href="#将红黑树当作一颗二叉查找树-将节点插入" class="table-of-contents__link toc-highlight">将红黑树当作一颗二叉查找树, 将节点插入</a></li><li><a href="#将插入的节点着色为红色" class="table-of-contents__link toc-highlight">将插入的节点着色为红色</a></li><li><a href="#通过一系列的旋转或着色等操作-使之重新成为一颗红黑树" class="table-of-contents__link toc-highlight">通过一系列的旋转或着色等操作, 使之重新成为一颗红黑树</a></li><li><a href="#红黑树红红节点的处理" class="table-of-contents__link toc-highlight">红黑树红红节点的处理</a><ul><li><a href="#叔叔节点是红色" class="table-of-contents__link toc-highlight">叔叔节点是红色</a></li><li><a href="#叔叔节点是黑色" class="table-of-contents__link toc-highlight">叔叔节点是黑色</a><ul><li><a href="#ll" class="table-of-contents__link toc-highlight">LL</a></li><li><a href="#lr" class="table-of-contents__link toc-highlight">LR</a></li></ul></li></ul></li><li><a href="#总结" class="table-of-contents__link toc-highlight">总结</a></li><li><a href="#当前节点x是双黑节点且不是根节点" class="table-of-contents__link toc-highlight">当前节点x是双黑节点且不是根节点</a><ul><li><a href="#a-x的兄弟节点w是黑色且w的孩子节点至少有一个红色" class="table-of-contents__link toc-highlight">(a) x的兄弟节点w是黑色且w的孩子节点至少有一个红色</a><ul><li><a href="#ll-1" class="table-of-contents__link toc-highlight">LL</a></li><li><a href="#lr-1" class="table-of-contents__link toc-highlight">LR</a></li><li><a href="#rr" class="table-of-contents__link toc-highlight">RR</a></li><li><a href="#rl" class="table-of-contents__link toc-highlight">RL</a></li><li><a href="#总结-1" class="table-of-contents__link toc-highlight">总结</a></li></ul></li><li><a href="#b-x的兄弟节点w是黑色且两个孩子节点都是黑色" class="table-of-contents__link toc-highlight">(b) x的兄弟节点w是黑色，且两个孩子节点都是黑色</a></li><li><a href="#c-x的兄弟节点w是红色节点" class="table-of-contents__link toc-highlight">(c) x的兄弟节点w是红色节点</a><ul><li><a href="#u-的兄弟结点-s-是父结点-p-的左孩子-对结点-p-进行右旋操作" class="table-of-contents__link toc-highlight">u 的兄弟结点 s 是父结点 p 的左孩子, 对结点 p 进行右旋操作</a><ul><li><a href="#u-的兄弟结点-s-是父结点-p-的左孩子-对结点-p-进行左旋操作这种情况与上面的是对称的" class="table-of-contents__link toc-highlight">u 的兄弟结点 s 是父结点 p 的左孩子, 对结点 p 进行左旋操作(这种情况与上面的是对称的)</a></li></ul></li></ul></li></ul></li><li><a href="#总结-2" class="table-of-contents__link toc-highlight">总结</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>

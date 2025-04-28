@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-计佬常識/操作系统/内存管理/地址空间/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">地址空间 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/docs/计佬常識/操作系统/内存管理/地址空间"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="地址空间 | HXLoLi"><meta data-rh="true" name="description" content="| ##container## |"><meta data-rh="true" property="og:description" content="| ##container## |"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/操作系统/内存管理/地址空间"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/操作系统/内存管理/地址空间" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/操作系统/内存管理/地址空间" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.38e40bb0.css">
+<script src="/HXLoLi/assets/js/runtime~main.8b732061.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.b8a270d9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/default_folder.svg"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计佬常識</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据结构与算法</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/相关面试题"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">设计模式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机网络/一、计算机网络基础"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机网络</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス">とあるOSのインデックス</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/操作系统总览/操作系统概述"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统总览</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/进程简介及进程编程模型"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">进程与线程</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/内存管理/地址空间"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">内存管理</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/内存管理/地址空间">地址空间</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/内存管理/交换技术和空闲空间管理">交换技术和空闲空间管理</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/内存管理/段式页式内存管理">段式页式内存管理</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/内存管理/多级页表和页面置换算法">多级页表和页面置换算法</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/文件系统/文件系统概述及文件概念"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">文件系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/输入输出/设备输入输出之硬件模型"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">输入输出</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/死锁/死锁丶"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">死锁</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机组成原理</div><div style="flex:1"></div></div></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">程序语言</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">游戏引擎</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/DevOps与版本控制/Linux/【Linux】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">DevOps与版本控制</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">中间件</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/数据库/MySQL数据库/とある「MySQL」の禁庫目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据库</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/刷题日志/做题记录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">刷题日志</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/嵌入式/杂项/IC通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">嵌入式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/Game/MineCraft/服务器/脚本"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Game</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/HXLoLi/docs/关于">关于</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计佬常識</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">操作系统</span><meta itemprop="position" content="2"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">内存管理</span><meta itemprop="position" content="3"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">地址空间</span><meta itemprop="position" content="4"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>地址空间</h1></header>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="PixPin_2025-01-10_21-27-21.png" src="/HXLoLi/assets/images/PixPin_2025-01-10_21-27-21-238263ff8d43789552ce611de4b961dd.png" width="1957" height="1231"></td></tr></tbody></table>
+<p>主存（Random Access Memory, RAM）是计算机系统中至关重要且需精细管理的资源。尽管当前技术下，内存的增长速度远非昔日如IBM 7094等早期计算机可比，然而，值得注意的是，程序（包括应用程序及操作系统本身）的体量和复杂度也在以更快的速度膨胀，其增长速度往往超越了内存容量的扩展速度。这一现象深刻揭示了“无论存储器容量如何扩展，程序大小的增长总是倾向于更快”的普遍规律。</p>
+<p>为了有效应对这一挑战，并最大化利用有限的内存资源，操作系统扮演了至关重要的角色。它们不仅负责内存的分配与回收，还通过一系列复杂的机制来管理内存，确保系统的稳定运行和高效性能。下面我们就来探讨一下操作系统是如何创建内存并管理他们的。</p>
+<p>经过多年的研究发现，科学家提出了一种<code>分层存储器体系(memory hierarchy)</code>，下面是分层体系的分类:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="PixPin_2025-01-10_21-30-12.png ##w600##" src="/HXLoLi/assets/images/PixPin_2025-01-10_21-30-12-3cc9e1be9fc7bb45cd2c8c4eb08020b7.png" width="1545" height="545" style="width:600px"></td></tr><tr><td style="text-align:center">存储层次结构</td></tr></tbody></table>
+<p>在操作系统中，负责管理内存层次结构的组件被称为“内存管理器（memory manager）”。其主要职责在于有效地管理内存资源，包括记录哪些内存区域正在被使用、在进程需要时为其分配内存、以及在进程完成后回收内存空间。这一功能是现代操作系统不可或缺的一部分，所有现代操作系统均提供了相应的内存管理机制。</p>
+<p>接下来，我们将对不同复杂程度的内存管理模型进行探讨。需要注意的是，由于最低级别的缓存通常由硬件自动管理，因此我们的讨论将主要聚焦于主存模型及其管理方法。从简单的内存管理策略到更为复杂的机制，我们将逐一进行剖析。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="一无存储器抽象">一、无存储器抽象<a href="#一无存储器抽象" class="hash-link" aria-label="一、无存储器抽象的直接链接" title="一、无存储器抽象的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="11-运行一个程序">1.1 运行一个程序<a href="#11-运行一个程序" class="hash-link" aria-label="1.1 运行一个程序的直接链接" title="1.1 运行一个程序的直接链接">​</a></h3>
+<p>最为基础的存储器抽象概念是<code>“无存储器抽象”</code>。在计算机技术发展的早期阶段，如20世纪60年代之前的大型计算机、70年代之前的小型计算机，以及80年代之前的个人计算机，均未采用存储器抽象技术。这些计算机系统中的程序直接访问物理内存，意味着程序与硬件内存地址之间存在着直接的映射关系。</p>
+<p>以一条简单的机器指令为例:</p>
+<div class="language-伪汇编 codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-伪汇编 codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">MOV REGISTER1, 1000</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">伪汇编</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>当执行这条指令时，计算机会直接将物理内存中地址为<code>1000</code>的位置上的数据移动到<code>REGISTER1</code>寄存器中。在这种情境下，程序员所面对的内存模型即为物理内存的直观反映，内存地址从<code>0</code>开始，逐一递增至最大值，每个地址单元均存储着一个<code>8</code>位的二进制数。</p>
+<p>由于这种直接映射的方式，当时的计算机系统无法支持两个应用程序同时驻留在内存中运行。举例来说，如果第一个程序向内存地址2000写入了一个值，那么这个值将会覆盖第二个程序在相同地址（即2000）上的原有数据。因此，两个程序若试图同时运行，将会因数据冲突而导致立即崩溃。这种限制严重阻碍了计算机多任务处理能力的提升，也凸显了存储器抽象技术引入的必要性。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="PixPin_2025-01-10_21-35-30.png ##w500##" src="/HXLoLi/assets/images/PixPin_2025-01-10_21-35-30-f340832ed795bd1c1f1ddaa5e2244b5c.png" width="832" height="567" style="width:500px"></td></tr></tbody></table>
+<p>不过即使存储器模型就是物理内存，还是存在一些可变体的。下面展示了三种变体:</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="PixPin_2025-01-10_21-38-09.png ##w500##" src="/HXLoLi/assets/images/PixPin_2025-01-10_21-38-09-b003b837072149810a8f2a70aa35d4ff.png" width="927" height="543" style="width:500px"></td></tr></tbody></table>
+<p>在图a所示模型中，操作系统被置于<code>RAM（Random Access Memory，随机存取存储器）</code>的底部，而在图b中，操作系统则位于<code>ROM（Read-Only Memory，只读存储器）</code>的顶部。至于图c，设备驱动程序被放置在顶端的ROM中，而操作系统则位于底部的RAM中。这些模型反映了不同历史时期和计算机类型中的内存布局方式。</p>
+<p>具体来说，图a的模型曾广泛应用于大型机和小型机，但如今已较为罕见。图b的模型则常见于掌上电脑或嵌入式系统中，这些系统通常依赖ROM来存储固定的、不易更改的操作系统代码。至于图c的模型，它代表了早期个人计算机的一种典型布局，其中ROM中的一部分被用作<code>BIOS（Basic Input Output System，基本输入输出系统）</code>。</p>
+<p>然而，模型a和c存在一个共同的缺点：用户程序中的错误可能会直接破坏操作系统，从而引发灾难性的后果。这是因为在这两种模型中，用户程序和操作系统共享同一块内存空间，且没有有效的隔离机制。</p>
+<p>在采用这种内存组织方式时，系统通常<strong>只能同时运行一个进程</strong>。用户键入命令后，操作系统会将所需的程序<strong>从磁盘复制到内存中</strong>并执行。当进程运行结束后，操作系统会在用户终端上显示提示符，并等待新的命令。一旦收到新命令，操作系统会再次将新的程序装入内存，覆盖前一个程序的内存空间。</p>
+<p>为了在没有存储器抽象的系统中实现一定程度的并行性，一种方法是使用多线程编程。由于同一进程中的多个线程共享同一内存映像，因此它们之间的并行执行在技术上成为可能。然而，这种方法并未得到广泛采纳，因为用户通常期望能够同时运行多个没有关联的程序，而线程抽象并不能提供这种级别的隔离和并行性。</p>
+<blockquote>
+<p>举例来说，在一个没有存储器抽象的系统中，如果用户同时运行了两个程序（如文本编辑器和计算器），那么这两个程序将不得不共享同一块内存空间。如果文本编辑器中的某个错误导致它错误地覆盖了计算器的内存区域，那么计算器程序可能会崩溃或表现出异常行为。这种情况在模型a和c中尤为常见，因为它们缺乏有效的内存隔离机制。</p>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12-运行多个程序">1.2 运行多个程序<a href="#12-运行多个程序" class="hash-link" aria-label="1.2 运行多个程序的直接链接" title="1.2 运行多个程序的直接链接">​</a></h3>
+<p>即便在没有存储器抽象的情况下，同时运行多个程序依然是可行的，这主要通过操作系统的巧妙管理来实现。操作系统可以采取一种策略：将当前内存中运行的所有程序内容暂时保存到磁盘文件中，随后再将需要运行的程序读入内存。只要确保在任一时刻，内存中仅有一个程序在运行，就可以有效避免程序间的冲突。</p>
+<blockquote>
+<p>此外，借助额外的特殊硬件，即使在没有交换功能的情况下，也能实现多个程序的并行运行。IBM 360的早期模型就是一个典型的例子。</p>
+</blockquote>
+<p>在IBM 360系统中，内存被细致地划分为多个2KB的区域块，每个区域块都被分配了一个独特的4位保护键。这些保护键被存储在CPU的“特殊寄存器（SFR）”中。以一个内存容量为1MB的机器为例，它仅需要512个这样的4位寄存器，总容量仅为256字节（计算方式：512个寄存器 x 4位/寄存器 = 2048位 = 256字节）。同时，在“程序状态字（PSW）”中，也包含了一个4位的码，用于与内存区域块的保护键进行匹配。</p>
+<p>当某个运行中的进程尝试访问一个内存区域块时，如果该进程的保护键与其PSW中保存的码不一致，IBM 360的硬件会立即捕获这一异常情况。由于只有操作系统才具备修改保护键的权限，因此这种机制能够有效地防止进程间的相互干扰，以及用户进程对操作系统的潜在破坏。通过这种方式，IBM 360在没有存储器抽象的情况下，也实现了多个程序的并行运行。</p>
+<p>这种解决方式是有一个缺陷。如下所示，假设有两个程序，每个大小各为 16 KB:</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="PixPin_2025-01-10_21-47-42.png ##w500##" src="/HXLoLi/assets/images/PixPin_2025-01-10_21-47-42-e81d3d17f3461921982ee463240df82d.png" width="933" height="830" style="width:500px"></td></tr></tbody></table>
+<p>从图中我们可以清晰地看到，这描述了两个不同的<code>16KB</code>程序（我们称之为a程序和b程序）的装载过程。a程序在装载后，其执行流程会首先跳转到<code>地址24</code>，那里是一条<code>MOV</code>指令。而b程序则会首先跳转到<code>地址28</code>，该地址对应的是一条<code>CMP</code>指令。</p>
+<p>这里所展示的是两个程序被先后加载到内存中的情况。然而，如果我们假设这两个程序被同时加载到内存中，并且都从地址0处开始执行，那么内存的状态就会如上图c所示。程序装载完成后开始运行，第一个程序（a程序）从<code>地址0</code>处开始，执行<code>JMP 24</code>指令，然后依次执行后续指令（虽然图中并未完全展示所有指令）。一段时间后，第一个程序执行完毕，随后开始执行第二个程序（b程序）。</p>
+<p>但这里存在一个关键问题：第二个程序的第一条指令是跳转到<code>地址28</code>，而这条指令实际上会使程序跳转到第一个程序的<code>ADD</code>指令处，而非原本设定的<code>CMP</code>指令。这种不正确的访问可能会导致程序崩溃。</p>
+<p>问题的核心在于，这两个程序都使用了 <strong>绝对物理地址</strong>。在实际应用中，我们更希望每个程序都能引用一个私有的本地地址，以避免此类冲突。</p>
+<p>IBM 360在处理第二个程序装载到内存时，采用了一种称为<code>静态重定位(static relocation)</code>的技术。具体来说，当一个程序被加载到内存中的特定地址（如<code>16384</code>地址）时，会将一个常数（在本例中为<code>16384</code>）加到该程序的所有地址上。因此，原本的<code>JMP 28</code>指令会变为<code>JMP 16412</code>。</p>
+<p>虽然这种机制在正常情况下是可行的，但它并非一种完美的解决方案。首先，它会减慢程序的装载速度。其次，它需要所有可执行程序中包含额外的信息，以指示哪些地址是可重定位的，哪些则不是。例如，在b程序中，<code>JMP 28</code>可以被重定向，但<code>MOV REGISTER1,28</code>这样的指令则不会，因为它只是将数字<code>28</code>移动到寄存器中，而不是进行地址跳转。</p>
+<p>因此，<code>装载器（loader）</code>需要具备一定的能力来<strong>区分地址和常数</strong>。这要求装载器在加载程序时，能够识别并修改那些需要重定位的地址，同时保留那些不应被修改的常数。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="二一种存储器抽象-地址空间">二、一种存储器抽象: 地址空间<a href="#二一种存储器抽象-地址空间" class="hash-link" aria-label="二、一种存储器抽象: 地址空间的直接链接" title="二、一种存储器抽象: 地址空间的直接链接">​</a></h2>
+<p>将物理内存直接暴露给进程会带来几个显著的缺陷。首先，若用户程序能够访问内存的每个字节，它们可能会轻易地破坏操作系统，导致系统崩溃（或称“停止运行”）。这种情况并非仅在多用户环境下才会发生，即便在仅有单个用户进程运行的情况下，也潜藏着这样的风险。除非采用如IBM 360所使用的<code>锁钥模式（lock-and-key mode）</code>或依赖特殊硬件进行保护，否则这种风险始终存在。例如，如果某个用户程序错误地写入了操作系统内核所在的内存区域，就可能导致系统无法继续运行。</p>
+<p>其次，这种内存模型对于同时运行多个程序构成了极大的挑战。在只有一个CPU核心的情况下，程序通常只能按顺序执行。然而，在现代个人计算机上，用户往往会同时打开多个应用程序，如输入法、电子邮件客户端和浏览器等。这些进程在不同时刻可能交替成为当前运行的进程，而其他应用程序则可能通过用户的操作（如鼠标点击）被唤醒并继续执行。如果系统没有足够的物理内存来同时容纳所有正在运行和可能被唤醒的进程，那么实现这种多任务处理就变得异常困难。在这种情况下，系统可能需要依赖复杂的内存管理策略（如虚拟内存、分页和交换等）来确保多个程序能够顺畅地运行。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="21-地址空间的概念">2.1 地址空间的概念<a href="#21-地址空间的概念" class="hash-link" aria-label="2.1 地址空间的概念的直接链接" title="2.1 地址空间的概念的直接链接">​</a></h3>
+<p>为了确保多个应用程序能够在内存中顺利且安全地同时运行，我们必须妥善处理两大核心问题：<code>保护</code>与<code>重定位</code>。接下来，让我们深入探讨IBM 360是如何应对这些问题的。</p>
+<p>IBM 360采用的第一种解决方案是通过<code>保护密钥来标记内存块</code>。在执行过程中，系统会将当前进程的密钥与从内存中提取的每个存储字的密钥进行逐一比对。这种机制虽然能够有效防止用户程序破坏操作系统（即解决了保护问题），但遗憾的是，它并未能解决多进程在内存中并行运行所带来的挑战。</p>
+<p>为了更全面地应对这些问题，一种更为巧妙的解决方案应运而生：构建<code>地址空间(the address space)</code>这一存储器抽象。正如进程的概念为我们创造了一个抽象的CPU环境来运行程序，地址空间则为我们提供了一个抽象的内存环境供程序使用。具体而言，地址空间是指进程可以用来寻址内存的一系列地址集合。每个进程都拥有自己独立的地址空间，这些空间相互隔离，互不干扰。当然，在实际应用中，也存在某些进程需要共享地址空间的特殊场景。</p>
+<p>以两个同时运行的应用程序为例，假设它们分别需要访问内存中的某个特定区域。在没有地址空间抽象的情况下，这两个程序可能会因为访问相同的物理内存地址而发生冲突。但有了地址空间后，每个程序都被分配了一个独特的地址空间，它们在自己的地址空间内自由访问内存，而不会相互干扰。即使两个程序试图访问相同的“逻辑地址”，由于这些地址被映射到了不同的物理内存区域，因此也不会发生冲突。</p>
+<p>综上所述，地址空间的引入不仅解决了保护问题，还为多进程在内存中并行运行提供了可能。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="22-基址寄存器和变址寄存器">2.2 基址寄存器和变址寄存器<a href="#22-基址寄存器和变址寄存器" class="hash-link" aria-label="2.2 基址寄存器和变址寄存器的直接链接" title="2.2 基址寄存器和变址寄存器的直接链接">​</a></h3>
+<p>为了确保多个程序能在内存中安全且有效地并行运行，一种简洁而高效的方法是采用<code>动态重定位(dynamic relocation)</code>技术。这项技术通过为每个进程的地址空间与物理内存的不同区域之间建立<strong>映射关系</strong>，实现了进程的隔离与共存。</p>
+<blockquote>
+<p>从历史的角度来看，从CDC 6600（被誉为世界上最早的超级计算机）到Intel 8088（原始IBM PC的核心处理器），一种经典的实现方式是为每个CPU配备两个特殊的硬件寄存器：<code>基址寄存器(base register)</code>和<code>界限寄存器(limit register)</code>（注意：原文中的“变址寄存器”可能是一个误称，因为在此上下文中更常见的术语是“界限寄存器”，它用于限定程序可访问的内存范围）。</p>
+</blockquote>
+<p>当使用这两个寄存器时，程序会被装载到内存中的连续位置，并且在装载过程中无需进行重定位。具体来说，当一个进程开始运行时，该程序的起始物理地址会被加载到基址寄存器中，而程序的长度（或可访问的内存范围）则会被加载到界限寄存器中。</p>
+<p>当使用这两个寄存器时，程序会被装载到内存中的连续位置，并且在装载过程中无需进行重定位。具体来说，当一个进程开始运行时，该程序的起始物理地址会被加载到基址寄存器中，而程序的长度（或可访问的内存范围）则会被加载到界限寄存器中。</p>
+<blockquote>
+<p>以图c中的情况为例，当第一个程序运行时，基址寄存器和界限寄存器的值分别被设置为0和16384（假设程序大小为16KB）。这意味着该程序可以访问从物理地址0到16383的内存区域。当第二个程序运行时，为了避免与第一个程序发生冲突，基址寄存器和界限寄存器的值会分别更新为16384和32768，使第二个程序能够访问从物理地址16384到32767的内存区域。</p>
+<p>如果有一个第三个16KB的程序需要直接装载到第二个程序的地址之上并运行，那么基址寄存器和界限寄存器的值会再次更新，分别为32768和49152（即16384+32768，但界限寄存器存储的是长度或范围，所以这里应理解为从32768开始，长度为16384的内存区域）。这样，第三个程序就能安全地访问从物理地址32768到49151的内存区域了。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="PixPin_2025-01-10_22-11-25.png ##w500##" src="/HXLoLi/assets/images/PixPin_2025-01-10_22-11-25-183a19facdd42059b9837cbac20b24f6.png" width="1108" height="994" style="width:500px"></td></tr></tbody></table>
+</blockquote>
+<p>通过这种方式，动态重定位技术不仅实现了进程的内存隔离，还确保了多个程序可以在有限的物理内存资源上并行运行，而不会相互干扰。</p>
+<p>我们可以对基址寄存器和变址寄存器的作用进行如下总结:</p>
+<ul>
+<li>
+<p><strong>基址寄存器</strong>：其主要功能是存储数据内存区域的起始地址。这个起始地址是进程在其私有地址空间中访问内存时的基准点。</p>
+</li>
+<li>
+<p><strong>变址寄存器</strong>：它负责存储应用程序在内存中可以访问的最大范围或长度。这个值用于界定程序可以合法访问的内存区域，从而确保程序的运行不会超出其预定的内存范围。</p>
+</li>
+</ul>
+<p>在实际的运行过程中，每当进程需要引用内存以获取指令、读取数据或写入数据时，CPU都会自动执行以下操作:</p>
+<ol>
+<li>
+<p>将进程生成的地址（也称为逻辑地址或虚拟地址）与基址寄存器中存储的基址值相加，从而计算出该地址在物理内存中的实际位置（也称为物理地址）。</p>
+</li>
+<li>
+<p>在将计算出的物理地址发送到内存总线之前，CPU还会检查程序提供的逻辑地址是否超出了变址寄存器中存储的范围值。</p>
+</li>
+<li>
+<p>如果逻辑地址大于或等于变址寄存器中的值，即表明程序试图访问超出其预定内存范围的内存区域，此时CPU会产生一个错误信号，并中止对该内存区域的访问，以确保系统的稳定性和安全性。</p>
+</li>
+</ol>
+<blockquote>
+<p>以图c中的情况为例，当执行<code>JMP 28</code>这条指令时，由于基址寄存器中存储的基址值为16384（假设这是之前某个时刻由操作系统设置的），因此硬件会将这条指令解释为<code>JMP 16412</code>（即28+16384）。这样，程序就能够正确地跳转到CMP指令所在的位置，继续执行后续的操作。这一过程充分体现了基址寄存器和变址寄存器在确保程序正确、安全地访问内存方面的重要作用。</p>
+</blockquote>
+<p>为各进程分配独立的私有地址空间，基址寄存器和（在某些设计中包括的）变址寄存器提供了一种极为有效的方法。这种方法的核心在于，每个内存地址在访问物理内存之前，都会先与基址寄存器的内容相加（若存在变址寄存器，则可能还涉及与变址寄存器的某种运算）。这样，每个进程都能在其独立的地址空间内运行，互不干扰。</p>
+<blockquote>
+<p>在实际系统中，为了保障系统的安全性和稳定性，基址寄存器和（如果存在的话）变址寄存器通常会受到严格的保护，确保只有操作系统才能对它们进行修改。例如，在CDC 6600这样的早期超级计算机中，就提供了对这些寄存器的保护机制。然而，并非所有系统都具备这样的保护，比如Intel 8088处理器就没有对变址寄存器提供支持，同时也没有提供对基址寄存器修改的保护机制。尽管如此，Intel 8088还是通过提供多个基址寄存器，实现了程序代码和数据的独立重定位，这在当时已经是一个不小的进步。但需要注意的是，它并没有为超出内存范围的引用提供保护机制。</p>
+</blockquote>
+<p>然而，使用基址寄存器和（可能的）变址寄存器也存在一定的缺点。由于每次访问内存时都需要执行加法运算（以及可能的比较运算，即CMP指令），这会增加一定的处理时间。虽然CMP指令的执行速度相对较快，但加法运算（特别是当涉及进位传播时）可能会相对较慢。除非系统采用了特殊的加法电路来加速这一过程，否则这种性能上的开销是不可避免的。因此，在设计系统时，需要权衡这种方法的优点（如提供独立的地址空间）和缺点（如可能的性能开销）。</p>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><span class="octicon octicon-note" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-info mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Note</p>
+<p>注意, 以上操作<strong>需要硬件的支持</strong>, 一般是cpu中的<code>MMU</code>单元.</p>
+</div></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/docs/001-计佬常識/004-操作系统/004-内存管理/001-地址空间/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-04-28T14:52:39.000Z" itemprop="dateModified">2025年4月28日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/docs/计佬常識/操作系统/进程与线程/进程调度"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">进程调度</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/docs/计佬常識/操作系统/内存管理/交换技术和空闲空间管理"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">交换技术和空闲空间管理</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#一无存储器抽象" class="table-of-contents__link toc-highlight">一、无存储器抽象</a><ul><li><a href="#11-运行一个程序" class="table-of-contents__link toc-highlight">1.1 运行一个程序</a></li><li><a href="#12-运行多个程序" class="table-of-contents__link toc-highlight">1.2 运行多个程序</a></li></ul></li><li><a href="#二一种存储器抽象-地址空间" class="table-of-contents__link toc-highlight">二、一种存储器抽象: 地址空间</a><ul><li><a href="#21-地址空间的概念" class="table-of-contents__link toc-highlight">2.1 地址空间的概念</a></li><li><a href="#22-基址寄存器和变址寄存器" class="table-of-contents__link toc-highlight">2.2 基址寄存器和变址寄存器</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>

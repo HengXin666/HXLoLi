@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-计佬常識/计算机组成原理/第五章存储器/存储器技术/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">存储器技术 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/存储器技术"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="存储器技术 | HXLoLi"><meta data-rh="true" name="description" content="局部性原理"><meta data-rh="true" property="og:description" content="局部性原理"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/存储器技术"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/存储器技术" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/存储器技术" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.38e40bb0.css">
+<script src="/HXLoLi/assets/js/runtime~main.8b732061.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.b8a270d9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/default_folder.svg"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计佬常識</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/数据结构与算法/【algorithm】目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据结构与算法</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/设计模式/相关面试题"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">设计模式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机网络/一、计算机网络基础"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机网络</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/操作系统/とあるOSのインデックス"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">操作系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">计算机组成原理</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/【计组】目录">【计组】目录</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第一章计算机概要与技术/计算机的分类及其特性"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第一章计算机概要与技术</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第二章指令系统/计算机硬件的操作与操作数"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第二章指令系统</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第三章计算机算术运算/定点数加减法"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第三章计算机算术运算</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/MIPS核心子集及实现方式"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第四章中央处理器</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/存储器技术"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第五章存储器</div><div style="flex:1"></div></div></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/存储器技术">存储器技术</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/Cache的基本原理">Cache的基本原理</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/主存器">主存器</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/可信存储器层次">可信存储器层次</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/虚拟存储器">虚拟存储器</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/并行与存储器层次结构">并行与存储器层次结构</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第六章IO设备/外部设备及总线"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第六章IO设备</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" tabindex="0" href="/HXLoLi/docs/计佬常識/计算机组成原理/第七章并行系统/并行系统"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">第七章并行系统</div><div style="flex:1"></div></div></a></div></li></ul></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/程序语言/C++/【C艹】目录大纲"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">程序语言</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/游戏引擎/虚幻引擎/【虚幻】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">游戏引擎</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/DevOps与版本控制/Linux/【Linux】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">DevOps与版本控制</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/中间件/Redis/【Redis】目录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">中间件</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/数据库/MySQL数据库/とある「MySQL」の禁庫目録"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">数据库</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/刷题日志/做题记录"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">刷题日志</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/嵌入式/杂项/IC通信"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">嵌入式</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" style="font-size:14px" href="/HXLoLi/docs/Game/MineCraft/服务器/脚本"><img src="/HXLoLi/default-icons/default_folder.svg" style="width:20px;margin-right:5px"><div style="display:flex;flex-direction:column"><div style="flex:1">Game</div><div style="flex:1"></div></div></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/HXLoLi/docs/关于">关于</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计佬常識</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">计算机组成原理</span><meta itemprop="position" content="2"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">第五章存储器</span><meta itemprop="position" content="3"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">存储器技术</span><meta itemprop="position" content="4"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>存储器技术</h1></header>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="局部性原理">局部性原理<a href="#局部性原理" class="hash-link" aria-label="局部性原理的直接链接" title="局部性原理的直接链接">​</a></h2>
+<p>局部性原理是指CPU在访问存储器时, 无论是存取指令还是存取数据, 所访问的存储单元都趋于聚集在一个较小的连续区域中。即在任何时间内. 程序访问的只是地址空间相对较小的一部分内容。这种特性在程序执行时表现得尤为明显, 即程序在执行时倾向于引用临近于其他最近引用过的数据项的数据项, 或者最近引用过的数据项本身。</p>
+<p>局部性原理主要分为两种类型: <code>时间局部性</code>和<code>空间局部性</code>。</p>
+<p><strong>时间局部性</strong>: 某个数据项在被访问之后可能很快被再次访问的特性, 即某个数据项在一个较短的时间间隔内很可能又被访问。</p>
+<p>程序循环、堆栈等结构是产生时间局部性的主要原因。例如, 在循环语句中, 循环体内部的<strong>指令和数据会被反复访问</strong>, 因此它们的时间局部性很高。</p>
+<p><strong>空间局部性</strong>: 某个数据项在被访问之后, <strong>与其地址相近的数据项可能很快被访问的特性</strong>。</p>
+<p>程序的指令大部分时间是顺序执行的, 而且程序的数据结构(如数组)是连续存放的。这种顺序执行和连续存放的特性使得空间局部性得以体现。</p>
+<div class="language-C++ language-cpp codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-cpp codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> sum </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">0</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token keyword" style="color:hsl(286, 60%, 67%)">for</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> i </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">0</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"> i </span><span class="token operator" style="color:hsl(207, 82%, 66%)">&lt;</span><span class="token plain"> n</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">++</span><span class="token plain">i</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    sum </span><span class="token operator" style="color:hsl(207, 82%, 66%)">+=</span><span class="token plain"> arr</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token plain">i</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">C++</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>在以上代码片段中, 对<code>sum</code>的访问具有良好的<strong>时间局部性</strong>, 对<code>arr</code>数组的访问具有良好的<strong>空间局部性</strong>。</p>
+<p>存储器层次结构的设计正是基于局部性原理, 旨在平衡存储速度、容量和成本之间的矛盾, 以达到更高的系统性能。</p>
+<p>基于这两个局部性原理, 现代计算机系统使用多级存储器来优化性能与成本的平衡。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="存储器层次结构">存储器层次结构<a href="#存储器层次结构" class="hash-link" aria-label="存储器层次结构的直接链接" title="存储器层次结构的直接链接">​</a></h2>
+<p>存储器系统是一个具有不同容量, 成本和访问时间的存储设备的层次结构:</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-07-10_21-39-25.png ##w700##" src="/HXLoLi/assets/images/Clip_2024-07-10_21-39-25-ff1d1499f99e39b6e4e2da1e4f4d5457.png" width="1360" height="792" style="width:700px"></td></tr></tbody></table>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="块行">块/行<a href="#块行" class="hash-link" aria-label="块/行的直接链接" title="块/行的直接链接">​</a></h2>
+<p>无论数据如何分层, 数据的处理和交换过程都是两个层之间相互交换, 不可能跨层交换, 所以在描述的存储器层次结构中, &quot;块&quot;(Block)或&quot;行&quot;(Line)是数据传输的基本单位。</p>
+<p>当数据从一个层次迁移到另一个层次时, 并不是以字节或者单个数据项为单位, 而是以固定大小的数据块进行。</p>
+<p>这个设计选择主要是为了效率考虑: 虽然一次性移动较大块的数据可能会暂时占用更多带宽, 但它减少了管理和迁移数据所需的元数据开销, 整体上提高了系统的性能。</p>
+<blockquote>
+<p><span style="margin-left:30px">例如, 当处理器需要访问某个内存地址的数据时, 首先会在最快的<code>L1 Cache</code>中查找。如果该数据不在<code>L1 Cache</code>中(称为<strong>缓存未命中</strong>), 系统会检查较慢但容量更大的<code>L2 Cache</code>, 依此类推, 直至主存。在这个过程中, 如果在某一层级找到所需数据, 不仅会将该数据块提供给处理器, 通常还会将与之相邻的数据块一同调入高速缓存(这种策略称为<strong>预取</strong>), 因为相邻的数据在未来很可能也会被访问到, 这样可以进一步优化未来的数据访问速度。</span></p>
+</blockquote>
+<p>块大小(即行长度)是一个重要的设计参数, 它影响着缓存的效率、命中率以及硬件复杂度。块大小的选择需要权衡多个因素, 包括程序访问模式、缓存大小、以及硬件设计的复杂性和成本。常见的块大小有32字节、64字节、128字节等, 具体大小根据不同的系统和应用需求而定。</p>
+<p>在存储器层次结构中, <strong>&quot;命中&quot;(Hit)</strong> 指的是处理器请求的数据恰好存在于高速缓存(即高层存储器)中, 这意味着数据可以迅速获取, 无需访问更慢的下一层存储器, 从而显著减少数据访问延迟。</p>
+<p>相反, <strong>&quot;缺失&quot;(Miss)</strong> 发生时, 处理器请求的数据不在高速缓存中, 系统必须继续到下一层存储器(如主存)中去查找所需的数据块。这个过程涉及更多的延迟, 因为下层存储器的访问速度通常较慢。</p>
+<p><strong>命中率(Hit Rate)</strong> 是衡量存储器层次结构效率的关键指标之一, 它表示数据请求在高速缓存中命中的概率。高命中率意味着大多数数据请求可以在高速缓存中得到满足, 从而系统整体运行效率高, 响应速度快。</p>
+<p><strong>缺失率(Miss Rate)</strong>, 即<code>1 - 命中率</code>, 反映了数据请求不能在高速缓存中找到而需要从下一层存储器获取的比例, 它是评估和优化存储器层次设计时需要关注的重要参数。通过提高命中率、降低缺失率, 可以有效提升系统的整体性能。</p>
+<p><strong>命中时间(Hit Time)</strong> 是指处理器在高速缓存中成功找到所需数据所需的时间, 它包括了访问延迟和比较标记以及有效位(用于确认数据有效性的信息)的时间。由于高速缓存使用的是高速且成本较高的技术, 它的访问速度远超于下层存储器, 因此命中时间相对较短。</p>
+<blockquote>
+<p>这个时间包括了以下几个部分:</p>
+<ol>
+<li>
+<p><strong>查找时间</strong>: 在高速缓存中查找指定地址所需的时间。这通常通过比较地址标签(tag)来完成。</p>
+</li>
+<li>
+<p><strong>数据传输时间</strong>: 一旦找到数据, 将数据从高速缓存传输到处理器所需的时间。</p>
+</li>
+</ol>
+</blockquote>
+<p><strong>缺失代价(Miss Penalty)</strong> 则是当数据在高速缓存中未命中时, 必须从下一层存储器(如主存)中检索数据所经历的额外延迟。这个代价包括了多个步骤: 识别缺失、访问下一层存储器获取数据、将数据传输到高速缓存中(可能还需要替换高速缓存中已有的某个数据块), 最后再将数据传送给处理器。这个过程远比单纯的命中时间要长, 是影响系统性能的关键因素。</p>
+<blockquote>
+<ol>
+<li>
+<p><strong>等待时间</strong>: 等待低层存储器响应请求的时间。这通常比高层存储器的响应时间要长得多。</p>
+</li>
+<li>
+<p><strong>数据传输时间</strong>: 将数据从低层存储器传输到高层存储器(如从主存到高速缓存)的时间。</p>
+</li>
+<li>
+<p><strong>处理缺失的额外开销</strong>: 这包括在高层存储器中找到一个空的块来存储新数据(替换策略)、更新相关数据结构(如目录或标签数组)等所需的时间。</p>
+</li>
+</ol>
+</blockquote>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="构建存储器层次结构的4种技术">构建存储器层次结构的4种技术<a href="#构建存储器层次结构的4种技术" class="hash-link" aria-label="构建存储器层次结构的4种技术的直接链接" title="构建存储器层次结构的4种技术的直接链接">​</a></h2>
+<ul>
+<li>构建存储器层次结构主要有 4 种技术:</li>
+</ul>
+<ol>
+<li>
+<p>DRAM(动态随机存取存储器):</p>
+<ul>
+<li>主要用于主存储器(通常称为RAM)</li>
+<li>每比特成本低于SRAM, 但速度较慢。</li>
+<li>容量大, 每比特占用空间较少, 因此等量的硅可以制造更多的DRAM。</li>
+<li>需要定期刷新以保持数据, 因为电容会漏电</li>
+</ul>
+</li>
+<li>
+<p>SRAM(静态随机存取存储器): <del>(考研重点)</del></p>
+<ul>
+<li>通常用于高速缓存(Cache)和寄存器。</li>
+<li>每比特成本高于DRAM, 但速度更快。</li>
+<li>不需要刷新电路来保持数据, 因为使用交叉反接的晶体管来存储数据。</li>
+</ul>
+</li>
+</ol>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-light-bulb mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>tips: 构成主存的还有只读存储器(ROM), 用于存放固定不变的信息。比如BIOS</p>
+</div>
+<ol start="3">
+<li>
+<p>闪存(Flash Memory):</p>
+<ul>
+<li>非易失性存储器, 即使断电也能保持数据。</li>
+<li>通常用于个人移动设备中的二级存储器, 如SSD(固态驱动器)和USB闪存盘。</li>
+<li>访问速度比DRAM慢, 但比磁盘快。</li>
+<li>每比特成本介于DRAM和磁盘之间。</li>
+</ul>
+</li>
+<li>
+<p>磁盘(Disk): <del>(考研重点)</del></p>
+<ul>
+<li>通常是服务器中容量最大且速度最慢的一层。</li>
+<li>访问时间最长, 但每比特成本最低。</li>
+<li>分为HDD(硬盘驱动器)和SSD(固态驱动器, 虽然这里的SSD与闪存中的SSD有所不同, 但技术上更接近于闪存)。</li>
+</ul>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-07-10_21-50-21.png ##w700##" src="/HXLoLi/assets/images/Clip_2024-07-10_21-50-21-1c7ed863b8ca2dc7de9d5711717d1c32.png" width="1210" height="791" style="width:700px"></td></tr></tbody></table>
+<p>随着时间推移, 这些技术持续发展, 比如SSD(固态硬盘)的普及大幅提升了二级存储的速度, 逐渐在某些场景下替代传统的机械硬盘; 同时, 新的存储技术如3D XPoint和MRAM等, 也在探索更优的性能与成本平衡点, 以满足未来计算需求。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="磁盘存储器">磁盘存储器<a href="#磁盘存储器" class="hash-link" aria-label="磁盘存储器的直接链接" title="磁盘存储器的直接链接">​</a></h2>
+<ul>
+<li>磁盘存储器: 硬盘存储器作为传统的数据存储设备, 其工作原理基于<strong>磁性</strong>记录技术。</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-07-10_21-52-28.png ##w800##" src="/HXLoLi/assets/images/Clip_2024-07-10_21-52-28-142ace4b7c5126b70c75b066e6b96f76.png" width="1888" height="735" style="width:800px"></td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="硬盘结构与运作">硬盘结构与运作<a href="#硬盘结构与运作" class="hash-link" aria-label="硬盘结构与运作的直接链接" title="硬盘结构与运作的直接链接">​</a></h3>
+<ul>
+<li>
+<p><strong>旋转速度</strong>: 硬盘的盘片(磁盘)以高速旋转, 常见的转速有 5400 RPM(每分钟转数)和 7200 RPM, 高端型号可能达到 10000 RPM 或 15000 RPM。</p>
+</li>
+<li>
+<p><strong>磁性存储材料</strong>: 硬盘的盘片两侧涂有磁性材料, 类似于盒式磁带和录像带所使用的材料, 这种材料能够通过改变磁场方向来存储二进制数据(0和1)。每个磁盘表面被划分为多个同心圆盘, 称为磁道(track)。每条磁道又被划分为多个扇区(sector), 用于存储信息。</p>
+</li>
+<li>
+<p><strong>读写磁头</strong>: 对于每一层磁盘表面, 都有一个或多个包含小型电磁线圈的读写磁头悬浮在其上方, 极为接近但不接触盘面。磁头通过改变或感应磁场来实现数据的写入和读取。</p>
+</li>
+<li>
+<p><strong>密封环境</strong>: 硬盘驱动器内部是一个高度控制的密封环境, 旨在排除尘埃和其他污染物, 同时保持恒定的温度和湿度, 以确保磁头能够在距离盘片表面仅几个纳米的高度稳定飞行, 这是实现高密度数据存储的关键。</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="数据组织结构">数据组织结构<a href="#数据组织结构" class="hash-link" aria-label="数据组织结构的直接链接" title="数据组织结构的直接链接">​</a></h3>
+<ul>
+<li>
+<p><strong>磁道(Track)</strong>: 硬盘盘片的表面被划分成一系列同心圆, 这些圆环就是磁道。每个磁盘面都有数以万计的磁道, 磁道从外缘到中心编号, 越靠近中心的磁道越短。</p>
+</li>
+<li>
+<p><strong>扇区(Sector)</strong>: 每个磁道进一步被分割成许多小段, 称为扇区, 这是硬盘存储数据的最小单位。一般情况下, 每个扇区的大小为 512 字节或 4096 字节, 用于存储固定长度的数据块。现代硬盘趋向于使用 4096 字节扇区以提高存储效率。</p>
+</li>
+<li>
+<p><strong>数据存储格式</strong>: 在一个扇区中, 数据的排列顺序包括扇区标识符(ID)、一个间隔(gap)、实际数据、另一个间隔、以及纠错码(ECC)。纠错码用于检测和纠正读取过程中可能发生的错误, 保证数据的完整性。</p>
+</li>
+</ul>
+<p>硬盘通过精密的机械运动和电磁原理实现数据的存储和检索。其高效的寻址能力和大容量存储空间, 长期以来一直是计算机系统的主要存储组件之一。然而, 随着固态硬盘(SSD)等新技术的发展, HDD正面临着新的挑战和角色转变, 尤其是在对速度要求更高的应用场景中。</p>
+<p><strong>柱面</strong>: 刚才提到, 磁盘由多个盘面组成, 每个盘面有多个磁道。每个磁道被划分为多个扇区, 扇区是磁盘上存储数据的最小单元。访问每个盘面的磁头连在一起相互协调运动, 以确保每个盘面的磁头同时访问到相同的扇区, 这些扇区就构成了一个柱面。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-07-10_21-55-59.png ##w400##" src="/HXLoLi/assets/images/Clip_2024-07-10_21-55-59-49d60ec0277da182e9dc349bd9bbbd0d.png" width="719" height="654" style="width:400px"></td></tr></tbody></table>
+<p>在硬盘中, 柱面(Cylinder)是一个逻辑概念, 它代表了所有盘面在相同半径上的磁道组成的集合。当操作系统需要读取或写入一系列连续的数据时, 理想情况下, 它会首先定位到包含这些数据的第一个柱面, 然后在该柱面内顺序读取或写入不同盘面的扇区, 而无需移动磁头到不同的磁道, 这样可以大大提高数据传输速度。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="数据访问">数据访问<a href="#数据访问" class="hash-link" aria-label="数据访问的直接链接" title="数据访问的直接链接">​</a></h3>
+<p><strong>寻道(Seek)</strong>: 当需要访问的数据不在当前磁头所在的磁道上时, 磁头需要移动到目标磁道上。这个过程称为寻道, 所需的时间称为寻道时间。这是数据访问过程中最耗时的步骤, 涉及到将磁头从当前位置移动到目标数据所在的磁道上。寻道时间直接影响了硬盘的随机访问性能。</p>
+<blockquote>
+<p>寻道过程: 先确定柱面, 再确定那个盘, 是上盘面还是下盘面, 然后是确定扇区.</p>
+</blockquote>
+<p><code>平均寻道时间</code>是衡量硬盘随机访问性能的重要指标, 通常介于3毫秒到13毫秒之间。然而, 这个平均值是基于理论上的所有可能寻道距离的平均, 实际情况中由于数据访问的局部性(即程序倾向于连续或附近区域访问数据), 以及操作系统的智能调度(如预读和缓存策略), 实际平均寻道时间往往低于厂商提供的标称值, 大约在标称值的25%到33%之间。</p>
+<p>操作系统和应用程序的行为对实际性能有很大影响。例如, 文件连续读取、缓存策略和I/O调度算法(如CFQ、Deadline、Noop等)可以减少不必要的寻道操作, 利用数据访问的局部性, 从而缩短平均寻道时间和整体响应时间。</p>
+<p><strong>旋转延迟(Rotational Delay)</strong>:</p>
+<ul>
+<li>即使磁头已经位于正确的磁道上, 也还需要等待盘片旋转, 使目标扇区移动到磁头下方。这个时间取决于当前扇区与磁头之间的角度差以及盘片的旋转速度。这个等待时间称为旋转延迟。</li>
+</ul>
+<p>理论上<span style="color:red">平均旋转延迟是磁盘旋转一周时间(周期)的一半</span>。这是因为一旦磁盘开始旋转, 磁头有可能在旋转周期的任何时刻到达目标位置, 因此平均而言, 它需要等待半个周期。</p>
+<p>给定磁盘每分钟的转速(RPM), 我们可以计算出平均旋转延迟。</p>
+<p>公式是: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>平均旋转延迟</mtext><mo>=</mo><mo stretchy="false">(</mo><mfrac><mtext>每分钟转数</mtext><mrow><mn>2</mn><mo>×</mo><mn>60</mn></mrow></mfrac><mo stretchy="false">)</mo><mtext>秒</mtext></mrow><annotation encoding="application/x-tex">平均旋转延迟=(\frac{每分钟转数}{2 \times 60})秒</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord cjk_fallback">平均旋转延迟</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:1.2757em;vertical-align:-0.4033em"></span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8723em"><span style="top:-2.655em"><span class="pstrut" style="height:3em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mbin mtight">×</span><span class="mord mtight">60</span></span></span></span><span style="top:-3.23em"><span class="pstrut" style="height:3em"></span><span class="frac-line" style="border-bottom-width:0.04em"></span></span><span style="top:-3.394em"><span class="pstrut" style="height:3em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">每分钟转数</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4033em"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span><span class="mord cjk_fallback">秒</span></span></span></span></p>
+<p><strong>数据传输(Data Transfer)</strong>: 当目标扇区旋转到磁头下方时, 磁头就可以开始读写数据了。这个过程的时间取决于扇区的大小和磁盘的转速。这个数据传输速度相对较快, 但受制于硬盘的内部传输速率和接口速度。</p>
+<p><strong>磁盘缓存</strong>: 大多数磁盘控制器内置有高速缓存, 用来存储最近访问过的数据。该缓存仅保存最近传输过的扇区数据。这样做有几个好处:</p>
+<ul>
+<li>
+<p><strong>加速读取</strong>: 如果请求的数据已经在缓存中, 那么可以直接从缓存读取, 省去了机械寻道和旋转延迟, 极大地提高了数据传输速度。</p>
+</li>
+<li>
+<p><strong>写入优化</strong>: 缓存还用于临时存储写入数据, 可以批量写入磁盘, 减少磁头移动, 同时有些磁盘控制器还会利用缓存实现写入缓存策略, 如写入后确认, 提高系统响应速度。</p>
+</li>
+</ul>
+<p>传统上, 硬盘数据布局遵循扇区-磁道-柱面模型, 在传统模型中, 人们通常认为邻近的块在同一磁道上, 访问同一柱面上的块不需要寻道时间, 因此访问时间较短。然而, 随着磁盘接口层次的提升和技术的演进, 这些假设不再适用。特别是为了优化连续数据读写的性能, 硬盘的数据布局有了很大的改变:</p>
+<ul>
+<li><strong>连续数据优化</strong>: 现代硬盘在单个磁面上采用的是&quot;区段&quot;或者&quot;区域&quot;概念, 数据不是严格按照磁道顺序存放, 而是在每个磁道上分成多个区域, 每个区域内的数据密度接近, 使得磁头在读取时保持相对恒定的速度, 这样可以提高读写效率。</li>
+</ul>
+<p><strong>逻辑块地址(LBA)</strong>: 随着硬盘容量的增加, CHS(Cylinder-Head-Sector, 柱面-磁头-扇区)寻址方式已不再适用, 现代硬盘广泛使用逻辑块地址(Logical Block Addressing, LBA)来标识每一个存储块。LBA提供了一个统一、连续的地址空间, 隐藏了底层的物理布局复杂性。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="闪存">闪存<a href="#闪存" class="hash-link" aria-label="闪存的直接链接" title="闪存的直接链接">​</a></h2>
+<p>闪存, 半导体存储器, 作为一种电可擦除可编程只读存储器(EEPROM)类型, 其独特之处在于非易失性——即断电后仍能保留数据, 这一点与磁盘驱动器相似, 但与易失性的DRAM(动态随机存取存储器)不同。闪存广泛应用于USB闪存盘、固态硬盘(SSD)以及移动设备的内置存储中。</p>
+<p>闪存的基本存储单元在经过多次擦写之后会逐渐退化, 最终可能导致数据错误或存储单元失效。这是因为每次擦写操作都会对存储介质造成微小的物理损伤。为了解决这个问题, 现代闪存设备内置了控制器, 该控制器实施了一项关键技术——<strong>损耗均衡/磨损均衡(Wear Leveling)</strong>。</p>
+<p>例如SLC(单层单元)闪存芯片的擦写寿命通常为100,000次以上, 现代的SSD擦写寿命已经得到了提高, 可以使用多年。</p>
+<blockquote>
+<p>举例: 如果你有256GB的闪存, 假设擦除寿命为500次, 那么你可以写入256 * 500GB, 假设你每天写入10G, 那么也可以使用256 * 50天, 已经是几十年了...</p>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="损耗均衡">损耗均衡<a href="#损耗均衡" class="hash-link" aria-label="损耗均衡的直接链接" title="损耗均衡的直接链接">​</a></h3>
+<p>损耗均衡的基本思想是通过算法管理闪存中的数据写入, 确保所有存储块被相对均匀地使用, 而不是让某些块因频繁写入而迅速老化。控制器会跟踪各个存储块的擦写次数, 并在写入新数据时, 优先选择那些擦写次数较少的块。这样做可以显著延长闪存的整体寿命, 确保即使在高写入量的应用场景下, 闪存也能保持稳定可靠的性能。</p>
+<p>损耗均衡技术虽然可以提高闪存的耐久度, 但可能会对性能产生一定影响。因为控制器需要花费额外的时间来管理写操作的分配, 这可能会导致写入速度变慢。但它带来的好处远大于这一小幅度的性能牺牲。首先, 它使得终端用户和上层软件无需直接介入复杂的闪存管理, 简化了系统设计。其次, 损耗均衡策略还能通过重新分配数据, 避开制造过程中产生的不良或弱化单元, 有效提升成品率和产品整体的可靠性。</p>
+<p>闪存控制器不仅负责损耗均衡, 还负责检测和纠正存储单元中的错误。在制造过程中, 总会有一些存储单元存在缺陷或性能不佳。控制器可以通过标记这些单元为不可用或使用纠错码(ECC)等技术来纠正错误, 从而提高产品的成品率和可靠性。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="sramstatic-random-access-memory-静态随机存取存储器">SRAM(Static Random-Access Memory, 静态随机存取存储器)<a href="#sramstatic-random-access-memory-静态随机存取存储器" class="hash-link" aria-label="SRAM(Static Random-Access Memory, 静态随机存取存储器)的直接链接" title="SRAM(Static Random-Access Memory, 静态随机存取存储器)的直接链接">​</a></h2>
+<p>SRAM是一种随机存取存储器, 它的“静态”特性意味着只要<strong>电源保持开启, 数据就可以恒常保持</strong>, 不需要像DRAM(动态随机存取存储器)那样周期性刷新。</p>
+<p>其存储单元是双稳态触发器(六晶体管MOS), 它利用一组晶体管(通常是六个, 形成两个交叉耦合的CMOS反相器)来保存一个二进制位的信息, 形成一个稳定的状态, 即“0”或“1”。这种设计使得SRAM能够在读取时不改变存储内容(<strong>非破坏性读出</strong>), 也不需要额外的刷新电路, 从而提供了更快的访问速度。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-07-11_21-22-57.png ##w300##" src="/HXLoLi/assets/images/Clip_2024-07-11_21-22-57-114605d5352f02294a2f3e1959800d33.png" width="472" height="408" style="width:300px"></td></tr></tbody></table>
+<p>SRAM的读写操作可以在很短的时间内完成, 且访问时间相对固定。读取时, 通过<strong>感应存储单元的电平状态</strong>来判断数据; 写入时, 则<strong>直接改变该存储单元的电平状态</strong>。由于<strong>不涉及电容充放电过程</strong>, SRAM的读写速度远快于DRAM。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="特点与优势">特点与优势<a href="#特点与优势" class="hash-link" aria-label="特点与优势的直接链接" title="特点与优势的直接链接">​</a></h3>
+<ol>
+<li>
+<p><strong>高速访问</strong>: SRAM提供极低的访问延迟, 通常在几个纳秒范围内, 非常适合用作CPU的高速缓存(L1、L2、甚至L3缓存)。</p>
+</li>
+<li>
+<p><strong>无需刷新</strong>: 不像DRAM需要周期性刷新来保持数据, SRAM的数据保持稳定, 降低了系统复杂度和功耗。</p>
+</li>
+<li>
+<p><strong>功耗</strong>: 虽然在活跃读写时功耗较高, 但在待机模式下, SRAM仅需维持晶体管的状态, 功耗较低。</p>
+</li>
+<li>
+<p><strong>成本与密度</strong>: SRAM的每比特成本高于DRAM, 因为其晶体管数量多, 导致相同面积下的存储密度较低。这也是为什么它通常仅用于小容量高速缓存而非大容量主存。</p>
+</li>
+</ol>
+<p>应用场景</p>
+<ol>
+<li><strong>高速缓存</strong>: 在处理器中作为L1、L2甚至L3缓存, 加速数据访问速度。</li>
+<li><strong>嵌入式系统</strong>: 在对速度有严格要求的嵌入式或专用集成电路中, 用作程序或数据存储。</li>
+<li><strong>路由器与网络设备</strong>: 在网络设备中作为缓冲存储, 提高数据包处理速度。</li>
+<li><strong>高性能计算</strong>: 在需要快速响应和数据处理的高性能计算领域, 用作临时数据存储。</li>
+</ol>
+<p>现代处理器设计趋向于将多级缓存直接集成到CPU芯片上, 以减少数据传输延迟并提高系统效率。</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="dramdynamic-random-access-memory-动态随机存取存储器">DRAM(Dynamic Random-Access Memory, 动态随机存取存储器)<a href="#dramdynamic-random-access-memory-动态随机存取存储器" class="hash-link" aria-label="DRAM(Dynamic Random-Access Memory, 动态随机存取存储器)的直接链接" title="DRAM(Dynamic Random-Access Memory, 动态随机存取存储器)的直接链接">​</a></h2>
+<p>DRAM是计算机系统中最常用的主存储器类型之一, 因其高密度和相对较低的成本而广泛应用于个人电脑、服务器、移动设备等多种平台。</p>
+<p>DRAM使用栅极电容来存储数据, 每个存储单元由一个电容和一个访问晶体管组成。电容的充电或放电状态代表数据的0和1。当需要读取或写入数据时, 计算机会向DRAM的地址线发送目标存储单元的地址, DRAM控制器根据地址找到对应的存储单元, 并打开该单元的访问晶体管。对于读取操作, 访问晶体管的打开允许电荷从电容中流出, 并通过传感放大器读取电荷大小; 对于写入操作, DRAM控制器会根据数据总线上的数据向电容中写入相应的电荷。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-07-11_21-26-32.png ##w300##" src="/HXLoLi/assets/images/Clip_2024-07-11_21-26-32-84d71a14b377044e3cbf025111575490.png" width="399" height="357" style="width:300px"></td></tr></tbody></table>
+<p>DRAM电容上的电荷一般般只能维持 1 ~ 2ms, 因此即使电源不断电, 信息也会自动消失。此外, 读操作会使其状态发生改变(<strong>破坏性读出</strong>), 需<span style="color:red">读后再生</span>, 这也是称其为动态存储器的原因。因此, DRAM存储的信息如果不被定期刷新, 将会丢失。与SRAM(静态RAM)无需刷新的特性相对。</p>
+<p><strong>存储体(存储矩阵)</strong>: 存储体是存储单元的集合。例如: 4096个存储单元被排成 64 x 64 的存储阵列, 称为位平面, 这样8个位平面构成4096字节的存储体。</p>
+<p>由X选择线(行选择线)和Y选择线(列选择线)来选择所需单元,不同位平面的相同行、列上的位同时被读出或写人。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-07-11_21-28-18.png ##w600##" src="/HXLoLi/assets/images/Clip_2024-07-11_21-28-18-3752560d6e95b9976ff7d63e864a05fe.png" width="900" height="560" style="width:600px"></td></tr></tbody></table>
+<p><strong>地址译码</strong>: 双译码结构。地址译码器分为X和Y方向两个译码器。</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">##container##</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" alt="Clip_2024-07-11_21-29-12.png ##w450##" src="/HXLoLi/assets/images/Clip_2024-07-11_21-29-12-bf2d8822564cda3aa945bb8955820d83.png" width="639" height="536" style="width:450px"></td></tr></tbody></table>
+<p>存储阵列有4096个单元(2^12), 需要12根地址线: <code>A0~A11</code>, 其中<code>A0~A5</code>送至X译码器, 有64条译码输出线, 各选择一行行单元; <code>A6~A11</code>送至Y译码器,它也有64条译码输出线, 分别控制一列单元的位线控制门。</p>
+<p>在选中的行和到交义点上的单元只有一位。</p>
+<p>DRAM芯片容量较大, 因而地址位数较多,为了减少芯片的地址引脚数, 从而减小体积, 大多采用<span style="color:yellow">地址引脚复用技术</span>, 行地址和列地址通过相同的管脚分先后两次输人, 这样地址引脚数可减少一半。</p>
+<blockquote>
+<p>题目: 256MB存储器, 4M * 8位的 DRAM芯片构成，该芯片的地址引脚和数据引引脚的总数的多少?</p>
+<p>数据线8根, 4 MB -&gt; 4 * 10^10 KB -&gt; 4 * 10^10  * 10^10 B -&gt; 2^22 即 地址线 22 根, 但是由于<code>地址引脚复用技术</code>, 所以最终的地址线为 22/2 = 11 根, 故总数是 8 + 11 = 19 根.</p>
+</blockquote>
+<p><strong>DRAM刷新机制</strong>: DRAM的刷新是通过一种称为“行刷新”(Row Refresh)或“刷新周期”(Refresh Cycle)的机制来实现的, 确保数据完整性。</p>
+<p>主要步骤包括:</p>
+<ol>
+<li>
+<p><strong>地址计数器</strong>: DRAM控制器有一个刷新地址计数器, 它会顺序地指向每个存储矩阵中的行地址。</p>
+</li>
+<li>
+<p><strong>自动刷新</strong>(AutoRefresh,AR)或自刷新(SelfRefresh,SR):</p>
+<ul>
+<li>
+<p><strong>自动刷新</strong>: DRAM控制器会按照预定的时间间隔(一般为几毫秒)执行自动刷新操作, 遍历所有存储行, 读取并立即重写电容中的数据, 以维持数据的完整性。</p>
+</li>
+<li>
+<p><strong>自刷新</strong>: 在低功耗模式下, 如笔记本电脑休眠时, DRAM可以进入自刷新模式, 内部自行管理刷新过程, 无需外部控制器干预。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>刷新频率: 刷新频率通常设置为大约每64ms刷新一遍所有存储单元(对于常见的DRAM标准而言), 确保数据不会因电荷泄露而丢失。这意味着对于较大的DRAM芯片, 刷新操作实际上是在后台连续不断地进行, 而对用户感知的性能影响被降到最低</p>
+</li>
+</ol>
+<p>DRAM的刷新操作是通过一个专门的刷新控制器来完成的。这个控制器会周期性地选中DRAM中的一行(row), 读取该行中每个单元的数据(即使这些数据并没有被CPU或其他设备请求), 然后立即将数据写回原位置。这个过程就是所谓的&quot;读出后写回”(read-modify-write)操作, 它确保了电容中的电荷得到补充, 从而维持了数据的稳定。</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="优势">优势<a href="#优势" class="hash-link" aria-label="优势的直接链接" title="优势的直接链接">​</a></h3>
+<ul>
+<li><strong>高存储密度</strong>: 能够容纳大量数据。</li>
+<li><strong>低成本</strong>: 使得大容量内存更加经济实惠。</li>
+<li><strong>低功耗</strong>: 适用于移动设备。</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="劣势">劣势<a href="#劣势" class="hash-link" aria-label="劣势的直接链接" title="劣势的直接链接">​</a></h3>
+<ul>
+<li><strong>需要刷新</strong>: 为了保持数据的稳定性, DRAM需要周期性地刷新电容。</li>
+<li><strong>速度相对较慢</strong>: 相比于SRAM, DRAM的访问速度较慢。</li>
+</ul>
+<p><strong>存取速度与延迟</strong>:</p>
+<ol>
+<li>
+<p>访问时间: 尽管DRAM的单次访问速度比SRAM慢, 但它通过高密度实现了更大的存储容量, 且成本效益更高。访问DRAM时, 首先需要对行地址解码, 激活相应的行(行选通), 然后列地址解码选择具体的存储单元(列选通), 最后完成读写操作。</p>
+</li>
+<li>
+<p>预充电与行激活: 每次访问DRAM的不同行时, 需要先进行预充电操作关闭前一行, 再激活新行, 这增加了访问延迟。</p>
+</li>
+</ol>
+<p>应用领域:</p>
+<ol>
+<li>主存储器: 作为个人电脑、服务器和游戏机等设备的系统内存(RAM)。</li>
+<li>图形存储: 在图形处理单元(GPU)中, 作为帧缓冲存储器。</li>
+<li>移动设备: 在智能手机和平板电脑中, 作为运行应用程序和操作系统的主要存储。</li>
+</ol>
+<p>发展趋势:</p>
+<ol>
+<li>DDR技术: 从DDR(Double Data Rate)到DDR5, 不断演进的DDR技术提高了数据传输速率和效率。</li>
+<li>LPDDR: 低功耗DDR(LPDDR)针对移动设备进行了优化, 提供更好的能效比。</li>
+<li>3D堆叠技术: 通过堆叠DRAM层, 增加存储密度, 同时降低功耗和提高性能。</li>
+</ol>
+<p><strong>行缓冲技术</strong>: 也称为行缓存(Row Buffer)或行读取缓存(Row Read Buffer), 是在DRAM(动态随机存取存储器)设计中发展起来的一项关键技术。行缓冲技术的引入, 是计算机体系结构和存储器设计领域对CPU与内存速度不匹配问题, 以及对提高数据处理效率需求的响应。</p>
+<p>行缓冲技术的出现主要是为了解决以下几个关键问题:</p>
+<ol>
+<li>速度不匹配; 2. 提高连续访问性能; 3. 优化数据传输; 4. 减少功耗;</li>
+</ol>
+<p>行缓冲(Row Buffering):</p>
+<ul>
+<li>
+<p>DRAM芯片中的数据通常被组织成行(Row)和列(Column)的二维数组。</p>
+</li>
+<li>
+<p>当一行数据被访问时, 整行数据会被加载到行缓冲中。</p>
+</li>
+<li>
+<p>在该行数据被刷新(由于DRAM的电容需要定期刷新以保持数据)或被其他行数据替换之前, 对该行中任何列数据的访问都可以直接从行缓冲中快速完成, 而不需要再次从主存储单元中读取。</p>
+</li>
+</ul>
+<p>行缓冲的作用:</p>
+<ol>
+<li>减少访问延迟; 2. 提高带宽利用率; 3. 支持预取技术;</li>
+</ol>
+<p>行缓冲与性能优化</p>
+<ul>
+<li><strong>连续访问优化</strong>: 对于连续地址的数据访问模式(如数组遍历), 行缓冲器可以显著减少访问延迟, 因为一旦行被打开, 后续的访问几乎是即时的。</li>
+<li><strong>多bank并行</strong>: DRAM通常划分为多个独立的Bank, 每个Bank有自己的行缓冲器。通过交错访问不同Bank的行, 可以进一步隐藏行访问延迟, 提升整体性能。</li>
+</ul>
+<blockquote>
+<p>DRAM中的&quot;Bank&quot;是指存储器内部的一个独立且功能完整的区域, 每个Bank都拥有自己的行地址解码器、行缓冲器(也称为行寄存器)和列地址解码器。这样设计的目的主要是:</p>
+<ol>
+<li>
+<p>并行操作: 通过将DRAM分割成多个Bank, 可以实现Bank间的并行操作。当一个Bank正在进行读取或写入操作时, 另一个Bank可以同时进行不同的操作, 比如刷新或预充电, 这样可以减少整体的等待时间, 提升数据访问效率。</p>
+</li>
+<li>
+<p>提升带宽: 每个Bank可以独立工作, 因此在理想情况下, 如果有多个Bank同时活跃, DRAM的总数据吞吐量(带宽)可以成倍增加。</p>
+</li>
+<li>
+<p>减少冲突: Bank结构有助于减少内存访问冲突。例如, 当处理器发出连续但跨Bank的内存访问请求时, 可以有效地在不同Bank间交替进行, 减少延迟。</p>
+</li>
+<li>
+<p>刷新管理: DRAM的刷新操作可以针对单个Bank进行, 而不是整个内存芯片, 这样可以减少刷新操作对整个系统性能的影响。刷新是必要的, 因为DRAM存储单元需要定期刷新以维持数据的完整性。</p>
+</li>
+<li>
+<p>地址映射: 每个Bank有自己独立的地址空间, 通过地址线的控制, CPU可以定位到具体的Bank和该Bank内的确切位置, 进行数据读写。简而言之, Bank是DRAM中的一种逻辑和物理划分, 它允许更高效的数据管理和更高的并发操作能力。</p>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>宽I0接口</strong>: 更宽的DRAM芯片设计(如DDR4、DDR5标准中的x8、x16等)结合行缓冲器, 使得在单次访问中可以传输更多数据, 提高了数据传输速率和系统整体性能。</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="时钟-sdram">时钟: SDRAM<a href="#时钟-sdram" class="hash-link" aria-label="时钟: SDRAM的直接链接" title="时钟: SDRAM的直接链接">​</a></h3>
+<p>为了进一步优化与处理器的接口, DRAM 引入了时钟信号, 使得存储器和处理器能够同步工作, 这就是所谓的同步动态随机存取存储器(SDRAM)。SDRAM 的主要优势在于它使用时钟信号来保持与处理器的同步, 这使得数据传输更加高效和可靠。</p>
+<p>SDRAM的关键优势在于它的同步设计, 使得内存访问与系统总线时钟保持一致, 提高了数据传输的效率。通过利用时钟信号来协调数据的传输, SDRAM能够以突发模式高效传输连续数据, 减少了传统异步DRAM中的等待时间。</p>
+<p>那为什么SDRAM的同步设计会减少了传统异步DRAM中的等待时间呢?</p>
+<ol>
+<li>
+<p><strong>时钟同步机制</strong>: SDRAM的工作与系统总线时钟同步。这意味着内存控制器在访问SDRAM时, 能够精确地知道何时发送命令、地址和数据, 因为所有操作都是基于一个共同的时钟信号。相比之下, 异步DRAM没有这个同步时钟, 内存控制器在每次操作前都需要等待内存准备好, 这引入了不确定的延迟。</p>
+</li>
+<li>
+<p><strong>突发传输</strong>: SDRAM支持突发模式传输, 一旦第一个数据位置确定, 后续的数据自动连续传输, 而不需要为每个数据单元重新发送地址。这样减少了地址和命令的传输次数, 极大地提升了数据传输效率。</p>
+</li>
+<li>
+<p><strong>命令队列与预取技术</strong>: SDRAM能够提前接收命令并在内部排队, 同时利用预取技术提前读取或刷新数据行, 这样在实际数据传输请求到达时, 数据已经准备就绪, 减少了访问延迟。</p>
+</li>
+<li>
+<p><strong>多bank架构</strong>: SDRAM内部被划分为多个bank, 每个bank可以独立进行读写操作。当一个bank正在进行预充电或刷新操作时, 内存控制器可以转向其他bank进行数据访问, 从而隐藏了等待时间。</p>
+</li>
+</ol>
+<p>DDRSDRAM在此基础上更进一步, 通过在时钟信号的上升沿和下降沿都传输数据, 实现了数据传输速率的成倍增长。这意味着在相同的时钟频率下, DDRSDRAM能提供两倍于传统SDRAM的数据带宽。随着技术的发展, 我们已经从DDR、DDR2、DDR3进化到了DDR4, 每一代都带来了更高的数据传输速率和更低的功耗。DDR4-3200, 意味着其理论最大传输速率为每秒3200兆次(即1600MT/S, 因为每次传输包含上升沿和下降沿两个数据周期), 提供极大的数据吞吐能力。</p>
+<p>为了支持这样的高速数据传输, DRAM内部采用了多bank结构设计。每个bank都有自己的行缓冲器, 允许同时对不同的bank执行读写操作, 这被称为&quot;bank间地址交叉&quot;或&quot;多bank并行处理”。例如, 在一个有4个bank的DRAM中, 通过轮流访问这些bank, 理论上可以实现4倍于单bank访问的带宽, 而无需增加时钟频率。</p>
+<p>在实际应用中, 尤其是服务器领域, DRAM通常不是单独使用, 而是集成在DIMM上。一个DIMM上可以有4到16颗DRAM芯片, 这些芯片组合起来提供更宽的总线接口, 比如常见的8字节(64位)接口。使用DDR4-3200SDRAM的DIMM, 理论上每秒可传输数据量为8×3200=25600兆字节, 因此这类DIIMM标称为PC25600, 表明其带宽性能。</p>
+<p>在DIMM中, 为了管理众多DRAM芯片, 引入了&quot;rank&quot;的概念。一个rank是指在DIMM上共享同一套地址和控制线的DRAM芯片集合, 这样的设计有助于简化地址命令的路由, 同时允许更高效的内存访问策略。简而言之, rank帮助组织和优化了多芯片环境下的内存访问机制, 确保了即使在大规模并行存储系统中也能维持高效的数据传输。</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/docs/001-计佬常識/005-计算机组成原理/006-第五章存储器/001-存储器技术/index.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-04-28T14:52:39.000Z" itemprop="dateModified">2025年4月28日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/docs/计佬常識/计算机组成原理/第四章中央处理器/异常和中断"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">异常和中断</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/docs/计佬常識/计算机组成原理/第五章存储器/Cache的基本原理"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">Cache的基本原理</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#局部性原理" class="table-of-contents__link toc-highlight">局部性原理</a></li><li><a href="#存储器层次结构" class="table-of-contents__link toc-highlight">存储器层次结构</a></li><li><a href="#块行" class="table-of-contents__link toc-highlight">块/行</a></li><li><a href="#构建存储器层次结构的4种技术" class="table-of-contents__link toc-highlight">构建存储器层次结构的4种技术</a></li><li><a href="#磁盘存储器" class="table-of-contents__link toc-highlight">磁盘存储器</a><ul><li><a href="#硬盘结构与运作" class="table-of-contents__link toc-highlight">硬盘结构与运作</a></li><li><a href="#数据组织结构" class="table-of-contents__link toc-highlight">数据组织结构</a></li><li><a href="#数据访问" class="table-of-contents__link toc-highlight">数据访问</a></li></ul></li><li><a href="#闪存" class="table-of-contents__link toc-highlight">闪存</a><ul><li><a href="#损耗均衡" class="table-of-contents__link toc-highlight">损耗均衡</a></li></ul></li><li><a href="#sramstatic-random-access-memory-静态随机存取存储器" class="table-of-contents__link toc-highlight">SRAM(Static Random-Access Memory, 静态随机存取存储器)</a><ul><li><a href="#特点与优势" class="table-of-contents__link toc-highlight">特点与优势</a></li></ul></li><li><a href="#dramdynamic-random-access-memory-动态随机存取存储器" class="table-of-contents__link toc-highlight">DRAM(Dynamic Random-Access Memory, 动态随机存取存储器)</a><ul><li><a href="#优势" class="table-of-contents__link toc-highlight">优势</a></li><li><a href="#劣势" class="table-of-contents__link toc-highlight">劣势</a></li><li><a href="#时钟-sdram" class="table-of-contents__link toc-highlight">时钟: SDRAM</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>
