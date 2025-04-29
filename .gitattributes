@@ -1,5 +1,6 @@
 *.ts linguist-language=TypeScript
 *.tsx linguist-language=TypeScript
+*.md linguist-language=MarkDown
 
 static/katex/ linguist-vendored
 static/katex/** linguist-vendored
