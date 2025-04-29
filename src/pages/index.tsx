@@ -58,7 +58,7 @@ function HomepageHeader () {
                             color: 'black',
                             borderRadius: '8px',
                         }}
-                        to="/docs/HXLoLiHub使用说明/简介"
+                        to="/docs/关于"
                     >
                         快速开始
                     </Link>
