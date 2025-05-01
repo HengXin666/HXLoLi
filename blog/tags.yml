@@ -12,3 +12,8 @@ vscode:
   label: '日常'
   permalink: '/日常'
   description: '一些日常的记录 (大多是碎碎念)'
+
+日记:
+  label: '日记'
+  permalink: '/日记'
+  description: 'ただの日記だ (計画の完成状態とかこと)'
