@@ -2,6 +2,20 @@ module.exports = {
   "tutorialSidebar": [
     {
       "type": "category",
+      "label": "关于",
+      "collapsible": true,
+      "items": [],
+      "customProps": {
+        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+        "tags": []
+      },
+      "link": {
+        "type": "doc",
+        "id": "关于/index"
+      }
+    },
+    {
+      "type": "category",
       "label": "计佬常識",
       "collapsible": true,
       "items": [
@@ -3589,7 +3603,7 @@ module.exports = {
                   "items": [
                     {
                       "type": "category",
-                      "label": "C++常用新特性",
+                      "label": "C++11常用新特性",
                       "collapsible": true,
                       "items": [
                         {
@@ -3603,7 +3617,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/auto自动类型推导/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++11常用新特性/auto自动类型推导/index"
                           }
                         },
                         {
@@ -3617,7 +3631,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/decltype/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++11常用新特性/decltype/index"
                           }
                         },
                         {
@@ -3631,7 +3645,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/右值引用&&与移动语义/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++11常用新特性/右值引用&&与移动语义/index"
                           }
                         },
                         {
@@ -3645,7 +3659,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/列表初始化/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++11常用新特性/列表初始化/index"
                           }
                         },
                         {
@@ -3659,7 +3673,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/Foreach/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++11常用新特性/Foreach/index"
                           }
                         },
                         {
@@ -3673,7 +3687,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/Lambda表达式/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++11常用新特性/Lambda表达式/index"
                           }
                         },
                         {
@@ -3687,7 +3701,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/智能指针/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++11常用新特性/智能指针/index"
                           }
                         },
                         {
@@ -3701,7 +3715,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/可变参数模版/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++11常用新特性/可变参数模版/index"
                           }
                         },
                         {
@@ -3715,7 +3729,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/默认成员函数控制/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++11常用新特性/默认成员函数控制/index"
                           }
                         },
                         {
@@ -3729,7 +3743,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/function/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++11常用新特性/function/index"
                           }
                         },
                         {
@@ -3743,9 +3757,20 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/regex正则表达式/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++11常用新特性/regex正则表达式/index"
                           }
-                        },
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "C++17常用新特性",
+                      "collapsible": true,
+                      "items": [
                         {
                           "type": "category",
                           "label": "折叠表达式",
@@ -3757,7 +3782,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/折叠表达式/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/折叠表达式/index"
                           }
                         },
                         {
@@ -3771,7 +3796,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/编译期if表达式/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/编译期if表达式/index"
                           }
                         },
                         {
@@ -3785,7 +3810,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/auto占位的非类型模板形参/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/auto占位的非类型模板形参/index"
                           }
                         },
                         {
@@ -3799,7 +3824,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/inline新增用法/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/inline新增用法/index"
                           }
                         },
                         {
@@ -3813,7 +3838,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/结构化绑定/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/结构化绑定/index"
                           }
                         },
                         {
@@ -3827,7 +3852,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/ifswitch初始化/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/ifswitch初始化/index"
                           }
                         },
                         {
@@ -3841,7 +3866,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/简化嵌套命名空间与using/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/简化嵌套命名空间与using/index"
                           }
                         },
                         {
@@ -3855,7 +3880,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/Lambda表达式捕获类成员变量的副本/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/Lambda表达式捕获类成员变量的副本/index"
                           }
                         },
                         {
@@ -3869,7 +3894,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/简化重复命名空间的属性列表/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/简化重复命名空间的属性列表/index"
                           }
                         },
                         {
@@ -3883,7 +3908,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/查询头文件宏/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/查询头文件宏/index"
                           }
                         },
                         {
@@ -3897,7 +3922,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/charconv/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/charconv/index"
                           }
                         },
                         {
@@ -3911,7 +3936,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/variant/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/variant/index"
                           }
                         },
                         {
@@ -3925,7 +3950,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/optional/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/optional/index"
                           }
                         },
                         {
@@ -3939,7 +3964,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/any/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/any/index"
                           }
                         },
                         {
@@ -3953,7 +3978,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/apply/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/apply/index"
                           }
                         },
                         {
@@ -3967,7 +3992,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/make丶from丶tuple/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/make丶from丶tuple/index"
                           }
                         },
                         {
@@ -3981,7 +4006,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/string丶view/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/string丶view/index"
                           }
                         },
                         {
@@ -3995,7 +4020,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/as丶const/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/as丶const/index"
                           }
                         },
                         {
@@ -4009,9 +4034,20 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/filesystem/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++17常用新特性/filesystem/index"
                           }
-                        },
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "C++20常用新特性",
+                      "collapsible": true,
+                      "items": [
                         {
                           "type": "category",
                           "label": "模块",
@@ -4023,7 +4059,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/模块/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++20常用新特性/模块/index"
                           }
                         },
                         {
@@ -4037,7 +4073,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/协程/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++20常用新特性/协程/index"
                           }
                         },
                         {
@@ -4051,7 +4087,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/三向比较运算符/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++20常用新特性/三向比较运算符/index"
                           }
                         },
                         {
@@ -4065,7 +4101,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/ranges/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++20常用新特性/ranges/index"
                           }
                         },
                         {
@@ -4079,7 +4115,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/chrono/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++20常用新特性/chrono/index"
                           }
                         },
                         {
@@ -4093,7 +4129,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/format/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++20常用新特性/format/index"
                           }
                         },
                         {
@@ -4107,7 +4143,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/跨度/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++20常用新特性/跨度/index"
                           }
                         },
                         {
@@ -4121,7 +4157,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/并发/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++20常用新特性/并发/index"
                           }
                         },
                         {
@@ -4135,7 +4171,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/numbers/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++20常用新特性/numbers/index"
                           }
                         },
                         {
@@ -4149,7 +4185,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++常用新特性/concept/index"
+                            "id": "程序语言/C++/tmp丶C++丶memo/C++新特性/C++20常用新特性/concept/index"
                           }
                         }
                       ],
@@ -5091,6 +5127,31 @@ module.exports = {
                       "link": {
                         "type": "doc",
                         "id": "程序语言/C++/现代C++/现代C++QT/坐标系小抄/index"
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "QML",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Window介绍丶初识",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "程序语言/C++/现代C++/现代C++QT/QML/Window介绍丶初识/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
                       }
                     }
                   ],
@@ -15226,20 +15287,6 @@ module.exports = {
       "customProps": {
         "icon": "/HXLoLi/default-icons/default_folder.svg",
         "tags": []
-      }
-    },
-    {
-      "type": "category",
-      "label": "关于",
-      "collapsible": true,
-      "items": [],
-      "customProps": {
-        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
-        "tags": []
-      },
-      "link": {
-        "type": "doc",
-        "id": "关于/index"
       }
     }
   ]

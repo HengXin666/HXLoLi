@@ -31,12 +31,6 @@ h4 {
     margin-bottom: 0.5em; /* 底部间距 */
 }
 
-/* 段落样式 */
-p {
-    margin-top: 1em; /* 顶部间距 */
-    margin-bottom: 1em; /* 底部间距 */
-    text-indent: 1.5em; /* 首行缩进 */
-}
 </style>
 
 ---
@@ -44,6 +38,9 @@ p {
 为什么不学习现代C++?!
 
 - [现代C++笔记目录](../003-现代C++/001-现代C++笔记目录/index.md)
+
+> [!TIP]
+> 下面内容是我初学时候学的, 很多都是非现代的, 有错误的!!!
 
 ---
 
@@ -68,26 +65,25 @@ p {
 [[C++11] unordered系列 `哈希函数`实现的 map set](../002-tmp丶C++丶memo/002-STL库/004-unordered系列/index.md)
 
 [[C++11] 声明时初始化二维向量](../002-tmp丶C++丶memo/002-STL库/005-声明时初始化二维向量/index.md)
-
 ## 三、进阶篇
 ### 3.1 C++11常用新特性
-[auto 自动类型推导](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/001-auto自动类型推导/index.md)
+[auto 自动类型推导](../002-tmp丶C++丶memo/003-C++新特性/001-C++11常用新特性/001-auto自动类型推导/index.md)
 
-[decltype](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/002-decltype/index.md)
+[decltype](../002-tmp丶C++丶memo/003-C++新特性/001-C++11常用新特性/002-decltype/index.md)
 
-[右值引用&& 与 移动语义](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/003-右值引用&&与移动语义/index.md)
+[右值引用&& 与 移动语义](../002-tmp丶C++丶memo/003-C++新特性/001-C++11常用新特性/003-右值引用&&与移动语义/index.md)
 
-[列表初始化](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/004-列表初始化/index.md)
+[列表初始化](../002-tmp丶C++丶memo/003-C++新特性/001-C++11常用新特性/004-列表初始化/index.md)
 
-[For each](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/005-Foreach/index.md)
+[For each](../002-tmp丶C++丶memo/003-C++新特性/001-C++11常用新特性/005-Foreach/index.md)
 
-[Lambda表达式](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/006-Lambda表达式/index.md)
+[Lambda表达式](../002-tmp丶C++丶memo/003-C++新特性/001-C++11常用新特性/006-Lambda表达式/index.md)
 
-[智能指针](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/007-智能指针/index.md)
+[智能指针](../002-tmp丶C++丶memo/003-C++新特性/001-C++11常用新特性/007-智能指针/index.md)
 
-[可变参数模版](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/008-可变参数模版/index.md)
+[可变参数模版](../002-tmp丶C++丶memo/003-C++新特性/001-C++11常用新特性/008-可变参数模版/index.md)
 
-[默认成员函数控制](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/009-默认成员函数控制/index.md)
+[默认成员函数控制](../002-tmp丶C++丶memo/003-C++新特性/001-C++11常用新特性/009-默认成员函数控制/index.md)
 
 [[STL] array](../002-tmp丶C++丶memo/002-STL库/002-array/index.md)
 
@@ -97,71 +93,71 @@ p {
 
 [[STL] 声明时初始化二维向量](../002-tmp丶C++丶memo/002-STL库/005-声明时初始化二维向量/index.md)
 
-[function](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/010-function/index.md)
+[function](../002-tmp丶C++丶memo/003-C++新特性/001-C++11常用新特性/010-function/index.md)
 
 [regex正则表达式](https://blog.HXLoLi.com/blog/#/articles?articleId=21010 "##21010##")
 
 ### 3.2 C++17常用新特性
 
-[折叠表达式](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/012-折叠表达式/index.md)
+[折叠表达式](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/001-折叠表达式/index.md)
 
-[编译期if表达式](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/013-编译期if表达式/index.md)
+[编译期if表达式](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/002-编译期if表达式/index.md)
 
-[auto占位的非类型模板形参](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/014-auto占位的非类型模板形参/index.md)
+[auto占位的非类型模板形参](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/003-auto占位的非类型模板形参/index.md)
 
-[inline 新增用法](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/015-inline新增用法/index.md)
+[inline 新增用法](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/004-inline新增用法/index.md)
 
-[结构化绑定](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/016-结构化绑定/index.md)
+[结构化绑定](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/005-结构化绑定/index.md)
 
-[if switch初始化](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/017-ifswitch初始化/index.md)
+[if switch初始化](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/006-ifswitch初始化/index.md)
 
-[简化嵌套命名空间与using](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/018-简化嵌套命名空间与using/index.md)
+[简化嵌套命名空间与using](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/007-简化嵌套命名空间与using/index.md)
 
-[Lambda表达式捕获类成员变量的副本(this *)](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/019-Lambda表达式捕获类成员变量的副本/index.md)
+[Lambda表达式捕获类成员变量的副本(this *)](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/008-Lambda表达式捕获类成员变量的副本/index.md)
 
-[简化重复命名空间的属性列表](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/020-简化重复命名空间的属性列表/index.md)
+[简化重复命名空间的属性列表](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/009-简化重复命名空间的属性列表/index.md)
 
-[查询头文件宏](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/021-查询头文件宏/index.md)
+[查询头文件宏](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/010-查询头文件宏/index.md)
 
-[更快的字符串与数字的转换 <charconv\>](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/022-charconv/index.md)
+[更快的字符串与数字的转换 <charconv\>](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/011-charconv/index.md)
 
-[加强版共用体 std::variant](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/023-variant/index.md)
+[加强版共用体 std::variant](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/012-variant/index.md)
 
-[更安全的空值表示 std::optional](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/024-optional/index.md)
+[更安全的空值表示 std::optional](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/013-optional/index.md)
 
-[实时可改变类型的类型 std::any](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/025-any/index.md) (~~像Python的变量一样~~)
+[实时可改变类型的类型 std::any](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/014-any/index.md) (~~像Python的变量一样~~)
 
-[将一个函数和一个参数包一起调用 std::apply](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/026-apply/index.md) (~~类似Qt槽函数~~)
+[将一个函数和一个参数包一起调用 std::apply](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/015-apply/index.md) (~~类似Qt槽函数~~)
 
-[解包tuple作为构造函数参数构造对象 std::make_from_tuple](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/027-make丶from丶tuple/index.md)
+[解包tuple作为构造函数参数构造对象 std::make_from_tuple](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/016-make丶from丶tuple/index.md)
 
-[只读的string更省内存 std::string_view](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/028-string丶view/index.md)
+[只读的string更省内存 std::string_view](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/017-string丶view/index.md)
 
-[将一个值转换为const引用 std::as_const](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/029-as丶const/index.md)
+[将一个值转换为const引用 std::as_const](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/018-as丶const/index.md)
 
-[文件系统库 std::filesystem](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/030-filesystem/index.md) (~~类似Python的os模块~~)
+[文件系统库 std::filesystem](../002-tmp丶C++丶memo/003-C++新特性/002-C++17常用新特性/019-filesystem/index.md) (~~类似Python的os模块~~)
 
 ### 3.3 C++20常用新特性
 
-[模块](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/031-模块/index.md)
+[模块](../002-tmp丶C++丶memo/003-C++新特性/003-C++20常用新特性/001-模块/index.md)
 
-[协程](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/032-协程/index.md)
+[协程](../002-tmp丶C++丶memo/003-C++新特性/003-C++20常用新特性/002-协程/index.md)
 
-[三向比较运算符](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/033-三向比较运算符/index.md)
+[三向比较运算符](../002-tmp丶C++丶memo/003-C++新特性/003-C++20常用新特性/003-三向比较运算符/index.md)
 
-[范围库: <ranges\> 与 更简洁的表示容器范围](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/034-ranges/index.md)
+[范围库: <ranges\> 与 更简洁的表示容器范围](../002-tmp丶C++丶memo/003-C++新特性/003-C++20常用新特性/004-ranges/index.md)
 
-[日期库: <chrono\>](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/035-chrono/index.md)
+[日期库: <chrono\>](../002-tmp丶C++丶memo/003-C++新特性/003-C++20常用新特性/005-chrono/index.md)
 
-[format](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/036-format/index.md)(~~更像Python的print格式化字符串~~)
+[format](../002-tmp丶C++丶memo/003-C++新特性/003-C++20常用新特性/006-format/index.md)(~~更像Python的print格式化字符串~~)
 
-[跨度](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/037-跨度/index.md)(更安全的遍历`指针`代表的数组，防止程序员写错)
+[跨度](../002-tmp丶C++丶memo/003-C++新特性/003-C++20常用新特性/007-跨度/index.md)(更安全的遍历`指针`代表的数组，防止程序员写错)
 
-[并发](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/038-并发/index.md)(多线程)
+[并发](../002-tmp丶C++丶memo/003-C++新特性/003-C++20常用新特性/008-并发/index.md)(多线程)
 
-[numbers](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/039-numbers/index.md)(数学库)
+[numbers](../002-tmp丶C++丶memo/003-C++新特性/003-C++20常用新特性/009-numbers/index.md)(数学库)
 
-[concept](../002-tmp丶C++丶memo/003-C++新特性/001-C++常用新特性/040-concept/index.md)(概念(concepts)~~约束模板类型的语法糖~~)
+[concept](../002-tmp丶C++丶memo/003-C++新特性/003-C++20常用新特性/010-concept/index.md)(概念(concepts)~~约束模板类型的语法糖~~)
 
 ## 四、C++网络编程
 ### 4.1 Linux网络编程
