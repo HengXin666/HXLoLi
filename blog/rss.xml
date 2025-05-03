@@ -4,10 +4,49 @@
         <title>HXLoLi Blog</title>
         <link>https://HengXin666.github.io/HXLoLi/blog</link>
         <description>HXLoLi Blog</description>
-        <lastBuildDate>Fri, 02 May 2025 14:34:59 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 03 May 2025 23:57:15 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-Hans</language>
+        <item>
+            <title><![CDATA[五一の一日のその三]]></title>
+            <link>https://HengXin666.github.io/HXLoLi/blog/2025/05/03/01-五一の一日のその三</link>
+            <guid>https://HengXin666.github.io/HXLoLi/blog/2025/05/03/01-五一の一日のその三</guid>
+            <pubDate>Sat, 03 May 2025 23:57:15 GMT</pubDate>
+            <description><![CDATA[五一の一日のその三の计划记录]]></description>
+            <content:encoded><![CDATA[<p>五一の一日のその三の计划记录</p>
+<p>计划:</p>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item">
+<p><input type="checkbox" disabled="" checked=""> 算法题 * 3 (2/3)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled=""> 学习 QT QML (假期内过完)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled=""> 补计网学习进度</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled=""> QT PDF 项目 重构 (假期内)</p>
+</li>
+</ul>
+<p>要求:</p>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item">
+<p><input type="checkbox" disabled=""> 每天晚上12:00要睡觉, 不晚于 12:30</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled="" checked=""> 每天8:30起床吧?! 一朝之计在于晨啊!</p>
+</li>
+</ul>
+<hr>
+<p>今日进度:</p>
+<ul>
+<li>QT QML += 3</li>
+</ul>]]></content:encoded>
+            <author>282000500@qq.com (Heng_Xin)</author>
+            <category>日记</category>
+        </item>
         <item>
             <title><![CDATA[五一の一日のその二]]></title>
             <link>https://HengXin666.github.io/HXLoLi/blog/2025/05/02/01-五一の一日のその二</link>
@@ -33,7 +72,7 @@
 <p>要求:</p>
 <ul class="contains-task-list containsTaskList_mC6p">
 <li class="task-list-item">
-<p><input type="checkbox" disabled=""> 每天晚上12:00要睡觉, 不晚于 12:30</p>
+<p><input type="checkbox" disabled="" checked=""> 每天晚上12:00要睡觉, 不晚于 12:30</p>
 </li>
 <li class="task-list-item">
 <p><input type="checkbox" disabled=""> 每天8:30起床吧?! 一朝之计在于晨啊!</p>

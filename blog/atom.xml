@@ -2,11 +2,54 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://HengXin666.github.io/HXLoLi/blog</id>
     <title>HXLoLi Blog</title>
-    <updated>2025-05-02T14:34:59.000Z</updated>
+    <updated>2025-05-03T23:57:15.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://HengXin666.github.io/HXLoLi/blog"/>
     <subtitle>HXLoLi Blog</subtitle>
     <icon>https://HengXin666.github.io/HXLoLi/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[五一の一日のその三]]></title>
+        <id>https://HengXin666.github.io/HXLoLi/blog/2025/05/03/01-五一の一日のその三</id>
+        <link href="https://HengXin666.github.io/HXLoLi/blog/2025/05/03/01-五一の一日のその三"/>
+        <updated>2025-05-03T23:57:15.000Z</updated>
+        <summary type="html"><![CDATA[五一の一日のその三の计划记录]]></summary>
+        <content type="html"><![CDATA[<p>五一の一日のその三の计划记录</p>
+<p>计划:</p>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item">
+<p><input type="checkbox" disabled="" checked=""> 算法题 * 3 (2/3)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled=""> 学习 QT QML (假期内过完)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled=""> 补计网学习进度</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled=""> QT PDF 项目 重构 (假期内)</p>
+</li>
+</ul>
+<p>要求:</p>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item">
+<p><input type="checkbox" disabled=""> 每天晚上12:00要睡觉, 不晚于 12:30</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled="" checked=""> 每天8:30起床吧?! 一朝之计在于晨啊!</p>
+</li>
+</ul>
+<hr>
+<p>今日进度:</p>
+<ul>
+<li>QT QML += 3</li>
+</ul>]]></content>
+        <author>
+            <name>Heng_Xin</name>
+            <email>282000500@qq.com</email>
+            <uri>https://github.com/HengXin666</uri>
+        </author>
+        <category label="日记" term="日记"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[五一の一日のその二]]></title>
         <id>https://HengXin666.github.io/HXLoLi/blog/2025/05/02/01-五一の一日のその二</id>
@@ -32,7 +75,7 @@
 <p>要求:</p>
 <ul class="contains-task-list containsTaskList_mC6p">
 <li class="task-list-item">
-<p><input type="checkbox" disabled=""> 每天晚上12:00要睡觉, 不晚于 12:30</p>
+<p><input type="checkbox" disabled="" checked=""> 每天晚上12:00要睡觉, 不晚于 12:30</p>
 </li>
 <li class="task-list-item">
 <p><input type="checkbox" disabled=""> 每天8:30起床吧?! 一朝之计在于晨啊!</p>
