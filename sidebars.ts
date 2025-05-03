@@ -5161,6 +5161,20 @@ module.exports = {
                             "type": "doc",
                             "id": "程序语言/C++/现代C++/现代C++QT/QML/Item与Rectangle/index"
                           }
+                        },
+                        {
+                          "type": "category",
+                          "label": "states与transitions-动画效果制作",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "程序语言/C++/现代C++/现代C++QT/QML/states与transitions-动画效果制作/index"
+                          }
                         }
                       ],
                       "customProps": {
