@@ -5147,6 +5147,20 @@ module.exports = {
                             "type": "doc",
                             "id": "程序语言/C++/现代C++/现代C++QT/QML/Window介绍丶初识/index"
                           }
+                        },
+                        {
+                          "type": "category",
+                          "label": "Item与Rectangle",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "程序语言/C++/现代C++/现代C++QT/QML/Item与Rectangle/index"
+                          }
                         }
                       ],
                       "customProps": {
