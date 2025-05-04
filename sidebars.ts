@@ -5189,6 +5189,20 @@ module.exports = {
                             "type": "doc",
                             "id": "程序语言/C++/现代C++/现代C++QT/QML/Component与Loader/index"
                           }
+                        },
+                        {
+                          "type": "category",
+                          "label": "MouseArea",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "程序语言/C++/现代C++/现代C++QT/QML/MouseArea/index"
+                          }
                         }
                       ],
                       "customProps": {
