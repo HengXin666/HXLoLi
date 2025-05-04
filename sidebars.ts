@@ -5203,6 +5203,20 @@ module.exports = {
                             "type": "doc",
                             "id": "程序语言/C++/现代C++/现代C++QT/QML/MouseArea/index"
                           }
+                        },
+                        {
+                          "type": "category",
+                          "label": "Button",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "程序语言/C++/现代C++/现代C++QT/QML/Button/index"
+                          }
                         }
                       ],
                       "customProps": {
