@@ -5217,6 +5217,20 @@ module.exports = {
                             "type": "doc",
                             "id": "程序语言/C++/现代C++/现代C++QT/QML/Button/index"
                           }
+                        },
+                        {
+                          "type": "category",
+                          "label": "Property的使用",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "程序语言/C++/现代C++/现代C++QT/QML/Property的使用/index"
+                          }
                         }
                       ],
                       "customProps": {
