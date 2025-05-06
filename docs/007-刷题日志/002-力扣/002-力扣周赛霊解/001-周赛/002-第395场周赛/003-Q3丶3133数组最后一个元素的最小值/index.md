@@ -71,8 +71,8 @@ public:
         int j = 0;
         for (long long t = ~x, lb; n >> j; t ^= lb /*去掉最低位的1*/) {
             lb = t & -t;
-            // ((n >> j++) & 1) 是判断是否要填
-            // ans |= lb 是给对应位填上1 (绝妙!)
+        	// ((n >> j++) & 1) 是判断是否要填
+        	// ans |= lb 是给对应位填上1 (绝妙!)
             ans |= (long long) ((n >> j++) & 1) * lb;
         }
         return ans;

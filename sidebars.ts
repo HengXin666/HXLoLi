@@ -12844,12 +12844,12 @@ module.exports = {
                   "items": [
                     {
                       "type": "category",
-                      "label": "第场周赛",
+                      "label": "第394场周赛",
                       "collapsible": true,
                       "items": [
                         {
                           "type": "category",
-                          "label": "Q丶统计特殊字母的数量I",
+                          "label": "Q1丶3120统计特殊字母的数量I",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -12858,12 +12858,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶统计特殊字母的数量I/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第394场周赛/Q1丶3120统计特殊字母的数量I/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶统计特殊字母的数量II",
+                          "label": "Q2丶3121统计特殊字母的数量II",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -12872,12 +12872,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶统计特殊字母的数量II/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第394场周赛/Q2丶3121统计特殊字母的数量II/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶使矩阵满足条件的最少操作次数",
+                          "label": "Q3丶3122使矩阵满足条件的最少操作次数",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -12886,12 +12886,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶使矩阵满足条件的最少操作次数/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第394场周赛/Q3丶3122使矩阵满足条件的最少操作次数/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶最短路径中的边",
+                          "label": "Q4丶3123最短路径中的边",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -12900,12 +12900,37 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶最短路径中的边/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第394场周赛/Q4丶3123最短路径中的边/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "第395场周赛",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Q1丶3131找出与数组相加的整数I",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第395场周赛/Q1丶3131找出与数组相加的整数I/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶找出与数组相加的整数I",
+                          "label": "Q2丶3132找出与数组相加的整数II",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -12914,12 +12939,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶找出与数组相加的整数I/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第395场周赛/Q2丶3132找出与数组相加的整数II/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶找出与数组相加的整数II",
+                          "label": "Q3丶3133数组最后一个元素的最小值",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -12928,12 +12953,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶找出与数组相加的整数II/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第395场周赛/Q3丶3133数组最后一个元素的最小值/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶数组最后一个元素的最小值",
+                          "label": "Q4丶3134找出唯一性数组的中位数",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -12942,12 +12967,37 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶数组最后一个元素的最小值/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第395场周赛/Q4丶3134找出唯一性数组的中位数/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "第396场周赛",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Q1丶3136有效单词",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第396场周赛/Q1丶3136有效单词/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶找出唯一性数组的中位数",
+                          "label": "Q2丶3137K周期字符串需要的最少操作次数",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -12956,12 +13006,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶找出唯一性数组的中位数/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第396场周赛/Q2丶3137K周期字符串需要的最少操作次数/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶有效单词",
+                          "label": "Q3丶3138同位字符串连接的最小长度",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -12970,12 +13020,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶有效单词/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第396场周赛/Q3丶3138同位字符串连接的最小长度/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶K周期字符串需要的最少操作次数",
+                          "label": "Q4丶3139使数组中所有元素相等的最小开销",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -12984,12 +13034,37 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶K周期字符串需要的最少操作次数/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第396场周赛/Q4丶3139使数组中所有元素相等的最小开销/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "第397场周赛",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Q1丶3146两个字符串的排列差",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第397场周赛/Q1丶3146两个字符串的排列差/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶同位字符串连接的最小长度",
+                          "label": "Q2丶3147从魔法师身上吸取的最大能量",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -12998,12 +13073,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶同位字符串连接的最小长度/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第397场周赛/Q2丶3147从魔法师身上吸取的最大能量/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶使数组中所有元素相等的最小开销",
+                          "label": "Q3丶3148矩阵中的最大得分",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13012,12 +13087,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶使数组中所有元素相等的最小开销/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第397场周赛/Q3丶3148矩阵中的最大得分/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶两个字符串的排列差",
+                          "label": "Q4丶3149找出分数最低的排列",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13026,12 +13101,37 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶两个字符串的排列差/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第397场周赛/Q4丶3149找出分数最低的排列/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "第398场周赛",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Q1丶3151特殊数组I",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第398场周赛/Q1丶3151特殊数组I/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶从魔法师身上吸取的最大能量",
+                          "label": "Q2丶3152特殊数组II",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13040,12 +13140,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶从魔法师身上吸取的最大能量/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第398场周赛/Q2丶3152特殊数组II/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶矩阵中的最大得分",
+                          "label": "Q3丶3153所有数对中数位不同之和",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13054,12 +13154,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶矩阵中的最大得分/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第398场周赛/Q3丶3153所有数对中数位不同之和/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶找出分数最低的排列",
+                          "label": "Q4丶3154到达第K级台阶的方案数",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13068,12 +13168,37 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶找出分数最低的排列/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第398场周赛/Q4丶3154到达第K级台阶的方案数/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "第399场周赛",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Q1丶3162优质数对的总数I",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第399场周赛/Q1丶3162优质数对的总数I/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶特殊数组I",
+                          "label": "Q2丶3163压缩字符串III",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13082,12 +13207,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶特殊数组I/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第399场周赛/Q2丶3163压缩字符串III/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶特殊数组II",
+                          "label": "Q3丶3164优质数对的总数II",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13096,12 +13221,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶特殊数组II/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第399场周赛/Q3丶3164优质数对的总数II/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶所有数对中数位不同之和",
+                          "label": "Q4丶3165不包含相邻元素的子序列的最大和",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13110,12 +13235,37 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶所有数对中数位不同之和/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第399场周赛/Q4丶3165不包含相邻元素的子序列的最大和/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "第400场周赛",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Q1丶3168候诊室中的最少椅子数",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第400场周赛/Q1丶3168候诊室中的最少椅子数/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶到达第K级台阶的方案数",
+                          "label": "Q2丶3169无需开会的工作日",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13124,12 +13274,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶到达第K级台阶的方案数/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第400场周赛/Q2丶3169无需开会的工作日/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶优质数对的总数I",
+                          "label": "Q3丶3170删除星号以后字典序最小的字符串",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13138,12 +13288,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶优质数对的总数I/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第400场周赛/Q3丶3170删除星号以后字典序最小的字符串/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶压缩字符串III",
+                          "label": "Q4丶3171找到按位或最接近K的子数组",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13152,12 +13302,37 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶压缩字符串III/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第400场周赛/Q4丶3171找到按位或最接近K的子数组/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "第401场周赛",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Q1丶3178找出K秒后拿着球的孩子",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第401场周赛/Q1丶3178找出K秒后拿着球的孩子/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶优质数对的总数II",
+                          "label": "Q2丶3179K秒后第N个元素的值",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13166,12 +13341,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶优质数对的总数II/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第401场周赛/Q2丶3179K秒后第N个元素的值/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶不包含相邻元素的子序列的最大和",
+                          "label": "Q3丶3180执行操作可获得的最大总奖励I",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13180,12 +13355,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶不包含相邻元素的子序列的最大和/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第401场周赛/Q3丶3180执行操作可获得的最大总奖励I/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶候诊室中的最少椅子数",
+                          "label": "Q4丶3181执行操作可获得的最大总奖励II",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13194,12 +13369,37 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶候诊室中的最少椅子数/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第401场周赛/Q4丶3181执行操作可获得的最大总奖励II/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "第404场周赛",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Q1丶3200三角形的最大高度",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第404场周赛/Q1丶3200三角形的最大高度/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶无需开会的工作日",
+                          "label": "Q2丶3201找出有效子序列的最大长度I",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13208,12 +13408,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶无需开会的工作日/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第404场周赛/Q2丶3201找出有效子序列的最大长度I/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶删除星号以后字典序最小的字符串",
+                          "label": "Q3丶3202找出有效子序列的最大长度II",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13222,12 +13422,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶删除星号以后字典序最小的字符串/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第404场周赛/Q3丶3202找出有效子序列的最大长度II/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶找到按位或最接近K的子数组",
+                          "label": "Q4丶3203合并两棵树后的最小直径",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13236,12 +13436,23 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶找到按位或最接近K的子数组/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第404场周赛/Q4丶3203合并两棵树后的最小直径/index"
                           }
-                        },
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "第408场周赛",
+                      "collapsible": true,
+                      "items": [
                         {
                           "type": "category",
-                          "label": "Q丶找出K秒后拿着球的孩子",
+                          "label": "Q2丶3233统计不是特殊数字的数字数量",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13250,119 +13461,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶找出K秒后拿着球的孩子/index"
-                          }
-                        },
-                        {
-                          "type": "category",
-                          "label": "Q丶K秒后第N个元素的值",
-                          "collapsible": true,
-                          "items": [],
-                          "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
-                            "tags": []
-                          },
-                          "link": {
-                            "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶K秒后第N个元素的值/index"
-                          }
-                        },
-                        {
-                          "type": "category",
-                          "label": "Q丶执行操作可获得的最大总奖励I",
-                          "collapsible": true,
-                          "items": [],
-                          "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
-                            "tags": []
-                          },
-                          "link": {
-                            "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶执行操作可获得的最大总奖励I/index"
-                          }
-                        },
-                        {
-                          "type": "category",
-                          "label": "Q丶执行操作可获得的最大总奖励II",
-                          "collapsible": true,
-                          "items": [],
-                          "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
-                            "tags": []
-                          },
-                          "link": {
-                            "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶执行操作可获得的最大总奖励II/index"
-                          }
-                        },
-                        {
-                          "type": "category",
-                          "label": "Q丶三角形的最大高度",
-                          "collapsible": true,
-                          "items": [],
-                          "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
-                            "tags": []
-                          },
-                          "link": {
-                            "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶三角形的最大高度/index"
-                          }
-                        },
-                        {
-                          "type": "category",
-                          "label": "Q丶找出有效子序列的最大长度I",
-                          "collapsible": true,
-                          "items": [],
-                          "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
-                            "tags": []
-                          },
-                          "link": {
-                            "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶找出有效子序列的最大长度I/index"
-                          }
-                        },
-                        {
-                          "type": "category",
-                          "label": "Q丶找出有效子序列的最大长度II",
-                          "collapsible": true,
-                          "items": [],
-                          "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
-                            "tags": []
-                          },
-                          "link": {
-                            "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶找出有效子序列的最大长度II/index"
-                          }
-                        },
-                        {
-                          "type": "category",
-                          "label": "Q丶合并两棵树后的最小直径",
-                          "collapsible": true,
-                          "items": [],
-                          "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
-                            "tags": []
-                          },
-                          "link": {
-                            "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶合并两棵树后的最小直径/index"
-                          }
-                        },
-                        {
-                          "type": "category",
-                          "label": "Q丶统计不是特殊数字的数字数量",
-                          "collapsible": true,
-                          "items": [],
-                          "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
-                            "tags": []
-                          },
-                          "link": {
-                            "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第场周赛/Q丶统计不是特殊数字的数字数量/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/周赛/第408场周赛/Q2丶3233统计不是特殊数字的数字数量/index"
                           }
                         }
                       ],
@@ -13384,12 +13483,12 @@ module.exports = {
                   "items": [
                     {
                       "type": "category",
-                      "label": "第场双周赛",
+                      "label": "第129场双周赛",
                       "collapsible": true,
                       "items": [
                         {
                           "type": "category",
-                          "label": "Q丶构造相同颜色的正方形",
+                          "label": "Q1丶3127构造相同颜色的正方形",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13398,12 +13497,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶构造相同颜色的正方形/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第129场双周赛/Q1丶3127构造相同颜色的正方形/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶直角三角形",
+                          "label": "Q2丶3128直角三角形",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13412,12 +13511,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶直角三角形/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第129场双周赛/Q2丶3128直角三角形/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q+丶找出所有稳定的二进制数组II",
+                          "label": "Q3+4丶3130找出所有稳定的二进制数组II",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13426,12 +13525,37 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q+丶找出所有稳定的二进制数组II/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第129场双周赛/Q3+4丶3130找出所有稳定的二进制数组II/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "第130场双周赛",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Q1丶3142判断矩阵是否满足条件",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第130场双周赛/Q1丶3142判断矩阵是否满足条件/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶判断矩阵是否满足条件",
+                          "label": "Q2丶3143正方形中的最多点数",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13440,12 +13564,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶判断矩阵是否满足条件/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第130场双周赛/Q2丶3143正方形中的最多点数/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶正方形中的最多点数",
+                          "label": "Q3丶3144分割字符频率相等的最少子字符串",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13454,12 +13578,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶正方形中的最多点数/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第130场双周赛/Q3丶3144分割字符频率相等的最少子字符串/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶分割字符频率相等的最少子字符串",
+                          "label": "Q4丶3145大数组元素的乘积",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13468,12 +13592,37 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶分割字符频率相等的最少子字符串/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第130场双周赛/Q4丶3145大数组元素的乘积/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "第131场双周赛",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Q1丶3158求出出现两次数字的XOR值",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第131场双周赛/Q1丶3158求出出现两次数字的XOR值/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶大数组元素的乘积",
+                          "label": "Q2丶3159查询数组中元素的出现位置",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13482,12 +13631,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶大数组元素的乘积/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第131场双周赛/Q2丶3159查询数组中元素的出现位置/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶求出出现两次数字的XOR值",
+                          "label": "Q3丶3160所有球里面不同颜色的数目",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13496,12 +13645,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶求出出现两次数字的XOR值/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第131场双周赛/Q3丶3160所有球里面不同颜色的数目/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶查询数组中元素的出现位置",
+                          "label": "Q4丶3161物块放置查询",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13510,12 +13659,37 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶查询数组中元素的出现位置/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第131场双周赛/Q4丶3161物块放置查询/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "第132场双周赛",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Q1丶3174清除数字",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第132场双周赛/Q1丶3174清除数字/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶所有球里面不同颜色的数目",
+                          "label": "Q2丶3175找到连续赢K场比赛的第一位玩家",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13524,12 +13698,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶所有球里面不同颜色的数目/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第132场双周赛/Q2丶3175找到连续赢K场比赛的第一位玩家/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶物块放置查询",
+                          "label": "Q3丶3176求出最长好子序列I",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13538,12 +13712,12 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶物块放置查询/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第132场双周赛/Q3丶3176求出最长好子序列I/index"
                           }
                         },
                         {
                           "type": "category",
-                          "label": "Q丶清除数字",
+                          "label": "Q4丶3177求出最长好子序列II",
                           "collapsible": true,
                           "items": [],
                           "customProps": {
@@ -13552,49 +13726,7 @@ module.exports = {
                           },
                           "link": {
                             "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶清除数字/index"
-                          }
-                        },
-                        {
-                          "type": "category",
-                          "label": "Q丶找到连续赢K场比赛的第一位玩家",
-                          "collapsible": true,
-                          "items": [],
-                          "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
-                            "tags": []
-                          },
-                          "link": {
-                            "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶找到连续赢K场比赛的第一位玩家/index"
-                          }
-                        },
-                        {
-                          "type": "category",
-                          "label": "Q丶求出最长好子序列I",
-                          "collapsible": true,
-                          "items": [],
-                          "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
-                            "tags": []
-                          },
-                          "link": {
-                            "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶求出最长好子序列I/index"
-                          }
-                        },
-                        {
-                          "type": "category",
-                          "label": "Q丶求出最长好子序列II",
-                          "collapsible": true,
-                          "items": [],
-                          "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
-                            "tags": []
-                          },
-                          "link": {
-                            "type": "doc",
-                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第场双周赛/Q丶求出最长好子序列II/index"
+                            "id": "刷题日志/力扣/力扣周赛霊解/双周赛/第132场双周赛/Q4丶3177求出最长好子序列II/index"
                           }
                         }
                       ],

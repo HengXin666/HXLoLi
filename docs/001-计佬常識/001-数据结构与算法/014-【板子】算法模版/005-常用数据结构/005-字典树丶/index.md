@@ -1,6 +1,6 @@
 # 字典树
 
-- 学习: [字典树](https://blog.HXLoLi.com/blog/#/articles?articleId=20558 "##20558##")
+- 学习: [字典树](../005-字典树丶/index.md)
 
 ## 一、模版: 两种写法
 

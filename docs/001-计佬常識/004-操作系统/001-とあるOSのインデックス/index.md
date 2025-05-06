@@ -1,52 +1,52 @@
 # OS Index
 ## 一。OS总览
-- [01操作系统概述](https://blog.HXLoLi.com/blog/#/articles?articleId=20983 "##20983##")
-- [02软件视角和系统调用](https://blog.HXLoLi.com/blog/#/articles?articleId=20992 "##20992##")
-- [03操作系统发展史](https://blog.HXLoLi.com/blog/#/articles?articleId=21009 "##21009##")
+- [01操作系统概述](../002-操作系统总览/001-操作系统概述/index.md)
+- [02软件视角和系统调用](../002-操作系统总览/002-软件视角和系统调用/index.md)
+- [03操作系统发展史](../002-操作系统总览/003-操作系统发展史/index.md)
 
 ## 二、进程与线程
-1. [进程简介及进程编程模型](https://blog.HXLoLi.com/blog/#/articles?articleId=21012 "##21012##")
+1. [进程简介及进程编程模型](../003-进程与线程/001-进程简介及进程编程模型/index.md)
 
-2. [进程切换和线程调度](https://blog.HXLoLi.com/blog/#/articles?articleId=21013 "##21013##")
+2. [进程切换和线程调度](../003-进程与线程/002-进程切换和线程调度/index.md)
 
-3. [线程编程模型和进程间通信概述](https://blog.HXLoLi.com/blog/#/articles?articleId=21015 "##21015##")
+3. [线程编程模型和进程间通信概述](../003-进程与线程/003-线程编程模型和进程间通信概述/index.md)
 
-4. [同步互斥机制和编程方法](https://blog.HXLoLi.com/blog/#/articles?articleId=21017 "##21017##")
+4. [同步互斥机制和编程方法](../003-进程与线程/004-同步互斥机制和编程方法/index.md)
 
-5. [信号量机制与生产者消费者问题](https://blog.HXLoLi.com/blog/#/articles?articleId=21021 "##21021##")
+5. [信号量机制与生产者消费者问题](../003-进程与线程/005-信号量机制与生产者消费者问题/index.md)
 
-6. [管程、消息通信、屏障等](https://blog.HXLoLi.com/blog/#/articles?articleId=21055 "##21055##")
+6. [管程、消息通信、屏障等](../003-进程与线程/006-管程、消息通信、屏障等/index.md)
 
-7. [进程调度](https://blog.HXLoLi.com/blog/#/articles?articleId=21056 "##21056##")
+7. [进程调度](../003-进程与线程/007-进程调度/index.md)
 
 ## 三、RAM管理
-1. [地址空间](https://blog.HXLoLi.com/blog/#/articles?articleId=21057 "##21057##")
+1. [地址空间](../004-内存管理/001-地址空间/index.md)
 
-2. [交换技术和空闲空间管理](https://blog.HXLoLi.com/blog/#/articles?articleId=21058 "##21058##")
+2. [交换技术和空闲空间管理](../004-内存管理/002-交换技术和空闲空间管理/index.md)
 
-3. [段式页式内存管理](https://blog.HXLoLi.com/blog/#/articles?articleId=21059 "##21059##")
+3. [段式页式内存管理](../004-内存管理/003-段式页式内存管理/index.md)
 
-4. [多级页表和页面置换算法](https://blog.HXLoLi.com/blog/#/articles?articleId=21061 "##21061##")
+4. [多级页表和页面置换算法](../004-内存管理/004-多级页表和页面置换算法/index.md)
 
 ## 四、ファイル・システム (File System)
-1. [文件系统概述及文件概念](https://blog.HXLoLi.com/blog/#/articles?articleId=21063 "##21063##")
+1. [文件系统概述及文件概念](../005-文件系统/001-文件系统概述及文件概念/index.md)
 
-2. [目录结构和文件系统结构](https://blog.HXLoLi.com/blog/#/articles?articleId=21065 "##21065##")
+2. [目录结构和文件系统结构](../005-文件系统/002-目录结构和文件系统结构/index.md)
 
-3. [文件系统实现](https://blog.HXLoLi.com/blog/#/articles?articleId=21066 "##21066##")
+3. [文件系统实现](../005-文件系统/003-文件系统实现/index.md)
 
-4. [空闲空间管理及文件系统优化](https://blog.HXLoLi.com/blog/#/articles?articleId=21068 "##21068##")
+4. [空闲空间管理及文件系统优化](../005-文件系统/004-空闲空间管理及文件系统优化/index.md)
 
 ## 五、输入输出
-1. [设备输入输出之硬件模型](https://blog.HXLoLi.com/blog/#/articles?articleId=21071 "##21071##")
+1. [设备输入输出之硬件模型](../006-输入输出/001-设备输入输出之硬件模型/index.md)
 
-2. [IO设备软件和IO层次结构](https://blog.HXLoLi.com/blog/#/articles?articleId=21073 "##21073##")
+2. [IO设备软件和IO层次结构](../006-输入输出/002-IO设备软件和IO层次结构/index.md)
 
-3. [IO软件层次和盘结构](https://blog.HXLoLi.com/blog/#/articles?articleId=21074 "##21074##")
+3. [IO软件层次和盘结构](../006-输入输出/003-IO软件层次和盘结构/index.md)
 
-4. [磁盘调度](https://blog.HXLoLi.com/blog/#/articles?articleId=21075 "##21075##")
+4. [磁盘调度](../006-输入输出/004-磁盘调度/index.md)
 
-5. [时钟](https://blog.HXLoLi.com/blog/#/articles?articleId=21076 "##21076##")
+5. [时钟](../006-输入输出/005-时钟/index.md)
 
 ## 六、死锁
-- [死锁](https://blog.HXLoLi.com/blog/#/articles?articleId=21077 "##21077##")
+- [死锁](../007-死锁/001-死锁丶/index.md)

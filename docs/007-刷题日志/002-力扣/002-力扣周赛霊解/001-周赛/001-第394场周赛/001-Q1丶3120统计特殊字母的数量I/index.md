@@ -74,14 +74,14 @@ public:
 即:
 ```C++
 for (char& it : str) {
-    cout << it << "是 "
-    if ((it >> 5) & 1) {
-        cout << "大写";
+	cout << it << "是 "
+	if ((it >> 5) & 1) {
+    	cout << "大写";
     } else {
-        cout << "小写";
+    	cout << "小写";
     }
 
-    cout << " 是字母表的第 " << (it & 31) << " 个字母\n";
+	cout << " 是字母表的第 " << (it & 31) << " 个字母\n";
 }
 ```
 

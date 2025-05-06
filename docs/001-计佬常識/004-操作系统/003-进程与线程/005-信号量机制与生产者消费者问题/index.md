@@ -407,4 +407,4 @@ Futex机制的核心在于进程或线程之间共享一个32位整数作为锁�
 
 ### 3.2 Pthreads 中的互斥量
 
-- 请看[互斥锁](https://blog.HXLoLi.com/blog/#/articles?articleId=20309 "##20309##") | [条件变量](https://blog.HXLoLi.com/blog/#/articles?articleId=20313 "##20313##")
+- 请看[互斥锁](../../../../002-程序语言/001-C++/002-tmp丶C++丶memo/005-C++多进程与多线程/001-C语言版/004-互斥锁/index.md) | [条件变量](../../../../002-程序语言/001-C++/002-tmp丶C++丶memo/005-C++多进程与多线程/001-C语言版/007-条件变量/index.md)

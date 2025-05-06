@@ -31,7 +31,7 @@ public:
             }
         }
 
-        // 输出答案
+    	// 输出答案
         priority_queue<tuple<int, int>, std::vector<tuple<int, int>>, std::greater<tuple<int, int>>> qq;
         for (int i = 0; i < 26; ++i) {
             for (int it : pq[i]) {

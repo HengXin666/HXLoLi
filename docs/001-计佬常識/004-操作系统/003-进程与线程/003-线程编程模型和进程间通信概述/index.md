@@ -26,9 +26,9 @@
 
 ### 1.2 实现
 
-- 直接看: [线程相关函数](https://blog.HXLoLi.com/blog/#/articles?articleId=20305 "##20305##") (POSIX线程(简称pthreads)
+- 直接看: [线程相关函数](../../../../002-程序语言/001-C++/002-tmp丶C++丶memo/005-C++多进程与多线程/001-C语言版/002-线程相关函数/index.md) (POSIX线程(简称pthreads))
 
-- 然后需要注意线程同步(线程通信) [线程同步序言](https://blog.HXLoLi.com/blog/#/articles?articleId=20308 "##20308##")
+- 然后需要注意线程同步(线程通信) [线程同步序言](../../../../002-程序语言/001-C++/002-tmp丶C++丶memo/005-C++多进程与多线程/001-C语言版/003-线程同步序言/index.md)
 
 比如:
 

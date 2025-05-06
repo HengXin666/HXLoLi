@@ -97,7 +97,7 @@ target_link_libraries(03-tbb TBB::tbb)
 
 #### 0.4.3 基于标准库的实现
 
-回顾[五、C++11开始的多线程编程](https://blog.HXLoLi.com/blog/#/articles?articleId=20915 "##20915##"), 我们实现了:
+回顾[五、C++11开始的多线程编程](../005-五、C++开始的多线程编程/index.md), 我们实现了:
 
 ```C++
 #include <iostream>

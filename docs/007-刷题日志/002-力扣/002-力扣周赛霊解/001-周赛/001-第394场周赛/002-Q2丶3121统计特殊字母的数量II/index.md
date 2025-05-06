@@ -53,7 +53,7 @@ public:
                     arrx[it - 'a'] = 0; // 小写置零
                 }
                 else
-                    ++arrx[it - 'a']; // 小写有
+                	++arrx[it - 'a']; // 小写有
             }
         }
 

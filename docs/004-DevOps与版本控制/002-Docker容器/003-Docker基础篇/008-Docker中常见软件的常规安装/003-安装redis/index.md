@@ -23,7 +23,7 @@ cp redis.conf /opt/app/redis/
 cd /opt/app/redis
 ```
 
-[下载文件: redis.conf](https://blog.hxloli.com/pic/home/bl/img/U1/redis.conf)
+[下载文件: redis.conf](redis.conf)
 
 ```bash
 [root@localhost redis]# ll
