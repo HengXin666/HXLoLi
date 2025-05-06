@@ -167,31 +167,31 @@
 - [nexus代理阿里云仓库](../005-Maven/009-私服/004-nexus代理阿里云仓库/index.md)
 
 #### Spring
-- [1.1 Spring 的基本概述](https://blog.HXLoLi.com/blog/#/articles?articleId=20810 "##20810##")
-- [1.2 程序中的耦合](https://blog.HXLoLi.com/blog/#/articles?articleId=20811 "##20811##")
-- [1.3 IOC的概念和作用](https://blog.HXLoLi.com/blog/#/articles?articleId=20841 "##20841##")
-- [1.4 Spring对bean的管理方式](https://blog.HXLoLi.com/blog/#/articles?articleId=20842 "##20842##")
-- [1.5 Bean的细节](https://blog.HXLoLi.com/blog/#/articles?articleId=20843 "##20843##")
+- [1.1 Spring 的基本概述](../006-Spring/001-第一章Spring框架的概述以及Spring基于XMl的IOC配置/001-Spring的基本概述/index.md)
+- [1.2 程序中的耦合](../006-Spring/001-第一章Spring框架的概述以及Spring基于XMl的IOC配置/002-程序中的耦合/index.md)
+- [1.3 IOC的概念和作用](../006-Spring/001-第一章Spring框架的概述以及Spring基于XMl的IOC配置/003-IOC的概念和作用/index.md)
+- [1.4 Spring对bean的管理方式](../006-Spring/001-第一章Spring框架的概述以及Spring基于XMl的IOC配置/004-Spring对bean的管理方式/index.md)
+- [1.5 Bean的细节](../006-Spring/001-第一章Spring框架的概述以及Spring基于XMl的IOC配置/005-Bean的细节/index.md)
 - 未完不待续...
 
 #### Spring Boot
 ##### 入门
-- [springboot第一个入门案例](https://blog.HXLoLi.com/blog/#/articles?articleId=21022 "##21022##")
-- [springboot自动配置原理](https://blog.HXLoLi.com/blog/#/articles?articleId=21023 "##21023##")
-- [@Configuration注解](https://blog.HXLoLi.com/blog/#/articles?articleId=21024 "##21024##")
-- [@Import注解](https://blog.HXLoLi.com/blog/#/articles?articleId=21025 "##21025##")
-- [@Conditional注解](https://blog.HXLoLi.com/blog/#/articles?articleId=21026 "##21026##")
-- [@ImportResource注解](https://blog.HXLoLi.com/blog/#/articles?articleId=21027 "##21027##")
-- [配置信息自动绑定的注解](https://blog.HXLoLi.com/blog/#/articles?articleId=21028 "##21028##")
-- [springboot的最佳实践](https://blog.HXLoLi.com/blog/#/articles?articleId=21029 "##21029##")
-- [lombok插件的使用](https://blog.HXLoLi.com/blog/#/articles?articleId=21030 "##21030##")
-- [dev-tools热部署工具](https://blog.HXLoLi.com/blog/#/articles?articleId=21031 "##21031##")
-- [Spring Initailizr](https://blog.HXLoLi.com/blog/#/articles?articleId=21032 "##21032##")
-- [springboot配置文件](https://blog.HXLoLi.com/blog/#/articles?articleId=21033 "##21033##")
+- [springboot第一个入门案例](../007-SpringBoot/001-入门/001-springboot第一个入门案例/index.md)
+- [springboot自动配置原理](../007-SpringBoot/001-入门/002-springboot自动配置原理/index.md)
+- [@Configuration注解](../007-SpringBoot/001-入门/003-@Configuration注解/index.md)
+- [@Import注解](../007-SpringBoot/001-入门/004-@Import注解/index.md)
+- [@Conditional注解](../007-SpringBoot/001-入门/005-@Conditional注解/index.md)
+- [@ImportResource注解](../007-SpringBoot/001-入门/006-@ImportResource注解/index.md)
+- [配置信息自动绑定的注解](../007-SpringBoot/001-入门/007-配置信息自动绑定的注解/index.md)
+- [springboot的最佳实践](../007-SpringBoot/001-入门/008-springboot的最佳实践/index.md)
+- [lombok插件的使用](../007-SpringBoot/001-入门/009-lombok插件的使用/index.md)
+- [dev-tools热部署工具](../007-SpringBoot/001-入门/010-dev丶tools热部署工具/index.md)
+- [Spring Initailizr](../007-SpringBoot/001-入门/011-SpringInitailizr/index.md)
+- [springboot配置文件](../007-SpringBoot/001-入门/012-springboot配置文件/index.md)
 
 ##### Web开发
-- [静态资源映射规则](https://blog.HXLoLi.com/blog/#/articles?articleId=21034 "##21034##")
-- [常用参数注解使用](https://blog.HXLoLi.com/blog/#/articles?articleId=21035 "##21035##")
+- [静态资源映射规则](../007-SpringBoot/002-Web开发/001-静态资源映射规则/index.md)
+- [常用参数注解使用](../007-SpringBoot/002-Web开发/002-常用参数注解使用/index.md)
 
 <div style="margin-top: 80px;">
 

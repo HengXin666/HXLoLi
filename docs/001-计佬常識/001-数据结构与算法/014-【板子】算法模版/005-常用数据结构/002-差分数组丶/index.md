@@ -1,6 +1,6 @@
 # 差分数组
 
-- 理论知识: [差分数组](https://blog.HXLoLi.com/blog/#/articles?articleId=20605 "##20605##")
+- 理论知识: [差分数组](../../../009-【算法】前缀和/002-差分数组/index.md)
 
 ## 一、一维有序集合上差分 (或者是哈希表+排序)
 - 例题: [2251. 花期内花的数目](https://leetcode.cn/problems/number-of-flowers-in-full-bloom/)

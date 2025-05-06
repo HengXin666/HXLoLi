@@ -223,7 +223,7 @@ QVariant QSqlQuery::value(const QString &name) const; // ②
 - ①：通过字段的索引得到当前字段的值，编号从0开始。
 - ②：通过字段的名字得到当前字段的值。
 
-由于数据库表中的字段可以有多种数据类型，因此将这多种类型通过`QVariant`类([四、QVariant](https://blog.HXLoLi.com/blog/#/articles?articleId=20941 "##20941##"))进行了包装从而实现了整齐划一。我们可以通过调用`QVariant`类的API函数得到其内部实际类型的数据。
+由于数据库表中的字段可以有多种数据类型，因此将这多种类型通过`QVariant`类([四、QVariant](../../002-QT基础/002-Qt中的基础数据类型/004-四、QVariant/index.md))进行了包装从而实现了整齐划一。我们可以通过调用`QVariant`类的API函数得到其内部实际类型的数据。
 
 掌握了`QSqlQuery`类中介绍的以上4个函数之后，程序中对数据库进行添、删、查、改都是没有问题的。关于这个类中的其他函数可以自己查询帮助文档仔细阅读一下。
 

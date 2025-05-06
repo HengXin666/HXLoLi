@@ -73,32 +73,32 @@ p {
 - [Qt窗口布局](../002-QT基础/006-Qt窗口布局/index.md)
 
 ## 2. QT中按钮类型的控件
-- [Qt中按钮类型的控件](https://blog.HXLoLi.com/blog/#/articles?articleId=20965 "##20965##")
+- [Qt中按钮类型的控件](../003-QT中按钮类型的控件/001-Qt中按钮类型的控件/index.md)
 
 ## 3. QT中容器类型的控件
-- [Qt中容器类型的控件](https://blog.HXLoLi.com/blog/#/articles?articleId=20966 "##20966##")
+- [Qt中容器类型的控件](../004-QT中容器类型的控件/001-Qt中容器类型的控件/index.md)
 
 ## 4. QT事件
-- [事件处理器](https://blog.HXLoLi.com/blog/#/articles?articleId=20970 "##20970##")
-- [事件分发器](https://blog.HXLoLi.com/blog/#/articles?articleId=20984 "##20984##")
-- [事件过滤器](https://blog.HXLoLi.com/blog/#/articles?articleId=20985 "##20985##")
+- [事件处理器](../005-QT事件/001-事件处理器/index.md)
+- [事件分发器](../005-QT事件/002-事件分发器/index.md)
+- [事件过滤器](../005-QT事件/003-事件过滤器/index.md)
 
 ## 5. 套接字通信
-- [基于TCP的Qt网络通信](https://blog.HXLoLi.com/blog/#/articles?articleId=20989 "##20989##")
+- [基于TCP的Qt网络通信](../006-套接字通信/001-基于TCP的Qt网络通信/index.md)
 
 ## 6. QT多线程
-- [Qt中多线程的使用](https://blog.HXLoLi.com/blog/#/articles?articleId=20996 "##20996##")
-- [Qt中线程池的使用](https://blog.HXLoLi.com/blog/#/articles?articleId=20997 "##20997##")
+- [Qt中多线程的使用](../007-QT多线程/001-Qt中多线程的使用/index.md)
+- [Qt中线程池的使用](../007-QT多线程/002-Qt中线程池的使用/index.md)
 
 ## 7. QT连接数据库
-- [环境配置](https://blog.HXLoLi.com/blog/#/articles?articleId=20999 "##20999##")
-- [Qt数据库操作](https://blog.HXLoLi.com/blog/#/articles?articleId=21000 "##21000##")
+- [环境配置](../008-QT连接数据库/001-环境配置/index.md)
+- [Qt数据库操作](../008-QT连接数据库/002-Qt数据库操作/index.md)
 
 ## 8. QTJson
-- [Qt中Json的操作](https://blog.HXLoLi.com/blog/#/articles?articleId=21002 "##21002##")
+- [Qt中Json的操作](../009-QTJson/001-Qt中Json的操作/index.md)
 
 ## 9. QT程序的发布和打包
-- [Qt程序的发布和打包](https://blog.HXLoLi.com/blog/#/articles?articleId=21004 "##21004##")
+- [Qt程序的发布和打包](../010-QT打包安装/001-Qt程序的发布和打包/index.md)
 
 > [!TIP]
 > 本系列为学习 https://subingwen.cn/qt/ 的个人笔记, 大部分内容/图片为CV, 遵从 https://creativecommons.org/licenses/by-nc-sa/4.0/ 协议

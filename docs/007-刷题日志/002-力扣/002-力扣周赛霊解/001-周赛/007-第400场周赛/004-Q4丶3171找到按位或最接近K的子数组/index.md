@@ -23,14 +23,14 @@
 ```C++
 /*
 for (int i = 0; i < n; ++i) {
-    for (int j = i, num = 0; j < n; ++j) {
-        num |= nums[j]; // 得到 num_lr 所有可能的结果
+	for (int j = i, num = 0; j < n; ++j) {
+    	num |= nums[j]; // 得到 num_lr 所有可能的结果
     }
 } */
 
 for (int i = 0; i < n; ++i) {
-    for (ini j = i - 1; j >= 0; --j) {
-        nums[j] |= nums[i]; // 得到 num_lr 所有可能的结果
+	for (ini j = i - 1; j >= 0; --j) {
+    	nums[j] |= nums[i]; // 得到 num_lr 所有可能的结果
     }
 }
 ```
