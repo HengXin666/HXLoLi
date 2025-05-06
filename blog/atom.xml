@@ -2,132 +2,46 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://HengXin666.github.io/HXLoLi/blog</id>
     <title>HXLoLi Blog</title>
-    <updated>2025-05-03T23:57:15.000Z</updated>
+    <updated>2025-05-06T16:21:22.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://HengXin666.github.io/HXLoLi/blog"/>
     <subtitle>HXLoLi Blog</subtitle>
     <icon>https://HengXin666.github.io/HXLoLi/img/favicon.ico</icon>
     <entry>
-        <title type="html"><![CDATA[五一の一日のその三]]></title>
-        <id>https://HengXin666.github.io/HXLoLi/blog/2025/05/03/01-五一の一日のその三</id>
-        <link href="https://HengXin666.github.io/HXLoLi/blog/2025/05/03/01-五一の一日のその三"/>
-        <updated>2025-05-03T23:57:15.000Z</updated>
-        <summary type="html"><![CDATA[五一の一日のその三の计划记录]]></summary>
-        <content type="html"><![CDATA[<p>五一の一日のその三の计划记录</p>
+        <title type="html"><![CDATA[終わり]]></title>
+        <id>https://HengXin666.github.io/HXLoLi/blog/2025/05/06/001-終わり</id>
+        <link href="https://HengXin666.github.io/HXLoLi/blog/2025/05/06/001-終わり"/>
+        <updated>2025-05-06T16:21:22.000Z</updated>
+        <summary type="html"><![CDATA[总结51]]></summary>
+        <content type="html"><![CDATA[<p>总结51</p>
 <p>计划:</p>
 <ul class="contains-task-list containsTaskList_mC6p">
-<li class="task-list-item">
-<p><input type="checkbox" disabled="" checked=""> 算法题 * 3 (2/3)</p>
+<li>
+<p>[] 算法题 * 3 (1/5)</p>
 </li>
 <li class="task-list-item">
-<p><input type="checkbox" disabled=""> 学习 QT QML (假期内过完)</p>
+<p><input type="checkbox" disabled=""> 学习 QT QML (假期内过完) (11/38)</p>
 </li>
 <li class="task-list-item">
-<p><input type="checkbox" disabled=""> 补计网学习进度</p>
+<p><input type="checkbox" disabled=""> 补计网学习进度 (0/21)</p>
 </li>
 <li class="task-list-item">
-<p><input type="checkbox" disabled=""> QT PDF 项目 重构 (假期内)</p>
+<p><input type="checkbox" disabled=""> QT PDF 项目 重构 (假期内) (待开始)</p>
 </li>
 </ul>
 <p>要求:</p>
 <ul class="contains-task-list containsTaskList_mC6p">
 <li class="task-list-item">
-<p><input type="checkbox" disabled=""> 每天晚上12:00要睡觉, 不晚于 12:30</p>
+<p><input type="checkbox" disabled=""> 每天晚上12:00要睡觉, 不晚于 12:30 (仅有2天?!)</p>
 </li>
 <li class="task-list-item">
-<p><input type="checkbox" disabled="" checked=""> 每天8:30起床吧?! 一朝之计在于晨啊!</p>
+<p><input type="checkbox" disabled=""> 每天8:30起床吧?! 一朝之计在于晨啊! (仅有2天?!)</p>
 </li>
 </ul>
+<p>实际上写计划就是用来打击自己的wc...</p>
 <hr>
-<p>今日进度:</p>
-<ul>
-<li>QT QML += 3</li>
-</ul>]]></content>
-        <author>
-            <name>Heng_Xin</name>
-            <email>282000500@qq.com</email>
-            <uri>https://github.com/HengXin666</uri>
-        </author>
-        <category label="日记" term="日记"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[五一の一日のその二]]></title>
-        <id>https://HengXin666.github.io/HXLoLi/blog/2025/05/02/01-五一の一日のその二</id>
-        <link href="https://HengXin666.github.io/HXLoLi/blog/2025/05/02/01-五一の一日のその二"/>
-        <updated>2025-05-02T14:34:59.000Z</updated>
-        <summary type="html"><![CDATA[五一の一日のその二の计划记录]]></summary>
-        <content type="html"><![CDATA[<p>五一の一日のその二の计划记录</p>
-<p>计划:</p>
-<ul class="contains-task-list containsTaskList_mC6p">
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 算法题 * 3 (2/3)</p>
-</li>
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 学习 QT QML (假期内过完)</p>
-</li>
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 补计网学习进度</p>
-</li>
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> QT PDF 项目 重构 (假期内)</p>
-</li>
-</ul>
-<p>要求:</p>
-<ul class="contains-task-list containsTaskList_mC6p">
-<li class="task-list-item">
-<p><input type="checkbox" disabled="" checked=""> 每天晚上12:00要睡觉, 不晚于 12:30</p>
-</li>
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 每天8:30起床吧?! 一朝之计在于晨啊!</p>
-</li>
-</ul>
-<hr>
-<p>今日进度:</p>
-<ul>
-<li>gcd并查集, 又让我学到 枚举每个数的质因数的方法了...</li>
-</ul>
-<div class="language-cpp codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-cpp codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token keyword" style="color:hsl(286, 60%, 67%)">constexpr</span><span class="token plain"> </span><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> MAXX </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain">  </span><span class="token number" style="color:hsl(29, 54%, 61%)">1e5</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">vector</span><span class="token operator" style="color:hsl(207, 82%, 66%)">&lt;</span><span class="token plain">vector</span><span class="token operator" style="color:hsl(207, 82%, 66%)">&lt;</span><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token operator" style="color:hsl(207, 82%, 66%)">&gt;&gt;</span><span class="token plain"> </span><span class="token function" style="color:hsl(207, 82%, 66%)">fac</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">MAXX </span><span class="token operator" style="color:hsl(207, 82%, 66%)">+</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">10</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain" style="display:inline-block"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token comment" style="color:hsl(220, 10%, 40%)">// 全局预处理每个数的质因数, fac[i][j] 表示 i 的质因数</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token keyword" style="color:hsl(286, 60%, 67%)">auto</span><span class="token plain"> __init__ </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">{</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    </span><span class="token keyword" style="color:hsl(286, 60%, 67%)">for</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> i </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">2</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"> i </span><span class="token operator" style="color:hsl(207, 82%, 66%)">&lt;=</span><span class="token plain"> MAXX</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"> i</span><span class="token operator" style="color:hsl(207, 82%, 66%)">++</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"> </span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">        </span><span class="token keyword" style="color:hsl(286, 60%, 67%)">if</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">fac</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token plain">i</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">.</span><span class="token function" style="color:hsl(207, 82%, 66%)">empty</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"> </span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">            </span><span class="token keyword" style="color:hsl(286, 60%, 67%)">for</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> j </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> i</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"> j </span><span class="token operator" style="color:hsl(207, 82%, 66%)">&lt;=</span><span class="token plain"> MAXX</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"> j </span><span class="token operator" style="color:hsl(207, 82%, 66%)">+=</span><span class="token plain"> i</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"> </span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">                fac</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token plain">j</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">.</span><span class="token function" style="color:hsl(207, 82%, 66%)">push_back</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">i</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    </span><span class="token keyword" style="color:hsl(286, 60%, 67%)">return</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">0</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">}</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain" style="display:inline-block"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token comment" style="color:hsl(220, 10%, 40%)">// 作者：TsReaper</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token comment" style="color:hsl(220, 10%, 40%)">// 链接：https://leetcode.cn/problems/greatest-common-divisor-traversal/solutions/2286534/bing-cha-ji-by-tsreaper-royp/</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token comment" style="color:hsl(220, 10%, 40%)">// 来源：力扣（LeetCode）</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token comment" style="color:hsl(220, 10%, 40%)">// 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">cpp</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>]]></content>
-        <author>
-            <name>Heng_Xin</name>
-            <email>282000500@qq.com</email>
-            <uri>https://github.com/HengXin666</uri>
-        </author>
-        <category label="日记" term="日记"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[五一の一日のその一]]></title>
-        <id>https://HengXin666.github.io/HXLoLi/blog/2025/05/01/01-五一の一日のその一</id>
-        <link href="https://HengXin666.github.io/HXLoLi/blog/2025/05/01/01-五一の一日のその一"/>
-        <updated>2025-05-01T15:53:18.000Z</updated>
-        <summary type="html"><![CDATA[五一の一日のその一の计划记录]]></summary>
-        <content type="html"><![CDATA[<p>五一の一日のその一の计划记录</p>
-<p>计划:</p>
-<ul class="contains-task-list containsTaskList_mC6p">
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 算法题 * 3</p>
-</li>
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 学习 QT QML (假期内过完)</p>
-</li>
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 补计网学习进度</p>
-</li>
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> QT PDF 项目 重构 (假期内)</p>
-</li>
-</ul>
-<p>要求:</p>
-<ul class="contains-task-list containsTaskList_mC6p">
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 每天晚上12:00要睡觉, 不晚于 12:30</p>
-</li>
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 每天8:30起床吧?! 一朝之计在于晨啊!</p>
-</li>
-</ul>
-<hr>
-<p>今日进度: 创建好项目</p>
-<p>整体进度: 1%</p>]]></content>
+<p>今天整理博客, 发现, 之前的代码还有些问题... 不知道为什么有些链接没有被替换...</p>
+<p>最近也是四处被上压力啊 =-=, 感觉单纯的详细的写, 不好... 得跳步, 反正都是查 官方文档 的, 知道有这个东西即可 =-=</p>]]></content>
         <author>
             <name>Heng_Xin</name>
             <email>282000500@qq.com</email>
