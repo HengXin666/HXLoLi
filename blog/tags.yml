@@ -17,3 +17,8 @@ vscode:
   label: '日记'
   permalink: '/日记'
   description: 'ただの日記だ (計画の完成状態とかこと)'
+
+分享:
+  label: '分享'
+  permalink: '/分享'
+  description: '一些个人见解的分享~'

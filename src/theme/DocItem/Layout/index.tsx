@@ -20,7 +20,7 @@ import styles from './styles.module.css';
 import './hx.css';
 
 /**
- * Decide if the toc should be rendered, on mobile or desktop viewports
+ * 决定是否应在移动设备或桌面视口上渲染 toc
  */
 function useDocTOC () {
     const { frontMatter, toc } = useDoc();
@@ -55,9 +55,9 @@ export default function DocItemLayout ({ children }: Props): ReactNode {
                 <div className={styles.docItemContainer}>
                     <article>
                         <DocBreadcrumbs />
-                        <DocVersionBadge />
-                        {docTOC.mobile}
-                        <DocItemContent>{children}</DocItemContent>
+                            <DocVersionBadge />
+                            {docTOC.mobile}
+                            <DocItemContent>{children}</DocItemContent>
                         <DocItemFooter />
                     </article>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
