@@ -2,11 +2,514 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://HengXin666.github.io/HXLoLi/blog</id>
     <title>HXLoLi Blog</title>
-    <updated>2025-05-06T16:21:22.000Z</updated>
+    <updated>2025-05-07T00:00:28.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://HengXin666.github.io/HXLoLi/blog"/>
     <subtitle>HXLoLi Blog</subtitle>
     <icon>https://HengXin666.github.io/HXLoLi/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[2025-05-07 小灶分享]]></title>
+        <id>https://HengXin666.github.io/HXLoLi/blog/2025/05/07/001-小灶分享</id>
+        <link href="https://HengXin666.github.io/HXLoLi/blog/2025/05/07/001-小灶分享"/>
+        <updated>2025-05-07T00:00:28.000Z</updated>
+        <summary type="html"><![CDATA[和同学们的一些分享, 包含了 C/C++、Java以及算法的一些分享~]]></summary>
+        <content type="html"><![CDATA[<p>和同学们的一些分享, 包含了 C/C++、Java以及算法的一些分享~</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>考勤</summary><div><div class="collapsibleContent_i85q">
+<!-- -->
+<blockquote>
+<h2 style="color:red">组长考勤, 结束后把参会名单私发小学长</h2>
+格式: xxx小组, 实际到场人数/总人数 | (学长需要统计, 以评估积极性)
+</blockquote>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> 记得录屏</li>
+</ul>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><span class="octicon octicon-warning" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-alert mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Warning</p>
+<p>结束后, 录屏可能会被腾讯封掉, 注意不要删除源文件, 以便加密重发!</p>
+<p>各位如果需要录屏, 请尽快下载~ (腾讯已经封我3、4次了wc...)</p>
+</div>
+<blockquote>
+<p>舍友这边可能会有点吵, 各位凑合一下~</p>
+</blockquote>
+<div style="margin-top:200px">
+</div></div></div></details>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="ゼロ前言-と-ざこもの">ゼロ、前言 と ざこもの<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#%E3%82%BC%E3%83%AD%E5%89%8D%E8%A8%80-%E3%81%A8-%E3%81%96%E3%81%93%E3%82%82%E3%81%AE" class="hash-link" aria-label="ゼロ、前言 と ざこもの的直接链接" title="ゼロ、前言 と ざこもの的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="01-自我介绍">0.1 自我介绍<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#01-%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D" class="hash-link" aria-label="0.1 自我介绍的直接链接" title="0.1 自我介绍的直接链接">​</a></h3>
+<p>大家好, 至少在今天我还是大二~, 高中学的是日语, 一名不怎么看懂英語の程序员. 平时喜欢看番~ (ロリコン += シスコン)</p>
+<p>主攻 <strong>现代C++</strong>, 目前比较拿的出手的是 <span class="tailwind"><a href="https://github.com/HengXin666/HXLibs" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">一个C++20协程的基于Linux io_uring 的web框架, 支持无宏的聚合类反射, 系统默认支持断点续传...等等<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span>; 目前正在学习 QT (QML), 正在编写一个 C/S 都由 C++ 编写的 私有云电子书 项目...</p>
+<p>学过一点Java, 目前仅有 <span class="tailwind"><a href="https://github.com/HengXin666/HX-ANiMe" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">HX-ANiMe<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 这一个前后端架构的Spring-Boot项目...</p>
+<p>前端也学过一点, 比如目前这个博客实际上就是一个我 <del>二次开发</del> 主题魔改 的一个博客 <span class="tailwind"><a href="https://github.com/HengXin666/HXLoLiHub" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">HXLoLiHub<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 可以直接部署在 Github Page 上, 不用自己购买云服务器.</p>
+<p>还会点py爬虫... 编写过一个 <span class="tailwind"><a href="https://github.com/HengXin666/BiLiBiLi_DanMu_Crawling" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">B站全弹幕获取<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 程序. (目前居然是我github里面start最多的项目 qwq)</p>
+<div style="margin-top:80px">
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="02-笔记推荐">0.2 笔记推荐<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#02-%E7%AC%94%E8%AE%B0%E6%8E%A8%E8%8D%90" class="hash-link" aria-label="0.2 笔记推荐的直接链接" title="0.2 笔记推荐的直接链接">​</a></h3>
+<p>建议使用 <span class="tailwind"><a href="https://markdown.com.cn/basic-syntax/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">MarkDown<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 写, 它易读易写, 程序员都要会它! github的自述文件就是它写的...</p>
+<ul>
+<li>以后写什么项目文档, 以及看很多开源文档, 它们都是md写的~ (没人会写word文档! 如果某个誰, 让你写word, 那他肯定不是搞技术的...)</li>
+</ul>
+<blockquote>
+<p>特别不建议!!! 用<code>word</code>, 能不用就不用.</p>
+</blockquote>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>推荐几个<code>markdown</code>编辑器: <code>VSCode + 插件</code>、<code>Typora</code></p>
+</div>
+<div style="margin-top:80px">
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="03-笔记不推荐">0.3 笔记不推荐<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#03-%E7%AC%94%E8%AE%B0%E4%B8%8D%E6%8E%A8%E8%8D%90" class="hash-link" aria-label="0.3 笔记不推荐的直接链接" title="0.3 笔记不推荐的直接链接">​</a></h3>
+<span style="color:red">
+<ul>
+<li>不建议在<code>CSDN</code>上做笔记!!!</li>
+</ul>
+<p>纯纯复制粘贴的垃圾论坛, 还花钱买搜索引擎, 搜索到的全是CSDN的复制粘贴偷别人</p>
+<p>而且全tm是广告！！有时候你一个页面，它完完整整的给你占了一大半！！比tm看片网站广告还多。</p>
+<p>而且会随机的把你的文章设置为收费。即便不是你设置的！</p>
+<p>那你不是在帮别人免费打工吗？！</p>
+</span>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>个人认为, csdn迟早倒闭! 和它上面的东西一起灰飞烟灭!</p>
+<p>从你的笔记安全上, 我也不建议你把笔记放到这上面</p>
+</div>
+<span style="color:gold">
+<p>血淋淋的现实:</p>
+<ul>
+<li>我搜索<code>libass</code>, 它总是以一种好像是很厉害, 实际上就是ai的东西, 排在前面:</li>
+</ul>
+<blockquote>
+<p>推荐使用：libass - 强大的字幕渲染库 - CSDN博客</p>
+<p>2024年5月9日 · libass是一个高级字幕渲染库，用于将字幕文件渲染为视频。而libass-msvc则是libass的特定版本，该项目文件是为Microsoft Visual C++（msvc）编译器优化的。 首先，标题 …</p>
+</blockquote>
+<ul>
+<li>
+<p>并且很多东西, 实际上都是复制粘贴别人的东西! 写的人不知道这是真的假的, 那你怎么能保证用的能不能用嘞?!</p>
+</li>
+<li>
+<p>浏览量csdn也是有人机给你刷的, 回复也是有人机在那里回复... 很多资料没有一点参考价值..</p>
+</li>
+</ul>
+</span>
+<blockquote>
+<p>同理, 我也不推荐使用word这种, 以及非开源的笔记格式, 他们不利于保存, 也不利于迁移.</p>
+</blockquote>
+<div style="margin-top:80px">
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="04-交流的推荐方式">0.4 交流的推荐方式<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#04-%E4%BA%A4%E6%B5%81%E7%9A%84%E6%8E%A8%E8%8D%90%E6%96%B9%E5%BC%8F" class="hash-link" aria-label="0.4 交流的推荐方式的直接链接" title="0.4 交流的推荐方式的直接链接">​</a></h3>
+<ul>
+<li>
+<p>看到消息了, 记得回应, 比如<code>OK</code>; 不然会被人以为失踪了</p>
+</li>
+<li>
+<p>问问题了, 别人回答了, 请给个回应</p>
+</li>
+</ul>
+<p>例如:</p>
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<div style="margin-top:80px">
+<p>正确方式:</p>
+<ol>
+<li>
+<p>尽量描述原因:</p>
+<blockquote>
+<p>比如: 学长我打算xxx, 然后实现xxx, 但是xxx的时候, 变成xxx样子了</p>
+</blockquote>
+</li>
+<li>
+<p>即便你不知道发生了什么, 截图请截全, 尽量展示更多的信息, (<strong>因为大部分的时候, 错误不会在你认为的地方出错, 不然为什么你不自己解决呢?</strong>)</p>
+<blockquote>
+<p>代码, 运行结果, 编译报错信息</p>
+</blockquote>
+</li>
+</ol>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p><strong>期望的</strong>: 小学长答疑, 但不是帮你写完作业! 是教会你学作业~</p>
+</div>
+<p>附: 解决问题的一般思路 (答疑的时候也是这样思考循序渐进的~)</p>
+<p></p><div style="width:100%;height:auto;margin-top:20px;margin-bottom:20px"><div class="leetcode_tabs" style="display:flex;justify-content:space-between;width:100%"><div style="display:flex;align-items:center" class="leetcode-vscode-title">draw.io</div><div style="display:flex;align-items:center;justify-content:flex-end"><button class="leetcode_tabs tabs__item"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" style="margin-right:5px;animation:checkmark 0.5s ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"></path></svg>编辑</button></div></div><div class="leetcode-tabs-content"><img decoding="async" loading="lazy" alt="答疑思路" src="https://hengxin666.github.io/HXLoLi/assets/images/%E7%AD%94%E7%96%91%E6%80%9D%E8%B7%AF.drawio-17621a17ddc69da8805380130e3d635a.svg" style="width:auto;border-radius:0"></div></div><p></p>
+<div style="margin-top:80px">
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="05-偷偷说一下">0.5 偷偷说一下<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#05-%E5%81%B7%E5%81%B7%E8%AF%B4%E4%B8%80%E4%B8%8B" class="hash-link" aria-label="0.5 偷偷说一下的直接链接" title="0.5 偷偷说一下的直接链接">​</a></h3>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="051-とある科学のインターネットエレベーター">0.5.1 とある科学のインターネット・エレベーター<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#051-%E3%81%A8%E3%81%82%E3%82%8B%E7%A7%91%E5%AD%A6%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%8D%E3%83%83%E3%83%88%E3%82%A8%E3%83%AC%E3%83%99%E3%83%BC%E3%82%BF%E3%83%BC" class="hash-link" aria-label="0.5.1 とある科学のインターネット・エレベーター的直接链接" title="0.5.1 とある科学のインターネット・エレベーター的直接链接">​</a></h4>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>科学上网, dddd. 你要上Github、各种包下载、docker镜像下载最舒服就是直接上这个... 真的方便很多...</p>
+</div>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="052-aiに関する">0.5.2 AIに関する<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#052-ai%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B" class="hash-link" aria-label="0.5.2 AIに関する的直接链接" title="0.5.2 AIに関する的直接链接">​</a></h4>
+<p>学习的时候, AI应该是作为一种搜索引擎使用. 而不是让它帮你完成任务!</p>
+<blockquote>
+<p>比如:</p>
+<p>你在写算法题, 你可以:</p>
+<ul>
+<li>自己写一版, 然后让它帮你看看有没有什么问题 (注意, 让它仅指出你的错误, 而不是帮你修改)</li>
+<li>询问它这种题目需要什么知识点, 我不会; 但我应该去学什么. (让它告诉你知识点, 但不是直接给你代码)</li>
+</ul>
+<p>你不应该:</p>
+<ul>
+<li>复制题目, 然后直接复制粘贴它的代码!</li>
+</ul>
+</blockquote>
+<p>但也看例外, 比如你已经完全清楚和理解为什么这样做了, 只是代码太繁杂了, 你可以偷懒, 让它帮你写.</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="053-github-是学代码最好的实例">0.5.3 Github 是学代码最好的实例<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#053-github-%E6%98%AF%E5%AD%A6%E4%BB%A3%E7%A0%81%E6%9C%80%E5%A5%BD%E7%9A%84%E5%AE%9E%E4%BE%8B" class="hash-link" aria-label="0.5.3 Github 是学代码最好的实例的直接链接" title="0.5.3 Github 是学代码最好的实例的直接链接">​</a></h4>
+<ul>
+<li>在 Github 上学习代码正确用法: 从别人的源码实例中学习!</li>
+</ul>
+<blockquote>
+<p>直接在搜索框中搜索你希望学习的代码, 然后切换到代码视图 (具体看我操作)</p>
+</blockquote>
+<ul>
+<li>以学习 C++20 的新特性<code>std::span&lt;T&gt;</code> 为例: 你不知道传参是直接按拷贝, 还是按引用, 就可以看看知名项目的源码~</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="一分享">一、分享<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#%E4%B8%80%E5%88%86%E4%BA%AB" class="hash-link" aria-label="一、分享的直接链接" title="一、分享的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="11-个人博客">1.1 个人博客<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#11-%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2" class="hash-link" aria-label="1.1 个人博客的直接链接" title="1.1 个人博客的直接链接">​</a></h3>
+<p>因为网络上的内容良莠不齐, 很多都是CV, ljAI, 为了流量写些有的没的, 特别是以 <code>CSDN (赤石、低能)</code> 为首的垃圾平台! <del>懒得说, CSDN辞藻药丸</del></p>
+<p>因此, 建立自己笔记仓库就显得尤为重要了~~ 不然你想每次都赤石吗? 你问AI它不会, 它去搜索, 看到参考链接里面有CSDN的, 不一样是AI搬石? 还给你打包个外壳, 你不懂还看不出来...</p>
+<p>我建议各位都可以写一下博客(笔记), 记录自己日常学习的内容, 到时候写简历也可以附上~</p>
+<p>就像机哥说的一样, 他自己有 2个T的正经的学习资料, 要写什么东西, 直接搜索, 就有很多可以复用的、现成的代码. 完全不需要我们从头思考~</p>
+<blockquote>
+<p><span class="tailwind"><a href="https://hengxin666.github.io/HXLoLi/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Heng_Xin个人博客<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (<del>旧博客已停止更新, 已迁移: <span class="tailwind"><a href="https://blog.hxloli.com/blog/#/articles" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">旧博客<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></del>)</p>
+<p>可能Github Page国内有点慢... 我自己云服务器也反向代理了一下 <span class="tailwind"><a href="https://www.hxloli.com/HXLoLi/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://www.hxloli.com/HXLoLi/<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 就可以访问了~</p>
+</blockquote>
+<div style="margin-top:80px">
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12-个人的な学习方法">1.2 个人的な学习方法<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#12-%E4%B8%AA%E4%BA%BA%E7%9A%84%E3%81%AA%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95" class="hash-link" aria-label="1.2 个人的な学习方法的直接链接" title="1.2 个人的な学习方法的直接链接">​</a></h3>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="121-学习方法">1.2.1 学习方法<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#121-%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95" class="hash-link" aria-label="1.2.1 学习方法的直接链接" title="1.2.1 学习方法的直接链接">​</a></h4>
+<p>对于视频, 如Java xxx入门课程, 你应该完整的看完一集, 然后关闭视频, 按照自己的理解与印象, 把本节课程的知识点使用代码复现出来, 不求完全一样, 但是需要把对应的知识点给使用到; 如果有忘记或者不确定的, 可以先按照自己的理解写, 可以写注释标记一下; 如果完全不会的, 可以用注释把需要实现的内容描述出来, 然后跳过. 等完成一轮, 就可以重新打开视频, 拖动进度条跳着看, 把你不确定的办法过一下.</p>
+<blockquote>
+<p>如果是语言类课程, 可以直接把笔记写到代码上</p>
+<p>如果是理论类课程, 可以写到笔记上 (理解的部分, 使用自己的话描述出来. 不理解、并且需要记忆的部分, 可以先复制粘贴 (但是复制粘贴的同时, 需要把知识点过一遍自己脑子!))</p>
+<p>每当学完一个大章节, 可以自己写一个小项目什么的, 并且运用到本次学过的知识点, 以巩固、测试自己.</p>
+</blockquote>
+<p>对于文档, 唯有多看 + 多用 (u1s1, 有些文档是真的垃圾)</p>
+<ul>
+<li>另外, 如果有时间的话, 拍视频复盘、讲解代码也是一个不错的复习、提升, 它不仅考验你对知识的掌握, 还可以锻炼你面对镜头的能力. (跟tm面试一样wc)</li>
+</ul>
+<div style="margin-top:80px">
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="122-学习路线-学习历程">1.2.2 学习路线? (学习历程)<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#122-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF-%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B" class="hash-link" aria-label="1.2.2 学习路线? (学习历程)的直接链接" title="1.2.2 学习路线? (学习历程)的直接链接">​</a></h4>
+<p></p><div style="width:100%;height:auto;margin-top:20px;margin-bottom:20px"><div class="leetcode_tabs" style="display:flex;justify-content:space-between;width:100%"><div style="display:flex;align-items:center" class="leetcode-vscode-title">draw.io</div><div style="display:flex;align-items:center;justify-content:flex-end"><button class="leetcode_tabs tabs__item"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" style="margin-right:5px;animation:checkmark 0.5s ease-in-out" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"></path></svg>编辑</button></div></div><div class="leetcode-tabs-content"><img decoding="async" loading="lazy" alt="学习历程" src="https://hengxin666.github.io/HXLoLi/assets/images/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.drawio-1e623590a8eb28068493b8580fe07bbf.svg" style="width:auto;border-radius:0"></div></div><p></p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="13-c语言の分享">1.3 C语言の分享<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#13-c%E8%AF%AD%E8%A8%80%E3%81%AE%E5%88%86%E4%BA%AB" class="hash-link" aria-label="1.3 C语言の分享的直接链接" title="1.3 C语言の分享的直接链接">​</a></h3>
+<p>课程: <span class="tailwind"><a href="https://www.bilibili.com/video/BV17s411N78s" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">带你学C带你飞<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+<p>学习计划 &amp; 练习: <span class="tailwind"><a href="https://github.com/HengXin666/DianKongMengXinC" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">C 语言学习指北<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+<blockquote>
+<p>C没有啥子东西的, 仅仅是基础语法的话.</p>
+</blockquote>
+<p>提一下, vs2022 不支持一些诸如VLA的c99的c语言的特性:</p>
+<div class="language-c codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-c codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> n</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token function" style="color:hsl(207, 82%, 66%)">scanf</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token string" style="color:hsl(95, 38%, 62%)">"%d"</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">&amp;</span><span class="token plain">n</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> arr</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token plain">n</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"> </span><span class="token comment" style="color:hsl(220, 10%, 40%)">// vs2022报错</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">c</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>也不推荐使用这个, 连linux内核都为在代码中完全移除VLA的使用而发公告庆祝。</p>
+<p>你就应该知道, 这不是一个好东西, 也不适用于之后的cpp以及cpp的元模版编程 (总之不安全, 性能也难说)</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>虽然我讲过这个东西了... 但是事实证明, 还是会有人来问这个 VAL...</p>
+</div>
+<div style="margin-top:80px">
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="14-cの分享">1.4 C++の分享<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#14-c%E3%81%AE%E5%88%86%E4%BA%AB" class="hash-link" aria-label="1.4 C++の分享的直接链接" title="1.4 C++の分享的直接链接">​</a></h3>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="141-个人笔记--配套笔记项目">1.4.1 个人笔记 &amp; 配套笔记项目<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#141-%E4%B8%AA%E4%BA%BA%E7%AC%94%E8%AE%B0--%E9%85%8D%E5%A5%97%E7%AC%94%E8%AE%B0%E9%A1%B9%E7%9B%AE" class="hash-link" aria-label="1.4.1 个人笔记 &amp; 配套笔记项目的直接链接" title="1.4.1 个人笔记 &amp; 配套笔记项目的直接链接">​</a></h4>
+<ul>
+<li>
+<p><del><span class="tailwind"><a href="https://github.com/HengXin666/C-To-Cpp" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CToCpp By Github<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (事实证明, 这个只能作为一种目录, 只对亲手写它的人有用)</del></p>
+</li>
+<li>
+<p><span class="tailwind"><a href="https://github.com/HengXin666/Cpp-CMake-Template" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Cpp-CMake-Template<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (跨平台的现代的C++ CMake 项目模版)</p>
+</li>
+<li>
+<p>大家可以把自己的学习笔记、实验代码什么的, 发到github, 有备份, 而且有历史记录. 比如: <span class="tailwind"><a href="https://github.com/HengXin666/HXTest" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">HXTest<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="142-宝藏up推荐">1.4.2 宝藏UP推荐<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#142-%E5%AE%9D%E8%97%8Fup%E6%8E%A8%E8%8D%90" class="hash-link" aria-label="1.4.2 宝藏UP推荐的直接链接" title="1.4.2 宝藏UP推荐的直接链接">​</a></h4>
+<p>(基础语法找个你看得下去的就ok, 反正都不是<code>现代C++</code>)</p>
+<ul>
+<li>
+<p><span class="tailwind"><a href="https://space.bilibili.com/147020887" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">爱编程的大丙<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span>: 通俗易懂讲解C++的一些入门的东西.</p>
+<blockquote>
+<p>讲的很细; 但是是C++11附近的东西, 并且没有讲<code>元模版编程</code>, 适合入门, 学习概念.</p>
+</blockquote>
+</li>
+<li>
+<p><strong>不</strong> 面向萌新的: (此处为<code>现代C++</code>, 即便已经学过一次这些知识, 但你再看他们的视频, 一样会懵逼! 取而代之的是, nb的知识收益!!)</p>
+<p>进阶语法: ((卢瑟国-国王)白律师) <span class="tailwind"><a href="https://space.bilibili.com/1292761396" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">mq白cpp<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+<p>伟大无需多言!!! HX认可C++第一人!!! 小彭老师!</p>
+<ul>
+<li><span class="tailwind"><a href="https://space.bilibili.com/263032155/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">双笙子佯谬<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></li>
+<li>视频量大管饱! 一个小时的视频, 你会在15min左右就开始懵逼: 发生什么事了?</li>
+</ul>
+</li>
+<li>
+<p>高级现代实践: 可以看看诸如<code>purecpp大会</code>之类的会议, 里面有很多大佬分享前沿知识、技巧.</p>
+</li>
+</ul>
+<div style="margin-top:80px">
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="15-javaの分享">1.5 Javaの分享<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#15-java%E3%81%AE%E5%88%86%E4%BA%AB" class="hash-link" aria-label="1.5 Javaの分享的直接链接" title="1.5 Javaの分享的直接链接">​</a></h3>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="151-个人项目">1.5.1 个人项目<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#151-%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE" class="hash-link" aria-label="1.5.1 个人项目的直接链接" title="1.5.1 个人项目的直接链接">​</a></h4>
+<p><span class="tailwind"><a href="https://github.com/HengXin666/HX-ANiMe" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">HX-ANiMe<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 已经在自我介绍处写了, 这里不重复. 也不算什么厉害的东西 =-=</p>
+<p>我倒是为 Java 写了一个库, 之后的小项目, 应该可以用上: <span class="tailwind"><a href="https://github.com/HengXin666/HXCin" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">HXCin<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span>, 可以实现非阻塞输入, 基于swing监听键盘, 而不是手动控制台输入! 输入无需回车~</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="152-up推荐">1.5.2 UP推荐<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#152-up%E6%8E%A8%E8%8D%90" class="hash-link" aria-label="1.5.2 UP推荐的直接链接" title="1.5.2 UP推荐的直接链接">​</a></h4>
+<p>(普通的那些, 找个播放量高, 看得下去的就行), 下面是进阶的 (应该说是 <strong>后端</strong> 的通用思想了)</p>
+<ul>
+<li>
+<p><span class="tailwind"><a href="https://space.bilibili.com/1525355/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">极海Channel<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+<blockquote>
+<p>专注java后端, 可以看看他的代码review, 可以学到很多东西.</p>
+<p>还有大厂的服务崩溃原因分析...</p>
+</blockquote>
+</li>
+<li>
+<p><span class="tailwind"><a href="https://space.bilibili.com/7968519" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">学java的生生<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+<blockquote>
+<p>线程池、互斥锁等手写系列, 讲的很精简但又很有深度, 途中会一步步升级、修改代码. 适合java老哥深入源码~</p>
+</blockquote>
+</li>
+<li>
+<p><span class="tailwind"><a href="https://space.bilibili.com/472502549" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">孟小哥抓虫vlog<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+<blockquote>
+<p>以猫meme的方式, 一波三折的介绍小知识, 视频很短. 可以学到一些bug的de的方法. 尤其是如果这个bug你之前有遇到过, 说不定就在这里找到更好的解决方案!</p>
+</blockquote>
+</li>
+<li>
+<p><span class="tailwind"><a href="https://space.bilibili.com/79356601" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">随意Official<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+<blockquote>
+<p><del>这个我忘记了我为什么关注了...(顺便一起放这里了)</del>, 目前用不上实力不够qwq</p>
+</blockquote>
+</li>
+</ul>
+<div style="margin-top:80px">
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="16-算法の分享">1.6 算法の分享<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#16-%E7%AE%97%E6%B3%95%E3%81%AE%E5%88%86%E4%BA%AB" class="hash-link" aria-label="1.6 算法の分享的直接链接" title="1.6 算法の分享的直接链接">​</a></h3>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="161-0x3f">1.6.1 0x3f<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#161-0x3f" class="hash-link" aria-label="1.6.1 0x3f的直接链接" title="1.6.1 0x3f的直接链接">​</a></h4>
+<p>算法滴神!!!</p>
+<p>B站: <span class="tailwind"><a href="https://space.bilibili.com/206214" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://space.bilibili.com/206214<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+<p>力扣: <span class="tailwind"><a href="https://leetcode.cn/u/endlesscheng/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://leetcode.cn/u/endlesscheng/<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+<p>看看灵神题单! 力扣没有灵神, 直接就破产好吧!</p>
+<p>打打力扣周赛, 进去灵神交流群吧, 里面全是dalao! (u1s1, 最近一年力扣为了防AI, 周赛难度急剧上升! 以前 T4 的难度, 现在 T3 都不一定比得上...)</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="162-学习方法-纯个人见解">1.6.2 学习方法 (纯个人见解)<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#162-%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95-%E7%BA%AF%E4%B8%AA%E4%BA%BA%E8%A7%81%E8%A7%A3" class="hash-link" aria-label="1.6.2 学习方法 (纯个人见解)的直接链接" title="1.6.2 学习方法 (纯个人见解)的直接链接">​</a></h4>
+<p>咱们以C++为例, java方法名太长了, 没有Tab我怎么活...</p>
+<p>时间充分情况下</p>
+<ol>
+<li>系统的学习<code>数据结构与算法</code>, 必须要把讲到的内容都动手实现一次!!!</li>
+</ol>
+<p>最好用C语言/C++(非STL)实现, 可以让你更加明白底层, 而不是被各种抽象...</p>
+<ol start="2">
+<li>刷题, 根据题单系统的刷, 而 <strong>不是</strong> 随机刷或者狂刷简单题!</li>
+</ol>
+<p>在这个过程中, 熟悉学习到的数据结构的优点与使用场景 (根据时空复杂度判断)</p>
+<p>一定程度了, 可以参加力扣周赛什么的</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>(PS 蓝桥杯官网那个周赛就是xx, 为了卖课的yy, 难度跨度很大.. 萌新会怀疑人生的)</p>
+<p>超想提升能力的(打acm什么的), 去cf刷题, 那里很多思维题、构造题. <del>(不过现在才知道应该有点晚了吧qwq?)</del> 唯一的问题就是ui太丑了(简略), 番鬼佬语(Eglx), 以及阴间时间.</p>
+</div>
+<ol start="3">
+<li>可以准备 <strong>自己的算法板子</strong>, 这类似于自己的归纳总结!</li>
+</ol>
+<p>蓝桥杯真题，刷刷刷(这个好像失效了? 还是服务器炸了?) <span class="tailwind"><a href="https://dashoj.com/d/lqbproblem/training/65e4d2a5fd6da41599add473" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://dashoj.com/d/lqbproblem/training/65e4d2a5fd6da41599add473<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>为什么不看: <span class="tailwind"><a href="https://leetcode.cn/discuss/post/RvFUtj/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">如何科学刷题<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+</div>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="163-碎碎念-代码规范">1.6.3 碎碎念: 代码规范<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#163-%E7%A2%8E%E7%A2%8E%E5%BF%B5-%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83" class="hash-link" aria-label="1.6.3 碎碎念: 代码规范的直接链接" title="1.6.3 碎碎念: 代码规范的直接链接">​</a></h4>
+<p>对于代码规范! 个人认为, 该有的缩进, 不能少:</p>
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<p>个人认为这个是一个糟糕的习惯!! 糟糕的码风!!</p>
+<div style="text-align:center"><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>节约几个空格</mtext><mo separator="true">,</mo><mtext>不会让你的时间多对一道题</mtext><mspace linebreak="newline"></mspace><mtext>&nbsp;</mtext><mspace linebreak="newline"></mspace><mtext>但排</mtext><mi>b</mi><mi>u</mi><mi>g</mi><mtext>的时间</mtext><mo separator="true">,</mo><mtext>会让你拉下几道题</mtext><mo stretchy="false">!</mo></mrow><annotation encoding="application/x-tex">节约几个空格, 不会让你的时间多对一道题 \\ \ \\ 但排bug的时间, 会让你拉下几道题!
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord cjk_fallback">节约几个空格</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord cjk_fallback">不会让你的时间多对一道题</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0em;"></span><span class="mspace">&nbsp;</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord cjk_fallback">但排</span><span class="mord mathnormal">b</span><span class="mord mathnormal" style="margin-right:0.03588em;">ug</span><span class="mord cjk_fallback">的时间</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord cjk_fallback">会让你拉下几道题</span><span class="mclose">!</span></span></span></span></span></div>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>真正的大佬, 你看他的代码, 总是很简洁的!</p>
+<p>因为唯有对题目的理解深刻, 才可以写出如此简洁的代码.</p>
+<p>反倒是代码写的乱七八糟的, 他的思维也往往和他的代码一样乱七八糟的 (因为改来改去什么的..)</p>
+</div>
+<hr>
+<p>因此, 我们看题解什么的, 应该向他们学习!</p>
+<p>不懂的题目, 我们学他们的思路.</p>
+<p>写出来的题目, 我们学他们的代码!</p>
+<hr>
+<p>故此, 如果你仅仅是为了就业, 那么没什么好说的, 直接刷力扣就完美了</p>
+<p>力扣的好处:</p>
+<ol>
+<li>
+<p>界面UI漂亮</p>
+</li>
+<li>
+<p>接口实现式编程, 这和上班写代码一样, <code>大多数时候, 接口都是别人架构好的</code>, 反而你私自改了, 你就要free了</p>
+</li>
+<li>
+<p>友好的输入输出用例提醒. 不像<code>洛谷</code>, 大多数时候你错哪里你都不知道, 也无法排查.</p>
+</li>
+<li>
+<p>题解质量高, 如果题解有<code>灵神</code>写的, 那你放心, 即便不会你也肯定可以从灵神题解中学到东西! 反之, 某些垃圾oj, 要么没有题解, 要么题解都是别人粘贴自己那破代码, 跟加了密一样, 一点解释都没有, 这种很难有提升!</p>
+</li>
+<li>
+<p>现代, 支持许多语言, 并且支持很多新特性 (比如C++23) (要知道, 蓝桥杯比赛你可以使用的最高标准是tm的C++11, 这已经是14年前的东西了, 真以为写个C++98自己就是985啊? 幽默原始蓝桥杯)</p>
+</li>
+</ol>
+<p>什么你说算法竞赛要洛谷? 得从洛谷的萌新题单写起? 力扣的太简单了?</p>
+<p>不是吧哥们? 你随机一道困难题可以10分钟内秒了吗? 力扣周赛可以国服稳前200吗?</p>
+<p><b style="color:gold"> 根本不需要啥也不懂然后就听一个洛谷偏算法, 就跑去算法刷题. 实际上你连你所谓的力扣简单的题都不会写. 到时候只会拿一个没有提交, 没有用例, case数据乱七八糟的垃圾题在那里浪费人生+自我怀疑. </b></p>
+<p>还不如先去新手村练习呢.</p>
+<p>至于你说的输入输出, 你到时候随便练个几十道题, 还会不懂吗?</p>
+<blockquote>
+<p>综上, 大家可以审视一下自己使用的刷题平台, 看看有没有这些毛病? 特别是那些使用学校的oj的. 除非你是acm oi爷, 不然你很难学到什么东西...</p>
+</blockquote>
+<hr>
+<p>特别的, 对于使用全局变量的</p>
+<div class="language-C++ language-cpp codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-cpp codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token macro property directive-hash" style="color:hsl(355, 65%, 65%)">#</span><span class="token macro property directive keyword" style="color:hsl(286, 60%, 67%)">define</span><span class="token macro property" style="color:hsl(355, 65%, 65%)"> </span><span class="token macro property macro-name" style="color:hsl(355, 65%, 65%)">ll</span><span class="token macro property" style="color:hsl(355, 65%, 65%)"> </span><span class="token macro property expression keyword" style="color:hsl(286, 60%, 67%)">long</span><span class="token macro property expression" style="color:hsl(355, 65%, 65%)"> </span><span class="token macro property expression keyword" style="color:hsl(286, 60%, 67%)">long</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain" style="display:inline-block"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> arr</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token number" style="color:hsl(29, 54%, 61%)">10005</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain" style="display:inline-block"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> </span><span class="token function" style="color:hsl(207, 82%, 66%)">main</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">{</span><span class="token plain"> </span><span class="token comment" style="color:hsl(220, 10%, 40%)">/**/</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">}</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">C++</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>应该采用更加现代的C++写法: (使用STL容器, 这在-o2优化下, 无性能损失!)</p>
+<div class="language-C++ language-cpp codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-cpp codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token keyword" style="color:hsl(286, 60%, 67%)">using</span><span class="token plain"> ll </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token keyword" style="color:hsl(286, 60%, 67%)">long</span><span class="token plain"> </span><span class="token keyword" style="color:hsl(286, 60%, 67%)">long</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain" style="display:inline-block"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> </span><span class="token function" style="color:hsl(207, 82%, 66%)">main</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">{</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    </span><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> n</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    </span><span class="token function" style="color:hsl(207, 82%, 66%)">scanf</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token string" style="color:hsl(95, 38%, 62%)">"%d"</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">&amp;</span><span class="token plain">n</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    std</span><span class="token double-colon punctuation" style="color:hsl(220, 14%, 71%)">::</span><span class="token plain">vector</span><span class="token operator" style="color:hsl(207, 82%, 66%)">&lt;</span><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token operator" style="color:hsl(207, 82%, 66%)">&gt;</span><span class="token plain"> </span><span class="token function" style="color:hsl(207, 82%, 66%)">arr</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">n</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">}</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">C++</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>图也没有必要学什么链式前向星了, 下面就是一种简单的邻接表了</p>
+<div class="language-C++ language-cpp codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-cpp codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">vector</span><span class="token operator" style="color:hsl(207, 82%, 66%)">&lt;</span><span class="token plain">vector</span><span class="token operator" style="color:hsl(207, 82%, 66%)">&lt;</span><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token operator" style="color:hsl(207, 82%, 66%)">&gt;</span><span class="token plain"> </span><span class="token function" style="color:hsl(207, 82%, 66%)">g</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">n</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain" style="display:inline-block"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token keyword" style="color:hsl(286, 60%, 67%)">while</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">n</span><span class="token operator" style="color:hsl(207, 82%, 66%)">--</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">{</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    cin </span><span class="token operator" style="color:hsl(207, 82%, 66%)">&gt;&gt;</span><span class="token plain"> u </span><span class="token operator" style="color:hsl(207, 82%, 66%)">&gt;&gt;</span><span class="token plain"> v</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    g</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token plain">u</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">.</span><span class="token function" style="color:hsl(207, 82%, 66%)">push_back</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">v</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"> </span><span class="token comment" style="color:hsl(220, 10%, 40%)">// u --&gt; v</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">}</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">C++</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<div style="margin-top:80px">
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="17-神奇的网站分享">1.7 神奇的网站分享<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#17-%E7%A5%9E%E5%A5%87%E7%9A%84%E7%BD%91%E7%AB%99%E5%88%86%E4%BA%AB" class="hash-link" aria-label="1.7 神奇的网站分享的直接链接" title="1.7 神奇的网站分享的直接链接">​</a></h3>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="171-公有">1.7.1 公有<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#171-%E5%85%AC%E6%9C%89" class="hash-link" aria-label="1.7.1 公有的直接链接" title="1.7.1 公有的直接链接">​</a></h4>
+<ul>
+<li>
+<p>备忘录 <span class="tailwind"><a href="https://github.com/jaywcjlove/reference" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Quick Reference<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> -&gt; 国内镜像网站: <span class="tailwind"><a href="https://dev.bi/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://dev.bi/<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+</li>
+<li>
+<p><span class="tailwind"><a href="https://github.com/OI-wiki/OI-wiki" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">OI Wiki<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> （某大型游戏线上攻略，内含炫酷算术魔法）-&gt; <span class="tailwind"><a href="https://oi-wiki.org/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://oi-wiki.org/<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="172-c">1.7.2 C++<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#172-c" class="hash-link" aria-label="1.7.2 C++的直接链接" title="1.7.2 C++的直接链接">​</a></h4>
+<ul>
+<li>
+<p>C/C++ 去优化 <span class="tailwind"><a href="https://cppinsights.io/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://cppinsights.io/<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (会把语法糖转化为编译器实现、汇编)</p>
+</li>
+<li>
+<p>C/C++ 手册 <span class="tailwind"><a href="https://zh.cppreference.com/w/%E9%A6%96%E9%A1%B5" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://zh.cppreference.com/w/%E9%A6%96%E9%A1%B5<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+</li>
+<li>
+<p>白律师的</p>
+<ul>
+<li>C++现代模版教程 <span class="tailwind"><a href="https://mq-b.github.io/Modern-Cpp-templates-tutorial/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://mq-b.github.io/Modern-Cpp-templates-tutorial/<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></li>
+<li>C++并发编程 <span class="tailwind"><a href="https://mq-b.github.io/ModernCpp-ConcurrentProgramming-Tutorial/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://mq-b.github.io/ModernCpp-ConcurrentProgramming-Tutorial/<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></li>
+</ul>
+</li>
+<li>
+<p>小彭老师的网站 <span class="tailwind"><a href="https://142857.red/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://142857.red/<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+</li>
+<li>
+<p>查询c++第三方库是否为模块 <span class="tailwind"><a href="https://arewemodulesyet.org/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://arewemodulesyet.org/<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (不常用)</p>
+</li>
+<li>
+<p>萌新C++网站 (为什么会在我的收藏里面? 可能是我想要他网站的运行功能...) <span class="tailwind"><a href="https://learn-cpp.guyutongxue.site/preface.html" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://learn-cpp.guyutongxue.site/preface.html<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="173-java">1.7.3 Java<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#173-java" class="hash-link" aria-label="1.7.3 Java的直接链接" title="1.7.3 Java的直接链接">​</a></h4>
+<p>java老哥抱歉, 我都是现用现搜索的... 目前没有什么好网站</p>
+<p>但是GPT不错捏..</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="二小组">二、小组<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#%E4%BA%8C%E5%B0%8F%E7%BB%84" class="hash-link" aria-label="二、小组的直接链接" title="二、小组的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="21-小组的管理">2.1 小组的管理<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#21-%E5%B0%8F%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86" class="hash-link" aria-label="2.1 小组的管理的直接链接" title="2.1 小组的管理的直接链接">​</a></h3>
+<p>活用<code>群公告</code>, 利用QQ群机器人!</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="22-打卡的问题-如果有">2.2 打卡的问题 (如果有)<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#22-%E6%89%93%E5%8D%A1%E7%9A%84%E9%97%AE%E9%A2%98-%E5%A6%82%E6%9E%9C%E6%9C%89" class="hash-link" aria-label="2.2 打卡的问题 (如果有)的直接链接" title="2.2 打卡的问题 (如果有)的直接链接">​</a></h3>
+<p>书写打卡表的格式:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center"></th><th style="text-align:center">第n天<br>格式一</th><th style="text-align:center">第n+1天<br>格式二</th></tr></thead><tbody><tr><td style="text-align:center">Heng_Xin(计划)</td><td style="text-align:center">学习C++[类的虚函数]</td><td style="text-align:center">学习3h</td></tr><tr><td style="text-align:center">Heng_Xin(实际)</td><td style="text-align:center">学了虚函数和纯虚函数与接口, 并且代码练习了</td><td style="text-align:center">学了字符串哈希, 刷了3道力扣困难题, 发现字符串哈希真的是字符串界的洛必达! 遇事不决就是哈希, 单哈希不行就双哈希! 去tmd的kmp、马拉车、Z函数, 老子就是哈, 比哈哈姐还能哈!~ (需要写详细一点)</td></tr></tbody></table>
+<p>(甚至你写一个简单的日记也没有问题)</p>
+<p>错误的写法: (<span style="color:red">我这边严厉打击嗷</span>, 之后!)</p>
+<ul>
+<li>计划: 刷题; 实际: 刷题</li>
+<li>计划: 学习3h; 实际: 学了</li>
+</ul>
+<p>(<span style="color:gold">我认为是无效打卡, 监督官不要让这种情况出现! 太敷衍了! 感觉就是没有学嘛!</span>)</p>
+<ul>
+<li>
+<p>关于监督官确认</p>
+<blockquote>
+<p>只要你提醒了他, 你就可以确认了, 这里只是确保是监督官履行了职责~ 这样惩罚就可以直接惩罚组员了~ 而不是: 监督官没提醒 + 组员没打卡</p>
+</blockquote>
+</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="23-项目考核题">2.3 项目考核题<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#23-%E9%A1%B9%E7%9B%AE%E8%80%83%E6%A0%B8%E9%A2%98" class="hash-link" aria-label="2.3 项目考核题的直接链接" title="2.3 项目考核题的直接链接">​</a></h3>
+<p>审核标准:</p>
+<ol>
+<li>全局变量/静态变量(变量类型/变量名) <span style="color:red">[不允许修改]</span></li>
+<li>函数声明(参数, 返回值, 函数名次) <span style="color:red">[不允许修改]</span></li>
+<li>函数的 <strong>代码实现逻辑</strong> 和 <strong>功能描述</strong> 要能<code>对应</code>上, 确保 <strong>代码质量</strong> 和 <strong>可读性</strong>!</li>
+</ol>
+<ul>
+<li>除了技术官以外的同学, 不要求实现<code>isWin</code>和<code>gameView</code> <del>(你实现了, 我也不看 =-=, 我看不过来, 学长这边也有审核的)</del></li>
+<li>技术官需要另外提交运行截图(大于等于5颗落子的截图 + 胜利界面截图)</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="24-项目的准备">2.4 项目的准备<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#24-%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%87%86%E5%A4%87" class="hash-link" aria-label="2.4 项目的准备的直接链接" title="2.4 项目的准备的直接链接">​</a></h3>
+<ul>
+<li>
+<p>大家可以一起想一下要做什么项目了, 有了目标才有动力学习!</p>
+</li>
+<li>
+<p>特别是感兴趣的目标!</p>
+</li>
+<li>
+<p>... 吹水</p>
+</li>
+<li>
+<p>寻找感兴趣的项目, 可以目标在可能可行的情况下可以激进一点, 最好有一些亮点, 这样收获会更多;</p>
+</li>
+</ul>
+<blockquote>
+<p>反正最后能不能做, 还是小学长来决定...</p>
+</blockquote>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="241-特别强调-可行性分析">2.4.1 特别强调: 可行性分析<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#241-%E7%89%B9%E5%88%AB%E5%BC%BA%E8%B0%83-%E5%8F%AF%E8%A1%8C%E6%80%A7%E5%88%86%E6%9E%90" class="hash-link" aria-label="2.4.1 特别强调: 可行性分析的直接链接" title="2.4.1 特别强调: 可行性分析的直接链接">​</a></h4>
+<p>预告! <span style="color:red;font-size:30px">可行性分析, 审核非常严厉!</span></p>
+<ul>
+<li>如果被打回去 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">3</span></span></span></span> 次, 那么就 <strong>不允许</strong> 立项这个项目!!!</li>
+</ul>
+<p>必须要好好学习可行性分析的会议, <span style="color:gold;font-size:16px">可行性文档要求的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>格式</mtext></mrow><annotation encoding="application/x-tex">格式</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord cjk_fallback">格式</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>内容</mtext></mrow><annotation encoding="application/x-tex">内容</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord cjk_fallback">内容</span></span></span></span>, 必须要有!</span></p>
+<blockquote>
+<p>另外, <strong>不建议</strong> 画蛇添足!</p>
+<p>可行性分析只需要把核心的数据设计按照Java语法写出来, 并且把核心的函数的功能描述清楚即可!</p>
+<p><span style="color:red">写多错多</span>, 即便你这个不是什么核心的, 但是某个细节有问题, 就可能被退回!!! 不写这些, 即可减少 100% 的风险! (但是项目整体需要完整!!!)</p>
+</blockquote>
+<p>小学长会上压力! 严格拷打!</p>
+<p>并且在第一次提交之前, 不会有明显的思路提醒, 需要依照小组的实力, 自立自强地把第一版可行性写出来; 如果只是细节上的问题, 则小学长会提出来, 并且举例修改的地方或者思路. 然后等待第二次审核.</p>
+<p>如果第一次提交就缺少了 <strong>核心</strong> 数据, 和 <strong>关键</strong> 函数, 则大概率要换项目了!</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="242-碎碎念-架构">2.4.2 碎碎念: 架构<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#242-%E7%A2%8E%E7%A2%8E%E5%BF%B5-%E6%9E%B6%E6%9E%84" class="hash-link" aria-label="2.4.2 碎碎念: 架构的直接链接" title="2.4.2 碎碎念: 架构的直接链接">​</a></h4>
+<ul>
+<li>
+<p>目前你只需要注意, 架构的时候必需考虑清楚界面之间切换的传参</p>
+</li>
+<li>
+<p>也就是说, 你架构的函数必须要有对应的参数 (不能是随便的参数,<span style="color:red"> 更不能是之后开发在决定!</span>)</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="25-项目展示">2.5 项目展示<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#25-%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA" class="hash-link" aria-label="2.5 项目展示的直接链接" title="2.5 项目展示的直接链接">​</a></h3>
+<ul>
+<li>
+<p>64.0</p>
+</li>
+<li>
+<p><span class="tailwind"><a href="https://www.bilibili.com/video/BV17t4y1Q7D1/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">C和C++游戏趣味编程<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 看看项目</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="三太多了">三、太多了<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/07/001-%E5%B0%8F%E7%81%B6%E5%88%86%E4%BA%AB#%E4%B8%89%E5%A4%AA%E5%A4%9A%E4%BA%86" class="hash-link" aria-label="三、太多了的直接链接" title="三、太多了的直接链接">​</a></h2>
+<blockquote>
+<p>rt, 不写了; 上压力就不好了.. 給点体验啊, 哥们 (不是懒)</p>
+</blockquote>
+<p>有什么想问的?</p>
+</div></div></div></div></div></div></div></div></div></div></div>]]></content>
+        <author>
+            <name>Heng_Xin</name>
+            <email>282000500@qq.com</email>
+            <uri>https://github.com/HengXin666</uri>
+        </author>
+        <category label="分享" term="分享"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[終わり]]></title>
         <id>https://HengXin666.github.io/HXLoLi/blog/2025/05/06/001-終わり</id>
