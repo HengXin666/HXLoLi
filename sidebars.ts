@@ -5273,6 +5273,20 @@ module.exports = {
                             "type": "doc",
                             "id": "程序语言/C++/现代C++/现代C++QT/QML/Popup的绘制与Overlay的使用/index"
                           }
+                        },
+                        {
+                          "type": "category",
+                          "label": "Repeater",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "程序语言/C++/现代C++/现代C++QT/QML/Repeater/index"
+                          }
                         }
                       ],
                       "customProps": {
