@@ -5301,6 +5301,20 @@ module.exports = {
                             "type": "doc",
                             "id": "程序语言/C++/现代C++/现代C++QT/QML/ListView基础/index"
                           }
+                        },
+                        {
+                          "type": "category",
+                          "label": "ComboBox下拉框",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "程序语言/C++/现代C++/现代C++QT/QML/ComboBox下拉框/index"
+                          }
                         }
                       ],
                       "customProps": {
