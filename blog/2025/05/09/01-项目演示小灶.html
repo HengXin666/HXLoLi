@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="blog-wrapper blog-post-page plugin-blog plugin-id-default" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">2025-05-09 项目演示小灶分享 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/blog/2025/05/09/01-项目演示小灶"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="2025-05-09 项目演示小灶分享 | HXLoLi"><meta data-rh="true" name="description" content="和同学们的一些分享, 演示一些萌新可以做的、简单的java项目, 与简单的技术介绍."><meta data-rh="true" property="og:description" content="和同学们的一些分享, 演示一些萌新可以做的、简单的java项目, 与简单的技术介绍."><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:published_time" content="2025-05-09T14:01:29.000Z"><meta data-rh="true" property="article:author" content="https://github.com/HengXin666"><meta data-rh="true" property="article:tag" content="分享"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/blog/2025/05/09/01-项目演示小灶"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/blog/2025/05/09/01-项目演示小灶" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/blog/2025/05/09/01-项目演示小灶" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://HengXin666.github.io/HXLoLi/blog/2025/05/09/01-项目演示小灶","mainEntityOfPage":"https://HengXin666.github.io/HXLoLi/blog/2025/05/09/01-项目演示小灶","url":"https://HengXin666.github.io/HXLoLi/blog/2025/05/09/01-项目演示小灶","headline":"2025-05-09 项目演示小灶分享","name":"2025-05-09 项目演示小灶分享","description":"和同学们的一些分享, 演示一些萌新可以做的、简单的java项目, 与简单的技术介绍.","datePublished":"2025-05-09T14:01:29.000Z","dateModified":"2025-05-09T14:29:31.000Z","author":{"@type":"Person","name":"Heng_Xin","description":"ここから先は一方通行だ!","url":"https://github.com/HengXin666","email":"282000500@qq.com","image":"https://avatars.githubusercontent.com/u/103022267"},"keywords":[],"isPartOf":{"@type":"Blog","@id":"https://HengXin666.github.io/HXLoLi/blog","name":"Blog"}}</script><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed">
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@6.2.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/force-graph@1.40.3/dist/force-graph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/note-graph@latest/dist/note-graph.umd.js"></script><link rel="stylesheet" href="/HXLoLi/assets/css/styles.d2825069.css">
+<script src="/HXLoLi/assets/js/runtime~main.64ef7726.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.a5bc4454.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+
+<style>
+  #open-graph-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    color: var(--ifm-navbar-link-color);
+    transition: color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  }
+
+  #open-graph-btn:hover {
+    color: var(--ifm-link-color);
+  }
+
+  @media screen and (max-width: 996px) {
+    #open-graph-btn {
+      justify-content: flex-start;
+      padding-left: 1em;
+    }
+  }
+
+  #graph-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  #graph-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+  }
+
+  #close-graph-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: small;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    canvas {
+      margin: 0px auto;
+    }
+
+    .force-graph-container .graph-tooltip {
+      transform: none !important;
+    }
+  </style><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="https://avatars.githubusercontent.com/u/103022267"><link rel="preload" as="image" href="/HXLoLi//default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi//img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi//img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi//default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a class="navbar__item navbar__link" href="/HXLoLi/docs/关于">笔记</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/blog">博客</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li></ul></div><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="navbar__item">
+    <button id="open-graph-btn" title="Show Graph Visualisation" type="button" aria-label="Show Graph Visualisation" aria-live="polite" onclick="openGraph()">
+      <svg viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor">
+        <path d="M512 512m-125.866667 0a125.866667 125.866667 0 1 0 251.733334 0 125.866667 125.866667 0 1 0-251.733334 0Z"></path>
+        <path d="M512 251.733333m-72.533333 0a72.533333 72.533333 0 1 0 145.066666 0 72.533333 72.533333 0 1 0-145.066666 0Z"></path>
+        <path d="M614.4 238.933333c0 4.266667 2.133333 8.533333 2.133333 12.8 0 19.2-4.266667 36.266667-12.8 51.2 81.066667 36.266667 138.666667 117.333333 138.666667 211.2C742.4 640 640 744.533333 512 744.533333s-230.4-106.666667-230.4-232.533333c0-93.866667 57.6-174.933333 138.666667-211.2-8.533333-14.933333-12.8-32-12.8-51.2 0-4.266667 0-8.533333 2.133333-12.8-110.933333 42.666667-189.866667 147.2-189.866667 273.066667 0 160 130.133333 292.266667 292.266667 292.266666S804.266667 672 804.266667 512c0-123.733333-78.933333-230.4-189.866667-273.066667z"></path>
+        <path d="M168.533333 785.066667m-72.533333 0a72.533333 72.533333 0 1 0 145.066667 0 72.533333 72.533333 0 1 0-145.066667 0Z"></path>
+        <path d="M896 712.533333m-61.866667 0a61.866667 61.866667 0 1 0 123.733334 0 61.866667 61.866667 0 1 0-123.733334 0Z"></path>
+        <path d="M825.6 772.266667c-74.666667 89.6-187.733333 147.2-313.6 147.2-93.866667 0-181.333333-32-249.6-87.466667-10.666667 19.2-25.6 34.133333-44.8 44.8C298.666667 942.933333 401.066667 981.333333 512 981.333333c149.333333 0 281.6-70.4 366.933333-177.066666-21.333333-4.266667-40.533333-17.066667-53.333333-32zM142.933333 684.8c-25.6-53.333333-38.4-110.933333-38.4-172.8C104.533333 288 288 104.533333 512 104.533333S919.466667 288 919.466667 512c0 36.266667-6.4 72.533333-14.933334 106.666667 23.466667 2.133333 42.666667 10.666667 57.6 25.6 12.8-42.666667 19.2-87.466667 19.2-132.266667 0-258.133333-211.2-469.333333-469.333333-469.333333S42.666667 253.866667 42.666667 512c0 74.666667 17.066667 142.933333 46.933333 204.8 14.933333-14.933333 32-27.733333 53.333333-32z"></path>
+      </svg>
+      <span class="graph-only" style="margin-left: 1rem; font-size: 1rem">Graph View</span>
+    </button>
+    <style>
+    @media only screen and (min-width: 997px) {
+      .graph-only {
+        display: none;
+      }
+    }
+    </style>
+    </div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="row" style="width:100%"><aside class="col col--2" style="margin-left:2rem"><nav class="sidebar_brwN thin-scrollbar" aria-label="最近博文导航"><div class="sidebarItemTitle_r4Q1 margin-bottom--md">所有文章</div><div role="group"><h3 class="yearGroupHeading_hiiw">2025</h3><ul class="sidebarItemList_QwSx clean-list"><li class="sidebarItem_lnhn"><a aria-current="page" class="sidebarItemLink_yNGZ sidebarItemLinkActive_oSRm" href="/HXLoLi/blog/2025/05/09/01-项目演示小灶">2025-05-09 项目演示小灶分享</a></li><li class="sidebarItem_lnhn"><a class="sidebarItemLink_yNGZ" href="/HXLoLi/blog/2025/05/07/001-小灶分享">2025-05-07 小灶分享</a></li><li class="sidebarItem_lnhn"><a class="sidebarItemLink_yNGZ" href="/HXLoLi/blog/2025/05/06/001-終わり">終わり</a></li><li class="sidebarItem_lnhn"><a class="sidebarItemLink_yNGZ" href="/HXLoLi/blog/2025/04/28/02-貴方本当に怠慢ですね">あなた、本当に怠慢ですね</a></li><li class="sidebarItem_lnhn"><a class="sidebarItemLink_yNGZ" href="/HXLoLi/blog/2025/04/28/01-笔记本无线网卡无法网の戦い">笔记本无线网卡无网の戦い</a></li><li class="sidebarItem_lnhn"><a class="sidebarItemLink_yNGZ" href="/HXLoLi/blog/2025/04/25/01-Blossom迁移笔记记录">Blossom迁移笔记记录</a></li><li class="sidebarItem_lnhn"><a class="sidebarItemLink_yNGZ" href="/HXLoLi/blog/2025/04/22/02-vscode博客模版">VsCode博客模版</a></li><li class="sidebarItem_lnhn"><a class="sidebarItemLink_yNGZ" href="/HXLoLi/blog/2025/04/22/01-测试博客">第一篇测试文章</a></li></ul></div></nav></aside><main class="col"><div class="row"><div class="col"><article class=""><header><h1 class="title_f1Hy">2025-05-09 项目演示小灶分享</h1><div class="container_mt6G margin-vert--md"><time datetime="2025-05-09T14:01:29.000Z">2025年5月9日</time> · <!-- -->阅读需 18 分钟</div><div class="margin-top--md margin-bottom--sm row"><div class="col col--12 authorCol_Hf19"><div class="avatar margin-bottom--sm"><a href="https://github.com/HengXin666" target="_blank" rel="noopener noreferrer" class="avatar__photo-link"><img class="avatar__photo authorImage_XqGP" src="https://avatars.githubusercontent.com/u/103022267" alt="Heng_Xin"></a><div class="avatar__intro authorDetails_lV9A"><div class="avatar__name"><a href="https://github.com/HengXin666" target="_blank" rel="noopener noreferrer"><span class="authorName_yefp">Heng_Xin</span></a></div><small class="authorTitle_nd0D" title="ここから先は一方通行だ!">ここから先は一方通行だ!</small><div class="authorSocials_rSDt"><a href="https://github.com/HengXin666" target="_blank" rel="noopener noreferrer" class="authorSocialLink_owbf" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 250" preserveAspectRatio="xMidYMid" style="--dark:#000;--light:#fff" class="authorSocialLink_owbf githubSvg_Uu4N"><path d="M128.001 0C57.317 0 0 57.307 0 128.001c0 56.554 36.676 104.535 87.535 121.46 6.397 1.185 8.746-2.777 8.746-6.158 0-3.052-.12-13.135-.174-23.83-35.61 7.742-43.124-15.103-43.124-15.103-5.823-14.795-14.213-18.73-14.213-18.73-11.613-7.944.876-7.78.876-7.78 12.853.902 19.621 13.19 19.621 13.19 11.417 19.568 29.945 13.911 37.249 10.64 1.149-8.272 4.466-13.92 8.127-17.116-28.431-3.236-58.318-14.212-58.318-63.258 0-13.975 5-25.394 13.188-34.358-1.329-3.224-5.71-16.242 1.24-33.874 0 0 10.749-3.44 35.21 13.121 10.21-2.836 21.16-4.258 32.038-4.307 10.878.049 21.837 1.47 32.066 4.307 24.431-16.56 35.165-13.12 35.165-13.12 6.967 17.63 2.584 30.65 1.255 33.873 8.207 8.964 13.173 20.383 13.173 34.358 0 49.163-29.944 59.988-58.447 63.157 4.591 3.972 8.682 11.762 8.682 23.704 0 17.126-.148 30.91-.148 35.126 0 3.407 2.304 7.398 8.792 6.14C219.37 232.5 256 184.537 256 128.002 256 57.307 198.691 0 128.001 0Zm-80.06 182.34c-.282.636-1.283.827-2.194.39-.929-.417-1.45-1.284-1.15-1.922.276-.655 1.279-.838 2.205-.399.93.418 1.46 1.293 1.139 1.931Zm6.296 5.618c-.61.566-1.804.303-2.614-.591-.837-.892-.994-2.086-.375-2.66.63-.566 1.787-.301 2.626.591.838.903 1 2.088.363 2.66Zm4.32 7.188c-.785.545-2.067.034-2.86-1.104-.784-1.138-.784-2.503.017-3.05.795-.547 2.058-.055 2.861 1.075.782 1.157.782 2.522-.019 3.08Zm7.304 8.325c-.701.774-2.196.566-3.29-.49-1.119-1.032-1.43-2.496-.726-3.27.71-.776 2.213-.558 3.315.49 1.11 1.03 1.45 2.505.701 3.27Zm9.442 2.81c-.31 1.003-1.75 1.459-3.199 1.033-1.448-.439-2.395-1.613-2.103-2.626.301-1.01 1.747-1.484 3.207-1.028 1.446.436 2.396 1.602 2.095 2.622Zm10.744 1.193c.036 1.055-1.193 1.93-2.715 1.95-1.53.034-2.769-.82-2.786-1.86 0-1.065 1.202-1.932 2.733-1.958 1.522-.03 2.768.818 2.768 1.868Zm10.555-.405c.182 1.03-.875 2.088-2.387 2.37-1.485.271-2.861-.365-3.05-1.386-.184-1.056.893-2.114 2.376-2.387 1.514-.263 2.868.356 3.061 1.403Z"></path></svg></a><a href="https://space.bilibili.com/478917126" target="_blank" rel="noopener noreferrer" class="authorSocialLink_owbf" title="bilibili"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="authorSocialLink_owbf"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path><path d="M3.6 9h16.8"></path><path d="M3.6 15h16.8"></path><path d="M11.5 3a17 17 0 0 0 0 18"></path><path d="M12.5 3a17 17 0 0 1 0 18"></path></svg></a></div></div></div></div></div></header><div id="__blog-post-container" class="markdown"><p>和同学们的一些分享, 演示一些萌新可以做的、简单的java项目, 与简单的技术介绍.</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>考勤</summary><div><div class="collapsibleContent_i85q">
+<!-- -->
+<blockquote>
+<h2 style="color:red">组长考勤, 结束后把参会名单私发小学长 (今晚12点前)</h2>
+格式: xxx小组, 实际到场人数/总人数 | (学长需要统计, 以评估积极性)
+</blockquote>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> 记得录屏</li>
+</ul>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><span class="octicon octicon-warning" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-alert mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Warning</p>
+<p>B站直播有 5 ~ 10 秒的延迟, 各位见谅一下哈, 我也没有办法.</p>
+<p>舍友这边可能会有点吵, 各位凑合一下~</p>
+</div>
+<div style="margin-top:200px">
+</div></div></div></details>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1-小组事项提醒">1. 小组事项提醒<a href="#1-小组事项提醒" class="hash-link" aria-label="1. 小组事项提醒的直接链接" title="1. 小组事项提醒的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="11-统计到场人数">1.1 统计到场人数<a href="#11-统计到场人数" class="hash-link" aria-label="1.1 统计到场人数的直接链接" title="1.1 统计到场人数的直接链接">​</a></h3>
+<p>请<code>组长</code>统计每个小组到场人数, 然后私发给<code>我</code>.</p>
+<p>格式: xxx组全齐 / yyy没有到(缺勤/联系不上) / zzz因为xyz请假</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12-第一次项目的说明">1.2 第一次项目的说明<a href="#12-第一次项目的说明" class="hash-link" aria-label="1.2 第一次项目的说明的直接链接" title="1.2 第一次项目的说明的直接链接">​</a></h3>
+<p>第一次项目以 <strong>熟悉流程</strong> 为主</p>
+<ul>
+<li>不要做难度高的项目 而是尽量多的组员参与到团队项目中</li>
+</ul>
+<blockquote>
+<p>通常难度高的项目, 会导致部分组员没法参与开发!</p>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="13-审核题">1.3 审核题<a href="#13-审核题" class="hash-link" aria-label="1.3 审核题的直接链接" title="1.3 审核题的直接链接">​</a></h3>
+<blockquote>
+<p>完成人数不到2人的 只能做一星难度项目</p>
+<p>完成人数不到一半的 只能做一, 二星难度项目</p>
+</blockquote>
+<ul>
+<li>
+<p>独立完成!</p>
+</li>
+<li>
+<p>对0基础同学有一定难度!</p>
+</li>
+<li>
+<p>评估小组是否可以做高难度项目的手段!</p>
+</li>
+</ul>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-light-bulb mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>不是必须完成的, 只是评估手段.</p>
+</div>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="131-项目难度审核题判分标准">1.3.1 项目难度审核题判分标准<a href="#131-项目难度审核题判分标准" class="hash-link" aria-label="1.3.1 项目难度审核题判分标准的直接链接" title="1.3.1 项目难度审核题判分标准的直接链接">​</a></h4>
+<p>审核标准:</p>
+<ol>
+<li>全局变量/静态变量(变量类型/变量名) <span style="color:red">不允许修改</span></li>
+<li>函数声明(参数, 返回值, 函数名次) <span style="color:red">不允许修改</span></li>
+<li>函数的 <strong>代码实现逻辑</strong> 和 <strong>功能描述</strong> 要能<code>对应</code>上, 确保 <strong>代码质量</strong> 和 <strong>可读性</strong>!</li>
+</ol>
+<ul>
+<li>除了技术官以外的同学, 不要求实现<code>isWin</code>和<code>gameView</code></li>
+<li>技术官需要另外提交运行截图(大于等于5颗落子的截图 + 胜利界面截图)</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="132-项目难度审核题提交时间">1.3.2 项目难度审核题提交时间<a href="#132-项目难度审核题提交时间" class="hash-link" aria-label="1.3.2 项目难度审核题提交时间的直接链接" title="1.3.2 项目难度审核题提交时间的直接链接">​</a></h4>
+<p>14号, 中午12点前, 组长把五子棋代码 按照格式收齐;</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-light-bulb mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>(如果可以, 可以先在 <code>13号中午</code> 收齐一次, 提交上来, 我先审核. 如果一次不过关, 那么是可以修改的)</p>
+</div>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><span class="octicon octicon-warning" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-alert mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Warning</p>
+<p>组长要把关<code>打包的格式</code></p>
+</div>
+<blockquote>
+<p><span style="color:red">组长狠狠的跟进呀!</span> 没有什么时间了</p>
+</blockquote>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="133-考核题易错点-递归调用">1.3.3 考核题易错点: 递归调用<a href="#133-考核题易错点-递归调用" class="hash-link" aria-label="1.3.3 考核题易错点: 递归调用的直接链接" title="1.3.3 考核题易错点: 递归调用的直接链接">​</a></h4>
+<p>因为上级对这个错误的评判略显暧昧, 我也不知道对不对, 但是我看的不爽, 那应该就是不对. (上班这样写, 可以马上下班了! 永久)</p>
+<!-- -->
+<!-- -->
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="14-一些截止时间提醒">1.4 一些截止时间提醒<a href="#14-一些截止时间提醒" class="hash-link" aria-label="1.4 一些截止时间提醒的直接链接" title="1.4 一些截止时间提醒的直接链接">​</a></h3>
+<ul>
+<li>
+<p>最低进度要求的截止时间 (参考是: 考题提交之前, 但最晚是: 项目启动之前)</p>
+</li>
+<li>
+<p>额外技术/项目启动的时间等等; gui: swing, 数据持久: i/o流、mysql (必须得在 <code>第二次小组会议</code> 上, 全员确认了, 并且完成了对应的考核题才行. 如果是项目开始后才打算边学边做, 就绝对不被允许的!!!)</p>
+</li>
+</ul>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><span class="octicon octicon-note" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-info mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Note</p>
+<p>像音乐播放、彩色字体这种, 是可以临时学会的, 但最好都安排一下~</p>
+</div>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="15-第二次小组会议">1.5 第二次小组会议<a href="#15-第二次小组会议" class="hash-link" aria-label="1.5 第二次小组会议的直接链接" title="1.5 第二次小组会议的直接链接">​</a></h3>
+<p>这些是组长在<code>第二次小组会议</code>会议要说的, 这里不碎碎念了..</p>
+<div>加载中...</div>
+<div style="margin-top:80px">
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="2-项目演示讲解">2. 项目演示讲解<a href="#2-项目演示讲解" class="hash-link" aria-label="2. 项目演示讲解的直接链接" title="2. 项目演示讲解的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="21--走迷宫">2.1 ★ 走迷宫<a href="#21--走迷宫" class="hash-link" aria-label="2.1 ★ 走迷宫的直接链接" title="2.1 ★ 走迷宫的直接链接">​</a></h3>
+<p>涉及技术:</p>
+<ul>
+<li>控制台、彩色字体、音乐播放</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>
+<p>彩色字体, 方便区分;</p>
+</li>
+<li>
+<p>实现简单, 方便拓展 (此处让各位, 思考一下, 你认为还有什么可以添加的呢?)</p>
+<blockquote>
+<p>地图还是太简单了? 能否复杂点? 我能不能添加推箱子元素? 这样地图就是可变的了</p>
+</blockquote>
+<blockquote>
+<p>亦或者是箱子占点? 解密开门? ...</p>
+</blockquote>
+<blockquote>
+<p>我能否实现怪物随机游走? 来回游走?</p>
+</blockquote>
+<blockquote>
+<p>是不是还缺少了背景音乐? (有了音乐, 设置不也可以加上了吗?)</p>
+</blockquote>
+<blockquote>
+<p>能否实现随机地图? (上网复制粘贴一个迷宫生成算法, 然后自己再已有地图上, 简单修改一下, 不就是自己写的了吗?)</p>
+</blockquote>
+<blockquote>
+<p>注意到, 他们的困难地图, 是有子迷宫机制的, 但是子迷宫只是进去, 然后出来又在原点.</p>
+</blockquote>
+<blockquote>
+<p>能不能拓展一下? 从 A -&gt; B 迷宫, 出来后是在 C 迷宫, 这里才有 出口, 而 A 迷宫的出口是假出口?</p>
+</blockquote>
+<blockquote>
+<p>或者原本是死路, 出来后, 才看到活路?</p>
+</blockquote>
+<blockquote>
+<p>或者添加陷阱, 然后如果在陷阱嘎了, 会触发看广告、充值机制? 然后再死亡回溯? 回到最近的死亡前的一刻?</p>
+</blockquote>
+<blockquote>
+<p>是不是还缺东西? 能不能搞背包? 这样变成搜集向 + 解密向, 顺带可以添加成就系统</p>
+</blockquote>
+<blockquote>
+<p>迷宫太无聊了? 整点带迷雾的迷宫? 必须要探索了, 才会显示? 或者更难的, 只有最近的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em"></span><span class="mord mathnormal">x</span></span></span></span> 格, 才会显示 (相当于视野范围)</p>
+</blockquote>
+<blockquote>
+<p>因为只是控制台, 做不了手电筒版本? 错, 可以是wasd是移动, 方向键的上下左右是手电筒, 这样视野就自带方向!</p>
+</blockquote>
+<blockquote>
+<p>再整点随机, 就tm变成移动迷宫了?! (你们还可以继续拓展...)</p>
+</blockquote>
+</li>
+</ul>
+<p>以上的拓展, 都是我刚刚想到的~, 核心功能的难度只有一星: 走迷宫 + (推箱子)</p>
+<ul>
+<li>某些拓展, 实际上也并不是很难, 多加一些变量, 记录好状态即可(<del>最好用枚举哈</del>), 但是游戏的丰富度, 就完全不是一个维度了~</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="22--白手起家">2.2 ★★ 白手起家<a href="#22--白手起家" class="hash-link" aria-label="2.2 ★★ 白手起家的直接链接" title="2.2 ★★ 白手起家的直接链接">​</a></h3>
+<p>涉及技术:</p>
+<ul>
+<li>控制台, io流 (存档), 彩色字体</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>
+<p>模拟经营、交互式的游戏, 比较适合java... (因为输入输出的问题, 等会会讲)</p>
+</li>
+<li>
+<p>彩色字体游戏总体的风格统一, 而且有背包系统, 以及随机事件, 让玩家切身以为自己真的是奸商~</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="23--水木火">2.3 ★★ 水木火<a href="#23--水木火" class="hash-link" aria-label="2.3 ★★ 水木火的直接链接" title="2.3 ★★ 水木火的直接链接">​</a></h3>
+<p>涉及技术:</p>
+<ul>
+<li>swing (界面美化) + 背景音乐</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>
+<p>本质是推箱子, 或者说是 2048; 非常好玩, 有创新, 融合了一些知识~</p>
+</li>
+<li>
+<p>美术风格统一</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="24--校园三国杀">2.4 ★★ 校园三国杀<a href="#24--校园三国杀" class="hash-link" aria-label="2.4 ★★ 校园三国杀的直接链接" title="2.4 ★★ 校园三国杀的直接链接">​</a></h3>
+<p>涉及技术:</p>
+<ul>
+<li>swing + 背景音乐 + 数据持久化(登录注册)</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>
+<p>有趣, 使用了很多抽象元素, 使人眼前一黑</p>
+</li>
+<li>
+<p>本质是三国杀 (虽然我不是很会玩), 但是融合了一些现实的魔改, 使其为自己创新的 <code>校园杀</code></p>
+</li>
+<li>
+<p>还有彩蛋: 输入xxx的名字, 就可以启用作弊模式</p>
+</li>
+</ul>
+<div style="margin-top:80px">
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="3-项目流程">3. 项目流程<a href="#3-项目流程" class="hash-link" aria-label="3. 项目流程的直接链接" title="3. 项目流程的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="31-如何发项目给别人">3.1 如何发项目给别人<a href="#31-如何发项目给别人" class="hash-link" aria-label="3.1 如何发项目给别人的直接链接" title="3.1 如何发项目给别人的直接链接">​</a></h3>
+<p>项目根目录, 打成压缩包!</p>
+<p><img decoding="async" loading="lazy" alt="打开为项目根目录 ##w700##r10##" src="/HXLoLi/assets/images/PixPin_2025-05-09_20-07-33-d4214dc65d69cf075dd7167c49512cec.png" width="1409" height="1181" style="width:700px;border-radius:10px"></p>
+<p><img decoding="async" loading="lazy" alt="打包zip ##w700##r10##" src="/HXLoLi/assets/images/PixPin_2025-05-09_20-09-04-fc5975e99b48f0f22e08711cb27a787e.png" width="1168" height="407" style="width:700px;border-radius:10px"></p>
+<blockquote>
+<p>为什么不使用<code>Git</code>?</p>
+<ul>
+<li>
+<p>第二次项目 / 大项目 才要求使用;</p>
+</li>
+<li>
+<p>本次如果想使用git, 那么至少本组的全部人都可以熟练的使用git!</p>
+</li>
+</ul>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="32-具体的项目流程">3.2 具体的项目流程<a href="#32-具体的项目流程" class="hash-link" aria-label="3.2 具体的项目流程的直接链接" title="3.2 具体的项目流程的直接链接">​</a></h3>
+<blockquote>
+<p>都会有相应的直播会议教大家</p>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="33-难度划分">3.3 难度划分<a href="#33-难度划分" class="hash-link" aria-label="3.3 难度划分的直接链接" title="3.3 难度划分的直接链接">​</a></h3>
+<blockquote>
+<p>同步和异步可以自己去学习一下</p>
+<p>某些异步操作可以使用同步插帧实现</p>
+</blockquote>
+<!-- -->
+<!-- -->
+<ul>
+<li>3级 (web 前后端)
+<ul>
+<li>依赖于异步实现，部分功能有较高难度，数值访问已经比较复杂（比如嵌套数组、嵌套类）</li>
+<li>通常具有<code>自由移动</code>(支持斜向(比如 37° 方向移动)), <code>发射子弹</code>(速度差), <code>碰撞检测</code> 等功能的小游戏属于这个难度范畴</li>
+</ul>
+</li>
+</ul>
+<hr>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-light-bulb mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>特别的, 根据小组实力, <span style="color:gold">不建议第一次项目, 直接采用<code>面向对象</code>进行架构, 特别是涉及继承和多态的</span></p>
+</div>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="34-关于额外技术">3.4 关于额外技术<a href="#34-关于额外技术" class="hash-link" aria-label="3.4 关于额外技术的直接链接" title="3.4 关于额外技术的直接链接">​</a></h3>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="341-swing">3.4.1 swing<a href="#341-swing" class="hash-link" aria-label="3.4.1 swing的直接链接" title="3.4.1 swing的直接链接">​</a></h4>
+<ul>
+<li>图形界面</li>
+</ul>
+<blockquote>
+<p>如果要学习<code>图形界面</code>, 必需在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>第二次会议</mtext></mrow><annotation encoding="application/x-tex">第二次会议</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord cjk_fallback">第二次会议</span></span></span></span> 时候定下来, 不能项目开始 (也就是可行性分析阶段) 才开始学习!</p>
+<p>并且<code>图形界面</code><span style="color:red">必需完成练习题, 才算是初步掌握</span>, 不然项目期间原地暴毙 (特别是是swing)</p>
+<p>注意: 如果使用<code>图形界面</code>, 那么小组至少要 <strong>一半人</strong>(上取整) 掌握(即完成练习题), 否则形式肥肠危险!</p>
+</blockquote>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="342-数据持久化-文件读写">3.4.2 数据持久化 (文件读写)<a href="#342-数据持久化-文件读写" class="hash-link" aria-label="3.4.2 数据持久化 (文件读写)的直接链接" title="3.4.2 数据持久化 (文件读写)的直接链接">​</a></h4>
+<ul>
+<li>
+<p>用处: 存档 / 登录注册 / 排行榜</p>
+</li>
+<li>
+<p>高级用处: 从文件中读取关卡数据...</p>
+</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="343-音乐播放">3.4.3 音乐播放<a href="#343-音乐播放" class="hash-link" aria-label="3.4.3 音乐播放的直接链接" title="3.4.3 音乐播放的直接链接">​</a></h4>
+<ul>
+<li>没什么好说的, 基本上是复制粘贴就ok</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="344-分文件分包编程">3.4.4 分文件、分包编程<a href="#344-分文件分包编程" class="hash-link" aria-label="3.4.4 分文件、分包编程的直接链接" title="3.4.4 分文件、分包编程的直接链接">​</a></h4>
+<ul>
+<li>分文件开发, 可以使得代码结构清晰</li>
+</ul>
+<blockquote>
+<p>(可以的话) 技术官可以学一下</p>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="35-代码规范">3.5 代码规范<a href="#35-代码规范" class="hash-link" aria-label="3.5 代码规范的直接链接" title="3.5 代码规范的直接链接">​</a></h3>
+<p>注释:</p>
+<div>加载中...</div>
+<ul>
+<li><span class="tailwind"><a href="https://gitee.com/Heng_Xin_666/binomial/blob/v1.0.1/ProjectDocuments/05_ReadmeFile/GoodCode.md" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://gitee.com/Heng_Xin_666/binomial/blob/v1.0.1/ProjectDocuments/05_ReadmeFile/GoodCode.md<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="4-一些项目技巧">4. 一些项目技巧<a href="#4-一些项目技巧" class="hash-link" aria-label="4. 一些项目技巧的直接链接" title="4. 一些项目技巧的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="41-游戏体验">4.1 游戏体验<a href="#41-游戏体验" class="hash-link" aria-label="4.1 游戏体验的直接链接" title="4.1 游戏体验的直接链接">​</a></h3>
+<p>以下是一些简单的功能, 可以作为拓展, 但是答辩的时候希望大家都可以加上, 以丰富项目:</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-light-bulb mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>此处仅讨论 控制台 项目</p>
+</div>
+<ol>
+<li>
+<p>新手引导: 第一次进入游戏/第一关, 可以特化一些文字, 以教导玩家最基本的操作</p>
+<p>有的小组做一个拼图游戏, 但是却没有拼好的样子给玩家对照, 我不知道原图, 我怎么拼啊? (但是異議あり!)</p>
+</li>
+<li>
+<p>彩色字体</p>
+</li>
+</ol>
+<div class="language-C++ language-cpp codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-cpp codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> </span><span class="token function" style="color:hsl(207, 82%, 66%)">main</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">{</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">     </span><span class="token function" style="color:hsl(207, 82%, 66%)">printf</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token string" style="color:hsl(95, 38%, 62%)">&quot;Hello Color!\n&quot;</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">     </span><span class="token keyword" style="color:hsl(286, 60%, 67%)">return</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">0</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">}</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">C++</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-text codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">int main() {</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">     printf(&quot;Hello Color!\n&quot;);</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">     return 0;</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">}</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<ol start="3">
+<li>
+<p>打字机特效</p>
+<p>对于一些剧情、背景交代的文字, 咱们可以一个字一个字的打印, 而不是一下输出一大坨文字.</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">打字机特效</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" src="https://camo.githubusercontent.com/e2d3ea9bfde3e572c14c8d4edb62a03863ab1c7fd9a01c4f7ba074634821a6f5/68747470733a2f2f726561646d652d747970696e672d7376672e64656d6f6c61622e636f6d3f666f6e743d4b6c65652b4f6e65267765696768743d3530302673697a653d32352670617573653d3130303026636f6c6f723d3939303039392663656e7465723d74727565267643656e7465723d747275652672616e646f6d3d747275652677696474683d343335266c696e65733d254533253831253933254533253831253933254533253831253842254533253832253839254535253835253838254533253831254146254534254238253830254536253936254239254539253830253941254538254131253843254533253831254130254546254243253831" alt="打字机"></td></tr></tbody></table>
+<p>对于图形界面, 咱们也可以这样 (类似于glgame) 或者 搞星球大战那种由远及近的也可以 (像是ppt特效..)</p>
+</li>
+<li>
+<p>音乐播放</p>
+<p>这个好像很复杂, 但是实际上就是复制粘贴的 (具体可以看图灵院文档)</p>
+</li>
+</ol>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="42-超简单的拓展">4.2 超简单的拓展<a href="#42-超简单的拓展" class="hash-link" aria-label="4.2 超简单的拓展的直接链接" title="4.2 超简单的拓展的直接链接">​</a></h3>
+<p>很简单, 但是确实可以丰富游戏, 让我们看起来功能很多.</p>
+<ul>
+<li>
+<p>教程关卡</p>
+</li>
+<li>
+<p>皮肤切换</p>
+</li>
+<li>
+<p>开发人员介绍</p>
+</li>
+<li>
+<p>内购充值?!</p>
+</li>
+<li>
+<p>彩蛋?!</p>
+</li>
+<li>
+<p>成就系统?!</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="43-个人提供的java库">4.3 个人提供的Java库<a href="#43-个人提供的java库" class="hash-link" aria-label="4.3 个人提供的Java库的直接链接" title="4.3 个人提供的Java库的直接链接">​</a></h3>
+<p>非阻塞输入!</p>
+<ul>
+<li>
+<p><span class="tailwind"><a href="https://github.com/HengXin666/HXCin" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/HengXin666/HXCin<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+</li>
+<li>
+<p>国内链接: <span class="tailwind"><a href="https://gitee.com/Heng_Xin_666/HXCin" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://gitee.com/Heng_Xin_666/HXCin<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+</li>
+</ul>
+</div></div></div><footer class="docusaurus-mt-lg"><div class="row margin-top--sm theme-blog-footer-edit-meta-row"><div class="col"><b>标签：</b><ul class="tags_jXut padding--none margin-left--sm"><li class="tag_QGVx"><a title="一些个人见解的分享~" class="tag_zVej tagRegular_sFm0" href="/HXLoLi/blog/tags/分享">分享</a></li></ul></div></div><div class="row margin-top--sm theme-blog-footer-edit-meta-row"><div class="col"><a href="https://github.com/HengXin666/HXLoLi/edit/main/blog/2025/05/09/01-项目演示小灶.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin_666</b> <!-- -->于 <b><time datetime="2025-05-09T14:29:31.000Z" itemprop="dateModified">2025年5月9日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;margin-top:20px">请作者喝奶茶:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi//default-icons/wechat.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi//img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi//default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><nav class="pagination-nav docusaurus-mt-lg" aria-label="博文分页导航"><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/blog/2025/05/07/001-小灶分享"><div class="pagination-nav__sublabel">较旧一篇</div><div class="pagination-nav__label">2025-05-07 小灶分享</div></a></nav><div>Loading Comments...</div></div><div class="col" style="padding:0;flex:0 0 21.75%;max-width:21.75%"><div class="tableOfContents_jeP5 thin-scrollbar"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#1-小组事项提醒" class="table-of-contents__link toc-highlight">1. 小组事项提醒</a><ul><li><a href="#11-统计到场人数" class="table-of-contents__link toc-highlight">1.1 统计到场人数</a></li><li><a href="#12-第一次项目的说明" class="table-of-contents__link toc-highlight">1.2 第一次项目的说明</a></li><li><a href="#13-审核题" class="table-of-contents__link toc-highlight">1.3 审核题</a><ul><li><a href="#131-项目难度审核题判分标准" class="table-of-contents__link toc-highlight">1.3.1 项目难度审核题判分标准</a></li><li><a href="#132-项目难度审核题提交时间" class="table-of-contents__link toc-highlight">1.3.2 项目难度审核题提交时间</a></li><li><a href="#133-考核题易错点-递归调用" class="table-of-contents__link toc-highlight">1.3.3 考核题易错点: 递归调用</a></li></ul></li><li><a href="#14-一些截止时间提醒" class="table-of-contents__link toc-highlight">1.4 一些截止时间提醒</a></li><li><a href="#15-第二次小组会议" class="table-of-contents__link toc-highlight">1.5 第二次小组会议</a></li></ul></li><li><a href="#2-项目演示讲解" class="table-of-contents__link toc-highlight">2. 项目演示讲解</a><ul><li><a href="#21--走迷宫" class="table-of-contents__link toc-highlight">2.1 ★ 走迷宫</a></li><li><a href="#22--白手起家" class="table-of-contents__link toc-highlight">2.2 ★★ 白手起家</a></li><li><a href="#23--水木火" class="table-of-contents__link toc-highlight">2.3 ★★ 水木火</a></li><li><a href="#24--校园三国杀" class="table-of-contents__link toc-highlight">2.4 ★★ 校园三国杀</a></li></ul></li><li><a href="#3-项目流程" class="table-of-contents__link toc-highlight">3. 项目流程</a><ul><li><a href="#31-如何发项目给别人" class="table-of-contents__link toc-highlight">3.1 如何发项目给别人</a></li><li><a href="#32-具体的项目流程" class="table-of-contents__link toc-highlight">3.2 具体的项目流程</a></li><li><a href="#33-难度划分" class="table-of-contents__link toc-highlight">3.3 难度划分</a></li><li><a href="#34-关于额外技术" class="table-of-contents__link toc-highlight">3.4 关于额外技术</a><ul><li><a href="#341-swing" class="table-of-contents__link toc-highlight">3.4.1 swing</a></li><li><a href="#342-数据持久化-文件读写" class="table-of-contents__link toc-highlight">3.4.2 数据持久化 (文件读写)</a></li><li><a href="#343-音乐播放" class="table-of-contents__link toc-highlight">3.4.3 音乐播放</a></li><li><a href="#344-分文件分包编程" class="table-of-contents__link toc-highlight">3.4.4 分文件、分包编程</a></li></ul></li><li><a href="#35-代码规范" class="table-of-contents__link toc-highlight">3.5 代码规范</a></li></ul></li><li><a href="#4-一些项目技巧" class="table-of-contents__link toc-highlight">4. 一些项目技巧</a><ul><li><a href="#41-游戏体验" class="table-of-contents__link toc-highlight">4.1 游戏体验</a></li><li><a href="#42-超简单的拓展" class="table-of-contents__link toc-highlight">4.2 超简单的拓展</a></li><li><a href="#43-个人提供的java库" class="table-of-contents__link toc-highlight">4.3 个人提供的Java库</a></li></ul></li></ul></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">更多</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2025 HXLoLi, Inc. 由 Docusaurus 构建.</div></div></div></footer></div>
+<div>
+    <div id="graph-overlay"></div>
+    <div id="graph-container">
+      <div id="close-graph-btn" onclick="closeGraph()">
+        <div style="padding: 5px">X</div>
+      </div>
+      <div>
+        <h1 style="text-align: center">Graph View</h1>
+        <div id="graphview-container" style="display: inline-block;margin: 0 auto"></div>
+      </div>
+    </div>
+    </div>
+<script>let graphViewGlobal=null,isOpen=!1;async function initGraphView(){const e=await(await fetch("/docusaurus-graph.json")).json(),n=new NOTE_GRAPH.NoteGraphModel(e);graphViewGlobal=new NOTE_GRAPH.NoteGraphView({container:document.getElementById("graphview-container"),graphModel:n,enableNodeDrag:!0,width:800,height:600})}window.onload=function(){initGraphView()};const graphContainer=document.getElementById("graph-container"),graphOverlay=document.getElementById("graph-overlay");function closeGraph(){graphContainer.style.display="none",graphOverlay.style.display="none"}function openGraph(){!0===isOpen?(closeGraph(),isOpen=!1):window.innerWidth>=800&&window.innerHeight>=720?(graphContainer.style.display="block",graphOverlay.style.display="block",graphViewGlobal.forceGraph.zoomToFit(1e3,20),isOpen=!0):alert("Your screen size must be greater than 800x720.")}graphOverlay.addEventListener("click",closeGraph)</script></body>
+</html>

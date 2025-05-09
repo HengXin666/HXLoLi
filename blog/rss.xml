@@ -4,10 +4,367 @@
         <title>HXLoLi Blog</title>
         <link>https://HengXin666.github.io/HXLoLi/blog</link>
         <description>HXLoLi Blog</description>
-        <lastBuildDate>Wed, 07 May 2025 00:00:28 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 09 May 2025 14:01:29 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-Hans</language>
+        <item>
+            <title><![CDATA[2025-05-09 项目演示小灶分享]]></title>
+            <link>https://HengXin666.github.io/HXLoLi/blog/2025/05/09/01-项目演示小灶</link>
+            <guid>https://HengXin666.github.io/HXLoLi/blog/2025/05/09/01-项目演示小灶</guid>
+            <pubDate>Fri, 09 May 2025 14:01:29 GMT</pubDate>
+            <description><![CDATA[和同学们的一些分享, 演示一些萌新可以做的、简单的java项目, 与简单的技术介绍.]]></description>
+            <content:encoded><![CDATA[<p>和同学们的一些分享, 演示一些萌新可以做的、简单的java项目, 与简单的技术介绍.</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>考勤</summary><div><div class="collapsibleContent_i85q">
+<!-- -->
+<blockquote>
+<h2 style="color:red">组长考勤, 结束后把参会名单私发小学长 (今晚12点前)</h2>
+格式: xxx小组, 实际到场人数/总人数 | (学长需要统计, 以评估积极性)
+</blockquote>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> 记得录屏</li>
+</ul>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><span class="octicon octicon-warning" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-alert mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Warning</p>
+<p>B站直播有 5 ~ 10 秒的延迟, 各位见谅一下哈, 我也没有办法.</p>
+<p>舍友这边可能会有点吵, 各位凑合一下~</p>
+</div>
+<div style="margin-top:200px">
+</div></div></div></details>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1-小组事项提醒">1. 小组事项提醒<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#1-%E5%B0%8F%E7%BB%84%E4%BA%8B%E9%A1%B9%E6%8F%90%E9%86%92" class="hash-link" aria-label="1. 小组事项提醒的直接链接" title="1. 小组事项提醒的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="11-统计到场人数">1.1 统计到场人数<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#11-%E7%BB%9F%E8%AE%A1%E5%88%B0%E5%9C%BA%E4%BA%BA%E6%95%B0" class="hash-link" aria-label="1.1 统计到场人数的直接链接" title="1.1 统计到场人数的直接链接">​</a></h3>
+<p>请<code>组长</code>统计每个小组到场人数, 然后私发给<code>我</code>.</p>
+<p>格式: xxx组全齐 / yyy没有到(缺勤/联系不上) / zzz因为xyz请假</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12-第一次项目的说明">1.2 第一次项目的说明<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#12-%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%AF%B4%E6%98%8E" class="hash-link" aria-label="1.2 第一次项目的说明的直接链接" title="1.2 第一次项目的说明的直接链接">​</a></h3>
+<p>第一次项目以 <strong>熟悉流程</strong> 为主</p>
+<ul>
+<li>不要做难度高的项目 而是尽量多的组员参与到团队项目中</li>
+</ul>
+<blockquote>
+<p>通常难度高的项目, 会导致部分组员没法参与开发!</p>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="13-审核题">1.3 审核题<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#13-%E5%AE%A1%E6%A0%B8%E9%A2%98" class="hash-link" aria-label="1.3 审核题的直接链接" title="1.3 审核题的直接链接">​</a></h3>
+<blockquote>
+<p>完成人数不到2人的 只能做一星难度项目</p>
+<p>完成人数不到一半的 只能做一, 二星难度项目</p>
+</blockquote>
+<ul>
+<li>
+<p>独立完成!</p>
+</li>
+<li>
+<p>对0基础同学有一定难度!</p>
+</li>
+<li>
+<p>评估小组是否可以做高难度项目的手段!</p>
+</li>
+</ul>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>不是必须完成的, 只是评估手段.</p>
+</div>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="131-项目难度审核题判分标准">1.3.1 项目难度审核题判分标准<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#131-%E9%A1%B9%E7%9B%AE%E9%9A%BE%E5%BA%A6%E5%AE%A1%E6%A0%B8%E9%A2%98%E5%88%A4%E5%88%86%E6%A0%87%E5%87%86" class="hash-link" aria-label="1.3.1 项目难度审核题判分标准的直接链接" title="1.3.1 项目难度审核题判分标准的直接链接">​</a></h4>
+<p>审核标准:</p>
+<ol>
+<li>全局变量/静态变量(变量类型/变量名) <span style="color:red">不允许修改</span></li>
+<li>函数声明(参数, 返回值, 函数名次) <span style="color:red">不允许修改</span></li>
+<li>函数的 <strong>代码实现逻辑</strong> 和 <strong>功能描述</strong> 要能<code>对应</code>上, 确保 <strong>代码质量</strong> 和 <strong>可读性</strong>!</li>
+</ol>
+<ul>
+<li>除了技术官以外的同学, 不要求实现<code>isWin</code>和<code>gameView</code></li>
+<li>技术官需要另外提交运行截图(大于等于5颗落子的截图 + 胜利界面截图)</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="132-项目难度审核题提交时间">1.3.2 项目难度审核题提交时间<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#132-%E9%A1%B9%E7%9B%AE%E9%9A%BE%E5%BA%A6%E5%AE%A1%E6%A0%B8%E9%A2%98%E6%8F%90%E4%BA%A4%E6%97%B6%E9%97%B4" class="hash-link" aria-label="1.3.2 项目难度审核题提交时间的直接链接" title="1.3.2 项目难度审核题提交时间的直接链接">​</a></h4>
+<p>14号, 中午12点前, 组长把五子棋代码 按照格式收齐;</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>(如果可以, 可以先在 <code>13号中午</code> 收齐一次, 提交上来, 我先审核. 如果一次不过关, 那么是可以修改的)</p>
+</div>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><span class="octicon octicon-warning" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-alert mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Warning</p>
+<p>组长要把关<code>打包的格式</code></p>
+</div>
+<blockquote>
+<p><span style="color:red">组长狠狠的跟进呀!</span> 没有什么时间了</p>
+</blockquote>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="133-考核题易错点-递归调用">1.3.3 考核题易错点: 递归调用<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#133-%E8%80%83%E6%A0%B8%E9%A2%98%E6%98%93%E9%94%99%E7%82%B9-%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8" class="hash-link" aria-label="1.3.3 考核题易错点: 递归调用的直接链接" title="1.3.3 考核题易错点: 递归调用的直接链接">​</a></h4>
+<p>因为上级对这个错误的评判略显暧昧, 我也不知道对不对, 但是我看的不爽, 那应该就是不对. (上班这样写, 可以马上下班了! 永久)</p>
+<!-- -->
+<!-- -->
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="14-一些截止时间提醒">1.4 一些截止时间提醒<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#14-%E4%B8%80%E4%BA%9B%E6%88%AA%E6%AD%A2%E6%97%B6%E9%97%B4%E6%8F%90%E9%86%92" class="hash-link" aria-label="1.4 一些截止时间提醒的直接链接" title="1.4 一些截止时间提醒的直接链接">​</a></h3>
+<ul>
+<li>
+<p>最低进度要求的截止时间 (参考是: 考题提交之前, 但最晚是: 项目启动之前)</p>
+</li>
+<li>
+<p>额外技术/项目启动的时间等等; gui: swing, 数据持久: i/o流、mysql (必须得在 <code>第二次小组会议</code> 上, 全员确认了, 并且完成了对应的考核题才行. 如果是项目开始后才打算边学边做, 就绝对不被允许的!!!)</p>
+</li>
+</ul>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><span class="octicon octicon-note" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-info mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Note</p>
+<p>像音乐播放、彩色字体这种, 是可以临时学会的, 但最好都安排一下~</p>
+</div>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="15-第二次小组会议">1.5 第二次小组会议<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#15-%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%B0%8F%E7%BB%84%E4%BC%9A%E8%AE%AE" class="hash-link" aria-label="1.5 第二次小组会议的直接链接" title="1.5 第二次小组会议的直接链接">​</a></h3>
+<p>这些是组长在<code>第二次小组会议</code>会议要说的, 这里不碎碎念了..</p>
+<div>加载中...</div>
+<div style="margin-top:80px">
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="2-项目演示讲解">2. 项目演示讲解<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#2-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E8%AE%B2%E8%A7%A3" class="hash-link" aria-label="2. 项目演示讲解的直接链接" title="2. 项目演示讲解的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="21--走迷宫">2.1 ★ 走迷宫<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#21--%E8%B5%B0%E8%BF%B7%E5%AE%AB" class="hash-link" aria-label="2.1 ★ 走迷宫的直接链接" title="2.1 ★ 走迷宫的直接链接">​</a></h3>
+<p>涉及技术:</p>
+<ul>
+<li>控制台、彩色字体、音乐播放</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>
+<p>彩色字体, 方便区分;</p>
+</li>
+<li>
+<p>实现简单, 方便拓展 (此处让各位, 思考一下, 你认为还有什么可以添加的呢?)</p>
+<blockquote>
+<p>地图还是太简单了? 能否复杂点? 我能不能添加推箱子元素? 这样地图就是可变的了</p>
+</blockquote>
+<blockquote>
+<p>亦或者是箱子占点? 解密开门? ...</p>
+</blockquote>
+<blockquote>
+<p>我能否实现怪物随机游走? 来回游走?</p>
+</blockquote>
+<blockquote>
+<p>是不是还缺少了背景音乐? (有了音乐, 设置不也可以加上了吗?)</p>
+</blockquote>
+<blockquote>
+<p>能否实现随机地图? (上网复制粘贴一个迷宫生成算法, 然后自己再已有地图上, 简单修改一下, 不就是自己写的了吗?)</p>
+</blockquote>
+<blockquote>
+<p>注意到, 他们的困难地图, 是有子迷宫机制的, 但是子迷宫只是进去, 然后出来又在原点.</p>
+</blockquote>
+<blockquote>
+<p>能不能拓展一下? 从 A -&gt; B 迷宫, 出来后是在 C 迷宫, 这里才有 出口, 而 A 迷宫的出口是假出口?</p>
+</blockquote>
+<blockquote>
+<p>或者原本是死路, 出来后, 才看到活路?</p>
+</blockquote>
+<blockquote>
+<p>或者添加陷阱, 然后如果在陷阱嘎了, 会触发看广告、充值机制? 然后再死亡回溯? 回到最近的死亡前的一刻?</p>
+</blockquote>
+<blockquote>
+<p>是不是还缺东西? 能不能搞背包? 这样变成搜集向 + 解密向, 顺带可以添加成就系统</p>
+</blockquote>
+<blockquote>
+<p>迷宫太无聊了? 整点带迷雾的迷宫? 必须要探索了, 才会显示? 或者更难的, 只有最近的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em"></span><span class="mord mathnormal">x</span></span></span></span> 格, 才会显示 (相当于视野范围)</p>
+</blockquote>
+<blockquote>
+<p>因为只是控制台, 做不了手电筒版本? 错, 可以是wasd是移动, 方向键的上下左右是手电筒, 这样视野就自带方向!</p>
+</blockquote>
+<blockquote>
+<p>再整点随机, 就tm变成移动迷宫了?! (你们还可以继续拓展...)</p>
+</blockquote>
+</li>
+</ul>
+<p>以上的拓展, 都是我刚刚想到的~, 核心功能的难度只有一星: 走迷宫 + (推箱子)</p>
+<ul>
+<li>某些拓展, 实际上也并不是很难, 多加一些变量, 记录好状态即可(<del>最好用枚举哈</del>), 但是游戏的丰富度, 就完全不是一个维度了~</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="22--白手起家">2.2 ★★ 白手起家<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#22--%E7%99%BD%E6%89%8B%E8%B5%B7%E5%AE%B6" class="hash-link" aria-label="2.2 ★★ 白手起家的直接链接" title="2.2 ★★ 白手起家的直接链接">​</a></h3>
+<p>涉及技术:</p>
+<ul>
+<li>控制台, io流 (存档), 彩色字体</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>
+<p>模拟经营、交互式的游戏, 比较适合java... (因为输入输出的问题, 等会会讲)</p>
+</li>
+<li>
+<p>彩色字体游戏总体的风格统一, 而且有背包系统, 以及随机事件, 让玩家切身以为自己真的是奸商~</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="23--水木火">2.3 ★★ 水木火<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#23--%E6%B0%B4%E6%9C%A8%E7%81%AB" class="hash-link" aria-label="2.3 ★★ 水木火的直接链接" title="2.3 ★★ 水木火的直接链接">​</a></h3>
+<p>涉及技术:</p>
+<ul>
+<li>swing (界面美化) + 背景音乐</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>
+<p>本质是推箱子, 或者说是 2048; 非常好玩, 有创新, 融合了一些知识~</p>
+</li>
+<li>
+<p>美术风格统一</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="24--校园三国杀">2.4 ★★ 校园三国杀<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#24--%E6%A0%A1%E5%9B%AD%E4%B8%89%E5%9B%BD%E6%9D%80" class="hash-link" aria-label="2.4 ★★ 校园三国杀的直接链接" title="2.4 ★★ 校园三国杀的直接链接">​</a></h3>
+<p>涉及技术:</p>
+<ul>
+<li>swing + 背景音乐 + 数据持久化(登录注册)</li>
+</ul>
+<p>优点:</p>
+<ul>
+<li>
+<p>有趣, 使用了很多抽象元素, 使人眼前一黑</p>
+</li>
+<li>
+<p>本质是三国杀 (虽然我不是很会玩), 但是融合了一些现实的魔改, 使其为自己创新的 <code>校园杀</code></p>
+</li>
+<li>
+<p>还有彩蛋: 输入xxx的名字, 就可以启用作弊模式</p>
+</li>
+</ul>
+<div style="margin-top:80px">
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="3-项目流程">3. 项目流程<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#3-%E9%A1%B9%E7%9B%AE%E6%B5%81%E7%A8%8B" class="hash-link" aria-label="3. 项目流程的直接链接" title="3. 项目流程的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="31-如何发项目给别人">3.1 如何发项目给别人<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#31-%E5%A6%82%E4%BD%95%E5%8F%91%E9%A1%B9%E7%9B%AE%E7%BB%99%E5%88%AB%E4%BA%BA" class="hash-link" aria-label="3.1 如何发项目给别人的直接链接" title="3.1 如何发项目给别人的直接链接">​</a></h3>
+<p>项目根目录, 打成压缩包!</p>
+<p><img decoding="async" loading="lazy" alt="打开为项目根目录 ##w700##r10##" src="https://hengxin666.github.io/HXLoLi/assets/images/PixPin_2025-05-09_20-07-33-d4214dc65d69cf075dd7167c49512cec.png" width="1409" height="1181" style="width:700px;border-radius:10px"></p>
+<p><img decoding="async" loading="lazy" alt="打包zip ##w700##r10##" src="https://hengxin666.github.io/HXLoLi/assets/images/PixPin_2025-05-09_20-09-04-fc5975e99b48f0f22e08711cb27a787e.png" width="1168" height="407" style="width:700px;border-radius:10px"></p>
+<blockquote>
+<p>为什么不使用<code>Git</code>?</p>
+<ul>
+<li>
+<p>第二次项目 / 大项目 才要求使用;</p>
+</li>
+<li>
+<p>本次如果想使用git, 那么至少本组的全部人都可以熟练的使用git!</p>
+</li>
+</ul>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="32-具体的项目流程">3.2 具体的项目流程<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#32-%E5%85%B7%E4%BD%93%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%B5%81%E7%A8%8B" class="hash-link" aria-label="3.2 具体的项目流程的直接链接" title="3.2 具体的项目流程的直接链接">​</a></h3>
+<blockquote>
+<p>都会有相应的直播会议教大家</p>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="33-难度划分">3.3 难度划分<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#33-%E9%9A%BE%E5%BA%A6%E5%88%92%E5%88%86" class="hash-link" aria-label="3.3 难度划分的直接链接" title="3.3 难度划分的直接链接">​</a></h3>
+<blockquote>
+<p>同步和异步可以自己去学习一下</p>
+<p>某些异步操作可以使用同步插帧实现</p>
+</blockquote>
+<!-- -->
+<!-- -->
+<ul>
+<li>3级 (web 前后端)
+<ul>
+<li>依赖于异步实现，部分功能有较高难度，数值访问已经比较复杂（比如嵌套数组、嵌套类）</li>
+<li>通常具有<code>自由移动</code>(支持斜向(比如 37° 方向移动)), <code>发射子弹</code>(速度差), <code>碰撞检测</code> 等功能的小游戏属于这个难度范畴</li>
+</ul>
+</li>
+</ul>
+<hr>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>特别的, 根据小组实力, <span style="color:gold">不建议第一次项目, 直接采用<code>面向对象</code>进行架构, 特别是涉及继承和多态的</span></p>
+</div>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="34-关于额外技术">3.4 关于额外技术<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#34-%E5%85%B3%E4%BA%8E%E9%A2%9D%E5%A4%96%E6%8A%80%E6%9C%AF" class="hash-link" aria-label="3.4 关于额外技术的直接链接" title="3.4 关于额外技术的直接链接">​</a></h3>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="341-swing">3.4.1 swing<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#341-swing" class="hash-link" aria-label="3.4.1 swing的直接链接" title="3.4.1 swing的直接链接">​</a></h4>
+<ul>
+<li>图形界面</li>
+</ul>
+<blockquote>
+<p>如果要学习<code>图形界面</code>, 必需在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>第二次会议</mtext></mrow><annotation encoding="application/x-tex">第二次会议</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord cjk_fallback">第二次会议</span></span></span></span> 时候定下来, 不能项目开始 (也就是可行性分析阶段) 才开始学习!</p>
+<p>并且<code>图形界面</code><span style="color:red">必需完成练习题, 才算是初步掌握</span>, 不然项目期间原地暴毙 (特别是是swing)</p>
+<p>注意: 如果使用<code>图形界面</code>, 那么小组至少要 <strong>一半人</strong>(上取整) 掌握(即完成练习题), 否则形式肥肠危险!</p>
+</blockquote>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="342-数据持久化-文件读写">3.4.2 数据持久化 (文件读写)<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#342-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96-%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99" class="hash-link" aria-label="3.4.2 数据持久化 (文件读写)的直接链接" title="3.4.2 数据持久化 (文件读写)的直接链接">​</a></h4>
+<ul>
+<li>
+<p>用处: 存档 / 登录注册 / 排行榜</p>
+</li>
+<li>
+<p>高级用处: 从文件中读取关卡数据...</p>
+</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="343-音乐播放">3.4.3 音乐播放<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#343-%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE" class="hash-link" aria-label="3.4.3 音乐播放的直接链接" title="3.4.3 音乐播放的直接链接">​</a></h4>
+<ul>
+<li>没什么好说的, 基本上是复制粘贴就ok</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="344-分文件分包编程">3.4.4 分文件、分包编程<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#344-%E5%88%86%E6%96%87%E4%BB%B6%E5%88%86%E5%8C%85%E7%BC%96%E7%A8%8B" class="hash-link" aria-label="3.4.4 分文件、分包编程的直接链接" title="3.4.4 分文件、分包编程的直接链接">​</a></h4>
+<ul>
+<li>分文件开发, 可以使得代码结构清晰</li>
+</ul>
+<blockquote>
+<p>(可以的话) 技术官可以学一下</p>
+</blockquote>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="35-代码规范">3.5 代码规范<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#35-%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83" class="hash-link" aria-label="3.5 代码规范的直接链接" title="3.5 代码规范的直接链接">​</a></h3>
+<p>注释:</p>
+<div>加载中...</div>
+<ul>
+<li><span class="tailwind"><a href="https://gitee.com/Heng_Xin_666/binomial/blob/v1.0.1/ProjectDocuments/05_ReadmeFile/GoodCode.md" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://gitee.com/Heng_Xin_666/binomial/blob/v1.0.1/ProjectDocuments/05_ReadmeFile/GoodCode.md<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="4-一些项目技巧">4. 一些项目技巧<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#4-%E4%B8%80%E4%BA%9B%E9%A1%B9%E7%9B%AE%E6%8A%80%E5%B7%A7" class="hash-link" aria-label="4. 一些项目技巧的直接链接" title="4. 一些项目技巧的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="41-游戏体验">4.1 游戏体验<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#41-%E6%B8%B8%E6%88%8F%E4%BD%93%E9%AA%8C" class="hash-link" aria-label="4.1 游戏体验的直接链接" title="4.1 游戏体验的直接链接">​</a></h3>
+<p>以下是一些简单的功能, 可以作为拓展, 但是答辩的时候希望大家都可以加上, 以丰富项目:</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>此处仅讨论 控制台 项目</p>
+</div>
+<ol>
+<li>
+<p>新手引导: 第一次进入游戏/第一关, 可以特化一些文字, 以教导玩家最基本的操作</p>
+<p>有的小组做一个拼图游戏, 但是却没有拼好的样子给玩家对照, 我不知道原图, 我怎么拼啊? (但是異議あり!)</p>
+</li>
+<li>
+<p>彩色字体</p>
+</li>
+</ol>
+<div class="language-C++ language-cpp codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-cpp codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token keyword" style="color:hsl(286, 60%, 67%)">int</span><span class="token plain"> </span><span class="token function" style="color:hsl(207, 82%, 66%)">main</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">{</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">     </span><span class="token function" style="color:hsl(207, 82%, 66%)">printf</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token string" style="color:hsl(95, 38%, 62%)">"Hello Color!\n"</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">     </span><span class="token keyword" style="color:hsl(286, 60%, 67%)">return</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">0</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">}</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">C++</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-text codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">int main() {</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">     printf("Hello Color!\n");</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">     return 0;</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">}</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<ol start="3">
+<li>
+<p>打字机特效</p>
+<p>对于一些剧情、背景交代的文字, 咱们可以一个字一个字的打印, 而不是一下输出一大坨文字.</p>
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:center">打字机特效</th></tr></thead><tbody><tr><td style="text-align:center"><img decoding="async" loading="lazy" src="https://camo.githubusercontent.com/e2d3ea9bfde3e572c14c8d4edb62a03863ab1c7fd9a01c4f7ba074634821a6f5/68747470733a2f2f726561646d652d747970696e672d7376672e64656d6f6c61622e636f6d3f666f6e743d4b6c65652b4f6e65267765696768743d3530302673697a653d32352670617573653d3130303026636f6c6f723d3939303039392663656e7465723d74727565267643656e7465723d747275652672616e646f6d3d747275652677696474683d343335266c696e65733d254533253831253933254533253831253933254533253831253842254533253832253839254535253835253838254533253831254146254534254238253830254536253936254239254539253830253941254538254131253843254533253831254130254546254243253831" alt="打字机"></td></tr></tbody></table>
+<p>对于图形界面, 咱们也可以这样 (类似于glgame) 或者 搞星球大战那种由远及近的也可以 (像是ppt特效..)</p>
+</li>
+<li>
+<p>音乐播放</p>
+<p>这个好像很复杂, 但是实际上就是复制粘贴的 (具体可以看图灵院文档)</p>
+</li>
+</ol>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="42-超简单的拓展">4.2 超简单的拓展<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#42-%E8%B6%85%E7%AE%80%E5%8D%95%E7%9A%84%E6%8B%93%E5%B1%95" class="hash-link" aria-label="4.2 超简单的拓展的直接链接" title="4.2 超简单的拓展的直接链接">​</a></h3>
+<p>很简单, 但是确实可以丰富游戏, 让我们看起来功能很多.</p>
+<ul>
+<li>
+<p>教程关卡</p>
+</li>
+<li>
+<p>皮肤切换</p>
+</li>
+<li>
+<p>开发人员介绍</p>
+</li>
+<li>
+<p>内购充值?!</p>
+</li>
+<li>
+<p>彩蛋?!</p>
+</li>
+<li>
+<p>成就系统?!</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="43-个人提供的java库">4.3 个人提供的Java库<a href="https://hengxin666.github.io/HXLoLi/blog/2025/05/09/01-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA%E5%B0%8F%E7%81%B6#43-%E4%B8%AA%E4%BA%BA%E6%8F%90%E4%BE%9B%E7%9A%84java%E5%BA%93" class="hash-link" aria-label="4.3 个人提供的Java库的直接链接" title="4.3 个人提供的Java库的直接链接">​</a></h3>
+<p>非阻塞输入!</p>
+<ul>
+<li>
+<p><span class="tailwind"><a href="https://github.com/HengXin666/HXCin" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/HengXin666/HXCin<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+</li>
+<li>
+<p>国内链接: <span class="tailwind"><a href="https://gitee.com/Heng_Xin_666/HXCin" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://gitee.com/Heng_Xin_666/HXCin<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+</li>
+</ul>
+</div></div>]]></content:encoded>
+            <author>282000500@qq.com (Heng_Xin)</author>
+            <category>分享</category>
+        </item>
         <item>
             <title><![CDATA[2025-05-07 小灶分享]]></title>
             <link>https://HengXin666.github.io/HXLoLi/blog/2025/05/07/001-小灶分享</link>
