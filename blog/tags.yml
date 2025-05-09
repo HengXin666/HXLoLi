@@ -22,3 +22,8 @@ vscode:
   label: '分享'
   permalink: '/分享'
   description: '一些个人见解的分享~'
+
+python:
+  label: 'python'
+  permalink: '/python'
+  description: '与 python 相关的博客文章'
