@@ -53,7 +53,7 @@ struct Any {
 template <class T, class... Args>
 consteval auto membersCount() { // consteval C++20 关键字, 要求该函数必须在编译期
     if constexpr (requires { // C++20 的 约束
-        T{ {Args{}}..., Any{} }; // 如果可以 以 Args + 1 个参数构造 T 则为 true
+        T{ Args{}..., Any{} }; // 如果可以 以 Args + 1 个参数构造 T 则为 true
     }/* == true*/) {
         return membersCount<T, Args..., Any>();
     } else {

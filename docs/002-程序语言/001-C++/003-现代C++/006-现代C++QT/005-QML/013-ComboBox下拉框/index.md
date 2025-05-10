@@ -105,6 +105,8 @@ ComboBox {
 ## 2. 自定义绘制
 
 ```qml
+pragma ComponentBehavior: Bound
+
 ComboBox {
     y: 200
     id: control
