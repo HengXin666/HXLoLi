@@ -27,3 +27,8 @@ python:
   label: 'python'
   permalink: '/python'
   description: '与 python 相关的博客文章'
+
+刷题:
+  label: '刷题'
+  permalink: '/刷题'
+  description: '刷题的一些记录, 大部分应该存放在笔记的; 但是如果是记录性质的, 那么会放到博客~'
