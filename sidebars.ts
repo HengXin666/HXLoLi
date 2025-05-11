@@ -5329,6 +5329,20 @@ module.exports = {
                             "type": "doc",
                             "id": "程序语言/C++/现代C++/现代C++QT/QML/focus相关与FocusScope/index"
                           }
+                        },
+                        {
+                          "type": "category",
+                          "label": "信号与槽",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "程序语言/C++/现代C++/现代C++QT/QML/信号与槽/index"
+                          }
                         }
                       ],
                       "customProps": {
