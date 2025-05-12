@@ -203,17 +203,29 @@ export default function DocSidebarItemCategory ({
                     style={{fontSize: '14px'}}
                     {...props}
                 >
-                    {iconSrc && <img src={iconSrc} style={{ width: tagsArr ? '20px' : '20px', marginRight: '5px' }} />}
                     <div
                         style={{
                             display: 'flex',
                             flexDirection: 'column'
                         }}
                     >
-                        <div style={{flex: '1'}}>
-                            {label}
+                        <div style={{
+                            flex: '1',
+                            display: 'flex',
+                            alignItems: 'center',
+                            flexDirection: 'row'
+                        }}>
+                            <div>
+                                {iconSrc && <img 
+                                    src={iconSrc} 
+                                    style={{ width: '24px', marginRight: '5px' }} 
+                                />}
+                            </div>
+                            <div>
+                                {label}
+                            </div>
                         </div>
-                        {tagsArr && 
+                        {tagsArr && tagsArr.length > 0 && 
                         <div style={{flex: '1'}}>
                             {tagsArr.map((tag, index) => (
                                 <span
