@@ -64,8 +64,8 @@ function scanDocs(dir, relativePath = '') {
                 collapsible: true,
                 items: result.items,
                 customProps: {
-                    icon: icon,
-                    tags: tags
+                    icon: icon ?? result.items.length ? defaultFolderIcon : defaultDocIcon,
+                    tags: tags ?? []
                 },
             };
 
