@@ -85,50 +85,12 @@ export default function Home (): ReactNode {
     return (
         <Layout
             title={`欢迎来到 ${siteConfig.title}`}
-            description="Description will go into a meta tag in <head />"
+            description="<head />"
         >
             <HomepageHeader />
             <main>
                 <div className="container">
-                    <div className="row justify-content-center">
-                        {/* 功能模块卡片 */}
-                        <FeatureCard
-                            title="Github Page 一键部署"
-                            description="简化部署流程，无需额外配置服务器，可直接将项目一键部署至 Github Pages，快速上线。"
-                            icon={<i className="fas fa-cogs" />}
-                            link="/docs/github-page"
-                        />
-                        <FeatureCard
-                            title="以编辑预览"
-                            description="支持网页端工作台编辑 .drawio.svg 文件，方便预览，而不是仅放大图片。"
-                            icon={<i className="fas fa-image" />}
-                            link="/docs/drawio"
-                        />
-                        <FeatureCard
-                            title="支持编辑代码块"
-                            description="内嵌VsCode同款编辑器，在网页端可以编辑代码，而不是仅复制。支持一键还原到原本文本。"
-                            icon={<i className="fas fa-tasks" />}
-                            link="/docs/code"
-                        />
-                        <FeatureCard
-                            title="高度自定义"
-                            description="基于 Docusaurus 定制开发，支持高度自定义，用户可以在此基础上根据需求进行二次开发，扩展功能和设计。"
-                            icon={<i className="fas fa-users" />}
-                            link="/docs/todo"
-                        />
-                        <FeatureCard
-                            title="版本管理"
-                            description="项目可直接推送至 Github 进行版本控制，独立的纯文件项目能够轻松实现 Git 版本管理，保证代码与文档的一致性和可追溯性。"
-                            icon={<i className="fas fa-cogs" />}
-                            link="/docs/git"
-                        />
-                        <FeatureCard
-                            title="响应式博客 / 移动端支持"
-                            description="Docusaurus 内置强大的响应式设计，自动适配不同尺寸的屏幕，无论是桌面还是移动端，用户都能获得流畅的浏览体验。"
-                            icon={<i className="fas fa-mobile-alt" />}
-                            link="/docs/responsive"
-                        />
-                    </div>
+                    <h2>这是我的个人博客~ 会把我学习的笔记、日常博客分享上来~ 喜欢的可以给项目点点Start~</h2>
                 </div>
             </main>
         </Layout >
