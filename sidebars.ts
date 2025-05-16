@@ -4994,6 +4994,56 @@ module.exports = {
                 },
                 {
                   "type": "category",
+                  "label": "现代模版",
+                  "collapsible": true,
+                  "items": [
+                    {
+                      "type": "category",
+                      "label": "CRTP-静态多态",
+                      "collapsible": true,
+                      "items": [],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      },
+                      "link": {
+                        "type": "doc",
+                        "id": "程序语言/C++/现代C++/现代模版/CRTP-静态多态/index"
+                      }
+                    }
+                  ],
+                  "customProps": {
+                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "tags": []
+                  }
+                },
+                {
+                  "type": "category",
+                  "label": "现代C++网络编程",
+                  "collapsible": true,
+                  "items": [
+                    {
+                      "type": "category",
+                      "label": "io丶uring",
+                      "collapsible": true,
+                      "items": [],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      },
+                      "link": {
+                        "type": "doc",
+                        "id": "程序语言/C++/现代C++/现代C++网络编程/io丶uring/index"
+                      }
+                    }
+                  ],
+                  "customProps": {
+                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "tags": []
+                  }
+                },
+                {
+                  "type": "category",
                   "label": "现代C++协程",
                   "collapsible": true,
                   "items": [
@@ -5023,31 +5073,6 @@ module.exports = {
                       "link": {
                         "type": "doc",
                         "id": "程序语言/C++/现代C++/现代C++协程/区分有栈、无栈协程/index"
-                      }
-                    }
-                  ],
-                  "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
-                    "tags": []
-                  }
-                },
-                {
-                  "type": "category",
-                  "label": "现代C++网络编程",
-                  "collapsible": true,
-                  "items": [
-                    {
-                      "type": "category",
-                      "label": "io丶uring",
-                      "collapsible": true,
-                      "items": [],
-                      "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
-                        "tags": []
-                      },
-                      "link": {
-                        "type": "doc",
-                        "id": "程序语言/C++/现代C++/现代C++网络编程/io丶uring/index"
                       }
                     }
                   ],
