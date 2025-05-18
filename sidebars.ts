@@ -5074,6 +5074,20 @@ module.exports = {
                         "type": "doc",
                         "id": "程序语言/C++/现代C++/现代C++协程/区分有栈、无栈协程/index"
                       }
+                    },
+                    {
+                      "type": "category",
+                      "label": "协程速记",
+                      "collapsible": true,
+                      "items": [],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      },
+                      "link": {
+                        "type": "doc",
+                        "id": "程序语言/C++/现代C++/现代C++协程/协程速记/index"
+                      }
                     }
                   ],
                   "customProps": {
