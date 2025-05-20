@@ -4,10 +4,33 @@
         <title>HXLoLi Blog</title>
         <link>https://HengXin666.github.io/HXLoLi/blog</link>
         <description>HXLoLi Blog</description>
-        <lastBuildDate>Fri, 16 May 2025 17:48:20 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 19 May 2025 23:59:59 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-Hans</language>
+        <item>
+            <title><![CDATA[复习快排并模版化]]></title>
+            <link>https://HengXin666.github.io/HXLoLi/blog/2025/05/19/01-复习快排并模版化</link>
+            <guid>https://HengXin666.github.io/HXLoLi/blog/2025/05/19/01-复习快排并模版化</guid>
+            <pubDate>Mon, 19 May 2025 23:59:59 GMT</pubDate>
+            <description><![CDATA[复习快排, 并且实现了支持谓词和仅前向自增迭代器的模版的快排]]></description>
+            <content:encoded><![CDATA[<p>复习快排, 并且实现了支持谓词和仅前向自增迭代器的模版的快排</p>
+<p>本节的原理: <span class="tailwind"><a href="https://hengxin666.github.io/HXLoLi/docs/%E8%AE%A1%E4%BD%AC%E5%B8%B8%E8%AD%98/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/%E4%BA%A4%E6%8D%A2%E6%8E%92%E5%BA%8F" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">交换排序 -&gt; 快速排序<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></p>
+<ul>
+<li>双边快排 (从 <code>arr[begin]</code> 作为基准)</li>
+</ul>
+<!-- -->
+<!-- -->
+<p>但是还是太复杂了, 有<code>if else</code>的不优雅, 没的, 又不顺眼 (<code>从r开始</code>)</p>
+<ul>
+<li>所以写了单边循环的:</li>
+</ul>
+<!-- -->
+<!-- -->
+]]></content:encoded>
+            <author>282000500@qq.com (Heng_Xin)</author>
+            <category>C++</category>
+        </item>
         <item>
             <title><![CDATA[今日趣闻：卖课的来啦]]></title>
             <link>https://HengXin666.github.io/HXLoLi/blog/2025/05/16/01-今日趣闻：卖课的来啦</link>
