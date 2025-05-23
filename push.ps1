@@ -12,9 +12,9 @@ if ($args.Length -eq 0) {
 } else {
     $commit_message = $args[0]
     Write-Host "commit: $commit_message"
+    npx ts-node .\scripts\count-md-words.ts
     git add .
     git commit -m "$commit_message"
     # 生成提交信息, 下次统计...
     git push origin
-    npx ts-node .\scripts\count-md-words.ts
 }
