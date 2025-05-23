@@ -6,7 +6,7 @@ import * as path from "path";
 interface RecordItem {
   commit: string;
   date: string;
-  wordCount: number; // 累计字符数
+  wordCount: number;
 }
 
 interface Cache {
@@ -17,10 +17,8 @@ interface Cache {
 const ROOT_DIR = path.resolve(__dirname, "..");
 const DATA_DIR = path.resolve(ROOT_DIR, "data");
 const CACHE_FILE = path.resolve(DATA_DIR, ".md_count_cache.json");
-// 输出 TSX 文件
-const OUTPUT_TS = path.resolve(ROOT_DIR, "./data/wordStats.ts");
+const OUTPUT_TS = path.resolve(DATA_DIR, "wordStats.ts");
 
-// 屏蔽的目录
 const EXCLUDE_PREFIXES: string[] = [
   "node_modules/",
   "scripts/",
@@ -42,7 +40,7 @@ function saveCache(cache: Cache): void {
 }
 
 function isExcluded(filePath: string): boolean {
-  return EXCLUDE_PREFIXES.some((prefix) => filePath.startsWith(prefix));
+  return EXCLUDE_PREFIXES.some(prefix => filePath.startsWith(prefix));
 }
 
 function countTextLength(text: string): number {
@@ -52,25 +50,23 @@ function countTextLength(text: string): number {
 function parseDiffAndCount(diff: string): number {
   let added = 0;
   let removed = 0;
-  const lines = diff.split("\n");
   let skip = false;
-  for (const line of lines) {
+  for (const line of diff.split("\n")) {
     if (line.startsWith("diff --git")) {
-      // determine file path
       const parts = line.split(" ");
       const file = parts[2].slice(2);
       skip = isExcluded(file);
       continue;
     }
     if (skip) continue;
-    if (
-      line.startsWith("+++") ||
-      line.startsWith("---") ||
-      line.startsWith("@@")
-    )
+    if (line.startsWith("+++") || line.startsWith("---") || line.startsWith("@@")) {
       continue;
-    if (line.startsWith("+")) added += countTextLength(line.slice(1));
-    else if (line.startsWith("-")) removed += countTextLength(line.slice(1));
+    }
+    if (line.startsWith("+")) {
+      added += countTextLength(line.slice(1));
+    } else if (line.startsWith("-")) {
+      removed += countTextLength(line.slice(1));
+    }
   }
   return added - removed;
 }
@@ -79,11 +75,10 @@ function getMdDiff(commit: string): string {
   try {
     const isWin = process.platform === "win32";
     const shell = isWin ? "powershell.exe" : "/bin/bash";
-    return execSync(`git diff --unified=0 ${commit}^ ${commit} -- "*.md"`, {
-      encoding: "utf8",
-      maxBuffer: 20 * 1024 * 1024,
-      shell,
-    });
+    const cmd = commit === "WORKING_DIR"
+      ? `git diff --unified=0 HEAD -- "*.md"`
+      : `git diff --unified=0 ${commit}^ ${commit} -- "*.md"`;
+    return execSync(cmd, { encoding: "utf8", maxBuffer: 20 * 1024 * 1024, shell });
   } catch {
     return "";
   }
@@ -95,13 +90,22 @@ function getAllCommits(): string[] {
 }
 
 function getCommitDate(hash: string): string {
-  return execSync(`git show -s --format=%cI ${hash}`, {
-    encoding: "utf-8",
-  }).trim();
+  return execSync(`git show -s --format=%cI ${hash}`, { encoding: "utf-8" }).trim();
+}
+
+function loadExistingStats(): RecordItem[] {
+  if (!fs.existsSync(OUTPUT_TS)) return [];
+  const content = fs.readFileSync(OUTPUT_TS, "utf-8");
+  const match = content.match(/export const stats: RecordItem\[\] = ([\s\S]*);/);
+  if (match && match[1]) {
+    const items = JSON.parse(match[1]) as RecordItem[];
+    return items.filter(item => item.commit !== "WORKING_DIR"); // 丢弃旧的工作区状态
+  }
+  return [];
 }
 
 function writeTS(data: RecordItem[]): void {
-  const header = `// 此文件由脚本自动生成，包含每次提交的 Markdown 累计字数统计
+  const header = `// 此文件由脚本自动生成，包含每次提交及当前工作区的 Markdown 累计字数统计
 export interface RecordItem { commit: string; date: string; wordCount: number; }
 
 export const stats: RecordItem[] = `;
@@ -113,13 +117,15 @@ export const stats: RecordItem[] = `;
 function main(): void {
   const cache = loadCache();
   const commits = getAllCommits();
-  const startIdx = cache.lastProcessed
-    ? commits.indexOf(cache.lastProcessed) + 1
-    : 0;
+  const existingData = loadExistingStats();
+  const existingCommits = new Set(existingData.map(item => item.commit));
+  const startIdx = cache.lastProcessed ? commits.indexOf(cache.lastProcessed) + 1 : 0;
+
   let lastCount = cache.lastWordCount || 0;
-  const result: RecordItem[] = [];
+  const result: RecordItem[] = [...existingData];
 
   for (const commit of commits.slice(startIdx)) {
+    if (existingCommits.has(commit)) continue;
     const date = getCommitDate(commit);
     const diff = getMdDiff(commit);
     const delta = parseDiffAndCount(diff);
@@ -130,13 +136,21 @@ function main(): void {
     cache.lastWordCount = lastCount;
   }
 
-  if (result.length) {
-    writeTS(result);
-    saveCache(cache);
-    console.log("脚本完成。");
-  } else {
-    console.log("无新提交需要处理。");
-  }
+  // 追加最新工作区状态
+  const workingDiff = getMdDiff("WORKING_DIR");
+  const workingDelta = parseDiffAndCount(workingDiff);
+  const workingTotal = Math.max(0, lastCount + workingDelta);
+  const workingDate = new Date().toISOString();
+  result.push({
+    commit: "WORKING_DIR",
+    date: workingDate,
+    wordCount: workingTotal,
+  });
+  console.log(`工作区: 累计 ${workingTotal} (相较 HEAD 差 ${workingDelta})`);
+
+  writeTS(result);
+  saveCache(cache);
+  console.log("脚本完成。");
 }
 
 main();
