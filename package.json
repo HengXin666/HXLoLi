@@ -49,13 +49,14 @@
     "react-icons": "^5.5.0",
     "react-monaco-editor": "^0.58.0",
     "react-tooltip": "^5.28.1",
+    "recharts": "^2.15.3",
     "rehype-katex": "^7.0.1",
     "remark": "^15.0.1",
     "remark-github-alerts": "^0.1.1",
     "remark-math": "^6.0.0",
+    "tailwindcss": "^3.4.12",
     "unist-util-visit": "^5.0.0",
-    "zustand": "^5.0.3",
-    "tailwindcss": "^3.4.12"
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.7.0",

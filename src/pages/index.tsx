@@ -5,6 +5,8 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import config from '@generated/docusaurus.config';
+import { stats } from '@site/data/wordStats';
+import WordCountChart from '../components/WordCountChart';
 
 import './index.css';
 
@@ -20,7 +22,7 @@ function FeatureCard ({
     return (
         <div className="animated-box">
             <Link
-                style={{textDecoration: 'none'}}
+                style={{ textDecoration: 'none' }}
             >
                 <div>{icon}</div>
                 <h3 style={{ color: '#E0E0D8' }}>{title}</h3>
@@ -50,31 +52,48 @@ function HomepageHeader () {
                 <p className="hero__subtitle" style={{ color: '#A9A9A9' }}>
                     {siteConfig.tagline}
                 </p>
-                <div>
+                <div className="image-container"
+                    style={{
+                        position: 'relative', // 让按钮以这个为定位参考
+                        maxWidth: '85%', // 控制最大宽度
+                        margin: '0 auto', // 水平居中
+                        borderRadius: '10px',
+                        overflow: 'hidden', // 防止按钮超出边界
+                        boxShadow: '0px 5px 10px 1px #6BE4F6',
+                    }}
+                >
+                    <img
+                        src={`${config.baseUrl}/img/main_menu_misaka.png`}
+                        alt="Image"
+                        style={{
+                            width: '100%',
+                            height: 'auto',
+                            display: 'block'
+                        }}
+                    />
                     <Link
                         className="button button--lg"
                         style={{
                             backgroundColor: '#FFDC33',
                             color: 'black',
                             borderRadius: '8px',
+                            position: 'absolute',
+                            bottom: '20px',           // 距离底部 20px
+                            left: '50%',              // 居中
+                            transform: 'translateX(-50%)', // 精确水平居中
+                            zIndex: 10
                         }}
                         to="/docs/关于"
                     >
                         快速开始
                     </Link>
                 </div>
+
             </div>
-            <div className="image-container" style={{ flex: 1 }}>
-                <img
-                    src={`${config.baseUrl}/img/main_menu_misaka.png`}
-                    alt="Image"
-                    style={{
-                        width: '100%',
-                        height: 'auto',
-                        borderRadius: '10px',
-                        boxShadow: '0px 5px 10px 1px #6BE4F6'
-                    }}
-                />
+            <div style={{ flex: 1 }}>
+                <div className="p-4 max-w-4xl mx-auto">
+                    <WordCountChart rawData={stats} />
+                </div>
             </div>
         </header>
     );
@@ -84,12 +103,12 @@ export default function Home (): ReactNode {
     const { siteConfig } = useDocusaurusContext();
     return (
         <Layout
-            title={`欢迎来到 ${siteConfig.title}`}
+            title={`いにゃさい ${siteConfig.title}`}
             description="<head />"
         >
             <HomepageHeader />
             <main>
-                <div className="container">
+                <div className="container" style={{textAlign: 'center'}}>
                     <h2>这是我的个人博客~ 会把我学习的笔记、日常博客分享上来~ 喜欢的可以给项目点点Start~</h2>
                 </div>
             </main>
