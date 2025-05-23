@@ -4,10 +4,37 @@
         <title>HXLoLi Blog</title>
         <link>https://HengXin666.github.io/HXLoLi/blog</link>
         <description>HXLoLi Blog</description>
-        <lastBuildDate>Mon, 19 May 2025 23:59:59 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 24 May 2025 00:36:36 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-Hans</language>
+        <item>
+            <title><![CDATA[起猛了, 居然有面试了]]></title>
+            <link>https://HengXin666.github.io/HXLoLi/blog/2025/05/24/01-有面试了</link>
+            <guid>https://HengXin666.github.io/HXLoLi/blog/2025/05/24/01-有面试了</guid>
+            <pubDate>Sat, 24 May 2025 00:36:36 GMT</pubDate>
+            <description><![CDATA[在牛客投了 20 来个简历, (有很多都是乱投的), 今天突然来个通过了!!!]]></description>
+            <content:encoded><![CDATA[<p>在牛客投了 20 来个简历, (有很多都是乱投的), 今天突然来个通过了!!!</p>
+<blockquote>
+<p>我没想到, 我最认为不靠谱的牛客, 居然是给我发第一个面试的...</p>
+</blockquote>
+<p>还是挺对口的!!!</p>
+<p>win/国产Linux 下 VS/QT 开发, 政府信息安全的项目, 好像很厉害</p>
+<p>了解到, 是 65% QT + 35% 界面, QT的话, 应该是比较简单吧, 也不知道企业是什么个形式的qwq</p>
+<p>发了代码, 给对面看, 然后就直接发面试了 (震惊!) 一起都太顺利了吧qwq</p>
+<p>但是是线下面试! 好害怕, 好紧张啊... 只感觉现在的自己只想着投, 但是都是以没有面为前提的, 略显迷茫qwq</p>
+<p>问了ddg, 分析了一些企业信息, 也不偏, 就是外景看的有点拉胯qwq... 和我印象的深圳完全不沾边qwq...</p>
+<p>不知道内饰如何? 不过附件有地铁站</p>
+<p>总之就是很紧张, 也不知道笔试考什么qwq 估计也不能问吧</p>
+<p>准备一个流畅的自我介绍, 然后带个笔电, 给面试官展示一下 HXLibs + QT * 2 + 笔记 + ... 吧?</p>
+<p>来回要投资上百元qwq 就当是积累经验了! 平常心! 不要慌! <del>不过也正合我意?!</del></p>
+<p>说实话, 过和不过都很迷茫, 但是现在不应该考虑这么多, 立足当下, 做好自己, 干就完了!!!</p>
+<blockquote>
+<p>ddg还说, 看看能不能约一下附件的, 到时候一起面了!</p>
+</blockquote>]]></content:encoded>
+            <author>282000500@qq.com (Heng_Xin)</author>
+            <category>日常</category>
+        </item>
         <item>
             <title><![CDATA[复习快排并模版化]]></title>
             <link>https://HengXin666.github.io/HXLoLi/blog/2025/05/19/01-复习快排并模版化</link>
