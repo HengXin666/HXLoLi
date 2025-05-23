@@ -1,4 +1,4 @@
-// 此文件由脚本自动生成，包含每次提交的 Markdown 累计字数统计
+// 此文件由脚本自动生成，包含每次提交及当前工作区的 Markdown 累计字数统计
 export interface RecordItem { commit: string; date: string; wordCount: number; }
 
 export const stats: RecordItem[] = [
@@ -181,5 +181,15 @@ export const stats: RecordItem[] = [
     "commit": "ab09935118d78302360ca0d87c25d271c23e15d6",
     "date": "2025-05-20T14:57:13+08:00",
     "wordCount": 3505561
+  },
+  {
+    "commit": "23cbacea4b682b1d93836475f39bddc4635f4a43",
+    "date": "2025-05-23T15:43:09+08:00",
+    "wordCount": 3505561
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-05-23T07:52:41.648Z",
+    "wordCount": 3505565
   }
 ];
