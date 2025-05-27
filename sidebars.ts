@@ -2278,6 +2278,20 @@ module.exports = {
                 "type": "doc",
                 "id": "计佬常識/计算机网络/一、计算机网络基础/index"
               }
+            },
+            {
+              "type": "category",
+              "label": "二、OSI七层网络参考模型",
+              "collapsible": true,
+              "items": [],
+              "customProps": {
+                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "tags": []
+              },
+              "link": {
+                "type": "doc",
+                "id": "计佬常識/计算机网络/二、OSI七层网络参考模型/index"
+              }
             }
           ],
           "customProps": {
