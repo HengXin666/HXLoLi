@@ -67,7 +67,7 @@
 >
 > LogTrick利用AND/OR/lcm/gcd的性质, 使得时间复杂度为 $O(n\log{n})$
 
-视频讲解可以看`周赛400 Q4`: [Q4-3171. 找到按位或最接近 K 的子数组](../../../002-力扣周赛霊解/001-周赛/001-第场周赛/028-Q丶找到按位或最接近K的子数组/index.md)
+视频讲解可以看`周赛400 Q4`: [Q4-3171. 找到按位或最接近 K 的子数组](../../../002-力扣周赛霊解/001-周赛/007-第400场周赛/004-Q4丶3171找到按位或最接近K的子数组/index.md)
 
 - 原地写法: [三种基于 logTrick 的方法：二分 / 三指针 / 维护个数（Python/Java/C++/Go）](https://leetcode.cn/problems/number-of-subarrays-with-and-value-of-k/solutions/2833497/jian-ji-xie-fa-o1-kong-jian-pythonjavacg-u7fv/)
 

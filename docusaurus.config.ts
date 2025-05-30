@@ -231,7 +231,19 @@ const config: Config = {
     mermaid: false,
     format: 'detect', // 自动根据文件扩展名选择格式 (而不是默认的mdx!)
   },
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: [
+    '@docusaurus/theme-mermaid',
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        // `hashed` 被推荐作为索引文件的长期缓存
+        hashed: true,
+        language: ["en", "zh"],
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+      },
+    ],
+  ],
 };
 
 export default config;
