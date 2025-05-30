@@ -6,6 +6,7 @@ export interface ProcessedData {
   total: number;
   delta: number;
   commit: string;
+  message: string;
   isIncrease: boolean;
 }
 
@@ -33,6 +34,7 @@ export function processWordCountData(items: RecordItem[]): ProcessedData[] {
       total: item.wordCount,
       delta: item.wordCount - prev,
       commit: item.commit,
+      message: item.message,
       isIncrease: item.wordCount - prev >= 0,
     };
   });

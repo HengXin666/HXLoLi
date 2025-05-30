@@ -183,6 +183,11 @@ export default function WordCountChart ({
                                 return [`${value.toLocaleString()} 字`, name];
                             if (name === '总量')
                                 return [`${value.toLocaleString()} 字`, name];
+                            if (name === '提交') {
+                                const msg = typeof value === 'string' ? value : String(value);
+                                // 最多显示 30 个字符
+                                return [`${msg.slice(0, 30)}${msg.length > 30 ? '…' : ''}`, name];
+                            }
                             return [value, name];
                         }}
                         labelFormatter={label => label}
@@ -194,6 +199,17 @@ export default function WordCountChart ({
                     />
 
                     <Legend verticalAlign="top" height={36} />
+
+                    {/* 提交信息 */}
+                    <Line
+                        yAxisId="right"
+                        dataKey="message"
+                        name="提交"
+                        hide={false}
+                        legendType="none"
+                        stroke="#00FF00"
+                        isAnimationActive={false}
+                    />
 
                     {/* 平滑增量曲线 */}
                     <Line

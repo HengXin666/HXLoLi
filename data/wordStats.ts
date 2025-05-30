@@ -1,220 +1,269 @@
-// 此文件由脚本自动生成，包含每次提交及当前工作区的 Markdown 累计字数统计
-export interface RecordItem { commit: string; date: string; wordCount: number; }
+// 此文件由脚本自动生成，包含每次提交及当前工作区的 Markdown 累计字数统计，包括提交信息
+export interface RecordItem { commit: string; date: string; wordCount: number; message: string; }
 
 export const stats: RecordItem[] = [
   {
     "commit": "f0891253f8dd2c5a87c0ce145c6690a0100c9767",
     "date": "2025-04-25T23:34:35+08:00",
-    "wordCount": 0
+    "wordCount": 0,
+    "message": "Initial commit"
   },
   {
     "commit": "01dcb68cdf605b3e13561294fdc6bf6fe276583e",
     "date": "2025-04-25T23:49:01+08:00",
-    "wordCount": 0
+    "wordCount": 0,
+    "message": "测试自动化部署"
   },
   {
     "commit": "45f08d1e2c8056bf09f36bc0bda237b5d9d95564",
     "date": "2025-04-26T00:03:19+08:00",
-    "wordCount": 0
+    "wordCount": 0,
+    "message": "修改了一些配置, 再次尝试自动化部署"
   },
   {
     "commit": "9c3f309992f2a89b01872afd26e40ccc212d0f07",
     "date": "2025-04-28T22:52:39+08:00",
-    "wordCount": 3410048
+    "wordCount": 3410048,
+    "message": "迁移了部分笔记, 还没有定义标签和标题"
   },
   {
     "commit": "9e2b666d9799122826d4a2c87cb8144f102390a8",
     "date": "2025-04-29T01:26:07+08:00",
-    "wordCount": 3412243
+    "wordCount": 3412243,
+    "message": "新增一篇关于修理网络崩溃的倒霉日记、和关于"
   },
   {
     "commit": "3ce1a78994a274feb5c48460f69aea588a7835f7",
     "date": "2025-04-30T00:01:09+08:00",
-    "wordCount": 3412711
+    "wordCount": 3412711,
+    "message": "新增あなた、本当に怠慢ですね博客一篇"
   },
   {
     "commit": "12fdafc8ff783b1033013527980a78cde5c9e9e1",
     "date": "2025-05-02T00:11:23+08:00",
-    "wordCount": 3412950
+    "wordCount": 3412950,
+    "message": "新增五一日志"
   },
   {
     "commit": "110bfac0406551c7113e29fdb7143f952e268dd8",
     "date": "2025-05-02T22:20:09+08:00",
-    "wordCount": 3417776
+    "wordCount": 3417776,
+    "message": "修复了一个文件路径问题 + qml Window的基本认识"
   },
   {
     "commit": "297ed8c07d18e108a408dd85f390c10a43f62250",
     "date": "2025-05-03T16:22:22+08:00",
-    "wordCount": 3421749
+    "wordCount": 3421749,
+    "message": "新增qml: Item与Rectangle篇"
   },
   {
     "commit": "48b7daeaa12b1233862f7d16c3d33febfe137767",
     "date": "2025-05-04T00:09:04+08:00",
-    "wordCount": 3427115
+    "wordCount": 3427115,
+    "message": "新增笔记: states与transitions-动画效果制作 和日记 * 1"
   },
   {
     "commit": "4d989af9bd7a4db9fb6873642ad611c436e76ec8",
     "date": "2025-05-04T16:57:46+08:00",
-    "wordCount": 3430646
+    "wordCount": 3430646,
+    "message": "新增qml Component与Loader 笔记"
   },
   {
     "commit": "617161f606580de3b6ec9c2dbf0ab5ea45b5c58a",
     "date": "2025-05-04T23:08:17+08:00",
-    "wordCount": 3435202
+    "wordCount": 3435202,
+    "message": "新增MouseArea qml笔记"
   },
   {
     "commit": "32775ca4f5a39f6a3ed74d2be0fa1cc111a09ab5",
     "date": "2025-05-05T00:37:17+08:00",
-    "wordCount": 3437309
+    "wordCount": 3437309,
+    "message": "新增qml Button笔记"
   },
   {
     "commit": "c75426239360b3326096cea17fe00fddaf75c82f",
     "date": "2025-05-05T16:59:38+08:00",
-    "wordCount": 3438516
+    "wordCount": 3438516,
+    "message": "新增qml Property的使用 笔记"
   },
   {
     "commit": "e9cb9845e33b1cc1e2e28f2e7387ee18bb1bdc63",
     "date": "2025-05-05T19:09:36+08:00",
-    "wordCount": 3442811
+    "wordCount": 3442811,
+    "message": "新增更多qml按钮的笔记"
   },
   {
     "commit": "f9d18fb5ca7120592249fa3a7f881419d993a9da",
     "date": "2025-05-06T00:25:19+08:00",
-    "wordCount": 3445255
+    "wordCount": 3445255,
+    "message": "新增qt-qml Text笔记"
   },
   {
     "commit": "fbba2b4f5c6b4c9a18415e3b445a03a102d8171a",
     "date": "2025-05-06T16:26:37+08:00",
-    "wordCount": 3443395
+    "wordCount": 3443395,
+    "message": "new: owari-niki | 修复多篇文章的链接问题"
   },
   {
     "commit": "f67f7888661a0d1a44f299fb29693ab2e2cf884d",
     "date": "2025-05-06T20:06:53+08:00",
-    "wordCount": 3446447
+    "wordCount": 3446447,
+    "message": "新增qml Popup的绘制与Overlay的使用 笔记"
   },
   {
     "commit": "cb23a6c230d9897624f3a30e27402d5bdc0b06f4",
     "date": "2025-05-07T23:42:39+08:00",
-    "wordCount": 3458052
+    "wordCount": 3458052,
+    "message": "新增250507小灶"
   },
   {
     "commit": "5593ffe23787b4dd9d1f61596f69b36986cd5b13",
     "date": "2025-05-08T15:32:34+08:00",
-    "wordCount": 3458395
+    "wordCount": 3458395,
+    "message": "新增qml-Repeater"
   },
   {
     "commit": "16da59cb678454e55f92d8118e07e4aceb9cbc9e",
     "date": "2025-05-08T23:41:01+08:00",
-    "wordCount": 3461822
+    "wordCount": 3461822,
+    "message": "新增qml ListView"
   },
   {
     "commit": "c0b94884788ae24d2e06a22a1f16e9820f82ee0b",
     "date": "2025-05-09T22:29:31+08:00",
-    "wordCount": 3469393
+    "wordCount": 3469393,
+    "message": "新增项目演示小灶笔记"
   },
   {
     "commit": "d34250370eddc341403a58cab3e81deea7058aba",
     "date": "2025-05-10T00:34:29+08:00",
-    "wordCount": 3471538
+    "wordCount": 3471538,
+    "message": "新增qml-下拉框的实验代码"
   },
   {
     "commit": "3b3f96750299841fbf5768933ed50a4da8c37a60",
     "date": "2025-05-10T18:00:24+08:00",
-    "wordCount": 3473364
+    "wordCount": 3473364,
+    "message": "新增力扣Hot100速记"
   },
   {
     "commit": "0e23ddb98072e3288eb15c672917a03db5e0af0d",
     "date": "2025-05-10T23:11:36+08:00",
-    "wordCount": 3474753
+    "wordCount": 3474753,
+    "message": "新增qml focus相关与FocusScope 的笔记"
   },
   {
     "commit": "8ed6eefb3aa6acaf73279e8a28b8ee08ce1c85da",
     "date": "2025-05-11T15:54:54+08:00",
-    "wordCount": 3476507
+    "wordCount": 3476507,
+    "message": "新增qml-信号与槽的内容"
   },
   {
     "commit": "cd487872037900e983da686fc74d5ec1f41687df",
     "date": "2025-05-12T01:49:02+08:00",
-    "wordCount": 3484494
+    "wordCount": 3484494,
+    "message": "新增qml QML与C++交互 笔记"
   },
   {
     "commit": "74dd56bf9cae8f22efb1d07b77557cd8b16c8585",
     "date": "2025-05-12T16:48:27+08:00",
-    "wordCount": 3486563
+    "wordCount": 3486563,
+    "message": "新增hot100: 滑动窗口、子串、普通数组的题"
   },
   {
     "commit": "81e8f6a7fc34597b4c052b6c88b2e68123fe091f",
     "date": "2025-05-12T18:10:28+08:00",
-    "wordCount": 3486563
+    "wordCount": 3486563,
+    "message": "修改了博客笔记的左侧边栏的布局, 添加了部分的tags标签"
   },
   {
     "commit": "2ca10e7f4b5047b666ab32c677e47a49adc7468e",
     "date": "2025-05-13T23:58:05+08:00",
-    "wordCount": 3487504
+    "wordCount": 3487504,
+    "message": "修改了主页, 新增赤石C++笔记"
   },
   {
     "commit": "600f49f6bd410a00d76c29625e8df74023167b04",
     "date": "2025-05-14T23:30:55+08:00",
-    "wordCount": 3488070
+    "wordCount": 3488070,
+    "message": "修改了主页, 新增赤石C++笔记"
   },
   {
     "commit": "60cb6c42ee8a48edeecd2c832b4410fff1117868",
     "date": "2025-05-15T23:13:54+08:00",
-    "wordCount": 3489792
+    "wordCount": 3489792,
+    "message": "新增一些网站快捷链接 | 第一次投实习经历.md 日记"
   },
   {
     "commit": "c2b008d29ab94fbc63abc267a309becd949366e0",
     "date": "2025-05-16T15:04:09+08:00",
-    "wordCount": 3491021
+    "wordCount": 3491021,
+    "message": "新增CRTP (奇异递归模版)笔记"
   },
   {
     "commit": "e004df5a1d431aae02c1f6babb6d2f1034b4d6cd",
     "date": "2025-05-17T01:18:37+08:00",
-    "wordCount": 3492402
+    "wordCount": 3492402,
+    "message": "新增今日趣闻 | 添加了一些参与链接"
   },
   {
     "commit": "0466de7dfe199bc72036df8db121f688edb93eb8",
     "date": "2025-05-19T00:06:32+08:00",
-    "wordCount": 3502755
+    "wordCount": 3502755,
+    "message": "新增cpp协程速记篇 (实际上就是复习)"
   },
   {
     "commit": "ab09935118d78302360ca0d87c25d271c23e15d6",
     "date": "2025-05-20T14:57:13+08:00",
-    "wordCount": 3505561
+    "wordCount": 3505561,
+    "message": "新增复习快排并模版化博客"
   },
   {
     "commit": "23cbacea4b682b1d93836475f39bddc4635f4a43",
     "date": "2025-05-23T15:43:09+08:00",
-    "wordCount": 3505561
+    "wordCount": 3505561,
+    "message": "新增统计字数工具, 并且在主页显示"
   },
   {
     "commit": "f984aecf35f5520b280d8f2adfa4e85e0dc8a373",
     "date": "2025-05-23T16:24:46+08:00",
-    "wordCount": 3507018
+    "wordCount": 3507018,
+    "message": "修改统计功能, 修复缓存失效, 并且可以统计当次提交 | 完善CRTP笔记, 新增c++23的写法"
   },
   {
     "commit": "b57b8a3ff3a7aedec4fb2c366f49e78cc695d1b9",
     "date": "2025-05-23T16:25:37+08:00",
-    "wordCount": 3507018
+    "wordCount": 3507018,
+    "message": "修改ps1脚本, 支持自动统计"
   },
   {
     "commit": "12907356130e43137c6c677630bf19c43dc6a410",
     "date": "2025-05-24T00:53:51+08:00",
-    "wordCount": 3507602
+    "wordCount": 3507602,
+    "message": "更新博客: 有面试了?!"
   },
   {
     "commit": "318781d4335e56fc2e46f2876a5c6eac20f35dae",
     "date": "2025-05-27T22:50:03+08:00",
-    "wordCount": 3508054
+    "wordCount": 3508054,
+    "message": "新增了OSI七层模型速记"
   },
   {
     "commit": "34cbf2872f4fde144f0817d3966802043e6d86c3",
     "date": "2025-05-29T23:33:24+08:00",
-    "wordCount": 3511025
+    "wordCount": 3511025,
+    "message": "更新了面试过啦博客(面经+1)"
+  },
+  {
+    "commit": "e7f1dfcb196aeb41b8ceb25c844e9c6dac99110f",
+    "date": "2025-05-30T16:42:22+08:00",
+    "wordCount": 3512842,
+    "message": "支持站内搜索 | 发现无法升级到 3.8, 因为有组件不兼容!(放弃升级了)"
   },
   {
     "commit": "WORKING_DIR",
-    "date": "2025-05-30T08:42:22.180Z",
-    "wordCount": 3512842
+    "date": "2025-05-30T09:45:11.485Z",
+    "wordCount": 3512842,
+    "message": "为主页的历史字数统计添加commit信息记录功能"
   }
 ];
