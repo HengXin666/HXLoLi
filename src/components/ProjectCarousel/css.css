@@ -1,0 +1,24 @@
+.project-carousel-container {
+  overflow: hidden;
+}
+
+.project-card {
+  transition: transform 0.3s ease;
+  border: #990099 1px solid;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.project-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.swiper-slide {
+  transition: opacity 0.5s ease;
+}
+
+.swiper-slide:hover {
+  opacity: 1 !important;
+}
