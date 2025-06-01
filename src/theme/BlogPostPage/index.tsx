@@ -18,6 +18,7 @@ import type { BlogSidebar } from '@docusaurus/plugin-content-blog';
 import config from '@generated/docusaurus.config';
 import HXGiscus from '@site/src/components/Giscus';
 import MDXA from '../MDXComponents/A';
+import BlogWithCats from '@site/src/components/BlogWithCats';
 
 function BlogPostPageContent ({
     sidebar,
@@ -47,7 +48,19 @@ function BlogPostPageContent ({
             }>
             <ContentVisibility metadata={metadata} />
 
-            <BlogPostItem>{children}</BlogPostItem>
+            <div style={{
+                position: 'relative',
+                marginLeft: '-300px',
+                width: '160%',
+            }}>
+                <BlogWithCats>
+                    <div style={{backgroundColor: '#1B1B1D', margin: 0, padding: '20px'}}>
+                        <BlogPostItem>
+                            {children}
+                        </BlogPostItem>
+                    </div>
+                </BlogWithCats>
+            </div>
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
                 请作者喝奶茶:

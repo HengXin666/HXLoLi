@@ -273,9 +273,15 @@ export const stats: RecordItem[] = [
     "message": "新增了主界面, 支持左右猫娘护法"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-01T18:00:39.857Z",
+    "commit": "fe405afa2d4b4f245560a34bd36d2eeeb0351e7b",
+    "date": "2025-06-02T02:00:40+08:00",
     "wordCount": 3512842,
     "message": "新增项目滚动栏在主页, 并且添加了部分项目"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-01T18:36:50.140Z",
+    "wordCount": 3512842,
+    "message": "为博客界面和归档界面都添加了猫娘护法"
   }
 ];

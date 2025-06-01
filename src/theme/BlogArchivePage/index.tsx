@@ -4,6 +4,7 @@ import Translate, { translate } from '@docusaurus/Translate';
 import { PageMetadata } from '@docusaurus/theme-common';
 import Layout from '@theme/Layout';
 import type { ArchiveBlogPost, Props } from '@theme/BlogArchivePage';
+import BlogWithCats from '@site/src/components/BlogWithCats';
 import { type Variants, motion } from 'framer-motion'; // 动画库
 import styles from './styles.module.css';
 
@@ -130,9 +131,11 @@ export default function BlogArchive ({ archive }: Props): ReactNode {
                         </p>
                     </div>
                 </header>
-                <div style={{ width: '75%', justifyContent: 'center', margin: '0 auto' }}>
-                    <main>{years.length > 0 && <YearsSection years={years} />}</main>
-                </div>
+                <BlogWithCats>
+                    <div style={{ width: '75%', justifyContent: 'center', margin: '0 auto' }}>
+                        {years.length > 0 && <YearsSection years={years} />}
+                    </div>
+                </BlogWithCats>
             </Layout>
         </>
     );
