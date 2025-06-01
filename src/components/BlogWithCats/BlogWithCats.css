@@ -1,0 +1,37 @@
+.blog-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.blog-content {
+    position: relative;
+    border-radius: 25px;
+    top: 0;
+    left: 250px; /* 避开左边猫娘 */
+    width: calc(100% - 490px); /* 避开左右两边猫娘 */
+    min-height: 600px;
+    height: auto;
+    padding: 20px;
+    background: #2b2b2b;
+    box-sizing: border-box;
+}
+
+.neko {
+    pointer-events: none;
+    /* debug */
+    /* border: 1px solid red; */
+    position: absolute;
+    top: 100px;
+    width: 180px;
+    z-index: 100;
+    width: 200px;
+}
+
+.neko-left {
+    left: 60px;
+}
+
+.neko-right {
+    right: 62px;
+}
