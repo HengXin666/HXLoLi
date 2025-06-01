@@ -8,7 +8,8 @@ import config from '@generated/docusaurus.config';
 import { stats } from '@site/data/wordStats';
 import WordCountChart from '../components/WordCountChart';
 import HXLink from '../components/HXLink';
-import BlogWithCats from '../components/BlogWithCats'
+import BlogWithCats from '../components/BlogWithCats';
+import ProjectCarousel from '../components/ProjectCarousel';
 
 import './index.css';
 
@@ -112,6 +113,9 @@ export default function Home (): ReactNode {
             <BlogWithCats>
                 <div className="container" style={{textAlign: 'center'}}>
                     <h2>这里是 <HXLink title='Heng_Xin' url='https://github.com/HengXin666' /> 的个人博客~, 喜欢的去<HXLink title='仓库' url='https://github.com/HengXin666/HXLoLi' />点一个 star</h2>
+                    <div style={{height: '400px'}}>
+                        <ProjectCarousel />
+                    </div>
                     <a
                         target="_blank"
                         rel="noopener noreferrer nofollow"
@@ -268,7 +272,6 @@ export default function Home (): ReactNode {
                         </a>
                     </p>
                 </div>
-
             </BlogWithCats>
         </Layout >
     );
