@@ -2,11 +2,28 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://HengXin666.github.io/HXLoLi/blog</id>
     <title>HXLoLi Blog</title>
-    <updated>2025-05-29T22:18:02.000Z</updated>
+    <updated>2025-06-02T02:41:46.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://HengXin666.github.io/HXLoLi/blog"/>
     <subtitle>HXLoLi Blog</subtitle>
     <icon>https://HengXin666.github.io/HXLoLi/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[博客更新日志]]></title>
+        <id>https://HengXin666.github.io/HXLoLi/blog/2025/06/02/01-博客更新日志</id>
+        <link href="https://HengXin666.github.io/HXLoLi/blog/2025/06/02/01-博客更新日志"/>
+        <updated>2025-06-02T02:41:46.000Z</updated>
+        <summary type="html"><![CDATA[今天有空, 完善一下博客, 支持了猫娘护法, 以及项目轮播图.]]></summary>
+        <content type="html"><![CDATA[<p>今天有空, 完善一下博客, 支持了猫娘护法, 以及项目轮播图.</p>
+<p>但是还是有点问题..., 突然发现, 它并不是支持白天模式的qwq...</p>
+<p>还得改一改, 再者, 明亮模式也太难看了吧, 怎么都不好看, 有点想把网页搞成仅<code>黑夜模式</code>了qwq</p>
+<p>现在简单兼容了一下白天模式了qwq... 治标不治本, 我一点都不想支持...</p>]]></content>
+        <author>
+            <name>Heng_Xin</name>
+            <email>282000500@qq.com</email>
+            <uri>https://github.com/HengXin666</uri>
+        </author>
+        <category label="日常" term="日常"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[面试过啦 (C++信安)]]></title>
         <id>https://HengXin666.github.io/HXLoLi/blog/2025/05/29/01-面试过啦</id>

@@ -4,10 +4,23 @@
         <title>HXLoLi Blog</title>
         <link>https://HengXin666.github.io/HXLoLi/blog</link>
         <description>HXLoLi Blog</description>
-        <lastBuildDate>Thu, 29 May 2025 22:18:02 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 02 Jun 2025 02:41:46 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-Hans</language>
+        <item>
+            <title><![CDATA[博客更新日志]]></title>
+            <link>https://HengXin666.github.io/HXLoLi/blog/2025/06/02/01-博客更新日志</link>
+            <guid>https://HengXin666.github.io/HXLoLi/blog/2025/06/02/01-博客更新日志</guid>
+            <pubDate>Mon, 02 Jun 2025 02:41:46 GMT</pubDate>
+            <description><![CDATA[今天有空, 完善一下博客, 支持了猫娘护法, 以及项目轮播图.]]></description>
+            <content:encoded><![CDATA[<p>今天有空, 完善一下博客, 支持了猫娘护法, 以及项目轮播图.</p>
+<p>但是还是有点问题..., 突然发现, 它并不是支持白天模式的qwq...</p>
+<p>还得改一改, 再者, 明亮模式也太难看了吧, 怎么都不好看, 有点想把网页搞成仅<code>黑夜模式</code>了qwq</p>
+<p>现在简单兼容了一下白天模式了qwq... 治标不治本, 我一点都不想支持...</p>]]></content:encoded>
+            <author>282000500@qq.com (Heng_Xin)</author>
+            <category>日常</category>
+        </item>
         <item>
             <title><![CDATA[面试过啦 (C++信安)]]></title>
             <link>https://HengXin666.github.io/HXLoLi/blog/2025/05/29/01-面试过啦</link>
