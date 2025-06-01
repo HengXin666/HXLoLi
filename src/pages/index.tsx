@@ -111,7 +111,7 @@ export default function Home (): ReactNode {
         >
             <HomepageHeader />
             <BlogWithCats>
-                <div className="container" style={{textAlign: 'center'}}>
+                <div className="container" style={{textAlign: 'center', padding: '20px'}}>
                     <h2>这里是 <HXLink title='Heng_Xin' url='https://github.com/HengXin666' /> 的个人博客~, 喜欢的去<HXLink title='仓库' url='https://github.com/HengXin666/HXLoLi' />点一个 star</h2>
                     <div style={{height: '400px'}}>
                         <ProjectCarousel />
