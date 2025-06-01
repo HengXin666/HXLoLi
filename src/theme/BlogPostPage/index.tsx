@@ -53,12 +53,10 @@ function BlogPostPageContent ({
                 marginLeft: '-300px',
                 width: '160%',
             }}>
-                <BlogWithCats>
-                    <div style={{backgroundColor: '#1B1B1D', margin: 0, padding: '20px'}}>
-                        <BlogPostItem>
-                            {children}
-                        </BlogPostItem>
-                    </div>
+                <BlogWithCats style={{backgroundColor: 'var(--ifm-background-color)', margin: 0, padding: '20px'}}>
+                    <BlogPostItem>
+                        {children}
+                    </BlogPostItem>
                 </BlogWithCats>
             </div>
 

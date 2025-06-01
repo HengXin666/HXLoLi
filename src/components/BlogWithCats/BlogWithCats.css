@@ -12,7 +12,7 @@
     width: calc(100% - 490px); /* 避开左右两边猫娘 */
     min-height: 600px;
     height: auto;
-    background: #2b2b2b;
+    background: var(--ifm-background-color);
     box-sizing: border-box;
     margin-bottom: 20px;
     z-index: 10;

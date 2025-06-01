@@ -279,9 +279,15 @@ export const stats: RecordItem[] = [
     "message": "新增项目滚动栏在主页, 并且添加了部分项目"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-01T18:36:50.140Z",
+    "commit": "bd50b173f5ed6e830385561480412aedba9c935f",
+    "date": "2025-06-02T02:36:50+08:00",
     "wordCount": 3512842,
     "message": "为博客界面和归档界面都添加了猫娘护法"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-01T18:56:06.142Z",
+    "wordCount": 3513067,
+    "message": "新增更新日志博客 | 修复猫娘护法不支持白天模式的问题, 另外优化了其使用方式"
   }
 ];

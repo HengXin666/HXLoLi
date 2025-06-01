@@ -110,10 +110,12 @@ export default function Home (): ReactNode {
             description="<head />"
         >
             <HomepageHeader />
-            <BlogWithCats>
-                <div className="container" style={{textAlign: 'center', padding: '20px'}}>
-                    <h2>这里是 <HXLink title='Heng_Xin' url='https://github.com/HengXin666' /> 的个人博客~, 喜欢的去<HXLink title='仓库' url='https://github.com/HengXin666/HXLoLi' />点一个 star</h2>
-                    <div style={{height: '400px'}}>
+            <BlogWithCats style={{textAlign: 'center', padding: '20px', backgroundColor: '#2b2b2b'}}>
+                <div className="container">
+                    <h2 style={{color: '#E3E3E3'}}>
+                        这里是 <HXLink title='Heng_Xin' url='https://github.com/HengXin666' /> 的个人博客~, 喜欢的去<HXLink title='仓库' url='https://github.com/HengXin666/HXLoLi' />点一个 star
+                    </h2>
+                    <div style={{height: '320px'}}>
                         <ProjectCarousel />
                     </div>
                     <a
