@@ -113,6 +113,11 @@ const config: Config = {
   ],
 
   themeConfig: {
+    colorMode: {
+      defaultMode: 'dark',              // 默认黑夜模式
+      disableSwitch: true,              // 禁用模式切换按钮
+      respectPrefersColorScheme: false, // 不根据用户操作系统的偏好切换
+    },
     // 评论设置
     giscus: {
       // 此处获取配置: https://giscus.app/zh-CN
