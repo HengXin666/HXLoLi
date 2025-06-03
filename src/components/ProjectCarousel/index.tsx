@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { projects } from '@site/data/projectData';
+import { projects, Tags } from '@site/data/projectData';
 
 import './css.css';
 import HXLink from '../HXLink';
@@ -75,14 +75,14 @@ const ProjectCarousel: React.FC = () => {
                                     loading="lazy"
                                 />
                             )}
-                            <div style={{ padding: 16 }}>
+                            <div style={{ padding: 6 }}>
                                 <HXLink
                                     title={project.title}
                                     url={project.url}
                                 />
                                 <p
                                     style={{
-                                        fontSize: 12,
+                                        fontSize: 11,
                                         WebkitLineClamp: 5, // 支持的最多行数
                                         WebkitBoxOrient: 'vertical',
                                         display: '-webkit-box',
@@ -90,11 +90,54 @@ const ProjectCarousel: React.FC = () => {
                                         overflow: 'hidden',
                                         textOverflow: 'ellipsis',
                                         textAlign: 'left',
+                                        margin: 0,
                                     }}
-                                    title={project.description}
                                 >
                                     {project.description}
                                 </p>
+                            </div>
+                            {/* 标签 */}
+                            <div style={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: "8px",
+                                marginTop: "2px",
+                                marginLeft: "5px",
+                                position: "absolute",
+                                bottom: "5px",
+                            }}>
+                                {project.tags.map((tag, idx) => {
+                                    const tagData = Tags[tag];
+                                    return (
+                                        <div
+                                            key={idx}
+                                            style={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                padding: "2px 8px",
+                                                borderRadius: "999px",
+                                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                                fontSize: "8px",
+                                                color: "white",
+                                                cursor: "default",
+                                                border: "rgba(255, 255, 255, 0.5) 1px solid"
+                                            }}
+                                            title={tagData.description} // @todo 以后可以优化一下弹窗
+                                        >
+                                            <span
+                                                style={{
+                                                    display: "inline-block",
+                                                    width: "6px",
+                                                    height: "6px",
+                                                    borderRadius: "50%",
+                                                    backgroundColor: tagData.color,
+                                                    marginRight: "6px",
+                                                }}
+                                            />
+                                            {tagData.label}
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </SwiperSlide>

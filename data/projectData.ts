@@ -5,7 +5,7 @@ export const projects: Project[] = [
     preview: "img/project/hxlibs.png",
     website: "",
     url: "https://github.com/HengXin666/HXLibs",
-    tags: ["openSource", "design"],
+    tags: ["favorite", "openSource", "design"],
     type: "lib",
   },
   {
@@ -14,7 +14,7 @@ export const projects: Project[] = [
     preview: "img/project/hxloli.png",
     website: "",
     url: "https://github.com/HengXin666/HXLoLi",
-    tags: ["openSource", "design"],
+    tags: ["favorite", "openSource"],
     type: "web",
   },
   {
@@ -23,7 +23,7 @@ export const projects: Project[] = [
     preview: "img/project/bilibili-danmaku.png",
     website: "",
     url: "https://github.com/HengXin666/BiLiBiLi_DanMu_Crawling",
-    tags: ["openSource", "design"],
+    tags: ["openSource", "tools"],
     type: "app",
   },
   {
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     preview: "img/project/hx-anime.png",
     website: "",
     url: "https://github.com/HengXin666/HX-ANiMe",
-    tags: ["openSource", "design"],
+    tags: ["openSource", "large"],
     type: "web",
   },
   {
@@ -41,7 +41,7 @@ export const projects: Project[] = [
     preview: "img/project/hxtest.png",
     website: "",
     url: "https://github.com/HengXin666/HXTest",
-    tags: ["openSource", "design"],
+    tags: ["openSource", "personal"],
     type: "personal",
   },
 ];
@@ -58,7 +58,8 @@ export type TagType =
   | "product"
   | "design"
   | "large"
-  | "personal";
+  | "personal"
+  | "tools";
 
 export type ProjectType =
   | "web"
@@ -92,7 +93,7 @@ export type Project = {
 export const Tags: Record<TagType, Tag> = {
   favorite: {
     label: "喜爱",
-    description: "我最喜欢的网站, 一定要去看看!",
+    description: "我最喜欢的项目, 一定要去看看!",
     color: "#e9669e",
   },
   openSource: {
@@ -107,12 +108,12 @@ export const Tags: Record<TagType, Tag> = {
   },
   design: {
     label: "设计",
-    description: "设计漂亮的网站!",
+    description: "有着不错的设计!",
     color: "#a44fb7",
   },
   large: {
     label: "大型",
-    description: "大型项目，原多于平均数的页面",
+    description: "大型项目",
     color: "#8c2f00",
   },
   personal: {
@@ -120,6 +121,11 @@ export const Tags: Record<TagType, Tag> = {
     description: "个人项目",
     color: "#12affa",
   },
+  tools: {
+    label: "工具",
+    description: "个人编写的小工具",
+    color: "#45814A"
+  }
 };
 
 export const TagList = Object.keys(Tags) as TagType[];
