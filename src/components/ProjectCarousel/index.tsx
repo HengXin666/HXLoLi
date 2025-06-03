@@ -117,10 +117,10 @@ const ProjectCarousel: React.FC = () => {
                                                 padding: "2px 8px",
                                                 borderRadius: "999px",
                                                 backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                                fontSize: "8px",
+                                                fontSize: "9px",
                                                 color: "white",
                                                 cursor: "default",
-                                                border: "rgba(255, 255, 255, 0.5) 1px solid"
+                                                border: "rgba(18, 234, 223, 0.8) 1px solid"
                                             }}
                                             title={tagData.description} // @todo 以后可以优化一下弹窗
                                         >

@@ -11787,6 +11787,20 @@ module.exports = {
                 "type": "doc",
                 "id": "DevOps与版本控制/Git分布式版本管理/Git常用命令/index"
               }
+            },
+            {
+              "type": "category",
+              "label": "如何提PR",
+              "collapsible": true,
+              "items": [],
+              "customProps": {
+                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "tags": []
+              },
+              "link": {
+                "type": "doc",
+                "id": "DevOps与版本控制/Git分布式版本管理/如何提PR/index"
+              }
             }
           ],
           "customProps": {
