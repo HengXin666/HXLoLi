@@ -291,9 +291,15 @@ export const stats: RecordItem[] = [
     "message": "新增更新日志博客 | 修复猫娘护法不支持白天模式的问题, 另外优化了其使用方式"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-02T09:15:55.877Z",
+    "commit": "7763fd466b59f6875cada9cfbd2b5fdbb6e60daf",
+    "date": "2025-06-02T17:15:56+08:00",
     "wordCount": 3513310,
     "message": "设置为仅黑夜模式! 修复了归档的部分内容错位的bug"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-03T09:26:35.242Z",
+    "wordCount": 3513310,
+    "message": "新增支持显示项目标签"
   }
 ];
