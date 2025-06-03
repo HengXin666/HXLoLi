@@ -297,9 +297,15 @@ export const stats: RecordItem[] = [
     "message": "设置为仅黑夜模式! 修复了归档的部分内容错位的bug"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-03T09:26:35.242Z",
+    "commit": "82bf94d7113a80832ffd29137cb640ff082dc95a",
+    "date": "2025-06-03T17:26:35+08:00",
     "wordCount": 3513310,
     "message": "新增支持显示项目标签"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-03T12:45:22.655Z",
+    "wordCount": 3515275,
+    "message": "新增 如何提PR 文章; 修改了一些配置, 如img图片默认带10px的圆角, 等"
   }
 ];

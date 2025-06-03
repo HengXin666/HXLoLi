@@ -160,12 +160,11 @@ const config: Config = {
               to: "/blog/archive",
               label: "归档",
             },
+            {
+              href: "https://github.com/HengXin666/HXLoLi", // 项目的 GitHub 地址
+              label: "GitHub",
+            },
           ]
-        },
-        {
-          href: "https://github.com/HengXin666/HXLoLi", // 项目的 GitHub 地址
-          label: "GitHub",
-          position: "right",
         },
       ],
     },
