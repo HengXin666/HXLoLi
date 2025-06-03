@@ -18,7 +18,7 @@ PR (Pull Request), 即 `拉取请求`.
 
 ## 二、如何提PR
 
-这里我们以 [https://github.com/firstcontributions/first-contributions](first-contributions) 项目为例子, 介绍一下, 一个标准的提PR的流程~ ~~(当然, 他们的自述文档就有说明了, 这里也是记录自己的实操吧~)~~
+这里我们以 [first-contributions](https://github.com/firstcontributions/first-contributions) 项目为例子, 介绍一下, 一个标准的提PR的流程~ ~~(当然, 他们的自述文档就有说明了, 这里也是记录自己的实操吧~)~~
 
 ### 2.0 提 Issues
 
