@@ -5435,6 +5435,34 @@ module.exports = {
                 },
                 {
                   "type": "category",
+                  "label": "现代OpenGL",
+                  "collapsible": true,
+                  "items": [
+                    {
+                      "type": "category",
+                      "label": "初识OpenGL",
+                      "collapsible": true,
+                      "items": [],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      },
+                      "link": {
+                        "type": "doc",
+                        "id": "程序语言/C++/现代C++/现代OpenGL/初识OpenGL/index"
+                      }
+                    }
+                  ],
+                  "customProps": {
+                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "tags": [
+                      "图形学",
+                      "渲染"
+                    ]
+                  }
+                },
+                {
+                  "type": "category",
                   "label": "源码阅读",
                   "collapsible": true,
                   "items": [
@@ -5475,31 +5503,6 @@ module.exports = {
                       "customProps": {
                         "icon": "/HXLoLi/default-icons/default_folder.svg",
                         "tags": []
-                      }
-                    }
-                  ],
-                  "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
-                    "tags": []
-                  }
-                },
-                {
-                  "type": "category",
-                  "label": "现代OpenGL",
-                  "collapsible": true,
-                  "items": [
-                    {
-                      "type": "category",
-                      "label": "初识OpenGL",
-                      "collapsible": true,
-                      "items": [],
-                      "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
-                        "tags": []
-                      },
-                      "link": {
-                        "type": "doc",
-                        "id": "程序语言/C++/现代C++/现代OpenGL/初识OpenGL/index"
                       }
                     }
                   ],

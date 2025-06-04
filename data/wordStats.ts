@@ -315,9 +315,15 @@ export const stats: RecordItem[] = [
     "message": "修复了链接错误 (写反了qwq)"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-04T07:42:39.467Z",
+    "commit": "513f2725b3824cc5988f11fac5d9bfdc95eff3b3",
+    "date": "2025-06-04T15:42:39+08:00",
     "wordCount": 3515473,
     "message": "为自述文档添加图片和本地使用教程, 支持了Linux下使用的脚本, 新增OpenGL教程笔记(新建文件夹)"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-04T16:17:23.635Z",
+    "wordCount": 3521171,
+    "message": "新增 学习图形学从 OpenGL 学起 笔记, 更新完第一章(前言 + 什么是渲染)"
   }
 ];

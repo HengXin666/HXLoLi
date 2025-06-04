@@ -51,3 +51,11 @@
 - [C++ 去优化 | C++ Insights.io](https://cppinsights.io/)
 
 - [C++ 转汇编 | compiler-explorer](https://compiler-explorer.com/) (各个编译器、各个版本、各个平台都有)
+
+- [C++ 性能测试 | quick-bench](https://quick-bench.com/)
+
+## 三、Linux
+
+- [Arch Linux Wiki](https://wiki.archlinuxcn.org/zh-sg/%E9%A6%96%E9%A1%B5)
+
+- [Arch Linux 简明指南](https://arch.icekylin.online/)
