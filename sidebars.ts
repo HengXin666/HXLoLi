@@ -5485,6 +5485,31 @@ module.exports = {
                 },
                 {
                   "type": "category",
+                  "label": "现代OpenGL",
+                  "collapsible": true,
+                  "items": [
+                    {
+                      "type": "category",
+                      "label": "初识OpenGL",
+                      "collapsible": true,
+                      "items": [],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      },
+                      "link": {
+                        "type": "doc",
+                        "id": "程序语言/C++/现代C++/现代OpenGL/初识OpenGL/index"
+                      }
+                    }
+                  ],
+                  "customProps": {
+                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "tags": []
+                  }
+                },
+                {
+                  "type": "category",
                   "label": "环境搭建",
                   "collapsible": true,
                   "items": [

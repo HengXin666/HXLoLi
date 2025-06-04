@@ -10,6 +10,8 @@
 
 这个是 Heng_Xin 的个人博客. 喜欢的可以点点 star ⭐~
 
+![](./static/img/project/hxloli.png)
+
 ## 二、联系我们
 
 如果您有任何问题或建议, 欢迎通过 [Issues](https://github.com/HengXin666/HXLoLi/issues) 反馈.
@@ -47,3 +49,15 @@
 | **npm** | 10.7.0 (本地环境) | [npm](https://www.npmjs.com/) |
 | **React** | ^19.1.0 | [React](https://react.dev/) |
 | **TypeScript** | ~5.6.2 | [TypeScript](https://www.typescriptlang.org/) |
+
+## 五、本地使用
+
+如果你需要在本地运行, 需要:
+
+1. `npm i` 安装依赖
+
+2. `./run.sh` (Linux) 或者 `.\run` (win)
+
+3. 打开 http://localhost:3000/HXLoLi/
+
+如果需要推送, 请使用 `./push.sh "msg"` (Linux) 或者 `.\push "msg"` (win)

@@ -303,9 +303,21 @@ export const stats: RecordItem[] = [
     "message": "新增支持显示项目标签"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-03T12:45:22.655Z",
+    "commit": "6664a90b76153177b0e7c2ae8dd56650f8993373",
+    "date": "2025-06-03T20:45:23+08:00",
     "wordCount": 3515275,
     "message": "新增 如何提PR 文章; 修改了一些配置, 如img图片默认带10px的圆角, 等"
+  },
+  {
+    "commit": "853be66e5bae004b996ade14a411d6de6cf53a4c",
+    "date": "2025-06-03T23:01:43+08:00",
+    "wordCount": 3515275,
+    "message": "修复了链接错误 (写反了qwq)"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-04T07:42:39.467Z",
+    "wordCount": 3515473,
+    "message": "为自述文档添加图片和本地使用教程, 支持了Linux下使用的脚本, 新增OpenGL教程笔记(新建文件夹)"
   }
 ];
