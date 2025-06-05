@@ -1,7 +1,10 @@
 {
     "cSpell.words": [
         "DLSS",
+        "glfw",
+        "GLSL",
         "GPGPU",
-        "purecpp"
+        "purecpp",
+        "RAII"
     ]
 }
