@@ -36,3 +36,16 @@
 .neko-right {
     right: 62px;
 }
+
+/* 响应式: 小屏幕 */
+@media (max-width: 1000px) {
+    .blog-content {
+        left: 320px; /* 取消偏移 */
+        width: calc(100% - 320px); /* 占满整个宽度 */
+        margin-left: 0; /* 避免左侧间距 */
+    }
+
+    .neko-left, .neko-right {
+        display: none; /* 隐藏猫娘图片 */
+    }
+}
