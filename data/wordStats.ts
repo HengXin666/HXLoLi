@@ -327,9 +327,15 @@ export const stats: RecordItem[] = [
     "message": "新增 学习图形学从 OpenGL 学起 笔记, 更新完第一章(前言 + 什么是渲染)"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-05T16:22:06.432Z",
+    "commit": "e016d2980c936414e234066ec149f6a630a72830",
+    "date": "2025-06-06T00:22:06+08:00",
     "wordCount": 3538174,
     "message": "新增opengl的初始化api笔记"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-05T16:40:50.472Z",
+    "wordCount": 3538174,
+    "message": "支持了一下猫娘护法的响应式布局, 现在手机上应该能看了qwq"
   }
 ];
