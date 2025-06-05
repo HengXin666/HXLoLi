@@ -321,9 +321,15 @@ export const stats: RecordItem[] = [
     "message": "为自述文档添加图片和本地使用教程, 支持了Linux下使用的脚本, 新增OpenGL教程笔记(新建文件夹)"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-04T16:17:23.635Z",
+    "commit": "2096073f1e66f9bcc5d73be86d94fb66042a14ab",
+    "date": "2025-06-05T00:17:23+08:00",
     "wordCount": 3521171,
     "message": "新增 学习图形学从 OpenGL 学起 笔记, 更新完第一章(前言 + 什么是渲染)"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-05T16:22:06.432Z",
+    "wordCount": 3538174,
+    "message": "新增opengl的初始化api笔记"
   }
 ];
