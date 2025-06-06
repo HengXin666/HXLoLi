@@ -333,9 +333,15 @@ export const stats: RecordItem[] = [
     "message": "新增opengl的初始化api笔记"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-05T16:40:50.472Z",
+    "commit": "a8471020289566070ff759fd4b6e5b71b13a9753",
+    "date": "2025-06-06T00:40:50+08:00",
     "wordCount": 3538174,
     "message": "支持了一下猫娘护法的响应式布局, 现在手机上应该能看了qwq"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-06T11:46:31.887Z",
+    "wordCount": 3551599,
+    "message": "新增openGL课程第一集(已完成课后作业)"
   }
 ];
