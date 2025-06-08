@@ -5008,7 +5008,7 @@ module.exports = {
                 },
                 {
                   "type": "category",
-                  "label": "现代模版",
+                  "label": "现代C++元模版",
                   "collapsible": true,
                   "items": [
                     {
@@ -5022,7 +5022,21 @@ module.exports = {
                       },
                       "link": {
                         "type": "doc",
-                        "id": "程序语言/C++/现代C++/现代模版/CRTP-静态多态/index"
+                        "id": "程序语言/C++/现代C++/现代C++元模版/CRTP-静态多态/index"
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "类型萃取",
+                      "collapsible": true,
+                      "items": [],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      },
+                      "link": {
+                        "type": "doc",
+                        "id": "程序语言/C++/现代C++/现代C++元模版/类型萃取/index"
                       }
                     }
                   ],

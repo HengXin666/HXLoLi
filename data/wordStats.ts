@@ -339,9 +339,15 @@ export const stats: RecordItem[] = [
     "message": "支持了一下猫娘护法的响应式布局, 现在手机上应该能看了qwq"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-06T11:46:31.887Z",
+    "commit": "cfc1cadbf1d8b624756498b8d968b088762fd2f8",
+    "date": "2025-06-06T19:46:31+08:00",
     "wordCount": 3551599,
     "message": "新增openGL课程第一集(已完成课后作业)"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-08T10:21:19.012Z",
+    "wordCount": 3553348,
+    "message": "新增C++元模板-类型萃取笔记"
   }
 ];
