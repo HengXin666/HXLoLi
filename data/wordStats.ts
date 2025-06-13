@@ -345,9 +345,15 @@ export const stats: RecordItem[] = [
     "message": "新增openGL课程第一集(已完成课后作业)"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-08T10:21:19.012Z",
+    "commit": "98aa6625ed6a737d22dd35c664c99b9278bc9e57",
+    "date": "2025-06-08T18:21:19+08:00",
     "wordCount": 3553348,
     "message": "新增C++元模板-类型萃取笔记"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-13T07:45:14.860Z",
+    "wordCount": 3555461,
+    "message": "新增逆元、组合数[算法]笔记"
   }
 ];
