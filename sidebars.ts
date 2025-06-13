@@ -1571,7 +1571,7 @@ module.exports = {
                   "items": [
                     {
                       "type": "category",
-                      "label": "质数丶",
+                      "label": "质数",
                       "collapsible": true,
                       "items": [],
                       "customProps": {
@@ -1580,7 +1580,7 @@ module.exports = {
                       },
                       "link": {
                         "type": "doc",
-                        "id": "计佬常識/数据结构与算法/【板子】算法模版/数学/质数丶/index"
+                        "id": "计佬常識/数据结构与算法/【板子】算法模版/数学/质数/index"
                       }
                     },
                     {
@@ -1599,7 +1599,7 @@ module.exports = {
                     },
                     {
                       "type": "category",
-                      "label": "直线丶解析几何",
+                      "label": "【解析几何】直线",
                       "collapsible": true,
                       "items": [],
                       "customProps": {
@@ -1608,7 +1608,21 @@ module.exports = {
                       },
                       "link": {
                         "type": "doc",
-                        "id": "计佬常識/数据结构与算法/【板子】算法模版/数学/直线丶解析几何/index"
+                        "id": "计佬常識/数据结构与算法/【板子】算法模版/数学/【解析几何】直线/index"
+                      }
+                    },
+                    {
+                      "type": "category",
+                      "label": "【模运算】除法、组合数",
+                      "collapsible": true,
+                      "items": [],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      },
+                      "link": {
+                        "type": "doc",
+                        "id": "计佬常識/数据结构与算法/【板子】算法模版/数学/【模运算】除法、组合数/index"
                       }
                     }
                   ],
