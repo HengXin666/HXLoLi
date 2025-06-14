@@ -351,9 +351,15 @@ export const stats: RecordItem[] = [
     "message": "新增C++元模板-类型萃取笔记"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-13T07:45:14.860Z",
+    "commit": "9f16787b4ab9779a97b20887ad34dbdc8a4fb3b5",
+    "date": "2025-06-13T15:45:15+08:00",
     "wordCount": 3555461,
     "message": "新增逆元、组合数[算法]笔记"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-14T09:57:16.603Z",
+    "wordCount": 3555890,
+    "message": "新增树状数组笔记"
   }
 ];

@@ -1518,6 +1518,20 @@ module.exports = {
                         "type": "doc",
                         "id": "计佬常識/数据结构与算法/【板子】算法模版/常用数据结构/并查集丶/index"
                       }
+                    },
+                    {
+                      "type": "category",
+                      "label": "树状数组",
+                      "collapsible": true,
+                      "items": [],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      },
+                      "link": {
+                        "type": "doc",
+                        "id": "计佬常識/数据结构与算法/【板子】算法模版/常用数据结构/树状数组/index"
+                      }
                     }
                   ],
                   "customProps": {
