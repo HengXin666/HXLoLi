@@ -63,16 +63,16 @@ res = (a % mod) * (qpow(b, mod - 2, mod) % mod) % mod;
 ### 2.1 排列数
 
 $$
-A_{a}^{n} = \frac{n!}{(n-a)!} 
+A_{n}^{a} = \frac{n!}{(n-a)!} 
 $$
 
 ### 2.2 组合数
 
 $$
-C_{a}^{n} = C(n, a) = \begin{pmatrix}  
-  a \\
-  n
-\end{pmatrix} = \frac{1}{a!} A_{a}^{n} = \frac{1}{a!} \times \frac{n!}{(n-a)!} = \frac{n!}{a!(n-a)!}
+C_{n}^{a} = C(a, n) = \begin{pmatrix}  
+  n \\
+  a
+\end{pmatrix} = \frac{1}{a!} A_{n}^{a} = \frac{1}{a!} \times \frac{n!}{(n-a)!} = \frac{n!}{a!(n-a)!}
 $$
 
 预处理求解组合数, $O(n)$ 预处理, $O(1)$ 查询
@@ -95,7 +95,7 @@ long long qpow(long long x, int n) {
     return res;
 }
 
-// C(n, m) = n! / (m! * (n - m)!)
+// C(m, n) = n! / (m! * (n - m)!)
 //         = (n!) * (1 / m!) * (1 / (n - m)!)
 auto init = [] {
     F[0] = 1; // 0! = 1
@@ -119,7 +119,7 @@ auto init = [] {
 
 // 从 n 个数中选 m 个数的方案数
 long long comb(int n, int m) {
-    // C(n, m) = (n!) * (1 / m!) * (1 / (n - m)!)
+    // C(m, n) = (n!) * (1 / m!) * (1 / (n - m)!)
     return m < 0 || m > n 
         ? 0 
         : F[n] * INV_F[m] % MOD * INV_F[n - m] % MOD;
@@ -137,7 +137,7 @@ public:
 > 核心思想:
 >
 > $$
-> C(n, m) = \frac{n!}{a!(n-a)!} = n! \times \frac{1}{m!} \times \frac{1}{(n - m)!}
+> C(m, n) = \frac{n!}{a!(n-a)!} = n! \times \frac{1}{m!} \times \frac{1}{(n - m)!}
 > $$
 >
 > 其中, $n! = n \times (n - 1)$ 递推求解,
