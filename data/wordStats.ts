@@ -357,9 +357,15 @@ export const stats: RecordItem[] = [
     "message": "新增逆元、组合数[算法]笔记"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-14T09:57:16.603Z",
+    "commit": "ee5daec948bd683c0c60c75ccb8f96b7b6a2ca67",
+    "date": "2025-06-14T17:57:17+08:00",
     "wordCount": 3555890,
     "message": "新增树状数组笔记"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-14T15:14:31.929Z",
+    "wordCount": 3555890,
+    "message": "修复组合数书写错误nm反了..."
   }
 ];
