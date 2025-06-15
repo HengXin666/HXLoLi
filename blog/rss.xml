@@ -4,10 +4,45 @@
         <title>HXLoLi Blog</title>
         <link>https://HengXin666.github.io/HXLoLi/blog</link>
         <description>HXLoLi Blog</description>
-        <lastBuildDate>Mon, 02 Jun 2025 02:41:46 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 15 Jun 2025 23:30:54 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-Hans</language>
+        <item>
+            <title><![CDATA[LQB结束啦, 我自由啦]]></title>
+            <link>https://HengXin666.github.io/HXLoLi/blog/2025/06/15/01-lqb结束啦</link>
+            <guid>https://HengXin666.github.io/HXLoLi/blog/2025/06/15/01-lqb结束啦</guid>
+            <pubDate>Sun, 15 Jun 2025 23:30:54 GMT</pubDate>
+            <description><![CDATA[LQB结束啦, 我自由啦~ 终于可以学点别的了~]]></description>
+            <content:encoded><![CDATA[<p>LQB结束啦, 我自由啦~ 终于可以学点别的了~</p>
+<p>今年好难... 感觉全是数学...</p>
+<p>回来还要光速备战期末考试... 明天早上就考OS了... 为刚刚一个小时极限复习...</p>
+<p>写点日后计划吧~</p>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item">
+<p><input type="checkbox" disabled=""> 国产Linux 安装 (上班用)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled=""> 重构 HXLibs, 支持原生中断(基于io_uring) + 统一Json反射 + 支持Json解析宏 + 重构解析层(非多态实现Http与s, 而是采用宏表示是否启用) + 重构代码架构 (不再使用单例, 而是仅对象式) + 重构io层 (recv -&gt; recvv)</p>
+</li>
+<li>
+<p>QT</p>
+<ul>
+<li>万能暗夜模式</li>
+<li>Linux + ASS 音乐播放器</li>
+<li>私有部署电子书管理器 (C/S)</li>
+</ul>
+</li>
+<li>
+<p>B站历史弹幕爬虫优化</p>
+</li>
+<li>
+<p>学习: OpenGL ... 虚幻5 C++(幻想时刻)</p>
+</li>
+</ul>]]></content:encoded>
+            <author>282000500@qq.com (Heng_Xin)</author>
+            <category>日常</category>
+        </item>
         <item>
             <title><![CDATA[博客更新日志]]></title>
             <link>https://HengXin666.github.io/HXLoLi/blog/2025/06/02/01-博客更新日志</link>
