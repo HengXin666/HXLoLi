@@ -363,9 +363,15 @@ export const stats: RecordItem[] = [
     "message": "新增树状数组笔记"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-14T15:14:31.929Z",
+    "commit": "ae91b9ebdc4712a0ab43279f33ccba95c830008f",
+    "date": "2025-06-14T23:14:32+08:00",
     "wordCount": 3555890,
     "message": "修复组合数书写错误nm反了..."
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-15T15:38:45.519Z",
+    "wordCount": 3556277,
+    "message": "新增未来计划, 修复笔记书写错误"
   }
 ];
