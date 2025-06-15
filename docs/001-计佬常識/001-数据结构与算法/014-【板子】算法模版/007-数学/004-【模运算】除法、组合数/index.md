@@ -95,7 +95,7 @@ long long qpow(long long x, int n) {
     return res;
 }
 
-// C(m, n) = n! / (m! * (n - m)!)
+// C(n, m) = n! / (m! * (n - m)!)
 //         = (n!) * (1 / m!) * (1 / (n - m)!)
 auto init = [] {
     F[0] = 1; // 0! = 1
@@ -119,7 +119,7 @@ auto init = [] {
 
 // 从 n 个数中选 m 个数的方案数
 long long comb(int n, int m) {
-    // C(m, n) = (n!) * (1 / m!) * (1 / (n - m)!)
+    // C(n, m) = (n!) * (1 / m!) * (1 / (n - m)!)
     return m < 0 || m > n 
         ? 0 
         : F[n] * INV_F[m] % MOD * INV_F[n - m] % MOD;
