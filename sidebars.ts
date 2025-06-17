@@ -5066,6 +5066,20 @@ module.exports = {
                         "type": "doc",
                         "id": "程序语言/C++/现代C++/现代C++元模版/类型萃取/index"
                       }
+                    },
+                    {
+                      "type": "category",
+                      "label": "auto",
+                      "collapsible": true,
+                      "items": [],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      },
+                      "link": {
+                        "type": "doc",
+                        "id": "程序语言/C++/现代C++/现代C++元模版/auto/index"
+                      }
                     }
                   ],
                   "customProps": {
