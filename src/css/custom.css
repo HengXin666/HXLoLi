@@ -90,6 +90,7 @@
 .markdown h1 {
   font-size: 2rem; /* GitHub 的 h1 大小 */
   padding-bottom: .3em;
+  text-align: center;
 }
 
 .markdown h2 {
