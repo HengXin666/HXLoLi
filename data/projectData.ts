@@ -37,7 +37,7 @@ export const projects: Project[] = [
   },
   {
     title: "HXTest",
-    description: "现代C++学习、实验、实践 | 个人代码存储库 (内有 C++17无宏反射、tbb并发库的初步学习、std标准库的重现(一点点)、QT-QML等)",
+    description: "现代C++学习、实验、实践 | 个人代码存储库 (内有 C++17无宏反射、tbb并发库的初步学习、std标准库的重现(一点点)、QT-QML、OpenGL、Linux-io_uring/win32-iocp+协程、线程池等) 注释清晰完善",
     preview: "img/project/hxtest.png",
     website: "",
     url: "https://github.com/HengXin666/HXTest",
