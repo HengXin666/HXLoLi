@@ -387,9 +387,15 @@ export const stats: RecordItem[] = [
     "message": "新增C++悬挂引用八嘎日志 | 更新了主页和一个仓库描述"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-23T14:34:41.035Z",
+    "commit": "1cc1a877420b1697b7b934a70f0a9ccc2e426640",
+    "date": "2025-06-23T22:34:41+08:00",
     "wordCount": 3569210,
     "message": "新增上班第一课memo"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-24T14:31:52.096Z",
+    "wordCount": 3586973,
+    "message": "新增Linux常见Hook方法"
   }
 ];
