@@ -393,9 +393,15 @@ export const stats: RecordItem[] = [
     "message": "新增上班第一课memo"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-24T14:31:52.096Z",
+    "commit": "c824bd72bbede7c04dc380fdbd9b5bc6512b0f5c",
+    "date": "2025-06-24T22:31:53+08:00",
     "wordCount": 3586973,
     "message": "新增Linux常见Hook方法"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-29T15:15:38.772Z",
+    "wordCount": 3595322,
+    "message": "修复博客界面猫娘护法在某些情况下会出现渲染过大的问题 | 美化了博客的标题为居中 | 新增博客: C++协程小细节"
   }
 ];

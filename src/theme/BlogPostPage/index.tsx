@@ -47,7 +47,7 @@ function BlogPostPageContent ({
                 ) : undefined
             }>
             <ContentVisibility metadata={metadata} />
-
+            
             <div style={{
                 position: 'relative',
                 marginLeft: '-300px',

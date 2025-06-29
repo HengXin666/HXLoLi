@@ -9,7 +9,7 @@ export default function BlogSidebar({sidebar}: Props): ReactNode {
   if (!sidebar?.items.length) {
     return null;
   }
-  // Mobile sidebar doesn't need to be server-rendered
+  // 移动侧边栏不需要服务器渲染
   if (windowSize === 'mobile') {
     return <BlogSidebarMobile sidebar={sidebar} />;
   }

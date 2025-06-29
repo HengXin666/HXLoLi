@@ -15,8 +15,8 @@ export default function BlogLayout (props: Props): ReactNode {
                 <main
                     className={'col'}
                 >
-                    <div className="row">
-                        <div className="col">
+                    <div className="row" style={{width: '100%', padding: '0'}}>
+                        <div className="col" style={{maxWidth: '78.23%', padding: '0'}}>
                             {children}
                         </div>
                         {
