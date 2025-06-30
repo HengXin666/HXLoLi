@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkhx_loli=self.webpackChunkhx_loli||[]).push([[49030],{78020:e=>{e.exports=JSON.parse('{"metadata":{"permalink":"/HXLoLi/blog/page/2","page":2,"postsPerPage":10,"totalPages":3,"totalCount":22,"previousPage":"/HXLoLi/blog","nextPage":"/HXLoLi/blog/page/3","blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
