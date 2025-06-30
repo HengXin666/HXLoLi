@@ -399,9 +399,15 @@ export const stats: RecordItem[] = [
     "message": "新增Linux常见Hook方法"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-06-29T15:15:38.772Z",
+    "commit": "e5e1b8cc210d04c1d6b45cefff92cd4a73bd3f63",
+    "date": "2025-06-29T23:15:40+08:00",
     "wordCount": 3595322,
     "message": "修复博客界面猫娘护法在某些情况下会出现渲染过大的问题 | 美化了博客的标题为居中 | 新增博客: C++协程小细节"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-06-30T14:42:57.258Z",
+    "wordCount": 3596076,
+    "message": "新增调教VSCode笔记, 调整博客布局(能力有限, 依旧无法战胜响应式... 总是差一点qwq)"
   }
 ];

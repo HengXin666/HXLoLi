@@ -38,7 +38,7 @@
 }
 
 /* 响应式: 小屏幕 */
-@media (max-width: 1000px) {
+@media (max-width: 1300px) {
     .blog-content {
         left: 320px; /* 取消偏移 */
         width: calc(100% - 320px); /* 占满整个宽度 */
