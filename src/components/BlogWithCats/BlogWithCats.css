@@ -1,51 +1,47 @@
 .blog-container {
-    position: relative;
     width: 100%;
-    height: auto;
+    position: relative;
 }
 
+/* 包住正文和猫娘 */
+.blog-content-wrapper {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0; /* 去除左右 padding, 保证猫紧贴正文 */
+}
+
+/* 正文卡片 */
 .blog-content {
     position: relative;
     border-radius: 25px;
-    top: 0;
-    left: 250px; /* 避开左边猫娘 */
-    width: calc(100% - 490px); /* 避开左右两边猫娘 */
-    min-height: 600px;
-    height: auto;
     background: var(--ifm-background-color);
+    padding: 20px;
     box-sizing: border-box;
-    margin-bottom: 20px;
+    min-height: 600px;
     z-index: 10;
 }
 
+/* 猫娘: 相对 wrapper 贴边 */
 .neko {
     pointer-events: none;
-    /* debug */
-    /* border: 1px solid red; */
     position: absolute;
     top: 100px;
-    width: 180px;
-    z-index: 100;
     width: 200px;
+    z-index: 100;
 }
 
 .neko-left {
-    left: 60px;
+    left: -190px; /* 负值: 贴在 wrapper 左侧外 */
 }
 
 .neko-right {
-    right: 62px;
+    right: -180px; /* 负值: 贴在 wrapper 右侧外 */
 }
 
-/* 响应式: 小屏幕 */
+/* 小屏隐藏猫娘 */
 @media (max-width: 1300px) {
-    .blog-content {
-        left: 320px; /* 取消偏移 */
-        width: calc(100% - 320px); /* 占满整个宽度 */
-        margin-left: 0; /* 避免左侧间距 */
-    }
-
     .neko-left, .neko-right {
-        display: none; /* 隐藏猫娘图片 */
+        display: none;
     }
 }
