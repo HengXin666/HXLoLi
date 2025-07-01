@@ -26,25 +26,25 @@ export default function BlogLayout (props: Props): ReactNode {
         <Layout {...layoutProps}>
             <div className="row" style={{ width: '100%' }}>
                 <BlogSidebar sidebar={sidebar} />
-                <main className={'col'} >
-                    <div className="row" style={{ width: '100%' }}>
-                        <div className="col" style={{ maxWidth: isMobile ? '86%' : '78.23%', padding: '0' }}>
+                <main
+                    className={'col'}
+                >
+                    <div className="row">
+                        <div className="col">
                             {children}
                         </div>
-                        {isMobile 
-                            ? <div className="col" style={{
-                                padding: '0',
-                                flex: '0 0 0%',
-                                maxWidth: '0%',
-                                margin: '0',
-                            }}>
-                            </div> 
-                            : <div className="col" style={{
-                                padding: '0',
-                                flex: '0 0 21.75%',
-                                maxWidth: '21.75%',
-                                margin: '0',
-                            }}>{toc}</div>
+                        {
+                            toc
+                                ? <div className="col" style={{
+                                    padding: '0',
+                                    flex: '0 0 21.75%',
+                                    maxWidth: '21.75%'
+                                }}>{toc}</div>
+                                : <div className="col" style={{
+                                    padding: '0',
+                                    flex: '0 0 21.75%',
+                                    maxWidth: '21.75%'
+                                }} />
                         }
                     </div>
                 </main>
