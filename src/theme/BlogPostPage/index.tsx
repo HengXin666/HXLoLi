@@ -48,7 +48,7 @@ function BlogPostPageContent ({
             }>
             <ContentVisibility metadata={metadata} />
 
-            <BlogWithCats style={{ backgroundColor: 'var(--ifm-background-color)', margin: 0, padding: '20px' }}>
+            <BlogWithCats>
                 <BlogPostItem>
                     {children}
                 </BlogPostItem>
