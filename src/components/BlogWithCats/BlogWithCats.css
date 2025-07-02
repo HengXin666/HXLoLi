@@ -1,6 +1,8 @@
 .blog-container {
     width: 100%;
     position: relative;
+    margin: 0 auto;
+    padding: 0;
 }
 
 /* 包住正文和猫娘 */
