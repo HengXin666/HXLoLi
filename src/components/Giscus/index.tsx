@@ -54,7 +54,7 @@ const HXGiscus: React.FC = () => {
                         <Giscus
                             id="comments"
                             mapping="pathname"
-                            strict="1"
+                            strict="0"
                             reactionsEnabled="1"
                             emitMetadata="1"
                             inputPosition="bottom"

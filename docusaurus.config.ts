@@ -127,7 +127,7 @@ const config: Config = {
       categoryId: 'DIC_kwDOOfrrwM4CpdxE',
       // 颜色主题
       theme: 'light_high_contrast',
-      darkTheme: 'dark_tritanopia'
+      darkTheme: 'dark_tritanopia',
     },
     // 项目的社交卡片图像
     image: "img/logo.png",
