@@ -32,6 +32,7 @@ function initComponent () {
             title = maeLocation.replace(config.baseUrl, '');
         }
     }
+    console.log(title);
 }
 
 /**
@@ -52,14 +53,13 @@ const HXGiscus: React.FC = () => {
                     <div id="comment" style={{ paddingTop: 50 }}>
                         <Giscus
                             id="comments"
-                            mapping="specific"
+                            mapping="pathname"
                             strict="1"
                             reactionsEnabled="1"
-                            emitMetadata="0"
+                            emitMetadata="1"
                             inputPosition="bottom"
                             lang="zh-CN"
                             loading="lazy"
-                            term={title}
                             {...giscus}
                             theme={giscusTheme}
                         />
