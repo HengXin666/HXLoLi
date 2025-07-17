@@ -435,9 +435,15 @@ export const stats: RecordItem[] = [
     "message": "修改博客的内容描述错误"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-07-17T09:26:07.940Z",
+    "commit": "bf43f8b1f0cf03b475428a5c134ebf6c1c1eb4f7",
+    "date": "2025-07-17T17:26:07+08:00",
     "wordCount": 3615524,
     "message": "新增编译期哈希表的研究学习笔记"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-07-17T11:57:25.786Z",
+    "wordCount": 3615433,
+    "message": "修正笔记错别字和排版错误"
   }
 ];
