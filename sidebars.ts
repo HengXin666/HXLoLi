@@ -5027,6 +5027,20 @@ module.exports = {
                         "type": "doc",
                         "id": "程序语言/C++/现代C++/现代C++项目实战/伪随机数生成/index"
                       }
+                    },
+                    {
+                      "type": "category",
+                      "label": "编译期哈希表",
+                      "collapsible": true,
+                      "items": [],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      },
+                      "link": {
+                        "type": "doc",
+                        "id": "程序语言/C++/现代C++/现代C++项目实战/编译期哈希表/index"
+                      }
                     }
                   ],
                   "customProps": {
