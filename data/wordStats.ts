@@ -441,9 +441,15 @@ export const stats: RecordItem[] = [
     "message": "新增编译期哈希表的研究学习笔记"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-07-17T11:57:25.786Z",
+    "commit": "75848c3049a9b127a1038f84bf71ae9ee6995d57",
+    "date": "2025-07-17T19:57:25+08:00",
     "wordCount": 3615433,
     "message": "修正笔记错别字和排版错误"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-07-24T06:26:36.246Z",
+    "wordCount": 3619871,
+    "message": "新增反射成员个数的细节研究"
   }
 ];

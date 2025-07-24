@@ -5545,7 +5545,12 @@ module.exports = {
                           "type": "category",
                           "label": "C++无宏反射研究",
                           "collapsible": true,
-                          "items": [],
+                          "items": [
+                            {
+                              "type": "doc",
+                              "id": "程序语言/C++/现代C++/源码阅读/雅兰亭库/C++无宏反射研究/细节研究"
+                            }
+                          ],
                           "customProps": {
                             "icon": "/HXLoLi/default-icons/default_folder.svg",
                             "tags": []
