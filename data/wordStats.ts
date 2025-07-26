@@ -447,9 +447,15 @@ export const stats: RecordItem[] = [
     "message": "修正笔记错别字和排版错误"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-07-24T06:26:36.246Z",
+    "commit": "37637d793317b709554a20bed92a8a3ada2e75ea",
+    "date": "2025-07-24T14:26:36+08:00",
     "wordCount": 3619871,
     "message": "新增反射成员个数的细节研究"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-07-26T17:29:01.887Z",
+    "wordCount": 3630179,
+    "message": "新增宏魔法笔记(部分)"
   }
 ];
