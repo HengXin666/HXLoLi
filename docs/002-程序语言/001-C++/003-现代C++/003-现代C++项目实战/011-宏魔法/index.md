@@ -532,6 +532,166 @@ auto res05 = EQUAL(foo, abc); // 0 未定义 abc 也不会报错
 > [!TIP]
 > 个人认为这个的实用性可能没有那么大, 因为你需要定义比较的结果~
 
+## 四、现成魔法
+
+我们使用如下宏进行调试.
+
+```cpp
+#define STR(x) #x
+#define LOG_MACRO(x) _Pragma(STR(message("当前宏: " STR(x))))
+```
+
+### 4.1 去掉所有逗号
+
+```cpp [c41-简单粗暴]
+// 直接加个括号就好
+#define FK_ALL_DH(...) (__VA_ARGS__)
+
+// test
+#define GET_2(a, b) b
+
+LOG_MACRO(GET_2(1, 2))               // 2
+LOG_MACRO(GET_2(FK_ALL_DH(1, 2), 3)) // 3
+```
+
+```cpp [c41-基于延迟展开]
+// 生成展开
+#define EVAL(...)  EVAL1(EVAL1(EVAL1(__VA_ARGS__)))
+#define EVAL1(...) EVAL2(EVAL2(EVAL2(__VA_ARGS__)))
+#define EVAL2(...) EVAL3(EVAL3(EVAL3(__VA_ARGS__)))
+#define EVAL3(...) EVAL4(EVAL4(EVAL4(__VA_ARGS__)))
+#define EVAL4(...) EVAL5(EVAL5(EVAL5(__VA_ARGS__)))
+#define EVAL5(...) __VA_ARGS__
+
+// 延迟宏
+#define EMPTY()
+#define DELAY(code) code EMPTY()
+#define NEXT_TIME(...) __VA_ARGS__ DELAY(EMPTY)()
+#define SCAN_AGAIN(...) __VA_ARGS__
+
+// 转发宏
+#define FORWARD_IMPL(cb, ...) cb(__VA_ARGS__)
+#define FORWARD(cb, ...) FORWARD_IMPL(cb, __VA_ARGS__)
+
+// 拼接宏
+#define ACTIVATION_IMPL_1(x, y) x##y
+#define ACTIVATION(x, y) ACTIVATION_IMPL_1(x, y)
+
+// 判断是否为空
+#define CHECK_N(x, n, ...) n
+#define CHECK(...) CHECK_N(__VA_ARGS__, 0, )
+#define IS_EMPTY() ~, 1
+#define IF_EMPTY(x) CHECK(ACTIVATION(IS_EMPTY, x)())
+
+// 判断宏
+#define IF_BOOL_0(t, f) f
+#define IF_BOOL_1(t, f) t
+#define IF_BOOL(val, t, f) ACTIVATION(IF_BOOL_, val)(t, f)
+
+// 实现一个宏, 让 __VA_ARGS__ 合并为一个, 没有括号, 但是有空格
+#define ACTIVATION_ALL_CALL_THIS() ACTIVATION_ALL_IMPL
+#define ACTIVATION_ALL_0(x, ...) ACTIVATION(, x) DELAY(ACTIVATION_ALL_CALL_THIS)()(__VA_ARGS__)
+#define ACTIVATION_ALL_1(x, ...)
+#define ACTIVATION_ALL_IMPL(x, ...) \
+        ACTIVATION(ACTIVATION_ALL_, IF_EMPTY(x))(x, __VA_ARGS__)
+#define ACTIVATION_ALL(...) EVAL(ACTIVATION_ALL_IMPL(__VA_ARGS__)) // 需要定义一个宏, 来调用 EVAL, 不能原地 EVAL
+
+// test
+#define GET_2(a, b) b
+
+LOG_MACRO(GET_2(1, 2))                    // 2
+LOG_MACRO(GET_2(ACTIVATION_ALL(1, 2), 3)) // 3
+```
+
+> 似乎无法实现 `__VA_ARGS__` 所有参数进行链接为 token? 只能手动列出参数?
+
+### 4.2 宏 IF
+
+```cpp [c42-整数判断]
+#define CHECK_N(x, n, ...) n
+#define CHECK(...) CHECK_N(__VA_ARGS__, 0,)
+#define PROBE(x) x, 1,
+#define ACTIVATION(x, y) x##y
+#define NOT_0 PROBE(~)
+#define NOT(x) CHECK(ACTIVATION(NOT_, x))
+#define BOOL(x) NOT(NOT(x))
+#define DO(...) __VA_ARGS__
+#define NOT_DO(...)
+#define IF_THEN(val) ACTIVATION(IF_THEN_, val)
+#define IF_THEN_0(t, f) f
+#define IF_THEN_1(t, f) t
+
+// 判断 val (整数), 为 true 则展开为宏 t, 否则 f
+#define IF(val, t, f) IF_THEN(BOOL(val))(t, f)
+
+// test
+#define A(a) (a + 10)
+#define B(b) (b + 100)
+IF(2233, A, B)(123) // -> (123 + 10)
+```
+
+```cpp [c42-非空判断]
+// 拼接宏
+#define ACTIVATION_IMPL_1(x, y) x##y
+#define ACTIVATION(x, y) ACTIVATION_IMPL_1(x, y)
+
+// 判断是否为空
+#define CHECK_N(x, n, ...) n
+#define CHECK(...) CHECK_N(__VA_ARGS__, 0, )
+#define IS_EMPTY() ~, 1
+#define IF_EMPTY(x) CHECK(ACTIVATION(IS_EMPTY, x)())
+
+// test 注意最多传参一个
+LOG_MACRO(IF_EMPTY(2233)) // -> 0
+LOG_MACRO(IF_EMPTY())     // -> 1
+```
+
+### 4.3 for宏
+
+```cpp [c43-for宏]
+// 展开宏
+#define EVAL(...)  EVAL1(EVAL1(EVAL1(__VA_ARGS__)))
+#define EVAL1(...) EVAL2(EVAL2(EVAL2(__VA_ARGS__)))
+#define EVAL2(...) EVAL3(EVAL3(EVAL3(__VA_ARGS__)))
+#define EVAL3(...) EVAL4(EVAL4(EVAL4(__VA_ARGS__)))
+#define EVAL4(...) EVAL5(EVAL5(EVAL5(__VA_ARGS__)))
+#define EVAL5(...) __VA_ARGS__
+
+// 延迟展开宏
+#define EMPTY()
+#define DELAY(code) code EMPTY()
+
+// 拼接宏
+#define ACTIVATION_IMPL_1(x, y) x##y
+#define ACTIVATION(x, y) ACTIVATION_IMPL_1(x, y)
+
+// 判断是否为空
+#define CHECK_N(x, n, ...) n
+#define CHECK(...) CHECK_N(__VA_ARGS__, 0, )
+#define IS_EMPTY() ~, 1
+#define IF_EMPTY(x) CHECK(ACTIVATION(IS_EMPTY, x)())
+
+// for
+#define FOR_IMPL_CALL_THIS() FOR_IMPL
+#define FOR_IMPL_0(macro, x, ...) macro(x) DELAY(FOR_IMPL_CALL_THIS)()(macro, __VA_ARGS__)
+#define FOR_IMPL_1(...)
+#define FOR_IMPL(macro, x, ...) ACTIVATION(FOR_IMPL_, IF_EMPTY(x))(macro, x, __VA_ARGS__)
+#define FOR(macro, x, ...) EVAL(FOR_IMPL(macro, x, __VA_ARGS__))
+
+// test
+#define DECLARED_MEMBER(name) decltype(name) name;
+
+struct A {
+    void func() {
+        struct __my_a__ {
+            FOR(DECLARED_MEMBER, op, str) // -> decltype(op) op; decltype(str) str;
+        };
+    }
+
+    int op;
+    char* str;
+};
+```
 
 ## 附、参考链接
 

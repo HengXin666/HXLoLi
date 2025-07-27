@@ -453,9 +453,15 @@ export const stats: RecordItem[] = [
     "message": "新增反射成员个数的细节研究"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-07-26T17:29:01.887Z",
+    "commit": "8beb8f2c7c7f3b931df9bcb111570c67c29e5b29",
+    "date": "2025-07-27T01:29:01+08:00",
     "wordCount": 3630179,
     "message": "新增宏魔法笔记(部分)"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-07-27T09:54:20.415Z",
+    "wordCount": 3633639,
+    "message": "完善宏魔法, 提供一些现成的示例"
   }
 ];
