@@ -459,9 +459,15 @@ export const stats: RecordItem[] = [
     "message": "新增宏魔法笔记(部分)"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-07-27T09:54:20.415Z",
+    "commit": "7bc5200a798697e5b46ab06c680175d507082a15",
+    "date": "2025-07-27T17:54:20+08:00",
     "wordCount": 3633639,
     "message": "完善宏魔法, 提供一些现成的示例"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-07-28T01:17:14.222Z",
+    "wordCount": 3633872,
+    "message": "更正错误, 以及格式化"
   }
 ];
