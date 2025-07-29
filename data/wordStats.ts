@@ -465,9 +465,15 @@ export const stats: RecordItem[] = [
     "message": "完善宏魔法, 提供一些现成的示例"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-07-28T01:17:14.222Z",
+    "commit": "bd6d98eded195814f8f5ff6901faa9e652d3d7fc",
+    "date": "2025-07-28T09:17:14+08:00",
     "wordCount": 3633872,
     "message": "更正错误, 以及格式化"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-07-29T01:47:19.161Z",
+    "wordCount": 3643204,
+    "message": "新增: gcc 内部编译器 段错误 博文"
   }
 ];
