@@ -1,7 +1,7 @@
 export const projects: Project[] = [
   {
     title: "HXLibs",
-    description: "基于C++20协程和io_uring的百万并发Web框架; 支持异步文件读写、Transfer-Encoding分块编码传输文件, 支持断点续传; 支持HTTPS/WebSockt; 聚合类无宏反射到Json等",
+    description: "现代C++20协程编写的基于io_uring/iocp百万并发服务器; 可异步读写, 支持分块编码传输文件, 支持断点续传; http/websocket、客户端socks5代理、JSON解析、聚合类无宏反射/宏反射支持别名",
     preview: "img/project/hxlibs.png",
     website: "",
     url: "https://github.com/HengXin666/HXLibs",
