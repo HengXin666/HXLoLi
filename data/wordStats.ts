@@ -471,9 +471,15 @@ export const stats: RecordItem[] = [
     "message": "更正错误, 以及格式化"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-07-29T01:47:19.161Z",
+    "commit": "1d35fd717c59934d55a45c927d2c5306e6eea4a3",
+    "date": "2025-07-29T09:47:19+08:00",
     "wordCount": 3643204,
     "message": "新增: gcc 内部编译器 段错误 博文"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-07-30T06:33:08.910Z",
+    "wordCount": 3648456,
+    "message": "新增: msvc 内部编译器 段错误 博文 + gcc反馈后续: 已经收入bug"
   }
 ];
