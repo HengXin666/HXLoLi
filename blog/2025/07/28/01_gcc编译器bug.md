@@ -266,4 +266,8 @@ See <https://gcc.gnu.org/bugs/> for instructions.
 1. 去掉模板 `template <typename T = void>`
 2. 把 `decltype([] ...)` 提出到外部模板函数, 然后 `decltype(func(...))` 也是 OK 的.
 
-> 已经报告到 https://gcc.gnu.org/bugzilla/show_bug.cgi?id=121287 中, 不知道有没有重复的... 看到类似但是不是一样的qwq
+> 已经报告到 https://gcc.gnu.org/bugzilla/show_bug.cgi?id=121287 中,
+>
+> 挺好的, 不到一天, 已经被列入 [Bug 107430 (c++-lambda-decltype) - [meta-bug] lambda in decltype](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=107430) 中了
+>
+> 还被一位老哥添加到超送了, 加油, 快点修 Bug.
