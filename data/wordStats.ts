@@ -477,9 +477,15 @@ export const stats: RecordItem[] = [
     "message": "新增: gcc 内部编译器 段错误 博文"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-07-30T06:33:08.910Z",
+    "commit": "e92ad9b5cb639d4ea8e2984de45f53df1dd9aed3",
+    "date": "2025-07-30T14:33:08+08:00",
     "wordCount": 3648456,
     "message": "新增: msvc 内部编译器 段错误 博文 + gcc反馈后续: 已经收入bug"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-07-31T09:43:01.187Z",
+    "wordCount": 3662070,
+    "message": "新增opengl: 三维模型的加载与相机控制(部分), 调整了部分脚本和配置, 修复无法加载图标的bug"
   }
 ];

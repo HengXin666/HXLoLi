@@ -6,5 +6,6 @@
         "GPGPU",
         "purecpp",
         "RAII"
-    ]
+    ],
+    "commentTranslate.browse.mode": "inplace"
 }

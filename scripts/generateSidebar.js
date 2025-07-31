@@ -23,18 +23,21 @@ function getJsonTagConfig(folderPath) {
         try {
             const data = fs.readFileSync(tagJsonPath, 'utf-8');
             const config = JSON.parse(data);
+            if (config.icon) {
+                console.log(`找到图标: ${baseUrl}/icons/${config.icon}`);
+            }
             return {
-                icon: `${baseUrl}/icons/${config.icon}`,
-                tags: config.tags
+                icon: config.icon ? `${baseUrl}/icons/${config.icon}` : undefined,
+                tags: Array.isArray(config.tags) ? config.tags : []
             };
         } catch (err) {
-            console.error('Error reading or parsing tag.json:', err);
+            console.error('[tag.json] 无法解析:', err);
         }
     }
     return {
         icon: undefined,
-        tags: undefined
-    };  // 如果没有图标, 返回 undefined
+        tags: []
+    };
 }
 
 function scanDocs(dir, relativePath = '') {
@@ -54,9 +57,12 @@ function scanDocs(dir, relativePath = '') {
             const result = scanDocs(fullPath, folderRelative);
 
             const {
-                icon = result.items.length ? defaultFolderIcon : defaultDocIcon,
+                icon: tagIcon,
                 tags = []
             } = getJsonTagConfig(fullPath);
+
+            // 合理优先级: tag.json > 是否有子项
+            const icon = tagIcon ?? (result.items.length > 0 ? defaultFolderIcon : defaultDocIcon);
 
             const subCategory = {
                 type: 'category',
@@ -64,8 +70,8 @@ function scanDocs(dir, relativePath = '') {
                 collapsible: true,
                 items: result.items,
                 customProps: {
-                    icon: icon ?? result.items.length ? defaultFolderIcon : defaultDocIcon,
-                    tags: tags ?? []
+                    icon,
+                    tags
                 },
             };
 
