@@ -183,11 +183,19 @@ const config: Config = {
           ],
         },
         {
-
         },
         {
           title: '更多',
           items: [
+            {
+              html: `
+                <a href="https://hengxin666.github.io/cppreference-zh-cn/" target="_blank" rel="noreferrer noopener"
+                  style="display: flex; align-items: center; gap: 3px; text-decoration: none; color: inherit; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                  <img src="${BaseUrl}/icons/ISO_C++_Logo.svg" alt="cppreference" width="36" height="36" style="flex-shrink: 0;"/>
+                  <span style="font-size: 16px; font-weight: 600; position: relative; top: -1.75px;">cppreference</span>
+                </a>
+              `
+            },
             {
               html: `
                 <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
