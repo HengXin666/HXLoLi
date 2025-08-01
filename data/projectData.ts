@@ -44,6 +44,15 @@ export const projects: Project[] = [
     tags: ["openSource", "personal"],
     type: "personal",
   },
+  {
+    title: "string-replacer",
+    description: "VsCode插件, 可配置的一键替换. (默认是替换部分中文标点为英文字符) (个人做笔记专供)",
+    preview: "img/project/vscode-string-replacer.png",
+    website: "",
+    url: "https://github.com/HengXin666/vscode-string-replacer",
+    tags: ["openSource", "personal"],
+    type: "personal",
+  }
 ];
 
 export type Tag = {
