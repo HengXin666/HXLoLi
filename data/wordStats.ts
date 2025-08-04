@@ -489,9 +489,15 @@ export const stats: RecordItem[] = [
     "message": "新增opengl: 三维模型的加载与相机控制(部分), 调整了部分脚本和配置, 修复无法加载图标的bug"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-08-01T09:03:27.986Z",
+    "commit": "9061c301c4c2d2928177ed289c2fc8f94d24456a",
+    "date": "2025-08-01T17:03:28+08:00",
     "wordCount": 3670058,
     "message": "新增 三维模型的加载与相机控制 的部分笔记; 新增一个个人项目: vscode插件 在主页"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-08-04T13:47:21.108Z",
+    "wordCount": 3692950,
+    "message": "新增三维模型的加载与相机控制 部分笔记"
   }
 ];
