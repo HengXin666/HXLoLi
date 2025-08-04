@@ -1092,7 +1092,1069 @@ std::vector<glm::uvec3> _trinales; // 三角形 -> 点索引
 
 ```cpp [c52-新的数据结构]
 std::vector<glm::vec3> _vertices; // 点
-std::vector<glm::vec3> _uvs;      // 纹理
+std::vector<glm::vec2> _uvs;      // 纹理
 std::vector<glm::vec3> _normals;  // 法线
-std::vector<glm::umat4x4> _faces; // 面
+std::vector<glm::umat3x3> _faces; // 面
 ```
+
+同时也要修改解析代码:
+
+```cpp [c522-解析代码]
+#include <glm/vec3.hpp>
+#include <glm/matrix.hpp>
+#include <glm/ext/matrix_uint3x3.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+struct ObjParser {
+    void parser(std::string_view path) {
+        std::ifstream file{{path.data(), path.size()}};
+        if (!file.is_open()) [[unlikely]] {
+            log::hxLog.error("打开文件:", path, "失败!");
+            throw std::runtime_error{path.data()};
+        }
+        std::string line;
+        while (std::getline(file, line)) {
+            if (line.substr(0, 2) == "v ") {
+                // 解析顶点
+                std::istringstream s{line.substr(2)};
+                glm::vec3 v;
+                s >> v.x >> v.y >> v.z;
+                _vertices.push_back(std::move(v));
+            } else if (line.substr(0, 3) == "vt ") { // 纹理
+                std::istringstream s{line.substr(3)};
+                glm::vec2 v;
+                s >> v.x >> v.y;
+                _uvs.push_back(std::move(v));
+            } else if (line.substr(0, 3) == "vn ") { // 法线
+                std::istringstream s{line.substr(3)};
+                glm::vec3 v;
+                s >> v.x >> v.y >> v.z;
+                _normals.push_back(glm::normalize(v));
+            } else if (line.substr(0, 2) == "f ") {
+                // 解析面
+                std::istringstream s{line.substr(2)};
+                std::vector<glm::uvec3> idxArr;
+                std::string tmp;
+                while (std::getline(s, tmp, ' ')) {
+                    std::string numStream;
+                    std::istringstream ss{std::move(tmp)};
+                    glm::uvec3 idx{1};
+                    int i = 0;
+                    while (std::getline(ss, numStream, '/') && i < 3) {
+                        std::istringstream{numStream} >> idx[i++];
+                    }
+                    idxArr.push_back(idx - 1u);
+                }
+                for (std::size_t i = 2; i < idxArr.size(); ++i)
+                    _faces.push_back({idxArr[0], idxArr[i], idxArr[i - 1]});
+            }
+        }
+
+        file.close();
+        log::hxLog.info("加载:", path, "完成!");
+    }
+private:
+    std::vector<glm::vec3> _vertices; // 点
+    std::vector<glm::vec2> _uvs;      // 纹理
+    std::vector<glm::vec3> _normals;  // 法线
+    std::vector<glm::umat3x3> _faces; // 面
+};
+```
+
+```cpp [c522-渲染代码]
+glm::vec3 perspective_divide(glm::vec4 pos) {
+    return {pos.x / pos.w, pos.y / pos.w, pos.z / pos.w};
+}
+
+void show(GLFWwindow* window) {
+    glBegin(GL_TRIANGLES);
+    static auto obj = [] {
+        ObjParser res;
+        res.parser("./obj/monkey.obj");
+        return res;
+    }();
+    int w, h;
+    glfwGetWindowSize(window, &w, &h);
+    glm::mat4x4 perspective = glm::perspective(glm::radians(40.0f), (float)w / (float)h, 0.01f, 100.f);
+
+    // 视角
+    glm::vec3 eye{0, 0, 5};
+    glm::vec3 center{0, 0, 0};
+    glm::vec3 up{0, 1, 0};
+    glm::mat4x4 view = glm::lookAt(eye, center, up);
+
+    glm::mat4x4 model{1};
+
+    auto& vertices = obj.getVertices();
+    auto& uvs = obj.getUvs();
+    auto& normals = obj.getNormals();
+    for (auto const& v : obj.getFaces()) {
+        auto v_x = vertices[v[0][0]],
+             v_y = vertices[v[1][0]],
+             v_z = vertices[v[2][0]];
+        [[maybe_unused]] auto vt_x = uvs[v[0][1]],
+             vt_y = uvs[v[1][1]],
+             vt_z = uvs[v[2][1]];
+        [[maybe_unused]] auto vn_x = normals[v[0][2]],
+             vn_y = normals[v[1][2]],
+             vn_z = normals[v[2][2]];
+        glNormal3fv(glm::value_ptr(glm::transpose(glm::inverse(glm::mat3x3{view * model})) * vn_x));
+        glVertex3fv(glm::value_ptr(
+            perspective_divide(perspective * view * model * glm::vec4(v_x, 1))));
+        glTexCoord2fv(glm::value_ptr(vt_x));
+        glVertex3fv(glm::value_ptr(
+            perspective_divide(perspective * view * model * glm::vec4(v_y, 1))));
+        glTexCoord2fv(glm::value_ptr(vt_y));
+        glVertex3fv(glm::value_ptr(
+            perspective_divide(perspective * view * model * glm::vec4(v_z, 1))));
+        glTexCoord2fv(glm::value_ptr(vt_z));
+    }
+    CHECK_GL(glEnd());
+}
+```
+
+![函数含义 ##w800##](HX_2025-08-04_09-55-56.png)
+
+### 5.3 什么是法线
+
+要理解面的法线, 就要从直线的方向向量说起:
+
+要确定一条直线的朝向很容易。在直线上任意两点之间连成一条矢量, 这条矢量称为直线的 **方向向量**, 可以唯一确定一条直线, 通常用符号 $d$ 来表示。
+
+但也存在问题: 方向矢量的方向表示了直线的方向, 那么这条矢量可长可短呀? 为了统一起见, 我们规定所有方向向量必须`归一化(normalize)`, 也就是把矢量长度强制设为 1。
+
+但还是存在可上可下的问题, 例如 $d$ 和 $-d$ 同样都是归一化的、和直线平行的方向向量。
+
+所以通常认为方向向量表示的是一条射线, 而不是直线。
+
+直线的方向, 可以用一根与 **直线平行的方向向量** 来唯一确定。
+
+那么如何确定一个面的朝向? 向量是一维的, 怎么来表示二维的面的朝向?
+
+为了方便, 我们可以用一条`垂直于平面的直线`, 称为法线, 来唯一地表示一个平面。
+
+法线是平面的固有属性, 所以我们可以用法线的方向向量来表示平面, 称为平面的法向向量。
+
+法向向量, 我通常直接简称法线, 定义就是"一个垂直于面的单位矢量", 同样为了避免歧义这个矢量长度必须为 1, 即需要归一化(normalize)。
+
+![##w700##](HX_2025-08-04_10-17-32.png)
+
+### 5.4 像素点亮度的计算就是基于法线的
+空间中的三角形面也具有法线。OpenGL 要想计算光照, 就需要用到法线, 这根单位矢量。
+
+光照模型具有很多种, 其中一种 Lambert 模型是这样规定的:
+
+反射出来被我们看到的颜色 = 物体固有颜色 * 法线与入射光线方向的点积
+
+$$
+color = basecolor \times dot(N, -I)
+$$
+
+对于太阳光这种平行光源, 入射光方向是固定的, 但是物体表面不同地方的三角形面片, 法线是不同的, 例如图中的求, 这样就会产生的明暗变化的效果。
+
+### 5.5 知识点: 顶点法线 vs 面法线
+
+![](HX_2025-08-04_10-26-20.png)
+
+![](HX_2025-08-04_10-26-47.png)
+
+从面法线到顶点法线, 计算方法就是求邻居面法线的平均值(使用 scatter 法)
+
+```cpp
+struct Face {
+    unsigned int vert_index;
+    glm::vec3 face_normal;
+};
+struct Vertex {
+    glm::vec3 position;
+    glm::vec3 vert_normal;
+};
+vector<Face> faces;
+vector<Vertex> vertices;
+
+for (auto& vert : vertices)
+    vert.vert_normal = glm::vec3(0);
+for (auto& face : faces)
+    vertices[faces.vert_index].vert_normal += face.face_normal;
+for (auto& vert : vertices)
+    vert.vert_normal = glm::normalize(vert.vert_normal);
+```
+
+更准确的计算顶点法线需要用面的 asin 系数加权平均
+
+```cpp
+vector3D triangleNormalFromVertex(int face_id, int vertex_id) {
+    // This assumes that A->B->C is a counter-clockwise ordering
+    vector3D A = mesh.face[face_id].vertex[vertex_id];
+    vector3D B = mesh.face[face_id].vertex[(vertex_id + 1) % 3];
+    vector3D C = mesh.face[face_id].vertex[(vertex_id + 2) % 3];
+    vector3D N = cross(B - A, C - A);
+    float sin_alpha = length(N) / (length(B - A) * length(C - A) );
+    return normalize(N) * asin(sin_alpha); // 加权系数和三角形的"狭长程度"有关
+}   // 如果是三角形一个很小的锐角, 那么这个三角形面法线对顶点法线的贡献就减小
+    // 可以理解为贡献大小与这个面邻居所占 360 度角度中的多少角正比
+
+void computeNormals() {
+    for (vertex v in mesh) {
+        vector3D N (0, 0, 0);
+        for (int i = 0; i < NumOfTriangles; ++i) {
+            if (mesh.face[i].contains(v)) { // 他没用 scatter 法, 复杂度变成 O(n^2) 了嘿嘿
+                int VertexID = index_of_v_in_triangle(i, v); // Can be 0,1 or 2
+                N = N + triangleNormalFromVertex(i, VertexID);
+            }
+        }
+        N = normalize(N);
+        add_N_to_normals_for_vertex_v(N, v);
+    }
+}
+```
+
+![](HX_2025-08-04_10-36-17.png)
+
+![](HX_2025-08-04_10-36-56.png)
+
+### 5.6 OBJ 中的法线
+
+OBJ 中的法线是按照"顶点索引大法好"来的, 两种都能兼容
+
+OBJ 既支持顶点法线也支持面法线。为了同时兼容两种情况, 法线是按照面上指定的编号(每组斜杠分割的三个数字的最后一个数)去索引 vn 数组得出的。
+
+例如下面中一个面的四个角落, 都索引了 vn 数组相同的 1 号位置的法线。所以这就是一个面法线的模型, 如果你发现一个 OBJ 模型同一个 f 的四个角落最后的 vn 部分索引和最前面的 v 部分索引相同, 例如:
+
+```obj
+f 1/1/1 2/2/2 3/3/3 4/4/4
+```
+
+那说明这个模型采用的是顶点法线, 他可能是想表现一些非常光滑的东西比如球体。
+
+### 5.7 法线之殇: 对于带有不均匀缩放的变换矩阵, 直接与其相乘会得到错误结果
+
+![](HX_2025-08-04_10-39-38.png)
+
+![](HX_2025-08-04_10-40-13.png)
+
+### 5.8 启用一大坨 OpenGL 高级功能
+
+```cpp
+CHECK_GL(glEnable(GL_DEPTH_TEST));       // 深度测试, 防止前后物体不分
+CHECK_GL(glEnable(GL_MULTISAMPLE));      // 多重采样抗锯齿 (MSAA)
+CHECK_GL(glEnable(GL_BLEND));            // 启用 Alpha 通道 (透明度)
+CHECK_GL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)); // 标准 Alpha 混合: src*alpha + dst*(1-alpha)
+CHECK_GL(glEnable(GL_LIGHTING));         // 启用固定管线光照 (古代特性)
+CHECK_GL(glEnable(GL_LIGHT0));           // 启用 0 号光源 (古代特性)
+CHECK_GL(glEnable(GL_COLOR_MATERIAL));   // 启用材质颜色追踪 (古代特性)
+```
+
+### 5.9 GL_BLEND 特性介绍
+
+![](HX_2025-08-04_10-54-52.png)
+
+### 5.10 glBlendFunc 可以自定义混合公式
+
+![](HX_2025-08-04_10-56-20.png)
+
+### 5.11 MSAA 的原理: 不是非黑即白, 而是在三角形边缘添加适当透明度
+
+![](HX_2025-08-04_10-59-51.png)
+
+![](HX_2025-08-04_11-00-16.png)
+
+![](HX_2025-08-04_11-00-41.png)
+
+### 5.12 SSAA 和 MSAA 的区别
+
+之前说过 OpenGL 的渲染管线, 分为光栅化和着色两步。
+
+光栅化包括三角形的边缘判定和深度测试, 负责确定三角形在屏幕中的位置。
+
+着色会调用着色器并行计算每个像素点的颜色, 以符合光学规律实现立体感效果。
+
+SSAA 不仅光栅化会采样 4 次(效果是让三角形的边缘不会锯齿), 还会对物体的颜色采样 4 次(效果是当贴图具有高频细节时, 让贴图上的细节不会锯齿或摩尔纹), 调用 4 次着色器, 开销非常大。
+
+而 MSAA 只会让光栅化采样 4 次, 不会让着色器计算 4 次, 因此相对高效很多。但代价是只能让三角形边缘不锯齿, 而着色器如果会产生非常密的纹理, 那就没法规避锯齿和摩尔纹。
+
+不过因为纹理贴图的摩尔纹问题现在已经可以通过 GPU 内置的 mipmap 技术解决了(后面课程会讲), 所以 MSAA 抗锯齿还是非常实用的。
+
+- mipmap + MSAA: 我俩是散装 SSAA!
+
+![vs](HX_2025-08-04_11-02-18.png)
+
+### 5.13 运行
+
+![效果 ##w400##](HX_2025-08-04_11-13-23.png)
+
+对比: 禁用深度缓冲
+
+![禁用 ##w400##](HX_2025-08-04_11-14-16.png)
+
+### 5.14 GL_MULTISAMPLE 的作用
+
+![##w600##](HX_2025-08-04_11-15-25.png)
+
+### 5.15 glEnable 系列函数
+
+```cpp
+void glEnable(GLenum cap);
+void glDisable(GLenum cap);
+GLboolean glIsEnabled(GLenum cap);
+```
+
+用法举例:
+```cpp
+glDisable(GL_DEPTH_TEST); // 暂时关闭深度测试
+assert(!glIsEnabled(GL_DEPTH_TEST));
+.. // 绘制游戏 HUD 界面, 不参与深度测试 (比如物品栏/血量条)
+glEnable(GL_DEPTH_TEST); // 重新恢复深度测试
+assert(glIsEnabled(GL_DEPTH_TEST));
+```
+
+### 5.16 对古代OpenGL中是MVP部分进行优化
+
+注意到, 我们之前的代码:
+
+```cpp
+void show(GLFWwindow* window) {
+    glBegin(GL_TRIANGLES);
+    static auto obj = [] {
+        ObjParser res;
+        res.parser("./obj/monkey.obj");
+        return res;
+    }();
+    int w, h;
+    glfwGetWindowSize(window, &w, &h);
+    glm::mat4x4 perspective = glm::perspective(glm::radians(40.0f), (float)w / (float)h, 0.01f, 100.f);
+
+    // 视角
+    glm::vec3 eye{0, 0, 5};
+    glm::vec3 center{0, 0, 0};
+    glm::vec3 up{0, 1, 0};
+    glm::mat4x4 view = glm::lookAt(eye, center, up);
+
+    glm::mat4x4 model{1};
+
+    auto& vertices = obj.getVertices();
+    auto& uvs = obj.getUvs();
+    auto& normals = obj.getNormals();
+    for (auto const& v : obj.getFaces()) {
+        auto v_x = vertices[v[0][0]],
+             v_y = vertices[v[1][0]],
+             v_z = vertices[v[2][0]];
+        [[maybe_unused]] auto vt_x = uvs[v[0][1]],
+             vt_y = uvs[v[1][1]],
+             vt_z = uvs[v[2][1]];
+        [[maybe_unused]] auto vn_x = normals[v[0][2]],
+             vn_y = normals[v[1][2]],
+             vn_z = normals[v[2][2]];
+        glNormal3fv(glm::value_ptr(glm::transpose(glm::inverse(glm::mat3x3{view * model})) * vn_x));
+        glTexCoord2fv(glm::value_ptr(vt_x));
+        glVertex3fv(glm::value_ptr(
+            perspective_divide(perspective * view * model * glm::vec4(v_x, 1))));
+        glTexCoord2fv(glm::value_ptr(vt_y));
+        glVertex3fv(glm::value_ptr(
+            perspective_divide(perspective * view * model * glm::vec4(v_y, 1))));
+        glTexCoord2fv(glm::value_ptr(vt_z));
+        glVertex3fv(glm::value_ptr(
+            perspective_divide(perspective * view * model * glm::vec4(v_z, 1))));
+    }
+    CHECK_GL(glEnd());
+}
+```
+
+`view * model`被重复计算太多次了, 并且 VM 总是出现在一起.
+
+所以我们其实不必提供单独的 view 和 model 矩阵, 可以把他们两个提前乘起来。
+
+- 提供 `MODELVIEW` 矩阵 - `view * model`
+- 提供 `PROJECTION` 矩阵 - `projection`
+
+- 对于法线矢量, 会应用 `MODELVIEW` 的 3x3 部分的逆转置。
+- 对于位置坐标, 会应用 `MODELVIEW` 然后 PROJECTION, 然后做 Perspective Divide。
+
+> [!TIP]
+> 为什么名为 modelview, 实际乘法顺序却是 $view \times model$?
+>
+> 和上一期的 SRT 一样, model、view、projection 也是一个固定的应用顺序, 简称 MVP。
+>
+> 但是由于 OpenGL 用的是列矢量。矢量元素纵向排列, 矢量需要在矩阵的右边做乘法。
+>
+> $$
+> projection \times view \times model \times pos
+> $$
+>
+> 就导致虽然我想要的应用顺序是 MVP, 但我却需要从右往左写, $P \times V \times M$。
+>
+> 所以 MV 部分自然就是需要 $V \times M$ 这个相反的顺序了。
+>
+> > 相反地, DirectX 用的是行矢量。矢量元素横向排列, 矢量需要在矩阵的左边做乘法, 那么 DirectX 的用户就要以正顺序写 $M \times V \times P$。
+
+优化后:
+
+```cpp
+void show(GLFWwindow* window) {
+    static auto obj = [] {
+        ObjParser res;
+        res.parser("./obj/monkey.obj");
+        return res;
+    }();
+
+    int w, h;
+    glfwGetWindowSize(window, &w, &h);
+
+    // 构造矩阵
+    glm::mat4x4 perspective = glm::perspective(glm::radians(40.0f), (float)w / (float)h, 0.01f, 100.f);
+    glm::vec3 eye{0, 0, 5};
+    glm::vec3 center{0, 0, 0};
+    glm::vec3 up{0, 1, 0};
+    glm::mat4x4 view = glm::lookAt(eye, center, up);
+    glm::mat4x4 model{1};
+    glm::mat4x4 viewModel = view * model; // ModelView
+
+    // 加载投影矩阵
+    glMatrixMode(GL_PROJECTION);
+    glLoadMatrixf(glm::value_ptr(perspective)); // 其后续计算不需要写 perspective
+                                                // OpenGL内部会自动补上这个计算
+                                                // ps: glm 矩阵内部的存储方式就是列主序, 和 glLoadMatrixf 所要求的相同
+    // 加载模型视图矩阵
+    glMatrixMode(GL_MODELVIEW);
+    glLoadMatrixf(glm::value_ptr(viewModel));
+
+    // 法线变换矩阵(只需算一次)
+    [[maybe_unused]] glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3{viewModel}));
+
+    // 开始绘制
+    glBegin(GL_TRIANGLES);
+    auto& vertices = obj.getVertices();
+    auto& uvs = obj.getUvs();
+    auto& normals = obj.getNormals();
+    for (auto const& v : obj.getFaces()) {
+        auto v_x = vertices[v[0][0]];
+        auto v_y = vertices[v[1][0]];
+        auto v_z = vertices[v[2][0]];
+
+        auto vt_x = uvs[v[0][1]];
+        auto vt_y = uvs[v[1][1]];
+        auto vt_z = uvs[v[2][1]];
+
+        [[maybe_unused]] auto vn_x = normals[v[0][2]];
+        [[maybe_unused]] auto vn_y = normals[v[1][2]];
+        [[maybe_unused]] auto vn_z = normals[v[2][2]];
+
+        // 第一个顶点
+        glNormal3fv(glm::value_ptr(normalMatrix * vn_x));
+        glTexCoord2fv(glm::value_ptr(vt_x));
+        glVertex3fv(glm::value_ptr(v_x));
+
+        // 第二个顶点
+        // glNormal3fv(glm::value_ptr(normalMatrix * vn_y));
+        glTexCoord2fv(glm::value_ptr(vt_y));
+        glVertex3fv(glm::value_ptr(v_y));
+
+        // 第三个顶点
+        // glNormal3fv(glm::value_ptr(normalMatrix * vn_z));
+        glTexCoord2fv(glm::value_ptr(vt_z));
+        glVertex3fv(glm::value_ptr(v_z));
+    }
+    glEnd();
+}
+```
+
+### 5.17 手动计算法线
+
+小问题: 如果 OBJ 模型没有提供法线信息怎么办?
+
+没有法线就无法实现光照和立体效果; 我们可以手动计算法线: $n_{ABC_{平面}} = \vec{AB} \times \vec{AC}$
+
+```cpp [c517-法线计算]
+// 手动计算法线
+glm::vec3 compute_normal(glm::vec3 a, glm::vec3 b, glm::vec3 c) noexcept {
+    auto ab = b - a;
+    auto ac = c - a;
+    // 外积, 然后归一化
+    return glm::normalize(glm::cross(ac, ab));
+}
+```
+
+```cpp [c517-完整代码]
+#include <check/OpenGL.hpp>
+#include <glm/vec3.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include <fstream>
+#include <stdexcept>
+#include <vector>
+
+auto __init__ = []{
+    setlocale(LC_ALL, "zh_CN.UTF-8");
+    try {
+        auto cwd = std::filesystem::current_path();
+        log::hxLog.debug("当前工作路径是:", cwd);
+        std::filesystem::current_path("../../../src/08-OpenGL");
+        log::hxLog.debug("切换到路径:", std::filesystem::current_path());
+    } catch (const std::filesystem::filesystem_error& e) {
+        log::hxLog.error("Error:", e.what());
+    }
+    return 0;
+}();
+
+namespace HX {
+
+struct Vertex {
+    float x, y, z;
+};
+
+struct Triangle {
+    std::size_t a, b, c;
+};
+
+struct ObjParser {
+    void parser(std::string_view path) {
+        std::ifstream file{{path.data(), path.size()}};
+        if (!file.is_open()) [[unlikely]] {
+            log::hxLog.error("打开文件:", path, "失败!");
+            throw std::runtime_error{path.data()};
+        }
+        std::string line;
+        while (std::getline(file, line)) {
+            auto head = line.substr(0, 2);
+            if (head == "v ") {
+                // 解析顶点
+                std::istringstream s{line.substr(2)};
+                glm::vec3 v;
+                s >> v.x >> v.y >> v.z;
+                _vertices.push_back(std::move(v));
+            } else if (head == "f ") {
+                // 解析面
+                std::istringstream s{line.substr(2)};
+                std::vector<std::size_t> idx;
+                while (std::getline(s, head, ' ')) {
+                    std::size_t i;
+                    std::istringstream{head} >> i;
+                    idx.push_back(i - 1);
+                }
+                for (std::size_t i = 2; i < idx.size(); ++i)
+                    _trinales.push_back({idx[0], idx[i], idx[i - 1]});
+            }
+        }
+
+        file.close();
+        log::hxLog.info("加载:", path, "完成!");
+    }
+
+    auto& getVertices() const noexcept {
+        return _vertices;
+    }
+
+    auto& getFaces() const noexcept {
+        return _trinales;
+    }
+
+private:
+    std::vector<glm::vec3> _vertices;
+    std::vector<glm::uvec3> _trinales;
+};
+
+} // namespace HX
+
+glm::vec3 perspective_divide(glm::vec4 pos) {
+    return {pos.x / pos.w, pos.y / pos.w, pos.z / pos.w};
+}
+
+// 手动计算法线
+glm::vec3 compute_normal(glm::vec3 a, glm::vec3 b, glm::vec3 c) noexcept {
+    auto ab = b - a;
+    auto ac = c - a;
+    return glm::normalize(glm::cross(ac, ab));
+}
+
+void show(GLFWwindow* window) {
+    static auto obj = [] {
+        ObjParser res;
+        res.parser("./obj/monkey.obj");
+        return res;
+    }();
+    int w, h;
+    glfwGetWindowSize(window, &w, &h);
+    glm::mat4x4 perspective = glm::perspective(glm::radians(40.0f), (float)w / (float)h, 0.01f, 100.f);
+
+    // 视角
+    glm::vec3 eye{0, 0, 5};
+    glm::vec3 center{0, 0, 0};
+    glm::vec3 up{0, 1, 0};
+    glm::mat4x4 view = glm::lookAt(eye, center, up);
+
+    glm::mat4x4 model{1};
+
+    glm::mat4x4 viewModel = view * model; // ModelView
+
+    // 加载投影矩阵
+    glMatrixMode(GL_PROJECTION);
+    glLoadMatrixf(glm::value_ptr(perspective));
+
+    // 加载模型视图矩阵
+    glMatrixMode(GL_MODELVIEW);
+    glLoadMatrixf(glm::value_ptr(viewModel));
+
+    glBegin(GL_TRIANGLES);
+    auto& vertices = obj.getVertices();
+    for (auto const& v : obj.getFaces()) {
+        auto a = vertices[v.x],
+             b = vertices[v.y],
+             c = vertices[v.z];
+        auto normal = compute_normal(a, b, c);
+        glNormal3fv(glm::value_ptr(normal));
+        glVertex3fv(glm::value_ptr(a));
+        glVertex3fv(glm::value_ptr(b));
+        glVertex3fv(glm::value_ptr(c));
+    }
+    CHECK_GL(glEnd());
+}
+
+int main() {
+    auto* window = initOpenGL();
+    log::hxLog.debug("OpenGL version: ", glGetString(GL_VERSION));
+
+    CHECK_GL(glEnable(GL_POINT_SMOOTH));
+    CHECK_GL(glPointSize(64.0f));
+
+    CHECK_GL(glEnable(GL_DEPTH_TEST));       // 深度测试, 防止前后物体不分
+    CHECK_GL(glEnable(GL_MULTISAMPLE));      // 多重采样抗锯齿 (MSAA)
+    CHECK_GL(glEnable(GL_BLEND));            // 启用 Alpha 通道 (透明度)
+    CHECK_GL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)); // 标准 Alpha 混合: src*alpha + dst*(1-alpha)
+    CHECK_GL(glEnable(GL_LIGHTING));         // 启用固定管线光照 (古代特性)
+    CHECK_GL(glEnable(GL_LIGHT0));           // 启用 0 号光源 (古代特性)
+    CHECK_GL(glEnable(GL_COLOR_MATERIAL));   // 启用材质颜色追踪 (古代特性)
+
+    glColor3f(0.9f, 0.6f, 0.1f);
+    while (!glfwWindowShouldClose(window)) {
+        CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)); // 清空画布
+        show(window);
+        glfwSwapBuffers(window); // 双缓冲
+        glfwPollEvents();
+    }
+    return 0;
+}
+```
+
+你可能注意到, 为什么有时候显示全是灰色的呢? (尝试给法线加上负号. 然后运行观察)
+
+### 5.18 法线方向的问题: 我们有必要人为规定面的"正方向"
+
+之前在法线的定义那里我们说过, 同一个平面, 可能有两个法线! 为了去除这种模棱两可, 对于一个三角形, 我们必须规定哪一面是朝外的哪一面是朝里的!
+
+回顾刚刚的三角形法线计算公式: $n = ||AB×AC||$
+
+观察下方这两个三角形, 他们其实是完全一样的, 只是顶点的顺序有所不同。
+
+```cpp
+    A             A
+   / \           / \
+  B - C         C - B
+```
+
+但是, 按照我们的法线计算公式, 就会发现这两个仅仅只是顶点顺序发生变化的三角形, 法线居然是相反的!
+
+为了光照的计算结果正确, 我们要求法线必须是朝向摄像头一面的。如果法线背对着我们, 算出来的颜色就会变成一片漆黑! 如果一个物体的表面都像下面蓝色的那个三角形, 法线算出来是背对着摄像头的, 那么物体就一片漆黑, 没有符合光学规律的立体感了。
+
+**规定: 逆时针方向为面的正方向**
+
+> 因此一个三角形, 只有一面是能够看的, 另一面的光照计算会是完全错误的。你可能在想, 有没有一种办法, 例如在着色器里自动检测法线是否反了, 让他自动翻转, 这样一个三角形的两面都能正常渲染, 不会漆黑?
+>
+> 不过我们第一课就说过了, 图形学是画皮的艺术, 所谓的三维模型只有一张皮! 这张皮的内外是很明确的, 不可能有人站在这个猴子的内部从内往外看(否则就叫穿模)。
+>
+> 所以不妨在建模的时候, 就始终保证三角形"能看的"那一面朝外, 称之为三角形面的"正方向"。一个封闭内部的"实心"模型, 他朝外的部分是很明确的, 建模工具中创建的物体都会满足这个规范, 导出为 OBJ 时, 其 f 命令后跟的顶点顺序, 也是保证"正方向"朝外的。
+>
+> 总之, 图形学界都不约而同达成了一个约定:
+>
+> "在摄像头方向看去, 三个顶点顺序呈逆时针方向排布的, 为面的正方向。所有三维软件都应该保证模型朝外的面是逆时针顶点顺序, 否则可能导致打开模型后颜色不正常。"
+
+### 5.19 面剔除功能: GL_CULL_FACE
+
+既然逆时针(Counter-clockwise)面为正面, 那么顺时针(Clockwise)就是背面, 反正法线和光照模型永远算不对, 破罐子破摔, 又深居在模型内部, 永远不需要出头露面了。
+
+尽管只有逆时针的面, 光照计算是正确的, 但绘制时 OpenGL 却不管不顾, 都会一股脑给你绘制上。这给深度测试带来了不必要的负担: 同一个物体的正面和背面都会被绘制, 背面由于深度值(Z)更高, 又一定会被深度测试剔除。哎, 可恶的顺时针面, 明明永远在模型内部摸鱼, 永远不会被绘制出来, 却白白占用了我们宝贵的深度测试算力。
+
+有没有一种办法, 能让 OpenGL 自动忽视所有在当前摄像机方向看起来是顺时针的面来节省性能? 这就需要启用 GL_CULL_FACE 这个称为面剔除的特性。
+
+```cpp
+// 开启面剔除
+CHECK_GL(glEnable(GL_CULL_FACE));
+CHECK_GL(glCullFace(GL_BACK));
+CHECK_GL(glFrontFace(GL_CCW));
+```
+
+> [!TIP]
+> 注意: 剔除的条件只看顶点的顺逆时针, 和法线无关, 法线是你自己计算的
+
+要注意, `GL_CULL_FACE` 的作用是剔除"三个顶点顺序为顺时针"的面, 而和法线无关, 如果你加载了某个无良模型师傅做的"顺时针为正面"的模型, 那么你在我们刚刚的函数 `compute_normal` 里加个负号并无济于事! 要把"顺时针模型"转换成图形学界通用的"逆时针模型", 你需要做的只是把面数组中 B 和 C 顶点的"索引"翻一下:
+
+```cpp
+// 在 load_obj 中, 如果你加载的是约定"顺时针为正面"的模型, 就需要翻转 b 和 c 变量
+if (isFackingClockwiseAuthor)
+    faces.push_back(glm::uvec3(a, c, b));  // 无良模型师傅
+else
+    faces.push_back(glm::uvec3(a, b, c));  // 正常模型师傅
+```
+
+另外, 如果你的圈子都是喜欢顺时针的无良模型师傅, 那么也可以 `glFrontFace(GL_CW)`, 告诉 OpenGL 顺时针才是你想保留的正面, 默认状态是 `GL_CCW`, 逆时针为正面。
+
+![](HX_2025-08-04_14-23-29.png)
+
+## 六、法线进阶之平滑渲染
+### 6.1 古代 OpenGL 启用平滑渲染模式
+
+```cpp
+glShadeModel(GL_SMOOTH); // 切换到平滑渲染模式
+glShadeModel(GL_FLAT);   // 切换到平直渲染模式
+```
+
+默认状态为平直模式 `GL_FLAT`。
+
+绘制三角形时:
+- 若为 `GL_SMOOTH` `模式, glNormal3f` 可以指定三次, 每个顶点都可以有独立的顶点法线。
+- 若为 `GL_FLAT` `模式, glNormal3f` 每个三角形只能指定一次, 含义为面法线。
+
+### 6.2 平直渲染(GL_FLAT)vs 平滑渲染(GL_SMOOTH)
+
+![##w500##](HX_2025-08-04_15-32-11.png)
+
+左边是平直, 右边是平滑.
+
+```cpp [c62-平滑渲染法线]
+// 手动计算法线 asin 系数
+glm::vec3 compute_normal_biased(glm::vec3 a, glm::vec3 b, glm::vec3 c) noexcept {
+    auto ab = b - a;
+    auto ac = c - a;
+    auto n = glm::cross(ac, ab);
+    auto nLen = glm::length(n);
+    if (nLen != 0) {
+        n *= glm::asin(nLen / (glm::length(ab) * glm::length(ac))) / nLen;
+    }
+    return n;
+}
+```
+
+```cpp [c62-完整代码(绘制两个)]
+#include <check/OpenGL.hpp>
+#include <glm/vec3.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include <fstream>
+#include <stdexcept>
+#include <vector>
+
+#include <HXTest.hpp>
+
+auto __init__ = []{
+    setlocale(LC_ALL, "zh_CN.UTF-8");
+    try {
+        auto cwd = std::filesystem::current_path();
+        log::hxLog.debug("当前工作路径是:", cwd);
+        std::filesystem::current_path("../../../src/08-OpenGL");
+        log::hxLog.debug("切换到路径:", std::filesystem::current_path());
+    } catch (const std::filesystem::filesystem_error& e) {
+        log::hxLog.error("Error:", e.what());
+    }
+    return 0;
+}();
+
+namespace HX {
+
+struct ObjParser {
+    void parser(std::string_view path) {
+        std::ifstream file{{path.data(), path.size()}};
+        if (!file.is_open()) [[unlikely]] {
+            log::hxLog.error("打开文件:", path, "失败!");
+            throw std::runtime_error{path.data()};
+        }
+        std::string line;
+        while (std::getline(file, line)) {
+            auto head = line.substr(0, 2);
+            if (head == "v ") {
+                // 解析顶点
+                std::istringstream s{line.substr(2)};
+                glm::vec3 v;
+                s >> v.x >> v.y >> v.z;
+                _vertices.push_back(std::move(v));
+            } else if (head == "f ") {
+                // 解析面
+                std::istringstream s{line.substr(2)};
+                std::vector<std::size_t> idx;
+                while (std::getline(s, head, ' ')) {
+                    std::size_t i;
+                    std::istringstream{head} >> i;
+                    idx.push_back(i - 1);
+                }
+                for (std::size_t i = 2; i < idx.size(); ++i)
+                    _trinales.push_back({idx[0], idx[i], idx[i - 1]});
+            }
+        }
+
+        file.close();
+        log::hxLog.info("加载:", path, "完成!");
+    }
+
+    auto& getVertices() const noexcept {
+        return _vertices;
+    }
+
+    auto& getFaces() const noexcept {
+        return _trinales;
+    }
+
+private:
+    std::vector<glm::vec3> _vertices;
+    std::vector<glm::uvec3> _trinales;
+};
+
+} // namespace HX
+
+glm::vec3 perspective_divide(glm::vec4 pos) {
+    return {pos.x / pos.w, pos.y / pos.w, pos.z / pos.w};
+}
+
+// 手动计算法线
+glm::vec3 compute_normal(glm::vec3 a, glm::vec3 b, glm::vec3 c) noexcept {
+    auto ab = b - a;
+    auto ac = c - a;
+    return glm::normalize(glm::cross(ac, ab));
+}
+
+// 手动计算法线 asin 系数
+glm::vec3 compute_normal_biased(glm::vec3 a, glm::vec3 b, glm::vec3 c) noexcept {
+    auto ab = b - a;
+    auto ac = c - a;
+    auto n = glm::cross(ac, ab);
+    auto nLen = glm::length(n);
+    if (nLen != 0) {
+        n *= glm::asin(nLen / (glm::length(ab) * glm::length(ac))) / nLen;
+    }
+    return n;
+}
+
+template <bool IsSmooth = false> // 是否为平滑模式
+void show(GLFWwindow* window) {
+    static auto obj = [] {
+        ObjParser res;
+        res.parser("./obj/monkey.obj");
+        return res;
+    }();
+    int w, h;
+    glfwGetWindowSize(window, &w, &h);
+    glm::mat4x4 perspective = glm::perspective(glm::radians(40.0f), (float)w / (float)h, 0.01f, 100.f);
+
+    auto& vertices = obj.getVertices();
+    static auto normals = [&] {
+        std::vector<glm::vec3> res;
+        if constexpr (IsSmooth) {
+            auto& faces = obj.getFaces();
+            res.resize(faces.size());
+            for (auto const& v : faces) {
+                auto a = vertices[v[0]],
+                     b = vertices[v[1]],
+                     c = vertices[v[2]];
+                HX_NO_WARNINGS_BEGIN
+                for (std::size_t i = 0; i < 3; ++i)
+                    res[v[i]] += compute_normal_biased(a, b, c);
+                HX_NO_WARNINGS_END
+            }
+            for (auto& it : res)
+                it = glm::normalize(it);
+        } else {
+            for (auto const& v : obj.getFaces()) {
+                auto a = vertices[v.x],
+                     b = vertices[v.y],
+                     c = vertices[v.z];
+                res.push_back(compute_normal(a, b, c));
+            }
+        }
+        return res;
+    }();
+
+    // 视角
+    glm::vec3 eye{0, 0, 5};
+    glm::vec3 center{0, 0, 0};
+    glm::vec3 up{0, 1, 0};
+    glm::mat4x4 view = glm::lookAt(eye, center, up);
+
+    glm::mat4x4 model = glm::mat4x4{1.f};
+    model = glm::scale(model, glm::vec3(0.7f)); // 缩小 0.7 倍
+    model = IsSmooth
+        ? glm::translate(glm::mat4x4(1), 1.5f * glm::vec3(0.8f, 0, 0)) * model   // 平移位置
+        : glm::translate(glm::mat4x4(1), -1.5f * glm::vec3(0.8f, 0, 0)) * model;
+
+    glm::mat4x4 viewModel = view * model; // ModelView
+
+    // 加载投影矩阵
+    glMatrixMode(GL_PROJECTION);
+    glLoadMatrixf(glm::value_ptr(perspective));
+
+    // 加载模型视图矩阵
+    glMatrixMode(GL_MODELVIEW);
+    glLoadMatrixf(glm::value_ptr(viewModel));
+
+    glBegin(GL_TRIANGLES);
+    for (std::size_t i = 0; auto const& v : obj.getFaces()) {
+        auto a = vertices[v.x],
+             b = vertices[v.y],
+             c = vertices[v.z];
+        if constexpr (IsSmooth) {
+            glNormal3fv(glm::value_ptr(normals[v[0]]));
+            glVertex3fv(glm::value_ptr(a));
+            glNormal3fv(glm::value_ptr(normals[v[1]]));
+            glVertex3fv(glm::value_ptr(b));
+            glNormal3fv(glm::value_ptr(normals[v[2]]));
+            glVertex3fv(glm::value_ptr(c));
+        } else {
+            glNormal3fv(glm::value_ptr(normals[i]));
+            glVertex3fv(glm::value_ptr(a));
+            glVertex3fv(glm::value_ptr(b));
+            glVertex3fv(glm::value_ptr(c));
+        }
+        ++i;
+    }
+    CHECK_GL(glEnd());
+}
+
+int main() {
+    auto* window = initOpenGL();
+    log::hxLog.debug("OpenGL version: ", glGetString(GL_VERSION));
+
+    CHECK_GL(glEnable(GL_POINT_SMOOTH));
+    CHECK_GL(glPointSize(64.0f));
+
+    CHECK_GL(glEnable(GL_DEPTH_TEST));       // 深度测试, 防止前后物体不分
+    CHECK_GL(glEnable(GL_MULTISAMPLE));      // 多重采样抗锯齿 (MSAA)
+    CHECK_GL(glEnable(GL_BLEND));            // 启用 Alpha 通道 (透明度)
+    CHECK_GL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)); // 标准 Alpha 混合: src*alpha + dst*(1-alpha)
+    CHECK_GL(glEnable(GL_LIGHTING));         // 启用固定管线光照 (古代特性)
+    CHECK_GL(glEnable(GL_LIGHT0));           // 启用 0 号光源 (古代特性)
+    CHECK_GL(glEnable(GL_COLOR_MATERIAL));   // 启用材质颜色追踪 (古代特性)
+
+    glColor3f(0.9f, 0.6f, 0.1f);
+    while (!glfwWindowShouldClose(window)) {
+        CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)); // 清空画布
+        show<true>(window);
+        show<false>(window);
+        glfwSwapBuffers(window); // 双缓冲
+        glfwPollEvents();
+    }
+    return 0;
+}
+```
+
+桥豆麻袋! 这个亮度是不是不对?
+
+### 6.3 MV 矩阵含有缩放时, 需要开启 GL_NORMALIZE
+
+因为 OpenGL 会傻乎乎的给模型的法线乘以 MV 矩阵的逆转置, 但是乘了以后忘记归一化!
+
+我们刚刚的 Model 矩阵部分有缩小至 0.7 倍, 因此 Model 的逆转置是放大至 1.42 倍。
+
+这导致我们的法线被傻乎乎的 OpenGL 乘以逆转置后长度由正常的 1 变成 1.42 了!
+
+从而计算光照时, 由于光照计算公式中有 dot(N, -I) 项, 这个公式算出来亮度正确的前提是 N 必须是已经归一化的, 然而我们恰恰不是归一化的, 所以变成 dot(1.42 N, -I) 导致算出来亮度高了 1.42 倍!
+
+因此我们可以开启 `GL_NORMALIZE`(古代特供)这个开关, 让 OpenGL 对乘以了 MV 逆转置后的法线进行一个归一化操作, 保证进入固定管线的 N 总是归一化的。
+
+```cpp
+glEnable(GL_NORMALIZE);
+```
+
+这样, 成功在同一个窗口中正确显示两个不同上色模式的猴子头~
+
+## 七、GLFW 鼠标事件回调实现相机角度控制
+
+~~回调函数大家都知道是什么东西, 这里就不介绍了~~
+
+### 7.1 设置鼠标点击回调函数
+
+```cpp
+void mouse_button_callback(GLFWwindow *window, int button, int action, int mods);
+```
+
+然后在主函数里使用 `glfwSetMouseButtonCallback` 注册这个回调函数:
+
+```cpp
+glfwSetMouseButtonCallback(window, mouse_button_callback);
+```
+
+以后每当用户在窗口 window 中点击了鼠标, GLFW 就会自动帮你调用你注册的这个 `mouse_button_callback` 函数, 并且往他的参数中传递了一些关于鼠标的信息:
+- `button` 用户按下了鼠标上哪一个键, 例如 `GLFW_MOUSE_BUTTON_LEFT` 表示鼠标左键。
+- `action` 会告诉你鼠标这个按键是被按下(`GLFW_PRESS`)还是抬起(`GLFW_RELEASE`)。
+- `mods` 点击时的键盘"修饰符", 例如 Ctrl、Shift、Alt 等, 可以实现 Ctrl+鼠标点击。
+- `window` 告诉你事件发生在哪个窗口上, 反正我们只有一个主窗口所以不用考虑。
+
+本期所有用到的函数:
+
+```cpp
+/**
+ * @brief 鼠标移动回调
+ * @param window GLFW 窗口指针
+ * @param xpos 鼠标当前的 X 坐标
+ * @param ypos 鼠标当前的 Y 坐标
+ */
+void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos);
+
+/**
+ * @brief 鼠标按键回调
+ * @param window GLFW 窗口指针
+ * @param button 鼠标按键(如 GLFW_MOUSE_BUTTON_LEFT)
+ * @param action 按键动作(GLFW_PRESS 或 GLFW_RELEASE)
+ * @param mods   修饰键(如 GLFW_MOD_SHIFT)
+ */
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+
+/**
+ * @brief 鼠标滚轮回调
+ * @param window GLFW 窗口指针
+ * @param xoffset 滚轮水平方向偏移
+ * @param yoffset 滚轮垂直方向偏移
+ */
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+
+/**
+ * @brief 键盘按键回调
+ * @param window GLFW 窗口指针
+ * @param key 按键代码(如 GLFW_KEY_A)
+ * @param scancode 系统扫描码
+ * @param action 按键动作(GLFW_PRESS 或 GLFW_RELEASE)
+ * @param mods   修饰键(如 GLFW_MOD_CONTROL)
+ */
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
+/**
+ * @brief 窗口大小改变回调
+ * @param window GLFW 窗口指针
+ * @param width 新窗口宽度
+ * @param height 新窗口高度
+ */
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+```
+
+### 7.2 GLFW 是在什么地方调用回调?
+
+> [!TIP]
+> 有些同学可能担心"回调函数"会不会是在另一个线程里异步的调用的, 那在回调函数里修改相机参数岂不是很危险?
+>
+> 不会! GLFW 保证回调函数总是在主线程, 并且不会在 `render` 进行到一半的时候调用
+
+所有你设置的 `Callback` 函数都是在这个 `glfwPollEvents` 里面被调用的! 所以都是在主线程调用的, 没有任何问题
+
+```cpp
+while (!glfwWindowShouldClose(window)) {
+    CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)); // 清空画布
+    show<true>(window);
+    show<false>(window);
+    glfwSwapBuffers(window); // 双缓冲
+    glfwPollEvents();        // <-- 轮询事件中, 调用回调
+}
+```
+
+### 7.3 介绍摄像头控制的五种模式
+
+1. orbit(环绕模式)
+2. drift(转头模式)
+3. pan(平移模式)
+4. zoom(缩放模式)
+5. hitchcock(变焦模式)
+
