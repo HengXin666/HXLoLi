@@ -495,9 +495,15 @@ export const stats: RecordItem[] = [
     "message": "新增 三维模型的加载与相机控制 的部分笔记; 新增一个个人项目: vscode插件 在主页"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-08-04T13:47:21.108Z",
+    "commit": "a50db1c60b0066d6df91bcede09f104c324956b2",
+    "date": "2025-08-04T21:47:21+08:00",
     "wordCount": 3692950,
     "message": "新增三维模型的加载与相机控制 部分笔记"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-08-05T06:37:24.073Z",
+    "wordCount": 3718561,
+    "message": "新增三维模型的加载与相机控制 完整笔记"
   }
 ];
