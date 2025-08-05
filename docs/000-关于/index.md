@@ -7,7 +7,7 @@
                     HX LoLi
                         |
   Heng_Xin's Loli Optimizes Loli Iteratively // static_cast<void>(
-              /               \              //     "Heng_XinのLoliはLoliを反復的に最適化する"sv
+              /               \              //     "Heng_Xinのロリがロリを繰り返しオプティマイズする"sv
     Loli Optimizes            Loli Optimizes // );
     /\    Loli Iteratively     /\       Loli Iteratively
    /  \    /\                 /  \       /\
