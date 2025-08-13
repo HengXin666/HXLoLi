@@ -2,11 +2,58 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://HengXin666.github.io/HXLoLi/blog</id>
     <title>HXLoLi Blog</title>
-    <updated>2025-07-30T13:47:35.000Z</updated>
+    <updated>2025-08-13T21:34:56.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://HengXin666.github.io/HXLoLi/blog"/>
     <subtitle>HXLoLi Blog</subtitle>
     <icon>https://HengXin666.github.io/HXLoLi/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[QML 支持 Wayland 比 QWidget 好!]]></title>
+        <id>https://HengXin666.github.io/HXLoLi/blog/2025/08/13/01-QML万岁</id>
+        <link href="https://HengXin666.github.io/HXLoLi/blog/2025/08/13/01-QML万岁"/>
+        <updated>2025-08-13T21:34:56.000Z</updated>
+        <summary type="html"><![CDATA[本人正式加入 QML 圣教!!!]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="本人正式加入-qml-圣教">本人正式加入 QML 圣教!!!<a href="https://hengxin666.github.io/HXLoLi/blog/2025/08/13/01-QML%E4%B8%87%E5%B2%81#%E6%9C%AC%E4%BA%BA%E6%AD%A3%E5%BC%8F%E5%8A%A0%E5%85%A5-qml-%E5%9C%A3%E6%95%99" class="hash-link" aria-label="本人正式加入 QML 圣教!!!的直接链接" title="本人正式加入 QML 圣教!!!的直接链接">​</a></h2>
+<p>最近重拾之前写的音乐播放器项目. 因为一开始是使用 QWidget 开发的. 可是我尊贵的 Arch Linux 使用的是 KDE (Wayland) 桌面系统...</p>
+<p>结果就是 窗口的 move 不行, 顶置不行, 可穿透窗口 / 透明窗口 / 无边窗口, 都难搞...</p>
+<p>网上全是 CSDN 的赤💩教程, 根本就不行. 外网也只看到了外国老哥在无奈...</p>
+<p>GPT / DS 直接上大炮, 写得显然不跨平台还超复杂...</p>
+<p>QWidget 无边窗口被放弃了...</p>
+<hr>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="本人正式加入-qml-圣教-1">本人正式加入 QML 圣教!!!<a href="https://hengxin666.github.io/HXLoLi/blog/2025/08/13/01-QML%E4%B8%87%E5%B2%81#%E6%9C%AC%E4%BA%BA%E6%AD%A3%E5%BC%8F%E5%8A%A0%E5%85%A5-qml-%E5%9C%A3%E6%95%99-1" class="hash-link" aria-label="本人正式加入 QML 圣教!!!的直接链接" title="本人正式加入 QML 圣教!!!的直接链接">​</a></h2>
+<p>要是 QML 改叫 <strong>QTML</strong> 就更好了 (类似于 js -&gt; ts, 此次的 T 是 <code>type</code>)</p>
+</div>
+<p>最近看番, 歌好听... Linux 没有酷狗... 不习惯其他音乐程序... 正好可以重构我的 ASS Music 播放器~</p>
+<p>并且学了 QML 也要找个东西练手.</p>
+<p>谁知道, 让我发现了!! QML 居然默认有跨平台的 移动、缩放, 这让无边窗口非常简单. 并且鼠标穿透窗口也非常简单!</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="1-通用无边窗口">1. 通用无边窗口<a href="https://hengxin666.github.io/HXLoLi/blog/2025/08/13/01-QML%E4%B8%87%E5%B2%81#1-%E9%80%9A%E7%94%A8%E6%97%A0%E8%BE%B9%E7%AA%97%E5%8F%A3" class="hash-link" aria-label="1. 通用无边窗口的直接链接" title="1. 通用无边窗口的直接链接">​</a></h3>
+<!-- -->
+<p>简直简单到爆炸!</p>
+<ul>
+<li>
+<p><code>root.startSystemMove();</code> 就可以拖动</p>
+</li>
+<li>
+<p><code>root.startSystemResize(e);</code> 就可以调整大小 (听说 macOS 不支持(?))</p>
+</li>
+</ul>
+<p>他们都是跨平台的! 不论 win / linux, x11 / Wayland 都可以.</p>
+<p>直接爽飞了! 个人正式加入 QML 圣教! QWidget 你算老几啊!</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="2-鼠标穿透">2. 鼠标穿透<a href="https://hengxin666.github.io/HXLoLi/blog/2025/08/13/01-QML%E4%B8%87%E5%B2%81#2-%E9%BC%A0%E6%A0%87%E7%A9%BF%E9%80%8F" class="hash-link" aria-label="2. 鼠标穿透的直接链接" title="2. 鼠标穿透的直接链接">​</a></h3>
+<!-- -->
+<!-- -->
+<!-- -->
+<p>不过我期望一个鼠标可以穿透, 但是仍然可以接受到鼠标事件的api... 似乎不行, 很难搞. (Wayland)</p>]]></content>
+        <author>
+            <name>Heng_Xin</name>
+            <email>282000500@qq.com</email>
+            <uri>https://github.com/HengXin666</uri>
+        </author>
+        <category label="C++" term="C++"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[MSVC错误 编译期缓存错误和ICE]]></title>
         <id>https://HengXin666.github.io/HXLoLi/blog/2025/07/30/01-MSVC错误</id>
@@ -2137,47 +2184,5 @@
             <uri>https://github.com/HengXin666</uri>
         </author>
         <category label="分享" term="分享"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[終わり]]></title>
-        <id>https://HengXin666.github.io/HXLoLi/blog/2025/05/06/001-終わり</id>
-        <link href="https://HengXin666.github.io/HXLoLi/blog/2025/05/06/001-終わり"/>
-        <updated>2025-05-06T16:21:22.000Z</updated>
-        <summary type="html"><![CDATA[总结51]]></summary>
-        <content type="html"><![CDATA[<p>总结51</p>
-<p>计划:</p>
-<ul class="contains-task-list containsTaskList_mC6p">
-<li>
-<p>[] 算法题 * 3 (1/5)</p>
-</li>
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 学习 QT QML (假期内过完) (11/38)</p>
-</li>
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 补计网学习进度 (0/21)</p>
-</li>
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> QT PDF 项目 重构 (假期内) (待开始)</p>
-</li>
-</ul>
-<p>要求:</p>
-<ul class="contains-task-list containsTaskList_mC6p">
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 每天晚上12:00要睡觉, 不晚于 12:30 (仅有2天?!)</p>
-</li>
-<li class="task-list-item">
-<p><input type="checkbox" disabled=""> 每天8:30起床吧?! 一朝之计在于晨啊! (仅有2天?!)</p>
-</li>
-</ul>
-<p>实际上写计划就是用来打击自己的wc...</p>
-<hr>
-<p>今天整理博客, 发现, 之前的代码还有些问题... 不知道为什么有些链接没有被替换...</p>
-<p>最近也是四处被上压力啊 =-=, 感觉单纯的详细的写, 不好... 得跳步, 反正都是查 官方文档 的, 知道有这个东西即可 =-=</p>]]></content>
-        <author>
-            <name>Heng_Xin</name>
-            <email>282000500@qq.com</email>
-            <uri>https://github.com/HengXin666</uri>
-        </author>
-        <category label="日记" term="日记"/>
     </entry>
 </feed>
