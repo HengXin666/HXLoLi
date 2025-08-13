@@ -501,9 +501,15 @@ export const stats: RecordItem[] = [
     "message": "新增三维模型的加载与相机控制 部分笔记"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-08-05T06:37:24.073Z",
+    "commit": "573c7ec34efc875790b9fd5f49c4af4084deb203",
+    "date": "2025-08-05T14:37:24+08:00",
     "wordCount": 3718561,
     "message": "新增三维模型的加载与相机控制 完整笔记"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-08-13T14:23:42.772Z",
+    "wordCount": 3724303,
+    "message": "add: 本人正式加入 QML 圣教! 博客"
   }
 ];
