@@ -6,14 +6,11 @@ tags:
     - C++
 ---
 
-MSVC你真的牛逼大了!, 这种简单活都干不好? win都💩你无敌了 (\💩/ \💩/ \💩/)
-
-<!-- truncate -->
 
 > [!TIP]
 > 本文只有恶意. win都💩! MS💩VC! 
-> 
-> \💩/ \💩/ \💩/ \💩/ \💩/
+
+<!-- truncate -->
 
 ## msvc签名不完全匹配: requires 缺陷
 
@@ -125,8 +122,4 @@ int main() {
 }
 ```
 
-已经发送给 msvc 了 (https://developercommunity.visualstudio.com/t/MSVC-rejects-definitions-when-requires-c/10961820) (我才不管是否有重复提案呢..tm的这么久了都还有这个bug...)
-
-之前我提的 ice 都不鸟我. 美名其曰 `我们的团队优先考虑对具有广泛客户影响的产品问题采取行动。`. 还是机器人回复. 你们开源节流还有真人吗? 人机!
-
-呵呵, MSVC 和 win都💩
+已经发送给 msvc 了 (https://developercommunity.visualstudio.com/t/MSVC-rejects-definitions-when-requires-c/10961820) (我才不管是否有重复提案呢..tm的这么久了都还有这个bug..., 管它是不是bug呢. gcc/clang 怎么又ok?)
