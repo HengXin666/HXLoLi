@@ -507,9 +507,21 @@ export const stats: RecordItem[] = [
     "message": "新增三维模型的加载与相机控制 完整笔记"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-08-13T14:23:42.772Z",
+    "commit": "85b766776d536840b3044af2955b491ee95f69e6",
+    "date": "2025-08-13T22:23:42+08:00",
     "wordCount": 3724303,
     "message": "add: 本人正式加入 QML 圣教! 博客"
+  },
+  {
+    "commit": "122ee4a7f4331cd733b57a61ba6a8446b5bfd865",
+    "date": "2025-09-07T16:52:50+08:00",
+    "wordCount": 3727570,
+    "message": "msvc你无敌了(\\/ \\/ \\/)"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-09-14T15:19:24.619Z",
+    "wordCount": 3730507,
+    "message": "add: 【C++】如何将「字符串」作为「非类型模板实参」/ 文明化memo"
   }
 ];
