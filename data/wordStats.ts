@@ -519,9 +519,15 @@ export const stats: RecordItem[] = [
     "message": "msvc你无敌了(\\/ \\/ \\/)"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-09-14T15:19:24.619Z",
+    "commit": "70fcb16ed1597a0175e36023bc09fe1657e504f5",
+    "date": "2025-09-14T23:19:24+08:00",
     "wordCount": 3730507,
     "message": "add: 【C++】如何将「字符串」作为「非类型模板实参」/ 文明化memo"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-09-24T13:31:55.993Z",
+    "wordCount": 3735780,
+    "message": "新增博客: 【C++】编译期函数指针唯一化"
   }
 ];
