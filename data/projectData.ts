@@ -9,6 +9,15 @@ export const projects: Project[] = [
     type: "lib",
   },
   {
+    title: "HX-Music",
+    description: "C++20 QT6 QML 编写的 Linux 的 Wayland(KDE) 平台上的音乐播放器, 支持 Ass 悬浮歌词(带前后端, 支持自动爬取并且生成日语注音歌词), 支持 Ass 歌词动画、特效渲染.",
+    preview: "img/project/hxmusic.png",
+    website: "",
+    url: "https://github.com/HengXin666/HXMusic",
+    tags: ["favorite", "openSource", "design"],
+    type: "app",
+  },
+  {
     title: "HXLoLi",
     description: "Heng_Xin的个人博客, 包含本人各种计算机的学习笔记, 超百万字.",
     preview: "img/project/hxloli.png",
@@ -19,7 +28,7 @@ export const projects: Project[] = [
   },
   {
     title: "B站历史弹幕爬虫",
-    description: "Python编写, 带GUI的; 通过二分和经验算法, 加速弹幕爬取速度.",
+    description: "Python编写的后端, React前端, 采用全网最快的弹幕爬取算法, 并且不会缺少弹幕.",
     preview: "img/project/bilibili-danmaku.png",
     website: "",
     url: "https://github.com/HengXin666/BiLiBiLi_DanMu_Crawling",

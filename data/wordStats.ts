@@ -525,9 +525,15 @@ export const stats: RecordItem[] = [
     "message": "add: 【C++】如何将「字符串」作为「非类型模板实参」/ 文明化memo"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-09-24T13:31:55.993Z",
+    "commit": "57302d0f2ae7a09a64c5a1093cfd8b11e5f6651a",
+    "date": "2025-09-24T21:31:56+08:00",
     "wordCount": 3735780,
     "message": "新增博客: 【C++】编译期函数指针唯一化"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-10-08T08:39:56.442Z",
+    "wordCount": 3735780,
+    "message": "新增项目和修改部分项目描述"
   }
 ];
