@@ -531,9 +531,15 @@ export const stats: RecordItem[] = [
     "message": "新增博客: 【C++】编译期函数指针唯一化"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-10-08T08:39:56.442Z",
+    "commit": "4a6aae82e93997b2424d8d9706ab019bacab36b9",
+    "date": "2025-10-08T16:39:56+08:00",
     "wordCount": 3735780,
     "message": "新增项目和修改部分项目描述"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-10-11T14:41:08.891Z",
+    "wordCount": 3737263,
+    "message": "更新力扣Hot100速记"
   }
 ];
