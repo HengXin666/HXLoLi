@@ -37,3 +37,8 @@ C++:
   label: 'C++'
   permalink: '/C++'
   description: 'C++小知识'
+
+面试:
+  label: '面试'
+  permalink: '/面试'
+  description: 'Heng_Xinの面識経験'
