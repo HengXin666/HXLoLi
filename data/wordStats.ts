@@ -537,9 +537,21 @@ export const stats: RecordItem[] = [
     "message": "新增项目和修改部分项目描述"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-10-11T14:41:08.891Z",
+    "commit": "2c92f01599dd1335acbfbd1456e9d8d905e39f06",
+    "date": "2025-10-11T22:41:08+08:00",
     "wordCount": 3737263,
     "message": "更新力扣Hot100速记"
+  },
+  {
+    "commit": "1cf419f5a95dd1ce433e7edfcbbe56383f6f3085",
+    "date": "2025-10-15T14:28:52+08:00",
+    "wordCount": 3742397,
+    "message": "新增tx一面面经"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-10-17T17:39:55.880Z",
+    "wordCount": 3742086,
+    "message": "新增wy游戏服务端开发一面面经"
   }
 ];
