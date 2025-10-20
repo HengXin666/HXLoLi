@@ -555,9 +555,15 @@ export const stats: RecordItem[] = [
     "message": "新增wy游戏服务端开发一面面经"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-10-18T12:42:49.555Z",
+    "commit": "67c470b9db9acd43c08ef1d90a1213ed5a7c783b",
+    "date": "2025-10-18T20:42:49+08:00",
     "wordCount": 3742859,
     "message": "补充net_easy面经内容qwq"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-10-20T14:44:49.468Z",
+    "wordCount": 3749649,
+    "message": "add tx二面"
   }
 ];
