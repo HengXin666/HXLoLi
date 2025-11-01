@@ -561,9 +561,15 @@ export const stats: RecordItem[] = [
     "message": "补充net_easy面经内容qwq"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-10-20T14:44:49.468Z",
+    "commit": "719238772f8ee5c99dd3973f733ec67ffbb95033",
+    "date": "2025-10-20T22:44:49+08:00",
     "wordCount": 3749649,
     "message": "add tx二面"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-11-01T08:18:30.515Z",
+    "wordCount": 3753008,
+    "message": "add: 博客文章: MSVC屎山代码发力了requires前向声明问题"
   }
 ];
