@@ -15425,6 +15425,56 @@ module.exports = {
     },
     {
       "type": "category",
+      "label": "开源项目",
+      "collapsible": true,
+      "items": [
+        {
+          "type": "category",
+          "label": "HXLibs",
+          "collapsible": true,
+          "items": [
+            {
+              "type": "category",
+              "label": "简介",
+              "collapsible": true,
+              "items": [],
+              "customProps": {
+                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "tags": []
+              },
+              "link": {
+                "type": "doc",
+                "id": "开源项目/HXLibs/简介/index"
+              }
+            },
+            {
+              "type": "category",
+              "label": "HX::net简介",
+              "collapsible": true,
+              "items": [],
+              "customProps": {
+                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "tags": []
+              },
+              "link": {
+                "type": "doc",
+                "id": "开源项目/HXLibs/HX::net简介/index"
+              }
+            }
+          ],
+          "customProps": {
+            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "tags": []
+          }
+        }
+      ],
+      "customProps": {
+        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "tags": []
+      }
+    },
+    {
+      "type": "category",
       "label": "嵌入式",
       "collapsible": true,
       "items": [

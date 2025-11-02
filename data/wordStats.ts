@@ -567,9 +567,15 @@ export const stats: RecordItem[] = [
     "message": "add tx二面"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-11-01T08:18:30.515Z",
+    "commit": "6370a2b8ecaf91af63f9559150e14eccc5a20801",
+    "date": "2025-11-01T16:18:30+08:00",
     "wordCount": 3753008,
     "message": "add: 博客文章: MSVC屎山代码发力了requires前向声明问题"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-11-02T15:35:49.890Z",
+    "wordCount": 3764181,
+    "message": "更新部分HXLibs的文档内容(项目简介/net的HttpServer部分)"
   }
 ];
