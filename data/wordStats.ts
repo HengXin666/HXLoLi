@@ -573,9 +573,15 @@ export const stats: RecordItem[] = [
     "message": "add: 博客文章: MSVC屎山代码发力了requires前向声明问题"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-11-02T15:35:49.890Z",
+    "commit": "47130d66d9968298c3ddfc0f5e224ffe7c0e8d2d",
+    "date": "2025-11-02T23:35:49+08:00",
     "wordCount": 3764181,
     "message": "更新部分HXLibs的文档内容(项目简介/net的HttpServer部分)"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-11-08T06:43:37.119Z",
+    "wordCount": 3765361,
+    "message": "速记之前遇到的msvc和gcc八嘎"
   }
 ];
