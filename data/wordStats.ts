@@ -585,9 +585,15 @@ export const stats: RecordItem[] = [
     "message": "速记之前遇到的msvc和gcc八嘎"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-12-13T16:00:46.009Z",
+    "commit": "8f3256ae55ac2775b53f3c52c02c4817d21e6322",
+    "date": "2025-12-14T00:00:46+08:00",
     "wordCount": 3765861,
     "message": "[blog]MSVC ICE 编译期内部错误"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-12-13T16:30:59.194Z",
+    "wordCount": 3765893,
+    "message": "[fix]修复归档页面的布局问题(依然有小瑕疵); 修改<<MSVC ICE 编译期内部错误>>的一些内容布局"
   }
 ];
