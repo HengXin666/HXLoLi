@@ -579,9 +579,15 @@ export const stats: RecordItem[] = [
     "message": "更新部分HXLibs的文档内容(项目简介/net的HttpServer部分)"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-11-08T06:43:37.119Z",
+    "commit": "e23c4cc4ca3c9a580f4c65e6ec34d3ed2d0c8cc2",
+    "date": "2025-11-08T14:43:37+08:00",
     "wordCount": 3765361,
     "message": "速记之前遇到的msvc和gcc八嘎"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-12-13T16:00:46.009Z",
+    "wordCount": 3765861,
+    "message": "[blog]MSVC ICE 编译期内部错误"
   }
 ];
