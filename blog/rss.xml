@@ -15,19 +15,19 @@
             <pubDate>Sat, 13 Dec 2025 23:11:02 GMT</pubDate>
             <description><![CDATA[菜逼 MSVC 随便写写就触发 ICE 了, 微软你写的什么狗屎代码?]]></description>
             <content:encoded><![CDATA[<p>菜逼 MSVC 随便写写就触发 ICE 了, 微软你写的什么狗屎代码?</p>
-<p><img decoding="async" loading="lazy" alt="HX_2025-12-13_23-18-59" src="https://hengxin666.github.io/HXLoLi/assets/images/HX_2025-12-13_23-18-59-fd2d82a1ce437f94f4cf3f62c3db79f6.png" width="1988" height="1443" style="border-radius:10px"></p>
 <p>在 <span class="tailwind"><a href="https://github.com/HengXin666/HXLibs/issues/17" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/HengXin666/HXLibs/issues/17<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 中描述.</p>
+<p><img decoding="async" loading="lazy" alt="HX_2025-12-13_23-18-59 ##w700##" src="https://hengxin666.github.io/HXLoLi/assets/images/HX_2025-12-13_23-18-59-fd2d82a1ce437f94f4cf3f62c3db79f6.png" width="1988" height="1443" style="width:700px;border-radius:10px"></p>
 <h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="错误原因">错误原因<a href="https://hengxin666.github.io/HXLoLi/blog/2025/12/13/01_MSVC_ICE#%E9%94%99%E8%AF%AF%E5%8E%9F%E5%9B%A0" class="hash-link" aria-label="错误原因的直接链接" title="错误原因的直接链接">​</a></h2>
-<p><img decoding="async" loading="lazy" alt="HX_2025-12-13_23-57-42" src="https://hengxin666.github.io/HXLoLi/assets/images/HX_2025-12-13_23-57-42-bebc4a86428f538930cdcd17d9d0ef33.png" width="1807" height="534" style="border-radius:10px"></p>
+<p><img decoding="async" loading="lazy" alt="HX_2025-12-13_23-57-42 ##w700##" src="https://hengxin666.github.io/HXLoLi/assets/images/HX_2025-12-13_23-57-42-bebc4a86428f538930cdcd17d9d0ef33.png" width="1807" height="534" style="width:700px;border-radius:10px"></p>
 <h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="解决方案">解决方案<a href="https://hengxin666.github.io/HXLoLi/blog/2025/12/13/01_MSVC_ICE#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" class="hash-link" aria-label="解决方案的直接链接" title="解决方案的直接链接">​</a></h2>
 <ol>
 <li>移入 forEach 内部:</li>
 </ol>
-<p><img decoding="async" loading="lazy" alt="HX_2025-12-13_23-58-27" src="https://hengxin666.github.io/HXLoLi/assets/images/HX_2025-12-13_23-58-27-d115c92802726bbb3e3d6ec619bf2e85.png" width="1743" height="1285" style="border-radius:10px"></p>
-<ol start="2">
+<p><img decoding="async" loading="lazy" alt="HX_2025-12-13_23-59-02 ##w700##" src="https://hengxin666.github.io/HXLoLi/assets/images/HX_2025-12-13_23-59-02-184c3f5d72a0332ed0fe9d6874dd6e16.png" width="1792" height="1275" style="width:700px;border-radius:10px"></p>
+<ol>
 <li>去掉 constexpr || 替换成 const</li>
 </ol>
-<p><img decoding="async" loading="lazy" alt="HX_2025-12-13_23-59-02" src="https://hengxin666.github.io/HXLoLi/assets/images/HX_2025-12-13_23-59-02-184c3f5d72a0332ed0fe9d6874dd6e16.png" width="1792" height="1275" style="border-radius:10px"></p>
+<p><img decoding="async" loading="lazy" alt="HX_2025-12-13_23-58-27 ##w700##" src="https://hengxin666.github.io/HXLoLi/assets/images/HX_2025-12-13_23-58-27-d115c92802726bbb3e3d6ec619bf2e85.png" width="1743" height="1285" style="width:700px;border-radius:10px"></p>
 <h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="最小复现">最小复现<a href="https://hengxin666.github.io/HXLoLi/blog/2025/12/13/01_MSVC_ICE#%E6%9C%80%E5%B0%8F%E5%A4%8D%E7%8E%B0" class="hash-link" aria-label="最小复现的直接链接" title="最小复现的直接链接">​</a></h2>
 <p>暂时无法复现..., 只能通过代码qwq, 不知道怎么触发. 就很玄学. 源码我那边夹杂了许多模板, 不知道有没有干扰.</p>]]></content:encoded>
             <author>282000500@qq.com (Heng_Xin)</author>
