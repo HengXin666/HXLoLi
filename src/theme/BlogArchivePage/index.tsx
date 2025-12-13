@@ -131,8 +131,8 @@ export default function BlogArchive ({ archive }: Props): ReactNode {
                         </p>
                     </div>
                 </header>
-                <BlogWithCats style={{ width: '65%', padding: '20px'}}>
-                    <div className="container" style={{ width: '85%'}}>
+                <BlogWithCats style={{ width: '100%', padding: '20px'}}>
+                    <div className="container" style={{ width: '75%'}}>
                         {years.length > 0 && <YearsSection years={years} />}
                     </div>
                 </BlogWithCats>
