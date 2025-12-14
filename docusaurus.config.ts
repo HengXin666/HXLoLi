@@ -153,6 +153,11 @@ const config: Config = {
           position: "left",
         },
         {
+          to: "/anime",
+          label: "アニメ",
+          position: "left",
+        },
+        {
           label: "更多",
           position: "right",
           items: [
