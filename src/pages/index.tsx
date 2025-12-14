@@ -6,12 +6,13 @@ import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import config from '@generated/docusaurus.config';
 import { stats } from '@site/data/wordStats';
-import WordCountChart from '../components/WordCountChart';
+import WordCountChart from '../components/chart/WordCountChart';
 import HXLink from '../components/HXLink';
 import BlogWithCats from '../components/BlogWithCats';
 import ProjectCarousel from '../components/ProjectCarousel';
 
 import './index.css';
+import WakaTimeChart from '../components/chart/WakaTimeChart';
 
 // 模块卡片组件
 function FeatureCard ({
@@ -110,6 +111,7 @@ export default function Home (): ReactNode {
             description="<head />"
         >
             <HomepageHeader />
+            <WakaTimeChart />
             <BlogWithCats style={{textAlign: 'center', padding: '20px', backgroundColor: '#2b2b2b'}}>
                 <div className="container">
                     <h2 style={{color: '#E3E3E3'}}>
@@ -167,7 +169,7 @@ export default function Home (): ReactNode {
                             <img
                                 src="https://camo.githubusercontent.com/4a309eb2a40a5588fea63c42bfec65ad770d61f1d048abef9fb15ffc7fb716d5/68747470733a2f2f6769746875622d726561646d652d73746174732d666c616d652d70692d37302e76657263656c2e6170702f6170692f77616b6174696d653f757365726e616d653d48656e675f58696e267468656d653d7472616e73706172656e7426686964655f626f726465723d74727565266c61796f75743d636f6d70616374266c616e67735f636f756e743d313134353134266c6f63616c653d6a61267469746c655f636f6c6f723d39393030393926746578745f636f6c6f723d443137323737"
                                 alt="WakaTime Stats"
-                                data-canonical-src="https://github-readme-stats-flame-pi-70.vercel.app/api/wakatime?username=Heng_Xin&theme=transparent&hide_border=true&layout=compact&langs_count=114514&locale=ja&title_color=990099&text_color=D17277"
+                                data-canonical-src="https://github-readme-stats-flame-pi-70.vercel.app/api/wakatime?username=Heng_Xin&theme=transparent&hide_border=true&layout=compact&langs_count=8&locale=ja&title_color=990099&text_color=D17277"
                                 style={{ maxWidth: "100%" }}
                             />
                         </a>
@@ -179,7 +181,7 @@ export default function Home (): ReactNode {
                             <img
                                 src="https://camo.githubusercontent.com/8f1b9122ccbc56dd3ef02ac2e6a858dd17286e4e497c3910d86d53ee59c92ac5/68747470733a2f2f6769746875622d726561646d652d73746174732d666c616d652d70692d37302e76657263656c2e6170702f6170692f746f702d6c616e67732f3f757365726e616d653d48656e6758696e363636267468656d653d7472616e73706172656e7426686964655f626f726465723d74727565266c61796f75743d646f6e75742d766572746963616c266c616e67735f636f756e743d313134353134266c6f63616c653d6a61267469746c655f636f6c6f723d39393030393926746578745f636f6c6f723d443137323737"
                                 alt="Top Langs"
-                                data-canonical-src="https://github-readme-stats-flame-pi-70.vercel.app/api/top-langs/?username=HengXin666&theme=transparent&hide_border=true&layout=donut-vertical&langs_count=114514&locale=ja&title_color=990099&text_color=D17277"
+                                data-canonical-src="https://github-readme-stats-flame-pi-70.vercel.app/api/top-langs/?username=HengXin666&theme=transparent&hide_border=true&layout=donut-vertical&langs_count=8&locale=ja&title_color=990099&text_color=D17277"
                                 style={{ maxWidth: "100%" }}
                             />
                         </a>
@@ -193,7 +195,7 @@ export default function Home (): ReactNode {
                             <img
                                 src="https://camo.githubusercontent.com/494f76132d612633f256e65dc49a78ada7142f28d1b7ba77b999d005b448f893/68747470733a2f2f736b696c6c69636f6e732e6465762f69636f6e733f693d6769742c6769746875622c632c6370702c636d616b652c71742c6c696e75782c617263682c646f636b65722c70792c6a6176612c737072696e672c6d7973716c2c72656469732c6d6f6e676f64622c68746d6c2c6373732c6a732c74732c7675652c63662c77696e646f77732c6d64267468656d653d6c69676874"
                                 alt="Skills"
-                                data-canonical-src="https://skillicons.dev/icons?i=git,github,c,cpp,cmake,qt,linux,arch,docker,py,java,spring,mysql,redis,mongodb,html,css,js,ts,vue,cf,windows,md&theme=light"
+                                data-canonical-src="https://skillicons.dev/icons?i=git,github,c,cpp,cmake,qt,linux,arch,docker,py,java,spring,mysql,redis,mongodb,html,css,js,ts,react,vue,cf,windows,md&theme=light"
                                 style={{ maxWidth: "100%" }}
                             />
                         </a>
