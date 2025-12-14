@@ -339,6 +339,7 @@ export default function WakaTimeDashboard () {
 
     return (
         <div className="wakatime-dashboard" style={{ padding: "1rem" }}>
+            <h3 style={{textAlign: 'center'}}>WakaTime 历史时间统计</h3>
             <div
                 className="controls"
                 style={{
@@ -390,11 +391,11 @@ export default function WakaTimeDashboard () {
                     topItems={topOses}
                     dataKeyPrefix="_os_hours"
                     precision={precision}
-                    axisColor="#1AC5FF"
+                    axisColor="#ee11ff"
                     customLegend={<CustomIconLegend />}
                 />
                 <DrilldownChart
-                    title="语言使用"
+                    title="语言使用 (挂机不计入)"
                     data={processedLangData}
                     topItems={topLanguages}
                     dataKeyPrefix="_lang_hours"

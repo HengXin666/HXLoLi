@@ -3,6 +3,11 @@ docusaurus:
   permalink: '/docusaurus'
   description: '与 Docusaurus 框架相关的博客文章'
 
+更新日志:
+  label: '更新日志'
+  permalink: '/更新日志'
+  description: 'HXLoLi 博客的更新日志'
+
 vscode:
   label: 'VsCode'
   permalink: '/vscode'
