@@ -2,11 +2,125 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://HengXin666.github.io/HXLoLi/blog</id>
     <title>HXLoLi Blog</title>
-    <updated>2025-12-13T23:11:02.000Z</updated>
+    <updated>2025-12-14T17:54:57.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://HengXin666.github.io/HXLoLi/blog"/>
     <subtitle>HXLoLi Blog</subtitle>
     <icon>https://HengXin666.github.io/HXLoLi/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[博客更新日志和计划 (I)]]></title>
+        <id>https://HengXin666.github.io/HXLoLi/blog/2025/12/14/01_博客更新日志和计划</id>
+        <link href="https://HengXin666.github.io/HXLoLi/blog/2025/12/14/01_博客更新日志和计划"/>
+        <updated>2025-12-14T17:54:57.000Z</updated>
+        <summary type="html"><![CDATA[博客更新日志和计划 (I)]]></summary>
+        <content type="html"><![CDATA[<p>博客更新日志和计划 (I)</p>
+<ul>
+<li>
+<p>支持在主页显示 WakaTime 的统计数据 (操作系统 &amp;&amp; 语言)</p>
+</li>
+<li>
+<p>拟定支持番剧记录</p>
+</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="一wakatime-统计数据">一、WakaTime 统计数据<a href="https://hengxin666.github.io/HXLoLi/blog/2025/12/14/01_%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97%E5%92%8C%E8%AE%A1%E5%88%92#%E4%B8%80wakatime-%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE" class="hash-link" aria-label="一、WakaTime 统计数据的直接链接" title="一、WakaTime 统计数据的直接链接">​</a></h2>
+<p>如图, 基于 <span class="tailwind"><a href="https://github.com/HengXin666/HengXin666/blob/main/py/wakatime_req.py" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Python 脚本<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 结合 Github Actions 实现自动更新. 需要时候动态请求即可</p>
+<p><img decoding="async" loading="lazy" alt="##w700##" src="https://hengxin666.github.io/HXLoLi/assets/images/HX_2025-12-14_18-07-17-e880f09a9f8893de9e1ee3c6cdab7efd.png" width="2535" height="922" style="width:700px;border-radius:10px"></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="二アニメ-功能">二、アニメ 功能<a href="https://hengxin666.github.io/HXLoLi/blog/2025/12/14/01_%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97%E5%92%8C%E8%AE%A1%E5%88%92#%E4%BA%8C%E3%82%A2%E3%83%8B%E3%83%A1-%E5%8A%9F%E8%83%BD" class="hash-link" aria-label="二、アニメ 功能的直接链接" title="二、アニメ 功能的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="21-期望支持的功能">2.1 期望支持的功能<a href="https://hengxin666.github.io/HXLoLi/blog/2025/12/14/01_%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97%E5%92%8C%E8%AE%A1%E5%88%92#21-%E6%9C%9F%E6%9C%9B%E6%94%AF%E6%8C%81%E7%9A%84%E5%8A%9F%E8%83%BD" class="hash-link" aria-label="2.1 期望支持的功能的直接链接" title="2.1 期望支持的功能的直接链接">​</a></h3>
+<ol>
+<li>
+<p>[番剧记录], 包含:</p>
+<ul>
+<li>用户信息 (记录用户操作的)
+<ul>
+<li>添加时间</li>
+<li>更新时间</li>
+<li>用户收藏的相关的图片 (基于角色分类) -&gt; 角色信息::用户上传的角色图片</li>
+<li>番剧状态 (看过/在看/想看/搁置/抛弃)</li>
+</ul>
+</li>
+<li>番剧信息 (记录番剧的)
+<ul>
+<li>番剧发布时间 (x月新番 / yyyy年春)</li>
+<li>bangumi url</li>
+<li>番剧名称</li>
+<li>番剧类型 (?)</li>
+<li>番剧全集数</li>
+<li>番剧评分</li>
+<li>番剧简介</li>
+<li>番剧海报</li>
+<li>声优-角色</li>
+<li>op/ed/角色曲</li>
+</ul>
+</li>
+<li>歌曲信息 (op/ed/角色曲)
+<ul>
+<li>歌曲名称</li>
+<li>专辑 (可选)</li>
+<li>歌手</li>
+<li>歌曲封面 (可选)</li>
+</ul>
+</li>
+<li>角色信息
+<ul>
+<li>角色名称</li>
+<li>声优名称 (可能多个)</li>
+<li>角色简介 (可选)</li>
+<li>角色图片 (可选)</li>
+<li>角色出演的番剧 (用于<code>力导向图</code>等)</li>
+<li>用户上传的角色图片 -&gt; 用户信息::用户收藏的相关的图片</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>基于 [番剧记录] 自动按照月/年, 生成番剧时间线 (看番列表)</p>
+</li>
+<li>
+<p>基于番剧、角色、声优, 生成<code>力导向图</code>, [支持筛选(待讨论)] (注意性能)</p>
+</li>
+</ol>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="22-需要的页面">2.2 需要的页面<a href="https://hengxin666.github.io/HXLoLi/blog/2025/12/14/01_%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97%E5%92%8C%E8%AE%A1%E5%88%92#22-%E9%9C%80%E8%A6%81%E7%9A%84%E9%A1%B5%E9%9D%A2" class="hash-link" aria-label="2.2 需要的页面的直接链接" title="2.2 需要的页面的直接链接">​</a></h3>
+<ol>
+<li>
+<p><code>/anime/list/time</code> -&gt; 按照月, 生成番剧时间线 (看番列表) (基于用户添加的看番时间顺序, 而不是番剧发布顺序)</p>
+</li>
+<li>
+<p><code>/anime/list/all</code> -&gt; 番剧列表 (基于番剧发布时间顺序), 用于展示用户看过的所有番剧</p>
+</li>
+</ol>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>功能 1 &amp;&amp; 2, 使用的是同类卡片展示, 点击后会展示 [番剧记录] 的全量信息, 并且对接 Github 评论区.</p>
+</div>
+<ol>
+<li>
+<p><code>/anime/graph</code> -&gt; 力导向图 (基于角色、声优、番剧)</p>
+</li>
+<li>
+<p><code>/anime/kara/{角色名称}</code> -&gt; 展示角色的卡片, 包含角色图片、角色出演的番剧、角色简介、角色曲、用户上传的图片等</p>
+</li>
+</ol>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="23-目前困难点">2.3 目前困难点<a href="https://hengxin666.github.io/HXLoLi/blog/2025/12/14/01_%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97%E5%92%8C%E8%AE%A1%E5%88%92#23-%E7%9B%AE%E5%89%8D%E5%9B%B0%E9%9A%BE%E7%82%B9" class="hash-link" aria-label="2.3 目前困难点的直接链接" title="2.3 目前困难点的直接链接">​</a></h3>
+<ol>
+<li>
+<p>图片, 目前使用 Github 存储, 观看时候会很费流量. 需要考虑使用 CDN 存储 || 图床</p>
+<ul>
+<li>需要一个图床列表, 多图床备份. 主内容依旧存放在 Github, 使用流水线每次同步到图床即可</li>
+<li>前端应该 自动判断使用图床 or Github 数据 (?), 或者有一个选项卡让用户选择</li>
+</ul>
+</li>
+<li>
+<p>力导向图, 需要处理特殊情况, 还要性能qwq</p>
+</li>
+</ol>]]></content>
+        <author>
+            <name>Heng_Xin</name>
+            <email>282000500@qq.com</email>
+            <uri>https://github.com/HengXin666</uri>
+        </author>
+        <category label="更新日志" term="更新日志"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[MSVC ICE 编译期内部错误]]></title>
         <id>https://HengXin666.github.io/HXLoLi/blog/2025/12/13/01_MSVC_ICE</id>
@@ -1730,26 +1844,6 @@
 <p>学习: OpenGL ... 虚幻5 C++(幻想时刻)</p>
 </li>
 </ul>]]></content>
-        <author>
-            <name>Heng_Xin</name>
-            <email>282000500@qq.com</email>
-            <uri>https://github.com/HengXin666</uri>
-        </author>
-        <category label="日常" term="日常"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[博客更新日志]]></title>
-        <id>https://HengXin666.github.io/HXLoLi/blog/2025/06/02/01-博客更新日志</id>
-        <link href="https://HengXin666.github.io/HXLoLi/blog/2025/06/02/01-博客更新日志"/>
-        <updated>2025-06-02T02:41:46.000Z</updated>
-        <summary type="html"><![CDATA[今天有空, 完善一下博客, 支持了猫娘护法, 以及项目轮播图.]]></summary>
-        <content type="html"><![CDATA[<p>今天有空, 完善一下博客, 支持了猫娘护法, 以及项目轮播图.</p>
-<p>但是还是有点问题..., 突然发现, 它并不是支持白天模式的qwq...</p>
-<p>还得改一改, 再者, 明亮模式也太难看了吧, 怎么都不好看, 有点想把网页搞成仅<code>黑夜模式</code>了qwq</p>
-<p>现在简单兼容了一下白天模式了qwq... 治标不治本, 我一点都不想支持...</p>
-<p>哈哈哈, 找到了, <code>docusaurus.config.ts</code>中可以配置:</p>
-<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-ts codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">themeConfig</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">{</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    colorMode</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">{</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">        defaultMode</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">'dark'</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain">              </span><span class="token comment" style="color:hsl(220, 10%, 40%)">// 默认黑夜模式</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">        disableSwitch</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token boolean" style="color:hsl(29, 54%, 61%)">true</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain">              </span><span class="token comment" style="color:hsl(220, 10%, 40%)">// 禁用模式切换按钮</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">        respectPrefersColorScheme</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token boolean" style="color:hsl(29, 54%, 61%)">false</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> </span><span class="token comment" style="color:hsl(220, 10%, 40%)">// 不根据用户操作系统的偏好切换</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">}</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">}</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">ts</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
-<p>目前还有些问题, 就是手机上查看可以有bug, (猫娘护法的问题, 日后可以响应式的不显示猫娘就好了qwq...)</p>]]></content>
         <author>
             <name>Heng_Xin</name>
             <email>282000500@qq.com</email>
