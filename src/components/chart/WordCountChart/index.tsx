@@ -12,7 +12,7 @@ import {
     ReferenceLine,
 } from 'recharts';
 import type { RecordItem } from '@site/data/wordStats';
-import { processWordCountData, type ProcessedData } from '../../utils/wordCountUtils';
+import { processWordCountData, type ProcessedData } from '../../../utils/wordCountUtils';
 
 interface WordCountChartProps {
     rawData: RecordItem[];

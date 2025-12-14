@@ -591,9 +591,15 @@ export const stats: RecordItem[] = [
     "message": "[blog]MSVC ICE 编译期内部错误"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-12-13T16:30:59.194Z",
+    "commit": "b812d0816ea01720a1e668e13f68619f7255bd04",
+    "date": "2025-12-14T00:30:59+08:00",
     "wordCount": 3765893,
     "message": "[fix]修复归档页面的布局问题(依然有小瑕疵); 修改<<MSVC ICE 编译期内部错误>>的一些内容布局"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-12-14T07:53:44.011Z",
+    "wordCount": 3765893,
+    "message": "[feat]主页新增WakaTime时间统计"
   }
 ];
