@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+# 明确流水线有写权限
+permissions:
+  contents: write
+
 jobs:
   # Job 1: 同步 Bangumi 数据
   sync-data:
@@ -14,11 +18,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 启用 git push 能力
+      - name: Checkout Repository
         uses: actions/checkout@v4
-        # 需要 fetch-depth: 0 才能 push
-        with:
-          fetch-depth: 0
 
       - name: 启用 蟒蛇
         uses: actions/setup-python@v5
