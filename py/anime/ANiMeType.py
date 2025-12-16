@@ -60,7 +60,7 @@ class ANiMeData:
     id: int                     # 番剧ID
     name: str                   # 标题
     name_cn: str                # 中文标题
-    short_summary: str          # 简介
+    summary: str                # 简介 (需要二度爬取)
     score: float                # BanGuMi 评分
     image_url: str              # 封面URL
     eps: int                    # 集数

@@ -49,7 +49,7 @@ export interface ANiMeData {
   id: number;
   name: string;
   name_cn: string;
-  short_summary: string;
+  summary: string;
   score: number;
   image_url: string;
   eps: number;
