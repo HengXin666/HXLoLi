@@ -1,0 +1,106 @@
+.animeCard {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  background-color: var(--ifm-card-background-color);
+  box-shadow: var(--ifm-card-box-shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.animeCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.cardImageColumn {
+  flex-shrink: 0;
+  width: 150px;
+}
+
+.cardImageColumn img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+}
+
+.cardDetailsColumn {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cardTitle {
+  margin-bottom: 0.25rem !important; /* 覆盖 Docusaurus 默认的 margin */
+}
+
+.cardTitle a {
+    color: var(--ifm-font-color-base);
+    text-decoration: none;
+}
+.cardTitle a:hover {
+    text-decoration: underline;
+}
+
+.originalTitle {
+  font-size: 0.9rem;
+  color: var(--ifm-color-secondary-darkest);
+  margin-left: 0.75rem;
+  font-weight: normal;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: var(--ifm-color-secondary-dark);
+}
+
+.metaRow .fa-star {
+    color: #ffc107;
+}
+
+.tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background-color: var(--ifm-badge-background-color);
+  color: var(--ifm-badge-color);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.commentRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.commentText {
+  flex-grow: 1;
+}
+
+.commentText blockquote {
+    margin: 0;
+    padding: 0.5rem 1rem;
+    border-left: 3px solid var(--ifm-color-primary);
+    background-color: rgba(var(--ifm-color-primary-rgb), 0.05);
+    font-style: italic;
+    color: var(--ifm-font-color-secondary);
+}
+
+.summary {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ifm-color-secondary-darkest);
+  margin: 0;
+}
