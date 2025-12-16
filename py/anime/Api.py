@@ -312,8 +312,14 @@ if __name__ == "__main__":
     ag.add_argument("-o", "--token", help="Bangumi Token", required=True)
     args = ag.parse_args()
 
+    # 重新绑定
     USERNAME = args.username
     ACCESS_TOKEN = args.token
+    HEADERS = {
+        "Authorization": f"Bearer {ACCESS_TOKEN}",
+        "User-Agent": "HXLoLi/1.0 (https://github.com/HengXin666/HXLoLi)",
+        "accept": "application/json",
+    }
 
     api = load_from_json()
     # 边爬取边输出为 json 文件
