@@ -7,8 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  # Job 1 (原 Job 2): 同步 Bangumi 数据
-  # 这个 job 现在是所有其他 job 的起点
+  # Job 1: 同步 Bangumi 数据
   sync-data:
     # 关键: 只有在 push 到 main 分支, 且提交信息不包含 [LoLi-Bot] 时才运行
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[LoLi-Bot]')
@@ -62,30 +61,7 @@ jobs:
             echo "数据无变更, 无需提交。"
           fi
 
-  # Job 2 (原 Job 1): 运行构建测试
-  checks:
-    # 关键: 依赖于 sync-data 的成功完成
-    needs: sync-data
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '18.x'
-          cache: 'npm'
-
-      - name: 构建静态博客
-        run: |
-          if [ -e yarn.lock ]; then
-            yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-            npm ci
-          else
-            npm i
-          fi
-          npm run build
-
-  # Job 3: 部署到 GitHub Pages
+  # Job 2: 部署到 GitHub Pages
   deploy:
     # 关键: 也依赖于 sync-data 的成功完成
     # 并且, 只在 push 到 main 且不是机器人提交时运行 (这个条件从 sync-data 继承, 但再次声明更清晰)
@@ -94,19 +70,19 @@ jobs:
     needs: sync-data
 
     steps:
-      - name: Checkout repository
+      - name: 同步最新代码
         # 在 sync-data 推送新 commit 后, 我们需要重新 checkout 最新的代码
         uses: actions/checkout@v4
         with:
             ref: 'main' # 明确指定 checkout main 分支的最新 commit
 
-      - name: Set up Node.js
+      - name: 启动 Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18.x'
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: 安装 dependencies
         run: |
           if [ -e yarn.lock ]; then
             yarn install --frozen-lockfile
@@ -116,12 +92,12 @@ jobs:
             npm i
           fi
 
-      - name: Set up SSH for deployment
+      - name: 为工作流启用 SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
 
-      - name: Deploy to GitHub Pages
+      - name: 部署到 Github Pages
         env:
           USE_SSH: true
           GIT_USER: Heng_Xin

@@ -3,6 +3,7 @@
 uv.lock
 .venv
 __pycache__
+py/**/test
 
 # Dependencies
 /node_modules

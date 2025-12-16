@@ -103,4 +103,8 @@
   line-height: 1.6;
   color: var(--ifm-color-secondary-darkest);
   margin: 0;
+
+  /* --- 新增的魔法属性 --- */
+  /* pre-wrap 会保留空白和换行符, 并且允许自动换行 */
+  white-space: pre-wrap;
 }

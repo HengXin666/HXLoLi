@@ -77,7 +77,7 @@ class Api:
             self._get_anime_characters(idx)
             self._get_relations(idx)
             lambda_func()
-            time.sleep(1)
+            time.sleep(1.5)
 
         self._get_user_watching_anime(username, _task)
 
@@ -86,15 +86,19 @@ class Api:
             cnt: int = 0
             while not queue.empty():
                 type, id, url = queue.get()
-                print(f"线程 [{threading.current_thread().name}]: 正在下载 [{type}] {id}")
                 is_ok = self._get_img_and_save(id, type, url)
                 cnt += is_ok
-                if is_ok and cnt % 100 == 0:
-                    print(f"线程 [{threading.current_thread().name}]: 已经下载 {cnt} 张图片")
-                    time.sleep(3)
+                if is_ok:
+                    print(f"[{threading.current_thread().name}]: 已下载 {id} 图片")
+                    if cnt % 100 == 0:
+                        print(
+                            f"[{threading.current_thread().name}]: 已下载 {cnt} 张图片"
+                        )
+                        time.sleep(3)
                 queue.task_done()
+
         # 基于线程安全的队列 <type, id, url> 开启多线程爬虫
-        queue: Queue[Tuple[str, int, str]]= Queue()
+        queue: Queue[Tuple[str, int, str]] = Queue()
         for record in self._anime_record:
             queue.put(("anime", record.anime_data.id, record.anime_data.image_url))
             for actor in record.anime_data.characters:
@@ -106,6 +110,24 @@ class Api:
         print("主线程: 等待所有下载任务完成...")
         queue.join()
         print("主线程: 所有图片下载任务已完成! ")
+
+    def _get_subjects_info(self, id: int, record_ref: ANiMeRecord) -> None:
+        url = f"{BASE_URL}/v0/subjects/{id}"
+        try:
+            response = requests.get(url, headers=HEADERS)
+            response.raise_for_status()
+            # 补充更新
+            data = response.json()
+            record_ref.anime_data.name = data["name"]
+            record_ref.anime_data.name_cn = data["name_cn"]
+            record_ref.anime_data.summary = data["summary"]  # 重点
+            record_ref.anime_data.eps = data["total_episodes"]  # 重点
+            record_ref.anime_data.date = data["date"]
+        except requests.exceptions.RequestException as e:
+            print(f"获取番剧信息失败: {e}")
+        except json.JSONDecodeError:
+            print("解析番剧信息响应失败, 内容可能不是有效的JSON。")
+            print("响应内容:", response.text)
 
     def _get_user_watching_anime(self, username: str, lambda_func: Callable) -> None:
         url = f"{BASE_URL}/v0/users/{username}/collections"
@@ -122,13 +144,20 @@ class Api:
                 response.raise_for_status()
                 for it in response.json().get("data", []):
                     if it["subject_id"] in self._record_map:
+                        # 仅更新 UserStatus
+                        ref = self._record_map[it["subject_id"]]
+                        ref.user_status.watch_status = it["type"]
+                        ref.user_status.watched_eps = it["ep_status"]
+                        ref.user_status.last_update = it["updated_at"]
+                        ref.user_status.comment = it["comment"]
+                        ref.user_status.tags = it["tags"]
                         continue
                     record = ANiMeRecord(
                         ANiMeData(
                             id=it["subject_id"],
                             name=it["subject"]["name"],
                             name_cn=it["subject"]["name_cn"],
-                            short_summary=it["subject"]["short_summary"],
+                            summary=it["subject"]["short_summary"],
                             score=it["subject"]["score"],
                             image_url=it["subject"]["images"]["large"],
                             eps=it["subject"]["eps"],
@@ -142,12 +171,13 @@ class Api:
                             tags=it["tags"],
                         ),
                     )
+                    self._get_subjects_info(record.anime_data.id, record)  # 补充更新
                     self._record_map[record.anime_data.id] = record
                     self._anime_record.append(record)
                     lambda_func(len(self._anime_record) - 1)
                 if len(self._anime_record) < limit:
                     return
-                time.sleep(1)
+                time.sleep(2)
             except requests.exceptions.RequestException as e:
                 print(f"获取用户追番列表失败: {e}")
                 return
@@ -276,7 +306,9 @@ def save_to_json(api: Api) -> None:
 if __name__ == "__main__":
     # 接受命令行参数
     ag = argparse.ArgumentParser()
-    ag.add_argument("-u", "--username", help="Bangumi 用户名", required=False, default="heng_xin")
+    ag.add_argument(
+        "-u", "--username", help="Bangumi 用户名", required=False, default="heng_xin"
+    )
     ag.add_argument("-o", "--token", help="Bangumi Token", required=True)
     args = ag.parse_args()
 
