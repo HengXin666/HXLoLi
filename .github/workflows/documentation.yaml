@@ -47,19 +47,15 @@ jobs:
           uv run CopyToStaticWebPath.py
         working-directory: ./py/anime
 
-      - name: 提交数据到 main 分支
-        run: |
-          git config --global user.name "LoLi-Bot"
-          git config --global user.email "loli-bot@users.noreply.github.com"
-
-          if [[ -n $(git status --porcelain) ]]; then
-            echo "发现数据变更, 正在提交..."
-            git add .
-            git commit -m "[LoLi-Bot]: 同步番剧信息"
-            git push
-          else
-            echo "数据无变更, 无需提交。"
-          fi
+      - name: 召唤 萝莉小猫娘 帮忙 push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          # 使用您的机器人名称作为提交信息
+          commit_message: '[LoLi-Bot]: ご主人さま、アニメデータを更新しましたにゃ'
+          # 设置为您指定的 Git 用户身份
+          commit_user_name: 'Heng_Xin[LoLi-Bot]'
+          commit_user_email: '282000500@qq.com'
+          commit_author: 'Heng_Xin[LoLi-Bot] <282000500@qq.com>'
 
   # Job 2: 部署到 GitHub Pages
   deploy:
