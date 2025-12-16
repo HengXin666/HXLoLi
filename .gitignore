@@ -1,3 +1,9 @@
+# python
+.idea
+uv.lock
+.venv
+__pycache__
+
 # Dependencies
 /node_modules
 package-lock.json

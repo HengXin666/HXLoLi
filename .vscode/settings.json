@@ -7,5 +7,6 @@
         "purecpp",
         "RAII"
     ],
-    "commentTranslate.browse.mode": "inplace"
+    "commentTranslate.browse.mode": "inplace",
+    "codingcopilot.autoRun": false
 }

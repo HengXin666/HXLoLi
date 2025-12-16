@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Node.js CI & Bangumi Sync
 
 on:
   push:
@@ -7,14 +7,17 @@ on:
     branches: [ main ]
 
 jobs:
+  # Job 1: 运行构建测试 (保持不变)
   checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4 # 推荐使用 v4
+      - uses: actions/setup-node@v4 # 推荐使用 v4
         with:
           node-version: '18.x'
-      - name: Test Build
+          cache: 'npm' # 开启 npm 缓存
+
+      - name: Install dependencies and Build
         run: |
           if [ -e yarn.lock ]; then
             yarn install --frozen-lockfile
@@ -24,23 +27,85 @@ jobs:
             npm i
           fi
           npm run build
-  gh-release:
+
+  # Job 2: 同步 Bangumi 数据
+  sync-data:
+    # 关键: 只有在 push 到 main 分支, 且提交信息不包含 [LoLi-Bot] 时才运行
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[LoLi-Bot]')
     runs-on: ubuntu-latest
+    # 确保这个 job 在 checks 之后运行
+    needs: checks
+
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        # 需要 fetch-depth: 0 才能 push
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # 或者你需要的 Python 版本
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Install Python dependencies with uv
+        # 在 py 目录下运行 uv sync
+        run: |
+          source $HOME/.cargo/env
+          uv sync --system
+        working-directory: ./py
+
+      - name: Run Api.py to fetch data
+        # 在 py/anime 目录下运行
+        run: |
+          source $HOME/.cargo/env
+          uv run Api.py --username="heng_xin" --token=${{ secrets.BGM_ACCESS_TOKEN }}
+        working-directory: ./py/anime
+
+      - name: Run CopyToStaticWebPath.py to move data
+        run: |
+          source $HOME/.cargo/env
+          uv run CopyToStaticWebPath.py
+        working-directory: ./py/anime
+
+      - name: Commit and push data changes
+        run: |
+          git config --global user.name "LoLi-Bot"
+          git config --global user.email "loli-bot@users.noreply.github.com"
+
+          # 检查是否有文件变更
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "发现数据变更, 正在提交..."
+            git add .
+            git commit -m "[LoLi-Bot]: 同步番剧信息"
+            git push
+          else
+            echo "数据无变更, 无需提交。"
+          fi
+
+  # Job 3: 部署到 GitHub Pages
+  deploy:
+    # 关键: 只有在 sync-data job 成功完成后才运行
+    # 同样, 也只在 push 到 main 且不是机器人提交时运行
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[LoLi-Bot]')
+    runs-on: ubuntu-latest
+    needs: sync-data # 依赖于 sync-data job
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '18.x'
-      - uses: webfactory/ssh-agent@v0.5.0
-        with:
-          ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
-      - name: Release to GitHub Pages
-        env:
-          USE_SSH: true
-          GIT_USER: Heng_Xin
+          cache: 'npm'
+
+      - name: Install dependencies
         run: |
-          git config --global user.email "282000500@qq.com"
-          git config --global user.name "Heng_Xin"
           if [ -e yarn.lock ]; then
             yarn install --frozen-lockfile
           elif [ -e package-lock.json ]; then
@@ -48,4 +113,21 @@ jobs:
           else
             npm i
           fi
+
+      - name: Set up SSH for deployment
+        uses: webfactory/ssh-agent@v0.9.0 # 推荐使用更新的版本
+        with:
+          ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
+
+      - name: Deploy to GitHub Pages
+        env:
+          USE_SSH: true
+          # GIT_USER 应该在 Docusaurus 的 deploy 命令中设置, 而不是在这里
+          # 但如果你的脚本依赖它, 可以保留
+          GIT_USER: Heng_Xin
+        run: |
+          # Docusaurus 的 deploy 命令会自动处理 git user.name 和 user.email
+          # 所以这里的 git config 是可选的, 除非你的脚本需要
+          git config --global user.email "282000500@qq.com"
+          git config --global user.name "Heng_Xin"
           npm run deploy
