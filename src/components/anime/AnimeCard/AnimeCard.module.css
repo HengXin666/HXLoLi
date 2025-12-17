@@ -11,7 +11,20 @@
 
 .cardImageColumn {
   flex-shrink: 0;
+  position: relative;
   width: 150px;
+  line-height: 0;
+}
+
+.cardImageColumn .cardImageTop {
+  /* 占满水平, 居中, 不占用布局(相对与最近的div), 在上边, 再上 25px */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -25px;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .cardImageColumn img {
@@ -49,7 +62,7 @@
 .metaRow {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   font-size: 0.9rem;
   color: var(--ifm-color-secondary-dark);
 }
@@ -79,6 +92,10 @@
   gap: 1rem;
 }
 
+.buttonContainer {
+  margin-left: auto;
+}
+
 .commentText {
   flex-grow: 1;
 }
@@ -97,8 +114,56 @@
   line-height: 1.6;
   color: var(--ifm-color-secondary-darkest);
   margin: 0;
+}
 
-  /* --- 新增的魔法属性 --- */
-  /* pre-wrap 会保留空白和换行符, 并且允许自动换行 */
-  white-space: pre-wrap;
+.archiveList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  /* 在左侧为日程表日期和行创建空格 */
+  padding-left: 90px;
+}
+
+/* 主垂直时间线栏 */
+.archiveList::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  left: 50px;
+  width: 2px;
+  background: var(--ifm-color-emphasis-300);
+  transform: translateX(-50%);
+}
+
+.archiveItem {
+  position: relative;
+  /* 卡之间的间距 */
+  margin-bottom: 2rem;
+}
+
+/* 每个项目的时间线上的"连接点" */
+.archiveItem::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: -46px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--ifm-color-primary);
+  border: 2px solid var(--ifm-card-background-color);
+  z-index: 1; /* 将点保持在线的顶部 */
+}
+
+.archiveTime {
+  position: absolute;
+  top: 6px;
+  left: -140px;
+  width: 80px;
+  text-align: right;
+  font-family: var(--ifm-font-family-monospace);
+  color: var(--ifm-color-content-secondary);
+  font-size: 0.9rem;
 }
