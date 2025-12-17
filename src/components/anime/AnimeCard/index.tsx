@@ -1,10 +1,11 @@
 import React, { JSX } from 'react';
-import Link from '@docusaurus/Link';
+
 import Heading from '@theme/Heading';
 import { ANiMeRecord, WatchStatus } from '@site/src/utils/anime/types';
 import styles from './AnimeCard.module.css';
 import { toJsDelivrUrl } from '@site/src/utils/cdn/linkJsDelivr';
-
+import Link from '@docusaurus/Link';
+import MDXA from '@site/src/theme/MDXComponents/A';
 // 一个辅助函数, 用于将 WatchStatus 枚举转换为可读的文本
 function getWatchStatusText (status: WatchStatus): string {
     switch (status) {
@@ -34,8 +35,9 @@ export default function AnimeCard ({ record }: { record: ANiMeRecord }): JSX.Ele
             <div className={styles.cardDetailsColumn}>
                 {/* 第一行: 标题 */}
                 <Heading as="h3" className={styles.cardTitle}>
-                    <Link to={bangumiUrl}>{anime_data.name_cn}</Link>
-                    <span className={styles.originalTitle}>{anime_data.name}</span>
+                    <MDXA href={bangumiUrl}>{anime_data.name_cn}</MDXA>
+                    <br />
+                    <span className={styles.originalTitle}>{`「${anime_data.name}」`}</span>
                 </Heading>
 
                 {/* 第二行: 元数据 */}
@@ -63,14 +65,14 @@ export default function AnimeCard ({ record }: { record: ANiMeRecord }): JSX.Ele
                     </div>
                     <Link
                         to={`/anime/details/${anime_data.id}`}
-                        className="button button--secondary button--sm"
+                        className="button button--secondary button--md"
                     >
                         详情
                     </Link>
                 </div>
 
                 {/* 第四行: 简介 */}
-                <p className={styles.summary}>{anime_data.summary}</p>
+                <p className={styles.summary}>{anime_data.short_summary ? anime_data.short_summary : "暂无简介"}</p>
             </div>
         </div>
     );

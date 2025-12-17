@@ -120,8 +120,9 @@ class Api:
             data = response.json()
             record_ref.anime_data.name = data["name"]
             record_ref.anime_data.name_cn = data["name_cn"]
-            record_ref.anime_data.summary = data["summary"]  # 重点
-            record_ref.anime_data.eps = data["total_episodes"]  # 重点
+            record_ref.anime_data.summary = data["summary"]
+            record_ref.anime_data.eps = data["eps"]
+            record_ref.anime_data.total_episodes = data["total_episodes"]
             record_ref.anime_data.date = data["date"]
         except requests.exceptions.RequestException as e:
             print(f"获取番剧信息失败: {e}")
@@ -157,10 +158,12 @@ class Api:
                             id=it["subject_id"],
                             name=it["subject"]["name"],
                             name_cn=it["subject"]["name_cn"],
-                            summary=it["subject"]["short_summary"],
+                            short_summary=it["subject"]["short_summary"],
+                            summary="",
                             score=it["subject"]["score"],
                             image_url=it["subject"]["images"]["large"],
                             eps=it["subject"]["eps"],
+                            total_episodes=it["subject"]["eps"],
                             date=it["subject"]["date"],
                         ),
                         UserStatus(
