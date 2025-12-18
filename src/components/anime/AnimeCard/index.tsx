@@ -5,8 +5,9 @@ import MDXA from '@site/src/theme/MDXComponents/A';
 import { ANiMeRecord } from '@site/src/utils/anime/types';
 import { toJsDelivrUrl } from '@site/src/utils/cdn/linkJsDelivr';
 import styles from './AnimeCard.module.css';
+import { SortMode } from '../SortTabs';
 
-// Helper to format date from YYYY-MM-DD to MM-DD
+// format date from YYYY-MM-DD to MM-DD
 const formatDate = (dateString: string) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -15,7 +16,7 @@ const formatDate = (dateString: string) => {
     return `${month}-${day}`;
 };
 
-export default function AnimeCard({ record }: { record: ANiMeRecord }): JSX.Element {
+export default function AnimeCard({ record, sortMode }: { record: ANiMeRecord, sortMode: SortMode }): JSX.Element {
     const { anime_data, user_status } = record;
     const bangumiUrl = `https://bgm.tv/subject/${anime_data.id}`;
 
@@ -23,9 +24,9 @@ export default function AnimeCard({ record }: { record: ANiMeRecord }): JSX.Elem
     return (
         <li className={styles.archiveItem}>
             {/* 时间线上显示的格式化日期 */}
-            <time className={styles.archiveTime}>{formatDate(anime_data.date)}</time>
+            <time className={styles.archiveTime}>{formatDate(
+                sortMode === SortMode.BY_ANIME_DATE ? anime_data.date : user_status.last_update)}</time>
 
-            {/* The actual card content */}
             <div className={styles.animeCard}>
                 <div className={styles.cardImageColumn}>
                     <img src={toJsDelivrUrl(`/py/anime/data/anime/${anime_data.id}.jpg`)} alt={anime_data.name_cn} />
