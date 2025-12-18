@@ -12,7 +12,7 @@
 .cardImageColumn {
   flex-shrink: 0;
   position: relative;
-  width: 150px;
+  width: 175px;
   line-height: 0;
 }
 
@@ -125,12 +125,19 @@
   padding-left: 90px;
 }
 
+.archiveListTitle {
+  /* 文本边框 */
+  border: var(--ifm-color-emphasis-300) solid 2px;
+  border-radius: 16px;
+  padding: 0.5rem 0.75rem;
+}
+
 /* 主垂直时间线栏 */
 .archiveList::before {
   content: '';
   position: absolute;
-  top: 15px;
-  bottom: 15px;
+  top: -10px;
+  bottom: -25px;
   left: 50px;
   width: 2px;
   background: var(--ifm-color-emphasis-300);
@@ -147,8 +154,8 @@
 .archiveItem::before {
   content: '';
   position: absolute;
-  top: 12px;
-  left: -46px;
+  top: 128px;
+  left: -47px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -159,8 +166,8 @@
 
 .archiveTime {
   position: absolute;
-  top: 6px;
-  left: -140px;
+  top: 123px;
+  left: -131px;
   width: 80px;
   text-align: right;
   font-family: var(--ifm-font-family-monospace);
