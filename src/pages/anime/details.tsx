@@ -1,24 +1,36 @@
-import BlogWithCats from "@site/src/components/BlogWithCats";
-import Layout from "@theme/Layout";
 import React from "react";
+import Layout from "@theme/Layout";
 import Heading from "@theme/Heading";
 import { useLocation } from "react-router-dom";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import { useAnimeRecords } from "@site/src/utils/anime/animeStore";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import BlogWithCats from "@site/src/components/BlogWithCats";
+import { useAnimeRecords } from "@site/src/utils/anime/animeStore";
 
-function useQuery (): URLSearchParams {
-    return new URLSearchParams(useLocation().search);
+function useQuery(): URLSearchParams {
+    const location = useLocation();
+    return new URLSearchParams(location.search);
 }
 
-export default function AnimeDetailPage (): React.ReactNode {
+export default function AnimeDetailPage(): React.ReactElement {
     const query = useQuery();
     const id = query.get("id");
 
-    if (!id || !/^\d+$/.test(id)) {
+    const { siteConfig } = useDocusaurusContext();
+    const records = useAnimeRecords(siteConfig.baseUrl);
+
+    const notFoundImageUrl = useBaseUrl("/anime/img/misaka-404.png");
+
+    const record =
+        id && /^\d+$/.test(id)
+            ? records.find((r) => r.anime_data.id === Number(id))
+            : undefined;
+
+    if (!record) {
         return (
             <Layout title={"アニメ 404 NOT FOUND"}>
-                <div style={{ height: "60px" }}></div>
+                <div style={{ height: "60px" }} />
+
                 <BlogWithCats
                     style={{
                         backgroundColor: "#2b2b2b",
@@ -28,24 +40,22 @@ export default function AnimeDetailPage (): React.ReactNode {
                     }}
                 >
                     <div style={{ textAlign: "center" }}>
-                        <Heading as="h2" id={"404"}>
+                        <Heading as="h2" id="404">
                             404 NOT FOUND
                         </Heading>
-                        <img src={useBaseUrl("/anime/img/misaka-404.png")} />
+                        <img src={notFoundImageUrl} alt="404" />
                     </div>
                 </BlogWithCats>
-                <div style={{ height: "60px" }}></div>
+
+                <div style={{ height: "60px" }} />
             </Layout>
         );
     }
 
-    const { siteConfig } = useDocusaurusContext();
-    const records = useAnimeRecords(siteConfig.baseUrl);
-    const record = records.find((r) => r.anime_data.id === parseInt(id));
-
     return (
-        <Layout title={`${record?.anime_data.name_cn}`}>
-            <div style={{ height: "60px" }}></div>
+        <Layout title={record.anime_data.name_cn}>
+            <div style={{ height: "60px" }} />
+
             <BlogWithCats
                 style={{
                     backgroundColor: "#2b2b2b",
@@ -54,9 +64,10 @@ export default function AnimeDetailPage (): React.ReactNode {
                     flexDirection: "column",
                 }}
             >
-                <></>
+                <h1>{record.anime_data.name_cn}</h1>
             </BlogWithCats>
-            <div style={{ height: "60px" }}></div>
+
+            <div style={{ height: "60px" }} />
         </Layout>
     );
 }
