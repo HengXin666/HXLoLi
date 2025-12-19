@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import Layout from "@theme/Layout";
 import AnimeCard from "@site/src/components/anime/AnimeCard";
 import { ANiMeRecord, WatchStatus } from "@site/src/utils/anime/types";
@@ -11,6 +11,7 @@ import { WatchStatusTabs } from "@site/src/components/anime/WatchStatusTabs";
 import { SortMode, SortTabs } from "@site/src/components/anime/SortTabs";
 import { useAnimeRecords } from "@site/src/utils/anime/animeStore";
 import { usePersistent } from "@site/src/utils/hook/usePersistent";
+import { useLocation } from "@docusaurus/router";
 
 type GroupedAnime = {
     quarter: string;
@@ -102,6 +103,22 @@ export default function Home (): React.ReactNode {
         (r) => r.user_status.watch_status === watchStatus
     );
 
+    // 记录滚动位置
+    const location = useLocation();
+    const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+    const [scrollTop, setScrollTop] = usePersistent<number>(
+        `${siteConfig.baseUrl}/anime/:scrollTop/${watchStatus}/${sortMode}`,
+        0
+    );
+    useEffect(() => {
+        const el = scrollContainerRef.current;
+        if (!el) return;
+        const id = requestAnimationFrame(() => {
+            el.scrollTop = scrollTop;
+        });
+        return () => cancelAnimationFrame(id);
+    }, [location.key]);
+
     const groupedAnime = groupByQuarter(filtered, sortMode);
 
     return (
@@ -120,6 +137,10 @@ export default function Home (): React.ReactNode {
                 }}
             >
                 <div
+                    ref={scrollContainerRef}
+                    onScroll={(e) => {
+                        setScrollTop(e.currentTarget.scrollTop);
+                    }}
                     style={{
                         flex: 1,
                         minHeight: 0,
