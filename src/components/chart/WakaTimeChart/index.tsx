@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import {
     ResponsiveContainer,
     LineChart,
@@ -13,6 +13,7 @@ import {
 import { BRAND_COLORS, FALLBACK_COLORS } from "./colors";
 import { FaApple, FaLinux, FaWindows } from "react-icons/fa";
 
+// --- 图标映射 ---
 const OS_ICONS: { [key: string]: React.ReactNode } = {
     Linux: <FaLinux />,
     Windows: <FaWindows />,
@@ -28,10 +29,12 @@ interface RawWakaRecord {
     languages: { [key: string]: number }[];
     system: { [key: string]: number }[];
 }
+
 interface ProcessedWakaData {
     date: string;
     [key: string]: number | string;
 }
+
 type Precision = "minutes" | "seconds" | "milliseconds";
 
 // --- 工具函数 ---
@@ -46,7 +49,7 @@ function formatSecondsToHMS (seconds: number, precision: Precision): string {
     return `${h > 0 ? `${h}h ` : ""}${m}m ${s}s ${ms}ms`;
 }
 
-// --- 自定义图例组件 (带图标) ---
+// --- 自定义图例组件 ---
 const CustomIconLegend = (props: any) => {
     const { payload } = props;
     return (
@@ -61,7 +64,6 @@ const CustomIconLegend = (props: any) => {
             }}
         >
             {payload.map((entry: any, index: number) => {
-                // '总和'曲线不显示在图例中
                 if (entry.dataKey.startsWith("total")) return null;
                 return (
                     <li
@@ -83,7 +85,7 @@ const CustomIconLegend = (props: any) => {
     );
 };
 
-// --- 子组件: 可复用的图表 ---
+// --- 子组件: 可复用的图表 (增加了防抖逻辑) ---
 interface DrilldownChartProps {
     title: string;
     data: ProcessedWakaData[];
@@ -92,6 +94,9 @@ interface DrilldownChartProps {
     precision: Precision;
     axisColor: string;
     customLegend?: React.ReactElement;
+    startIndex: number;
+    endIndex: number;
+    onBrushChange: (range: { startIndex: number; endIndex: number }) => void;
 }
 
 function DrilldownChart ({
@@ -102,17 +107,57 @@ function DrilldownChart ({
     precision,
     axisColor,
     customLegend,
+    startIndex: propStartIndex,
+    endIndex: propEndIndex,
+    onBrushChange,
 }: DrilldownChartProps) {
-    const [brushRange, setBrushRange] = useState({
-        startIndex: 0,
-        endIndex: data.length - 1,
+    // 1. 本地状态: 用于立即响应 Brush 的拖动, 保证 UI 流畅
+    const [localBrush, setLocalBrush] = useState({
+        startIndex: propStartIndex,
+        endIndex: propEndIndex
     });
+
+    // 2. 引用: 用于存储防抖定时器
+    const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+
+    // 3. 同步: 如果父组件传入的初始值变了(例如数据刚加载完), 同步到本地
+    useEffect(() => {
+        // 只有当偏差较大时才强制同步, 避免细微的循环更新
+        // 或者简单地只在初始化时同步。这里为了保险, 每次 props 变动都更新本地基准。
+        setLocalBrush({ startIndex: propStartIndex, endIndex: propEndIndex });
+    }, [propStartIndex, propEndIndex]);
+
+    // 4. 处理 Brush 变化: 立即更新本地 UI, 延迟通知父组件
+    const handleBrushChange = (range: any) => {
+        if (range.startIndex === undefined || range.endIndex === undefined) return;
+
+        // 立即更新本地状态 -> 触发当前组件重绘 (Y轴缩放), 但不触发父组件重算
+        setLocalBrush({ startIndex: range.startIndex, endIndex: range.endIndex });
+
+        // 清除上一次的定时器
+        if (debounceTimer.current) clearTimeout(debounceTimer.current);
+
+        // 设置新的定时器 (500ms 后通知父组件)
+        debounceTimer.current = setTimeout(() => {
+            onBrushChange({ startIndex: range.startIndex, endIndex: range.endIndex });
+        }, 500);
+    };
+
+    // 5. 本地计算 Y 轴 Domain: 使用 localBrush, 这样拖动时 Y 轴也会实时缩放
     const { domain, maxPoint } = useMemo(() => {
-        const slice = data.slice(brushRange.startIndex, brushRange.endIndex + 1);
+        if (!data || data.length === 0) return { domain: [0, 1], maxPoint: null };
+
+        // 使用本地状态 localBrush 计算显示范围
+        const safeStart = Math.max(0, localBrush.startIndex);
+        const safeEnd = Math.min(data.length - 1, localBrush.endIndex);
+
+        const slice = data.slice(safeStart, safeEnd + 1);
         if (slice.length === 0) return { domain: [0, 1], maxPoint: null };
+
         const totalKey = `total${dataKeyPrefix}`;
         let maxTotal = 0;
         let pointWithMax: ProcessedWakaData = slice[0];
+
         slice.forEach((d) => {
             const totalValue = (d[totalKey] || 0) as number;
             if (totalValue > maxTotal) {
@@ -120,11 +165,12 @@ function DrilldownChart ({
                 pointWithMax = d;
             }
         });
+
         return {
             domain: [0, Math.max(1, Math.ceil(maxTotal * 1.2))],
             maxPoint: pointWithMax,
         };
-    }, [data, brushRange, dataKeyPrefix]);
+    }, [data, localBrush.startIndex, localBrush.endIndex, dataKeyPrefix]);
 
     return (
         <div style={{ width: "50%", userSelect: "none" }}>
@@ -154,6 +200,7 @@ function DrilldownChart ({
                         }}
                     />
                     <Legend verticalAlign="top" height={36} content={customLegend} />
+
                     <Line
                         type="monotone"
                         dataKey={`total${dataKeyPrefix}`}
@@ -162,6 +209,7 @@ function DrilldownChart ({
                         strokeWidth={3}
                         dot={false}
                     />
+
                     {topItems.map((item, index) => (
                         <Line
                             key={item}
@@ -176,6 +224,7 @@ function DrilldownChart ({
                             dot={false}
                         />
                     ))}
+
                     {maxPoint && (
                         <ReferenceDot
                             x={maxPoint.date}
@@ -193,25 +242,15 @@ function DrilldownChart ({
                             }}
                         />
                     )}
+
                     <Brush
                         dataKey="date"
                         height={20}
                         stroke="#6366F1"
-                        startIndex={brushRange.startIndex}
-                        endIndex={brushRange.endIndex}
-                        onChange={(range) => {
-                            if (
-                                range.startIndex !== undefined &&
-                                range.endIndex !== undefined &&
-                                (range.startIndex !== brushRange.startIndex ||
-                                    range.endIndex !== brushRange.endIndex)
-                            ) {
-                                setBrushRange({
-                                    startIndex: range.startIndex,
-                                    endIndex: range.endIndex,
-                                });
-                            }
-                        }}
+                        // 关键: 绑定到本地状态, 保证拖动流畅
+                        startIndex={localBrush.startIndex}
+                        endIndex={localBrush.endIndex}
+                        onChange={handleBrushChange}
                     />
                 </LineChart>
             </ResponsiveContainer>
@@ -227,13 +266,28 @@ export default function WakaTimeDashboard () {
     const [topK, setTopK] = useState<number>(6);
     const [precision, setPrecision] = useState<Precision>("seconds");
 
+    // 跟踪两个图表当前选中的时间范围 (用于计算 Top K)
+    const [langRange, setLangRange] = useState({ startIndex: 0, endIndex: 0 });
+    const [osRange, setOsRange] = useState({ startIndex: 0, endIndex: 0 });
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch(WAKA_DATA_URL);
                 if (!response.ok) throw new Error(`Network Error: ${response.status}`);
                 const data: RawWakaRecord[] = await response.json();
-                setRawData(data.reverse());
+                const reversedData = data.reverse();
+
+                setRawData(reversedData);
+
+                // 初始化范围
+                const initialRange = {
+                    startIndex: 0,
+                    endIndex: Math.max(0, reversedData.length - 1)
+                };
+                setLangRange(initialRange);
+                setOsRange(initialRange);
+
             } catch (e) {
                 setError(e instanceof Error ? e.message : String(e));
             } finally {
@@ -256,12 +310,17 @@ export default function WakaTimeDashboard () {
             const processCategory = (
                 category: "languages" | "system",
                 k: number,
-                dataKeyPrefix: string
+                dataKeyPrefix: string,
+                range: { startIndex: number; endIndex: number }
             ) => {
-                // 优化: 使用 Map 提升性能
+                // 1. 根据传入的 range 计算 Top K (这是核心需求)
                 const totals = new Map<string, number>();
 
-                for (const record of rawData) {
+                const start = Math.max(0, range.startIndex);
+                const end = Math.min(rawData.length - 1, range.endIndex);
+                const slicedData = rawData.slice(start, end + 1);
+
+                for (const record of slicedData) {
                     for (const obj of record[category] || []) {
                         const [key, seconds] = Object.entries(obj)[0];
                         totals.set(key, (totals.get(key) || 0) + seconds);
@@ -269,8 +328,6 @@ export default function WakaTimeDashboard () {
                 }
 
                 const effectiveK = category === "system" ? totals.size : k;
-
-                // 优化: 避免多次转换
                 const sortedEntries = Array.from(totals.entries())
                     .sort(([, a], [, b]) => b - a)
                     .slice(0, effectiveK);
@@ -278,11 +335,12 @@ export default function WakaTimeDashboard () {
                 const topItems = sortedEntries.map(([key]) => key);
                 const topItemsSet = new Set(topItems);
 
+                // 2. 生成全量数据供图表显示
                 const processedData: ProcessedWakaData[] = rawData.map((record) => {
                     const dailyData: ProcessedWakaData = { date: record.date };
                     let absoluteTotalSeconds = 0;
 
-                    // 优化: 使用对象字面量初始化
+                    // 初始化 Top K 字段
                     for (const item of topItems) {
                         dailyData[`${item}${dataKeyPrefix}`] = 0;
                     }
@@ -290,13 +348,13 @@ export default function WakaTimeDashboard () {
                     for (const obj of record[category] || []) {
                         const [key, seconds] = Object.entries(obj)[0];
                         absoluteTotalSeconds += seconds;
+                        // 只有 Top K 的项目才会被写入数据
                         if (topItemsSet.has(key)) {
                             dailyData[`${key}${dataKeyPrefix}`] = seconds / 3600;
                         }
                     }
 
                     dailyData[`total${dataKeyPrefix}`] = absoluteTotalSeconds / 3600;
-
                     return dailyData;
                 });
 
@@ -306,12 +364,15 @@ export default function WakaTimeDashboard () {
             const { processedData: langData, topItems: langs } = processCategory(
                 "languages",
                 topK,
-                "_lang_hours"
+                "_lang_hours",
+                langRange
             );
+
             const { processedData: osData, topItems: oses } = processCategory(
                 "system",
                 topK,
-                "_os_hours"
+                "_os_hours",
+                osRange
             );
 
             return {
@@ -320,7 +381,7 @@ export default function WakaTimeDashboard () {
                 processedOsData: osData,
                 topOses: oses,
             };
-        }, [rawData, topK]);
+        }, [rawData, topK, langRange, osRange]);
 
     if (loading) {
         return (
@@ -329,6 +390,7 @@ export default function WakaTimeDashboard () {
             </div>
         );
     }
+
     if (error) {
         return (
             <div style={{ textAlign: "center", padding: "40px", color: "red" }}>
@@ -339,7 +401,8 @@ export default function WakaTimeDashboard () {
 
     return (
         <div className="wakatime-dashboard" style={{ padding: "1rem" }}>
-            <h3 style={{textAlign: 'center'}}>WakaTime 历史时间统计</h3>
+            <h3 style={{ textAlign: "center" }}>WakaTime 历史时间统计</h3>
+
             <div
                 className="controls"
                 style={{
@@ -362,8 +425,9 @@ export default function WakaTimeDashboard () {
                         <option value="milliseconds">毫秒</option>
                     </select>
                 </div>
+
                 <div>
-                    <label htmlFor="top-k-input">展示 Top K 项: </label>
+                    <label htmlFor="top-k-input">当前区间 Top K: </label>
                     <input
                         id="top-k-input"
                         type="number"
@@ -393,6 +457,10 @@ export default function WakaTimeDashboard () {
                     precision={precision}
                     axisColor="#ee11ff"
                     customLegend={<CustomIconLegend />}
+                    // 传递父组件状态作为基准, 以及回调
+                    startIndex={osRange.startIndex}
+                    endIndex={osRange.endIndex}
+                    onBrushChange={setOsRange}
                 />
                 <DrilldownChart
                     title="语言使用 (挂机不计入)"
@@ -401,6 +469,10 @@ export default function WakaTimeDashboard () {
                     dataKeyPrefix="_lang_hours"
                     precision={precision}
                     axisColor="#990099"
+                    // 传递父组件状态作为基准, 以及回调
+                    startIndex={langRange.startIndex}
+                    endIndex={langRange.endIndex}
+                    onBrushChange={setLangRange}
                 />
             </div>
         </div>
