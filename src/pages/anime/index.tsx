@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Layout from "@theme/Layout";
 import AnimeCard from "@site/src/components/anime/AnimeCard";
-import { parse } from "@site/src/utils/anime/parser";
 import { ANiMeRecord, WatchStatus } from "@site/src/utils/anime/types";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Heading from "@theme/Heading";
@@ -10,6 +9,8 @@ import styles from "@site/src/components/anime/AnimeCard/AnimeCard.module.css";
 import BlogWithCats from "@site/src/components/BlogWithCats";
 import { WatchStatusTabs } from "@site/src/components/anime/WatchStatusTabs";
 import { SortMode, SortTabs } from "@site/src/components/anime/SortTabs";
+import { useAnimeRecords } from "@site/src/utils/anime/animeStore";
+import { usePersistent } from "@site/src/utils/hook/usePersistent";
 
 type GroupedAnime = {
     quarter: string;
@@ -82,35 +83,20 @@ function groupByQuarter (
     });
 }
 
-
 export default function Home (): React.ReactNode {
     const { siteConfig } = useDocusaurusContext();
 
-    const [records, setRecords] = useState<ANiMeRecord[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const records = useAnimeRecords(siteConfig.baseUrl);
 
-    const [watchStatus, setWatchStatus] = useState<WatchStatus>(
+    const [watchStatus, setWatchStatus] = usePersistent<WatchStatus>(
+        `${siteConfig.baseUrl}/anime/:watchStatus`,
         WatchStatus.WATCHING
     );
 
-    const [sortMode, setSortMode] = useState<SortMode>(SortMode.BY_LAST_UPDATE);
-
-    useEffect(() => {
-        async function fetchRecords () {
-            try {
-                const url = `${siteConfig.baseUrl}anime/ANiMeRecord.json`;
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(response.statusText);
-                }
-                const data = parse<ANiMeRecord[]>(await response.text());
-                setRecords(data);
-            } finally {
-                setIsLoading(false);
-            }
-        }
-        fetchRecords();
-    }, [siteConfig.baseUrl]);
+    const [sortMode, setSortMode] = usePersistent<SortMode>(
+        `${siteConfig.baseUrl}/anime/:sortMode`,
+        SortMode.BY_LAST_UPDATE
+    );
 
     const filtered = records.filter(
         (r) => r.user_status.watch_status === watchStatus
@@ -141,9 +127,46 @@ export default function Home (): React.ReactNode {
                     }}
                 >
                     <div style={{ marginTop: "2rem" }}>
-                        {isLoading
-                            ? null
-                            : groupedAnime.map(({ quarter, records }) => (
+                        {groupedAnime.length === 0 ? (
+                            <>
+                                <section key={1} className="margin-vert--lg">
+                                    <Heading as="h2" id={"0"}>
+                                        <span className={styles.archiveListTitle}>追番记录</span>
+                                    </Heading>
+
+                                    <ul className={styles.archiveList}>
+                                        <AnimeCard
+                                            key={0}
+                                            record={{
+                                                anime_data: {
+                                                    id: 0,
+                                                    name: "未知",
+                                                    name_cn: "未知",
+                                                    score: 9.9,
+                                                    eps: 24,
+                                                    date: "2077-10-11",
+                                                    short_summary: "这是一个",
+                                                    summary: "",
+                                                    image_url: "",
+                                                    total_episodes: 0,
+                                                    characters: [],
+                                                    relations: [],
+                                                },
+                                                user_status: {
+                                                    watch_status: WatchStatus.WATCHING,
+                                                    last_update: "2077-10-11",
+                                                    tags: ["萝莉"],
+                                                    comment: "如果",
+                                                    watched_eps: 0,
+                                                },
+                                            }}
+                                            sortMode={sortMode}
+                                        />
+                                    </ul>
+                                </section>
+                            </>
+                        ) : (
+                            groupedAnime.map(({ quarter, records }) => (
                                 <section key={quarter} className="margin-vert--lg">
                                     <Heading as="h2" id={quarter.replace(" ", "-")}>
                                         <span className={styles.archiveListTitle}>{quarter}</span>
@@ -159,7 +182,8 @@ export default function Home (): React.ReactNode {
                                         ))}
                                     </ul>
                                 </section>
-                            ))}
+                            ))
+                        )}
                     </div>
                 </div>
             </BlogWithCats>
