@@ -51343,5 +51343,1639 @@
             "__dataclass__": "UserStatus"
         },
         "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 501963,
+            "name": "無職転生Ⅲ ～異世界行ったら本気だす～",
+            "name_cn": "无职转生 第三季 ～到了异世界就拿出真本事～",
+            "short_summary": "",
+            "score": 7.9,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/1f/9e/501963_gEpzp.jpg",
+            "eps": 0,
+            "date": null,
+            "summary": "",
+            "total_episodes": 0,
+            "characters": [
+                {
+                    "id": 46462,
+                    "name": "ルーデウス・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/2b/a4/46462_crt_bwGOt.jpg?r=1711026790",
+                    "actor_ids": [
+                        6560
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46463,
+                    "name": "シルフィエット・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/68/c3/46463_crt_VG4MW.jpg?r=1720856667",
+                    "actor_ids": [
+                        5847
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46464,
+                    "name": "エリス・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/38/47/46464_crt_8p2O8.jpg?r=1618566413",
+                    "actor_ids": [
+                        10806
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46465,
+                    "name": "ロキシー・ミグルディア・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/fe/d5/46465_crt_RNQeO.jpg?r=1613151588",
+                    "actor_ids": [
+                        27194
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 101114,
+                    "name": "無職転生 ～異世界行ったら本気だす～",
+                    "name_cn": "无职转生 ～到了异世界就拿出真本事～",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/b7/db/101114_7Z7p1.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 444557,
+                    "name": "無職転生Ⅱ ～異世界行ったら本気だす～ 第2クール",
+                    "name_cn": "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/ad/25/444557_e4hPO.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 1,
+            "watched_eps": 0,
+            "last_update": "2025-12-21T01:34:45+08:00",
+            "comment": null,
+            "tags": [
+                "异世界"
+            ],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 444557,
+            "name": "無職転生Ⅱ ～異世界行ったら本気だす～ 第2クール",
+            "name_cn": "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分",
+            "short_summary": "",
+            "score": 7.5,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/ad/25/444557_e4hPO.jpg",
+            "eps": 12,
+            "date": "2024-04-07",
+            "summary": "",
+            "total_episodes": 13,
+            "characters": [
+                {
+                    "id": 46462,
+                    "name": "ルーデウス・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/2b/a4/46462_crt_bwGOt.jpg?r=1711026790",
+                    "actor_ids": [
+                        6560
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46463,
+                    "name": "シルフィエット・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/68/c3/46463_crt_VG4MW.jpg?r=1720856667",
+                    "actor_ids": [
+                        5847
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46464,
+                    "name": "エリス・グレイラット",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/38/47/46464_crt_8p2O8.jpg?r=1618566413",
+                    "actor_ids": [],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46465,
+                    "name": "ロキシー・ミグルディア・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/fe/d5/46465_crt_RNQeO.jpg?r=1613151588",
+                    "actor_ids": [
+                        27194
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 75893,
+                    "name": "パウロ・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a5/e0/75893_crt_px88I.jpg?r=1594223255",
+                    "actor_ids": [
+                        3822
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 75894,
+                    "name": "ゼニス・グレイラット",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/b4/0a/75894_crt_PFX25.jpg?r=1594223306",
+                    "actor_ids": [],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 78059,
+                    "name": "リーリャ・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/74/e0/78059_crt_qTppp.jpg?r=1594223088",
+                    "actor_ids": [
+                        15497
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 87232,
+                    "name": "ルイジェルド・スペルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/3b/8c/87232_crt_6r0ok.jpg?r=1605746517",
+                    "actor_ids": [
+                        4254
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 88315,
+                    "name": "前世の男",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/2d/03/88315_crt_5C2lJ.jpg?r=1607467479",
+                    "actor_ids": [
+                        4513
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 89285,
+                    "name": "サイレント・セブンスター",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/07/fa/89285_crt_T291P.jpg?r=1691045386",
+                    "actor_ids": [
+                        34866
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 90748,
+                    "name": "アイシャ・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/61/9f/90748_crt_dcJpp.jpg?r=1711026820",
+                    "actor_ids": [
+                        18087
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 90749,
+                    "name": "ノルン・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/26/36/90749_crt_vElwY.jpg?r=1711026810",
+                    "actor_ids": [
+                        30881
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 92790,
+                    "name": "エリナリーゼ・ドラゴンロード",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d4/29/92790_crt_iE9x4.jpg?r=1690983098",
+                    "actor_ids": [
+                        3862
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 92791,
+                    "name": "タルハンド",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/c3/a3/92791_crt_s5imp.jpg?r=1616187493",
+                    "actor_ids": [
+                        3879
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102199,
+                    "name": "ギース・ヌーカディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/1c/b4/102199_crt_KlZYX.jpg?r=1635456007",
+                    "actor_ids": [
+                        4920
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 103371,
+                    "name": "ザノバ・シーローン",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a5/65/103371_crt_yH4w9.jpg?r=1690982400",
+                    "actor_ids": [
+                        4935
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 108092,
+                    "name": "クリフ・グリモル",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/b9/25/108092_crt_kvUsK.jpg?r=1690982326",
+                    "actor_ids": [
+                        7385
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 131145,
+                    "name": "アリエル・アネモイ・アスラ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/df/80/131145_crt_35KzE.jpg?r=1690982188",
+                    "actor_ids": [
+                        13164
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 131147,
+                    "name": "ルーク・ノトス・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d4/10/131147_crt_swG7S.jpg?r=1690982293",
+                    "actor_ids": [
+                        5007
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 134364,
+                    "name": "リニアーナ・デドルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d9/c3/134364_crt_9Yqe4.jpg?r=1690982670",
+                    "actor_ids": [
+                        34397
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 134365,
+                    "name": "プルセナ・アドルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/c8/12/134365_crt_AqrTL.jpg?r=1690982764",
+                    "actor_ids": [
+                        13683
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 134403,
+                    "name": "バーディガーディ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d8/a0/134403_crt_T2stp.jpg?r=1693150746",
+                    "actor_ids": [
+                        4985
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 135342,
+                    "name": "ジュリエット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/5f/08/135342_crt_2f6rO.jpg?r=1691946433",
+                    "actor_ids": [
+                        5107
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 101114,
+                    "name": "無職転生 ～異世界行ったら本気だす～",
+                    "name_cn": "无职转生 ～到了异世界就拿出真本事～",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/b7/db/101114_7Z7p1.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 267777,
+                    "name": "無職転生 ~異世界行ったら本気だす~ ドラマCDブックレット",
+                    "name_cn": "",
+                    "relation": "其他",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/72/e4/267777_VKS1L.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 373247,
+                    "name": "無職転生Ⅱ ～異世界行ったら本気だす～",
+                    "name_cn": "无职转生 第二季 ～到了异世界就拿出真本事～",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/cf/55/373247_aBFR1.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 447662,
+                    "name": "『無職転生II ～異世界行ったら本気だす～』Blu-ray Chapter 3 特典CD",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/1e/d1/447662_sKOBH.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 486861,
+                    "name": "オン・ザ・フロントライン / センスレス・ワンダー(ReREC)",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/a1/6b/486861_O5m55.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 489093,
+                    "name": "守りたいもの",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/3a/2d/489093_Xa19a.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 491504,
+                    "name": "ツバサ",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/06/e1/491504_9zZv4.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 501963,
+                    "name": "無職転生Ⅲ ～異世界行ったら本気だす～",
+                    "name_cn": "无职转生 第三季 ～到了异世界就拿出真本事～",
+                    "relation": "续集",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/1f/9e/501963_gEpzp.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 502081,
+                    "name": "かげくらべの唄",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/44/84/502081_111yA.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 502083,
+                    "name": "『無職転生 ～異世界行ったら本気だす～』 第2期 オリジナル・サウンドトラック2",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/87/70/502083_k5185.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 502085,
+                    "name": "TVアニメ『無職転生Ⅱ ～異世界行ったら本気だす～』エンディングテーマコレクション",
+                    "name_cn": "『无职转生Ⅱ ～到了异世界就拿出真本事～』Ending Theme  Collection",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/58/7e/502085_ZQQ5S.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 2,
+            "watched_eps": 0,
+            "last_update": "2025-12-21T01:34:35+08:00",
+            "comment": null,
+            "tags": [
+                "异世界"
+            ],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 373247,
+            "name": "無職転生Ⅱ ～異世界行ったら本気だす～",
+            "name_cn": "无职转生 第二季 ～到了异世界就拿出真本事～",
+            "short_summary": "",
+            "score": 7.2,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/cf/55/373247_aBFR1.jpg",
+            "eps": 13,
+            "date": "2023-07-02",
+            "summary": "",
+            "total_episodes": 13,
+            "characters": [
+                {
+                    "id": 46462,
+                    "name": "ルーデウス・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/2b/a4/46462_crt_bwGOt.jpg?r=1711026790",
+                    "actor_ids": [
+                        6560
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46463,
+                    "name": "シルフィエット・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/68/c3/46463_crt_VG4MW.jpg?r=1720856667",
+                    "actor_ids": [
+                        5847
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 88315,
+                    "name": "前世の男",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/2d/03/88315_crt_5C2lJ.jpg?r=1607467479",
+                    "actor_ids": [
+                        4513
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 89285,
+                    "name": "サイレント・セブンスター",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/07/fa/89285_crt_T291P.jpg?r=1691045386",
+                    "actor_ids": [
+                        34866
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 92790,
+                    "name": "エリナリーゼ・ドラゴンロード",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d4/29/92790_crt_iE9x4.jpg?r=1690983098",
+                    "actor_ids": [
+                        3862
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 103371,
+                    "name": "ザノバ・シーローン",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a5/65/103371_crt_yH4w9.jpg?r=1690982400",
+                    "actor_ids": [
+                        4935
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 103618,
+                    "name": "ダリウス·シルバ·ガニウス",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/53/9d/103618_crt_tZHV7.jpg",
+                    "actor_ids": [
+                        4984
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 108092,
+                    "name": "クリフ・グリモル",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/b9/25/108092_crt_kvUsK.jpg?r=1690982326",
+                    "actor_ids": [
+                        7385
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 128970,
+                    "name": "サラ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/e1/e7/128970_crt_2X1WI.jpg?r=1690993637",
+                    "actor_ids": [
+                        18600
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 128971,
+                    "name": "スザンヌ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/b6/3d/128971_crt_wBX7k.jpg?r=1682686950",
+                    "actor_ids": [
+                        4398
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 128972,
+                    "name": "ティモシー",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/b9/ed/128972_crt_uq4Gg.jpg?r=1682687088",
+                    "actor_ids": [
+                        4620
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 128973,
+                    "name": "ミミル",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/42/6e/128973_crt_t6696.jpg?r=1682687225",
+                    "actor_ids": [
+                        19523
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 128974,
+                    "name": "パトリス",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/3b/43/128974_crt_ygp52.jpg?r=1682687346",
+                    "actor_ids": [
+                        7600
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 128976,
+                    "name": "ゾルダート・ヘッケラー",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/fa/dd/128976_crt_VEYo0.jpg?r=1682687959",
+                    "actor_ids": [
+                        4147
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 131145,
+                    "name": "アリエル・アネモイ・アスラ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/df/80/131145_crt_35KzE.jpg?r=1690982188",
+                    "actor_ids": [
+                        13164
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 131147,
+                    "name": "ルーク・ノトス・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d4/10/131147_crt_swG7S.jpg?r=1690982293",
+                    "actor_ids": [
+                        5007
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 132841,
+                    "name": "夜目の鷹",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/63/51/132841_crt_XRErU.jpg?r=1688441449",
+                    "actor_ids": [],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 133783,
+                    "name": "エリーゼ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a4/11/133783_crt_Uozob.jpg?r=1690202637",
+                    "actor_ids": [
+                        25335
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 134364,
+                    "name": "リニアーナ・デドルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d9/c3/134364_crt_9Yqe4.jpg?r=1690982670",
+                    "actor_ids": [
+                        34397
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 134365,
+                    "name": "プルセナ・アドルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/c8/12/134365_crt_AqrTL.jpg?r=1690982764",
+                    "actor_ids": [
+                        13683
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 134403,
+                    "name": "バーディガーディ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d8/a0/134403_crt_T2stp.jpg?r=1693150746",
+                    "actor_ids": [
+                        4985
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 134698,
+                    "name": "ゴリアーデ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/18/0d/134698_crt_M56Du.jpg?r=1691338935",
+                    "actor_ids": [
+                        4517
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 135342,
+                    "name": "ジュリエット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/5f/08/135342_crt_2f6rO.jpg?r=1691946433",
+                    "actor_ids": [
+                        5107
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 136547,
+                    "name": "ニナ・ファリオン",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/04/8c/136547_crt_fC8BF.jpg?r=1693155267",
+                    "actor_ids": [],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 101114,
+                    "name": "無職転生 ～異世界行ったら本気だす～",
+                    "name_cn": "无职转生 ～到了异世界就拿出真本事～",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/b7/db/101114_7Z7p1.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 143597,
+                    "name": "無職転生 ～異世界行ったら本気だす～",
+                    "name_cn": "无职转生 ～到了异世界就拿出真本事～",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/23/fb/143597_zPM0M.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 325585,
+                    "name": "無職転生 ～異世界行ったら本気だす～ 第2クール",
+                    "name_cn": "无职转生～到了异世界就拿出真本事～ 第2部分",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/60/4d/325585_tfU01.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 362881,
+                    "name": "無職転生 ~異世界行ったら本気だす~ 失意の魔術師編",
+                    "name_cn": "无职转生 ~在异世界认真地活下去~ 失意的魔术师篇",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/be/31/362881_MzKLM.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 414751,
+                    "name": "無職転生 ~異世界行ったら本気だす~ Quest of Memories",
+                    "name_cn": "无职转生 ~到了异世界就拿出真本事~ Quest of Memories",
+                    "relation": "游戏",
+                    "type": 4,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/2d/6c/414751_e35p7.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 444557,
+                    "name": "無職転生Ⅱ ～異世界行ったら本気だす～ 第2クール",
+                    "name_cn": "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分",
+                    "relation": "续集",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/ad/25/444557_e4hPO.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 444874,
+                    "name": "spiral",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/1f/5c/444874_gp1hP.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 456140,
+                    "name": "『無職転生 ～異世界行ったら本気だす～』 第2期 オリジナル・サウンドトラック",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/9b/42/456140_O0F88.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 502085,
+                    "name": "TVアニメ『無職転生Ⅱ ～異世界行ったら本気だす～』エンディングテーマコレクション",
+                    "name_cn": "『无职转生Ⅱ ～到了异世界就拿出真本事～』Ending Theme  Collection",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/58/7e/502085_ZQQ5S.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 443894,
+                    "name": "Clover",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/2a/5e/443894_J7bB4.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 447661,
+                    "name": "『無職転生II ～異世界行ったら本気だす～』Blu-ray Chapter 1 特典CD",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/01/30/447661_LFSSG.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 445917,
+                    "name": "ムスビメ",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/02/2c/445917_tYLCW.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 456114,
+                    "name": "花咲み",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/7f/7d/456114_fz5Uz.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 2,
+            "watched_eps": 0,
+            "last_update": "2025-12-21T01:34:01+08:00",
+            "comment": null,
+            "tags": [
+                "异世界"
+            ],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 325585,
+            "name": "無職転生 ～異世界行ったら本気だす～ 第2クール",
+            "name_cn": "无职转生～到了异世界就拿出真本事～ 第2部分",
+            "short_summary": "「俺は、この異世界で本気だす！」\r\n34歳・童貞・無職の引きこもりニート男。\r\n両親の葬儀の日に家を追い出された瞬間、トラックに轢かれ命を落としてしまう。\r\n目覚めると、なんと剣と魔法の異世界で赤ん坊に生まれ変わっていた！\r\nゴミクズのよう",
+            "score": 8.3,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/60/4d/325585_tfU01.jpg",
+            "eps": 12,
+            "date": "2021-10-03",
+            "summary": "「俺は、この異世界で本気だす！」\r\n34歳・童貞・無職の引きこもりニート男。\r\n両親の葬儀の日に家を追い出された瞬間、トラックに轢かれ命を落としてしまう。\r\n目覚めると、なんと剣と魔法の異世界で赤ん坊に生まれ変わっていた！\r\nゴミクズのように生きてきた男は、少年・ルーデウスとして異世界で本気をだして生きていく事を誓う。\r\nフィットア領転移事件で魔大陸に転移後、冒険者パーティ「デッドエンド」を結成し、\r\n魔大陸最南端の港町・ウェンポートに到着したルーデウスたち。\r\nルーデウスは「魔界大帝キシリカ」と出会い新たな力を手に入れる。\r\n魔力災害に巻き込まれた家族や仲間の行方はー。\r\n「人生やり直し」ファンタジー、再始動！",
+            "total_episodes": 14,
+            "characters": [
+                {
+                    "id": 46462,
+                    "name": "ルーデウス・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/2b/a4/46462_crt_bwGOt.jpg?r=1711026790",
+                    "actor_ids": [
+                        6560
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46463,
+                    "name": "シルフィエット・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/68/c3/46463_crt_VG4MW.jpg?r=1720856667",
+                    "actor_ids": [
+                        5847
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46464,
+                    "name": "エリス・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/38/47/46464_crt_8p2O8.jpg?r=1618566413",
+                    "actor_ids": [
+                        10806
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46465,
+                    "name": "ロキシー・ミグルディア・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/fe/d5/46465_crt_RNQeO.jpg?r=1613151588",
+                    "actor_ids": [
+                        27194
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 75893,
+                    "name": "パウロ・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a5/e0/75893_crt_px88I.jpg?r=1594223255",
+                    "actor_ids": [
+                        3822
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 78059,
+                    "name": "リーリャ・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/74/e0/78059_crt_qTppp.jpg?r=1594223088",
+                    "actor_ids": [
+                        15497
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 87232,
+                    "name": "ルイジェルド・スペルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/3b/8c/87232_crt_6r0ok.jpg?r=1605746517",
+                    "actor_ids": [
+                        4254
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 88315,
+                    "name": "前世の男",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/2d/03/88315_crt_5C2lJ.jpg?r=1607467479",
+                    "actor_ids": [
+                        4513
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 89285,
+                    "name": "サイレント・セブンスター",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/07/fa/89285_crt_T291P.jpg?r=1691045386",
+                    "actor_ids": [
+                        34866
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 90584,
+                    "name": "ギレーヌ・デドルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/9f/5d/90584_crt_uwV5Z.jpg?r=1611858633",
+                    "actor_ids": [
+                        3866
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 90748,
+                    "name": "アイシャ・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/61/9f/90748_crt_dcJpp.jpg?r=1711026820",
+                    "actor_ids": [
+                        18087
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 90749,
+                    "name": "ノルン・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/26/36/90749_crt_vElwY.jpg?r=1711026810",
+                    "actor_ids": [
+                        30881
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 90750,
+                    "name": "パックス・シーローン",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a3/de/90750_crt_oM2z3.jpg?r=1612121406",
+                    "actor_ids": [
+                        7757
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 91096,
+                    "name": "サウロス・ボレアス・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/de/c3/91096_crt_5ohzE.jpg?r=1612961947",
+                    "actor_ids": [
+                        5166
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 91728,
+                    "name": "オルステッド",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/88/f6/91728_crt_LpYvA.jpg?r=1755050571",
+                    "actor_ids": [
+                        3977
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 91729,
+                    "name": "キシリカ・キシリス",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/dc/d7/91729_crt_15n2k.jpg?r=1614457334",
+                    "actor_ids": [
+                        4851
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 92021,
+                    "name": "ロカリー・ミグルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/88/e4/92021_crt_jaq1j.jpg?r=1615174156",
+                    "actor_ids": [
+                        5003
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 92022,
+                    "name": "ロイン・ミグルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/de/5c/92022_crt_zq900.jpg?r=1656101190",
+                    "actor_ids": [
+                        13825
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 92790,
+                    "name": "エリナリーゼ・ドラゴンロード",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d4/29/92790_crt_iE9x4.jpg?r=1690983098",
+                    "actor_ids": [
+                        3862
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 92791,
+                    "name": "タルハンド",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/c3/a3/92791_crt_s5imp.jpg?r=1616187493",
+                    "actor_ids": [
+                        3879
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102083,
+                    "name": "ミニトーナ・デドルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/8b/51/102083_crt_395Bq.jpg",
+                    "actor_ids": [
+                        5642
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102084,
+                    "name": "テルセナ・アドルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/ca/3a/102084_crt_gd1L6.jpg",
+                    "actor_ids": [
+                        10600
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102085,
+                    "name": "レオ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/87/85/102085_crt_O1Z7g.jpg",
+                    "actor_ids": [
+                        10869
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102199,
+                    "name": "ギース・ヌーカディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/1c/b4/102199_crt_KlZYX.jpg?r=1635456007",
+                    "actor_ids": [
+                        4920
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 103371,
+                    "name": "ザノバ・シーローン",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a5/65/103371_crt_yH4w9.jpg?r=1690982400",
+                    "actor_ids": [
+                        4935
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 103618,
+                    "name": "ダリウス·シルバ·ガニウス",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/53/9d/103618_crt_tZHV7.jpg",
+                    "actor_ids": [
+                        4984
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 107895,
+                    "name": "テレーズ・ラトレイア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/39/b1/107895_crt_9zp94.jpg?r=1647373295",
+                    "actor_ids": [
+                        5941
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 107896,
+                    "name": "神子",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/c4/e6/107896_crt_LZVl1.jpg?r=1647373626",
+                    "actor_ids": [
+                        27559
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 108092,
+                    "name": "クリフ・グリモル",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/b9/25/108092_crt_kvUsK.jpg?r=1690982326",
+                    "actor_ids": [
+                        7385
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 101114,
+                    "name": "無職転生 ～異世界行ったら本気だす～",
+                    "name_cn": "无职转生 ～到了异世界就拿出真本事～",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/b7/db/101114_7Z7p1.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 143597,
+                    "name": "無職転生 ～異世界行ったら本気だす～",
+                    "name_cn": "无职转生 ～到了异世界就拿出真本事～",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/23/fb/143597_zPM0M.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 277554,
+                    "name": "無職転生 ～異世界行ったら本気だす～",
+                    "name_cn": "无职转生～到了异世界就拿出真本事～",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/8b/00/277554_z999u.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 325444,
+                    "name": "無職転生 ~異世界行ったら本気だす~ オリジナル・サウンドトラック 2 特別編集版",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/c1/78/325444_6NEdM.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 350639,
+                    "name": "『無職転生 ～異世界行ったら本気だす～』Theme Song Collection",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/05/04/350639_PEUug.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 366046,
+                    "name": "『無職転生 ～異世界行ったら本気だす～』オリジナル・サウンドトラック2",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/fe/4f/366046_3XZOg.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 367405,
+                    "name": "アニメ 無職転生 ～異世界行ったら本気だす～ 完全設定資料集",
+                    "name_cn": "",
+                    "relation": "其他",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/97/25/367405_B0qm5.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 373247,
+                    "name": "無職転生Ⅱ ～異世界行ったら本気だす～",
+                    "name_cn": "无职转生 第二季 ～到了异世界就拿出真本事～",
+                    "relation": "续集",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/cf/55/373247_aBFR1.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 414751,
+                    "name": "無職転生 ~異世界行ったら本気だす~ Quest of Memories",
+                    "name_cn": "无职转生 ~到了异世界就拿出真本事~ Quest of Memories",
+                    "relation": "游戏",
+                    "type": 4,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/2d/6c/414751_e35p7.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 2,
+            "watched_eps": 0,
+            "last_update": "2025-12-21T01:33:45+08:00",
+            "comment": null,
+            "tags": [
+                "异世界"
+            ],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 277554,
+            "name": "無職転生 ～異世界行ったら本気だす～",
+            "name_cn": "无职转生～到了异世界就拿出真本事～",
+            "short_summary": "“我要在这个异世界拿出真本事！”\r\n34岁童贞且无职的家里蹲男子，在父母的葬礼当天被赶出家门后，在路上被一辆卡车所撞死。意识清醒后，他发现自己居然作为一个刚出生的婴儿转生到了剑与魔法的异世界！像废物一样活过了前世的男子，发誓要作为少年·鲁迪",
+            "score": 7.9,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/8b/00/277554_z999u.jpg",
+            "eps": 11,
+            "date": "2021-01-10",
+            "summary": "“我要在这个异世界拿出真本事！”\r\n34岁童贞且无职的家里蹲男子，在父母的葬礼当天被赶出家门后，在路上被一辆卡车所撞死。意识清醒后，他发现自己居然作为一个刚出生的婴儿转生到了剑与魔法的异世界！像废物一样活过了前世的男子，发誓要作为少年·鲁迪乌斯在异世界以认真的态度好好活下去！\r\n等待着鲁迪乌斯的是，与娇小魔术师、有着精灵长耳又很男孩子气的美少女、凶暴的傲娇大小姐以及其他性格各异的人们之间的邂逅，当然也还有残酷的冒险与战斗。\r\n新的人生就要开始了！“人生重来型”幻想冒险谭，在此开幕！",
+            "total_episodes": 12,
+            "characters": [
+                {
+                    "id": 46462,
+                    "name": "ルーデウス・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/2b/a4/46462_crt_bwGOt.jpg?r=1711026790",
+                    "actor_ids": [
+                        6560
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46463,
+                    "name": "シルフィエット・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/68/c3/46463_crt_VG4MW.jpg?r=1720856667",
+                    "actor_ids": [
+                        5847
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46464,
+                    "name": "エリス・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/38/47/46464_crt_8p2O8.jpg?r=1618566413",
+                    "actor_ids": [
+                        10806
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 46465,
+                    "name": "ロキシー・ミグルディア・グレイラット",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/fe/d5/46465_crt_RNQeO.jpg?r=1613151588",
+                    "actor_ids": [
+                        27194
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 75893,
+                    "name": "パウロ・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a5/e0/75893_crt_px88I.jpg?r=1594223255",
+                    "actor_ids": [
+                        3822
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 75894,
+                    "name": "ゼニス・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/b4/0a/75894_crt_PFX25.jpg?r=1594223306",
+                    "actor_ids": [
+                        5941
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 78059,
+                    "name": "リーリャ・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/74/e0/78059_crt_qTppp.jpg?r=1594223088",
+                    "actor_ids": [
+                        15497
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 87232,
+                    "name": "ルイジェルド・スペルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/3b/8c/87232_crt_6r0ok.jpg?r=1605746517",
+                    "actor_ids": [
+                        4254
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 88315,
+                    "name": "前世の男",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/2d/03/88315_crt_5C2lJ.jpg?r=1607467479",
+                    "actor_ids": [
+                        4513
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 89285,
+                    "name": "サイレント・セブンスター",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/07/fa/89285_crt_T291P.jpg?r=1691045386",
+                    "actor_ids": [
+                        34866
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 90584,
+                    "name": "ギレーヌ・デドルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/9f/5d/90584_crt_uwV5Z.jpg?r=1611858633",
+                    "actor_ids": [
+                        3866
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 90748,
+                    "name": "アイシャ・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/61/9f/90748_crt_dcJpp.jpg?r=1711026820",
+                    "actor_ids": [
+                        18087
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 90749,
+                    "name": "ノルン・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/26/36/90749_crt_vElwY.jpg?r=1711026810",
+                    "actor_ids": [
+                        30881
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 90750,
+                    "name": "パックス・シーローン",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a3/de/90750_crt_oM2z3.jpg?r=1612121406",
+                    "actor_ids": [
+                        7757
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 90997,
+                    "name": "フィリップ・ボレアス・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/44/3c/90997_crt_hvfqV.jpg?r=1612730540",
+                    "actor_ids": [
+                        4456
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 91096,
+                    "name": "サウロス・ボレアス・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/de/c3/91096_crt_5ohzE.jpg?r=1612961947",
+                    "actor_ids": [
+                        5166
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 91097,
+                    "name": "ヒルダ・ボレアス・グレイラット",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/67/b0/91097_crt_25k54.jpg?r=1612962340",
+                    "actor_ids": [
+                        4007
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 91472,
+                    "name": "光輝のアルマンフィ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/9d/e1/91472_crt_myW42.jpg?r=1755050795",
+                    "actor_ids": [
+                        7548
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 91728,
+                    "name": "オルステッド",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/88/f6/91728_crt_LpYvA.jpg?r=1755050571",
+                    "actor_ids": [
+                        3977
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 91729,
+                    "name": "キシリカ・キシリス",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/dc/d7/91729_crt_15n2k.jpg?r=1614457334",
+                    "actor_ids": [
+                        4851
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 91730,
+                    "name": "ペルギウス・ドーラ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/43/76/91730_crt_m5z8M.jpg?r=1614458964",
+                    "actor_ids": [
+                        4130
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 92021,
+                    "name": "ロカリー・ミグルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/88/e4/92021_crt_jaq1j.jpg?r=1615174156",
+                    "actor_ids": [
+                        5003
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 92022,
+                    "name": "ロイン・ミグルディア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/de/5c/92022_crt_zq900.jpg?r=1656101190",
+                    "actor_ids": [
+                        13825
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 92790,
+                    "name": "エリナリーゼ・ドラゴンロード",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d4/29/92790_crt_iE9x4.jpg?r=1690983098",
+                    "actor_ids": [
+                        3862
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 92791,
+                    "name": "タルハンド",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/c3/a3/92791_crt_s5imp.jpg?r=1616187493",
+                    "actor_ids": [
+                        3879
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 104333,
+                    "name": "クルト",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/c5/82/104333_crt_1oP19.jpg?r=1656101161",
+                    "actor_ids": [
+                        16264
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 101114,
+                    "name": "無職転生 ～異世界行ったら本気だす～",
+                    "name_cn": "无职转生 ～到了异世界就拿出真本事～",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/b7/db/101114_7Z7p1.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 143597,
+                    "name": "無職転生 ～異世界行ったら本気だす～",
+                    "name_cn": "无职转生 ～到了异世界就拿出真本事～",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/23/fb/143597_zPM0M.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 316815,
+                    "name": "無職転生～ゲームになっても本気だす～",
+                    "name_cn": "无职转生～做成游戏也要拿出真本事～",
+                    "relation": "游戏",
+                    "type": 4,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/0e/6f/316815_vim5E.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 325585,
+                    "name": "無職転生 ～異世界行ったら本気だす～ 第2クール",
+                    "name_cn": "无职转生～到了异世界就拿出真本事～ 第2部分",
+                    "relation": "续集",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/60/4d/325585_tfU01.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 333764,
+                    "name": "『無職転生 ～異世界行ったら本気だす～』オリジナル・サウンドトラック",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/65/9e/333764_fc1PU.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 350639,
+                    "name": "『無職転生 ～異世界行ったら本気だす～』Theme Song Collection",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/05/04/350639_PEUug.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 367405,
+                    "name": "アニメ 無職転生 ～異世界行ったら本気だす～ 完全設定資料集",
+                    "name_cn": "",
+                    "relation": "画集",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/97/25/367405_B0qm5.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 414751,
+                    "name": "無職転生 ~異世界行ったら本気だす~ Quest of Memories",
+                    "name_cn": "无职转生 ~到了异世界就拿出真本事~ Quest of Memories",
+                    "relation": "游戏",
+                    "type": 4,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/2d/6c/414751_e35p7.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 419363,
+                    "name": "無職転生 心の声ラジオ",
+                    "name_cn": "无职转生 心之声广播",
+                    "relation": "衍生",
+                    "type": 6,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/94/f4/419363_Jk73Z.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 325003,
+                    "name": "旅人の唄",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/13/15/325003_E6w02.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 325004,
+                    "name": "オンリー",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/eb/0b/325004_wLVlp.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 325443,
+                    "name": "無職転生 ~異世界行ったら本気だす~ オリジナル・サウンドトラック 1 特別編集版",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/3c/c3/325443_900r6.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 330790,
+                    "name": "目覚めの唄",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/d1/71/330790_lv1ZG.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 2,
+            "watched_eps": 0,
+            "last_update": "2025-12-21T01:33:28+08:00",
+            "comment": null,
+            "tags": [
+                "异世界"
+            ],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
     }
 ]
