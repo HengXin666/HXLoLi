@@ -1,0 +1,180 @@
+/* --- 页面基础布局 --- */
+.pageContainer {
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.headerSection {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.mainTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.subTitle {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    margin-top: 5px;
+}
+
+.mainContent {
+    display: flex;
+    gap: 30px;
+    flex-direction: row;
+}
+
+.coverImage {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    top: 80px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .3);
+}
+
+.infoColumn {
+    flex: 1;
+}
+
+.infoBox {
+    background-color: #3c3c3c;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.infoBox p {
+    margin: 8px 0;
+}
+
+.sectionTitle {
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #555;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* --- 角色横向滚动区域 --- */
+.characterScrollContainer {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px; /* 减小卡片间距 */
+    padding: 10px 0 20px 0;
+}
+
+/* 自定义横向滚动条 */
+.characterScrollContainer::-webkit-scrollbar {
+    height: 8px;
+}
+.characterScrollContainer::-webkit-scrollbar-track {
+    background: #2b2b2b;
+    border-radius: 4px;
+}
+.characterScrollContainer::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+}
+.characterScrollContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #777;
+}
+
+/* --- 角色卡片整体 --- */
+.characterCard {
+    flex: 0 0 100px; /* 固定卡片宽度 */
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* --- 角色图片链接 (关键：尺寸定义者) --- */
+.characterImageLink {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3/4; /* 核心：定义宽高比 */
+    border-radius: 6px;
+    overflow: hidden; /* 隐藏内部span溢出的部分 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+    transition: all .3s ease;
+}
+
+.characterImageLink:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .4);
+}
+
+/* --- 角色图片 Span (关键：背景显示者) --- */
+.characterImageSpan {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+/* --- 角色信息文本 --- */
+.characterInfo {
+    padding-top: 10px;
+}
+
+.characterName {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+}
+
+.characterRelation {
+    font-size: 0.8rem;
+    color: #999;
+    margin: 4px 0 0 0;
+}
+
+.characterActors {
+    font-size: 0.8rem;
+    color: #ccc;
+    margin: 4px 0 0 0;
+    /* 渲染 \n */
+    white-space: pre-wrap;
+}
+
+/* --- 关联作品样式 --- */
+.relationList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.relationItem {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #3c3c3c;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.relationImage {
+    width: 60px;
+    height: 80px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.relationInfoName {
+    margin: 0;
+    font-weight: bold;
+    color: #fff;
+}
+
+.relationInfoRelation {
+    margin: 0;
+    color: #aaa;
+    font-size: 0.9rem;
+}

@@ -1,11 +1,14 @@
 import { parse } from "@site/src/utils/anime/parser";
-import { ANiMeRecord } from "@site/src/utils/anime/types";
+import { Actor, ANiMeRecord } from "@site/src/utils/anime/types";
 import { useState, useEffect } from "react";
 
 let cachedRecords: readonly ANiMeRecord[] | null = null;
 let loadingPromise: Promise<readonly ANiMeRecord[]> | null = null;
 
-export function loadAnimeRecords (
+let actorMap: Map<number, Actor> | null = null;
+let loadingActorPromise: Promise<Map<number, Actor>> | null = null;
+
+function loadAnimeRecords (
     baseUrl: string
 ): Promise<readonly ANiMeRecord[]> {
     if (cachedRecords) {
@@ -30,6 +33,34 @@ export function loadAnimeRecords (
     return loadingPromise;
 }
 
+function loadActorMap (baseUrl: string): Promise<Map<number, Actor>> {
+    if (actorMap) {
+        return Promise.resolve(actorMap);
+    }
+    
+    if (loadingActorPromise) {
+        return loadingActorPromise;
+    }
+    
+    loadingActorPromise = (async () => {
+        const response = await fetch(`${baseUrl}anime/Actor.json`);
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
+        const data = parse<Actor[]>(await response.text());
+        
+        const map = new Map<number, Actor>();
+        data.forEach(actor => {
+            map.set(actor.id, actor);
+        });
+        
+        actorMap = map;
+        return actorMap;
+    })();
+    
+    return loadingActorPromise;
+}
+
 export function useAnimeRecords (baseUrl: string) {
     const [data, setData] = useState<readonly ANiMeRecord[]>([]);
 
@@ -37,5 +68,15 @@ export function useAnimeRecords (baseUrl: string) {
         loadAnimeRecords(baseUrl).then(setData);
     }, [baseUrl]);
 
+    return data;
+}
+
+export function useActorMap(baseUrl: string) {
+    const [data, setData] = useState<Map<number, Actor>>(new Map());
+    
+    useEffect(() => {
+        loadActorMap(baseUrl).then(setData);
+    }, [baseUrl]);
+    
     return data;
 }
