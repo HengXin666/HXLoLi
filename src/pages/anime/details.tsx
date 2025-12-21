@@ -7,8 +7,9 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import BlogWithCats from "@site/src/components/BlogWithCats";
 import { useActorMap, useAnimeRecords } from "@site/src/utils/anime/animeStore";
 import { toJsDelivrUrl } from "@site/src/utils/cdn/linkJsDelivr";
-import { WatchStatus } from "@site/src/utils/anime/types";
+import { ANiMeRecord, WatchStatus } from "@site/src/utils/anime/types";
 import styles from './AnimeDetailPage.module.css';
+import MDXA from "@site/src/theme/MDXComponents/A";
 
 function useQuery (): URLSearchParams {
     const location = useLocation();
@@ -32,6 +33,72 @@ function getWatchStatusText (status: WatchStatus): string {
             return "未知";
     }
 }
+
+const RelationList = ({ record }: { record: ANiMeRecord }) => {
+    const { siteConfig } = useDocusaurusContext();
+
+    // 1. 定义期望的排序顺序
+    const sortOrder = [
+        "前传",
+        "续集",
+        "番外篇",
+        "片头曲",
+        "片尾曲",
+        "书籍",
+        "游戏",
+        "角色曲",
+        "广播剧",
+    ];
+
+    // 2. 数据分组 (与之前相同)
+    const groupedRelations = record.anime_data.relations.reduce((acc: Record<string, typeof record.anime_data.relations>, rel) => {
+        const key = rel.relation;
+        if (!acc[key]) {
+            acc[key] = [];
+        }
+        acc[key].push(rel);
+        return acc;
+    }, {});
+
+    // 3. 核心：获取分组的 key，并根据我们定义的 sortOrder 进行排序
+    const sortedGroupKeys = Object.keys(groupedRelations).sort((a, b) => {
+        const indexA = sortOrder.indexOf(a);
+        const indexB = sortOrder.indexOf(b);
+
+        // 如果某个 key 不在我们的排序数组中，就把它放到最后
+        const effectiveIndexA = indexA === -1 ? Infinity : indexA;
+        const effectiveIndexB = indexB === -1 ? Infinity : indexB;
+
+        return effectiveIndexA - effectiveIndexB;
+    });
+
+    // 4. 渲染：遍历排序后的 keys 数组，而不是直接遍历对象
+    return (
+        <div className={styles.relationContainer}>
+            {sortedGroupKeys.map(relation => {
+                const items = groupedRelations[relation];
+                return (
+                    <section key={relation} className={styles.relationGroup}>
+                        <h3 className={styles.relationGroupTitle}>{relation}</h3>
+                        <div className={styles.relationList}>
+                            {items.map(rel => (
+                                <div key={rel.id} className={styles.relationItem}>
+                                    {rel.name_cn && (
+                                        <span className={styles.tooltip}>{rel.name_cn}</span>
+                                    )}
+                                    <img src={toJsDelivrUrl(`/py/anime/data/relation/${rel.id}.jpg`)} alt={rel.name} className={styles.relationImage} />
+                                    <div className={styles.relationInfo}>
+                                        <MDXA href={`${siteConfig.baseUrl}anime/details?id=${rel.id}`}>{rel.name}</MDXA>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                );
+            })}
+        </div>
+    );
+};
 
 export default function AnimeDetailPage (): React.ReactElement {
     const query = useQuery();
@@ -62,6 +129,7 @@ export default function AnimeDetailPage (): React.ReactElement {
                         <Heading as="h2" id="404">
                             404 NOT FOUND
                         </Heading>
+                        <p>请尝试: <MDXA href={`https://bgm.tv/subject/${id}`}>{`bgm.tv/subject/${id}`}</MDXA></p>
                         <img src={notFoundImageUrl} alt="404" />
                     </div>
                 </BlogWithCats>
@@ -88,7 +156,7 @@ export default function AnimeDetailPage (): React.ReactElement {
 
                     <main className={styles.mainContent}>
                         <aside>
-                            <img src={record.anime_data.image_url} alt={record.anime_data.name_cn} className={styles.coverImage} />
+                            <img src={toJsDelivrUrl(`/py/anime/data/anime/${record.anime_data.id}.jpg`)} alt={record.anime_data.name_cn} className={styles.coverImage} />
                         </aside>
 
                         <section className={styles.infoColumn}>
@@ -117,21 +185,23 @@ export default function AnimeDetailPage (): React.ReactElement {
                         </section>
                     </main>
 
+                    <div style={{ height: "20px" }}></div>
+
                     <section>
                         <Heading as="h3" className={styles.sectionTitle} id="summary">剧情简介</Heading>
                         <p className={styles.summaryText}>{record.anime_data.summary}</p>
                     </section>
 
-                    {/* --- 登场角色 (修改后) --- */}
+                    {/* --- 角色介绍 --- */}
                     <section>
-                        <Heading as="h3" className={styles.sectionTitle} id="characters">登场角色</Heading>
+                        <Heading as="h3" className={styles.sectionTitle} id="characters">角色介绍</Heading>
                         <div className={styles.characterScrollContainer}>
                             {record.anime_data.characters.map(char => (
                                 <div key={char.id} className={styles.characterCard}>
                                     <a href="#" className={styles.characterImageLink} onClick={(e) => e.preventDefault()} title={char.name}>
                                         <span
                                             className={styles.characterImageSpan}
-                                            style={{ backgroundImage: `url(${char.image_url})` }}
+                                            style={{ backgroundImage: `url(${toJsDelivrUrl(`/py/anime/data/character/${char.id}.jpg`)})` }}
                                         ></span>
                                     </a>
                                     <p className={styles.characterName}>{char.name}</p>
@@ -147,19 +217,11 @@ export default function AnimeDetailPage (): React.ReactElement {
                         </div>
                     </section>
 
+                    <div style={{ height: "20px" }}></div>
+
                     <section>
-                        <Heading as="h3" className={styles.sectionTitle} id="relations">关联作品</Heading>
-                        <div className={styles.relationList}>
-                            {record.anime_data.relations.map(rel => (
-                                <div key={rel.id} className={styles.relationItem}>
-                                    <img src={rel.image_url} alt={rel.name} className={styles.relationImage} />
-                                    <div>
-                                        <p className={styles.relationInfoName}>{rel.name_cn || rel.name}</p>
-                                        <p className={styles.relationInfoRelation}>{rel.relation}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        <Heading as="h3" className={styles.sectionTitle} id="relations">关联条目</Heading>
+                        <RelationList record={record} />
                     </section>
                 </div>
             </BlogWithCats>
