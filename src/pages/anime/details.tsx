@@ -7,7 +7,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import BlogWithCats from "@site/src/components/BlogWithCats";
 import { useActorMap, useAnimeRecords } from "@site/src/utils/anime/animeStore";
 import { toJsDelivrUrl } from "@site/src/utils/cdn/linkJsDelivr";
-import { ANiMeRecord, WatchStatus } from "@site/src/utils/anime/types";
+import { ANiMeRecord, EpisodeType, WatchStatus } from "@site/src/utils/anime/types";
 import styles from './AnimeDetailPage.module.css';
 import MDXA from "@site/src/theme/MDXComponents/A";
 
@@ -60,26 +60,26 @@ const RelationList = ({ record }: { record: ANiMeRecord }) => {
         return acc;
     }, {});
 
-    // 3. 核心：获取分组的 key，并根据我们定义的 sortOrder 进行排序
+    // 3. 核心: 获取分组的 key, 并根据我们定义的 sortOrder 进行排序
     const sortedGroupKeys = Object.keys(groupedRelations).sort((a, b) => {
         const indexA = sortOrder.indexOf(a);
         const indexB = sortOrder.indexOf(b);
 
-        // 如果某个 key 不在我们的排序数组中，就把它放到最后
+        // 如果某个 key 不在我们的排序数组中, 就把它放到最后
         const effectiveIndexA = indexA === -1 ? Infinity : indexA;
         const effectiveIndexB = indexB === -1 ? Infinity : indexB;
 
         return effectiveIndexA - effectiveIndexB;
     });
 
-    // 4. 渲染：遍历排序后的 keys 数组，而不是直接遍历对象
+    // 4. 渲染: 遍历排序后的 keys 数组, 而不是直接遍历对象
     return (
         <div className={styles.relationContainer}>
             {sortedGroupKeys.map(relation => {
                 const items = groupedRelations[relation];
                 return (
                     <section key={relation} className={styles.relationGroup}>
-                        <h3 className={styles.relationGroupTitle}>{relation}</h3>
+                        <Heading as="h4" id={relation} className={styles.relationGroupTitle}>{relation}</Heading>
                         <div className={styles.relationList}>
                             {items.map(rel => (
                                 <div key={rel.id} className={styles.relationItem}>
@@ -164,7 +164,13 @@ export default function AnimeDetailPage (): React.ReactElement {
                                 <Heading as="h4" className={styles.sectionTitle} id="basic">基本信息</Heading>
                                 <p><strong>评分:</strong> {record.anime_data.score} / 10</p>
                                 <p><strong>放送日期:</strong> {record.anime_data.date}</p>
-                                <p><strong>集数:</strong> {record.anime_data.eps} 话, <strong>OVA:</strong> {record.anime_data.total_episodes - record.anime_data.eps} 话</p>
+                                <p><strong>集数:</strong> {(() => {
+                                    let cnt: number = 0;
+                                    for (const item of record.anime_data.episodes) {
+                                        cnt += item.type === EpisodeType.NORMAL ? 1 : 0;
+                                    }
+                                    return cnt;
+                                })()} 话</p>
                             </div>
 
                             <div className={styles.infoBox}>
@@ -198,11 +204,11 @@ export default function AnimeDetailPage (): React.ReactElement {
                         <div className={styles.characterScrollContainer}>
                             {record.anime_data.characters.map(char => (
                                 <div key={char.id} className={styles.characterCard}>
-                                    <a href="#" className={styles.characterImageLink} onClick={(e) => e.preventDefault()} title={char.name}>
-                                        <span
+                                    <a href={toJsDelivrUrl(`/py/anime/data/character/${char.id}.jpg`)} className={styles.characterImageLink} title={char.name}>
+                                        <img
                                             className={styles.characterImageSpan}
-                                            style={{ backgroundImage: `url(${toJsDelivrUrl(`/py/anime/data/character/${char.id}.jpg`)})` }}
-                                        ></span>
+                                            src={toJsDelivrUrl(`/py/anime/data/character/${char.id}.jpg`)}
+                                        ></img>
                                     </a>
                                     <p className={styles.characterName}>{char.name}</p>
                                     <p className={styles.characterRelation}>{char.relation}</p>

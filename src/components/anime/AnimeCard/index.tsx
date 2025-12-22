@@ -2,7 +2,7 @@ import React, { JSX } from "react";
 import Heading from "@theme/Heading";
 import Link from "@docusaurus/Link";
 import MDXA from "@site/src/theme/MDXComponents/A";
-import { ANiMeRecord } from "@site/src/utils/anime/types";
+import { ANiMeRecord, EpisodeType } from "@site/src/utils/anime/types";
 import { toJsDelivrUrl } from "@site/src/utils/cdn/linkJsDelivr";
 import styles from "./AnimeCard.module.css";
 import { SortMode } from "../SortTabs";
@@ -56,7 +56,13 @@ export default function AnimeCard ({
                         >{`「${anime_data.name}」`}</span>
                     </Heading>
                     <div className={styles.metaRow}>
-                        |<span>{anime_data.eps ? `${anime_data.eps} 话` : "? 话"}</span>|
+                        |<span>{`${(() => {
+                            let cnt: number = 0;
+                            for (const item of anime_data.episodes) {
+                                cnt += item.type === EpisodeType.NORMAL ? 1 : 0;
+                            }
+                            return cnt;
+                        })()} 话`}</span>|
                         <span>评分: {anime_data.score}</span>|
                         {user_status.tags.map((tag, idx) => (
                             <React.Fragment key={idx}>
