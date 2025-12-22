@@ -285,7 +285,7 @@ class Api:
 
     def _get_episodes(self, data_idx: int) -> None:
         """获取番剧剧集信息"""
-        url = f"{BASE_URL}/v0/subjects/{self._anime_record[data_idx].anime_data.id}/episodes"
+        url = f"{BASE_URL}/v0/episodes"
         limit = 100
         try:
             for i in range(99999999):
