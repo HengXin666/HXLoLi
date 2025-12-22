@@ -172,6 +172,7 @@ export default function Home (): React.ReactNode {
                                                     total_episodes: 0,
                                                     characters: [],
                                                     relations: [],
+                                                    episodes: [],
                                                 },
                                                 user_status: {
                                                     watch_status: WatchStatus.WATCHING,

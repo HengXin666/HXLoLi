@@ -44,6 +44,7 @@ HEADERS = {
 # 带请求频率限制的 api 请求
 apiReq = ApiReqRateLimiter(119)
 
+
 class Api:
     def __init__(
         self, anime_record: List[ANiMeRecord] = [], actor_map: Dict[int, Actor] = {}
@@ -106,11 +107,13 @@ class Api:
         queue: Queue[Tuple[str, int, str]] = Queue()
         for record in self._anime_record:
             queue.put(("anime", record.anime_data.id, record.anime_data.image_url))
-            for actor in record.anime_data.characters:
-                queue.put(("actor", actor.id, actor.image_url))
+            for kyara in record.anime_data.characters:
+                queue.put(("kyara", kyara.id, kyara.image_url))
             for relation in record.anime_data.relations:
                 queue.put(("relation", relation.id, relation.image_url))
-        for _ in range(16):
+        for cv in self._actor_map.values():
+            queue.put(("cv", cv.id, cv.image_url))
+        for _ in range(32):
             threading.Thread(target=_download_img_thread, args=(queue,)).start()
         print("主线程: 等待所有下载任务完成...")
         queue.join()
@@ -193,23 +196,23 @@ class Api:
                 print("响应内容:", response.text)
                 return
 
-    def _get_anime_kara_data(self, kara_ref: Character) -> None:
+    def _get_anime_kyara_data(self, kyara_ref: Character) -> None:
         """获取角色详细信息"""
-        url = f"{BASE_URL}/v0/characters/{kara_ref.id}"
+        url = f"{BASE_URL}/v0/characters/{kyara_ref.id}"
         try:
             response = apiReq.get(url, headers=HEADERS)
             response.raise_for_status()
             data = response.json()
-            kara_ref.summary = data["summary"]
-            kara_ref.birth_year = data.get("birth_year", None)
-            kara_ref.birth_month = data.get("birth_mon", None)
-            kara_ref.birth_day = data.get("birth_day", None)
+            kyara_ref.summary = data["summary"]
+            kyara_ref.birth_year = data.get("birth_year", None)
+            kyara_ref.birth_month = data.get("birth_mon", None)
+            kyara_ref.birth_day = data.get("birth_day", None)
             for kv in data["infobox"]:
                 if kv["key"] == "简体中文名":
-                    kara_ref.name_cn = kv["value"]
+                    kyara_ref.name_cn = kv["value"]
                 elif kv["key"] == "别名":
                     continue
-                kara_ref.tags.append(KeyValue(key=kv["key"], value=kv["value"]))
+                kyara_ref.tags.append(KeyValue(key=kv["key"], value=kv["value"]))
         except requests.exceptions.RequestException as e:
             print(f"获取角色信息失败: {e}")
         except json.JSONDecodeError:
@@ -235,7 +238,7 @@ class Api:
                     image_url=it["images"]["large"],
                     actor_ids=[actor["id"] for actor in it["actors"]],
                 )
-                self._get_anime_kara_data(character)
+                self._get_anime_kyara_data(character)
                 self._anime_record[data_idx].anime_data.characters.append(character)
 
                 # 记录角色的声优
@@ -310,7 +313,9 @@ class Api:
                         desc=it["desc"],
                     )
                     self._anime_record[data_idx].anime_data.episodes.append(episode)
-                if len(self._anime_record[data_idx].anime_data.episodes) < limit * (i + 1):
+                if len(self._anime_record[data_idx].anime_data.episodes) < limit * (
+                    i + 1
+                ):
                     return
         except requests.exceptions.RequestException as e:
             print(
@@ -321,6 +326,7 @@ class Api:
                 f"解析番剧 {self._anime_record[data_idx].anime_data.id} 剧集响应失败。"
             )
             print("响应内容:", response.text)
+
 
 def load_from_json() -> Api:
     """从 json 文件中加载数据

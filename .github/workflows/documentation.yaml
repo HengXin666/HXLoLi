@@ -37,13 +37,18 @@ jobs:
         working-directory: ./py
 
       # 判断如果是周一, 就全量更新 (删除 ./py/anime/data/*.json)
+      # 当且仅当定时触发才有效
       - name: 判断是否是周一(北京时间)
         run: |
-          if [ "$(TZ=Asia/Shanghai date +%u)" -eq 1 ]; then
-            echo "是周一(北京时间), 全量更新"
-            rm -f *.json
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            if [ "$(TZ=Asia/Shanghai date +%u)" -eq 1 ]; then
+              echo "定时触发 + 周一(北京时间), 全量更新"
+              rm -f *.json
+            else
+              echo "定时触发但不是周一, 增量更新"
+            fi
           else
-            echo "不是周一(北京时间), 增量更新"
+            echo "非定时触发, 增量更新"
           fi
         working-directory: ./py/anime/data
 
