@@ -200,13 +200,14 @@ class Api:
             response = apiReq.get(url, headers=HEADERS)
             response.raise_for_status()
             data = response.json()
-            kara_ref.name_cn = data["infobox"][0]["value"]
             kara_ref.summary = data["summary"]
             kara_ref.birth_year = data.get("birth_year", None)
             kara_ref.birth_month = data.get("birth_mon", None)
             kara_ref.birth_day = data.get("birth_day", None)
             for kv in data["infobox"]:
-                if kv["key"] == "简体中文名" or kv["key"] == "别名":
+                if kv["key"] == "简体中文名":
+                    kara_ref.name_cn = kv["value"]
+                elif kv["key"] == "别名":
                     continue
                 kara_ref.tags.append(KeyValue(key=kv["key"], value=kv["value"]))
         except requests.exceptions.RequestException as e:
