@@ -66,6 +66,9 @@
     overflow-x: auto;
     gap: 15px; /* 减小卡片间距 */
     padding: 10px 0 20px 0;
+
+    padding-top: 150px; /* 留出足够的高度给 tooltip */
+    margin-top: -150px; /* 将多余的 padding-top 向上推, 保持布局不变 */
 }
 
 /* 自定义横向滚动条 */
@@ -90,6 +93,7 @@
     display: flex;
     flex-direction: column;
     text-align: left;
+    position: relative; /* 设定为相对定位 */
 }
 
 /* --- 角色图片链接 (关键: 尺寸定义者) --- */
@@ -156,7 +160,8 @@
     /* 与下一个分组隔开一些距离 */
     margin-bottom: 24px;
     padding: 10px;
-    border: 1px solid var(--ifm-color-primary);
+    border-left: 3px solid var(--ifm-color-primary);
+    border-right: 2px solid var(--ifm-color-primary);
     border-radius: 8px;
 }
 
@@ -164,7 +169,7 @@
 .relationGroupTitle {
     font-size: 16px;
     font-weight: 600;
-    color: var(--ifm-color-primary-darkest);
+    color: var(--ifm-color-primary);
     margin-bottom: 12px;
     padding-bottom: 8px;
 }
@@ -212,43 +217,55 @@
     padding: 8px 12px;
 }
 
-.tooltip {
-    /* 外观样式 */
-    background-color: #333;
-    color: #fff;
-    padding: 6px 10px;
-    border-radius: 4px;
+/* --- 剧集列表容器 --- */
+.episodeList {
+    display: flex;
+    flex-wrap: wrap; /* 允许方块换行 */
+    gap: 8px;      /* 方块之间的间距 */
+    padding-top: 10px;
+}
+
+/* --- 单个剧集方块 --- */
+.episodeItem {
+    flex-shrink: 0; /* 防止方块被压缩 */
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    position: relative; /* 关键: 作为 tooltip 的定位父级 */
+}
+
+.episodeNumber {
+    user-select: none; /* 防止用户选中文本 */
+}
+
+
+.tooltipTitle {
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+.tooltipDate {
     font-size: 12px;
-    white-space: nowrap; /* 确保提示文本在一行内 */
-
-    /* 定位: 将 tooltip 放在父元素的正上方 */
-    position: absolute;
-    bottom: 100%; /* 关键: 定位到父元素的顶部之外 */
-    left: 50%;
-    transform: translateX(-50%); /* 关键: 水平居中 */
-    margin-bottom: 8px; /* 与卡片保持一点距离 */
-
-    /* 隐藏与过渡效果 */
-    visibility: hidden; /* 完全隐藏, 不参与事件 */
-    opacity: 0;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
-
-    /* 增加一个小箭头, 更有 tooltip 的感觉 (可选) */
-    z-index: 10; /* 确保在其他元素之上 */
+    color: #b3b3b3;
+    margin-bottom: 8px;
 }
 
-.relationItem:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-}
-
-.tooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%; /* 位于 tooltip 的底部 */
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 5px;
-    border-style: solid;
-    border-color: #333 transparent transparent transparent; /* 向上指的三角形 */
+.tooltipDesc {
+    color: #dcdcdc;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* 允许 \n 渲染 */
+    white-space: pre-wrap;
 }

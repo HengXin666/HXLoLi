@@ -1,0 +1,30 @@
+.tooltipPortal {
+    position: absolute; /* 相对于 body 定位 */
+    transform: translate(-50%, -100%); /* 向上和向左偏移，实现居中 */
+    margin-top: -10px; /* 与触发元素的间距 */
+    z-index: 9999;     /* 设置一个非常高的 z-index，确保在最顶层 */
+    pointer-events: none; /* 自身不响应鼠标事件 */
+}
+
+.tooltipContent {
+    width: 300px;
+    padding: 12px;
+    background-color: #2c2c2c;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    font-size: 14px;
+}
+
+/* 小箭头 */
+.tooltipContent::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #2c2c2c transparent transparent transparent;
+}
