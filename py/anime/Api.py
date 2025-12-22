@@ -14,6 +14,8 @@ from ANiMeType import (
     ANiMeRecord,
     Actor,
     Character,
+    Episode,
+    KeyValue,
     Relation,
     SubjectType,
     UserStatus,
@@ -76,6 +78,7 @@ class Api:
             print(f"{idx}: {self._anime_record[idx].anime_data.name}")
             self._get_anime_characters(idx)
             self._get_relations(idx)
+            self._get_episodes(idx)
             lambda_func()
             time.sleep(1.5)
 
@@ -178,7 +181,7 @@ class Api:
                     self._record_map[record.anime_data.id] = record
                     self._anime_record.append(record)
                     lambda_func(len(self._anime_record) - 1)
-                if len(self._anime_record) < limit:
+                if len(self._anime_record) < limit * (i + 1):
                     return
                 time.sleep(2)
             except requests.exceptions.RequestException as e:
@@ -188,6 +191,28 @@ class Api:
                 print("解析追番列表响应失败, 内容可能不是有效的JSON。")
                 print("响应内容:", response.text)
                 return
+
+    def _get_anime_kara_data(self, kara_ref: Character) -> None:
+        """获取角色详细信息"""
+        url = f"{BASE_URL}/v0/characters/{kara_ref.id}"
+        try:
+            response = requests.get(url, headers=HEADERS)
+            response.raise_for_status()
+            data = response.json()
+            kara_ref.name_cn = data["infobox"][0]["value"]
+            kara_ref.summary = data["summary"]
+            kara_ref.birth_year = data["birth_year"]
+            kara_ref.birth_month = data["birth_month"]
+            kara_ref.birth_day = data["birth_day"]
+            for kv in data["infobox"]:
+                if kv["key"] == "简体中文名" or kv["key"] == "别名":
+                    continue
+                kara_ref.tags.append(KeyValue(key=kv["key"], value=kv["value"]))
+        except requests.exceptions.RequestException as e:
+            print(f"获取角色信息失败: {e}")
+        except json.JSONDecodeError:
+            print("解析角色信息响应失败, 内容可能不是有效的JSON。")
+            print("响应内容:", response.text)
 
     def _get_anime_characters(self, data_idx: int) -> None:
         """获取番剧角色声优信息
@@ -208,7 +233,11 @@ class Api:
                     image_url=it["images"]["large"],
                     actor_ids=[actor["id"] for actor in it["actors"]],
                 )
+                self._get_anime_kara_data(character)
+                time.sleep(1)
                 self._anime_record[data_idx].anime_data.characters.append(character)
+
+                # 记录角色的声优
                 for actor in it["actors"]:
                     if actor["id"] not in self._actor_map:
                         actor_data = Actor(
@@ -229,6 +258,7 @@ class Api:
             print("响应内容:", response.text)
 
     def _get_relations(self, data_idx: int) -> None:
+        """获取番剧关联信息"""
         url = f"{BASE_URL}/v0/subjects/{self._anime_record[data_idx].anime_data.id}/subjects"
         try:
             response = requests.get(url, headers=HEADERS)
@@ -253,6 +283,44 @@ class Api:
             )
             print("响应内容:", response.text)
 
+    def _get_episodes(self, data_idx: int) -> None:
+        """获取番剧剧集信息"""
+        url = f"{BASE_URL}/v0/subjects/{self._anime_record[data_idx].anime_data.id}/episodes"
+        limit = 100
+        try:
+            for i in range(99999999):
+                params = {
+                    "subject_id": id,
+                    "limit": limit,
+                    "offset": limit * i,
+                }
+                response = requests.get(url, headers=HEADERS, params=params)
+                response.raise_for_status()
+                for it in response.json():
+                    episode = Episode(
+                        id=it["id"],
+                        name=it["name"],
+                        name_cn=it["name_cn"],
+                        type=it["type"],
+                        ep=it["ep"],
+                        sort=it["sort"],
+                        duration_seconds=it["duration_seconds"],
+                        air_date=it["airdate"],
+                        desc=it["desc"],
+                    )
+                    self._anime_record[data_idx].anime_data.episodes.append(episode)
+                if len(self._anime_record[data_idx].anime_data.episodes) < limit * (i + 1):
+                    return
+                time.sleep(1)
+        except requests.exceptions.RequestException as e:
+            print(
+                f"获取番剧 {self._anime_record[data_idx].anime_data.id} 剧集失败: {e}"
+            )
+        except json.JSONDecodeError:
+            print(
+                f"解析番剧 {self._anime_record[data_idx].anime_data.id} 剧集响应失败。"
+            )
+            print("响应内容:", response.text)
 
 def load_from_json() -> Api:
     """从 json 文件中加载数据
