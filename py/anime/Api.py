@@ -201,9 +201,9 @@ class Api:
             data = response.json()
             kara_ref.name_cn = data["infobox"][0]["value"]
             kara_ref.summary = data["summary"]
-            kara_ref.birth_year = data["birth_year"]
-            kara_ref.birth_month = data["birth_month"]
-            kara_ref.birth_day = data["birth_day"]
+            kara_ref.birth_year = data.get("birth_year", None)
+            kara_ref.birth_month = data.get("birth_mon", None)
+            kara_ref.birth_day = data.get("birth_day", None)
             for kv in data["infobox"]:
                 if kv["key"] == "简体中文名" or kv["key"] == "别名":
                     continue
