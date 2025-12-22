@@ -290,7 +290,7 @@ class Api:
         try:
             for i in range(99999999):
                 params = {
-                    "subject_id": id,
+                    "subject_id": self._anime_record[data_idx].anime_data.id,
                     "limit": limit,
                     "offset": limit * i,
                 }
