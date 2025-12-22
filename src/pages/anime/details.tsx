@@ -10,6 +10,7 @@ import { toJsDelivrUrl } from "@site/src/utils/cdn/linkJsDelivr";
 import { ANiMeRecord, EpisodeType, WatchStatus } from "@site/src/utils/anime/types";
 import styles from './AnimeDetailPage.module.css';
 import MDXA from "@site/src/theme/MDXComponents/A";
+import Tooltip from "@site/src/components/common/Tooltip";
 
 function useQuery (): URLSearchParams {
     const location = useLocation();
@@ -29,6 +30,26 @@ function getWatchStatusText (status: WatchStatus): string {
             return "搁置";
         case WatchStatus.DROPPED:
             return "抛弃";
+        default:
+            return "未知";
+    }
+}
+
+// 格式化番剧剧集type
+function getEpisodeTypeText (type: EpisodeType): string {
+    switch (type) {
+        case EpisodeType.NORMAL:
+            return "正片";
+        case EpisodeType.SP:
+            return "SP";
+        case EpisodeType.OP:
+            return "OP";
+        case EpisodeType.ED:
+            return "ED";
+        case EpisodeType.PROMO:
+            return "PV";
+        case EpisodeType.OTHER:
+            return "其他";
         default:
             return "未知";
     }
@@ -82,15 +103,18 @@ const RelationList = ({ record }: { record: ANiMeRecord }) => {
                         <Heading as="h4" id={relation} className={styles.relationGroupTitle}>{relation}</Heading>
                         <div className={styles.relationList}>
                             {items.map(rel => (
-                                <div key={rel.id} className={styles.relationItem}>
-                                    {rel.name_cn && (
-                                        <span className={styles.tooltip}>{rel.name_cn}</span>
-                                    )}
-                                    <img src={toJsDelivrUrl(`/py/anime/data/relation/${rel.id}.jpg`)} alt={rel.name} className={styles.relationImage} />
-                                    <div className={styles.relationInfo}>
-                                        <MDXA href={`${siteConfig.baseUrl}anime/details?id=${rel.id}`}>{rel.name}</MDXA>
+                                <Tooltip
+                                    key={relation}
+                                    content={<span>{rel.name_cn || rel.name}</span>}
+                                    style={{ width: "auto" }}
+                                >
+                                    <div key={rel.id} className={styles.relationItem}>
+                                        <img src={toJsDelivrUrl(`/py/anime/data/relation/${rel.id}.jpg`)} alt={rel.name} className={styles.relationImage} />
+                                        <div className={styles.relationInfo}>
+                                            <MDXA href={`${siteConfig.baseUrl}anime/details?id=${rel.id}`}>{rel.name}</MDXA>
+                                        </div>
                                     </div>
-                                </div>
+                                </Tooltip>
                             ))}
                         </div>
                     </section>
@@ -193,6 +217,49 @@ export default function AnimeDetailPage (): React.ReactElement {
 
                     <div style={{ height: "20px" }}></div>
 
+                    <div className={styles.infoBox}>
+                        <Heading as="h4" className={styles.sectionTitle} id="eps">剧集</Heading>
+                        <div className={styles.episodeList}>
+                            {record.anime_data.episodes
+                                // 推荐按 sort 字段排序, 确保 "SP" 等特殊集数顺序正确
+                                .sort((a, b) => a.sort - b.sort)
+                                .map(ep => (
+                                    <Tooltip
+                                        key={ep.id}
+                                        style={{
+                                            width: "500px",
+                                        }}
+                                        selectable={true}
+                                        content={
+                                            <>
+                                                <p className={styles.tooltipTitle}>
+                                                    {`第 ${ep.sort} 集 ${ep.name_cn}`}
+                                                </p>
+                                                <p className={styles.tooltipTitle}>
+                                                    「{ep.name}」
+                                                </p>
+                                                <p className={styles.tooltipDate}>{getEpisodeTypeText(ep.type)}・放送日期 {ep.air_date || '未知'}・时长 {(() => {
+                                                    // 格式化为 mm:ss
+                                                    const s = ep.duration_seconds;
+                                                    const m = Math.floor(s / 60);
+                                                    const ss = s % 60;
+                                                    return `${m}:${ss}`;
+                                                })() || '未知'}</p>
+                                                <p className={styles.tooltipDesc}>{ep.desc || '暂无简介'}</p>
+                                            </>
+                                        }
+                                    >
+                                        <div className={styles.episodeItem} tabIndex={0}>
+                                            <span className={styles.episodeNumber}>{ep.sort}</span>
+                                        </div>
+                                    </Tooltip>
+                                ))
+                            }
+                        </div>
+                    </div>
+
+                    <div style={{ height: "20px" }}></div>
+
                     <section>
                         <Heading as="h3" className={styles.sectionTitle} id="summary">剧情简介</Heading>
                         <p className={styles.summaryText}>{record.anime_data.summary}</p>
@@ -203,22 +270,64 @@ export default function AnimeDetailPage (): React.ReactElement {
                         <Heading as="h3" className={styles.sectionTitle} id="characters">角色介绍</Heading>
                         <div className={styles.characterScrollContainer}>
                             {record.anime_data.characters.map(char => (
-                                <div key={char.id} className={styles.characterCard}>
-                                    <a href={toJsDelivrUrl(`/py/anime/data/character/${char.id}.jpg`)} className={styles.characterImageLink} title={char.name}>
-                                        <img
-                                            className={styles.characterImageSpan}
-                                            src={toJsDelivrUrl(`/py/anime/data/character/${char.id}.jpg`)}
-                                        ></img>
-                                    </a>
-                                    <p className={styles.characterName}>{char.name}</p>
-                                    <p className={styles.characterRelation}>{char.relation}</p>
-                                    <p className={styles.characterActors}>
-                                        CV {char.actor_ids
-                                            .map(actorId => actorMap.get(actorId)?.name)
-                                            .filter(Boolean) // 过滤掉未找到的声优
-                                            .join('\n / ') || '?'}
-                                    </p>
-                                </div>
+                                <Tooltip
+                                    key={char.id}
+                                    style={{
+                                        width: "auto",
+                                        textAlign: "center"
+                                    }}
+                                    content={
+                                        <>
+                                            {(() => {
+                                                if (char.name_cn && (char.birth_month && char.birth_day)) {
+                                                    return (
+                                                        <span>
+                                                            「{char.name_cn}」 <br />
+                                                            生日: {char.birth_month && char.birth_day && `${char.birth_month}月${char.birth_day}日`}
+                                                        </span>
+                                                    )
+                                                } else if (char.name_cn) {
+                                                    return (
+                                                        <span>
+                                                            「{char.name_cn}」
+                                                        </span>
+                                                    )
+                                                } else if (char.birth_month && char.birth_day) {
+                                                    return (
+                                                        <span>
+                                                            生日: {char.birth_month}月{char.birth_day}日
+                                                        </span>
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <span>
+                                                            {char.name}
+                                                        </span>
+                                                    )
+                                                }
+                                            })()}
+                                            <div style={{maxWidth: "500px", textAlign: "left", color: "#b3b3b3"}}>
+                                                {char.summary}
+                                            </div>
+                                        </>
+                                    }>
+                                    <div key={char.id} className={styles.characterCard}>
+                                        <a href={`https://bgm.tv/character/${char.id}`} target="_blank" className={styles.characterImageLink} title={char.name}>
+                                            <span
+                                                className={styles.characterImageSpan}
+                                                style={{ backgroundImage: `url(${toJsDelivrUrl(`/py/anime/data/kyara/${char.id}.jpg`)})` }}
+                                            ></span>
+                                        </a>
+                                        <p className={styles.characterName}>{char.name}</p>
+                                        <p className={styles.characterRelation}>{char.relation}</p>
+                                        <p className={styles.characterActors}>
+                                            CV {char.actor_ids
+                                                .map(actorId => actorMap.get(actorId)?.name)
+                                                .filter(Boolean) // 过滤掉未找到的声优
+                                                .join('\n / ') || '?'}
+                                        </p>
+                                    </div>
+                                </Tooltip>
                             ))}
                         </div>
                     </section>
