@@ -20,6 +20,7 @@ from ANiMeType import (
     SubjectType,
     UserStatus,
 )
+from ApiReqRateLimiter import ApiReqRateLimiter
 
 # --- 配置 ---
 # 替换为你的 Bangumi 用户名
@@ -40,6 +41,8 @@ HEADERS = {
     "accept": "application/json",
 }
 
+# 带请求频率限制的 api 请求
+apiReq = ApiReqRateLimiter(119)
 
 class Api:
     def __init__(
@@ -80,7 +83,6 @@ class Api:
             self._get_relations(idx)
             self._get_episodes(idx)
             lambda_func()
-            time.sleep(1.5)
 
         self._get_user_watching_anime(username, _task)
 
@@ -143,7 +145,7 @@ class Api:
                 "offset": i * limit,  # 偏移量
             }
             try:
-                response = requests.get(url, headers=HEADERS, params=params)
+                response = apiReq.get(url, headers=HEADERS, params=params)
                 # 如果请求失败, 则抛出异常
                 response.raise_for_status()
                 for it in response.json().get("data", []):
@@ -183,7 +185,6 @@ class Api:
                     lambda_func(len(self._anime_record) - 1)
                 if len(self._anime_record) < limit * (i + 1):
                     return
-                time.sleep(2)
             except requests.exceptions.RequestException as e:
                 print(f"获取用户追番列表失败: {e}")
                 return
@@ -196,7 +197,7 @@ class Api:
         """获取角色详细信息"""
         url = f"{BASE_URL}/v0/characters/{kara_ref.id}"
         try:
-            response = requests.get(url, headers=HEADERS)
+            response = apiReq.get(url, headers=HEADERS)
             response.raise_for_status()
             data = response.json()
             kara_ref.name_cn = data["infobox"][0]["value"]
@@ -223,7 +224,7 @@ class Api:
         """
         url = f"{BASE_URL}/v0/subjects/{self._anime_record[data_idx].anime_data.id}/characters"
         try:
-            response = requests.get(url, headers=HEADERS)
+            response = apiReq.get(url, headers=HEADERS)
             response.raise_for_status()
             for it in response.json():
                 character = Character(
@@ -234,7 +235,6 @@ class Api:
                     actor_ids=[actor["id"] for actor in it["actors"]],
                 )
                 self._get_anime_kara_data(character)
-                time.sleep(1)
                 self._anime_record[data_idx].anime_data.characters.append(character)
 
                 # 记录角色的声优
@@ -261,7 +261,7 @@ class Api:
         """获取番剧关联信息"""
         url = f"{BASE_URL}/v0/subjects/{self._anime_record[data_idx].anime_data.id}/subjects"
         try:
-            response = requests.get(url, headers=HEADERS)
+            response = apiReq.get(url, headers=HEADERS)
             response.raise_for_status()
             for it in response.json():
                 relation = Relation(
@@ -294,7 +294,7 @@ class Api:
                     "limit": limit,
                     "offset": limit * i,
                 }
-                response = requests.get(url, headers=HEADERS, params=params)
+                response = apiReq.get(url, headers=HEADERS, params=params)
                 response.raise_for_status()
                 for it in response.json()["data"]:
                     episode = Episode(
@@ -311,7 +311,6 @@ class Api:
                     self._anime_record[data_idx].anime_data.episodes.append(episode)
                 if len(self._anime_record[data_idx].anime_data.episodes) < limit * (i + 1):
                     return
-                time.sleep(1)
         except requests.exceptions.RequestException as e:
             print(
                 f"获取番剧 {self._anime_record[data_idx].anime_data.id} 剧集失败: {e}"
