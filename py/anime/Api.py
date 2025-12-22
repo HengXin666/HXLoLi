@@ -296,7 +296,7 @@ class Api:
                 }
                 response = requests.get(url, headers=HEADERS, params=params)
                 response.raise_for_status()
-                for it in response.json():
+                for it in response.json()["data"]:
                     episode = Episode(
                         id=it["id"],
                         name=it["name"],
