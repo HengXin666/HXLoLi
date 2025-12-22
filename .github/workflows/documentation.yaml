@@ -36,6 +36,18 @@ jobs:
           uv sync
         working-directory: ./py
 
+      # 判断如果是周一, 就全量更新 (删除 ./py/anime/data/*.json)
+      - name: 判断是否是周一
+        run: |
+          # 判断是否是周一
+          if [ $(date +%u) -eq 1 ]; then
+            echo "是周一, 全量更新"
+            rm *.json
+          else
+            echo "不是周一, 增量更新"
+          fi
+        working-directory: ./py/anime/data
+
       - name: 开始爬取番剧
         run: |
           source $HOME/.cargo/env
