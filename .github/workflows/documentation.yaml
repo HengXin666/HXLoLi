@@ -52,6 +52,9 @@ jobs:
           source $HOME/.cargo/env
           uv run Api.py --username="heng_xin" --token=${{ secrets.BGM_ACCESS_TOKEN }}
         working-directory: ./py/anime
+        env:
+          # 关闭缓冲区 以显示日志
+          PYTHONUNBUFFERED: "1"
 
       - name: 拷贝数据到静态网站目录
         run: |
