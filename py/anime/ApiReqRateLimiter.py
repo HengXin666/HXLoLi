@@ -12,6 +12,7 @@ class ApiReqRateLimiter:
         if self._req_count >= self._max_req_per_sec:
             now = time.time()
             if now - self._last_req_time < 1:
+                print(f"请求频率限制，等待 {1 - (now - self._last_req_time)} 秒后重试")
                 time.sleep(1 - (now - self._last_req_time))
             self._req_count = 0
             self._last_req_time = now
