@@ -11,6 +11,7 @@ import { ANiMeRecord, EpisodeType, WatchStatus } from "@site/src/utils/anime/typ
 import styles from './AnimeDetailPage.module.css';
 import MDXA from "@site/src/theme/MDXComponents/A";
 import Tooltip from "@site/src/components/common/Tooltip";
+import { formatMmSs } from "@site/src/utils/formatTime";
 
 function useQuery (): URLSearchParams {
     const location = useLocation();
@@ -238,13 +239,7 @@ export default function AnimeDetailPage (): React.ReactElement {
                                                 <p className={styles.tooltipTitle}>
                                                     「{ep.name}」
                                                 </p>
-                                                <p className={styles.tooltipDate}>{getEpisodeTypeText(ep.type)}・放送日期 {ep.air_date || '未知'}・时长 {(() => {
-                                                    // 格式化为 mm:ss
-                                                    const s = ep.duration_seconds;
-                                                    const m = Math.floor(s / 60);
-                                                    const ss = s % 60;
-                                                    return `${m}:${ss}`;
-                                                })() || '未知'}</p>
+                                                <p className={styles.tooltipDate}>{getEpisodeTypeText(ep.type)}・放送日期 {ep.air_date || '未知'}・时长 {formatMmSs(ep.duration_seconds) || '未知'}</p>
                                                 <p className={styles.tooltipDesc}>{ep.desc || '暂无简介'}</p>
                                             </>
                                         }
@@ -270,64 +265,64 @@ export default function AnimeDetailPage (): React.ReactElement {
                         <Heading as="h3" className={styles.sectionTitle} id="characters">角色介绍</Heading>
                         <div className={styles.characterScrollContainer}>
                             {record.anime_data.characters.map(char => (
-                                <Tooltip
-                                    key={char.id}
-                                    style={{
-                                        width: "auto",
-                                        textAlign: "center"
-                                    }}
-                                    content={
-                                        <>
-                                            {(() => {
-                                                if (char.name_cn && (char.birth_month && char.birth_day)) {
-                                                    return (
-                                                        <span>
-                                                            「{char.name_cn}」 <br />
-                                                            生日: {char.birth_month && char.birth_day && `${char.birth_month}月${char.birth_day}日`}
-                                                        </span>
-                                                    )
-                                                } else if (char.name_cn) {
-                                                    return (
-                                                        <span>
-                                                            「{char.name_cn}」
-                                                        </span>
-                                                    )
-                                                } else if (char.birth_month && char.birth_day) {
-                                                    return (
-                                                        <span>
-                                                            生日: {char.birth_month}月{char.birth_day}日
-                                                        </span>
-                                                    )
-                                                } else {
-                                                    return (
-                                                        <span>
-                                                            {char.name}
-                                                        </span>
-                                                    )
-                                                }
-                                            })()}
-                                            <div style={{maxWidth: "500px", textAlign: "left", color: "#b3b3b3"}}>
-                                                {char.summary}
-                                            </div>
-                                        </>
-                                    }>
-                                    <div key={char.id} className={styles.characterCard}>
+                                <div key={char.id} className={styles.characterCard}>
+                                    <Tooltip
+                                        key={char.id}
+                                        style={{
+                                            width: "auto",
+                                            textAlign: "center"
+                                        }}
+                                        content={
+                                            <>
+                                                {(() => {
+                                                    if (char.name_cn && (char.birth_month && char.birth_day)) {
+                                                        return (
+                                                            <span>
+                                                                「{char.name_cn}」 <br />
+                                                                生日: {char.birth_month && char.birth_day && `${char.birth_month}月${char.birth_day}日`}
+                                                            </span>
+                                                        )
+                                                    } else if (char.name_cn) {
+                                                        return (
+                                                            <span>
+                                                                「{char.name_cn}」
+                                                            </span>
+                                                        )
+                                                    } else if (char.birth_month && char.birth_day) {
+                                                        return (
+                                                            <span>
+                                                                生日: {char.birth_month}月{char.birth_day}日
+                                                            </span>
+                                                        )
+                                                    } else {
+                                                        return (
+                                                            <span>
+                                                                {char.name}
+                                                            </span>
+                                                        )
+                                                    }
+                                                })()}
+                                                <div style={{ maxWidth: "500px", textAlign: "left", color: "#b3b3b3" }}>
+                                                    {char.summary}
+                                                </div>
+                                            </>
+                                        }>
                                         <a href={`https://bgm.tv/character/${char.id}`} target="_blank" className={styles.characterImageLink} title={char.name}>
                                             <span
                                                 className={styles.characterImageSpan}
                                                 style={{ backgroundImage: `url(${toJsDelivrUrl(`/py/anime/data/kyara/${char.id}.jpg`)})` }}
                                             ></span>
                                         </a>
-                                        <p className={styles.characterName}>{char.name}</p>
-                                        <p className={styles.characterRelation}>{char.relation}</p>
-                                        <p className={styles.characterActors}>
-                                            CV {char.actor_ids
-                                                .map(actorId => actorMap.get(actorId)?.name)
-                                                .filter(Boolean) // 过滤掉未找到的声优
-                                                .join('\n / ') || '?'}
-                                        </p>
-                                    </div>
-                                </Tooltip>
+                                    </Tooltip>
+                                    <p className={styles.characterName}>{char.name}</p>
+                                    <p className={styles.characterRelation}>{char.relation}</p>
+                                    <p className={styles.characterActors}>
+                                        CV {char.actor_ids
+                                            .map(actorId => actorMap.get(actorId)?.name)
+                                            .filter(Boolean) // 过滤掉未找到的声优
+                                            .join('\n / ') || '?'}
+                                    </p>
+                                </div>
                             ))}
                         </div>
                     </section>
