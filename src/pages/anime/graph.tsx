@@ -6,8 +6,6 @@ import React from "react";
 export default function AnimeGraph (): React.ReactElement {
     const { siteConfig } = useDocusaurusContext();
     return(
-        <Layout title={"アニメ"}>
-            <AnimeGraphPage baseUrl={siteConfig.baseUrl} />
-        </Layout>
+        <AnimeGraphPage baseUrl={siteConfig.baseUrl} />
     )
 }
