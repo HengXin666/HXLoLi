@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback, useRef, useEffect } from 'react';
-import ForceGraph2D, { ForceGraphMethods, NodeObject, LinkObject } from 'react-force-graph-2d';
+import type { ForceGraphMethods, NodeObject, LinkObject } from 'react-force-graph-2d';
 import { useActorMap, useAnimeRecords } from "@site/src/utils/anime/animeStore";
 import { ANiMeRecord, Character } from "@site/src/utils/anime/types";
 import BrowserOnly from '@docusaurus/BrowserOnly';
@@ -468,47 +468,50 @@ export const AnimeForceGraph: React.FC<AnimeForceGraphProps> = ({
 
         ctx.globalAlpha = 1;
     }, [preferCn, showImages, hoverNode, highlightNodes]);
-
     return (
         <div ref={containerRef} style={{ width: '100%', height: '100%', overflow: 'hidden', background: THEME.background }}>
             {/* 只有当获取到尺寸时才渲染 Graph, 否则会因为 width=0 导致初始化错误 */}
             {dimensions.width > 0 && (
-                <ForceGraph2D
-                    ref={fgRef}
-                    width={dimensions.width}
-                    height={dimensions.height}
-                    graphData={graphData}
+                <BrowserOnly>
+                    {() => {
+                        const ForceGraph2D = require('react-force-graph-2d').default;
+                        return <ForceGraph2D
+                            ref={fgRef}
+                            width={dimensions.width}
+                            height={dimensions.height}
+                            graphData={graphData}
 
-                    nodeLabel={() => ''}
-                    nodeCanvasObject={nodeCanvasObject as any}
+                            nodeLabel={() => ''}
+                            nodeCanvasObject={nodeCanvasObject as any}
 
-                    linkColor={() => 'rgba(255,255,255,0.15)'}
-                    linkWidth={link => (highlightNodes.has((link.source as GraphNode).id) && highlightNodes.has((link.target as GraphNode).id)) ? 2 : 1}
+                            linkColor={() => 'rgba(255,255,255,0.15)'}
+                            linkWidth={(link: GraphLink) => (highlightNodes.has((link.source as GraphNode).id) && highlightNodes.has((link.target as GraphNode).id)) ? 2 : 1}
 
-                    onNodeHover={node => {
-                        setHoverNode((node as GraphNode) || null);
-                        const newHighlight = new Set<string>();
-                        if (node) {
-                            newHighlight.add(node.id as string);
-                            graphData.links.forEach(link => {
-                                const s = (link.source as GraphNode).id;
-                                const t = (link.target as GraphNode).id;
-                                if (s === node.id) newHighlight.add(t);
-                                if (t === node.id) newHighlight.add(s);
-                            });
-                        }
-                        setHighlightNodes(newHighlight);
+                            onNodeHover={(node: GraphNode | null) => {
+                                setHoverNode((node as GraphNode) || null);
+                                const newHighlight = new Set<string>();
+                                if (node) {
+                                    newHighlight.add(node.id as string);
+                                    graphData.links.forEach(link => {
+                                        const s = (link.source as GraphNode).id;
+                                        const t = (link.target as GraphNode).id;
+                                        if (s === node.id) newHighlight.add(t);
+                                        if (t === node.id) newHighlight.add(s);
+                                    });
+                                }
+                                setHighlightNodes(newHighlight);
+                            }}
+
+                            onNodeClick={(node: GraphNode) => {
+                                fgRef.current?.centerAt(node.x, node.y, 1000);
+                                fgRef.current?.zoom(3, 2000);
+                            }}
+
+                            d3VelocityDecay={0.1}
+                            cooldownTicks={100}
+                        />;
                     }}
-
-                    onNodeClick={node => {
-                        fgRef.current?.centerAt(node.x, node.y, 1000);
-                        fgRef.current?.zoom(3, 2000);
-                    }}
-
-                    d3VelocityDecay={0.1}
-                    cooldownTicks={100}
-                />
-            )}
+                </BrowserOnly>)}
         </div>
     );
 };
@@ -525,30 +528,24 @@ export default function AnimeGraphPage ({ baseUrl }: { baseUrl: string }) {
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '100vh', background: THEME.background }}>
-            <BrowserOnly>
-                {() => (
-                    <>
-                        <AnimeForceGraph
-                            baseUrl={baseUrl}
-                            targetAnimeId={targetAnimeId}
-                            hiddenRelations={hiddenRelations}
-                            preferCn={preferCn}
-                            showImages={showImages}
-                        />
-                        <AnimeGraphController
-                            hiddenRelations={hiddenRelations}
-                            setHiddenRelations={setHiddenRelations}
-                            preferCn={preferCn}
-                            setPreferCn={setPreferCn}
-                            showImages={showImages}
-                            setShowImages={setShowImages}
-                            targetAnimeId={targetAnimeId}
-                            setTargetAnimeId={setTargetAnimeId}
-                            allRecords={records}
-                        />
-                    </>
-                )}
-            </BrowserOnly>
+            <AnimeForceGraph
+                baseUrl={baseUrl}
+                targetAnimeId={targetAnimeId}
+                hiddenRelations={hiddenRelations}
+                preferCn={preferCn}
+                showImages={showImages}
+            />
+            <AnimeGraphController
+                hiddenRelations={hiddenRelations}
+                setHiddenRelations={setHiddenRelations}
+                preferCn={preferCn}
+                setPreferCn={setPreferCn}
+                showImages={showImages}
+                setShowImages={setShowImages}
+                targetAnimeId={targetAnimeId}
+                setTargetAnimeId={setTargetAnimeId}
+                allRecords={records}
+            />
         </div>
     );
 }
