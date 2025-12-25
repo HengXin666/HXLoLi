@@ -8559,5 +8559,12 @@
         "short_summary": "中国内地女性声优",
         "image_url": "",
         "__dataclass__": "Actor"
+    },
+    {
+        "id": 14127,
+        "name": "幸田夢波",
+        "short_summary": "日本の女性声優、歌手。プロダクション・エース所属。東京都出身。プロダクション・エース演技研究所出身。本名・旧芸名：高橋 夢波（たかはし ゆめは）。\r\n\r\n＜資格＞書道1級\r\n＜趣味・特技＞歌唱",
+        "image_url": "https://lain.bgm.tv/pic/crt/l/61/4d/14127_prsn_UXToT.jpg",
+        "__dataclass__": "Actor"
     }
 ]
