@@ -152743,23 +152743,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "红宝石之星",
-                            "__dataclass__": "KeyValue"
+                            "value": "红宝石之星"
                         },
                         {
                             "key": "性别",
-                            "value": "淫棍",
-                            "__dataclass__": "KeyValue"
+                            "value": "淫棍"
                         },
                         {
                             "key": "引用来源",
-                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
-                            "__dataclass__": "KeyValue"
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire"
                         },
                         {
                             "key": "真相",
-                            "value": "琥珀",
-                            "__dataclass__": "KeyValue"
+                            "value": "琥珀"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -152781,13 +152777,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "路人",
-                            "__dataclass__": "KeyValue"
+                            "value": "路人"
                         },
                         {
                             "key": "引用来源",
-                            "value": "http://www.paradisearmy.com/doujin/pasok_mob.htm",
-                            "__dataclass__": "KeyValue"
+                            "value": "http://www.paradisearmy.com/doujin/pasok_mob.htm"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -152808,23 +152802,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "美游·艾德费尔特",
-                            "__dataclass__": "KeyValue"
+                            "value": "美游·艾德费尔特"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "7月20日",
-                            "__dataclass__": "KeyValue"
+                            "value": "7月20日"
                         },
                         {
                             "key": "引用来源",
-                            "value": "中文维基／anime.prisma-illya.jp/character/#miyu",
-                            "__dataclass__": "KeyValue"
+                            "value": "中文维基／anime.prisma-illya.jp/character/#miyu"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -152845,18 +152835,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "蓝宝石之星",
-                            "__dataclass__": "KeyValue"
+                            "value": "蓝宝石之星"
                         },
                         {
                             "key": "性别",
-                            "value": "法杖",
-                            "__dataclass__": "KeyValue"
+                            "value": "法杖"
                         },
                         {
                             "key": "引用来源",
-                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
-                            "__dataclass__": "KeyValue"
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -152877,23 +152864,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "克洛伊·冯·爱因兹贝伦",
-                            "__dataclass__": "KeyValue"
+                            "value": "克洛伊·冯·爱因兹贝伦"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "7月20日",
-                            "__dataclass__": "KeyValue"
+                            "value": "7月20日"
                         },
                         {
                             "key": "声优",
-                            "value": "斋藤千和",
-                            "__dataclass__": "KeyValue"
+                            "value": "斋藤千和"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -152914,13 +152897,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "女学生",
-                            "__dataclass__": "KeyValue"
+                            "value": "女学生"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -152941,18 +152922,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "岳间泽龙子",
-                            "__dataclass__": "KeyValue"
+                            "value": "岳间泽龙子"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "anime.prisma-illya.jp/character",
-                            "__dataclass__": "KeyValue"
+                            "value": "anime.prisma-illya.jp/character"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -152973,18 +152951,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "桂美美",
-                            "__dataclass__": "KeyValue"
+                            "value": "桂美美"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅",
-                            "__dataclass__": "KeyValue"
+                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153005,23 +152980,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "森山那奈龟",
-                            "__dataclass__": "KeyValue"
+                            "value": "森山那奈龟"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "anime.prisma-illya.jp/character/",
-                            "__dataclass__": "KeyValue"
+                            "value": "anime.prisma-illya.jp/character/"
                         },
                         {
                             "key": "姐姐",
-                            "value": "森山奈菜巳",
-                            "__dataclass__": "KeyValue"
+                            "value": "森山奈菜巳"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153042,18 +153013,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "栗原雀花",
-                            "__dataclass__": "KeyValue"
+                            "value": "栗原雀花"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅",
-                            "__dataclass__": "KeyValue"
+                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153074,13 +153042,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "奥古斯特",
-                            "__dataclass__": "KeyValue"
+                            "value": "奥古斯特"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153101,28 +153067,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "7月20日",
-                            "__dataclass__": "KeyValue"
+                            "value": "7月20日"
                         },
                         {
                             "key": "身高",
-                            "value": "133cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "133cm"
                         },
                         {
                             "key": "体重",
-                            "value": "29kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "29kg"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153143,13 +153104,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "卫宫士郎 (伊莉雅世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "卫宫士郎 (伊莉雅世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153170,33 +153129,27 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "君主·埃尔梅罗二世",
-                            "__dataclass__": "KeyValue"
+                            "value": "君主·埃尔梅罗二世"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "生日",
-                            "value": "10月3日",
-                            "__dataclass__": "KeyValue"
+                            "value": "10月3日"
                         },
                         {
                             "key": "血型",
-                            "value": "B型",
-                            "__dataclass__": "KeyValue"
+                            "value": "B型"
                         },
                         {
                             "key": "身高",
-                            "value": "186cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "186cm"
                         },
                         {
                             "key": "体重",
-                            "value": "68kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "68kg"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153217,13 +153170,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "远坂凛 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "远坂凛 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153244,13 +153195,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153271,13 +153220,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "巴泽特·弗拉加·麦克雷米兹 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "巴泽特·弗拉加·麦克雷米兹 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153298,13 +153245,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "卡莲·奥尔黛西亚 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "卡莲·奥尔黛西亚 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153325,13 +153270,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "爱丽丝菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "爱丽丝菲尔·冯·爱因兹贝伦 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153352,13 +153295,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "塞拉 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "塞拉 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153379,13 +153320,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "莉洁莉特 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "莉洁莉特 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153406,13 +153345,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "卫宫切嗣 (伊莉雅世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "卫宫切嗣 (伊莉雅世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153433,13 +153370,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "藤村大河 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "藤村大河 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153592,8 +153527,7 @@
                     "duration_seconds": 1416,
                     "ep": 1,
                     "sort": 1,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 407679,
@@ -153604,8 +153538,7 @@
                     "duration_seconds": 1416,
                     "ep": 2,
                     "sort": 2,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 407680,
@@ -153616,8 +153549,7 @@
                     "duration_seconds": 1416,
                     "ep": 3,
                     "sort": 3,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 407681,
@@ -153628,8 +153560,7 @@
                     "duration_seconds": 1416,
                     "ep": 4,
                     "sort": 4,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 407682,
@@ -153640,8 +153571,7 @@
                     "duration_seconds": 1416,
                     "ep": 5,
                     "sort": 5,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 407683,
@@ -153652,8 +153582,7 @@
                     "duration_seconds": 1416,
                     "ep": 6,
                     "sort": 6,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 407684,
@@ -153664,8 +153593,7 @@
                     "duration_seconds": 1416,
                     "ep": 7,
                     "sort": 7,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 407685,
@@ -153676,8 +153604,7 @@
                     "duration_seconds": 1416,
                     "ep": 8,
                     "sort": 8,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 407686,
@@ -153688,8 +153615,7 @@
                     "duration_seconds": 1416,
                     "ep": 9,
                     "sort": 9,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 407687,
@@ -153700,8 +153626,7 @@
                     "duration_seconds": 1416,
                     "ep": 10,
                     "sort": 10,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 435837,
@@ -153712,8 +153637,7 @@
                     "duration_seconds": 302,
                     "ep": 0,
                     "sort": 1,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 444234,
@@ -153724,8 +153648,7 @@
                     "duration_seconds": 305,
                     "ep": 0,
                     "sort": 2,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 444235,
@@ -153736,8 +153659,7 @@
                     "duration_seconds": 362,
                     "ep": 0,
                     "sort": 3,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 461665,
@@ -153748,8 +153670,7 @@
                     "duration_seconds": 422,
                     "ep": 0,
                     "sort": 4,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 475831,
@@ -153760,8 +153681,7 @@
                     "duration_seconds": 396,
                     "ep": 0,
                     "sort": 5,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 }
             ],
             "__dataclass__": "ANiMeData"
@@ -153770,6 +153690,485 @@
             "watch_status": 3,
             "watched_eps": 0,
             "last_update": "2025-12-24T13:24:08+08:00",
+            "comment": null,
+            "tags": [],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 537743,
+            "name": "とある科学の超電磁砲 第4期",
+            "name_cn": "某科学的超电磁炮 第四季",
+            "short_summary": "『とある科学の超電磁砲』第4期は、2025年2月に制作決定が発表され、現在も制作進行中です。具体的な放送開始時期はまだ発表されていませんが、前回の第3期から放送間隔が約5年空いているため、早ければ2025年後半、遅くとも2026年前半の放送",
+            "score": 9.7,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/c0/94/537743_yYZxV.jpg",
+            "eps": 0,
+            "date": null,
+            "summary": "『とある科学の超電磁砲』第4期は、2025年2月に制作決定が発表され、現在も制作進行中です。具体的な放送開始時期はまだ発表されていませんが、前回の第3期から放送間隔が約5年空いているため、早ければ2025年後半、遅くとも2026年前半の放送開始が予想されます。\r\n放送時期の予測\r\n制作発表から早ければ2025年10月、遅くとも2026年4月頃の放送開始と推測されています。\r\n関連情報\r\n第4期の制作決定に合わせて、スピンオフ作品『とある暗部の少女共棲』のTVアニメ化も発表されました。\r\nTVアニメ『とある科学の超電磁砲T』（第3期）は2020年1月～9月に放送されました。",
+            "total_episodes": 0,
+            "characters": [
+                {
+                    "id": 524,
+                    "name": "鰐河雷斧",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/16/79/524_crt_whQ00.jpg",
+                    "actor_ids": [],
+                    "name_cn": "鳄河雷斧",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "鳄河雷斧",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "等级",
+                            "value": "4",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "能力",
+                            "value": "重力透镜",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 1937,
+                    "name": "佐天涙子",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/e5/5b/1937_crt_BmvDH.jpg",
+                    "actor_ids": [
+                        4949
+                    ],
+                    "name_cn": "佐天泪子",
+                    "summary": "栅川中学一年级，初春饰利的同班同学，表面上是无能力者（LV0），实质上是掀裙能力（underwear-peeking)LV5的超能力者。留着长发及肩的黑发，发饰是樱花。以掀裙子代替打招呼，并且每天都这样对待初春。拥有天真烂漫、充满幻想的性格。对于初春的内裤有着强烈的憧憬，也对掀裙子能力没有进步的事比较烦恼，所以对于“幻想御手（LEVELUPPER,可以使能力升级)”很有兴趣。\r\n\r\n后宫有：正妻初春，爱人1号炮姐，3P希望潜在者白井读作变态。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "佐天泪子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "O型",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "160cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "46kg",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "BWH",
+                            "value": "79/58/80",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "anidb.net",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "星座",
+                            "value": "双鱼座",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "声优",
+                            "value": "伊藤加奈惠",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "学校",
+                            "value": "栅川初中",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "挚友",
+                            "value": "初春飾利、御坂美琴、白井黑子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "超能力",
+                            "value": "控制空气（空力使い（エアロハンド））",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "超能力等级",
+                            "value": "Level 0",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "掀裙能力等级",
+                            "value": "Level 5",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "家庭成员",
+                            "value": "父母，一个弟弟",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 3575,
+                    "name": "御坂美琴",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/c8/f1/3575_crt_F99OI.jpg?r=1559386543",
+                    "actor_ids": [
+                        4670
+                    ],
+                    "name_cn": "御坂美琴",
+                    "summary": "在学园都市中只有七人的等级五超能力者排行第三。拥有“超电磁炮(Railgun)”称号的电击超能力者。对电流和电磁力的控制出神入化。独有招牌特技“超电磁炮”，以电磁力将金属作为电磁炮以3倍音速射出，一般使用方便携带的游戏币，但也可控制更大的物体。使用电击产生的电磁波对机器有不好的影响，在本作中破坏了手机、有线电视，警备机器人等无数机械。还可放出高压电流枪、使用电磁力自由控制金属，招来真正的雷击或是制造电磁爆。\r\n\r\n即使在贵族女校就读，行动却相当粗鲁，有以“四十五度斜角攻击机械维修法”（主要是踹自动贩卖机喝免钱饮料）的行为，对年纪较大的上条依旧口气狂妄。因此，主角曾说她完全没有大小姐该有的风范。但实际上是直率单纯且暗藏着自己特有的笨拙温柔（傲娇）的人。\r\n\r\n性格好胜，每次向上条当麻挑战都被随便应付过去。随着屡次的接触，变得相当在意上条。\r\n\r\n初期上条称她为“放电国中妹（Bilibili）”，茵蒂克丝则称她为“短发”。相当喜欢呱太为主题的饰品，爱好很低龄化，喜欢穿孩子气的内裤，或是在常盘台初中的制服裙下穿白色短裤。受到学妹白井黑子的爱慕。很喜欢动物，尤其是猫。其实每天都会偷偷去喂聚集在宿舍后面的野猫，但由于身体会放出微弱电磁波的关系被猫讨厌，每次野猫都跑的一只不剩，只剩美琴自己孤单一人拿着猫食，不过本人仍然不肯放弃的每天都去喂猫。\r\n\r\n“这本轻小说真厉害！2010年”年度人气女角色首名。\r\n“这本轻小说真厉害！2011年”人气女性角色排名首名。\r\n\r\n在2010年拿下国际最萌联盟比赛的亚军。\r\n在华人读者群中的绰号是“傲娇超电磁炮”，简称“傲娇炮”。",
+                    "birth_year": null,
+                    "birth_month": 5,
+                    "birth_day": 2,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "御坂美琴",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "5月2日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "AB型",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "161cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "45kg",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "BWH",
+                            "value": "78/56/79",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "超能力等级",
+                            "value": "5",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "属性",
+                            "value": "傲娇",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "特技",
+                            "value": "超电磁炮：利用控制电磁场的能力将游戏币高速弹出",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "着装特点",
+                            "value": "在短裙下着运动短裤，理由是省心和保暖",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "配饰",
+                            "value": "发卡起初为简单直线造型，后为花造型（理由是人物设定希望增加女性元素）",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "学籍",
+                            "value": "常盘台中学",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 3576,
+                    "name": "白井黒子",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/71/40/3576_crt_GBxMl.jpg?r=1643902567",
+                    "actor_ids": [
+                        4625
+                    ],
+                    "name_cn": "白井黑子",
+                    "summary": "《魔法禁书目录》系列配角、外传《科学超电磁炮》主角，学园都市中名校常盘台女子中学的一年级生，御坂美琴的学妹兼室友，能力为Level 4的空间移动，双马尾茶色头发的少女。\r\n平常举止都很“淑女”，句尾有“~ですの（是哦）”的独特大小姐腔调。非常仰慕御坂美琴，甚至到近乎变态的程度，称呼美琴为“姐姐大人”。喜欢冲击力极强、布料很少的泳衣和内衣裤。第177活动支部所属风纪委员，具有很强的责任感和正义感。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "白井黑子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "152cm",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 8492,
+                    "name": "初春飾利",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/18/4d/8492_crt_FngwT.jpg?r=1580042313",
+                    "actor_ids": [
+                        5001
+                    ],
+                    "name_cn": "初春饰利",
+                    "summary": "栅川初中一年级，和黑子同为第177支部的风纪委员。留着黑色短发，头戴花圈，远看好像头顶着花瓶。白井的好友兼拍挡。对贵族大小姐的生活相当憧憬，很喜欢婚后光子所饲养名叫爱卡迪莉娜的蟒蛇。害羞谦逊，喜欢吃甜食，体能很差。但对风纪委员这项工作很认真。\r\n能力为等级一的定温保存（Thermal Hand），只能做到使拿着的物体保持一定温度。黑客能力高超，工作时负责运用电脑处理信息，技术让专业人员都为之吃惊。独力设计“书库”的防火墙，击败许多网络黑客的入侵，是都市传说中“守护神（Gatekeeper）”的正体（但本人并不知晓）。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "初春饰利",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "A型",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "153cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "43kg",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "BWH",
+                            "value": "75/58/76",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "anidb.net",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "超能力",
+                            "value": "定温保存（サーマルハンド）",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "超能力等级",
+                            "value": "Level 1",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 17949,
+                    "name": "食蜂操祈",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/bd/00/17949_crt_lMZWM.jpg?r=1581188537",
+                    "actor_ids": [
+                        5827
+                    ],
+                    "name_cn": "食蜂操祈",
+                    "summary": "主要在《科学超电磁炮》中登场，在小说《新约》第六集第一次登场。刚登场时便操控大量人士追逐美琴。\r\n有着一头漂亮的金发且身材很好，眼睛有闪亮的色泽，是学园都市的七名等级五超能力者中，排名第五的精神系超能力者，即史上最强“心理掌握”（Mental Out）：记忆改写、读心能力、人格洗脑、心电感应、回忆消去、意志增幅、思考再现、感情移植、精神控制，甚至可以同时对多数人发动能力。美琴曰：能将各种精神现象都可以一手包办、如同瑞士刀一样的万能超能力者。\r\n其隶属于常盘台初中最大派阀，是君临常盘台的女王大人。个性腹黑，有对部下使用能力恶作剧的行为，平时常背着一个女性包包，内有着一个用来做为能力施放媒介的遥控器，曾对美琴提出不可威胁自己地位的警告。\r\n在大霸星祭中遇见御坂美琴和上条当麻时，还没让御坂美琴介绍上条当麻时就轻松叫出“上条同学”并开始跟当麻卿卿我我，当下令美琴非常生气放出电击攻击当麻。似乎认识上条当麻的样子。\r\n木原事件和美琴合作，意外是一个不善运动角色。在回忆中曾经参与研究计划，和美琴的疑似复制体如同朋友，由于该复制体的死亡和对自己的能力被研究者所利用，所以由此产生了对周围人们的不信任。后来通过对研究计划的研究人员洗脑逃出，并进入常盘台就读。\r\n在新约七为了追着从“学舍之园”中冲出的当麻，因此一路来到了“博览百科”，最后与除了第二位以外的所有Level5一起对抗“人力资源”计划中的英雄们。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "食蜂操祈",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "148cm（初一）→168cm（初二）",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "ja.wikipedia.org",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "超能力",
+                            "value": "心理掌握（メンタルアウト）",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "超能力等级",
+                            "value": "Level 5",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 21608,
+                    "name": "ミサカ0号",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/14/82/21608_crt_1i1ns.jpg?r=1612179826",
+                    "actor_ids": [
+                        27194
+                    ],
+                    "name_cn": "御坂0号",
+                    "summary": "幼少期的食蜂操祈在“才人工房”遇到的少女，爱称“多莉”。是试造的0号御坂。外表年龄是中学生，在体内埋有机械来维持生命。研究者要求食蜂利用能力将食蜂冒充为小咪，利用食蜂的能力来安定心理，与食蜂十分友好，但由于为复制体，体质较差，最终被宣称死亡。死前曾问过食蜂的真名，令食蜂十分惊讶。\r\n\r\n在魔法禁书目录外传SS2中提到了00000号御坂“全面调整(フルチューニング)”，是除了最后之作外，由天井亚雄所培育的特别个体，由于这名个体并未与御坂网络连结，所以目前所在地与现况不明。目前大多认为00000号御坂即为0号御坂，有待剧情发展确认。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "御坂0号",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "AB",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "https://toaru-project.com/railgun_t/chara/dolly.html",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "所属阵营",
+                            "value": "科学侧",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 104163,
+                    "name": "春暖嬉美",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/6d/09/104163_crt_6zyHM.jpg?r=1740009748",
+                    "actor_ids": [],
+                    "name_cn": "春暖嬉美",
+                    "summary": "某科学的超电磁炮引入的角色，目前已经被重新关押在第二少年院。在伙伴的帮助下，她一度引发了一场越狱风暴事件。 \r\n\r\n春暖嬉美是是一名留精弃粗，也是黑暗的五月计划的受试者之一。她在逃离某个研究所后，为了不被其他组织注意而化名白绢仄火，来到了同一个孤儿院出身的青星铃兰所工作的第二少年院，并一直暗中支配着第二少年院。\r\n与白绢仄火、鳄河雷斧、钓钟茶寮、青星铃兰是关系密切的好朋友。\r\n\r\n嬉美原本说话的风格十分粗野，但随着龙的力量增强，说话的风格相对偏向了古风。\r\n据嬉美自己所说，她在经历了大脑改造实验后影响了她的味觉感受，导致她吃饭时感觉不出味道。她在对待别人的情感方面出现了障碍，难以感受到诸如快乐或悲伤等一系列感情，只能感受到终日的百无聊赖，唯有打架时能让她感受到一丝畅快与满足感，所以她会时常出没于有其他混混们所混迹的小巷子里。 \r\n\r\n除却超能力与龙之力，嬉美长期混迹于学园都市的底层之中，积累了丰富的打群架经验，仅凭肉搏战就一度压制过御坂美琴。她惯用武器是匕首，也会捡起地上的砖块拍别人，仅凭拳头她也能打倒多位男性混混。她下手风格颇为狠毒，在面对佐天泪子等人时也会毫无顾忌地施以重手。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "春暖嬉美",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "年龄",
+                            "value": "16",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "类别",
+                            "value": "能力者 留精弃粗",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "能力等级",
+                            "value": "Level 0",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 3582,
+                    "name": "とある魔術の禁書目録外伝 とある科学の超電磁砲",
+                    "name_cn": "某科学的超电磁炮",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/9d/68/3582_JKSTo.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 262940,
+                    "name": "とある科学の超電磁砲T",
+                    "name_cn": "某科学的超电磁炮T",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/aa/db/262940_z2mQQ.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "episodes": [],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 1,
+            "watched_eps": 0,
+            "last_update": "2025-12-26T20:48:21+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
