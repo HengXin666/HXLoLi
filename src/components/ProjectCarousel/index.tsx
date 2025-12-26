@@ -7,11 +7,12 @@ import { projects, Tags } from '@site/data/projectData';
 
 import './css.css';
 import HXLink from '../HXLink';
+import MDXA from '@site/src/theme/MDXComponents/A';
 
 const ProjectCarousel: React.FC = () => {
     const swiperRef = useRef<any>(null);
 
-    // 当项目数量较少时，复制项目数据以实现流畅的循环效果
+    // 当项目数量较少时, 复制项目数据以实现流畅的循环效果
     const duplicatedProjects = [...projects, ...projects, ...projects];
 
     return (
@@ -76,10 +77,10 @@ const ProjectCarousel: React.FC = () => {
                                 />
                             )}
                             <div style={{ padding: 6 }}>
-                                <HXLink
+                                <MDXA
                                     title={project.title}
-                                    url={project.url}
-                                />
+                                    href={project.url}
+                                >{project.title}</MDXA>
                                 <p
                                     style={{
                                         fontSize: 11,
