@@ -12,7 +12,7 @@ export default function AnimeGraphPage () {
     const history = useHistory();
     const location = useLocation();
 
-    // 2. 状态初始化: 优先从 URL 读取, 如果没有则使用默认值
+    // 状态初始化: 优先从 URL 读取, 如果没有则使用默认值
     const [targetAnimeId, setTargetAnimeId] = useState<number | undefined>(() => {
         const params = new URLSearchParams(location.search);
         const id = params.get('id');
@@ -41,21 +41,21 @@ export default function AnimeGraphPage () {
         return params.has('img') ? params.get('img') !== 'false' : true;
     });
 
-    // 从 URL 初始化 chargeStrength (默认为 -60)
+    // 从 URL 初始化 chargeStrength (默认为 -180)
     const [chargeStrength, setChargeStrength] = useState<number>(() => {
         const params = new URLSearchParams(location.search);
         const val = params.get('charge');
-        return val ? Number(val) : -60; 
+        return val ? Number(val) : -180; 
     });
 
-    // 从 URL 初始化 linkDistance (默认为 60)
+    // 从 URL 初始化 linkDistance (默认为 100)
     const [linkDistance, setLinkDistance] = useState<number>(() => {
         const params = new URLSearchParams(location.search);
         const val = params.get('dist');
-        return val ? Number(val) : 60;
+        return val ? Number(val) : 100;
     });
 
-    // 3. 监听状态变化并写入 URL
+    // 监听状态变化并写入 URL
     useEffect(() => {
         const params = new URLSearchParams();
         

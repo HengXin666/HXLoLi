@@ -6,6 +6,7 @@ import { ANiMeRecord, EpisodeType } from "@site/src/utils/anime/types";
 import { toJsDelivrUrl } from "@site/src/utils/cdn/linkJsDelivr";
 import styles from "./AnimeCard.module.css";
 import { SortMode } from "../SortTabs";
+import Tag from "../Tag";
 
 // format date from YYYY-MM-DD to MM-DD
 const formatDate = (dateString: string) => {
@@ -66,7 +67,7 @@ export default function AnimeCard ({
                         <span>评分: {anime_data.score}</span>|
                         {user_status.tags.map((tag, idx) => (
                             <React.Fragment key={idx}>
-                                <span className={styles.tag}>{tag}</span>|
+                                <Tag text={tag} />|
                             </React.Fragment>
                         ))}
                     </div>

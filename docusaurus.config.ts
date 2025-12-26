@@ -190,7 +190,7 @@ const config: Config = {
         {
         },
         {
-          title: '更多',
+          title: '友情链接',
           items: [
             {
               html: `
@@ -199,12 +199,20 @@ const config: Config = {
                   <img src="${BaseUrl}/icons/ISO_C++_Logo.svg" alt="cppreference" width="36" height="36" style="flex-shrink: 0;"/>
                   <span style="font-size: 16px; font-weight: 600; position: relative; top: -1.75px;">cppreference</span>
                 </a>
+                <div style="height: 10px;"></div>
+              `
+            },
+            {
+              html: `
+                <a href="https://bgm.tv" target="_blank" rel="noreferrer noopener">
+                  <img src="${BaseUrl}/img/BanGuMi_Logo.png" alt="BanGuMi" height="50"/>
+                </a>
               `
             },
             {
               html: `
                 <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
-                  <img src="${BaseUrl}/default-img/buildwith.png" alt="build with docusaurus" width="120" height="50"/>
+                  <img src="${BaseUrl}/default-img/buildwith.png" alt="build with docusaurus" height="50"/>
                 </a>
                 `,
             },
@@ -212,7 +220,7 @@ const config: Config = {
         },
       ],
       // 页脚版权信息
-      copyright: `版权所有 © 2025 - ${new Date().getFullYear()} HXLoLi, Inc. 由 Docusaurus 构建.`,
+      copyright: `版权所有 © 2025 - ${new Date().getFullYear()} HXLoLi, Inc. 在 🇨🇳 用 ❤️ 制作.`,
     },
 
     // 代码块配置

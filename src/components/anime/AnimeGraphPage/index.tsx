@@ -671,7 +671,7 @@ export const AnimeForceGraph: React.FC<AnimeForceGraphProps> = ({
                     fontFamily: 'sans-serif'
                 }}>
                     <div style={{ padding: '8px 16px', borderBottom: '1px solid rgba(255,255,255,0.1)', color: '#aaa', fontSize: '12px' }}>
-                        {contextMenu.node.type}: {preferCn ? (contextMenu.node.name_cn || contextMenu.node.name) : contextMenu.node.name}
+                        {contextMenu.node.type}: 「{preferCn ? (contextMenu.node.name_cn || contextMenu.node.name) : contextMenu.node.name}」
                     </div>
 
                     <MenuOption onClick={() => {
