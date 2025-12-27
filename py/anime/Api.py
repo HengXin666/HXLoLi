@@ -54,6 +54,7 @@ class Api:
 
         self._record_map: Dict[int, ANiMeRecord] = {}  # 番剧记录索引映射
         for record in self._anime_record:
+            # 浅拷贝
             self._record_map[record.anime_data.id] = record
 
     @staticmethod
@@ -70,12 +71,13 @@ class Api:
             response.raise_for_status()
             with open(save_path, "wb") as f:
                 f.write(response.content)
+            return True
         except requests.exceptions.RequestException as e:
             print(f"获取图片失败: {e}")
         except json.JSONDecodeError:
             print("解析图片响应失败, 内容可能不是有效的JSON。")
             print("响应内容:", response.text)
-        return True
+        return False
 
     def requires(self, username: str, lambda_func: Callable = lambda: None) -> None:
         def _task(idx: int) -> None:
@@ -155,12 +157,29 @@ class Api:
                     if it["subject_id"] in self._record_map:
                         # 仅更新 UserStatus
                         ref = self._record_map[it["subject_id"]]
-                        ref.user_status.watch_status = it["type"]
-                        ref.user_status.watched_eps = it["ep_status"]
+                        if ref.user_status.watch_status != it["type"]:
+                            print(
+                                f"[{it["updated_at"]}] 番剧 {ref.anime_data.name} 观看状态更新: {ref.user_status.watch_status} -> {it['type']}"
+                            )
+                            ref.user_status.watch_status = it["type"]
+                        if ref.user_status.watched_eps != it["ep_status"]:
+                            print(
+                                f"[{it["updated_at"]}] 番剧 {ref.anime_data.name} 已看集数更新: {ref.user_status.watched_eps} -> {it['ep_status']}"
+                            )
+                            ref.user_status.watched_eps = it["ep_status"]
                         ref.user_status.last_update = it["updated_at"]
-                        ref.user_status.comment = it["comment"]
+                        if ref.user_status.comment != it["comment"]:
+                            print(
+                                f"[{it["updated_at"]}] 番剧 {ref.anime_data.name} 评论更新: {ref.user_status.comment} -> {it['comment']}"
+                            )
+                            ref.user_status.comment = it["comment"]
+                        if ref.user_status.tags != it["tags"]:
+                            print(
+                                f"[{it["updated_at"]}] 番剧 {ref.anime_data.name} 标签更新: {ref.user_status.tags} -> {it['tags']}"
+                            )
                         ref.user_status.tags = it["tags"]
                         continue
+                    # 新增记录
                     record = ANiMeRecord(
                         ANiMeData(
                             id=it["subject_id"],
