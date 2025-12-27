@@ -420,5 +420,7 @@ if __name__ == "__main__":
     api = load_from_json()
     # 边爬取边输出为 json 文件
     api.requires("heng_xin", lambda: save_to_json(api))
+    # 保存为 json 文件, 防止因为没有新增番剧而不更新
+    save_to_json(api)
     # 下载图片
     api.download_all_img()
