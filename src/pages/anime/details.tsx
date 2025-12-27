@@ -14,6 +14,7 @@ import Tooltip from "@site/src/components/common/Tooltip";
 import { formatMmSs } from "@site/src/utils/formatTime";
 import { FaCodeBranch, FaRegGem } from "react-icons/fa";
 import Tag from "@site/src/components/anime/Tag";
+import HXGiscus from "@site/src/components/Giscus";
 
 function useQuery (): URLSearchParams {
     const location = useLocation();
@@ -481,6 +482,7 @@ export default function AnimeDetailPage (): React.ReactElement {
                         <FaRegGem /> 数据来源: <MDXA href={`https://bgm.tv/subject/${record.anime_data.id}`}>Bangumi.tv</MDXA>
                     </div>
                 </div>
+                <HXGiscus term={`anime/details?id=${record.anime_data.id}「${record.anime_data.name}」`} />
             </BlogWithCats>
             <div style={{ height: "60px" }} />
         </Layout>
