@@ -1,176 +1,237 @@
-.animeCard {
-  display: flex;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  border-radius: 8px;
-  background-color: var(--ifm-card-background-color);
-  box-shadow: var(--ifm-card-box-shadow);
-  transition: transform 0.2s, box-shadow 0.2s;
+/* AnimeCard.module.css */
+
+/* 定义全局轴线位置，方便统一调整 */
+:root {
+  --timeline-axis-x: 90px; /* 时间轴中心线距离左侧的距离 */
+  --timeline-width: 2px;   /* 线条粗细 */
+  --dot-size: 12px;        /* 圆点大小 */
 }
 
-.cardImageColumn {
-  flex-shrink: 0;
-  position: relative;
-  width: 175px;
-  line-height: 0;
-}
-
-.cardImageColumn .cardImageTop {
-  /* 占满水平, 居中, 不占用布局(相对与最近的div), 在上边, 再上 25px */
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -25px;
-  text-align: center;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.cardImageColumn img {
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-  display: block;
-}
-
-.cardDetailsColumn {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.cardTitle {
-  margin-bottom: 0.25rem !important; /* 覆盖 Docusaurus 默认的 margin */
-}
-
-.cardTitle a {
-    color: var(--ifm-font-color-base);
-    text-decoration: none;
-}
-.cardTitle a:hover {
-    text-decoration: underline;
-}
-
-.originalTitle {
-  font-size: 0.9rem;
-  color: var(--ifm-color-secondary-darkest);
-  font-weight: normal;
-}
-
-.metaRow {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--ifm-color-secondary-dark);
-}
-
-.metaRow .fa-star {
-    color: #ffc107;
-}
-
-.tags {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.tag {
-  background-color: var(--ifm-badge-background-color);
-  color: var(--ifm-badge-color);
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-}
-
-.commentRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-}
-
-.buttonContainer {
-  margin-left: auto;
-}
-
-.commentText {
-  flex-grow: 1;
-}
-
-.commentText blockquote {
-    margin: 0;
-    padding: 0.5rem 1rem;
-    border-left: 3px solid var(--ifm-color-primary);
-    background-color: rgba(var(--ifm-color-primary-rgb), 0.05);
-    font-style: italic;
-    color: var(--ifm-font-color-secondary);
-}
-
-.summary {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: var(--ifm-color-secondary-darkest);
-  margin: 0;
-}
+/* =========================================
+   1. 容器与贯穿线 (The Timeline)
+   ========================================= */
 
 .archiveList {
   list-style: none;
   padding: 0;
   margin: 0;
   position: relative;
-  /* 在左侧为日程表日期和行创建空格 */
-  padding-left: 90px;
 }
 
-.archiveListTitle {
-  /* 文本边框 */
-  border: var(--ifm-color-emphasis-300) solid 2px;
-  border-radius: 16px;
-  padding: 0.5rem 0.75rem;
-}
-
-/* 主垂直时间线栏 */
+/* 贯穿整体的垂直线 */
 .archiveList::before {
   content: '';
   position: absolute;
-  top: -10px;
-  bottom: -25px;
-  left: 50px;
-  width: 2px;
+  
+  /* X轴对齐：轴线位置 - 线宽的一半 */
+  left: calc(var(--timeline-axis-x) - var(--timeline-width) / 2);
+  width: var(--timeline-width);
+  
+  /* Y轴延伸：向上/向下延伸以接触 Header */
+  /* 这里的值需要根据 Header 的 margin 进行微调 */
+  top: -40px; 
+  bottom: -40px; 
+  
   background: var(--ifm-color-emphasis-300);
-  transform: translateX(-50%);
+  z-index: 0; /* 放在最底层 */
 }
+
+/* 年份/季度 标题样式的修正 */
+/* 注意：这需要应用在 React 组件里的 span 上 */
+.archiveListTitle {
+  display: inline-block;
+  
+  /* 几何对齐核心公式：
+     1. 先把左边缘推到轴线上
+     2. 再向左回退自身宽度的 50%
+     这样标题的中心点就严格等于轴线位置
+  */
+  margin-left: var(--timeline-axis-x);
+  transform: translateX(-50%);
+  
+  /* 样式美化 */
+  border: var(--ifm-color-emphasis-300) solid 2px;
+  border-radius: 16px;
+  padding: 0.4rem 1.2rem;
+  background-color: var(--ifm-background-color); /* 背景色遮挡线条 */
+  position: relative;
+  z-index: 2; /* 浮在最上层，盖住线条 */
+  text-align: center;
+}
+
+/* =========================================
+   2. 列表项 (Item Alignment)
+   ========================================= */
 
 .archiveItem {
   position: relative;
-  /* 卡之间的间距 */
   margin-bottom: 2rem;
+  
+  /* 核心布局：Flexbox */
+  display: flex;
+  
+  /* 关键修改：垂直居中对齐 */
+  /* 这会让日期、圆点、卡片都基于中心线对齐 */
+  align-items: center; 
 }
 
-/* 每个项目的时间线上的"连接点" */
-.archiveItem::before {
-  content: '';
-  position: absolute;
-  top: 128px;
-  left: -47px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: var(--ifm-color-primary);
-  border: 2px solid var(--ifm-card-background-color);
-  z-index: 1; /* 将点保持在线的顶部 */
-}
+/* =========================================
+   3. 时间与圆点 (Time & Dot)
+   ========================================= */
 
+/* 左侧的时间文本 */
 .archiveTime {
-  position: absolute;
-  top: 123px;
-  left: -131px;
-  width: 80px;
+  /* 宽度占满轴线左侧区域 */
+  width: var(--timeline-axis-x);
+  flex-shrink: 0;
+  
+  /* 文字向右对齐，并留出与圆点的间隙 */
   text-align: right;
+  padding-right: 25px; 
+  
   font-family: var(--ifm-font-family-monospace);
   color: var(--ifm-color-content-secondary);
   font-size: 0.9rem;
+  font-weight: bold;
+  
+  /* 移除 margin-top，依赖 flex 的居中 */
+  margin: 0; 
+}
+
+/* 轴线上的圆点 */
+.archiveItem::before {
+  content: '';
+  position: absolute;
+  
+  /* X轴对齐：轴线位置 - 圆点半径 (12px / 2 = 6px) - 边框(线条)宽度 (2px) */
+  /* 为了精确，包含边框计算 */
+  left: calc(var(--timeline-axis-x) - 8px);
+  
+  /* Y轴对齐：绝对居中 */
+  top: 50%;
+  transform: translateY(-50%);
+  
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--ifm-color-primary);
+  border: 2px solid var(--ifm-card-background-color);
+  z-index: 1; /* 在线条上面，但在 Header 下面 */
+}
+
+/* =========================================
+   4. 卡片本体 (The Card)
+   ========================================= */
+
+.animeCard {
+  /* 占据右侧剩余空间 */
+  flex-grow: 1;
+  min-width: 0;
+  
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  
+  /* 卡片距离轴线的间距 (轴线右侧) */
+  margin-left: 30px;
+  
+  border-radius: 8px;
+  background-color: var(--ifm-card-background-color);
+  box-shadow: var(--ifm-card-box-shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* --- 卡片内部样式保持不变 --- */
+.cardImageColumn {
+  flex-shrink: 0;
+  position: relative;
+  width: 160px;
+  line-height: 0;
+}
+
+.cardImageColumn .cardImageTop {
+  position: absolute;
+  left: 0; right: 0; top: -25px;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.cardImageColumn img {
+  width: 100%; height: auto; border-radius: 6px; display: block;
+}
+
+.cardDetailsColumn {
+  flex-grow: 1; display: flex; flex-direction: column; gap: 0.5rem;
+}
+
+.cardTitle { margin-bottom: 0.25rem !important; }
+.cardTitle a { color: var(--ifm-font-color-base); text-decoration: none; }
+.cardTitle a:hover { text-decoration: underline; }
+
+.originalTitle {
+  font-size: 0.9rem; color: var(--ifm-color-secondary-darkest); font-weight: normal;
+}
+
+.metaRow {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.9rem; color: var(--ifm-color-secondary-dark);
+}
+
+.tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.tag {
+  background-color: var(--ifm-badge-background-color);
+  color: var(--ifm-badge-color);
+  padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem;
+}
+
+.commentRow {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; margin-top: 0.5rem;
+}
+.commentText { flex-grow: 1; }
+.commentText blockquote {
+    margin: 0; padding: 0.5rem 1rem;
+    border-left: 3px solid var(--ifm-color-primary);
+    background-color: rgba(var(--ifm-color-primary-rgb), 0.05);
+    font-style: italic; color: var(--ifm-font-color-secondary);
+}
+.buttonContainer { margin-left: auto; }
+.summary {
+  font-size: 0.9rem; line-height: 1.6;
+  color: var(--ifm-color-secondary-darkest); margin: 0.5rem 0 0 0;
+}
+
+/* =========================================
+   5. 移动端适配 (Mobile)
+   ========================================= */
+@media (max-width: 768px) {
+  :root {
+    --timeline-axis-x: 0px; /* 移动端重置轴线 */
+  }
+
+  .archiveList::before { display: none; }
+  .archiveItem::before { display: none; }
+
+  /* 垂直堆叠 */
+  .archiveItem {
+    flex-direction: column; 
+    align-items: flex-start; /* 移动端恢复左对齐 */
+    margin-bottom: 3rem;
+  }
+
+  /* 时间放到上面 */
+  .archiveTime {
+    width: 100%;
+    text-align: left;
+    padding-right: 0;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    color: var(--ifm-color-primary);
+  }
+
+  .animeCard {
+    margin-left: 0;
+    width: 100%; /* 占满宽度 */
+  }
 }

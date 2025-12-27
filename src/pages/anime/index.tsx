@@ -161,12 +161,12 @@ export default function Home (): React.ReactNode {
                                             record={{
                                                 anime_data: {
                                                     id: 0,
-                                                    name: "未知",
-                                                    name_cn: "未知",
+                                                    name: "とあるアニメ",
+                                                    name_cn: "未知番剧",
                                                     score: 9.9,
                                                     eps: 24,
                                                     date: "2077-10-11",
-                                                    short_summary: "这是一个",
+                                                    short_summary: "这是一个占位用的番剧数据",
                                                     summary: "",
                                                     image_url: "",
                                                     total_episodes: 0,
@@ -178,7 +178,7 @@ export default function Home (): React.ReactNode {
                                                     watch_status: WatchStatus.WATCHING,
                                                     last_update: "2077-10-11",
                                                     tags: ["萝莉"],
-                                                    comment: "如果",
+                                                    comment: "如果存在评论, 这里会显示评论内容",
                                                     watched_eps: 0,
                                                 },
                                             }}
