@@ -1,6 +1,5 @@
-// 此文件由脚本自动生成，包含每次提交及当前工作区的 Markdown 累计字数统计，包括提交信息
+// 此文件由脚本自动生成, 包含每次提交及当前工作区的 Markdown 累计字数统计, 包括提交信息
 export interface RecordItem { commit: string; date: string; wordCount: number; message: string; }
-
 export const stats: RecordItem[] = [
   {
     "commit": "f0891253f8dd2c5a87c0ce145c6690a0100c9767",
@@ -591,21 +590,9 @@ export const stats: RecordItem[] = [
     "message": "[blog]MSVC ICE 编译期内部错误"
   },
   {
-    "commit": "b812d0816ea01720a1e668e13f68619f7255bd04",
-    "date": "2025-12-14T00:30:59+08:00",
-    "wordCount": 3765893,
-    "message": "[fix]修复归档页面的布局问题(依然有小瑕疵); 修改<<MSVC ICE 编译期内部错误>>的一些内容布局"
-  },
-  {
-    "commit": "03e189929d394ef932450de8ce37f0c7794fba93",
-    "date": "2025-12-14T15:53:44+08:00",
-    "wordCount": 3765893,
-    "message": "[feat]主页新增WakaTime时间统计"
-  },
-  {
     "commit": "WORKING_DIR",
-    "date": "2025-12-14T10:59:37.013Z",
-    "wordCount": 3767054,
-    "message": "[fix]调整主页的显示, 现在更加明确; [blog]博客更新日志和计划"
+    "date": "2025-12-27T08:31:07.643Z",
+    "wordCount": 3767438,
+    "message": "Codeing..."
   }
 ];

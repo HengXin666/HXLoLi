@@ -80,3 +80,18 @@ export function useActorMap(baseUrl: string) {
     
     return data;
 }
+
+export function useAnimeRecordMap(baseUrl: string) {
+    const records = useAnimeRecords(baseUrl);
+    const [data, setData] = useState<Map<number, ANiMeRecord>>(new Map());
+
+    useEffect(() => {
+        const map = new Map<number, ANiMeRecord>();
+        records.forEach(record => {
+            map.set(record.anime_data.id, record);
+        });
+        setData(map);
+    }, [records]);
+
+    return data;
+}
