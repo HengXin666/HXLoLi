@@ -604,8 +604,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 2,
-            "last_update": "2025-12-24T22:09:27+08:00",
+            "watched_eps": 9,
+            "last_update": "2025-12-26T19:13:28+08:00",
             "comment": null,
             "tags": [
                 "萝莉"
@@ -6456,8 +6456,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 3,
-            "last_update": "2025-12-15T13:51:33+08:00",
+            "watched_eps": 4,
+            "last_update": "2025-12-23T12:55:15+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -153723,23 +153723,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "鳄河雷斧",
-                            "__dataclass__": "KeyValue"
+                            "value": "鳄河雷斧"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "等级",
-                            "value": "4",
-                            "__dataclass__": "KeyValue"
+                            "value": "4"
                         },
                         {
                             "key": "能力",
-                            "value": "重力透镜",
-                            "__dataclass__": "KeyValue"
+                            "value": "重力透镜"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153760,78 +153756,63 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "佐天泪子",
-                            "__dataclass__": "KeyValue"
+                            "value": "佐天泪子"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "血型",
-                            "value": "O型",
-                            "__dataclass__": "KeyValue"
+                            "value": "O型"
                         },
                         {
                             "key": "身高",
-                            "value": "160cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "160cm"
                         },
                         {
                             "key": "体重",
-                            "value": "46kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "46kg"
                         },
                         {
                             "key": "BWH",
-                            "value": "79/58/80",
-                            "__dataclass__": "KeyValue"
+                            "value": "79/58/80"
                         },
                         {
                             "key": "引用来源",
-                            "value": "anidb.net",
-                            "__dataclass__": "KeyValue"
+                            "value": "anidb.net"
                         },
                         {
                             "key": "星座",
-                            "value": "双鱼座",
-                            "__dataclass__": "KeyValue"
+                            "value": "双鱼座"
                         },
                         {
                             "key": "声优",
-                            "value": "伊藤加奈惠",
-                            "__dataclass__": "KeyValue"
+                            "value": "伊藤加奈惠"
                         },
                         {
                             "key": "学校",
-                            "value": "栅川初中",
-                            "__dataclass__": "KeyValue"
+                            "value": "栅川初中"
                         },
                         {
                             "key": "挚友",
-                            "value": "初春飾利、御坂美琴、白井黑子",
-                            "__dataclass__": "KeyValue"
+                            "value": "初春飾利、御坂美琴、白井黑子"
                         },
                         {
                             "key": "超能力",
-                            "value": "控制空气（空力使い（エアロハンド））",
-                            "__dataclass__": "KeyValue"
+                            "value": "控制空气（空力使い（エアロハンド））"
                         },
                         {
                             "key": "超能力等级",
-                            "value": "Level 0",
-                            "__dataclass__": "KeyValue"
+                            "value": "Level 0"
                         },
                         {
                             "key": "掀裙能力等级",
-                            "value": "Level 5",
-                            "__dataclass__": "KeyValue"
+                            "value": "Level 5"
                         },
                         {
                             "key": "家庭成员",
-                            "value": "父母，一个弟弟",
-                            "__dataclass__": "KeyValue"
+                            "value": "父母，一个弟弟"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153852,68 +153833,55 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "御坂美琴",
-                            "__dataclass__": "KeyValue"
+                            "value": "御坂美琴"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "5月2日",
-                            "__dataclass__": "KeyValue"
+                            "value": "5月2日"
                         },
                         {
                             "key": "血型",
-                            "value": "AB型",
-                            "__dataclass__": "KeyValue"
+                            "value": "AB型"
                         },
                         {
                             "key": "身高",
-                            "value": "161cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "161cm"
                         },
                         {
                             "key": "体重",
-                            "value": "45kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "45kg"
                         },
                         {
                             "key": "BWH",
-                            "value": "78/56/79",
-                            "__dataclass__": "KeyValue"
+                            "value": "78/56/79"
                         },
                         {
                             "key": "超能力等级",
-                            "value": "5",
-                            "__dataclass__": "KeyValue"
+                            "value": "5"
                         },
                         {
                             "key": "属性",
-                            "value": "傲娇",
-                            "__dataclass__": "KeyValue"
+                            "value": "傲娇"
                         },
                         {
                             "key": "特技",
-                            "value": "超电磁炮：利用控制电磁场的能力将游戏币高速弹出",
-                            "__dataclass__": "KeyValue"
+                            "value": "超电磁炮：利用控制电磁场的能力将游戏币高速弹出"
                         },
                         {
                             "key": "着装特点",
-                            "value": "在短裙下着运动短裤，理由是省心和保暖",
-                            "__dataclass__": "KeyValue"
+                            "value": "在短裙下着运动短裤，理由是省心和保暖"
                         },
                         {
                             "key": "配饰",
-                            "value": "发卡起初为简单直线造型，后为花造型（理由是人物设定希望增加女性元素）",
-                            "__dataclass__": "KeyValue"
+                            "value": "发卡起初为简单直线造型，后为花造型（理由是人物设定希望增加女性元素）"
                         },
                         {
                             "key": "学籍",
-                            "value": "常盘台中学",
-                            "__dataclass__": "KeyValue"
+                            "value": "常盘台中学"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153934,18 +153902,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "白井黑子",
-                            "__dataclass__": "KeyValue"
+                            "value": "白井黑子"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "身高",
-                            "value": "152cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "152cm"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -153966,48 +153931,39 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "初春饰利",
-                            "__dataclass__": "KeyValue"
+                            "value": "初春饰利"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "血型",
-                            "value": "A型",
-                            "__dataclass__": "KeyValue"
+                            "value": "A型"
                         },
                         {
                             "key": "身高",
-                            "value": "153cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "153cm"
                         },
                         {
                             "key": "体重",
-                            "value": "43kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "43kg"
                         },
                         {
                             "key": "BWH",
-                            "value": "75/58/76",
-                            "__dataclass__": "KeyValue"
+                            "value": "75/58/76"
                         },
                         {
                             "key": "引用来源",
-                            "value": "anidb.net",
-                            "__dataclass__": "KeyValue"
+                            "value": "anidb.net"
                         },
                         {
                             "key": "超能力",
-                            "value": "定温保存（サーマルハンド）",
-                            "__dataclass__": "KeyValue"
+                            "value": "定温保存（サーマルハンド）"
                         },
                         {
                             "key": "超能力等级",
-                            "value": "Level 1",
-                            "__dataclass__": "KeyValue"
+                            "value": "Level 1"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154028,33 +153984,27 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "食蜂操祈",
-                            "__dataclass__": "KeyValue"
+                            "value": "食蜂操祈"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "身高",
-                            "value": "148cm（初一）→168cm（初二）",
-                            "__dataclass__": "KeyValue"
+                            "value": "148cm（初一）→168cm（初二）"
                         },
                         {
                             "key": "引用来源",
-                            "value": "ja.wikipedia.org",
-                            "__dataclass__": "KeyValue"
+                            "value": "ja.wikipedia.org"
                         },
                         {
                             "key": "超能力",
-                            "value": "心理掌握（メンタルアウト）",
-                            "__dataclass__": "KeyValue"
+                            "value": "心理掌握（メンタルアウト）"
                         },
                         {
                             "key": "超能力等级",
-                            "value": "Level 5",
-                            "__dataclass__": "KeyValue"
+                            "value": "Level 5"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154075,28 +154025,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "御坂0号",
-                            "__dataclass__": "KeyValue"
+                            "value": "御坂0号"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "血型",
-                            "value": "AB",
-                            "__dataclass__": "KeyValue"
+                            "value": "AB"
                         },
                         {
                             "key": "引用来源",
-                            "value": "https://toaru-project.com/railgun_t/chara/dolly.html",
-                            "__dataclass__": "KeyValue"
+                            "value": "https://toaru-project.com/railgun_t/chara/dolly.html"
                         },
                         {
                             "key": "所属阵营",
-                            "value": "科学侧",
-                            "__dataclass__": "KeyValue"
+                            "value": "科学侧"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154115,28 +154060,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "春暖嬉美",
-                            "__dataclass__": "KeyValue"
+                            "value": "春暖嬉美"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "年龄",
-                            "value": "16",
-                            "__dataclass__": "KeyValue"
+                            "value": "16"
                         },
                         {
                             "key": "类别",
-                            "value": "能力者 留精弃粗",
-                            "__dataclass__": "KeyValue"
+                            "value": "能力者 留精弃粗"
                         },
                         {
                             "key": "能力等级",
-                            "value": "Level 0",
-                            "__dataclass__": "KeyValue"
+                            "value": "Level 0"
                         }
                     ],
                     "__dataclass__": "Character"
