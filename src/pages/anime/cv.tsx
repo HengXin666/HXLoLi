@@ -13,6 +13,7 @@ import styles from "./CvPage.module.css";
 import Tooltip from "@site/src/components/common/Tooltip";
 import MDXA from "@site/src/theme/MDXComponents/A";
 import HXGiscus from "@site/src/components/Giscus";
+import ZoomImage from "@site/src/components/common/ZoomImage";
 
 // ================= 类型定义 (复用原结构以适配组件) =================
 
@@ -102,7 +103,7 @@ function Year ({ posts }: YearProp) {
                                 style={{ width: "240px" }}
                                 content={
                                     <>
-                                        <img
+                                        <ZoomImage
                                             src={toJsDelivrUrl(`/py/anime/data/anime/${post.metadata.anime_id}.jpg`)}
                                             loading="lazy"
                                             decoding="async"
@@ -154,7 +155,7 @@ function Year ({ posts }: YearProp) {
                                         style={{ width: "240px" }}
                                         content={
                                             <>
-                                                <img
+                                                <ZoomImage
                                                     src={toJsDelivrUrl(`/py/anime/data/kyara/${kyaraId}.jpg`)}
                                                     loading="lazy"
                                                     decoding="async"
@@ -319,7 +320,7 @@ export default function CvPage (): ReactNode {
                     <div className="container" style={{ width: "95%" }}>
                         {currentActor &&
                             <>
-                                <img
+                                <ZoomImage
                                     src={toJsDelivrUrl(`/py/anime/data/cv/${currentActor.id}.jpg`)}
                                     alt={currentActor.name}
                                     loading="lazy"

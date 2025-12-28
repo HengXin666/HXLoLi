@@ -19,6 +19,7 @@ from ANiMeType import (
     Relation,
     SubjectType,
     UserStatus,
+    WatchStatus,
 )
 from ApiReqRateLimiter import ApiReqRateLimiter
 
@@ -157,27 +158,32 @@ class Api:
                     if it["subject_id"] in self._record_map:
                         # 仅更新 UserStatus
                         ref = self._record_map[it["subject_id"]]
-                        if ref.user_status.watch_status != it["type"]:
+                        if ref.user_status.watch_status != WatchStatus(it["type"]):
                             print(
                                 f"[{it['updated_at']}] 番剧 {ref.anime_data.name} 观看状态更新: {ref.user_status.watch_status} -> {it['type']}"
                             )
-                            ref.user_status.watch_status = it["type"]
+                            ref.user_status.watch_status = WatchStatus(it["type"])
+                        
                         if ref.user_status.watched_eps != it["ep_status"]:
                             print(
                                 f"[{it['updated_at']}] 番剧 {ref.anime_data.name} 已看集数更新: {ref.user_status.watched_eps} -> {it['ep_status']}"
                             )
                             ref.user_status.watched_eps = it["ep_status"]
+                        
                         ref.user_status.last_update = it["updated_at"]
+
                         if ref.user_status.comment != it["comment"]:
                             print(
                                 f"[{it['updated_at']}] 番剧 {ref.anime_data.name} 评论更新: {ref.user_status.comment} -> {it['comment']}"
                             )
                             ref.user_status.comment = it["comment"]
+                        
                         if ref.user_status.tags != it["tags"]:
                             print(
                                 f"[{it['updated_at']}] 番剧 {ref.anime_data.name} 标签更新: {ref.user_status.tags} -> {it['tags']}"
                             )
-                        ref.user_status.tags = it["tags"]
+                            ref.user_status.tags = it["tags"]
+                        
                         continue
                     # 新增记录
                     record = ANiMeRecord(

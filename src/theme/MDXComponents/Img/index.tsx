@@ -6,11 +6,12 @@ import config from '@generated/docusaurus.config';
 
 import { FaEdit } from 'react-icons/fa'; // 引入勾选、还原、复制图标
 import './leetcode.css';
+import ZoomImage from '@site/src/components/common/ZoomImage';
 
 export default function MDXImg (props: Props): ReactNode {
     const {
         alt,      // 获取到 ![alt]()
-        src = '', // 获取到 ![alt](src)
+        src = '' as string, // 获取到 ![alt](src)
     } = props;
 
     const width = ((res: string | undefined) => {
@@ -22,10 +23,9 @@ export default function MDXImg (props: Props): ReactNode {
     if (!src.endsWith('.svg')) {
         return (
             // eslint-disable-next-line jsx-a11y/alt-text
-            <img
-                decoding="async"
-                loading="lazy"
+            <ZoomImage
                 {...props}
+                src={src}
                 style={{
                     width: width,
                     borderRadius: borderRadius ? `${borderRadius}px` : '10px',
@@ -69,10 +69,9 @@ export default function MDXImg (props: Props): ReactNode {
                 </div>
             </div>
             <div className='leetcode-tabs-content'>
-                <img
-                    decoding="async"
-                    loading="lazy"
+                <ZoomImage
                     {...props}
+                    src={src}
                     style={{
                         width: width || 'auto',
                         borderRadius: borderRadius ? `${borderRadius}px` : '10px',

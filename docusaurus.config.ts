@@ -1,5 +1,5 @@
 import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import type {Config, PluginConfig} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import remarkGithubAlerts from 'remark-github-alerts'; // Github tip标签渲染
 import remarkMath from 'remark-math';   // 数学渲染
@@ -7,6 +7,26 @@ import rehypeKatex from 'rehype-katex'; // katex渲染
 
 // 基础路径, 末尾不带 '/'
 const BaseUrl = "/HXLoLi";
+
+// 插件配置
+const plugins: PluginConfig[] = [
+  // 你原来的 postcss 插件, 原样保留
+  function myPlugin() {
+    return {
+      name: "postcss-tailwindcss-loader",
+      configurePostCss(postcssOptions: any) {
+        postcssOptions.plugins.push(
+          require("postcss-import"),
+          require("tailwindcss"),
+          require("postcss-nested"),
+          require("autoprefixer"),
+        );
+        return postcssOptions;
+      },
+    };
+  },
+];
+
 
 // 站点配置
 const config: Config = {
@@ -32,24 +52,7 @@ const config: Config = {
     locales: ["zh-Hans"], // 只支持简体中文
   },
 
-  plugins: [
-    "plugin-image-zoom", // 图片单击放大
-    // "docusaurus-graph",  // 文档关系图, 有bug, 不搞了...
-    function myPlugin(context, options) {
-      return {
-        name: "postcss-tailwindcss-loader",
-        configurePostCss(postcssOptions) {
-          postcssOptions.plugins.push(
-            require("postcss-import"),
-            require("tailwindcss"),
-            require("postcss-nested"),
-            require("autoprefixer")
-          );
-          return postcssOptions;
-        },
-      };
-    },
-  ],
+  plugins: plugins,
 
   // 使用 presets 配置
   presets: [

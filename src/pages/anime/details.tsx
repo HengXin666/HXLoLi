@@ -17,6 +17,7 @@ import Tag from "@site/src/components/anime/Tag";
 import HXGiscus from "@site/src/components/Giscus";
 import useQuery from "@site/src/utils/url/useQuery";
 import { PageMetadata } from "@docusaurus/theme-common";
+import ZoomImage from "@site/src/components/common/ZoomImage";
 
 
 // 将观看状态的枚举值转换为可读的文本
@@ -111,7 +112,7 @@ const RelationList = ({ record }: { record: ANiMeRecord }) => {
                                     style={{ width: "auto" }}
                                 >
                                     <div key={rel.id} className={styles.relationItem}>
-                                        <img src={toJsDelivrUrl(`/py/anime/data/relation/${rel.id}.jpg`)} alt={rel.name} className={styles.relationImage} />
+                                        <ZoomImage src={toJsDelivrUrl(`/py/anime/data/relation/${rel.id}.jpg`)} alt={rel.name} className={styles.relationImage} />
                                         <div className={styles.relationInfo}>
                                             <MDXA href={`${siteConfig.baseUrl}anime/details?id=${rel.id}`}>{rel.name}</MDXA>
                                         </div>
@@ -156,7 +157,7 @@ export default function AnimeDetailPage (): React.ReactElement {
                             404 NOT FOUND
                         </Heading>
                         <p>请尝试: <MDXA href={`https://bgm.tv/subject/${id}`}>{`bgm.tv/subject/${id}`}</MDXA></p>
-                        <img src={notFoundImageUrl} alt="404" />
+                        <ZoomImage src={notFoundImageUrl} alt="404" />
                     </div>
                 </BlogWithCats>
                 <div style={{ height: "60px" }} />
@@ -184,7 +185,7 @@ export default function AnimeDetailPage (): React.ReactElement {
 
                         <main className={styles.mainContent}>
                             <aside>
-                                <img src={toJsDelivrUrl(`/py/anime/data/anime/${record.anime_data.id}.jpg`)} alt={record.anime_data.name_cn} className={styles.coverImage} />
+                                <ZoomImage src={toJsDelivrUrl(`/py/anime/data/anime/${record.anime_data.id}.jpg`)} alt={record.anime_data.name_cn} className={styles.coverImage} />
                             </aside>
 
                             <section className={styles.infoColumn}>
@@ -408,7 +409,7 @@ export default function AnimeDetailPage (): React.ReactElement {
                                                                                 flexShrink: 0            // 防止被右侧内容挤压
                                                                             }}
                                                                         >
-                                                                            <img
+                                                                            <ZoomImage
                                                                                 src={toJsDelivrUrl(`/py/anime/data/cv/${actor.id}.jpg`)}
                                                                                 alt={actor.name}
                                                                                 loading="lazy"
