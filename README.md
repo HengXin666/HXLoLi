@@ -31,7 +31,6 @@
 | **Draw.io 预览**| React 编写的 Draw.io 网页端支持 | [react-drawio](https://github.com/marcveens/react-drawio) |
 | **Remark Github Alert 插件** | GitHub 风格的 remark 警报 | [remark-github-alerts](https://github.com/hyoban/remark-github-alerts) |
 | **数学渲染 KaTeX** | 使用 KaTeX 渲染数学公式 | [KaTeX](https://github.com/KaTeX/KaTeX)|
-| **图片单击放大** | 图片点击放大功能 | [plugin-image-zoom](https://github.com/flexanalytics/plugin-image-zoom) |
 | **文档关系图** | 生成 Docusaurus 文档之间的关系图 | [docusaurus-graph](https://github.com/Arsero/docusaurus-graph) |
 | **评论功能** | 基于 Giscus 添加评论功能 | [@giscus/react](https://github.com/giscus/giscus-component) |
 | **文件夹和 markdown 图标** | 使用 vscode-icons 提供的文件夹和 markdown 图标 <br /> (仅使用了`文件夹`和`markdown`图标) | [vscode-icons](https://github.com/vscode-icons/vscode-icons) |

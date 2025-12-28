@@ -7,6 +7,7 @@ import { toJsDelivrUrl } from "@site/src/utils/cdn/linkJsDelivr";
 import styles from "./AnimeCard.module.css";
 import { SortMode } from "../SortTabs";
 import Tag from "../Tag";
+import ZoomImage from "../../common/ZoomImage";
 
 // format date from YYYY-MM-DD to MM-DD
 const formatDate = (dateString: string) => {
@@ -41,7 +42,7 @@ export default function AnimeCard ({
 
             <div className={styles.animeCard}>
                 <div className={styles.cardImageColumn}>
-                    <img
+                    <ZoomImage
                         src={toJsDelivrUrl(`/py/anime/data/anime/${anime_data.id}.jpg`)}
                         alt={anime_data.name_cn}
                         loading="lazy"
