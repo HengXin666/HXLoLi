@@ -590,9 +590,15 @@ export const stats: RecordItem[] = [
     "message": "[blog]MSVC ICE 编译期内部错误"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-12-28T08:03:27.990Z",
+    "commit": "33f28acc39da9a147ce82d7a0772f8452792df99",
+    "date": "2025-12-28T16:03:28+08:00",
     "wordCount": 3768657,
     "message": "[blog]新增「博客更新日志和计划 (II)」"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-12-30T17:03:34.780Z",
+    "wordCount": 3784799,
+    "message": "[docs]C++源码阅读: 粗读sqlpp11 如何做到基于不同的 SQL类型, 提供不同的运算符, 并且在编译期诊断. 而且可以直接使用名称"
   }
 ];

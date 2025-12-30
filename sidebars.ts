@@ -5607,6 +5607,31 @@ module.exports = {
                         "icon": "/HXLoLi/default-icons/default_folder.svg",
                         "tags": []
                       }
+                    },
+                    {
+                      "type": "category",
+                      "label": "sql相关",
+                      "collapsible": true,
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "sqlpp11",
+                          "collapsible": true,
+                          "items": [],
+                          "customProps": {
+                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "tags": []
+                          },
+                          "link": {
+                            "type": "doc",
+                            "id": "程序语言/C++/现代C++/源码阅读/sql相关/sqlpp11/index"
+                          }
+                        }
+                      ],
+                      "customProps": {
+                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "tags": []
+                      }
                     }
                   ],
                   "customProps": {
