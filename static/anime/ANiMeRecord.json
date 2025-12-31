@@ -604,8 +604,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 9,
-            "last_update": "2025-12-26T19:13:28+08:00",
+            "watched_eps": 12,
+            "last_update": "2025-12-29T13:52:04+08:00",
             "comment": null,
             "tags": [
                 "萝莉"
@@ -6456,8 +6456,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 4,
-            "last_update": "2025-12-23T12:55:15+08:00",
+            "watched_eps": 5,
+            "last_update": "2025-12-30T12:55:58+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -8803,8 +8803,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 4,
-            "last_update": "2025-12-15T13:24:49+08:00",
+            "watched_eps": 5,
+            "last_update": "2025-12-30T13:17:37+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
