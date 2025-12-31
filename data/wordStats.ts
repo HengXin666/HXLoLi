@@ -596,9 +596,15 @@ export const stats: RecordItem[] = [
     "message": "[blog]新增「博客更新日志和计划 (II)」"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-12-30T17:03:34.780Z",
+    "commit": "3bec0e17ab5a26e0b5741ddbc38876132d5f8d30",
+    "date": "2025-12-31T01:03:34+08:00",
     "wordCount": 3784799,
     "message": "[docs]C++源码阅读: 粗读sqlpp11 如何做到基于不同的 SQL类型, 提供不同的运算符, 并且在编译期诊断. 而且可以直接使用名称"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2025-12-31T15:23:09.642Z",
+    "wordCount": 3786617,
+    "message": "[blog]编写【2025】年终总结"
   }
 ];
