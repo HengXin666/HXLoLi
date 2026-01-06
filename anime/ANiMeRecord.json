@@ -603,9 +603,9 @@
             "__dataclass__": "ANiMeData"
         },
         "user_status": {
-            "watch_status": 3,
+            "watch_status": 2,
             "watched_eps": 12,
-            "last_update": "2025-12-29T13:52:04+08:00",
+            "last_update": "2026-01-04T20:00:43+08:00",
             "comment": null,
             "tags": [
                 "萝莉"
@@ -6455,9 +6455,9 @@
             "__dataclass__": "ANiMeData"
         },
         "user_status": {
-            "watch_status": 3,
+            "watch_status": 2,
             "watched_eps": 5,
-            "last_update": "2025-12-30T12:55:58+08:00",
+            "last_update": "2026-01-04T20:00:42+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -8802,9 +8802,9 @@
             "__dataclass__": "ANiMeData"
         },
         "user_status": {
-            "watch_status": 3,
+            "watch_status": 2,
             "watched_eps": 5,
-            "last_update": "2025-12-30T13:17:37+08:00",
+            "last_update": "2026-01-04T20:00:39+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -154109,6 +154109,2400 @@
             "watch_status": 1,
             "watched_eps": 0,
             "last_update": "2025-12-26T20:48:21+08:00",
+            "comment": null,
+            "tags": [],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 445905,
+            "name": "勇者刑に処す 懲罰勇者9004隊刑務記録",
+            "name_cn": "判处勇者刑 惩罚勇者9004队刑务纪录",
+            "short_summary": "勇者とは、この世で最悪の刑罰である。大罪を犯した者が「勇者」となり、魔王と戦う刑罰を科されるのだ。殺されようとも蘇生され、死ぬことすら許されない。勇者刑に処された元聖騎士団長のザイロ・フォルバーツは、性格破綻者たちで構成された懲罰勇者部隊を",
+            "score": 6.9,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/7f/9b/445905_M0j2M.jpg",
+            "eps": 12,
+            "date": "2026-01-03",
+            "summary": "勇者とは、この世で最悪の刑罰である。大罪を犯した者が「勇者」となり、魔王と戦う刑罰を科されるのだ。殺されようとも蘇生され、死ぬことすら許されない。勇者刑に処された元聖騎士団長のザイロ・フォルバーツは、性格破綻者たちで構成された懲罰勇者部隊を率い、戦いの最前線を駆け抜けていた。過酷な状況の中、ザイロは最強の生体兵器の一人、《剣の女神》テオリッタに出会う。「敵を殲滅した暁には、この私を褒め讃え……そして頭を撫でなさい」生き抜くため、自らを陥れた者へ復讐を果たすため──。《女神》と契約を交わしたザイロは、絶望的な世界で熾烈な闘争と陰謀の渦中に身を投じていく。",
+            "total_episodes": 12,
+            "characters": [
+                {
+                    "id": 169682,
+                    "name": "ザイロ・フォルバーツ",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/95/b6/169682_crt_UF082.jpg?r=1767460005",
+                    "actor_ids": [
+                        11166
+                    ],
+                    "name_cn": "赛罗·佛鲁巴兹",
+                    "summary": "元聖騎士団長でありながら《女神》殺しの大罪を犯したがために懲罰勇者となった。\r\n優れた戦闘能力と統率力を持ち合わせ、戦闘の最前線で冷静に立ち回る。荒々しく凶暴なところはあるが、人を捨て置けない性格。\r\n\r\n所属\r\n懲罰勇者9004隊\r\n罪状\r\n対神暴行致死 等",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "赛罗·佛鲁巴兹",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 169683,
+                    "name": "テオリッタ",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/b6/c7/169683_crt_G39N8.jpg?r=1736845648",
+                    "actor_ids": [
+                        18538
+                    ],
+                    "name_cn": "泰奥莉塔",
+                    "summary": "ザイロと契約を交わした剣の《女神》。聖剣や魔剣といった数多の剣を召喚する。自尊心が高く褒め称えられることを好む一方で、自己犠牲的な行動をしてしまうという《女神》らしい一面を持つ。頭を撫でられるのが好き。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "泰奥莉塔",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 171668,
+                    "name": "パトーシェ・キヴィア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/18/e5/171668_crt_xQOWQ.jpg?r=1739977583",
+                    "actor_ids": [
+                        14414
+                    ],
+                    "name_cn": "芭特谢·基维亚",
+                    "summary": "第十三聖騎士団の団長。本来は《女神》テオリッタと契約するはずだった。真面目で正義感の強い聖騎士であるが、堅物なところがあり物言いも厳しい。《女神》のためなら自身の命も勇者の命も投げ捨てられる。\r\n\r\n所属 \r\n第十三聖騎士団",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "芭特谢·基维亚",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 171671,
+                    "name": "ドッタ・ルズラス",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/cf/49/171671_crt_AwbV4.jpg?r=1739978100",
+                    "actor_ids": [
+                        22514
+                    ],
+                    "name_cn": "铎达·鲁兹拉斯",
+                    "summary": "千件を超える窃盗事件を起こした史上まれに見るコソ泥。《女神》の棺からまったく無意味なものまで、あらゆるものを衝動的に盗もうとし、実際になんでも盗める技量を持つ。夜目が利き気配にも敏感だが、非常に臆病\r\n\r\n所属 \r\n懲罰勇者9004隊\r\n罪状 \r\n窃盗",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "铎达·鲁兹拉斯",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 171672,
+                    "name": "ベネティム・レオプール",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/87/36/171672_crt_6L1T5.jpg?r=1739978111",
+                    "actor_ids": [
+                        21526
+                    ],
+                    "name_cn": "贝涅提姆·雷欧布鲁",
+                    "summary": "懲罰勇者9004隊の指揮官であり、王宮をサーカスに売り飛ばそうとした稀代の詐欺師。話術、詐術に長けるため、一見すると有能そうに見えるが、その実ヘラヘラしたただの根性なし。いつも慌てながら“悪い報せ”を伝えてくる。\r\n\r\n所属 懲罰勇者9004隊\r\n罪状 詐欺、横領、聖権侵害、内乱予備",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "贝涅提姆·雷欧布鲁",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 180319,
+                    "name": "ノルガユ・センリッジ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/1f/9f/180319_crt_0o5W9.jpg?r=1753541890",
+                    "actor_ids": [
+                        4920
+                    ],
+                    "name_cn": "诺鲁卡由·圣利兹",
+                    "summary": "自身を連合王国の本当の国王だと思い込み、王室に大規模なテロ行為を行ったテロリスト。通称、陛下。\r\n尊大な態度を見せるが、民を思う気持ちは本物である。\r\n聖印を刻印する聖印調律に関して突出した才能を持つ。\r\n\r\n所属\r\n懲罰勇者9004隊\r\n罪状\r\n放火、殺人、建造物損壊、王室侮辱",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "诺鲁卡由·圣利兹",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 180321,
+                    "name": "タツヤ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/39/16/180321_crt_5566Z.jpg?r=1753541938",
+                    "actor_ids": [
+                        5764
+                    ],
+                    "name_cn": "达也",
+                    "summary": "誰よりも長く勇者部隊に所属する狂戦士。勇者として生き返りすぎたため、自我や思考力を失い言葉も話せない。正体も何もかもが謎に包まれている。白兵戦闘能力は怪物級で、巨大な戦斧を包丁のように軽々と扱う。\r\n\r\n所属\r\n懲罰勇者9004隊\r\n罪状\r\n記録なし",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "达也",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 180324,
+                    "name": "ツァーヴ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/51/2b/180324_crt_qbJbQ.jpg?r=1753541939",
+                    "actor_ids": [
+                        7757
+                    ],
+                    "name_cn": "渣布",
+                    "summary": "暗殺教団に育てられた元・エリート暗殺者。超常現象級の狙撃能力を持つが、暗殺者時代は標的に情が沸いて殺せず、無関係の人間を“ひき肉”にしてごまかしていた。ノリが軽くおしゃべりで、賭け事が大好き。\r\n\r\n所属\r\n懲罰勇者9004隊\r\n罪状\r\n殺人、死体損壊・遺棄",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "渣布",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 184700,
+                    "name": "ジェイス・パーチラクト",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/43/7f/184700_crt_EPFrX.jpg",
+                    "actor_ids": [
+                        19619
+                    ],
+                    "name_cn": "杰斯·帕奇拉库特",
+                    "summary": "ドラゴンに騎乗し、部隊の航空戦力として空を駆ける竜騎兵。槍術にも長けている。ドラゴンと意思疎通ができるだけでなく、異常に愛される体質を持つ。本人もドラゴンにしか興味がなく、人間に対しては無愛想。\r\n\r\n所属\r\n懲罰勇者9004隊\r\n罪状\r\n麻薬売買、反乱",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "杰斯·帕奇拉库特",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 184701,
+                    "name": "ニーリィ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d0/b1/184701_crt_oI76o.jpg?r=1767496372",
+                    "actor_ids": [
+                        5119
+                    ],
+                    "name_cn": "尼利",
+                    "summary": "ジェイスとともに戦場を駆ける女性のドラゴン。鮮やかな青い鱗を持ち、口からは強力な炎を放つ。ジェイスがドラゴンに愛されるため、嫉妬で機嫌を損ねることも。ジェイスによれば、陰のある目元と気の強さが魅力。\r\n\r\n所属\r\n懲罰勇者9004隊",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "尼利",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "雌",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 194286,
+                    "name": "ライノー",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/81/a1/194286_crt_Tkimi.jpg",
+                    "actor_ids": [
+                        4724
+                    ],
+                    "name_cn": "莱诺",
+                    "summary": "自ら懲罰勇者に志願した変わり者で、砲兵としての才覚を持つ。礼儀正しい態度で聖人君子のような発言をするが、常に胡散臭い微笑を浮かべている。全身を包む異様な甲冑に聖印が刻まれ、巨大な右腕が砲身として機能する。\r\n\r\n所属\r\n懲罰勇者9004隊\r\n罪状\r\nなし",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "莱诺",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 194287,
+                    "name": "フレンシィ・マスティボルト",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/fa/7b/194287_crt_oYLzo.jpg",
+                    "actor_ids": [
+                        14320
+                    ],
+                    "name_cn": "",
+                    "summary": "南方夜鬼と呼ばれる一族の首領・マスティボルト家の令嬢。ザイロの元婚約者で、彼が懲罰勇者となったことで婚約は無効となったが、本人はザイロとの婚約破棄を認めていない。変化に乏しい表情から辛辣な言葉を放つ。\r\n\r\n所属\r\n夜鬼",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197319,
+                    "name": "ラジート",
+                    "relation": "配角",
+                    "image_url": "",
+                    "actor_ids": [
+                        10577
+                    ],
+                    "name_cn": "",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197320,
+                    "name": "ゾフレク・オストビシュ",
+                    "relation": "配角",
+                    "image_url": "",
+                    "actor_ids": [
+                        4323
+                    ],
+                    "name_cn": "",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197321,
+                    "name": "シエナ",
+                    "relation": "配角",
+                    "image_url": "",
+                    "actor_ids": [
+                        5724
+                    ],
+                    "name_cn": "",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 362541,
+                    "name": "勇者刑に処す 懲罰勇者9004隊刑務記録",
+                    "name_cn": "勇者处刑 惩罚勇者9004队服刑记录",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/c9/1e/362541_pcoOn.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 619183,
+                    "name": "TVアニメ『勇者刑に処す』 ～女神のラジオ記録～",
+                    "name_cn": "",
+                    "relation": "衍生",
+                    "type": 6,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/5b/44/619183_aCo4t.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "episodes": [
+                {
+                    "id": 1603693,
+                    "name": "刑罰：クヴンジ森林撤退支援",
+                    "name_cn": "刑罚：克温基森林撤退掩护",
+                    "air_date": "2026-01-03",
+                    "desc": "聖騎士団の撤退支援任務に就く、懲罰勇者のザイロ・フォルバーツ。同じ部隊のドッタ・ルズラスを窮地から救い出すと、ドッタは聖騎士団から大きな棺を盗んでいた。そこには対魔王兵器《女神》が眠っていて……。\r\n\r\n脚本: 猪原健太\r\n絵コンテ: 髙嶋宏之\r\n演出: 髙嶋宏之、佃 泰佑、安川央里\r\n作画監督: 伊藤 幸、木村和貴、小林真平、式地幸喜、須川康太、鈴木 敦、冨永一仁、中小路佳毅、中島 順、平林 航、福士真由美、福田佳太、米井大稀、TigerWasabi、Fincrossed、tudio\r\n総作画監督: 小畑 賢、木村和貴、曾 品喬、野田 猛",
+                    "duration_seconds": 3480,
+                    "ep": 1,
+                    "sort": 1,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1603694,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-01-15",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 2,
+                    "sort": 2,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1603695,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-01-22",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 3,
+                    "sort": 3,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1603696,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-01-29",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 4,
+                    "sort": 4,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1603697,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-05",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 5,
+                    "sort": 5,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1603698,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-12",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 6,
+                    "sort": 6,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1603699,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-19",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 7,
+                    "sort": 7,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1603700,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-26",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 8,
+                    "sort": 8,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1603701,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-05",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 9,
+                    "sort": 9,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1603702,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-12",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 10,
+                    "sort": 10,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1603703,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-19",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 11,
+                    "sort": 11,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1603704,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-26",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 12,
+                    "sort": 12,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 3,
+            "watched_eps": 1,
+            "last_update": "2026-01-05T14:04:56+08:00",
+            "comment": null,
+            "tags": [],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 565802,
+            "name": "かぐや様は告らせたい 大人への階段",
+            "name_cn": "辉夜大小姐想让我告白 通往大人的阶梯",
+            "short_summary": "「どれも懐かしくて、全てがかけがえのない大切な思い出。」 \r\n\r\n秀才たちが集うエリート校・秀知院学園 \r\nその生徒会で出会った副会長・四宮かぐやと生徒会長・白銀御行。 \r\n2人は長きにわたる恋愛頭脳戦の末、交際することに…… \r\n\r\n月日",
+            "score": 8.3,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/9b/f5/565802_PRfRL.jpg",
+            "eps": 2,
+            "date": "2025-12-31",
+            "summary": "「どれも懐かしくて、全てがかけがえのない大切な思い出。」 \r\n\r\n秀才たちが集うエリート校・秀知院学園 \r\nその生徒会で出会った副会長・四宮かぐやと生徒会長・白銀御行。 \r\n2人は長きにわたる恋愛頭脳戦の末、交際することに…… \r\n\r\n月日は流れ、部屋でひとりアルバムを眺めるかぐや。 \r\nそこには、白銀や秀知院学園の仲間と過ごした思い出を収めた写真が並んでいる。 \r\n\r\n懐かしさに浸りページをめくる度、かぐやの思い出が蘇る。",
+            "total_episodes": 2,
+            "characters": [
+                {
+                    "id": 10956,
+                    "name": "ナレーション",
+                    "relation": "旁白",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/01/01/10956_crt_5LR7z.jpg",
+                    "actor_ids": [
+                        5467
+                    ],
+                    "name_cn": "旁白",
+                    "summary": "戏剧角色背着台上其他剧中人对观众说的话。也指影视片中的解说词。说话者不出现在画面上，但直接以语言来介绍影片内容、交待剧情或发表议论，包括对白的使用。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "旁白",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 66899,
+                    "name": "四宮かぐや",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/9e/72/66899_crt_kNOM3.jpg?r=1547389516",
+                    "actor_ids": [
+                        19606
+                    ],
+                    "name_cn": "四宫辉夜",
+                    "summary": "本作的主角。秀知院学园高中部2年A班的女学生，担任学生会副会长。参加的社团是弓道部。\r\n四大财阀之一，四宫集团的千金。 \r\n万能型的天才，但是不谙世故，无意识中会瞧不起人。\r\n想告诉白银御行他和猫耳很般配。",
+                    "birth_year": null,
+                    "birth_month": 1,
+                    "birth_day": 1,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "四宫辉夜",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "1月1日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "AB",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "158cm",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 66900,
+                    "name": "白銀御行",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/ca/44/66900_crt_26nTL.jpg?r=1545567638",
+                    "actor_ids": [
+                        12483
+                    ],
+                    "name_cn": "白银御行",
+                    "summary": "本作的另一个主角。秀知院学园高中部2年B班的男学生，担任学生会的会长，有着凶恶的眼神。\r\n和父亲妹妹三人一起生活，妹妹白银圭在秀知院学园初中部就读。\r\n可以说是努力中毒的努力型天才。\r\n一天学习十小时，剩下的时间用来打工。\r\n想告诉四宫辉夜她和猫耳很般配。",
+                    "birth_year": null,
+                    "birth_month": 9,
+                    "birth_day": 9,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "白银御行",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "9月9日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "O型",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "175cm",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 67408,
+                    "name": "藤原千花",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/38/34/67408_crt_rrE4W.jpg",
+                    "actor_ids": [
+                        27194
+                    ],
+                    "name_cn": "藤原千花",
+                    "summary": "本作的女主角，高中部2年B班的女学生，担任学生会书记。桌游部所属，三姐妹中的次女。",
+                    "birth_year": null,
+                    "birth_month": 3,
+                    "birth_day": 3,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "藤原千花",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "3月3日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "O",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "154cm",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 67409,
+                    "name": "石上優",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/17/ff/67409_crt_7MyY9.jpg?r=1545567685",
+                    "actor_ids": [
+                        30620
+                    ],
+                    "name_cn": "石上优",
+                    "summary": "本作的里主角，高中部一年级的男学生，担任学生会会计。玩具公司家的次子。",
+                    "birth_year": null,
+                    "birth_month": 3,
+                    "birth_day": 3,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "石上优",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "3月3日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "O",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "169cm",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 67410,
+                    "name": "早坂愛",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/3a/97/67410_crt_3GsdL.jpg?r=1551991089",
+                    "actor_ids": [
+                        10503
+                    ],
+                    "name_cn": "早坂爱",
+                    "summary": "高中部2年A班的女学生，四宫集团高管的女儿，在四宫家担任辉夜的侍女。\r\n有着四分之一的爱尔兰血统。\r\n出生于代代对四宫家效忠的家系，从小就开始服侍辉夜，与辉夜有着姐妹般的关系。",
+                    "birth_year": null,
+                    "birth_month": 4,
+                    "birth_day": 2,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "早坂爱",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "4月2日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "AB",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "162cm",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 67935,
+                    "name": "柏木渚",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/6a/8f/67935_crt_kuUKy.jpg?r=1559653550",
+                    "actor_ids": [
+                        13565
+                    ],
+                    "name_cn": "柏木渚",
+                    "summary": "高中部2年B班的女学生，志愿者部部长，大型造船公司会长的女儿，成绩非常优秀。",
+                    "birth_year": null,
+                    "birth_month": 6,
+                    "birth_day": 25,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "柏木渚",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "6月25日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "B型",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "160cm",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 67936,
+                    "name": "田沼つばさ",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/72/f5/67936_crt_KP2PP.jpg?r=1559653574",
+                    "actor_ids": [
+                        19713
+                    ],
+                    "name_cn": "田沼翼",
+                    "summary": "秀知院学园高中部2年级B班。名字[s]柏木[/s]翼在漫画第99话判明，全名田沼翼在漫画第137话判明。\r\n医院院长的儿子，名医田沼正造的孙子，继承人。隶属于志愿者部。",
+                    "birth_year": null,
+                    "birth_month": 8,
+                    "birth_day": 25,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "田沼翼",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "8月25日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "A型",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 67937,
+                    "name": "白銀圭",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/60/1c/67937_crt_W5Lbz.jpg",
+                    "actor_ids": [
+                        32687
+                    ],
+                    "name_cn": "白银圭",
+                    "summary": "御行的妹妹，初中部二年级，在初中部的学生会担任会计。",
+                    "birth_year": null,
+                    "birth_month": 8,
+                    "birth_day": 1,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "白银圭",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "8月1日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "B",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "158cm",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 67938,
+                    "name": "白銀の父",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/f1/c2/67938_crt_0yYZK.jpg",
+                    "actor_ids": [
+                        1096
+                    ],
+                    "name_cn": "白银的父亲",
+                    "summary": "职业不定，因为工厂经营失败，七年前妻子离家出走，现在和两个孩子住在月租五万日元的公寓中。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "白银的父亲",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 68538,
+                    "name": "四条眞妃",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/cf/8d/68538_crt_Yz3gp.jpg?r=1655733897",
+                    "actor_ids": [
+                        31136
+                    ],
+                    "name_cn": "四条真妃",
+                    "summary": "高中部2年B班的女学生，四宫家分家，与本家的辉夜关系不佳，表面很傲慢，实则性格活泼纤细，被石上称为“傲娇前辈”，拥有仅次于白银和辉夜名列年级第三的学力。",
+                    "birth_year": null,
+                    "birth_month": 1,
+                    "birth_day": 1,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "四条真妃",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "1月1日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "AB",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "155cm",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 69198,
+                    "name": "伊井野ミコ",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/02/5a/69198_crt_9chtt.jpg?r=1590778597",
+                    "actor_ids": [
+                        20701
+                    ],
+                    "name_cn": "伊井野弥子",
+                    "summary": "本作の裏ヒロイン。 \r\n私立秀知院学園高等部1年B組で風紀委員と生徒会の会計監査を兼任している。",
+                    "birth_year": null,
+                    "birth_month": 5,
+                    "birth_day": 5,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "伊井野弥子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "5月5日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "O型",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "147cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "dic.pixiv.net/a/伊井野ミコ",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 75903,
+                    "name": "子安つばめ",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d5/17/75903_crt_4ps4Z.jpg",
+                    "actor_ids": [],
+                    "name_cn": "子安燕",
+                    "summary": "秀知院学园高中部三年级女学生，新体操部成员，体育祭红组应援团副团长。才貌双全，为人体贴善良，为众多男学生的梦中情人。",
+                    "birth_year": null,
+                    "birth_month": 4,
+                    "birth_day": 4,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "子安燕",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "4月4日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "A型",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "162cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 76289,
+                    "name": "大仏こばち",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/9f/87/76289_crt_balBf.jpg?r=1767286277",
+                    "actor_ids": [],
+                    "name_cn": "大佛小钵",
+                    "summary": "衆知院学年高等部の一年生。石上や伊井野と同じクラスメイトで、丸メガネが特徴。\r\n伊井野ミコとは小等部の頃からの縁で、唯一の親友である。暴走しやすく、一人ぼっちになりがちな伊井野を長らく支えてきた。それ故に一緒にいることが多く、伊井野の扱いは作中で一番慣れている。そんな事情もあってか、過保護にしすぎたせいで、伊井野が成長するチャンスを奪っていたのではないかと悩んでいたらしい。石上の悪い噂には懐疑的であり、応援団のメンバーにフォローをお願いするなど、気配り上手な一面が見て取れる。伊井野のために生徒会選挙の応援演説も務めたが、ぶっちゃけ生徒会には興味がないらしく、現在は風紀委員に所属している。\r\n妄想が激しいのか、手のひらに書いた人に感情移入してしまい、食べられなくなってしまう場面も。イラストを描くのが得意で、本人曰く激しいのも描けるらしい。\r\nこう見えて肉食系女子であり、文化祭を前に応援団の団長とちゃっかり交際している。",
+                    "birth_year": null,
+                    "birth_month": 6,
+                    "birth_day": 6,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "大佛小钵",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "6月6日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "B型",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "163cm",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 110866,
+                    "name": "小野寺麗",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/c8/85/110866_crt_XK53Z.jpg?r=1654382856",
+                    "actor_ids": [],
+                    "name_cn": "小野寺丽",
+                    "summary": "秀知院学园高中部学生，所属班级1年B班→2年A班（周刊201回起），石上和伊井野的的同班同学，袋棍球社成员，著名珠宝名牌的社长千金，是个心直口快的人。生日是5月17日，血型为O型。体育祭红组应援团团员之一，同时也是文化祭实行委员会一年B班代表。成绩不错，期末考成绩名列第37（第一学期）→48（第二学期）→38（第三学期）。",
+                    "birth_year": null,
+                    "birth_month": 5,
+                    "birth_day": 17,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "小野寺丽",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "5月17日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "O",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "159cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 111783,
+                    "name": "槇原こずえ",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/96/14/111783_crt_I3zXx.jpg?r=1654979068",
+                    "actor_ids": [
+                        16031
+                    ],
+                    "name_cn": "槙原梢",
+                    "summary": "秀知院学园高中部1年A班学生，桌游社的永久社长，绰号为“玛奇前非（マッキー先ハイ makkī senhai）”或“小玛奇（マッキーちゃん makkī chan）”。在文化祭利用伊井野弥子帮忙班级制作鬼屋用的环绕立体声音效。\r\n期末考成绩名列第10（第一学期）→8（第二学期）→5（第三学期）。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "槙原梢",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 196706,
+                    "name": "四条帝",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/88/6e/196706_crt_7iiuq.jpg",
+                    "actor_ids": [
+                        12143
+                    ],
+                    "name_cn": "四条帝",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "四条帝",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 196806,
+                    "name": "J鈴木",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/fb/6d/196806_crt_wz6EN.jpg",
+                    "actor_ids": [],
+                    "name_cn": "J铃木",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "J铃木",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 196812,
+                    "name": "ギガ子",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/30/81/196812_crt_zp9HD.jpg",
+                    "actor_ids": [],
+                    "name_cn": "GIGA子",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "GIGA子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 196813,
+                    "name": "風野",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/ee/14/196813_crt_M6N6O.jpg",
+                    "actor_ids": [],
+                    "name_cn": "风野",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "风野",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 135218,
+                    "name": "かぐや様は告らせたい～天才たちの恋愛頭脳戦～",
+                    "name_cn": "辉夜大小姐想让我告白 ~天才们的恋爱头脑战~",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/15/c9/135218_YYbSq.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 389474,
+                    "name": "かぐや様は告らせたい-ファーストキッスは終わらない- 映画",
+                    "name_cn": "辉夜大小姐想让我告白-初吻不会结束- 电影",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/ca/b6/389474_tzbrl.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 425211,
+                    "name": "かぐや様は告らせたい-ファーストキッスは終わらない-",
+                    "name_cn": "辉夜大小姐想让我告白-初吻不会结束-",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/ca/79/425211_bPbra.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 614390,
+                    "name": "アブナイキオク",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/72/da/614390_GD1YT.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 619013,
+                    "name": "かぐや様は告らせたい 完結編",
+                    "name_cn": "辉夜大小姐想让我告白 完结篇",
+                    "relation": "续集",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/a1/10/619013_osnEo.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 619034,
+                    "name": "赤と青",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/f8/34/619034_wlVO8.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "episodes": [
+                {
+                    "id": 1602079,
+                    "name": "「藤原千花は驚かせたい」「白銀御行は話したい」「四宮かぐやの無理難題」",
+                    "name_cn": "藤原千花想吓人 / 白银御行想聊天 / 四宫辉夜的无理难题",
+                    "air_date": "2025-12-31",
+                    "desc": "かぐやの誕生日サプライズとして、\r\n白銀と付き合ったふりをして驚かせようとする藤原。\r\nかぐやと付き合ったことを隠していたため、ややこしくなると焦る白銀。\r\nそこに現れたかぐやは、まさかの行動に!!",
+                    "duration_seconds": 1536,
+                    "ep": 1,
+                    "sort": 1,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1613894,
+                    "name": "「男と女のABC」「かぐや様は話したい」「かぐや様は見送りたい」",
+                    "name_cn": "男女ABC / 辉夜姬想聊天 / 辉夜姬想送行",
+                    "air_date": "2025-12-31",
+                    "desc": "2人で帰る中、新居の紹介も兼ねてかぐやを夕飯に誘う白銀。\r\nそんな中、妹から友人宅にお泊まりすると連絡が入る。\r\n家にふたりきりの状況に恋愛頭脳戦は最大の山場を迎える!!",
+                    "duration_seconds": 1626,
+                    "ep": 2,
+                    "sort": 2,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 2,
+            "watched_eps": 1,
+            "last_update": "2026-01-05T13:12:46+08:00",
+            "comment": null,
+            "tags": [],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 517057,
+            "name": "【推しの子】 第3期",
+            "name_cn": "【我推的孩子】 第三季",
+            "short_summary": "物語は新たなステージへ──\r\n\r\n『POP IN ２』のリリースから半年。\r\nＭＥＭちょの尽力の甲斐もあり、今やB小町はブレイク寸前。\r\nアクアはマルチタレント、あかねは実力派女優の道を順調に歩んでいる。\r\n一方で、かなは以前の明るさを失っ",
+            "score": 5.8,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/92/95/517057_EMK2v.jpg",
+            "eps": 0,
+            "date": "2026-01-14",
+            "summary": "物語は新たなステージへ──\r\n\r\n『POP IN ２』のリリースから半年。\r\nＭＥＭちょの尽力の甲斐もあり、今やB小町はブレイク寸前。\r\nアクアはマルチタレント、あかねは実力派女優の道を順調に歩んでいる。\r\n一方で、かなは以前の明るさを失っていた。\r\nそして、アイとゴローの死の真相を追い求め、\r\nルビーは芸能界を駆け上がる。\r\n────嘘を、武器にして。",
+            "total_episodes": 12,
+            "characters": [
+                {
+                    "id": 102125,
+                    "name": "星野愛久愛海",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/c5/3a/102125_crt_I1eZN.jpg?r=1674520069",
+                    "actor_ids": [
+                        32681
+                    ],
+                    "name_cn": "星野爱久爱海",
+                    "summary": "本作的主人公。[mask]转生前是宫崎县乡下的一名名为五郎的妇产科医生。在深交的已经去世的住院少女沙利奈的影响下，成为了偶像团体“B小町”成员之一的星野爱的粉丝。\r\n之后在医院偶然碰到了怀孕的爱来看诊，决定守护她怀孕直到分娩，但在分娩前被歹徒袭击而死亡，转生成为爱的孩子。[/mask]\r\n母亲给予的本名是星野爱久爱海，艺名阿库亚。[mask]因为拥有前世的记忆，在幼儿时期就能进行对话。用成人的思想看护着爱，但成长到一定程度就在母亲的事务所中出道成为童星，利用前世的知识展现出了特殊的才能。[/mask]从母亲那里遗传了右眼的星星。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "星野爱久爱海",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "172cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102126,
+                    "name": "星野瑠美衣",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/71/cc/102126_crt_aJfCA.jpg?r=1674520085",
+                    "actor_ids": [
+                        49689
+                    ],
+                    "name_cn": "星野瑠美衣",
+                    "summary": "本作的主人公。[mask]雨宫工作的医院里的患者，敬爱着星野爱的偶像宅少女，因星形细胞瘤去世，享年12岁。之后转生为爱的孩子，阿库亚的孪生妹妹。[/mask]母亲爱给予的名字是星野瑠美衣，和哥哥相对左眼遗传了母亲的星星。和阿库亚一样，在母亲的事务所出道。\r\n[mask]在幼儿时期就很早熟，和转生前一样的阿宅性格甚至让哥哥阿库亚敬而远之。和阿库亚相互了解对方也是转生者，但并未发觉相互的身份。[/mask]",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "星野瑠美衣",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "158cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102127,
+                    "name": "星野アイ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/40/e1/102127_crt_1BT0Q.jpg?r=1681671679",
+                    "actor_ids": [
+                        17491
+                    ],
+                    "name_cn": "星野爱",
+                    "summary": "偶像团体“B小町”的C位偶像。故事开始时的年龄是16岁。[mask]对待工作十分上进，却意外怀孕。在生完双胞胎后立即返回偶像活动。孩子则作为秘密，阿库亚和露比对外被当做是事务所社长的孩子。[/mask]\r\n她的表演和演唱技巧一般，但作为偶像是一个天才。两只眼睛都有星星。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "星野爱",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "151cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102128,
+                    "name": "有馬かな",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/e8/fc/102128_crt_VBVt9.jpg?r=1681986163",
+                    "actor_ids": [
+                        7050
+                    ],
+                    "name_cn": "有马加奈",
+                    "summary": "少女演员。还是个儿童时就有了天才演员的名号与自信。在与阿库亚共同演出时因为输给了他对导演意图的理解，自此对他十分在意了起来。\r\n[mask]“今甜”电视剧后加入新生“B小町”。[/mask]",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "有马加奈",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "150cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102129,
+                    "name": "MEMちょ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/f9/c7/102129_crt_W1aI5.jpg?r=1679721906",
+                    "actor_ids": [
+                        6090
+                    ],
+                    "name_cn": "MEM啾",
+                    "summary": "自称高三的YouTuber，[mask]实际年龄25岁。[/mask]有着可爱的容貌，常带着像恶魔的角一样的发箍。看起来是天然的性格，但是能够通过网络进行营销，自称“营销专家”。\r\n[mask]“现恋”真人秀后加入新生“B小町”。[/mask]",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "MEM啾",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "155cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102130,
+                    "name": "黒川あかね",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/66/93/102130_crt_pPc77.jpg?r=1686710936",
+                    "actor_ids": [
+                        27559
+                    ],
+                    "name_cn": "黑川茜",
+                    "summary": "高二女演员。外表是冷美人，实际上是认真的努力家，随身携带记事本。对自己评价很低，认为自己只有演技这一个优点。\r\n是拥有一流演员的剧团“Lalalai”的年轻头牌，能够对演出的角色进行侧写，并以此为参考进行彻底的洞察和考察，拥有着这种能够完美演绎的第六感，以及甚至被有马评价为“只能称为天才”而嫉妒的演技能力。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "黑川茜",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "163cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102131,
+                    "name": "斎藤壱護",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/66/2a/102131_crt_svVFv.jpg?r=1635271214",
+                    "actor_ids": [
+                        4104
+                    ],
+                    "name_cn": "斋藤壹护",
+                    "summary": "爱所属的莓Production的社长，留着一副棕色胡须，戴太阳镜。故事开始时公司规模很小。[mask]爱过世后行踪不明。[/mask]",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "斋藤壹护",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102132,
+                    "name": "斎藤ミヤコ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/4f/cc/102132_crt_6Ec0E.jpg",
+                    "actor_ids": [
+                        15497
+                    ],
+                    "name_cn": "斋藤京子",
+                    "summary": "爱所属的莓Production的社长夫人。她与社长结婚是因为想靠近美少年，并打算再婚。相信了谎言，把露比当做上帝的化身。\r\n[mask]爱过世后接替了莓Pro的社长并正式收养了兄妹，将他们当成了自己的孩子来对待。[/mask]",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "斋藤京子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102138,
+                    "name": "鏑木勝也",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/0a/93/102138_crt_z5L6d.jpg?r=1635271908",
+                    "actor_ids": [
+                        5617
+                    ],
+                    "name_cn": "镝木胜也",
+                    "summary": "インターネットテレビ局「ドットTV！」所属のプロデューサー。[mask]アイに営業先や事務所に内緒で彼氏に会うお店を紹介したりしていた。[/mask]",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "镝木胜也",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 112829,
+                    "name": "吉住シュン",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/cb/65/112829_crt_8PiPY.jpg?r=1657137441",
+                    "actor_ids": [
+                        74363
+                    ],
+                    "name_cn": "吉住俊",
+                    "summary": "《深挖 机不可失》节目组AD（助理导演）。\r\n\r\n第7章「中堅編」でアクアが出演するWeb番組「深堀れ☆ワンチャン!!」のアシスタントディレクター（AD）として登場。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "吉住俊",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 138770,
+                    "name": "漆原鉄",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/88/6d/138770_crt_ldbh8.jpg?r=1695928037",
+                    "actor_ids": [
+                        4920
+                    ],
+                    "name_cn": "漆原铁",
+                    "summary": "第7章「中堅編」に登場。アクアが出演するWeb番組「深堀れ☆ワンチャン!!」のディレクター。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "漆原铁",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 303186,
+                    "name": "【推しの子】",
+                    "name_cn": "【我推的孩子】",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/35/b2/303186_oE6Bo.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 443428,
+                    "name": "【推しの子】 第2期",
+                    "name_cn": "【我推的孩子】 第二季",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/d1/1c/443428_FIhFu.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 616772,
+                    "name": "セレナーデ",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/d5/57/616772_9Z0DH.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 618418,
+                    "name": "TEST ME",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/dc/3a/618418_12Qjz.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "episodes": [
+                {
+                    "id": 1588451,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-01-14",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 1,
+                    "sort": 1,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588452,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-01-21",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 2,
+                    "sort": 2,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588453,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-01-28",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 3,
+                    "sort": 3,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588454,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-04",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 4,
+                    "sort": 4,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588455,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-11",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 5,
+                    "sort": 5,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588456,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-18",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 6,
+                    "sort": 6,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588457,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-25",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 7,
+                    "sort": 7,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588458,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-04",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 8,
+                    "sort": 8,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588459,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-11",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 9,
+                    "sort": 9,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588460,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-18",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 10,
+                    "sort": 10,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588461,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-25",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 11,
+                    "sort": 11,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588462,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-04-01",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 12,
+                    "sort": 12,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 3,
+            "watched_eps": 0,
+            "last_update": "2026-01-05T13:12:09+08:00",
+            "comment": null,
+            "tags": [],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 515759,
+            "name": "葬送のフリーレン 第2期",
+            "name_cn": "葬送的芙莉莲 第二季",
+            "short_summary": "",
+            "score": 8.1,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/0b/24/515759_qA1Zc.jpg",
+            "eps": 0,
+            "date": "2026-01-16",
+            "summary": "",
+            "total_episodes": 12,
+            "characters": [
+                {
+                    "id": 86246,
+                    "name": "フリーレン",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/b5/b6/86246_crt_L0Zmt.jpg",
+                    "actor_ids": [
+                        7575
+                    ],
+                    "name_cn": "芙莉莲",
+                    "summary": "千年以上生きるエルフで、勇者パーティーとして魔王を倒した魔法使い。魔法であればどんなものでも興味を持つ魔法オタク。性格はずぼらでドライ。仲間たちとの旅を経て、知らず知らずのうちにその心にも変化が現れる。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "芙莉莲",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "https://frieren-anime.jp/character/chara_group1/1-1/",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 86247,
+                    "name": "フェルン",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/38/6d/86247_crt_K4gRr.jpg",
+                    "actor_ids": [
+                        31136
+                    ],
+                    "name_cn": "菲伦",
+                    "summary": "フリーレンの弟子として共に旅をすることになる魔法使い。ハイターに育てられた戦災孤児。冷静な少女で、生活面でずぼらなフリーレンのお母さん役。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "菲伦",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "https://frieren-anime.jp/character/chara_group1/1-5/",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 88208,
+                    "name": "ヒンメル",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/63/0a/88208_crt_mm77H.jpg?r=1692974287",
+                    "actor_ids": [
+                        4950
+                    ],
+                    "name_cn": "辛美尔",
+                    "summary": "魔王を倒した勇者パーティーの勇者で、自称イケメンのナルシスト。仲間思いで、困っている人を助けずにはいられない。10年間共に冒険をしたフリーレンに大きな影響を与える。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "辛美尔",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "https://frieren-anime.jp/character/chara_group1/1-2/",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 89182,
+                    "name": "シュタルク",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/de/de/89182_crt_55gBE.jpg?r=1692974577",
+                    "actor_ids": [
+                        32265
+                    ],
+                    "name_cn": "修塔尔克",
+                    "summary": "フリーレンとフェルンと共に旅をすることになる戦士で、アイゼンの弟子。子どものような性格。臆病ながら高い戦闘力を持ち、前衛を務める。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "修塔尔克",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "https://frieren-anime.jp/character/chara_group1/1-6/",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 89183,
+                    "name": "ハイター",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/ff/51/89183_crt_f0212.jpg?r=1692974645",
+                    "actor_ids": [
+                        4658
+                    ],
+                    "name_cn": "海塔",
+                    "summary": "魔王を倒した勇者パーティーの僧侶。ヒンメルの幼馴染で、高度な回復魔法を操る優秀な僧侶だが、酒好き。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "海塔",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "https://frieren-anime.jp/character/chara_group1/1-3/",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 89184,
+                    "name": "アイゼン",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/f3/f8/89184_crt_e6Jj7.jpg?r=1692974662",
+                    "actor_ids": [
+                        4920
+                    ],
+                    "name_cn": "艾森",
+                    "summary": "魔王を倒した勇者パーティーの戦士。頑強なドワーフ族でパーティーの前衛を務める。寡黙だが、パーティーの中ではツッコミ役。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "艾森",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "https://frieren-anime.jp/character/chara_group1/1-4/",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 305429,
+                    "name": "葬送のフリーレン",
+                    "name_cn": "葬送的芙莉莲",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/a1/bd/305429_axzF3.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 400602,
+                    "name": "葬送のフリーレン",
+                    "name_cn": "葬送的芙莉莲",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/13/c5/400602_ZI8Y9.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 549563,
+                    "name": "葬送のフリーレン ～●●の魔法～2期",
+                    "name_cn": "葬送的芙莉莲 ～●●的魔法～2期",
+                    "relation": "衍生",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/a9/55/549563_wko8L.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 615503,
+                    "name": "The Story of Us",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "episodes": [
+                {
+                    "id": 1575936,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-01-16",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 1,
+                    "sort": 1,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1575937,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-01-23",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 2,
+                    "sort": 2,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1575938,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-01-30",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 3,
+                    "sort": 3,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1575939,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-06",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 4,
+                    "sort": 4,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1575940,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-13",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 5,
+                    "sort": 5,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1575941,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-20",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 6,
+                    "sort": 6,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1575942,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-27",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 7,
+                    "sort": 7,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1575943,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-06",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 8,
+                    "sort": 8,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1575944,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-13",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 9,
+                    "sort": 9,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1575945,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-20",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 10,
+                    "sort": 10,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1575946,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-27",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 11,
+                    "sort": 11,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1575947,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-04-03",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 12,
+                    "sort": 12,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 3,
+            "watched_eps": 0,
+            "last_update": "2026-01-05T13:11:55+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
