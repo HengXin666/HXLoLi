@@ -5,6 +5,10 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  schedule:
+    # 北京时间每日 00:22 (UTC 16:22)
+    # Cron 语法不支持秒，这里设置为 22 分触发
+    - cron: '22 16 * * *'
 
 # 明确流水线有写权限
 permissions:
