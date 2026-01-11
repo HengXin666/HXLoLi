@@ -192,7 +192,7 @@ export default function AnimeDetailPage (): React.ReactElement {
                                 <div className={styles.infoBox}>
                                     <Heading as="h4" className={styles.sectionTitle} id="basic">基本信息</Heading>
                                     <p><strong>评分:</strong> {record.anime_data.score} / 10</p>
-                                    <p><strong>放送日期:</strong> {record.anime_data.date}</p>
+                                    <p><strong>放送日期:</strong> {record.anime_data.date ?? "未知日期"}</p>
                                     <p><strong>集数:</strong> {(() => {
                                         let cnt: number = 0;
                                         for (const item of record.anime_data.episodes) {
