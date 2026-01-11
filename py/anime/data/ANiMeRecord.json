@@ -153688,8 +153688,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 0,
-            "last_update": "2025-12-24T13:24:08+08:00",
+            "watched_eps": 4,
+            "last_update": "2026-01-08T12:53:54+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -154144,13 +154144,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "赛罗·佛鲁巴兹",
-                            "__dataclass__": "KeyValue"
+                            "value": "赛罗·佛鲁巴兹"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154171,13 +154169,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "泰奥莉塔",
-                            "__dataclass__": "KeyValue"
+                            "value": "泰奥莉塔"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154198,13 +154194,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "芭特谢·基维亚",
-                            "__dataclass__": "KeyValue"
+                            "value": "芭特谢·基维亚"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154225,13 +154219,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "铎达·鲁兹拉斯",
-                            "__dataclass__": "KeyValue"
+                            "value": "铎达·鲁兹拉斯"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154252,13 +154244,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "贝涅提姆·雷欧布鲁",
-                            "__dataclass__": "KeyValue"
+                            "value": "贝涅提姆·雷欧布鲁"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154279,13 +154269,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "诺鲁卡由·圣利兹",
-                            "__dataclass__": "KeyValue"
+                            "value": "诺鲁卡由·圣利兹"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154306,13 +154294,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "达也",
-                            "__dataclass__": "KeyValue"
+                            "value": "达也"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154333,13 +154319,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "渣布",
-                            "__dataclass__": "KeyValue"
+                            "value": "渣布"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154360,13 +154344,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "杰斯·帕奇拉库特",
-                            "__dataclass__": "KeyValue"
+                            "value": "杰斯·帕奇拉库特"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154387,13 +154369,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "尼利",
-                            "__dataclass__": "KeyValue"
+                            "value": "尼利"
                         },
                         {
                             "key": "性别",
-                            "value": "雌",
-                            "__dataclass__": "KeyValue"
+                            "value": "雌"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154414,13 +154394,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "莱诺",
-                            "__dataclass__": "KeyValue"
+                            "value": "莱诺"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154441,8 +154419,7 @@
                     "tags": [
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154526,8 +154503,7 @@
                     "duration_seconds": 3480,
                     "ep": 1,
                     "sort": 1,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1603694,
@@ -154538,8 +154514,7 @@
                     "duration_seconds": 0,
                     "ep": 2,
                     "sort": 2,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1603695,
@@ -154550,8 +154525,7 @@
                     "duration_seconds": 0,
                     "ep": 3,
                     "sort": 3,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1603696,
@@ -154562,8 +154536,7 @@
                     "duration_seconds": 0,
                     "ep": 4,
                     "sort": 4,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1603697,
@@ -154574,8 +154547,7 @@
                     "duration_seconds": 0,
                     "ep": 5,
                     "sort": 5,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1603698,
@@ -154586,8 +154558,7 @@
                     "duration_seconds": 0,
                     "ep": 6,
                     "sort": 6,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1603699,
@@ -154598,8 +154569,7 @@
                     "duration_seconds": 0,
                     "ep": 7,
                     "sort": 7,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1603700,
@@ -154610,8 +154580,7 @@
                     "duration_seconds": 0,
                     "ep": 8,
                     "sort": 8,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1603701,
@@ -154622,8 +154591,7 @@
                     "duration_seconds": 0,
                     "ep": 9,
                     "sort": 9,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1603702,
@@ -154634,8 +154602,7 @@
                     "duration_seconds": 0,
                     "ep": 10,
                     "sort": 10,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1603703,
@@ -154646,8 +154613,7 @@
                     "duration_seconds": 0,
                     "ep": 11,
                     "sort": 11,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1603704,
@@ -154658,8 +154624,7 @@
                     "duration_seconds": 0,
                     "ep": 12,
                     "sort": 12,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 }
             ],
             "__dataclass__": "ANiMeData"
@@ -154703,8 +154668,7 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "旁白",
-                            "__dataclass__": "KeyValue"
+                            "value": "旁白"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154725,28 +154689,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "四宫辉夜",
-                            "__dataclass__": "KeyValue"
+                            "value": "四宫辉夜"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "1月1日",
-                            "__dataclass__": "KeyValue"
+                            "value": "1月1日"
                         },
                         {
                             "key": "血型",
-                            "value": "AB",
-                            "__dataclass__": "KeyValue"
+                            "value": "AB"
                         },
                         {
                             "key": "身高",
-                            "value": "158cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "158cm"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154767,28 +154726,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "白银御行",
-                            "__dataclass__": "KeyValue"
+                            "value": "白银御行"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "生日",
-                            "value": "9月9日",
-                            "__dataclass__": "KeyValue"
+                            "value": "9月9日"
                         },
                         {
                             "key": "血型",
-                            "value": "O型",
-                            "__dataclass__": "KeyValue"
+                            "value": "O型"
                         },
                         {
                             "key": "身高",
-                            "value": "175cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "175cm"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154809,28 +154763,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "藤原千花",
-                            "__dataclass__": "KeyValue"
+                            "value": "藤原千花"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "3月3日",
-                            "__dataclass__": "KeyValue"
+                            "value": "3月3日"
                         },
                         {
                             "key": "血型",
-                            "value": "O",
-                            "__dataclass__": "KeyValue"
+                            "value": "O"
                         },
                         {
                             "key": "身高",
-                            "value": "154cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "154cm"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154851,28 +154800,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "石上优",
-                            "__dataclass__": "KeyValue"
+                            "value": "石上优"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "生日",
-                            "value": "3月3日",
-                            "__dataclass__": "KeyValue"
+                            "value": "3月3日"
                         },
                         {
                             "key": "血型",
-                            "value": "O",
-                            "__dataclass__": "KeyValue"
+                            "value": "O"
                         },
                         {
                             "key": "身高",
-                            "value": "169cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "169cm"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154893,28 +154837,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "早坂爱",
-                            "__dataclass__": "KeyValue"
+                            "value": "早坂爱"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "4月2日",
-                            "__dataclass__": "KeyValue"
+                            "value": "4月2日"
                         },
                         {
                             "key": "血型",
-                            "value": "AB",
-                            "__dataclass__": "KeyValue"
+                            "value": "AB"
                         },
                         {
                             "key": "身高",
-                            "value": "162cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "162cm"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154935,28 +154874,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "柏木渚",
-                            "__dataclass__": "KeyValue"
+                            "value": "柏木渚"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "6月25日",
-                            "__dataclass__": "KeyValue"
+                            "value": "6月25日"
                         },
                         {
                             "key": "血型",
-                            "value": "B型",
-                            "__dataclass__": "KeyValue"
+                            "value": "B型"
                         },
                         {
                             "key": "身高",
-                            "value": "160cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "160cm"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -154977,23 +154911,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "田沼翼",
-                            "__dataclass__": "KeyValue"
+                            "value": "田沼翼"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "生日",
-                            "value": "8月25日",
-                            "__dataclass__": "KeyValue"
+                            "value": "8月25日"
                         },
                         {
                             "key": "血型",
-                            "value": "A型",
-                            "__dataclass__": "KeyValue"
+                            "value": "A型"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155014,28 +154944,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "白银圭",
-                            "__dataclass__": "KeyValue"
+                            "value": "白银圭"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "8月1日",
-                            "__dataclass__": "KeyValue"
+                            "value": "8月1日"
                         },
                         {
                             "key": "血型",
-                            "value": "B",
-                            "__dataclass__": "KeyValue"
+                            "value": "B"
                         },
                         {
                             "key": "身高",
-                            "value": "158cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "158cm"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155056,13 +154981,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "白银的父亲",
-                            "__dataclass__": "KeyValue"
+                            "value": "白银的父亲"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155083,28 +155006,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "四条真妃",
-                            "__dataclass__": "KeyValue"
+                            "value": "四条真妃"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "1月1日",
-                            "__dataclass__": "KeyValue"
+                            "value": "1月1日"
                         },
                         {
                             "key": "血型",
-                            "value": "AB",
-                            "__dataclass__": "KeyValue"
+                            "value": "AB"
                         },
                         {
                             "key": "身高",
-                            "value": "155cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "155cm"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155125,33 +155043,27 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "伊井野弥子",
-                            "__dataclass__": "KeyValue"
+                            "value": "伊井野弥子"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "5月5日",
-                            "__dataclass__": "KeyValue"
+                            "value": "5月5日"
                         },
                         {
                             "key": "血型",
-                            "value": "O型",
-                            "__dataclass__": "KeyValue"
+                            "value": "O型"
                         },
                         {
                             "key": "身高",
-                            "value": "147cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "147cm"
                         },
                         {
                             "key": "引用来源",
-                            "value": "dic.pixiv.net/a/伊井野ミコ",
-                            "__dataclass__": "KeyValue"
+                            "value": "dic.pixiv.net/a/伊井野ミコ"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155170,33 +155082,27 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "子安燕",
-                            "__dataclass__": "KeyValue"
+                            "value": "子安燕"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "4月4日",
-                            "__dataclass__": "KeyValue"
+                            "value": "4月4日"
                         },
                         {
                             "key": "血型",
-                            "value": "A型",
-                            "__dataclass__": "KeyValue"
+                            "value": "A型"
                         },
                         {
                             "key": "身高",
-                            "value": "162cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "162cm"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155215,28 +155121,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "大佛小钵",
-                            "__dataclass__": "KeyValue"
+                            "value": "大佛小钵"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "6月6日",
-                            "__dataclass__": "KeyValue"
+                            "value": "6月6日"
                         },
                         {
                             "key": "血型",
-                            "value": "B型",
-                            "__dataclass__": "KeyValue"
+                            "value": "B型"
                         },
                         {
                             "key": "身高",
-                            "value": "163cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "163cm"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155255,33 +155156,27 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "小野寺丽",
-                            "__dataclass__": "KeyValue"
+                            "value": "小野寺丽"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "5月17日",
-                            "__dataclass__": "KeyValue"
+                            "value": "5月17日"
                         },
                         {
                             "key": "血型",
-                            "value": "O",
-                            "__dataclass__": "KeyValue"
+                            "value": "O"
                         },
                         {
                             "key": "身高",
-                            "value": "159cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "159cm"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155302,18 +155197,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "槙原梢",
-                            "__dataclass__": "KeyValue"
+                            "value": "槙原梢"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155334,13 +155226,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "四条帝",
-                            "__dataclass__": "KeyValue"
+                            "value": "四条帝"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155359,13 +155249,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "J铃木",
-                            "__dataclass__": "KeyValue"
+                            "value": "J铃木"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155384,13 +155272,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "GIGA子",
-                            "__dataclass__": "KeyValue"
+                            "value": "GIGA子"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155409,13 +155295,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "风野",
-                            "__dataclass__": "KeyValue"
+                            "value": "风野"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155487,8 +155371,7 @@
                     "duration_seconds": 1536,
                     "ep": 1,
                     "sort": 1,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1613894,
@@ -155499,8 +155382,7 @@
                     "duration_seconds": 1626,
                     "ep": 2,
                     "sort": 2,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 }
             ],
             "__dataclass__": "ANiMeData"
@@ -155544,23 +155426,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "星野爱久爱海",
-                            "__dataclass__": "KeyValue"
+                            "value": "星野爱久爱海"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "身高",
-                            "value": "172cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "172cm"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155581,23 +155459,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "星野瑠美衣",
-                            "__dataclass__": "KeyValue"
+                            "value": "星野瑠美衣"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "身高",
-                            "value": "158cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "158cm"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155618,23 +155492,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "星野爱",
-                            "__dataclass__": "KeyValue"
+                            "value": "星野爱"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "身高",
-                            "value": "151cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "151cm"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155655,23 +155525,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "有马加奈",
-                            "__dataclass__": "KeyValue"
+                            "value": "有马加奈"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "身高",
-                            "value": "150cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "150cm"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155692,23 +155558,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "MEM啾",
-                            "__dataclass__": "KeyValue"
+                            "value": "MEM啾"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "身高",
-                            "value": "155cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "155cm"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155729,23 +155591,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "黑川茜",
-                            "__dataclass__": "KeyValue"
+                            "value": "黑川茜"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "身高",
-                            "value": "163cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "163cm"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155766,18 +155624,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "斋藤壹护",
-                            "__dataclass__": "KeyValue"
+                            "value": "斋藤壹护"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155798,18 +155653,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "斋藤京子",
-                            "__dataclass__": "KeyValue"
+                            "value": "斋藤京子"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155830,18 +155682,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "镝木胜也",
-                            "__dataclass__": "KeyValue"
+                            "value": "镝木胜也"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155862,18 +155711,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "吉住俊",
-                            "__dataclass__": "KeyValue"
+                            "value": "吉住俊"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155894,18 +155740,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "漆原铁",
-                            "__dataclass__": "KeyValue"
+                            "value": "漆原铁"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
+                            "value": "wiki"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -155959,8 +155802,7 @@
                     "duration_seconds": 0,
                     "ep": 1,
                     "sort": 1,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1588452,
@@ -155971,8 +155813,7 @@
                     "duration_seconds": 0,
                     "ep": 2,
                     "sort": 2,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1588453,
@@ -155983,8 +155824,7 @@
                     "duration_seconds": 0,
                     "ep": 3,
                     "sort": 3,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1588454,
@@ -155995,8 +155835,7 @@
                     "duration_seconds": 0,
                     "ep": 4,
                     "sort": 4,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1588455,
@@ -156007,8 +155846,7 @@
                     "duration_seconds": 0,
                     "ep": 5,
                     "sort": 5,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1588456,
@@ -156019,8 +155857,7 @@
                     "duration_seconds": 0,
                     "ep": 6,
                     "sort": 6,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1588457,
@@ -156031,8 +155868,7 @@
                     "duration_seconds": 0,
                     "ep": 7,
                     "sort": 7,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1588458,
@@ -156043,8 +155879,7 @@
                     "duration_seconds": 0,
                     "ep": 8,
                     "sort": 8,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1588459,
@@ -156055,8 +155890,7 @@
                     "duration_seconds": 0,
                     "ep": 9,
                     "sort": 9,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1588460,
@@ -156067,8 +155901,7 @@
                     "duration_seconds": 0,
                     "ep": 10,
                     "sort": 10,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1588461,
@@ -156079,8 +155912,7 @@
                     "duration_seconds": 0,
                     "ep": 11,
                     "sort": 11,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1588462,
@@ -156091,8 +155923,7 @@
                     "duration_seconds": 0,
                     "ep": 12,
                     "sort": 12,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 }
             ],
             "__dataclass__": "ANiMeData"
@@ -156136,18 +155967,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "芙莉莲",
-                            "__dataclass__": "KeyValue"
+                            "value": "芙莉莲"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "https://frieren-anime.jp/character/chara_group1/1-1/",
-                            "__dataclass__": "KeyValue"
+                            "value": "https://frieren-anime.jp/character/chara_group1/1-1/"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156168,18 +155996,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "菲伦",
-                            "__dataclass__": "KeyValue"
+                            "value": "菲伦"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "https://frieren-anime.jp/character/chara_group1/1-5/",
-                            "__dataclass__": "KeyValue"
+                            "value": "https://frieren-anime.jp/character/chara_group1/1-5/"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156200,18 +156025,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "辛美尔",
-                            "__dataclass__": "KeyValue"
+                            "value": "辛美尔"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "引用来源",
-                            "value": "https://frieren-anime.jp/character/chara_group1/1-2/",
-                            "__dataclass__": "KeyValue"
+                            "value": "https://frieren-anime.jp/character/chara_group1/1-2/"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156232,18 +156054,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "修塔尔克",
-                            "__dataclass__": "KeyValue"
+                            "value": "修塔尔克"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "引用来源",
-                            "value": "https://frieren-anime.jp/character/chara_group1/1-6/",
-                            "__dataclass__": "KeyValue"
+                            "value": "https://frieren-anime.jp/character/chara_group1/1-6/"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156264,18 +156083,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "海塔",
-                            "__dataclass__": "KeyValue"
+                            "value": "海塔"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "引用来源",
-                            "value": "https://frieren-anime.jp/character/chara_group1/1-3/",
-                            "__dataclass__": "KeyValue"
+                            "value": "https://frieren-anime.jp/character/chara_group1/1-3/"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156296,18 +156112,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "艾森",
-                            "__dataclass__": "KeyValue"
+                            "value": "艾森"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "引用来源",
-                            "value": "https://frieren-anime.jp/character/chara_group1/1-4/",
-                            "__dataclass__": "KeyValue"
+                            "value": "https://frieren-anime.jp/character/chara_group1/1-4/"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156361,8 +156174,7 @@
                     "duration_seconds": 0,
                     "ep": 1,
                     "sort": 1,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1575937,
@@ -156373,8 +156185,7 @@
                     "duration_seconds": 0,
                     "ep": 2,
                     "sort": 2,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1575938,
@@ -156385,8 +156196,7 @@
                     "duration_seconds": 0,
                     "ep": 3,
                     "sort": 3,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1575939,
@@ -156397,8 +156207,7 @@
                     "duration_seconds": 0,
                     "ep": 4,
                     "sort": 4,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1575940,
@@ -156409,8 +156218,7 @@
                     "duration_seconds": 0,
                     "ep": 5,
                     "sort": 5,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1575941,
@@ -156421,8 +156229,7 @@
                     "duration_seconds": 0,
                     "ep": 6,
                     "sort": 6,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1575942,
@@ -156433,8 +156240,7 @@
                     "duration_seconds": 0,
                     "ep": 7,
                     "sort": 7,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1575943,
@@ -156445,8 +156251,7 @@
                     "duration_seconds": 0,
                     "ep": 8,
                     "sort": 8,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1575944,
@@ -156457,8 +156262,7 @@
                     "duration_seconds": 0,
                     "ep": 9,
                     "sort": 9,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1575945,
@@ -156469,8 +156273,7 @@
                     "duration_seconds": 0,
                     "ep": 10,
                     "sort": 10,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1575946,
@@ -156481,8 +156284,7 @@
                     "duration_seconds": 0,
                     "ep": 11,
                     "sort": 11,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1575947,
@@ -156493,8 +156295,7 @@
                     "duration_seconds": 0,
                     "ep": 12,
                     "sort": 12,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 }
             ],
             "__dataclass__": "ANiMeData"
