@@ -1,6 +1,5 @@
 import React from "react";
 import { Tabs, TabItem } from "@site/src/components/common/Tabs";
-import { WatchStatus } from "@site/src/utils/anime/types";
 
 export enum SortMode {
     BY_ANIME_DATE = 1,

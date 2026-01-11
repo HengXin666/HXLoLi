@@ -37,7 +37,7 @@ function getRecordDateBySortMode (
     if (sortMode === SortMode.BY_LAST_UPDATE) {
         return record.user_status.last_update;
     }
-    return record.anime_data.date;
+    return record.anime_data.date ?? "9999-12-31";
 }
 
 function groupByQuarter (
@@ -165,7 +165,7 @@ export default function Home (): React.ReactNode {
                                                     name_cn: "未知番剧",
                                                     score: 9.9,
                                                     eps: 24,
-                                                    date: "2077-10-11",
+                                                    date: "9999-12-31",
                                                     short_summary: "这是一个占位用的番剧数据",
                                                     summary: "",
                                                     image_url: "",
@@ -191,7 +191,7 @@ export default function Home (): React.ReactNode {
                             groupedAnime.map(({ quarter, records }) => (
                                 <section key={quarter} className="margin-vert--lg">
                                     <Heading as="h2" id={quarter.replace(" ", "-")}>
-                                        <span className={styles.archiveListTitle}>{quarter}</span>
+                                        <span className={styles.archiveListTitle}>{quarter.split(" ")[0] === "9999" ? "未知日期" : quarter}</span>
                                     </Heading>
 
                                     <ul className={styles.archiveList}>
