@@ -8594,5 +8594,47 @@
         "short_summary": "子ども好き故に、幼少期から高校まで保育士を目指していたが、中学生の頃から声を使うことが好きなこともあり、高校生の頃に参加した声優の専門学校の体験入学をきっかけに、声優を志す。\r\n中学校から高校までは卓球部、コンピューター部、イラストを描く部活に入っていた。高校ではIT・会計系の1級資格を4つ取得。\r\n高校卒業後、専門学校と養成所を経て、賢プロダクションに所属となる。\r\n好きなことは音声表現と自分の声を使うこと、メイクと美容、香水探し、古代生物、食べること。\r\n特に好きな古代生物は恐竜のパラサウロロフス。\r\n好きな食べ物はお肉とラーメンと甘いものとお菓子。",
         "image_url": "https://lain.bgm.tv/pic/crt/l/50/05/74363_prsn_UxUU7.jpg",
         "__dataclass__": "Actor"
+    },
+    {
+        "id": 39802,
+        "name": "三浦千幸",
+        "short_summary": "三浦千幸（みうら ちゆき、11月17日 - ）は、日本の女性声優。宮城県出身。賢プロダクション所属。",
+        "image_url": "https://lain.bgm.tv/pic/crt/l/a6/c0/39802_prsn_N555G.jpg?r=1753499489",
+        "__dataclass__": "Actor"
+    },
+    {
+        "id": 67776,
+        "name": "本村玲奈",
+        "short_summary": "出身大阪府\r\n趣味・特技絵を描くこと、脚本、音楽鑑賞／クラシックバレエ（5年間）、極真空手（3年間）",
+        "image_url": "https://lain.bgm.tv/pic/crt/l/44/37/67776_prsn_gG7Gp.jpg",
+        "__dataclass__": "Actor"
+    },
+    {
+        "id": 60842,
+        "name": "佐藤榛夏",
+        "short_summary": "佐藤榛夏は、日本の女性声優。千葉県出身。アイムエンタープライズ所属。",
+        "image_url": "https://lain.bgm.tv/pic/crt/l/17/22/60842_prsn_Wrzw9.jpg",
+        "__dataclass__": "Actor"
+    },
+    {
+        "id": 41365,
+        "name": "川口莉奈",
+        "short_summary": "青二プロダクション 所属\r\n\r\n出身地：埼玉県\r\n趣味：歌唱、イラスト、MMD、ダンス\r\n特技：紅茶を淹れ方、ドラム、口笛・歯笛",
+        "image_url": "https://lain.bgm.tv/pic/crt/l/48/1f/41365_prsn_F0RRZ.jpg?r=1723864344",
+        "__dataclass__": "Actor"
+    },
+    {
+        "id": 86281,
+        "name": "織部はるか",
+        "short_summary": "出身地：愛媛県\r\n方言：伊予弁\r\n趣味・スポーツ：リユースショップ巡り、銭湯、サウナ、家電の情報収集\r\n特技：卵焼きを作ること、大富豪\r\n資格：なし\r\n芸歴：東京ナレーション演技研究所",
+        "image_url": "https://lain.bgm.tv/pic/crt/l/4a/7a/86281_prsn_hfMZM.jpg",
+        "__dataclass__": "Actor"
+    },
+    {
+        "id": 48672,
+        "name": "阿部菜摘子",
+        "short_summary": "",
+        "image_url": "https://lain.bgm.tv/pic/crt/l/7c/fb/48672_prsn_4FspM.jpg",
+        "__dataclass__": "Actor"
     }
 ]
