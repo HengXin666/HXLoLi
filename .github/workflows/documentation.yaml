@@ -1,4 +1,4 @@
-name: Node.js CI & Bangumi Sync
+name: "[LoLi]: 爬取 BanGuMi 看情况更新博客"
 
 on:
   push:
@@ -6,19 +6,21 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    # 北京时间每日 00:22 (UTC 16:22)
-    # Cron 语法不支持秒，这里设置为 22 分触发
-    - cron: '22 16 * * *'
+    # 北京时间 00:30 和 03:00
+    - cron: '30 16 * * *'
+    - cron: '0 19 * * *'
 
-# 明确流水线有写权限
 permissions:
   contents: write
 
 jobs:
-  # Job 1: 同步 Bangumi 数据
   sync-data:
-    # 关键: 只有在 push 到 main 分支, 且提交信息不包含 [LoLi-Bot] 时才运行
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[LoLi-Bot]')
+    if: |
+      (github.event_name == 'push' &&
+       github.ref == 'refs/heads/main' &&
+       !contains(github.event.head_commit.message, '[LoLi-Bot]'))
+      ||
+      github.event_name == 'schedule'
     runs-on: ubuntu-latest
 
     steps:
@@ -34,22 +36,24 @@ jobs:
         run: curl -LsSf https://astral.sh/uv/install.sh | sh
 
       - name: 安装 蟒蛇 依赖
-        # 在 py 目录下运行 uv sync。它会自动寻找 requirements.txt 或 pyproject.toml
         run: |
           source $HOME/.cargo/env
           uv sync
         working-directory: ./py
 
-      # 判断如果是周一, 就全量更新 (删除 ./py/anime/data/*.json)
-      # 当且仅当定时触发才有效
-      - name: 判断是否是周一(北京时间)
+      - name: 判断是否需要全量更新(仅周一 00:30 CST)
         run: |
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "$(TZ=Asia/Shanghai date +%u)" -eq 1 ]; then
-              echo "定时触发 + 周一(北京时间), 全量更新"
+            TZ=Asia/Shanghai
+            WEEKDAY=$(date +%u)
+            HOUR=$(date +%H)
+            MINUTE=$(date +%M)
+
+            if [ "$WEEKDAY" -eq 1 ] && [ "$HOUR" -eq 0 ] && [ "$MINUTE" -eq 30 ]; then
+              echo "周一 00:30(北京时间), 执行全量更新"
               rm -f *.json
             else
-              echo "定时触发但不是周一, 增量更新"
+              echo "定时触发, 但不是周一 00:30, 增量更新"
             fi
           else
             echo "非定时触发, 增量更新"
@@ -62,7 +66,6 @@ jobs:
           uv run Api.py --username="heng_xin" --token=${{ secrets.BGM_ACCESS_TOKEN }}
         working-directory: ./py/anime
         env:
-          # 关闭缓冲区 以显示日志
           PYTHONUNBUFFERED: "1"
 
       - name: 拷贝数据到静态网站目录
@@ -74,27 +77,23 @@ jobs:
       - name: 召唤 萝莉小猫娘 帮忙 push
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          # 使用您的机器人名称作为提交信息
           commit_message: '[LoLi-Bot]: ご主人さま、アニメデータを更新しましたにゃ'
-          # 设置为您指定的 Git 用户身份
           commit_user_name: 'Heng_Xin[LoLi-Bot]'
           commit_user_email: '282000500@qq.com'
           commit_author: 'Heng_Xin[LoLi-Bot] <282000500@qq.com>'
 
-  # Job 2: 部署到 GitHub Pages
   deploy:
-    # 关键: 也依赖于 sync-data 的成功完成
-    # 并且, 只在 push 到 main 且不是机器人提交时运行 (这个条件从 sync-data 继承, 但再次声明更清晰)
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[LoLi-Bot]')
+    if: github.event_name == 'push' &&
+        github.ref == 'refs/heads/main' &&
+        !contains(github.event.head_commit.message, '[LoLi-Bot]')
     runs-on: ubuntu-latest
     needs: sync-data
 
     steps:
       - name: 同步最新代码
-        # 在 sync-data 推送新 commit 后, 我们需要重新 checkout 最新的代码
         uses: actions/checkout@v4
         with:
-            ref: 'main' # 明确指定 checkout main 分支的最新 commit
+          ref: 'main'
 
       - name: 启动 Node.js
         uses: actions/setup-node@v4
