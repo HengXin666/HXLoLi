@@ -153687,9 +153687,9 @@
             "__dataclass__": "ANiMeData"
         },
         "user_status": {
-            "watch_status": 3,
+            "watch_status": 2,
             "watched_eps": 4,
-            "last_update": "2026-01-08T12:53:54+08:00",
+            "last_update": "2026-01-12T20:30:40+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -154631,8 +154631,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 1,
-            "last_update": "2026-01-05T14:04:56+08:00",
+            "watched_eps": 2,
+            "last_update": "2026-01-17T19:22:49+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -155389,8 +155389,8 @@
         },
         "user_status": {
             "watch_status": 2,
-            "watched_eps": 1,
-            "last_update": "2026-01-05T13:12:46+08:00",
+            "watched_eps": 2,
+            "last_update": "2026-01-13T13:16:40+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -155930,8 +155930,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 0,
-            "last_update": "2026-01-05T13:12:09+08:00",
+            "watched_eps": 1,
+            "last_update": "2026-01-15T13:03:51+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -156302,8 +156302,644 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 0,
-            "last_update": "2026-01-05T13:11:55+08:00",
+            "watched_eps": 1,
+            "last_update": "2026-01-17T19:47:50+08:00",
+            "comment": null,
+            "tags": [],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 510753,
+            "name": "死亡遊戯で飯を食う。",
+            "name_cn": "靠死亡游戏混饭吃。",
+            "short_summary": "这是某个疯狂世界里的故事。\r\n\r\n少女（玩家）们挑战与死亡比邻的游戏。\r\n若能生还便可获得奖金，但哪怕做到万无一失也仍有可能命丧黄泉。\r\n\r\n世上确实存在着这样一群人，\r\n生活在这种疯狂世界中。\r\n\r\n玩家名：幽鬼（YUKI）。\r\n职业：杀",
+            "score": 6.8,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/0d/a2/510753_3zw53.jpg",
+            "eps": 11,
+            "date": "2026-01-07",
+            "summary": "这是某个疯狂世界里的故事。\r\n\r\n少女（玩家）们挑战与死亡比邻的游戏。\r\n若能生还便可获得奖金，但哪怕做到万无一失也仍有可能命丧黄泉。\r\n\r\n世上确实存在着这样一群人，\r\n生活在这种疯狂世界中。\r\n\r\n玩家名：幽鬼（YUKI）。\r\n职业：杀人游戏的职业玩家。\r\n她今天也依旧靠着死亡游戏混饭吃。\r\n\r\n\r\n\r\n[简介原文]\r\nこれは、とあるいかれた世界の話。\r\n\r\n少女《プレイヤー》たちが挑むのは、死が隣り合わせのゲーム。\r\n生還すれば賞金を得るが、万全を尽くしても命を落とすことがある。\r\n\r\nそんな世界で、生きていく。\r\nこの世にはそういう人間たちが確かにいる。\r\n\r\nプレイヤーネーム・幽鬼《ユウキ》。\r\n職業・殺人ゲームのプロフェッショナル。\r\n彼女は今日も、死亡遊戯で飯を食う。",
+            "total_episodes": 11,
+            "characters": [
+                {
+                    "id": 171451,
+                    "name": "幽鬼",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/7c/0d/171451_crt_mAe8s.jpg",
+                    "actor_ids": [
+                        39802
+                    ],
+                    "name_cn": "幽鬼",
+                    "summary": "血の気の薄い肌に長い髪、碧眼の少女。\r\n殺人ゲームの賞金で日々を生きている。\r\n生活力は乏しく、いろいろと無頓着。\r\n\r\n趣味・特技：夜の散歩、背後から近づいてくる気配を読むこと\r\n苦手なこと：日が昇っている時間に起きること\r\n次回参加予定：GHOST HOUSE",
+                    "birth_year": null,
+                    "birth_month": 4,
+                    "birth_day": 18,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "幽鬼",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "4月18日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "年龄",
+                            "value": "17岁",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 190875,
+                    "name": "青井",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/cc/a0/190875_crt_VQ3yg.jpg",
+                    "actor_ids": [
+                        67776
+                    ],
+                    "name_cn": "青井",
+                    "summary": "今回ゲーム初参加。\r\n気弱な性格でいつも伏し目がち。\r\n\r\n趣味・特技：読書、編み物\r\n苦手なこと：コミュニケーション全般\r\n次回参加見込：GHOST HOUSE",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "青井",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 190876,
+                    "name": "金子",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/36/75/190876_crt_PN87G.jpg",
+                    "actor_ids": [
+                        10868
+                    ],
+                    "name_cn": "金子",
+                    "summary": "今回ゲーム初参加。\r\n父子家庭で育つしっかり者。\r\n\r\n趣味・特技：家計簿をつけること、電卓を叩くこと\r\n苦手なこと：物事をなあなあで済ますこと\r\n次回参加見込：GHOST HOUSE",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "金子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 190877,
+                    "name": "黒糖",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/02/46/190877_crt_fYInT.jpg",
+                    "actor_ids": [
+                        60842
+                    ],
+                    "name_cn": "黑糖",
+                    "summary": "まだまだゲーム初心者。\r\n放浪癖がある。\r\n\r\n趣味・特技：物事の本質を見抜くこと、要領よくこなすこと\r\n苦手なこと：金勘定\r\n次回参加見込：GHOST HOUSE",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "黑糖",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 190878,
+                    "name": "紅野",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/88/d7/190878_crt_QdGx0.jpg",
+                    "actor_ids": [
+                        5636
+                    ],
+                    "name_cn": "红野",
+                    "summary": "今回ゲーム初参加。\r\n既に働いている社会人。\r\n\r\n趣味・特技：スポーツ全般\r\n苦手：なこと病院の採血、映画の流血シーン\r\n次回参加見込：GHOST HOUSE",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "红野",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 190879,
+                    "name": "桃乃",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/0a/29/190879_crt_4EemN.jpg",
+                    "actor_ids": [
+                        41365
+                    ],
+                    "name_cn": "桃乃",
+                    "summary": "今回ゲーム初参加。\r\nのんびりした性格で、スタイルが良い。\r\n\r\n趣味・特技：飲食店の良し悪しを外見から見抜くこと\r\n苦手なこと：人の嘘を見抜くこと\r\n次回参加見込：GHOST HOUSE",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "桃乃",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197503,
+                    "name": "吾妻",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/1e/9e/197503_crt_vVVUE.jpg",
+                    "actor_ids": [
+                        86281
+                    ],
+                    "name_cn": "吾妻",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "吾妻",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197504,
+                    "name": "御城",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/99/bf/197504_crt_I996V.jpg",
+                    "actor_ids": [
+                        37194
+                    ],
+                    "name_cn": "御城",
+                    "summary": "ブロンドの縦ロールが目を惹く。言葉はどこか刺々しいが、その姿はお嬢様のような気品に溢れる。\r\n\r\nメモ\r\n自らの力を信じており、ゲームではいつもリーダー的役割を買って出ている。\r\n\r\n次回参加予定\r\nSCRAP BUILDING（参加７回目）",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "御城",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197505,
+                    "name": "藍里",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/19/f4/197505_crt_K1H2R.jpg",
+                    "actor_ids": [
+                        5494
+                    ],
+                    "name_cn": "蓝里",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "蓝里",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197506,
+                    "name": "萌黄",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/aa/b8/197506_crt_NwcaA.jpg",
+                    "actor_ids": [
+                        48672
+                    ],
+                    "name_cn": "萌黄",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "萌黄",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197507,
+                    "name": "白士",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/ad/94/197507_crt_VRc94.jpg",
+                    "actor_ids": [
+                        4272
+                    ],
+                    "name_cn": "白士",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "白士",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197567,
+                    "name": "墨家",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/32/2e/197567_crt_32oYA.jpg",
+                    "actor_ids": [],
+                    "name_cn": "墨家",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "墨家",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197568,
+                    "name": "伽羅",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d1/d9/197568_crt_Q89Jk.jpg",
+                    "actor_ids": [],
+                    "name_cn": "伽罗",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "伽罗",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197787,
+                    "name": "言葉",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/f8/c9/197787_crt_G7VGa.jpg",
+                    "actor_ids": [
+                        34866
+                    ],
+                    "name_cn": "言叶",
+                    "summary": "このゲーム参加者としては珍しい眼鏡使用者。どこか自信なさげに言葉を紡ぐ。\r\n\r\nメモ\r\n若くして働いていることもあってか、比較的地に足を付けている印象があるプレイヤー。\r\n\r\n次回参加予定\r\nSCRAP BUILDING（参加５回目）",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "言叶",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197788,
+                    "name": "毛糸",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/6f/a2/197788_crt_T7jB4.jpg",
+                    "actor_ids": [
+                        32091
+                    ],
+                    "name_cn": "毛糸",
+                    "summary": "毛糸のようにひょろりとした体型。ものすごく胡散臭いオーラを放っている。\r\n\r\nメモ\r\nゲームでは実力者の力を頼ってクリアを目指すスタイル。\r\n\r\n次回参加予定\r\nSCRAP BUILDING（参加６回目）",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "毛糸",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 197789,
+                    "name": "智恵",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/65/4c/197789_crt_xg2MS.jpg",
+                    "actor_ids": [
+                        13448
+                    ],
+                    "name_cn": "智惠",
+                    "summary": "茶髪を束ねたサイドテールと間延びした声が印象的。\r\n\r\nメモ\r\n特筆できるような特技などは持ち合わせていないが、要領の良さでゲームを乗り越えている。\r\n\r\n次回参加予定\r\nSCRAP BUILDING（参加４回目）",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "智惠",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 398259,
+                    "name": "死亡遊戯で飯を食う。",
+                    "name_cn": "靠死亡游戏混饭吃。",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/61/db/398259_Kl560.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 615494,
+                    "name": "祈り",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/6c/18/615494_1OoDQ.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 618481,
+                    "name": "¬Ersterbend",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/10/90/618481_Zhwk5.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 619186,
+                    "name": "死亡遊戯で飯を食う。～お茶会ラジオ～",
+                    "name_cn": "",
+                    "relation": "衍生",
+                    "type": 6,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/45/4c/619186_GgS18.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "episodes": [
+                {
+                    "id": 1593454,
+                    "name": "All You Need Is ----",
+                    "name_cn": "All You Need Is ----",
+                    "air_date": "2026-01-07",
+                    "desc": "窓の無い洋館、クラシカルなメイド服。知らないベッドの上で幽鬼は目を覚ます。\r\n先に集っていたのは五人の少女たち。まだ自らが置かれた状況を飲み込めない彼女たちに、幽鬼は口を開く。\r\n「みんなは、初めてなのかな？」\r\n命を賭けた、殺人ゲームの舞台の幕が上がる——\r\n（28：GHOST HOUSE）\r\n\r\n脚本：池田臨太郎\r\n絵コンテ：上野壮大\r\n演出：嘉村 唯、久保太郎、渡辺正彦、浅見松雄",
+                    "duration_seconds": 2860,
+                    "ep": 1,
+                    "sort": 1,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1593455,
+                    "name": "Chains of ----",
+                    "name_cn": "Chains of ----",
+                    "air_date": "2026-01-14",
+                    "desc": "月影の差し込む廃ビル、真っ白なワンピース。冷たいコンクリートの上で幽鬼は目を覚ます。\r\n参加者である四人の少女たちは、八回目だというプレイヤー・御城を中心にまとまろうとしていた。\r\n「もしかして、みなさん知り合い？」\r\nどこか居心地の悪い幽鬼をよそに、廃ビル探索が始まる──\r\n\r\n脚本：池田臨太郎\r\n絵コンテ：阿部記之\r\n演出：渡辺正彦",
+                    "duration_seconds": 1430,
+                    "ep": 2,
+                    "sort": 2,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1593456,
+                    "name": "In the Name of ----",
+                    "name_cn": "",
+                    "air_date": "2026-01-21",
+                    "desc": "負傷した言葉を切り捨てた御城に対し、幽鬼は独り危険を顧みず彼女の救出へと向かう。\r\n生存だけを考えれば理解しがたい行動に疑問を抱く言葉。幽鬼は彼女へ一言で理由を告げる。\r\n「点数稼ぎかな」\r\n一方、別行動となった御城たちは、廃ビルに潜む新たな脅威に直面する──\r\n\r\nStaff\r\n脚本：池田臨太郎\r\n絵コンテ：ヤマサキオサム\r\n演出：村田尚樹",
+                    "duration_seconds": 0,
+                    "ep": 3,
+                    "sort": 3,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1593457,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-01-28",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 4,
+                    "sort": 4,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1593458,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-04",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 5,
+                    "sort": 5,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1593459,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-11",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 6,
+                    "sort": 6,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1593460,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-18",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 7,
+                    "sort": 7,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1593461,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-25",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 8,
+                    "sort": 8,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1593462,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-04",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 9,
+                    "sort": 9,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1593463,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-11",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 10,
+                    "sort": 10,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1593464,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-18",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 11,
+                    "sort": 11,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 3,
+            "watched_eps": 2,
+            "last_update": "2026-01-18T20:28:35+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
