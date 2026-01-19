@@ -156339,23 +156339,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "幽鬼",
-                            "__dataclass__": "KeyValue"
+                            "value": "幽鬼"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "4月18日",
-                            "__dataclass__": "KeyValue"
+                            "value": "4月18日"
                         },
                         {
                             "key": "年龄",
-                            "value": "17岁",
-                            "__dataclass__": "KeyValue"
+                            "value": "17岁"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156376,13 +156372,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "青井",
-                            "__dataclass__": "KeyValue"
+                            "value": "青井"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156403,13 +156397,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "金子",
-                            "__dataclass__": "KeyValue"
+                            "value": "金子"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156430,13 +156422,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "黑糖",
-                            "__dataclass__": "KeyValue"
+                            "value": "黑糖"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156457,13 +156447,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "红野",
-                            "__dataclass__": "KeyValue"
+                            "value": "红野"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156484,13 +156472,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "桃乃",
-                            "__dataclass__": "KeyValue"
+                            "value": "桃乃"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156511,13 +156497,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "吾妻",
-                            "__dataclass__": "KeyValue"
+                            "value": "吾妻"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156538,13 +156522,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "御城",
-                            "__dataclass__": "KeyValue"
+                            "value": "御城"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156565,13 +156547,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "蓝里",
-                            "__dataclass__": "KeyValue"
+                            "value": "蓝里"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156592,13 +156572,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "萌黄",
-                            "__dataclass__": "KeyValue"
+                            "value": "萌黄"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156619,13 +156597,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "白士",
-                            "__dataclass__": "KeyValue"
+                            "value": "白士"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156644,13 +156620,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "墨家",
-                            "__dataclass__": "KeyValue"
+                            "value": "墨家"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156669,13 +156643,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "伽罗",
-                            "__dataclass__": "KeyValue"
+                            "value": "伽罗"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156696,13 +156668,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "言叶",
-                            "__dataclass__": "KeyValue"
+                            "value": "言叶"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156723,13 +156693,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "毛糸",
-                            "__dataclass__": "KeyValue"
+                            "value": "毛糸"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156750,13 +156718,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "智惠",
-                            "__dataclass__": "KeyValue"
+                            "value": "智惠"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156810,8 +156776,7 @@
                     "duration_seconds": 2860,
                     "ep": 1,
                     "sort": 1,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1593455,
@@ -156822,8 +156787,7 @@
                     "duration_seconds": 1430,
                     "ep": 2,
                     "sort": 2,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1593456,
@@ -156834,8 +156798,7 @@
                     "duration_seconds": 0,
                     "ep": 3,
                     "sort": 3,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1593457,
@@ -156846,8 +156809,7 @@
                     "duration_seconds": 0,
                     "ep": 4,
                     "sort": 4,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1593458,
@@ -156858,8 +156820,7 @@
                     "duration_seconds": 0,
                     "ep": 5,
                     "sort": 5,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1593459,
@@ -156870,8 +156831,7 @@
                     "duration_seconds": 0,
                     "ep": 6,
                     "sort": 6,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1593460,
@@ -156882,8 +156842,7 @@
                     "duration_seconds": 0,
                     "ep": 7,
                     "sort": 7,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1593461,
@@ -156894,8 +156853,7 @@
                     "duration_seconds": 0,
                     "ep": 8,
                     "sort": 8,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1593462,
@@ -156906,8 +156864,7 @@
                     "duration_seconds": 0,
                     "ep": 9,
                     "sort": 9,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1593463,
@@ -156918,8 +156875,7 @@
                     "duration_seconds": 0,
                     "ep": 10,
                     "sort": 10,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 1593464,
@@ -156930,8 +156886,7 @@
                     "duration_seconds": 0,
                     "ep": 11,
                     "sort": 11,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 }
             ],
             "__dataclass__": "ANiMeData"
