@@ -156900,5 +156900,2978 @@
             "__dataclass__": "UserStatus"
         },
         "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 193373,
+            "name": "劇場版 Fate/kaleid liner プリズマ☆イリヤ 雪下の誓い",
+            "name_cn": "剧场版 Fate/kaleid liner 魔法少女☆伊莉雅 雪下的誓言",
+            "short_summary": "“我想我可以说出来了。我与美游的……至今为止的故事”\r\n世界向着毁灭前进。能够阻止毁灭的步伐的，唯有身为“圣杯”的美游的牺牲而已。要选择世界，还是美游——。面对发起“世界的救济”的爱因兹华斯所提出的这个问题，伊莉雅给出的答案是，“拯救双方”",
+            "score": 6.9,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/ae/71/193373_R4rG4.jpg",
+            "eps": 1,
+            "date": "2017-08-26",
+            "summary": "“我想我可以说出来了。我与美游的……至今为止的故事”\r\n世界向着毁灭前进。能够阻止毁灭的步伐的，唯有身为“圣杯”的美游的牺牲而已。要选择世界，还是美游——。面对发起“世界的救济”的爱因兹华斯所提出的这个问题，伊莉雅给出的答案是，“拯救双方”这种单纯的“任性”。\r\n战斗迎来暂时的休止，一行人暂时栖身于美游与士郎成长的家中。在众人团聚的途中，士郎开始讲述自己与美游的过去。\r\n曾经能够无差别地实现任何愿望的神稚儿美游。士郎将无家可归的她带回了自己与切嗣一同生活过的家里。在那之后过了5年。两人如同亲兄妹一般度过着平稳的生活。\r\n但，这样的日常却突然迎来了结束。造访美游老家的两人。在他们的面前，将美游当成“奇迹”地追求的朱利安出现了——。\r\n美游与士郎、爱因兹华斯的因缘，在此揭晓。",
+            "total_episodes": 3,
+            "characters": [
+                {
+                    "id": 15073,
+                    "name": "ケイネス・エルメロイ・アーチボルト",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d7/23/15073_crt_z7uul.jpg?r=1498990364",
+                    "actor_ids": [
+                        4189
+                    ],
+                    "name_cn": "肯尼斯·艾尔梅洛伊·阿奇博尔德",
+                    "summary": "肯尼斯是延续了九代的魔术师家系——阿奇博尔德家的家主，是功绩卓越的天才魔术师。他在统率全世界魔术师的魔术协会总部（通称“时钟塔”）担任降灵科的一级讲师，并与降灵科部长的女儿索拉·娜泽莱·索非亚莉订有婚约。\r\n为了增加知名度而参加圣杯战争。原本想用圣遗物召唤出Rider，但是被自己的学生韦伯·维尔维特盗走媒介，只好改用别的媒介。以此媒介所召唤出的就是Lancer。\r\nServant和Master之间本来就是只有一条因果线的。而将魔力供给和令咒权利分开，由两名召唤者分别掌握的技术，凭借肯尼斯那天才的能力将这个不可能实现的技术实现了。\r\n所以拥有令咒的肯尼斯不提供魔力，而是由其未婚妻索拉提供。因此是两人一起参赛。\r\n“月灵髓液”是他的魔术礼装之一，利用魔术化的水银进行防御、攻击、搜索三项合一的礼装。搜索是放出水银，利用触觉感应周遭的变化搜集情报；攻击是利用水银凝聚成鞭状打击目标，具有比拟刀刃的攻击；防御是把水银变化成薄膜抵挡攻击，由于利用流体力学的原理因此无法防御剧烈变化的攻击。",
+                    "birth_year": null,
+                    "birth_month": 4,
+                    "birth_day": 11,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "肯尼斯·艾尔梅洛伊·阿奇博尔德",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "4月11日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "B型",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "181cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "62kg",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 15131,
+                    "name": "間桐雁夜",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/27/c3/15131_crt_FBiDS.jpg?r=1498990345",
+                    "actor_ids": [
+                        5000
+                    ],
+                    "name_cn": "间桐雁夜",
+                    "summary": "Berserker的Master，『Fate/stay night』中间桐慎二的叔父。",
+                    "birth_year": null,
+                    "birth_month": 3,
+                    "birth_day": 22,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "间桐雁夜",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "3月22日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "血型",
+                            "value": "AB型",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "173cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "55kg",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 16239,
+                    "name": "マジカルルビー",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/24/2c/16239_crt_5hy50.jpg?r=1376255343",
+                    "actor_ids": [
+                        4031
+                    ],
+                    "name_cn": "红宝石之星",
+                    "summary": "自称爱和正义的魔法杖。被称之为愉快型魔术礼装，虽然是人工精灵但是性格有小恶魔的倾向，喜好谈论八卦话题跟恶作剧，尤其喜欢捉弄自己的主人。\r\n第二魔法的应用的一级品的魔术礼装。能够使用多元转变，让使用者能够下载平行世界的技能。在变身的同时能够让使用者使用A级的魔术障壁、物理保护、促进治疗、身体能力强化等常备能力。\r\n\r\n魔術礼装「カレイドステッキ」の1本。手にしたマスターに魔力を無制限に供給できる一級品である一方、マスターをいじるなど、性格的に難がある。\r\n\r\n\r\n\r\n代表着爱与正义，为世界带来和平与微笑的纯白色愉悦型魔术礼装，魔法少女得以变身的力量源泉。虽然是魔杖，但却具有自我意识，总能在关键的时刻为少女们指引出前进的方向，在困难的时刻对少女们进行激励和鼓舞，可以说是魔法少女们最值得信赖的良师益友。如果你相信的话……",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "红宝石之星",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "淫棍",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "真相",
+                            "value": "琥珀",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 17650,
+                    "name": "美遊・エーデルフェルト",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/90/64/17650_crt_pldL7.jpg?r=1535689182",
+                    "actor_ids": [
+                        3922
+                    ],
+                    "name_cn": "美游·艾德费尔特",
+                    "summary": "全能少女。\r\n学力、体力ともに他の追随を許さないところがあり、クールな性格で他人との関わりをなるべく避ける少女。マジカルサファイヤ、そしてルヴィアと出会ったことで、イリヤと同じく魔法少女になってしまう。",
+                    "birth_year": null,
+                    "birth_month": 7,
+                    "birth_day": 20,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "美游·艾德费尔特",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "7月20日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "中文维基／anime.prisma-illya.jp/character/#miyu",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 20931,
+                    "name": "マジカルサファイア",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/89/48/20931_crt_utNto.jpg?r=1376255733",
+                    "actor_ids": [
+                        4353
+                    ],
+                    "name_cn": "蓝宝石之星",
+                    "summary": "红宝石的妹妹，比起姊姊个性较为正经，基本性能与红宝石相同。跟姊姊一样，放弃原持有人露维亚瑟琳塔的控制，而变成由美游所持有。\r\n曾为了收拾红宝石搞出的残局而对她大义灭亲(放出洗脑电波)，而让红宝石整整故障了三天。\r\n\r\nマジカルルビーの妹にあたるカレイドステッキ。ルビーと違い、冷静で合理的な性格をしており、本来はマスターに忠実だが、ルヴィアの元を離れてしまう。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "蓝宝石之星",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "法杖",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 21998,
+                    "name": "ダリウス・エインズワース",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/45/2c/21998_crt_dBvXX.jpg",
+                    "actor_ids": [
+                        3861
+                    ],
+                    "name_cn": "达利乌斯·爱因兹华斯",
+                    "summary": "並行世界の冬木に居を構える魔術師の当主。\r\n外見は中年の男性。普段は朴訥そうなのんびりとしているが、ふとした拍子に狂気じみた表情と言動を見せる。何かと演劇に物事を例える癖がある。聖杯を現出させようとしており、現在は美遊を手中に収めて聖杯の機能を得ようとしている。またクラスカードを作った張本人でもある。その本拠地は深山町のクレーターの中心部に存在する壮麗な城郭で、普段は魔術によって完全に秘匿されている。圧倒的な戦力を有しており、内側の酸素を消費しながら非常に頑丈な氷のドームを生成する「三〇一秒の永久氷宮（アプネイック・ビューティ）」、概念的な干渉で対象を屈服させる「黒玉皇に顔は無し（オーソリテリアン・パーソナリズム）」といった、ギルガメッシュでも未知の宝具を難なく使用する事が出来る。敵対者にその圧倒的な実力でもって屈服させる事も厭わないが、何らかの意図があるのか無暗な虐殺行為などは行っていない。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "达利乌斯·爱因兹华斯",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 31920,
+                    "name": "アトラム・ガリアスタ",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/7f/fc/31920_crt_44Jj3.jpg?r=1495885006",
+                    "actor_ids": [
+                        7757
+                    ],
+                    "name_cn": "阿特拉姆·加里阿斯塔",
+                    "summary": "魔术协会的暴发户，参加第五次圣杯战争的御主之一。\r\n\r\n第五次圣杯战争中，Caster（美狄亚）的前任 Master，使用残忍的人体炼成结晶，被 Caster 所杀。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "阿特拉姆·加里阿斯塔",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 41192,
+                    "name": "アンジェリカ・エインズワース",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/5e/72/41192_crt_QIinl.jpg?r=1467832768",
+                    "actor_ids": [
+                        4730
+                    ],
+                    "name_cn": "安洁莉卡·爱因兹华斯",
+                    "summary": "エインズワース家に仕えるドールズ。置換魔術の使い手で常に沈着冷静だが、目的のためには残忍にもなれる。アーチャーにして英雄王ギルガメシュのクラスカードを所有し、無限の宝具を武器とする。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "安洁莉卡·爱因兹华斯",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 41193,
+                    "name": "エリカ・エインズワース",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/e4/99/41193_crt_aMhG3.jpg",
+                    "actor_ids": [
+                        5107
+                    ],
+                    "name_cn": "艾丽卡·爱因兹华斯",
+                    "summary": "ダリウスの娘、ジュリアンの妹と称される小学生の少女。\r\n天邪鬼な言動が特徴で、本心とは逆のことをよく口にする。プライドが高く強がることも多いが、すぐに涙ぐむ。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "艾丽卡·爱因兹华斯",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wikipedia",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 50770,
+                    "name": "ジュリアン・エインズワース",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/20/35/50770_crt_eGbEa.jpg",
+                    "actor_ids": [
+                        7772
+                    ],
+                    "name_cn": "朱利安·爱因兹华斯",
+                    "summary": "萨卡利之子，艾莉嘉的哥哥，恩兹华斯的现任当家。外表是一名美少年，身穿穗群原高中的校服。眼神凶恶。\r\n第六次圣杯战争的规则掌控者，可以自由创造与毁灭卡片。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "朱利安·爱因兹华斯",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 71119,
+                    "name": "朔月陽代子",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/cc/10/71119_crt_YUfHZ.jpg?r=1564655951",
+                    "actor_ids": [],
+                    "name_cn": "朔月阳代子",
+                    "summary": "朔月美游的母亲。在结界内独自一人将美游抚养到五岁。在艾因兹华斯圣杯战争造成的灾害中遇难。\r\n\r\n由于自己一族的宿命，女儿在七岁前是无法自由外出的，而且由于神稚儿的体质，还得有严格的情报限制。但是阳代子太太还是希望美游可以获得俗世的知识，成为一个正常的孩子，可以正常与人交流、正常行动、正常思考。朔月家的母亲代代是如此工作的。将其称之为工作恐怕有些不当，这只是基于母亲对于孩子的爱而已。因此，阳代子对美游展开了超乎常人想象的家庭教育法，毕竟阳代子也是这么被自己的母亲抚养大的。\r\n\r\n阳代子本人不仅会舞蹈、插花、茶道这些传统艺能，钢琴、游泳、弓道、合气道也是手到擒来。曾有一段时间还热衷于考资格证，其结果，持有着会计、司法代书人、TOEIC、锅炉工程师、室内设计师、美甲师、河豚调理师等等资格。此外，不是太会用电脑，不过还持有很多没有什么卯月的IT资格证。「今后的时代，果然还是得持有资格证呢，像是一太郎鉴定测试什么的」",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "朔月阳代子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "朔月阳代子 - 萌娘百科",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 71126,
+                    "name": "ザガリー・エインズワース",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/cc/6f/71126_crt_cVYqb.jpg",
+                    "actor_ids": [
+                        4636
+                    ],
+                    "name_cn": "扎卡利·爱因兹华斯",
+                    "summary": "《魔法少女伊莉雅》漫画第40话里，士郎打败了戴着面罩的神秘剑士。\r\n在剑士临死前面罩破碎，露出了下面的真容——他竟然就是朱利安的父亲，本应死亡的扎卡利。\r\n死后扎卡利的意识被朱利安置换到人偶中，使用Saber卡片化身剑士对儿子进行协助；得知士郎的目的后，扎卡利留下一句“朱利安就拜托你了”，随后化作人偶面带微笑消失。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "扎卡利·爱因兹华斯",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "扎卡利·爱因兹华斯 - 萌娘百科",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183099,
+                    "name": "イリヤスフィール・フォン・アインツベルン (プリズマ☆イリヤ)",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/e0/79/183099_crt_WvU45.jpg",
+                    "actor_ids": [
+                        4402
+                    ],
+                    "name_cn": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
+                    "summary": "就读于穗群原学园小学部的普通女孩子。银发赤眼，名字很有贵族的风格，常不在家的双亲从事神秘的工作，分明是一般宅邸，却不知为何有两位女仆在，顺便还有一个没有血缘关系的哥哥，但还是一个非常普通的小学五年级女孩子。",
+                    "birth_year": null,
+                    "birth_month": 7,
+                    "birth_day": 20,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "7月20日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "133cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "29kg",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183130,
+                    "name": "衛宮士郎 (美遊世界)",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/43/53/183130_crt_kZi3H.jpg",
+                    "actor_ids": [
+                        4578
+                    ],
+                    "name_cn": "卫宫士郎 (美游世界)",
+                    "summary": "幼少時に巻き込まれた災害で家族を亡くし、ガレキに埋もれていたところを切嗣に助けられた。自分を救い出してくれた切嗣のような「正義の味方」に憧れている。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "卫宫士郎 (美游世界)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183135,
+                    "name": "遠坂凛 (プリズマ☆イリヤ)",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/0a/68/183135_crt_9vc69.jpg",
+                    "actor_ids": [
+                        4263
+                    ],
+                    "name_cn": "远坂凛 (Prisma☆Illya)",
+                    "summary": "冬木市に潜在するカード回収のため、ロンドンから派遣された魔術師。マジカルルビーの力を使ってカード回収にあたるはずが、一緒に来日したルヴィアと争っているうちにマジカルルビーに逃げられてしまう。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "远坂凛 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183136,
+                    "name": "ルヴィアゼリッタ・エーデルフェルト (プリズマ☆イリヤ)",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/f2/70/183136_crt_2U21k.jpg",
+                    "actor_ids": [
+                        4272
+                    ],
+                    "name_cn": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)",
+                    "summary": "高飛車な性格のお嬢様で、宝石魔術を使う際も、宝石に糸目を付けない財力の持ち主。凛とともに日本へはカード回収にやってきたものの、凛との争いに辟易したマジカルサファイアに逃げられてしまう。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183138,
+                    "name": "間桐桜 (美遊世界)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/40/7d/183138_crt_E3fpL.jpg",
+                    "actor_ids": [
+                        4471
+                    ],
+                    "name_cn": "间桐樱 (美游世界)",
+                    "summary": "士郎を慕う一学年下の後輩で、同じ弓道部員。穏やかで優しい性格の女の子。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "间桐樱 (美游世界)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183196,
+                    "name": "桜の兄 (美遊世界)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/11/24/183196_crt_q53Rj.jpg",
+                    "actor_ids": [
+                        4232
+                    ],
+                    "name_cn": "樱的哥哥 (美游世界)",
+                    "summary": "美游世界中间桐樱的哥哥，作品中并未交代他的名字。\r\n他在间桐樱告诉卫宫士郎圣杯战争已经开始后立即出现并袭击了他们，这是卫宫士郎与他的第一次也是最后一次见面。\r\n不知为何，他的言行似乎失去了理智，记忆模糊到连自己的名字都说不出来。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "樱的哥哥 (美游世界)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183201,
+                    "name": "衛宮切嗣 (美遊世界)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/bb/ea/183201_crt_T3Y8A.jpg",
+                    "actor_ids": [
+                        4130
+                    ],
+                    "name_cn": "卫宫切嗣 (美游世界)",
+                    "summary": "士郎の養父であり、魔術の師。過去に起こした過ちを清算すべく、人類救済の奇跡を求めて世界各地を回っていた。過去にあった何かが原因か、病に侵されている。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "卫宫切嗣 (美游世界)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183271,
+                    "name": "言峰綺礼 (美遊世界)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/5e/b1/183271_crt_M61dN.jpg",
+                    "actor_ids": [
+                        3971
+                    ],
+                    "name_cn": "言峰绮礼 (美游世界)",
+                    "summary": "冬木教会の神父。聖堂協会から派遣された神秘の監視者だが、現在、教会の威信は廃れ、ただの傍観者を決め込んでいる。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "言峰绮礼 (美游世界)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 44591,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ ドライ!!",
+                    "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅3rei!!",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/1e/51/44591_aPQDQ.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 147466,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ ドライ!!",
+                    "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅 3rei!!",
+                    "relation": "主线故事",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/66/eb/147466_3vEo1.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 219175,
+                    "name": "kaleidoscope / 薄紅の月",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/b5/78/219175_9LNyg.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 223223,
+                    "name": "『劇場版Fate/kaleid liner プリズマ☆イリヤ 雪下の誓い』 オリジナルサウンドトラック",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/ad/0a/223223_jp.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 449164,
+                    "name": "星屑ダイアリー",
+                    "name_cn": "",
+                    "relation": "其他",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/f7/e2/449164_O5dLa.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 227263,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ プリズマ☆ファンタズム",
+                    "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅 Prisma☆Phantasm",
+                    "relation": "番外篇",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/cf/ac/227263_3WG4d.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 306971,
+                    "name": "劇場版 Fate/kaleid liner プリズマ☆イリヤ Licht 名前の無い少女",
+                    "name_cn": "剧场版 Fate/kaleid liner 魔法少女☆伊莉雅 Licht 无名的少女",
+                    "relation": "续集",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/49/2b/306971_16HpD.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "episodes": [
+                {
+                    "id": 757440,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ 雪下の誓い",
+                    "name_cn": "魔法少女☆伊莉雅 雪下的誓言",
+                    "air_date": "2017-08-26",
+                    "desc": "",
+                    "duration_seconds": 5400,
+                    "ep": 1,
+                    "sort": 1,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 773787,
+                    "name": "黒桜の部屋",
+                    "name_cn": "黑樱的房间",
+                    "air_date": "",
+                    "desc": "",
+                    "duration_seconds": 370,
+                    "ep": 0,
+                    "sort": 0,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 841469,
+                    "name": "Special After Talk",
+                    "name_cn": "",
+                    "air_date": "",
+                    "desc": "",
+                    "duration_seconds": 1953,
+                    "ep": 0,
+                    "sort": 1,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 3,
+            "watched_eps": 0,
+            "last_update": "2026-01-26T13:07:26+08:00",
+            "comment": null,
+            "tags": [],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 147466,
+            "name": "Fate/kaleid liner プリズマ☆イリヤ ドライ!!",
+            "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅 3rei!!",
+            "short_summary": "“这样的时间，若能一直持续下去就好了——。”\r\n结束了与第8张职阶卡片的英灵之间战斗的伊莉雅等人。\r\n为了尽情享受所剩不多的暑假，她们再次进入度假模式。\r\n但，这样的日常，过于轻易地被打破。\r\n在奔向发生异变的圆藏山的伊莉雅等人面前出现的脱",
+            "score": 6.9,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/66/eb/147466_3vEo1.jpg",
+            "eps": 12,
+            "date": "2016-07-06",
+            "summary": "“这样的时间，若能一直持续下去就好了——。”\r\n结束了与第8张职阶卡片的英灵之间战斗的伊莉雅等人。\r\n为了尽情享受所剩不多的暑假，她们再次进入度假模式。\r\n但，这样的日常，过于轻易地被打破。\r\n在奔向发生异变的圆藏山的伊莉雅等人面前出现的脱离现实的人影。\r\n在突然的交战之后，空间震动。\r\n之后，在震动结束后，伊莉雅醒来所见到的是，隆冬的冬木市——平行世界。\r\n那里是，美游所出生、成长的世界。\r\n将重要的事物，全部守护住——。魔法少女的，实现普通而壮大愿望的战斗现在开幕！",
+            "total_episodes": 18,
+            "characters": [
+                {
+                    "id": 16239,
+                    "name": "マジカルルビー",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/24/2c/16239_crt_5hy50.jpg?r=1376255343",
+                    "actor_ids": [
+                        4031
+                    ],
+                    "name_cn": "红宝石之星",
+                    "summary": "自称爱和正义的魔法杖。被称之为愉快型魔术礼装，虽然是人工精灵但是性格有小恶魔的倾向，喜好谈论八卦话题跟恶作剧，尤其喜欢捉弄自己的主人。\r\n第二魔法的应用的一级品的魔术礼装。能够使用多元转变，让使用者能够下载平行世界的技能。在变身的同时能够让使用者使用A级的魔术障壁、物理保护、促进治疗、身体能力强化等常备能力。\r\n\r\n魔術礼装「カレイドステッキ」の1本。手にしたマスターに魔力を無制限に供給できる一級品である一方、マスターをいじるなど、性格的に難がある。\r\n\r\n\r\n\r\n代表着爱与正义，为世界带来和平与微笑的纯白色愉悦型魔术礼装，魔法少女得以变身的力量源泉。虽然是魔杖，但却具有自我意识，总能在关键的时刻为少女们指引出前进的方向，在困难的时刻对少女们进行激励和鼓舞，可以说是魔法少女们最值得信赖的良师益友。如果你相信的话……",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "红宝石之星",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "淫棍",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "真相",
+                            "value": "琥珀",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 17650,
+                    "name": "美遊・エーデルフェルト",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/90/64/17650_crt_pldL7.jpg?r=1535689182",
+                    "actor_ids": [
+                        3922
+                    ],
+                    "name_cn": "美游·艾德费尔特",
+                    "summary": "全能少女。\r\n学力、体力ともに他の追随を許さないところがあり、クールな性格で他人との関わりをなるべく避ける少女。マジカルサファイヤ、そしてルヴィアと出会ったことで、イリヤと同じく魔法少女になってしまう。",
+                    "birth_year": null,
+                    "birth_month": 7,
+                    "birth_day": 20,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "美游·艾德费尔特",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "7月20日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "中文维基／anime.prisma-illya.jp/character/#miyu",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 20931,
+                    "name": "マジカルサファイア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/89/48/20931_crt_utNto.jpg?r=1376255733",
+                    "actor_ids": [
+                        4097
+                    ],
+                    "name_cn": "蓝宝石之星",
+                    "summary": "红宝石的妹妹，比起姊姊个性较为正经，基本性能与红宝石相同。跟姊姊一样，放弃原持有人露维亚瑟琳塔的控制，而变成由美游所持有。\r\n曾为了收拾红宝石搞出的残局而对她大义灭亲(放出洗脑电波)，而让红宝石整整故障了三天。\r\n\r\nマジカルルビーの妹にあたるカレイドステッキ。ルビーと違い、冷静で合理的な性格をしており、本来はマスターに忠実だが、ルヴィアの元を離れてしまう。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "蓝宝石之星",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "法杖",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 21998,
+                    "name": "ダリウス・エインズワース",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/45/2c/21998_crt_dBvXX.jpg",
+                    "actor_ids": [
+                        3861
+                    ],
+                    "name_cn": "达利乌斯·爱因兹华斯",
+                    "summary": "並行世界の冬木に居を構える魔術師の当主。\r\n外見は中年の男性。普段は朴訥そうなのんびりとしているが、ふとした拍子に狂気じみた表情と言動を見せる。何かと演劇に物事を例える癖がある。聖杯を現出させようとしており、現在は美遊を手中に収めて聖杯の機能を得ようとしている。またクラスカードを作った張本人でもある。その本拠地は深山町のクレーターの中心部に存在する壮麗な城郭で、普段は魔術によって完全に秘匿されている。圧倒的な戦力を有しており、内側の酸素を消費しながら非常に頑丈な氷のドームを生成する「三〇一秒の永久氷宮（アプネイック・ビューティ）」、概念的な干渉で対象を屈服させる「黒玉皇に顔は無し（オーソリテリアン・パーソナリズム）」といった、ギルガメッシュでも未知の宝具を難なく使用する事が出来る。敵対者にその圧倒的な実力でもって屈服させる事も厭わないが、何らかの意図があるのか無暗な虐殺行為などは行っていない。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "达利乌斯·爱因兹华斯",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 25761,
+                    "name": "クロエ・フォン・アインツベルン",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a2/69/25761_crt_13Kzg.jpg?r=1498990165",
+                    "actor_ids": [
+                        4249
+                    ],
+                    "name_cn": "克洛伊·冯·爱因兹贝伦",
+                    "summary": "在第二部的时候登场，因处理地脉正常化的仪式出了差错，导致从伊莉雅身上分离出来并实体化的人格。\r\n其真实身分为爱因兹贝伦家在十年前的圣杯战争时所使用的许愿仪，并在伊莉雅婴儿时期被母亲封印的魔力、记忆及知识，经长年累积后实体化的人格（第一部伊莉雅的英灵化就是她）。\r\n皮肤较伊莉雅黝黑，发色也偏银色，服装类似Archer，但比较裸露。性格较伊莉雅来的狡猾活泼，但除了凛、露维亚、美游及伊莉雅的母亲外，没人认得出来她不是伊莉雅，为了方便和伊莉雅区别，而被凛取名叫“小黑”（クロ），而克洛伊·冯·爱因兹贝伦为自己掰出来的名字。",
+                    "birth_year": null,
+                    "birth_month": 7,
+                    "birth_day": 20,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "克洛伊·冯·爱因兹贝伦",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "7月20日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "声优",
+                            "value": "斋藤千和",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 34454,
+                    "name": "嶽間沢龍子",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/da/26/34454_crt_Sihm4.jpg?r=1468194945",
+                    "actor_ids": [
+                        4850
+                    ],
+                    "name_cn": "岳间泽龙子",
+                    "summary": "伊莉雅的同班同学。武术世家岳间泽家的幺女，上头有两位兄长，有恋兄癖。因为是在一群粗汉中长大，所以说话和行动也是粗里粗气，不过身心都称不上坚强，反而动不动就掉泪。可以穿着裸露不在意的到处走，被好友们称作会走路的儿童色情制造机。活生生的麻烦制造者，为身边的朋友们带来许多麻烦。在第3季番外篇中，经历一连串的打击下，而决定舍弃武术。自称穗群原小学的四神之一，代表动物为青龙（海马）。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "岳间泽龙子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "anime.prisma-illya.jp/character",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 34455,
+                    "name": "桂美々",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/9d/76/34455_crt_LlTV5.jpg?r=1467919853",
+                    "actor_ids": [
+                        5003
+                    ],
+                    "name_cn": "桂美美",
+                    "summary": "伊莉雅的同班同学，被小黑强吻后昏倒的可怜人，虽然不起眼，却是个良善温柔的乖孩子。是从《Fate/hollow ataraxia》的路人中选出来的角色。有一个弟弟。曾偷看到伊莉雅用接吻替小黑补魔力的过程，似乎有在写百合小说。第三期的番外篇中，透露了她已加入了腐女行列。最近写了以士郎及一成作题材，一共十二本笔记本厚度的BL小说。与性向还算普通的一般腐女不同，已经严重到会主张男人与男人，女人与女人恋爱；因而吓得伊莉雅及小黑落荒而逃。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "桂美美",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 34456,
+                    "name": "森山那奈亀",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a4/1b/34456_crt_RGSJG.jpg?r=1566656516",
+                    "actor_ids": [
+                        4769
+                    ],
+                    "name_cn": "森山那奈龟",
+                    "summary": "伊莉雅的同班同学。在呆头呆脑的外表下意外的相当聪明，也较会冷静判断。喜欢不动声色的欺负龙子，拥有轻度的S属性，且对武术的领悟力极高，曾看过一次岳间泽流派的武术后就现学现卖，将身为道馆馆主的龙子父亲给瞬间秒杀。自称穗群原小学的四神之一，代表动物为玄武（乌龟）。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "森山那奈龟",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "anime.prisma-illya.jp/character/",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "姐姐",
+                            "value": "森山奈菜巳",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 34457,
+                    "name": "栗原雀花",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/69/72/34457_crt_m4iJM.jpg?r=1566656502",
+                    "actor_ids": [
+                        4949
+                    ],
+                    "name_cn": "栗原雀花",
+                    "summary": "伊莉雅的同班同学。腐女，会和姐姐联手创作同人志，以小学生来说，在某项题材内建立起了自己的地位。拥有优秀的绘画才能；曾在美术课中绘画了一幅BL题材的画。与满分的美术科相对，其他科目皆只有2分(满分为5)。\r\n对士郎及柳洞一成两人的关系有强烈的妄想。自称穗群原小学的四神之一，代表动物为朱雀（麻雀）。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "栗原雀花",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 41190,
+                    "name": "田中",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/16/3d/41190_crt_y7Jrd.jpg?r=1467628739",
+                    "actor_ids": [
+                        4372
+                    ],
+                    "name_cn": "田中",
+                    "summary": "在平行世界与伊莉雅相遇的少女。一直是体操服的打扮。失去了记忆，连姓名也想不起来。但对此并不在意。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "田中",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 41191,
+                    "name": "ベアトリス・フラワーチャイルド",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/fc/3d/41191_crt_Lo6Jp.jpg?r=1467832746",
+                    "actor_ids": [
+                        3936
+                    ],
+                    "name_cn": "贝阿朵莉丝·芙劳查尔德",
+                    "summary": "エインズワース家に仕えるドールズ。小さな体の見た目に似合わずどう猛な性格で、サディスト。バーサーカーのクラスカードを所有。インストール後には、雷撃を司る宝具“悉く打ち砕く雷神の鎚”（ミョルニル）を操る。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "贝阿朵莉丝·芙劳查尔德",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 41192,
+                    "name": "アンジェリカ・エインズワース",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/5e/72/41192_crt_QIinl.jpg?r=1467832768",
+                    "actor_ids": [
+                        4730
+                    ],
+                    "name_cn": "安洁莉卡·爱因兹华斯",
+                    "summary": "エインズワース家に仕えるドールズ。置換魔術の使い手で常に沈着冷静だが、目的のためには残忍にもなれる。アーチャーにして英雄王ギルガメシュのクラスカードを所有し、無限の宝具を武器とする。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "安洁莉卡·爱因兹华斯",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 41193,
+                    "name": "エリカ・エインズワース",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/e4/99/41193_crt_aMhG3.jpg",
+                    "actor_ids": [
+                        5107
+                    ],
+                    "name_cn": "艾丽卡·爱因兹华斯",
+                    "summary": "ダリウスの娘、ジュリアンの妹と称される小学生の少女。\r\n天邪鬼な言動が特徴で、本心とは逆のことをよく口にする。プライドが高く強がることも多いが、すぐに涙ぐむ。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "艾丽卡·爱因兹华斯",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wikipedia",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 50770,
+                    "name": "ジュリアン・エインズワース",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/20/35/50770_crt_eGbEa.jpg",
+                    "actor_ids": [
+                        7772
+                    ],
+                    "name_cn": "朱利安·爱因兹华斯",
+                    "summary": "萨卡利之子，艾莉嘉的哥哥，恩兹华斯的现任当家。外表是一名美少年，身穿穗群原高中的校服。眼神凶恶。\r\n第六次圣杯战争的规则掌控者，可以自由创造与毁灭卡片。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "朱利安·爱因兹华斯",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 106489,
+                    "name": "子ギル",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/92/f0/106489_crt_udYPn.jpg?r=1645283717",
+                    "actor_ids": [
+                        4893
+                    ],
+                    "name_cn": "幼吉尔",
+                    "summary": "乌鲁克的英雄王。人类最古老的英雄。性格冷酷无情。不听他人的意见，只以自己基准为绝对标准的暴君——的这种性质，并不能适用于这个模样的他。他基本还是名彬彬有礼而谦虚的少年。\r\n喜欢的女性是「犹如盛开于野外的鲜花」类。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "幼吉尔",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "140cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "30kg",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "职阶",
+                            "value": "Archer",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "属性",
+                            "value": "混沌·善·天",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183099,
+                    "name": "イリヤスフィール・フォン・アインツベルン (プリズマ☆イリヤ)",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/e0/79/183099_crt_WvU45.jpg",
+                    "actor_ids": [
+                        4402
+                    ],
+                    "name_cn": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
+                    "summary": "就读于穗群原学园小学部的普通女孩子。银发赤眼，名字很有贵族的风格，常不在家的双亲从事神秘的工作，分明是一般宅邸，却不知为何有两位女仆在，顺便还有一个没有血缘关系的哥哥，但还是一个非常普通的小学五年级女孩子。",
+                    "birth_year": null,
+                    "birth_month": 7,
+                    "birth_day": 20,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "7月20日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "133cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "29kg",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183129,
+                    "name": "衛宮士郎 (イリヤ世界)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/61/5d/183129_crt_ou46V.jpg",
+                    "actor_ids": [
+                        4578
+                    ],
+                    "name_cn": "卫宫士郎 (伊莉雅世界)",
+                    "summary": "穂群原学園高等部に通うイリヤの義理の兄。イリヤにとっては、優しくて頼り甲斐のあるお兄ちゃん。炊事洗濯が得意で、同居するメイド·セラの仕事を図らずも奪ってしまうことがあり、そのたびに小言を言われている。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "卫宫士郎 (伊莉雅世界)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183130,
+                    "name": "衛宮士郎 (美遊世界)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/43/53/183130_crt_kZi3H.jpg",
+                    "actor_ids": [
+                        4578
+                    ],
+                    "name_cn": "卫宫士郎 (美游世界)",
+                    "summary": "幼少時に巻き込まれた災害で家族を亡くし、ガレキに埋もれていたところを切嗣に助けられた。自分を救い出してくれた切嗣のような「正義の味方」に憧れている。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "卫宫士郎 (美游世界)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183135,
+                    "name": "遠坂凛 (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/0a/68/183135_crt_9vc69.jpg",
+                    "actor_ids": [
+                        4263
+                    ],
+                    "name_cn": "远坂凛 (Prisma☆Illya)",
+                    "summary": "冬木市に潜在するカード回収のため、ロンドンから派遣された魔術師。マジカルルビーの力を使ってカード回収にあたるはずが、一緒に来日したルヴィアと争っているうちにマジカルルビーに逃げられてしまう。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "远坂凛 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183136,
+                    "name": "ルヴィアゼリッタ・エーデルフェルト (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/f2/70/183136_crt_2U21k.jpg",
+                    "actor_ids": [
+                        4272
+                    ],
+                    "name_cn": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)",
+                    "summary": "高飛車な性格のお嬢様で、宝石魔術を使う際も、宝石に糸目を付けない財力の持ち主。凛とともに日本へはカード回収にやってきたものの、凛との争いに辟易したマジカルサファイアに逃げられてしまう。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183138,
+                    "name": "間桐桜 (美遊世界)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/40/7d/183138_crt_E3fpL.jpg",
+                    "actor_ids": [
+                        4471
+                    ],
+                    "name_cn": "间桐樱 (美游世界)",
+                    "summary": "士郎を慕う一学年下の後輩で、同じ弓道部員。穏やかで優しい性格の女の子。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "间桐樱 (美游世界)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183187,
+                    "name": "バゼット・フラガ・マクレミッツ (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/6c/68/183187_crt_mbJbP.jpg",
+                    "actor_ids": [
+                        4394
+                    ],
+                    "name_cn": "巴泽特·弗拉加·麦克雷米兹 (Prisma☆Illya)",
+                    "summary": "協会一線級の戦闘屋「封印指定執行者」として、凛とルヴィアより前のクラスカード回収任務を担っていた。圧倒的な戦闘力はイリヤとクロが二人がかりで戦っても勝つことができない。カード回収のためルヴィア邸を襲撃し全壊させた。凛との取引に応じ、現在は休戦協定を敷いている。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "巴泽特·弗拉加·麦克雷米兹 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183198,
+                    "name": "セラ (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a3/a7/183198_crt_CIRI4.jpg",
+                    "actor_ids": [
+                        3907
+                    ],
+                    "name_cn": "塞拉 (Prisma☆Illya)",
+                    "summary": "アインツベルン家のメイドのひとり。家事全般を仕切っており、普段海外での仕事が多いイリヤの両親の代わりに、イリヤの教育係も任されている。イリヤには比較的甘いが、士郎には割と厳しい。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "塞拉 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183199,
+                    "name": "リーゼリット (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/dd/35/183199_crt_IWIbI.jpg",
+                    "actor_ids": [
+                        4693
+                    ],
+                    "name_cn": "莉洁莉特 (Prisma☆Illya)",
+                    "summary": "アインツベルン家のもうひとりのメイド。セラのように真面目に家事をする様子は特になく、イリヤと一緒にアニメを見たりとメイドらしさはあまりない。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "莉洁莉特 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183271,
+                    "name": "言峰綺礼 (美遊世界)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/5e/b1/183271_crt_M61dN.jpg",
+                    "actor_ids": [
+                        3971
+                    ],
+                    "name_cn": "言峰绮礼 (美游世界)",
+                    "summary": "冬木教会の神父。聖堂協会から派遣された神秘の監視者だが、現在、教会の威信は廃れ、ただの傍観者を決め込んでいる。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "言峰绮礼 (美游世界)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 44591,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ ドライ!!",
+                    "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅3rei!!",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/1e/51/44591_aPQDQ.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 113134,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ ツヴァイヘルツ!",
+                    "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅 2wei Herz!",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/0f/31/113134_NkaCg.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 186268,
+                    "name": "Asterism",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/4f/19/186268_kjksq.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 187139,
+                    "name": "WHIMSICAL WAYWARD WISH",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/aa/44/187139_k3hhC.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 194241,
+                    "name": "TVアニメ『Fate/kaleid liner プリズマ☆イリヤ ドライ!!』サウンドトラック「Elektronische Musik für ILLYA」",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/bf/be/194241_c7h0O.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 394078,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ Prismanimation Illust Komplette!",
+                    "name_cn": "",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/d0/e9/394078_IDUi9.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 449164,
+                    "name": "星屑ダイアリー",
+                    "name_cn": "",
+                    "relation": "其他",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/f7/e2/449164_O5dLa.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 193373,
+                    "name": "劇場版 Fate/kaleid liner プリズマ☆イリヤ 雪下の誓い",
+                    "name_cn": "剧场版 Fate/kaleid liner 魔法少女☆伊莉雅 雪下的誓言",
+                    "relation": "番外篇",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/ae/71/193373_R4rG4.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 227263,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ プリズマ☆ファンタズム",
+                    "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅 Prisma☆Phantasm",
+                    "relation": "番外篇",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/cf/ac/227263_3WG4d.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 306971,
+                    "name": "劇場版 Fate/kaleid liner プリズマ☆イリヤ Licht 名前の無い少女",
+                    "name_cn": "剧场版 Fate/kaleid liner 魔法少女☆伊莉雅 Licht 无名的少女",
+                    "relation": "续集",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/49/2b/306971_16HpD.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "episodes": [
+                {
+                    "id": 640902,
+                    "name": "銀色に沈む街",
+                    "name_cn": "银装素裹的城镇",
+                    "air_date": "2016-07-06",
+                    "desc": "イリヤたちの楽しい夏休みは、突然終わりを迎えた。円蔵山に刻まれた8枚目のクラスカードの英霊との戦いの爪痕が一夜にして消えたことを不審に思い、現地に駆けつけたイリヤたちは、美遊を「迎えにきた」という謎の少女たちと遭遇し……。激しい交戦中、不思議な光に包まれるイリヤ。その後、目覚めたのは真冬の冬木市だった!?\r\n\r\n脚本：井上堅二 / 絵コンテ・演出：高橋賢 / 作画監督：平田和也、澤入祐樹、佐藤香織、古谷梨絵",
+                    "duration_seconds": 1440,
+                    "ep": 1,
+                    "sort": 1,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 640903,
+                    "name": "邂逅と再会",
+                    "name_cn": "邂逅与再会",
+                    "air_date": "2016-07-13",
+                    "desc": "エインズワースのドールズの一人、ベアトリスが、謎の少女、田中とイリヤに襲いかかる。圧倒的な力に、追い込まれる二人。万事休すかというその時、ベアトリスは、何者かに呼び戻され、二人は窮地を脱するのだった。その後空腹にさいなまれたイリヤと田中はあやしい店主のいるラーメン屋でさらなるピンチに巻き込まれる。お金が、ないっ!?　そんな危機を救ったのは、意外な人物で？\r\n\r\n脚本：水瀬葉月 / 絵コンテ：大石美絵 / 演出：佐々木勅嘉 / 作画監督：近岡直、大橋圭",
+                    "duration_seconds": 1440,
+                    "ep": 2,
+                    "sort": 2,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 640904,
+                    "name": "君の本当の敵",
+                    "name_cn": "你真正的敌人",
+                    "air_date": "2016-07-20",
+                    "desc": "ギルに導かれ、イリヤは田中とともに、エインズワースの屋敷への潜入に成功する。目指すは、美遊が幽閉されているという一室。そこに立ちはだかったのは、ベアトリスとアンジェリカだった。絶体絶命の状況の中、イリヤはマジカルルビーとの運命の再会を果たす。イリヤは再び魔法少女の力を取り戻し、美遊を救うために立ち上がる！\r\n\r\n脚本：井上堅二 / 絵コンテ：神谷智大 / 演出：神谷智大 / 作画監督：平田和也・山吉一幸・澤入祐樹・佐藤香織・古谷梨絵",
+                    "duration_seconds": 1440,
+                    "ep": 3,
+                    "sort": 3,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 640905,
+                    "name": "弱虫の妹へ",
+                    "name_cn": "致懦弱的妹妹",
+                    "air_date": "2016-07-27",
+                    "desc": "クロの狙撃によって、ベアトリスを退けることに成功した一行は、エインズワースの屋敷から一時撤退し、バゼットたちが拠点としていた学校の校舎で体勢を立て直そうとする。しかし、アーチャー「ギルガメッシュ」と、バーサーカー「雷神トール」のカードを持つ敵への対抗策が見つからず失意に沈むイリヤ。そんな彼女に対し、クロは突然双剣を手にイリヤに襲いかかる……!?\r\n\r\n脚本：水瀬葉月 / 絵コンテ：丸山由太・神保昌登・高橋賢・青木慎平 / 演出：丸山由太 / 作画監督：平田和也・山吉一幸・澤入祐樹・佐藤香織・古谷梨絵",
+                    "duration_seconds": 1440,
+                    "ep": 4,
+                    "sort": 4,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 640906,
+                    "name": "リトルレディ、襲来",
+                    "name_cn": "小淑女来袭",
+                    "air_date": "2016-08-03",
+                    "desc": "バゼットの結界によって、ドールズ達の急襲は防げたはずだった。しかし、イリヤは学校に侵入しようとしていたエリカという幼い女の子を目撃する。エリカは、なぜかイリヤのことを「お姉ちゃん」と呼び、二人はあっという間に打ち解ける。そんな中、エリカの父と名乗る男が現れる。一見優しそうなこの男は、エリカを迎えに来たというが…!?\r\n\r\n脚本：井上堅二 / 絵コンテ：湊　未来 / 演出：伊部勇志 / 作画監督：久松沙紀・若山政志・本田辰雄・月岡英明",
+                    "duration_seconds": 1440,
+                    "ep": 5,
+                    "sort": 5,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 640907,
+                    "name": "凍てつく敵意",
+                    "name_cn": "冰寒的敌意",
+                    "air_date": "2016-08-10",
+                    "desc": "エリカを迎えに来た男は、ダリウスと名乗るエインズワース家の当主であり、美遊を攫った張本人だった。強大な力によって、氷の結界型宝具を顕現させるダリウス。結界を破ろうとするクロのカラドボルグをもってしても、わずかなダメージしか与えられない中、ダリウスはイリヤに衝撃的な言葉を告げる……!?\r\n\r\n脚本：水瀬葉月 / 絵コンテ：五味伸介 / 演出：五味伸介 / 作画監督：五味伸介",
+                    "duration_seconds": 1440,
+                    "ep": 6,
+                    "sort": 6,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 640908,
+                    "name": "人形とぬいぐるみ",
+                    "name_cn": "人偶与玩偶",
+                    "air_date": "2016-08-17",
+                    "desc": "エインズワース邸内の地下牢に捕らえられてしまったイリヤ。エリカは“イリヤの側にいたい”という美遊の願いを叶えようとしてイリヤの意識をクマの人形に移し替えてしまう。持ち前の空想と気合いによって、動きの自由を手に入れたイリヤだったが、自分のカラダを探すため屋敷を探し回る途中、ベアトリスに見つかってしまう……。\r\n\r\n脚本：井上堅二 / 絵コンテ：大西景介 / 演出：大西景介 / 作画監督：瀧本愛",
+                    "duration_seconds": 1440,
+                    "ep": 7,
+                    "sort": 7,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 640909,
+                    "name": "人と道具",
+                    "name_cn": "人与道具",
+                    "air_date": "2016-08-24",
+                    "desc": "サファイアを携えてクマの人形の姿のまま魔法少女に転身したイリヤは、意識を入れ替えられた凛とルヴィアとの激しい攻防の末、エリカとアンジェリカのいる寝室にもつれ込む。本来のカラダを取り戻し、アンジェリカと対峙したイリヤは、美遊に隠された真実を知ることになる。\r\n\r\n脚本：水瀬葉月 / 絵コンテ：大石美絵 / 演出：神谷智大 / 作画監督：塚本歩・粟井重紀・古屋梨絵・船越麻友美・前原薫・出野喜則・佐藤香織",
+                    "duration_seconds": 1440,
+                    "ep": 8,
+                    "sort": 8,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 640910,
+                    "name": "イリヤの選択",
+                    "name_cn": "伊莉雅的选择",
+                    "air_date": "2016-08-31",
+                    "desc": "美遊を犠牲にして、世界を救う……。エインズワースの真の目的は、美遊という聖杯を使って人類の救済を願うことだった。思わぬ展開に混乱するイリヤ。駆けつけてきたクロは、平行世界を救うことよりも、美遊が大事だと即断する。一方でイリヤは、美遊と世界を天秤にかけられ、答えを出せずにいた……。\r\n\r\n脚本：井上堅二 / 絵コンテ：山岸大吾 / 演出：山岸大吾 / 作画監督：平田和也・佐藤香織・小谷梨絵・木下由美子・福地和浩",
+                    "duration_seconds": 1440,
+                    "ep": 9,
+                    "sort": 9,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 640911,
+                    "name": "姫の元へ",
+                    "name_cn": "前往公主身边",
+                    "air_date": "2016-09-07",
+                    "desc": "美遊も世界も、両方救う!!　そんなイリヤの願いを実現するためには、エインズワースの手から美遊を取り戻さなければならない。激しい戦いを強いられるイリヤの元に、身を隠していたギルとバゼットが劣勢を覆すべく現れる。遂にイリヤと美遊の再会の時が近づく。\r\n\r\n脚本：水瀬葉月 / 絵コンテ：京極義昭 / 演出：井上圭介 / 作画監督：久松沙紀・松浦里美・佐々木睦美・飯飼一幸・船越麻友美・冨田佳亨・粟井重紀・服部憲知・古谷梨絵・佐藤香織・氏家嘉宏・前原薫",
+                    "duration_seconds": 1440,
+                    "ep": 10,
+                    "sort": 10,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 640912,
+                    "name": "独りじゃない",
+                    "name_cn": "并不孤独",
+                    "air_date": "2016-09-14",
+                    "desc": "",
+                    "duration_seconds": 1440,
+                    "ep": 11,
+                    "sort": 11,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 640913,
+                    "name": "繋いだ奇跡",
+                    "name_cn": "连成一线的奇迹",
+                    "air_date": "2016-09-21",
+                    "desc": "",
+                    "duration_seconds": 1454,
+                    "ep": 12,
+                    "sort": 12,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 665004,
+                    "name": "小学生達の○○修行",
+                    "name_cn": "小学生们的○○修行",
+                    "air_date": "2016-09-30",
+                    "desc": "",
+                    "duration_seconds": 247,
+                    "ep": 0,
+                    "sort": 1,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 665005,
+                    "name": "実践サバイバル術",
+                    "name_cn": "实践生存技巧",
+                    "air_date": "2016-10-28",
+                    "desc": "",
+                    "duration_seconds": 276,
+                    "ep": 0,
+                    "sort": 2,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 665006,
+                    "name": "着替えよ、さらば思い出さん",
+                    "name_cn": "",
+                    "air_date": "2016-11-25",
+                    "desc": "",
+                    "duration_seconds": 311,
+                    "ep": 0,
+                    "sort": 3,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 665007,
+                    "name": "絶対負けるもんですか！",
+                    "name_cn": "",
+                    "air_date": "2016-12-23",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 0,
+                    "sort": 4,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 665008,
+                    "name": "エリカのねまき研究",
+                    "name_cn": "",
+                    "air_date": "2017-01-27",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 0,
+                    "sort": 5,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 665009,
+                    "name": "ルビーの衛宮邸浴場観察録",
+                    "name_cn": "",
+                    "air_date": "2017-02-24",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 0,
+                    "sort": 6,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 2,
+            "watched_eps": 18,
+            "last_update": "2026-01-26T13:06:34+08:00",
+            "comment": null,
+            "tags": [],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
+            "id": 113134,
+            "name": "Fate/kaleid liner プリズマ☆イリヤ ツヴァイヘルツ!",
+            "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅 2wei Herz!",
+            "short_summary": "在与巴泽特经历一场恶战之后，伊莉雅她们好不容易才回到平稳的日常当中，但就在此时，凛和露维雅却发现了潜藏在地底的第8张职阶卡片！为了回收这第8张卡片，伊莉雅她们不得不与巴泽特合作，但回收卡片的困难程度却超出了她们的想象……",
+            "score": 7.1,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/0f/31/113134_NkaCg.jpg",
+            "eps": 10,
+            "date": "2015-07-24",
+            "summary": "在与巴泽特经历一场恶战之后，伊莉雅她们好不容易才回到平稳的日常当中，但就在此时，凛和露维雅却发现了潜藏在地底的第8张职阶卡片！为了回收这第8张卡片，伊莉雅她们不得不与巴泽特合作，但回收卡片的困难程度却超出了她们的想象……",
+            "total_episodes": 15,
+            "characters": [
+                {
+                    "id": 1227,
+                    "name": "ギルガメッシュ",
+                    "relation": "客串",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/db/ca/1227_crt_Dq9kZ.jpg?r=1498989532",
+                    "actor_ids": [
+                        3868
+                    ],
+                    "name_cn": "吉尔伽美什",
+                    "summary": "号称拥有最强宝具的Servant，将其他所有人都蔑称为“杂种”的傲慢的王者。其真身乃是人类最古老的英灵——英雄王吉尔伽美什。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "吉尔伽美什",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "182cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "68kg",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "职阶",
+                            "value": "Archer アーチャー / Caster キャスター",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "属性",
+                            "value": "混沌.善（Caster时为秩序·善）",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 3222,
+                    "name": "柳洞一成",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/68/7f/3222_crt_anidb.jpg?r=1421298168",
+                    "actor_ids": [
+                        4313
+                    ],
+                    "name_cn": "柳洞一成",
+                    "summary": "与士郎同年级的学生会长，也是士郎的朋友，忠诚老实认真的好青年。身为柳洞家的长子，是柳洞寺的继承人，具有看穿远坂凛的本质的尖锐洞察力，也因此讨厌凛。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "柳洞一成",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "170cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "58kg",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "anidb.net",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 16239,
+                    "name": "マジカルルビー",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/24/2c/16239_crt_5hy50.jpg?r=1376255343",
+                    "actor_ids": [
+                        4031
+                    ],
+                    "name_cn": "红宝石之星",
+                    "summary": "自称爱和正义的魔法杖。被称之为愉快型魔术礼装，虽然是人工精灵但是性格有小恶魔的倾向，喜好谈论八卦话题跟恶作剧，尤其喜欢捉弄自己的主人。\r\n第二魔法的应用的一级品的魔术礼装。能够使用多元转变，让使用者能够下载平行世界的技能。在变身的同时能够让使用者使用A级的魔术障壁、物理保护、促进治疗、身体能力强化等常备能力。\r\n\r\n魔術礼装「カレイドステッキ」の1本。手にしたマスターに魔力を無制限に供給できる一級品である一方、マスターをいじるなど、性格的に難がある。\r\n\r\n\r\n\r\n代表着爱与正义，为世界带来和平与微笑的纯白色愉悦型魔术礼装，魔法少女得以变身的力量源泉。虽然是魔杖，但却具有自我意识，总能在关键的时刻为少女们指引出前进的方向，在困难的时刻对少女们进行激励和鼓舞，可以说是魔法少女们最值得信赖的良师益友。如果你相信的话……",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "红宝石之星",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "淫棍",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "真相",
+                            "value": "琥珀",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 17650,
+                    "name": "美遊・エーデルフェルト",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/90/64/17650_crt_pldL7.jpg?r=1535689182",
+                    "actor_ids": [
+                        3922
+                    ],
+                    "name_cn": "美游·艾德费尔特",
+                    "summary": "全能少女。\r\n学力、体力ともに他の追随を許さないところがあり、クールな性格で他人との関わりをなるべく避ける少女。マジカルサファイヤ、そしてルヴィアと出会ったことで、イリヤと同じく魔法少女になってしまう。",
+                    "birth_year": null,
+                    "birth_month": 7,
+                    "birth_day": 20,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "美游·艾德费尔特",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "7月20日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "中文维基／anime.prisma-illya.jp/character/#miyu",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 20931,
+                    "name": "マジカルサファイア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/89/48/20931_crt_utNto.jpg?r=1376255733",
+                    "actor_ids": [
+                        4353
+                    ],
+                    "name_cn": "蓝宝石之星",
+                    "summary": "红宝石的妹妹，比起姊姊个性较为正经，基本性能与红宝石相同。跟姊姊一样，放弃原持有人露维亚瑟琳塔的控制，而变成由美游所持有。\r\n曾为了收拾红宝石搞出的残局而对她大义灭亲(放出洗脑电波)，而让红宝石整整故障了三天。\r\n\r\nマジカルルビーの妹にあたるカレイドステッキ。ルビーと違い、冷静で合理的な性格をしており、本来はマスターに忠実だが、ルヴィアの元を離れてしまう。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "蓝宝石之星",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "法杖",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 25761,
+                    "name": "クロエ・フォン・アインツベルン",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a2/69/25761_crt_13Kzg.jpg?r=1498990165",
+                    "actor_ids": [
+                        4249
+                    ],
+                    "name_cn": "克洛伊·冯·爱因兹贝伦",
+                    "summary": "在第二部的时候登场，因处理地脉正常化的仪式出了差错，导致从伊莉雅身上分离出来并实体化的人格。\r\n其真实身分为爱因兹贝伦家在十年前的圣杯战争时所使用的许愿仪，并在伊莉雅婴儿时期被母亲封印的魔力、记忆及知识，经长年累积后实体化的人格（第一部伊莉雅的英灵化就是她）。\r\n皮肤较伊莉雅黝黑，发色也偏银色，服装类似Archer，但比较裸露。性格较伊莉雅来的狡猾活泼，但除了凛、露维亚、美游及伊莉雅的母亲外，没人认得出来她不是伊莉雅，为了方便和伊莉雅区别，而被凛取名叫“小黑”（クロ），而克洛伊·冯·爱因兹贝伦为自己掰出来的名字。",
+                    "birth_year": null,
+                    "birth_month": 7,
+                    "birth_day": 20,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "克洛伊·冯·爱因兹贝伦",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "7月20日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "声优",
+                            "value": "斋藤千和",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 34454,
+                    "name": "嶽間沢龍子",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/da/26/34454_crt_Sihm4.jpg?r=1468194945",
+                    "actor_ids": [
+                        4850
+                    ],
+                    "name_cn": "岳间泽龙子",
+                    "summary": "伊莉雅的同班同学。武术世家岳间泽家的幺女，上头有两位兄长，有恋兄癖。因为是在一群粗汉中长大，所以说话和行动也是粗里粗气，不过身心都称不上坚强，反而动不动就掉泪。可以穿着裸露不在意的到处走，被好友们称作会走路的儿童色情制造机。活生生的麻烦制造者，为身边的朋友们带来许多麻烦。在第3季番外篇中，经历一连串的打击下，而决定舍弃武术。自称穗群原小学的四神之一，代表动物为青龙（海马）。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "岳间泽龙子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "anime.prisma-illya.jp/character",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 34455,
+                    "name": "桂美々",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/9d/76/34455_crt_LlTV5.jpg?r=1467919853",
+                    "actor_ids": [
+                        5003
+                    ],
+                    "name_cn": "桂美美",
+                    "summary": "伊莉雅的同班同学，被小黑强吻后昏倒的可怜人，虽然不起眼，却是个良善温柔的乖孩子。是从《Fate/hollow ataraxia》的路人中选出来的角色。有一个弟弟。曾偷看到伊莉雅用接吻替小黑补魔力的过程，似乎有在写百合小说。第三期的番外篇中，透露了她已加入了腐女行列。最近写了以士郎及一成作题材，一共十二本笔记本厚度的BL小说。与性向还算普通的一般腐女不同，已经严重到会主张男人与男人，女人与女人恋爱；因而吓得伊莉雅及小黑落荒而逃。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "桂美美",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 34456,
+                    "name": "森山那奈亀",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a4/1b/34456_crt_RGSJG.jpg?r=1566656516",
+                    "actor_ids": [
+                        4769
+                    ],
+                    "name_cn": "森山那奈龟",
+                    "summary": "伊莉雅的同班同学。在呆头呆脑的外表下意外的相当聪明，也较会冷静判断。喜欢不动声色的欺负龙子，拥有轻度的S属性，且对武术的领悟力极高，曾看过一次岳间泽流派的武术后就现学现卖，将身为道馆馆主的龙子父亲给瞬间秒杀。自称穗群原小学的四神之一，代表动物为玄武（乌龟）。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "森山那奈龟",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "anime.prisma-illya.jp/character/",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "姐姐",
+                            "value": "森山奈菜巳",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 34457,
+                    "name": "栗原雀花",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/69/72/34457_crt_m4iJM.jpg?r=1566656502",
+                    "actor_ids": [
+                        4949
+                    ],
+                    "name_cn": "栗原雀花",
+                    "summary": "伊莉雅的同班同学。腐女，会和姐姐联手创作同人志，以小学生来说，在某项题材内建立起了自己的地位。拥有优秀的绘画才能；曾在美术课中绘画了一幅BL题材的画。与满分的美术科相对，其他科目皆只有2分(满分为5)。\r\n对士郎及柳洞一成两人的关系有强烈的妄想。自称穗群原小学的四神之一，代表动物为朱雀（麻雀）。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "栗原雀花",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 65943,
+                    "name": "オーギュスト",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a4/47/65943_crt_w88rb.jpg?r=1536204093",
+                    "actor_ids": [
+                        3855
+                    ],
+                    "name_cn": "奥古斯特",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "奥古斯特",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 71118,
+                    "name": "森山奈菜巳",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d9/0f/71118_crt_Z4k4z.jpg?r=1564655995",
+                    "actor_ids": [
+                        4412
+                    ],
+                    "name_cn": "森山奈菜巳",
+                    "summary": "在《Fate》正作中没有出现的、完全原创的人物。\r\n穗群原学园高中部学生。森山那奈龟的姐姐。\r\n性格温和、是妹妹森山那奈龟倾慕的对象。学校内的人气人物，不过在远坂凛与露维亚瑟琳塔·艾德费尔特转学进来后就被抢走人气。\r\n是其中一个对卫宫士郎有好感的女生，但这触动了露维亚瑟琳塔·艾德菲尔特和远坂凛的逆鳞，因而被扔了一个装了一堆青蛙的袋子。之后得了青蛙恐慌症。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "森山奈菜巳",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "年龄",
+                            "value": "16岁",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "森山奈菜巳 - 萌娘百科",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 106489,
+                    "name": "子ギル",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/92/f0/106489_crt_udYPn.jpg?r=1645283717",
+                    "actor_ids": [
+                        4893
+                    ],
+                    "name_cn": "幼吉尔",
+                    "summary": "乌鲁克的英雄王。人类最古老的英雄。性格冷酷无情。不听他人的意见，只以自己基准为绝对标准的暴君——的这种性质，并不能适用于这个模样的他。他基本还是名彬彬有礼而谦虚的少年。\r\n喜欢的女性是「犹如盛开于野外的鲜花」类。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "幼吉尔",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "140cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "30kg",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "职阶",
+                            "value": "Archer",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "属性",
+                            "value": "混沌·善·天",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183099,
+                    "name": "イリヤスフィール・フォン・アインツベルン (プリズマ☆イリヤ)",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/e0/79/183099_crt_WvU45.jpg",
+                    "actor_ids": [
+                        4402
+                    ],
+                    "name_cn": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
+                    "summary": "就读于穗群原学园小学部的普通女孩子。银发赤眼，名字很有贵族的风格，常不在家的双亲从事神秘的工作，分明是一般宅邸，却不知为何有两位女仆在，顺便还有一个没有血缘关系的哥哥，但还是一个非常普通的小学五年级女孩子。",
+                    "birth_year": null,
+                    "birth_month": 7,
+                    "birth_day": 20,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "7月20日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "133cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "29kg",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183129,
+                    "name": "衛宮士郎 (イリヤ世界)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/61/5d/183129_crt_ou46V.jpg",
+                    "actor_ids": [
+                        4578
+                    ],
+                    "name_cn": "卫宫士郎 (伊莉雅世界)",
+                    "summary": "穂群原学園高等部に通うイリヤの義理の兄。イリヤにとっては、優しくて頼り甲斐のあるお兄ちゃん。炊事洗濯が得意で、同居するメイド·セラの仕事を図らずも奪ってしまうことがあり、そのたびに小言を言われている。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "卫宫士郎 (伊莉雅世界)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183135,
+                    "name": "遠坂凛 (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/0a/68/183135_crt_9vc69.jpg",
+                    "actor_ids": [
+                        4263
+                    ],
+                    "name_cn": "远坂凛 (Prisma☆Illya)",
+                    "summary": "冬木市に潜在するカード回収のため、ロンドンから派遣された魔術師。マジカルルビーの力を使ってカード回収にあたるはずが、一緒に来日したルヴィアと争っているうちにマジカルルビーに逃げられてしまう。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "远坂凛 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183136,
+                    "name": "ルヴィアゼリッタ・エーデルフェルト (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/f2/70/183136_crt_2U21k.jpg",
+                    "actor_ids": [
+                        4272
+                    ],
+                    "name_cn": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)",
+                    "summary": "高飛車な性格のお嬢様で、宝石魔術を使う際も、宝石に糸目を付けない財力の持ち主。凛とともに日本へはカード回収にやってきたものの、凛との争いに辟易したマジカルサファイアに逃げられてしまう。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183187,
+                    "name": "バゼット・フラガ・マクレミッツ (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/6c/68/183187_crt_mbJbP.jpg",
+                    "actor_ids": [
+                        4394
+                    ],
+                    "name_cn": "巴泽特·弗拉加·麦克雷米兹 (Prisma☆Illya)",
+                    "summary": "協会一線級の戦闘屋「封印指定執行者」として、凛とルヴィアより前のクラスカード回収任務を担っていた。圧倒的な戦闘力はイリヤとクロが二人がかりで戦っても勝つことができない。カード回収のためルヴィア邸を襲撃し全壊させた。凛との取引に応じ、現在は休戦協定を敷いている。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "巴泽特·弗拉加·麦克雷米兹 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183188,
+                    "name": "カレン・オルテンシア (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/2c/2f/183188_crt_29FaR.jpg",
+                    "actor_ids": [
+                        4474
+                    ],
+                    "name_cn": "卡莲·奥尔黛西亚 (Prisma☆Illya)",
+                    "summary": "穂群原学園小等部の養護教諭。子供が嫌いで、危篤状態の重病人が運び込まれることを期待している問題教諭。一方でクロの存在を「奇跡」と言い、全てを見透かしているような発言をするミステリアスな存在。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "卡莲·奥尔黛西亚 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183197,
+                    "name": "アイリスフィール・フォン・アインツベルン (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/e5/98/183197_crt_Z1qDR.jpg",
+                    "actor_ids": [
+                        3890
+                    ],
+                    "name_cn": "爱丽丝菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
+                    "summary": "夫の切嗣とともに海外生活を送っていたが、イリヤの異変を感じ日本へ帰ってきた。イリヤとクロの喧嘩(?)を母の力で終わらせた。聖杯として生まれたクロの「生きていたい」という願いを聞き入れ、イリヤとともに家庭へ迎え入れる。現在は母親としてイリヤとクロの生活を見守っている。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "爱丽丝菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183198,
+                    "name": "セラ (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/a3/a7/183198_crt_CIRI4.jpg",
+                    "actor_ids": [
+                        3907
+                    ],
+                    "name_cn": "塞拉 (Prisma☆Illya)",
+                    "summary": "アインツベルン家のメイドのひとり。家事全般を仕切っており、普段海外での仕事が多いイリヤの両親の代わりに、イリヤの教育係も任されている。イリヤには比較的甘いが、士郎には割と厳しい。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "塞拉 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183199,
+                    "name": "リーゼリット (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/dd/35/183199_crt_IWIbI.jpg",
+                    "actor_ids": [
+                        4693
+                    ],
+                    "name_cn": "莉洁莉特 (Prisma☆Illya)",
+                    "summary": "アインツベルン家のもうひとりのメイド。セラのように真面目に家事をする様子は特になく、イリヤと一緒にアニメを見たりとメイドらしさはあまりない。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "莉洁莉特 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183200,
+                    "name": "衛宮切嗣 (イリヤ世界)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/88/48/183200_crt_3lOOr.jpg",
+                    "actor_ids": [
+                        4130
+                    ],
+                    "name_cn": "卫宫切嗣 (伊莉雅世界)",
+                    "summary": "他是伊莉雅的父亲，但很少露面，露面时也基本没有露脸。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "卫宫切嗣 (伊莉雅世界)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 183202,
+                    "name": "藤村大河 (プリズマ☆イリヤ)",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/34/2b/183202_crt_772H9.jpg",
+                    "actor_ids": [
+                        4332
+                    ],
+                    "name_cn": "藤村大河 (Prisma☆Illya)",
+                    "summary": "穂群原学園小等部の教師で、イリヤのクラスの担任。明るくおおらかな性格で、生徒たちにも人気があるが、怒ると迫力のある怒鳴り声を上げたりする一面もある。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "藤村大河 (Prisma☆Illya)",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 37540,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ ツヴァイ!",
+                    "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅 2wei!",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/13/35/37540_4S4zL.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 83402,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ ツヴァイ!",
+                    "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅 2wei!",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/f8/d7/83402_BBeb9.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 258030,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ ツヴァイ ヘルツ! スペシャルラジオCD「イリヤと美遊のプリズマ☆ナイト ツヴァイ ヘルツ!」出張版",
+                    "name_cn": "",
+                    "relation": "其他",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/41/a1/258030_yh4ms.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 270837,
+                    "name": "ラジオCD「Fate/kaleid liner イリヤと凛のプリズマ☆ナイト ツヴァイ ヘルツ!」",
+                    "name_cn": "",
+                    "relation": "其他",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/a3/70/270837_WQTTt.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 270838,
+                    "name": "ラジオCD「Fate/kaleid liner イリヤと美遊のプリズマ☆ナイト ツヴァイ ヘルツ!」",
+                    "name_cn": "",
+                    "relation": "其他",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/80/24/270838_F42IA.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 394078,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ Prismanimation Illust Komplette!",
+                    "name_cn": "",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/d0/e9/394078_IDUi9.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 449164,
+                    "name": "星屑ダイアリー",
+                    "name_cn": "",
+                    "relation": "其他",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/f7/e2/449164_O5dLa.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 147693,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ ツヴァイ! / ツヴァイ ヘルツ! オリジナルサウンドトラック「Zwei de Plätze」",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/44/30/147693_jp.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 139979,
+                    "name": "ワンダーステラ",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/c2/76/139979_E8UG4.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 147466,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ ドライ!!",
+                    "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅 3rei!!",
+                    "relation": "续集",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/66/eb/147466_3vEo1.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 140981,
+                    "name": "ハプニング☆ダイアリー / Wishing diary",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/1e/77/140981_l4y3G.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 152410,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ ツヴァイ ヘルツ! スペシャルドラマCD「美遊・ラブズ・イリヤ」",
+                    "name_cn": "",
+                    "relation": "广播剧",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/c3/68/152410_gSwgK.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 159334,
+                    "name": "Fate/kaleid liner プリズマ☆イリヤ ツヴァイ ヘルツ! スペシャルドラマCD「実演、魔力供給」",
+                    "name_cn": "",
+                    "relation": "广播剧",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/5b/ea/159334_uWbRp.jpg",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "episodes": [
+                {
+                    "id": 524930,
+                    "name": "鏡にしてるみたいでイヤなんだけど",
+                    "name_cn": "简直像是在照镜子 好讨厌",
+                    "air_date": "2015-07-24",
+                    "desc": "小学生にとっての一大イベント、夏休みがついにやって来た！　念願の海水浴にそなえ、クラスメイトたちと水着を選びに来たイリヤたちは、際どい水着を前にして大騒ぎ♪　そんな中、魔力が尽きてきたクロが、イリヤを人気のない階段の踊り場に呼び出した。その現場を美々が目撃してしまい!?\r\n\r\n脚本：井上堅二 / 絵コンテ：湊 未來 / 演出：丸山由太 / 作画監督：山吉一幸、澤入祐樹、出野喜則、佐藤香織 / 美術監督：立石健",
+                    "duration_seconds": 1440,
+                    "ep": 1,
+                    "sort": 1,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 524931,
+                    "name": "トリコロール・バースデー",
+                    "name_cn": "Tricolore Birthday",
+                    "air_date": "2015-07-31",
+                    "desc": "夏だ、水着だ、海水浴だ！　海辺ではしゃいだり、海の家で誕生日会をしたりと、海をたっぷり満喫するイリヤたち♪　そこで出会ったアイスキャンディー売りは、かつて激闘を繰り広げたあの強敵で……。さらに、ルビーの“惚れ薬”のせいで士郎が暴走。イリヤの思いが、意外な形で実る!?\r\n\r\n脚本：井上堅二 / 絵コンテ：田村正文/ 演出：田村正文 / 作画監督：田村正文 / 美術監督：立石健",
+                    "duration_seconds": 1440,
+                    "ep": 2,
+                    "sort": 2,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 524932,
+                    "name": "命短し腐れよ乙女",
+                    "name_cn": "人生苦短，腐起来吧少女",
+                    "air_date": "2015-08-07",
+                    "desc": "水着を買いに行ったショッピングモールで、イリヤとクロの“栄養補給”を目撃していた美々。その日から、イケない妄想が頭から離れないでいた。そして、雀花のひと言をきっかけに美々は覚醒！　イリヤとクロは、すっかり“薔薇色”にそまってしまった美々の脳内を目の当たりにする。\r\n\r\n脚本：井上堅二 / 絵コンテ：木村泰大 / 演出：木村泰大 / 作画監督：大沢美奈 / 美術監督：立石健",
+                    "duration_seconds": 1440,
+                    "ep": 3,
+                    "sort": 3,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 524933,
+                    "name": "てーまぱーく・ぱにっく!",
+                    "name_cn": "主题乐园恐慌!",
+                    "air_date": "2015-08-14",
+                    "desc": "ルヴィアからチケットをもらったイリヤは、いつものメンバーと遊園地へ！　力いっぱい遊んでいるうちに、引率役のアイリとはぐれてしまう。アイリ探しの最中に出会ったのは、保健室のカレン先生で!?　そんな中、イリヤは、大切なブレスレットの飾りがなくなっていることに気づき……。\r\n\r\n脚本：水瀬葉月 / 絵コンテ：河村智之 / 演出：河村智之 / 作画監督：山吉一幸、平田和也、澤入祐樹、古谷梨絵、出野喜則 / 美術監督：立石 健",
+                    "duration_seconds": 1439,
+                    "ep": 4,
+                    "sort": 4,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 524934,
+                    "name": "浴衣と花火",
+                    "name_cn": "浴衣和烟花",
+                    "air_date": "2015-08-21",
+                    "desc": "イリヤたちの楽しい夏休みは終わらない！　浴衣に着替えたイリヤは、いつものメンバーと地元の夏祭りへ。ヨーヨー釣やくじ引きなどでお祭りを満喫するイリヤだったが、大変なことに気がついてしまう。下着をつけずに浴衣を着ていたのだ。そんなイリヤを、最大の悲劇が襲う！\r\n\r\n脚本：井上堅二 / 絵コンテ：神保昌登 / 演出：井上圭介 / 作画監督：平田和也、古谷梨絵 / 美術監督：立石 健",
+                    "duration_seconds": 1440,
+                    "ep": 5,
+                    "sort": 5,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 524935,
+                    "name": "Blue glass moon",
+                    "name_cn": "Blue glass moon",
+                    "air_date": "2015-08-28",
+                    "desc": "庭のビニールプールで水浴びを楽しむアイリとリズ。そんな2人に巻き込まれ、イリヤとクロも水びだしに♪　終りが近づく夏を楽しむイリヤたちに、ルヴィア邸の再建完了のパーティーのお知らせが届く。それは、8枚目カードの回収作戦開始の合図でもあった。決行は、今夜12時！\r\n\r\n脚本：水瀬葉月 / 絵コンテ：川口敬一郎 / 演出：田村正文 / 作画監督：田村正文、遠藤大輔 / 美術監督：立石 健",
+                    "duration_seconds": 1440,
+                    "ep": 6,
+                    "sort": 6,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 524936,
+                    "name": "執行者",
+                    "name_cn": "执行者",
+                    "air_date": "2015-09-04",
+                    "desc": "イリヤ、美遊、クロ、ルヴィア、凛にバゼットを加えた一同は、鏡面界の地下空洞において8枚目のカードの英霊に対峙する。地脈の中心で、多大な魔力を蓄えた英霊に対する戦略は、持てる力をのすべてを全力投下し、初撃で仕留めること。作戦通り、最大火力をもって英霊を攻撃するが!?\r\n\r\n脚本：水瀬葉月 / 絵コンテ：高橋 賢 / 演出：高橋 賢 / 作画監督：山吉一幸 / 美術監督：立石 健",
+                    "duration_seconds": 1440,
+                    "ep": 7,
+                    "sort": 7,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 524937,
+                    "name": "監視者",
+                    "name_cn": "监视者",
+                    "air_date": "2015-09-11",
+                    "desc": "8枚目のカードに宿る英霊の力は、神話の神々の域だった……。絶望的なまでの力の差を感じ取ったイリヤたちは、鏡面界から退避。息つく間もなく、一行を衝撃が襲う。鏡面界を切り裂き、英霊が姿を現したのだ。困惑するイリヤたちをあざ笑うかのように、空中を旋回していた英霊が、ついに動き出す。その行く先は、聖杯が眠る地下大空洞だった。\r\n\r\n脚本：水瀬葉月 / 絵コンテ：神谷智大 / 演出：丸山由太 / 作画監督：澤入祐樹 / 美術監督：立石 健",
+                    "duration_seconds": 1440,
+                    "ep": 8,
+                    "sort": 8,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 524938,
+                    "name": "金色の少年",
+                    "name_cn": "金色少年",
+                    "air_date": "2015-09-18",
+                    "desc": "英霊による聖杯起動の儀式を止めたイリヤの前に現われたのは、すべてを見透かしたかのように自信満々の態度をとる少年だった。彼は、美遊のことを、こう呼んだ「平行世界のお姫さま」――。8枚目のクラスカードとは？　美遊は一体どこから来たのか!?　少年の登場をきっかけに、真実のベールが剥がされていく。\r\n\r\n脚本：水瀬葉月 / 絵コンテ：木村泰大 / 演出：木村泰大 / 作画監督：平田和也 / 美術監督：立石 健",
+                    "duration_seconds": 1440,
+                    "ep": 9,
+                    "sort": 9,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 524939,
+                    "name": "世界の片隅で君の名を",
+                    "name_cn": "在世界的角落呼喊你的名字",
+                    "air_date": "2015-09-25",
+                    "desc": "英霊に取り込まれた美遊を引き摺りだし、その頬をひっぱたくため、イリヤは両手にルビーとサファイアを携えて、“ツヴァイフォーム”に変身する。対するのは、世界を切り裂く剣をもった最強の英霊だ。自分のすべてを犠牲にする覚悟で、大事な友だちである美遊のために戦うイリヤ。その思いの行く末とは!?\r\n\r\n脚本：井上堅二 / 絵コンテ：神保昌登 / 演出：神保昌登 / 作画監督：平田和也、山吉一幸、澤入祐樹、佐藤香織、古谷梨絵、秋山泰彦、出野喜則 / 美術監督：立石 健",
+                    "duration_seconds": 1440,
+                    "ep": 10,
+                    "sort": 10,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 567606,
+                    "name": "ビースト、再び！",
+                    "name_cn": "",
+                    "air_date": "2015-09-25",
+                    "desc": "",
+                    "duration_seconds": 419,
+                    "ep": 0,
+                    "sort": 1,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 578374,
+                    "name": "無限の服製",
+                    "name_cn": "",
+                    "air_date": "2015-10-30",
+                    "desc": "",
+                    "duration_seconds": 283,
+                    "ep": 0,
+                    "sort": 2,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 587953,
+                    "name": "乙女よ闘志を抱け（前編）",
+                    "name_cn": "",
+                    "air_date": "2015-11-27",
+                    "desc": "",
+                    "duration_seconds": 392,
+                    "ep": 0,
+                    "sort": 3,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 587954,
+                    "name": "乙女よ闘志を抱け（後編）",
+                    "name_cn": "",
+                    "air_date": "2015-12-25",
+                    "desc": "不确定，先加一下。",
+                    "duration_seconds": 475,
+                    "ep": 0,
+                    "sort": 4,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 600425,
+                    "name": "バゼットはじめてのアルバイト",
+                    "name_cn": "",
+                    "air_date": "2016-01-29",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 0,
+                    "sort": 5,
+                    "type": 1,
+                    "__dataclass__": "Episode"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 2,
+            "watched_eps": 0,
+            "last_update": "2026-01-26T13:05:51+08:00",
+            "comment": null,
+            "tags": [],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
     }
 ]
