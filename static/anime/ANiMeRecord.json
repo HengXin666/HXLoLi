@@ -156930,28 +156930,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "肯尼斯·艾尔梅洛伊·阿奇博尔德",
-                            "__dataclass__": "KeyValue"
+                            "value": "肯尼斯·艾尔梅洛伊·阿奇博尔德"
                         },
                         {
                             "key": "生日",
-                            "value": "4月11日",
-                            "__dataclass__": "KeyValue"
+                            "value": "4月11日"
                         },
                         {
                             "key": "血型",
-                            "value": "B型",
-                            "__dataclass__": "KeyValue"
+                            "value": "B型"
                         },
                         {
                             "key": "身高",
-                            "value": "181cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "181cm"
                         },
                         {
                             "key": "体重",
-                            "value": "62kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "62kg"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -156972,28 +156967,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "间桐雁夜",
-                            "__dataclass__": "KeyValue"
+                            "value": "间桐雁夜"
                         },
                         {
                             "key": "生日",
-                            "value": "3月22日",
-                            "__dataclass__": "KeyValue"
+                            "value": "3月22日"
                         },
                         {
                             "key": "血型",
-                            "value": "AB型",
-                            "__dataclass__": "KeyValue"
+                            "value": "AB型"
                         },
                         {
                             "key": "身高",
-                            "value": "173cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "173cm"
                         },
                         {
                             "key": "体重",
-                            "value": "55kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "55kg"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157014,23 +157004,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "红宝石之星",
-                            "__dataclass__": "KeyValue"
+                            "value": "红宝石之星"
                         },
                         {
                             "key": "性别",
-                            "value": "淫棍",
-                            "__dataclass__": "KeyValue"
+                            "value": "淫棍"
                         },
                         {
                             "key": "引用来源",
-                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
-                            "__dataclass__": "KeyValue"
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire"
                         },
                         {
                             "key": "真相",
-                            "value": "琥珀",
-                            "__dataclass__": "KeyValue"
+                            "value": "琥珀"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157051,23 +157037,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "美游·艾德费尔特",
-                            "__dataclass__": "KeyValue"
+                            "value": "美游·艾德费尔特"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "7月20日",
-                            "__dataclass__": "KeyValue"
+                            "value": "7月20日"
                         },
                         {
                             "key": "引用来源",
-                            "value": "中文维基／anime.prisma-illya.jp/character/#miyu",
-                            "__dataclass__": "KeyValue"
+                            "value": "中文维基／anime.prisma-illya.jp/character/#miyu"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157088,18 +157070,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "蓝宝石之星",
-                            "__dataclass__": "KeyValue"
+                            "value": "蓝宝石之星"
                         },
                         {
                             "key": "性别",
-                            "value": "法杖",
-                            "__dataclass__": "KeyValue"
+                            "value": "法杖"
                         },
                         {
                             "key": "引用来源",
-                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
-                            "__dataclass__": "KeyValue"
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157120,13 +157099,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "达利乌斯·爱因兹华斯",
-                            "__dataclass__": "KeyValue"
+                            "value": "达利乌斯·爱因兹华斯"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157147,13 +157124,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "阿特拉姆·加里阿斯塔",
-                            "__dataclass__": "KeyValue"
+                            "value": "阿特拉姆·加里阿斯塔"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157174,13 +157149,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "安洁莉卡·爱因兹华斯",
-                            "__dataclass__": "KeyValue"
+                            "value": "安洁莉卡·爱因兹华斯"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157201,18 +157174,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "艾丽卡·爱因兹华斯",
-                            "__dataclass__": "KeyValue"
+                            "value": "艾丽卡·爱因兹华斯"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wikipedia",
-                            "__dataclass__": "KeyValue"
+                            "value": "wikipedia"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157233,13 +157203,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "朱利安·爱因兹华斯",
-                            "__dataclass__": "KeyValue"
+                            "value": "朱利安·爱因兹华斯"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157258,18 +157226,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "朔月阳代子",
-                            "__dataclass__": "KeyValue"
+                            "value": "朔月阳代子"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "朔月阳代子 - 萌娘百科",
-                            "__dataclass__": "KeyValue"
+                            "value": "朔月阳代子 - 萌娘百科"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157290,13 +157255,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "扎卡利·爱因兹华斯",
-                            "__dataclass__": "KeyValue"
+                            "value": "扎卡利·爱因兹华斯"
                         },
                         {
                             "key": "引用来源",
-                            "value": "扎卡利·爱因兹华斯 - 萌娘百科",
-                            "__dataclass__": "KeyValue"
+                            "value": "扎卡利·爱因兹华斯 - 萌娘百科"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157317,28 +157280,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "7月20日",
-                            "__dataclass__": "KeyValue"
+                            "value": "7月20日"
                         },
                         {
                             "key": "身高",
-                            "value": "133cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "133cm"
                         },
                         {
                             "key": "体重",
-                            "value": "29kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "29kg"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157359,13 +157317,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "卫宫士郎 (美游世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "卫宫士郎 (美游世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157386,13 +157342,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "远坂凛 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "远坂凛 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157413,13 +157367,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157440,13 +157392,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "间桐樱 (美游世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "间桐樱 (美游世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157467,13 +157417,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "樱的哥哥 (美游世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "樱的哥哥 (美游世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157494,13 +157442,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "卫宫切嗣 (美游世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "卫宫切嗣 (美游世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157521,13 +157467,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "言峰绮礼 (美游世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "言峰绮礼 (美游世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157608,8 +157552,7 @@
                     "duration_seconds": 5400,
                     "ep": 1,
                     "sort": 1,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 773787,
@@ -157620,8 +157563,7 @@
                     "duration_seconds": 370,
                     "ep": 0,
                     "sort": 0,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 841469,
@@ -157632,8 +157574,7 @@
                     "duration_seconds": 1953,
                     "ep": 0,
                     "sort": 1,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 }
             ],
             "__dataclass__": "ANiMeData"
@@ -157677,23 +157618,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "红宝石之星",
-                            "__dataclass__": "KeyValue"
+                            "value": "红宝石之星"
                         },
                         {
                             "key": "性别",
-                            "value": "淫棍",
-                            "__dataclass__": "KeyValue"
+                            "value": "淫棍"
                         },
                         {
                             "key": "引用来源",
-                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
-                            "__dataclass__": "KeyValue"
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire"
                         },
                         {
                             "key": "真相",
-                            "value": "琥珀",
-                            "__dataclass__": "KeyValue"
+                            "value": "琥珀"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157714,23 +157651,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "美游·艾德费尔特",
-                            "__dataclass__": "KeyValue"
+                            "value": "美游·艾德费尔特"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "7月20日",
-                            "__dataclass__": "KeyValue"
+                            "value": "7月20日"
                         },
                         {
                             "key": "引用来源",
-                            "value": "中文维基／anime.prisma-illya.jp/character/#miyu",
-                            "__dataclass__": "KeyValue"
+                            "value": "中文维基／anime.prisma-illya.jp/character/#miyu"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157751,18 +157684,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "蓝宝石之星",
-                            "__dataclass__": "KeyValue"
+                            "value": "蓝宝石之星"
                         },
                         {
                             "key": "性别",
-                            "value": "法杖",
-                            "__dataclass__": "KeyValue"
+                            "value": "法杖"
                         },
                         {
                             "key": "引用来源",
-                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
-                            "__dataclass__": "KeyValue"
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157783,13 +157713,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "达利乌斯·爱因兹华斯",
-                            "__dataclass__": "KeyValue"
+                            "value": "达利乌斯·爱因兹华斯"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157810,23 +157738,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "克洛伊·冯·爱因兹贝伦",
-                            "__dataclass__": "KeyValue"
+                            "value": "克洛伊·冯·爱因兹贝伦"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "7月20日",
-                            "__dataclass__": "KeyValue"
+                            "value": "7月20日"
                         },
                         {
                             "key": "声优",
-                            "value": "斋藤千和",
-                            "__dataclass__": "KeyValue"
+                            "value": "斋藤千和"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157847,18 +157771,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "岳间泽龙子",
-                            "__dataclass__": "KeyValue"
+                            "value": "岳间泽龙子"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "anime.prisma-illya.jp/character",
-                            "__dataclass__": "KeyValue"
+                            "value": "anime.prisma-illya.jp/character"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157879,18 +157800,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "桂美美",
-                            "__dataclass__": "KeyValue"
+                            "value": "桂美美"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅",
-                            "__dataclass__": "KeyValue"
+                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157911,23 +157829,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "森山那奈龟",
-                            "__dataclass__": "KeyValue"
+                            "value": "森山那奈龟"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "anime.prisma-illya.jp/character/",
-                            "__dataclass__": "KeyValue"
+                            "value": "anime.prisma-illya.jp/character/"
                         },
                         {
                             "key": "姐姐",
-                            "value": "森山奈菜巳",
-                            "__dataclass__": "KeyValue"
+                            "value": "森山奈菜巳"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157948,18 +157862,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "栗原雀花",
-                            "__dataclass__": "KeyValue"
+                            "value": "栗原雀花"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅",
-                            "__dataclass__": "KeyValue"
+                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -157980,13 +157891,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "田中",
-                            "__dataclass__": "KeyValue"
+                            "value": "田中"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158007,13 +157916,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "贝阿朵莉丝·芙劳查尔德",
-                            "__dataclass__": "KeyValue"
+                            "value": "贝阿朵莉丝·芙劳查尔德"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158034,13 +157941,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "安洁莉卡·爱因兹华斯",
-                            "__dataclass__": "KeyValue"
+                            "value": "安洁莉卡·爱因兹华斯"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158061,18 +157966,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "艾丽卡·爱因兹华斯",
-                            "__dataclass__": "KeyValue"
+                            "value": "艾丽卡·爱因兹华斯"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "wikipedia",
-                            "__dataclass__": "KeyValue"
+                            "value": "wikipedia"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158093,13 +157995,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "朱利安·爱因兹华斯",
-                            "__dataclass__": "KeyValue"
+                            "value": "朱利安·爱因兹华斯"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158120,33 +158020,27 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "幼吉尔",
-                            "__dataclass__": "KeyValue"
+                            "value": "幼吉尔"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "身高",
-                            "value": "140cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "140cm"
                         },
                         {
                             "key": "体重",
-                            "value": "30kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "30kg"
                         },
                         {
                             "key": "职阶",
-                            "value": "Archer",
-                            "__dataclass__": "KeyValue"
+                            "value": "Archer"
                         },
                         {
                             "key": "属性",
-                            "value": "混沌·善·天",
-                            "__dataclass__": "KeyValue"
+                            "value": "混沌·善·天"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158167,28 +158061,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "7月20日",
-                            "__dataclass__": "KeyValue"
+                            "value": "7月20日"
                         },
                         {
                             "key": "身高",
-                            "value": "133cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "133cm"
                         },
                         {
                             "key": "体重",
-                            "value": "29kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "29kg"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158209,13 +158098,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "卫宫士郎 (伊莉雅世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "卫宫士郎 (伊莉雅世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158236,13 +158123,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "卫宫士郎 (美游世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "卫宫士郎 (美游世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158263,13 +158148,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "远坂凛 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "远坂凛 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158290,13 +158173,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158317,13 +158198,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "间桐樱 (美游世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "间桐樱 (美游世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158344,13 +158223,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "巴泽特·弗拉加·麦克雷米兹 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "巴泽特·弗拉加·麦克雷米兹 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158371,13 +158248,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "塞拉 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "塞拉 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158398,13 +158273,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "莉洁莉特 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "莉洁莉特 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158425,13 +158298,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "言峰绮礼 (美游世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "言峰绮礼 (美游世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158539,8 +158410,7 @@
                     "duration_seconds": 1440,
                     "ep": 1,
                     "sort": 1,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 640903,
@@ -158551,8 +158421,7 @@
                     "duration_seconds": 1440,
                     "ep": 2,
                     "sort": 2,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 640904,
@@ -158563,8 +158432,7 @@
                     "duration_seconds": 1440,
                     "ep": 3,
                     "sort": 3,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 640905,
@@ -158575,8 +158443,7 @@
                     "duration_seconds": 1440,
                     "ep": 4,
                     "sort": 4,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 640906,
@@ -158587,8 +158454,7 @@
                     "duration_seconds": 1440,
                     "ep": 5,
                     "sort": 5,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 640907,
@@ -158599,8 +158465,7 @@
                     "duration_seconds": 1440,
                     "ep": 6,
                     "sort": 6,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 640908,
@@ -158611,8 +158476,7 @@
                     "duration_seconds": 1440,
                     "ep": 7,
                     "sort": 7,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 640909,
@@ -158623,8 +158487,7 @@
                     "duration_seconds": 1440,
                     "ep": 8,
                     "sort": 8,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 640910,
@@ -158635,8 +158498,7 @@
                     "duration_seconds": 1440,
                     "ep": 9,
                     "sort": 9,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 640911,
@@ -158647,8 +158509,7 @@
                     "duration_seconds": 1440,
                     "ep": 10,
                     "sort": 10,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 640912,
@@ -158659,8 +158520,7 @@
                     "duration_seconds": 1440,
                     "ep": 11,
                     "sort": 11,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 640913,
@@ -158671,8 +158531,7 @@
                     "duration_seconds": 1454,
                     "ep": 12,
                     "sort": 12,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 665004,
@@ -158683,8 +158542,7 @@
                     "duration_seconds": 247,
                     "ep": 0,
                     "sort": 1,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 665005,
@@ -158695,8 +158553,7 @@
                     "duration_seconds": 276,
                     "ep": 0,
                     "sort": 2,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 665006,
@@ -158707,8 +158564,7 @@
                     "duration_seconds": 311,
                     "ep": 0,
                     "sort": 3,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 665007,
@@ -158719,8 +158575,7 @@
                     "duration_seconds": 0,
                     "ep": 0,
                     "sort": 4,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 665008,
@@ -158731,8 +158586,7 @@
                     "duration_seconds": 0,
                     "ep": 0,
                     "sort": 5,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 665009,
@@ -158743,8 +158597,7 @@
                     "duration_seconds": 0,
                     "ep": 0,
                     "sort": 6,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 }
             ],
             "__dataclass__": "ANiMeData"
@@ -158788,33 +158641,27 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "吉尔伽美什",
-                            "__dataclass__": "KeyValue"
+                            "value": "吉尔伽美什"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "身高",
-                            "value": "182cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "182cm"
                         },
                         {
                             "key": "体重",
-                            "value": "68kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "68kg"
                         },
                         {
                             "key": "职阶",
-                            "value": "Archer アーチャー / Caster キャスター",
-                            "__dataclass__": "KeyValue"
+                            "value": "Archer アーチャー / Caster キャスター"
                         },
                         {
                             "key": "属性",
-                            "value": "混沌.善（Caster时为秩序·善）",
-                            "__dataclass__": "KeyValue"
+                            "value": "混沌.善（Caster时为秩序·善）"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158835,28 +158682,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "柳洞一成",
-                            "__dataclass__": "KeyValue"
+                            "value": "柳洞一成"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "身高",
-                            "value": "170cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "170cm"
                         },
                         {
                             "key": "体重",
-                            "value": "58kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "58kg"
                         },
                         {
                             "key": "引用来源",
-                            "value": "anidb.net",
-                            "__dataclass__": "KeyValue"
+                            "value": "anidb.net"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158877,23 +158719,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "红宝石之星",
-                            "__dataclass__": "KeyValue"
+                            "value": "红宝石之星"
                         },
                         {
                             "key": "性别",
-                            "value": "淫棍",
-                            "__dataclass__": "KeyValue"
+                            "value": "淫棍"
                         },
                         {
                             "key": "引用来源",
-                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
-                            "__dataclass__": "KeyValue"
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire"
                         },
                         {
                             "key": "真相",
-                            "value": "琥珀",
-                            "__dataclass__": "KeyValue"
+                            "value": "琥珀"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158914,23 +158752,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "美游·艾德费尔特",
-                            "__dataclass__": "KeyValue"
+                            "value": "美游·艾德费尔特"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "7月20日",
-                            "__dataclass__": "KeyValue"
+                            "value": "7月20日"
                         },
                         {
                             "key": "引用来源",
-                            "value": "中文维基／anime.prisma-illya.jp/character/#miyu",
-                            "__dataclass__": "KeyValue"
+                            "value": "中文维基／anime.prisma-illya.jp/character/#miyu"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158951,18 +158785,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "蓝宝石之星",
-                            "__dataclass__": "KeyValue"
+                            "value": "蓝宝石之星"
                         },
                         {
                             "key": "性别",
-                            "value": "法杖",
-                            "__dataclass__": "KeyValue"
+                            "value": "法杖"
                         },
                         {
                             "key": "引用来源",
-                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire",
-                            "__dataclass__": "KeyValue"
+                            "value": "中文维基／anime.prisma-illya.jp/character/#rubysapphire"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -158983,23 +158814,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "克洛伊·冯·爱因兹贝伦",
-                            "__dataclass__": "KeyValue"
+                            "value": "克洛伊·冯·爱因兹贝伦"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "7月20日",
-                            "__dataclass__": "KeyValue"
+                            "value": "7月20日"
                         },
                         {
                             "key": "声优",
-                            "value": "斋藤千和",
-                            "__dataclass__": "KeyValue"
+                            "value": "斋藤千和"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159020,18 +158847,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "岳间泽龙子",
-                            "__dataclass__": "KeyValue"
+                            "value": "岳间泽龙子"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "anime.prisma-illya.jp/character",
-                            "__dataclass__": "KeyValue"
+                            "value": "anime.prisma-illya.jp/character"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159052,18 +158876,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "桂美美",
-                            "__dataclass__": "KeyValue"
+                            "value": "桂美美"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅",
-                            "__dataclass__": "KeyValue"
+                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159084,23 +158905,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "森山那奈龟",
-                            "__dataclass__": "KeyValue"
+                            "value": "森山那奈龟"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "anime.prisma-illya.jp/character/",
-                            "__dataclass__": "KeyValue"
+                            "value": "anime.prisma-illya.jp/character/"
                         },
                         {
                             "key": "姐姐",
-                            "value": "森山奈菜巳",
-                            "__dataclass__": "KeyValue"
+                            "value": "森山奈菜巳"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159121,18 +158938,15 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "栗原雀花",
-                            "__dataclass__": "KeyValue"
+                            "value": "栗原雀花"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "引用来源",
-                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅",
-                            "__dataclass__": "KeyValue"
+                            "value": "zh.wikipedia.org/wiki/Fate/kaleid liner 魔法少女☆伊莉雅"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159153,13 +158967,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "奥古斯特",
-                            "__dataclass__": "KeyValue"
+                            "value": "奥古斯特"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159180,23 +158992,19 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "森山奈菜巳",
-                            "__dataclass__": "KeyValue"
+                            "value": "森山奈菜巳"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "年龄",
-                            "value": "16岁",
-                            "__dataclass__": "KeyValue"
+                            "value": "16岁"
                         },
                         {
                             "key": "引用来源",
-                            "value": "森山奈菜巳 - 萌娘百科",
-                            "__dataclass__": "KeyValue"
+                            "value": "森山奈菜巳 - 萌娘百科"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159217,33 +159025,27 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "幼吉尔",
-                            "__dataclass__": "KeyValue"
+                            "value": "幼吉尔"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         },
                         {
                             "key": "身高",
-                            "value": "140cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "140cm"
                         },
                         {
                             "key": "体重",
-                            "value": "30kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "30kg"
                         },
                         {
                             "key": "职阶",
-                            "value": "Archer",
-                            "__dataclass__": "KeyValue"
+                            "value": "Archer"
                         },
                         {
                             "key": "属性",
-                            "value": "混沌·善·天",
-                            "__dataclass__": "KeyValue"
+                            "value": "混沌·善·天"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159264,28 +159066,23 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         },
                         {
                             "key": "生日",
-                            "value": "7月20日",
-                            "__dataclass__": "KeyValue"
+                            "value": "7月20日"
                         },
                         {
                             "key": "身高",
-                            "value": "133cm",
-                            "__dataclass__": "KeyValue"
+                            "value": "133cm"
                         },
                         {
                             "key": "体重",
-                            "value": "29kg",
-                            "__dataclass__": "KeyValue"
+                            "value": "29kg"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159306,13 +159103,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "卫宫士郎 (伊莉雅世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "卫宫士郎 (伊莉雅世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159333,13 +159128,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "远坂凛 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "远坂凛 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159360,13 +159153,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "露维亚瑟琳塔·艾德费尔特 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159387,13 +159178,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "巴泽特·弗拉加·麦克雷米兹 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "巴泽特·弗拉加·麦克雷米兹 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159414,13 +159203,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "卡莲·奥尔黛西亚 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "卡莲·奥尔黛西亚 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159441,13 +159228,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "爱丽丝菲尔·冯·爱因兹贝伦 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "爱丽丝菲尔·冯·爱因兹贝伦 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159468,13 +159253,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "塞拉 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "塞拉 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159495,13 +159278,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "莉洁莉特 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "莉洁莉特 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159522,13 +159303,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "卫宫切嗣 (伊莉雅世界)",
-                            "__dataclass__": "KeyValue"
+                            "value": "卫宫切嗣 (伊莉雅世界)"
                         },
                         {
                             "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
+                            "value": "男"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159549,13 +159328,11 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "藤村大河 (Prisma☆Illya)",
-                            "__dataclass__": "KeyValue"
+                            "value": "藤村大河 (Prisma☆Illya)"
                         },
                         {
                             "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
+                            "value": "女"
                         }
                     ],
                     "__dataclass__": "Character"
@@ -159690,8 +159467,7 @@
                     "duration_seconds": 1440,
                     "ep": 1,
                     "sort": 1,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 524931,
@@ -159702,8 +159478,7 @@
                     "duration_seconds": 1440,
                     "ep": 2,
                     "sort": 2,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 524932,
@@ -159714,8 +159489,7 @@
                     "duration_seconds": 1440,
                     "ep": 3,
                     "sort": 3,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 524933,
@@ -159726,8 +159500,7 @@
                     "duration_seconds": 1439,
                     "ep": 4,
                     "sort": 4,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 524934,
@@ -159738,8 +159511,7 @@
                     "duration_seconds": 1440,
                     "ep": 5,
                     "sort": 5,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 524935,
@@ -159750,8 +159522,7 @@
                     "duration_seconds": 1440,
                     "ep": 6,
                     "sort": 6,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 524936,
@@ -159762,8 +159533,7 @@
                     "duration_seconds": 1440,
                     "ep": 7,
                     "sort": 7,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 524937,
@@ -159774,8 +159544,7 @@
                     "duration_seconds": 1440,
                     "ep": 8,
                     "sort": 8,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 524938,
@@ -159786,8 +159555,7 @@
                     "duration_seconds": 1440,
                     "ep": 9,
                     "sort": 9,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 524939,
@@ -159798,8 +159566,7 @@
                     "duration_seconds": 1440,
                     "ep": 10,
                     "sort": 10,
-                    "type": 0,
-                    "__dataclass__": "Episode"
+                    "type": 0
                 },
                 {
                     "id": 567606,
@@ -159810,8 +159577,7 @@
                     "duration_seconds": 419,
                     "ep": 0,
                     "sort": 1,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 578374,
@@ -159822,8 +159588,7 @@
                     "duration_seconds": 283,
                     "ep": 0,
                     "sort": 2,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 587953,
@@ -159834,8 +159599,7 @@
                     "duration_seconds": 392,
                     "ep": 0,
                     "sort": 3,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 587954,
@@ -159846,8 +159610,7 @@
                     "duration_seconds": 475,
                     "ep": 0,
                     "sort": 4,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 },
                 {
                     "id": 600425,
@@ -159858,8 +159621,7 @@
                     "duration_seconds": 0,
                     "ep": 0,
                     "sort": 5,
-                    "type": 1,
-                    "__dataclass__": "Episode"
+                    "type": 1
                 }
             ],
             "__dataclass__": "ANiMeData"
