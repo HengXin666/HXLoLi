@@ -154631,8 +154631,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 3,
-            "last_update": "2026-01-23T13:41:22+08:00",
+            "watched_eps": 4,
+            "last_update": "2026-01-30T13:49:59+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -155930,8 +155930,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 2,
-            "last_update": "2026-01-23T13:16:07+08:00",
+            "watched_eps": 3,
+            "last_update": "2026-01-30T13:25:03+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
