@@ -68,7 +68,8 @@ class Api:
         if os.path.exists(save_path):
             return False
         try:
-            response = requests.get(url, headers=HEADERS)
+            # [FIX] 图片请求也必须走限速器, 否则会被 API 限流导致后续信息“假性不更新”
+            response = apiReq.get(url, headers=HEADERS)
             response.raise_for_status()
             with open(save_path, "wb") as f:
                 f.write(response.content)
@@ -83,12 +84,20 @@ class Api:
     def requires(self, username: str, lambda_func: Callable = lambda: None) -> None:
         def _task(idx: int) -> None:
             print(f"{idx}: {self._anime_record[idx].anime_data.name}")
-            self._get_anime_characters(idx)
-            self._get_relations(idx)
-            self._get_episodes(idx)
+            # [FIX] 允许已存在番剧也刷新完整信息
+            self._refresh_anime_full(idx)
             lambda_func()
 
         self._get_user_watching_anime(username, _task)
+
+    def _refresh_anime_full(self, idx: int) -> None:
+        record = self._anime_record[idx]
+        record.anime_data.characters.clear()
+        record.anime_data.relations.clear()
+        record.anime_data.episodes.clear()
+        self._get_anime_characters(idx)
+        self._get_relations(idx)
+        self._get_episodes(idx)
 
     def download_all_img(self) -> None:
         def _download_img_thread(queue: Queue[Tuple[str, int, str]]) -> None:
@@ -116,8 +125,10 @@ class Api:
                 queue.put(("relation", relation.id, relation.image_url))
         for cv in self._actor_map.values():
             queue.put(("cv", cv.id, cv.image_url))
-        for _ in range(32):
+
+        for _ in range(8):
             threading.Thread(target=_download_img_thread, args=(queue,)).start()
+
         print("主线程: 等待所有下载任务完成...")
         queue.join()
         print("主线程: 所有图片下载任务已完成! ")
@@ -125,7 +136,7 @@ class Api:
     def _get_subjects_info(self, id: int, record_ref: ANiMeRecord) -> None:
         url = f"{BASE_URL}/v0/subjects/{id}"
         try:
-            response = requests.get(url, headers=HEADERS)
+            response = apiReq.get(url, headers=HEADERS)
             response.raise_for_status()
             # 补充更新
             data = response.json()
@@ -144,47 +155,48 @@ class Api:
     def _get_user_watching_anime(self, username: str, lambda_func: Callable) -> None:
         url = f"{BASE_URL}/v0/users/{username}/collections"
         limit = 100
-        for i in range(99999999):
+        offset = 0  # [FIX] 使用真实 offset, 不使用假无限 for
+
+        while True:
             params = {
                 "subject_type": 2,  # 仅请求动画
-                "limit": limit,  # 限制返回的条数
-                "offset": i * limit,  # 偏移量
+                "limit": limit,     # 限制返回的条数
+                "offset": offset,   # 偏移量
             }
             try:
                 response = apiReq.get(url, headers=HEADERS, params=params)
-                # 如果请求失败, 则抛出异常
                 response.raise_for_status()
-                for it in response.json().get("data", []):
+                data = response.json().get("data", [])
+
+                if not data:
+                    return
+
+                for it in data:
                     if it["subject_id"] in self._record_map:
-                        # 仅更新 UserStatus
                         ref = self._record_map[it["subject_id"]]
+                        updated = False
+
                         if ref.user_status.watch_status != WatchStatus(it["type"]):
-                            print(
-                                f"[{it['updated_at']}] 番剧 {ref.anime_data.name} 观看状态更新: {ref.user_status.watch_status} -> {it['type']}"
-                            )
                             ref.user_status.watch_status = WatchStatus(it["type"])
-                        
+                            updated = True
+
                         if ref.user_status.watched_eps != it["ep_status"]:
-                            print(
-                                f"[{it['updated_at']}] 番剧 {ref.anime_data.name} 已看集数更新: {ref.user_status.watched_eps} -> {it['ep_status']}"
-                            )
                             ref.user_status.watched_eps = it["ep_status"]
-                        
-                        ref.user_status.last_update = it["updated_at"]
+                            updated = True
 
                         if ref.user_status.comment != it["comment"]:
-                            print(
-                                f"[{it['updated_at']}] 番剧 {ref.anime_data.name} 评论更新: {ref.user_status.comment} -> {it['comment']}"
-                            )
                             ref.user_status.comment = it["comment"]
-                        
+                            updated = True
+
                         if ref.user_status.tags != it["tags"]:
-                            print(
-                                f"[{it['updated_at']}] 番剧 {ref.anime_data.name} 标签更新: {ref.user_status.tags} -> {it['tags']}"
-                            )
                             ref.user_status.tags = it["tags"]
-                        
+                            updated = True
+
+                        if updated:
+                            ref.user_status.last_update = it["updated_at"]
+
                         continue
+
                     # 新增记录
                     record = ANiMeRecord(
                         ANiMeData(
@@ -207,12 +219,13 @@ class Api:
                             tags=it["tags"],
                         ),
                     )
-                    self._get_subjects_info(record.anime_data.id, record)  # 补充更新
+                    self._get_subjects_info(record.anime_data.id, record)
                     self._record_map[record.anime_data.id] = record
                     self._anime_record.append(record)
                     lambda_func(len(self._anime_record) - 1)
-                if len(self._anime_record) < limit * (i + 1):
-                    return
+
+                offset += limit
+
             except requests.exceptions.RequestException as e:
                 print(f"获取用户追番列表失败: {e}")
                 return
@@ -316,16 +329,22 @@ class Api:
         """获取番剧剧集信息"""
         url = f"{BASE_URL}/v0/episodes"
         limit = 100
+        offset = 0
         try:
-            for i in range(99999999):
+            while True:
                 params = {
                     "subject_id": self._anime_record[data_idx].anime_data.id,
                     "limit": limit,
-                    "offset": limit * i,
+                    "offset": offset,
                 }
                 response = apiReq.get(url, headers=HEADERS, params=params)
                 response.raise_for_status()
-                for it in response.json()["data"]:
+                data = response.json()["data"]
+
+                if not data:
+                    return
+
+                for it in data:
                     episode = Episode(
                         id=it["id"],
                         name=it["name"],
@@ -338,10 +357,8 @@ class Api:
                         desc=it["desc"],
                     )
                     self._anime_record[data_idx].anime_data.episodes.append(episode)
-                if len(self._anime_record[data_idx].anime_data.episodes) < limit * (
-                    i + 1
-                ):
-                    return
+
+                offset += limit
         except requests.exceptions.RequestException as e:
             print(
                 f"获取番剧 {self._anime_record[data_idx].anime_data.id} 剧集失败: {e}"
@@ -425,7 +442,7 @@ if __name__ == "__main__":
 
     api = load_from_json()
     # 边爬取边输出为 json 文件
-    api.requires("heng_xin", lambda: save_to_json(api))
+    api.requires(USERNAME, lambda: save_to_json(api))
     # 保存为 json 文件, 防止因为没有新增番剧而不更新
     save_to_json(api)
     # 下载图片
