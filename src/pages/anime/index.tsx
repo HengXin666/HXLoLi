@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Layout from "@theme/Layout";
 import AnimeCard from "@site/src/components/anime/AnimeCard";
 import { ANiMeRecord, WatchStatus } from "@site/src/utils/anime/types";

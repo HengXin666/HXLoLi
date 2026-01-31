@@ -84,12 +84,6 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
 
-      - name: 拷贝数据到静态网站目录
-        run: |
-          source $HOME/.cargo/env
-          uv run CopyToStaticWebPath.py
-        working-directory: ./py/anime
-
       - name: 召唤 萝莉小猫娘 帮忙 push
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

@@ -1,6 +1,7 @@
 import { parse } from "@site/src/utils/anime/parser";
 import { Actor, ANiMeRecord } from "@site/src/utils/anime/types";
 import { useState, useEffect } from "react";
+import { toJsDelivrUrl } from '@site/src/utils/cdn/linkJsDelivr'
 
 let cachedRecords: readonly ANiMeRecord[] | null = null;
 let loadingPromise: Promise<readonly ANiMeRecord[]> | null = null;
@@ -8,9 +9,7 @@ let loadingPromise: Promise<readonly ANiMeRecord[]> | null = null;
 let actorMap: Map<number, Actor> | null = null;
 let loadingActorPromise: Promise<Map<number, Actor>> | null = null;
 
-function loadAnimeRecords (
-    baseUrl: string
-): Promise<readonly ANiMeRecord[]> {
+function loadAnimeRecords (): Promise<readonly ANiMeRecord[]> {
     if (cachedRecords) {
         return Promise.resolve(cachedRecords);
     }
@@ -20,7 +19,7 @@ function loadAnimeRecords (
     }
 
     loadingPromise = (async () => {
-        const response = await fetch(`${baseUrl}anime/ANiMeRecord.json`);
+        const response = await fetch(toJsDelivrUrl("/py/anime/data/ANiMeRecord.json"));
         if (!response.ok) {
             throw new Error(response.statusText);
         }
@@ -33,7 +32,7 @@ function loadAnimeRecords (
     return loadingPromise;
 }
 
-function loadActorMap (baseUrl: string): Promise<Map<number, Actor>> {
+function loadActorMap (): Promise<Map<number, Actor>> {
     if (actorMap) {
         return Promise.resolve(actorMap);
     }
@@ -43,7 +42,7 @@ function loadActorMap (baseUrl: string): Promise<Map<number, Actor>> {
     }
     
     loadingActorPromise = (async () => {
-        const response = await fetch(`${baseUrl}anime/Actor.json`);
+        const response = await fetch(toJsDelivrUrl("/py/anime/data/Actor.json"));
         if (!response.ok) {
             throw new Error(response.statusText);
         }
@@ -65,7 +64,7 @@ export function useAnimeRecords (baseUrl: string) {
     const [data, setData] = useState<readonly ANiMeRecord[]>([]);
 
     useEffect(() => {
-        loadAnimeRecords(baseUrl).then(setData);
+        loadAnimeRecords().then(setData);
     }, [baseUrl]);
 
     return data;
@@ -75,7 +74,7 @@ export function useActorMap(baseUrl: string) {
     const [data, setData] = useState<Map<number, Actor>>(new Map());
     
     useEffect(() => {
-        loadActorMap(baseUrl).then(setData);
+        loadActorMap().then(setData);
     }, [baseUrl]);
     
     return data;
