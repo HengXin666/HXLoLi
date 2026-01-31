@@ -68,7 +68,6 @@ class Api:
         if os.path.exists(save_path):
             return False
         try:
-            # [FIX] 图片请求也必须走限速器, 否则会被 API 限流导致后续信息“假性不更新”
             response = apiReq.get(url, headers=HEADERS)
             response.raise_for_status()
             with open(save_path, "wb") as f:
@@ -84,7 +83,6 @@ class Api:
     def requires(self, username: str, lambda_func: Callable = lambda: None) -> None:
         def _task(idx: int) -> None:
             print(f"{idx}: {self._anime_record[idx].anime_data.name}")
-            # [FIX] 允许已存在番剧也刷新完整信息
             self._refresh_anime_full(idx)
             lambda_func()
 
@@ -155,7 +153,7 @@ class Api:
     def _get_user_watching_anime(self, username: str, lambda_func: Callable) -> None:
         url = f"{BASE_URL}/v0/users/{username}/collections"
         limit = 100
-        offset = 0  # [FIX] 使用真实 offset, 不使用假无限 for
+        offset = 0
 
         while True:
             params = {
@@ -168,33 +166,24 @@ class Api:
                 response.raise_for_status()
                 data = response.json().get("data", [])
 
-                if not data:
-                    return
-
                 for it in data:
-                    if it["subject_id"] in self._record_map:
+                    if int(it["subject_id"]) in self._record_map:
                         ref = self._record_map[it["subject_id"]]
-                        updated = False
-
                         if ref.user_status.watch_status != WatchStatus(it["type"]):
                             ref.user_status.watch_status = WatchStatus(it["type"])
-                            updated = True
 
                         if ref.user_status.watched_eps != it["ep_status"]:
                             ref.user_status.watched_eps = it["ep_status"]
-                            updated = True
 
                         if ref.user_status.comment != it["comment"]:
                             ref.user_status.comment = it["comment"]
-                            updated = True
 
                         if ref.user_status.tags != it["tags"]:
                             ref.user_status.tags = it["tags"]
-                            updated = True
 
-                        if updated:
+                        if ref.user_status.last_update != it["updated_at"]:
                             ref.user_status.last_update = it["updated_at"]
-
+                            print(f"更新: {ref.anime_data.name_cn} 的用户数据")
                         continue
 
                     # 新增记录
