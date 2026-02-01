@@ -87,15 +87,15 @@ jobs:
       - name: 召唤 萝莉小猫娘 帮忙 push
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: '\[LoLi-Bot\]: ご主人さま、アニメデータを更新しましたにゃ'
-          commit_user_name: 'Heng_Xin\[LoLi-Bot\]'
+          commit_message: '[LoLi-Bot]: ご主人さま、アニメデータを更新しましたにゃ'
+          commit_user_name: 'Heng_Xin[LoLi-Bot]'
           commit_user_email: '282000500@qq.com'
-          commit_author: 'Heng_Xin\[LoLi-Bot\] <282000500@qq.com>'
+          commit_author: 'Heng_Xin[LoLi-Bot] <282000500@qq.com>'
 
   deploy:
     # 简化了判断逻辑，手动触发和定时触发同样可以触发部署
     if: |
-      (github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '\[LoLi-Bot\]')) ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[LoLi-Bot]')) ||
       github.event_name == 'schedule' ||
       github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
