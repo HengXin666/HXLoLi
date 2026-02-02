@@ -168,7 +168,7 @@ class Api:
 
                 for it in data:
                     if int(it["subject_id"]) in self._record_map:
-                        ref = self._record_map[it["subject_id"]]
+                        ref = self._record_map[int(it["subject_id"])]
                         if ref.user_status.watch_status != WatchStatus(it["type"]):
                             ref.user_status.watch_status = WatchStatus(it["type"])
 
@@ -184,6 +184,15 @@ class Api:
                         if ref.user_status.last_update != it["updated_at"]:
                             ref.user_status.last_update = it["updated_at"]
                             print(f"更新: {ref.anime_data.name_cn} 的用户数据")
+                            idx = -1
+                            for i in range(len(self._anime_record)):
+                                if self._anime_record[i].anime_data.id == ref.anime_data.id:
+                                    idx = i
+                                    break
+                            if idx == -1:
+                                print("严重错误")
+                                exit(2233)
+                            lambda_func(idx)
                         continue
 
                     # 新增记录
