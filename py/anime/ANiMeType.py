@@ -29,6 +29,7 @@ class SubjectType(Enum):
 
 class EpisodeType(Enum):
     """剧集类型枚举"""
+
     NORMAL = 0  # 本篇(正片, 正式集数)
     SP = 1  # 特别篇(SP)
     OP = 2  # OP
@@ -41,6 +42,7 @@ class EpisodeType(Enum):
 class KeyValue:
     key: str
     value: str
+
 
 # 声优信息
 @dataclass
@@ -65,13 +67,13 @@ class Character:
     actor_ids: List[int]  # 声优信息 (此仅存储声优id)
 
     # characters/{id} 接口返回的数据 {
-    name_cn: str = field(default_factory=str) # 中文名称
-    summary: str = field(default_factory=str) # 角色简介
-    birth_year: int | None = None # 出生年份
-    birth_month: int | None = None # 出生月份
-    birth_day: int | None = None # 出生日期
-    tags: List[KeyValue] = field(default_factory=list) # 角色标签
-    # } 
+    name_cn: str = field(default_factory=str)  # 中文名称
+    summary: str = field(default_factory=str)  # 角色简介
+    birth_year: int | None = None  # 出生年份
+    birth_month: int | None = None  # 出生月份
+    birth_day: int | None = None  # 出生日期
+    tags: List[KeyValue] = field(default_factory=list)  # 角色标签
+    # }
 
 
 # 关联信息
@@ -91,16 +93,17 @@ class Relation:
 @dataclass
 class Episode:
     """剧集信息数据类"""
-    
+
     id: int  # 剧集ID
     name: str  # 剧集名称
     name_cn: str  # 中文名称
     air_date: str  # 放送日期 (YYYY-MM-DD)
-    desc: str # 剧集简介
+    desc: str  # 剧集简介
     duration_seconds: int  # 时长 (秒)
-    ep: int # 集数 (第几集)
-    sort: int # 排序 (第几集)
-    type: EpisodeType # 类型
+    ep: int  # 集数 (第几集)
+    sort: int  # 排序 (第几集)
+    type: EpisodeType  # 类型
+
 
 # 番剧信息
 @dataclass
@@ -121,7 +124,7 @@ class ANiMeData:
     # subjects/{id} 接口返回的数据 {
     summary: str  # 简介
     total_episodes: int  # 总集数 (包含 OVA)
-    # } 
+    # }
 
     # characters 接口返回的数据 {
     characters: List[Character] = field(default_factory=list)  # 角色信息
@@ -133,7 +136,7 @@ class ANiMeData:
 
     # episodes 接口返回的数据 {
     episodes: List[Episode] = field(default_factory=list)  # 剧集信息
-    # } 
+    # }
 
 
 # 用户状态信息
@@ -193,6 +196,7 @@ CLASS_MAP = {
     "ANiMeData": ANiMeData,
     "UserStatus": UserStatus,
     "ANiMeRecord": ANiMeRecord,
+    "KeyValue": KeyValue,
 }
 
 
