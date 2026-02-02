@@ -197,6 +197,7 @@ CLASS_MAP = {
     "UserStatus": UserStatus,
     "ANiMeRecord": ANiMeRecord,
     "KeyValue": KeyValue,
+    "Episode": Episode,
 }
 
 
