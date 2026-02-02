@@ -145,6 +145,9 @@ class Api:
             record_ref.anime_data.total_episodes = data["total_episodes"]
             record_ref.anime_data.date = data["date"]
         except requests.exceptions.RequestException as e:
+            description: str = response.json().get("description", "")
+            if description.startswith("offset"):
+                return
             print(f"获取番剧信息失败: {e}")
         except json.JSONDecodeError:
             print("解析番剧信息响应失败, 内容可能不是有效的JSON。")
@@ -158,8 +161,8 @@ class Api:
         while True:
             params = {
                 "subject_type": 2,  # 仅请求动画
-                "limit": limit,     # 限制返回的条数
-                "offset": offset,   # 偏移量
+                "limit": limit,  # 限制返回的条数
+                "offset": offset,  # 偏移量
             }
             try:
                 response = apiReq.get(url, headers=HEADERS, params=params)
@@ -186,11 +189,14 @@ class Api:
                             print(f"更新: {ref.anime_data.name_cn} 的用户数据")
                             idx = -1
                             for i in range(len(self._anime_record)):
-                                if self._anime_record[i].anime_data.id == ref.anime_data.id:
+                                if (
+                                    self._anime_record[i].anime_data.id
+                                    == ref.anime_data.id
+                                ):
                                     idx = i
                                     break
                             if idx == -1:
-                                print("严重错误")
+                                print("严重错误: 已经存在但找不到数据")  # 不可能
                                 exit(2233)
                             lambda_func(idx)
                         continue
@@ -225,12 +231,13 @@ class Api:
                 offset += limit
 
             except requests.exceptions.RequestException as e:
+                description: str = response.json().get("description", "")
+                if description.startswith("offset"):
+                    return
                 print(f"获取用户追番列表失败: {e}")
-                return
             except json.JSONDecodeError:
                 print("解析追番列表响应失败, 内容可能不是有效的JSON。")
                 print("响应内容:", response.text)
-                return
 
     def _get_anime_kyara_data(self, kyara_ref: Character) -> None:
         """获取角色详细信息"""
@@ -358,6 +365,9 @@ class Api:
 
                 offset += limit
         except requests.exceptions.RequestException as e:
+            description: str = response.json().get("description", "")
+            if description.startswith("offset"):
+                return
             print(
                 f"获取番剧 {self._anime_record[data_idx].anime_data.id} 剧集失败: {e}"
             )
