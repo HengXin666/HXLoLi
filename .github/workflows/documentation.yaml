@@ -16,8 +16,9 @@ on:
         options: [incremental, full]
 
 jobs:
-  # 脚本 1: 同步数据
+  # --- 脚本 1: 同步数据 ---
   sync:
+    # 更加健壮的判断: 如果是 push, 则排除掉机器人的 commit
     if: |
       (github.event_name == 'push' && !contains(github.event.head_commit.message, '[LoLi-Bot]')) ||
       github.event_name == 'schedule' ||
@@ -27,18 +28,20 @@ jobs:
       update_type: ${{ github.event.inputs.update_type || 'incremental' }}
     secrets: inherit
 
-  # 脚本 2: 处理 Commit (仅在数据有更新时执行)
+  # --- 脚本 2: 处理 Commit ---
   commit-log:
     needs: sync
+    # 只有当 sync 任务成功执行且检测到数据变化时运行
     if: needs.sync.outputs.changed == 'true'
     uses: ./.github/workflows/process_commit.yaml
     secrets: inherit
 
-  # 脚本 3: 部署 (手动触发直接执行, 或者在同步成功后执行)
+  # --- 脚本 3: 部署 ---
   deploy:
     needs: [sync, commit-log]
+    # 如果是手动触发, 或者同步脚本发现有数据更新, 则执行部署
     if: |
       always() &&
-      (github.event_name == 'workflow_dispatch' || needs.sync.outputs.changed == 'true')
+      (github.event_name == 'workflow_dispatch' || (needs.sync.result == 'success' && needs.sync.outputs.changed == 'true'))
     uses: ./.github/workflows/deploy_blog.yaml
     secrets: inherit
