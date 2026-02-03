@@ -1,11 +1,14 @@
-name: "[LoLi]: 自动化博客更新主控"
+name: "[LoLi]: 爬取 BanGuMi 看情况更新博客"
 
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
   schedule:
-    - cron: '30 16 * * *' # 北京时间 00:30
-    - cron: '0 19 * * *'  # 北京时间 03:00
+    # 对应北京时间 00:30 (16:30 UTC) 和 03:00 (19:00 UTC)
+    - cron: '30 16 * * *'
+    - cron: '0 19 * * *'
   workflow_dispatch:
     inputs:
       update_type:
@@ -13,35 +16,149 @@ on:
         required: true
         default: 'incremental'
         type: choice
-        options: [incremental, full]
+        options:
+          - incremental
+          - full
+
+permissions:
+  contents: write
 
 jobs:
   # --- 脚本 1: 同步数据 ---
-  sync:
-    # 更加健壮的判断: 如果是 push, 则排除掉机器人的 commit
+  sync-data:
     if: |
-      (github.event_name == 'push' && !contains(github.event.head_commit.message, '[LoLi-Bot]')) ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[LoLi-Bot]')) ||
       github.event_name == 'schedule' ||
       github.event_name == 'workflow_dispatch'
-    uses: ./.github/workflows/sync_data.yaml
-    with:
-      update_type: ${{ github.event.inputs.update_type || 'incremental' }}
-    secrets: inherit
+    runs-on: ubuntu-latest
+    outputs:
+      changes_detected: ${{ steps.auto-commit.outputs.changes_detected }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-  # --- 脚本 2: 处理 Commit ---
-  commit-log:
-    needs: sync
-    # 只有当 sync 任务成功执行且检测到数据变化时运行
-    if: needs.sync.outputs.changed == 'true'
-    uses: ./.github/workflows/process_commit.yaml
-    secrets: inherit
+      - name: 启用 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装 uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: 安装 Python 依赖
+        run: |
+          source $HOME/.cargo/env
+          uv sync
+        working-directory: ./py
+
+      - name: 判断更新模式 (允许 3 小时误差)
+        run: |
+          DO_FULL_UPDATE=false
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ "${{ github.event.inputs.update_type }}" = "full" ]; then
+              DO_FULL_UPDATE=true
+            fi
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            WEEKDAY=$(TZ=Asia/Shanghai date +%u)
+            HOUR=$(TZ=Asia/Shanghai date +%H)
+            # 判断是否为北京时间周一凌晨 (0:00 - 3:59 之间)
+            if [ "$WEEKDAY" -eq 1 ] && [ "$HOUR" -ge 0 ] && [ "$HOUR" -le 3 ]; then
+              DO_FULL_UPDATE=true
+            fi
+          fi
+
+          if [ "$DO_FULL_UPDATE" = "true" ]; then
+            echo "🚀 执行全量更新 (清理旧数据)"
+            rm -f *.json
+          else
+            echo "⏱️ 执行增量更新"
+          fi
+        working-directory: ./py/anime/data
+
+      - name: 开始爬取番剧
+        run: |
+          source $HOME/.cargo/env
+          uv run Api.py --username="heng_xin" --token=${{ secrets.BGM_ACCESS_TOKEN }}
+        working-directory: ./py/anime
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: 召唤 萝莉小猫娘 帮忙 push
+        id: auto-commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: '[LoLi-Bot]: ご主人さま、アニメデータを更新しましたにゃ'
+          commit_user_name: 'Heng_Xin[LoLi-Bot]'
+          commit_user_email: '282000500@qq.com'
+          commit_author: 'Heng_Xin[LoLi-Bot] <282000500@qq.com>'
+
+  # --- 脚本 2: 更新 Commit 信息 ---
+  process-commit:
+    needs: sync-data
+    # 只有当脚本 1 成功 push 了新数据时才执行
+    if: needs.sync-data.outputs.changes_detected == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: 'main'
+
+      - name: 启用 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 执行 GetCommit 脚本
+        run: python py/tools/GetCommit.py
+
+      - name: 提交更新后的 Commit 数据
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: '[LoLi-Bot]: Commit 「最后之作」'
+          commit_user_name: 'Heng_Xin[LoLi-Bot]'
+          commit_user_email: '282000500@qq.com'
 
   # --- 脚本 3: 部署 ---
   deploy:
-    needs: [sync, commit-log]
-    # 如果是手动触发, 或者同步脚本发现有数据更新, 则执行部署
+    needs: [sync-data, process-commit]
+    # 如果是手动触发, 或者脚本 1 有变动成功, 则执行部署
     if: |
       always() &&
-      (github.event_name == 'workflow_dispatch' || (needs.sync.result == 'success' && needs.sync.outputs.changed == 'true'))
-    uses: ./.github/workflows/deploy_blog.yaml
-    secrets: inherit
+      (github.event_name == 'workflow_dispatch' || needs.sync-data.outputs.changes_detected == 'true')
+    runs-on: ubuntu-latest
+    steps:
+      - name: 同步最新代码
+        uses: actions/checkout@v4
+        with:
+          ref: 'main'
+
+      - name: 启动 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: 安装 dependencies
+        run: |
+          if [ -e yarn.lock ]; then
+            yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+            npm ci
+          else
+            npm i
+          fi
+
+      - name: 为工作流启用 SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
+
+      - name: 部署到 Github Pages
+        env:
+          USE_SSH: true
+          GIT_USER: Heng_Xin
+        run: |
+          git config --global user.email "282000500@qq.com"
+          git config --global user.name "Heng_Xin"
+          npm run deploy
