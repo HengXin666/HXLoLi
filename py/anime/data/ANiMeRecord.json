@@ -60187,7 +60187,7 @@
             "name": "盾の勇者の成り上がり",
             "name_cn": "盾之勇者成名录",
             "short_summary": "极为平凡的御宅族大学生·岩谷尚文，受到在图书馆发现的一本书所引导，被召唤到了异世界。他被赋予的使命，是作为装备着剑、枪、弓、盾的四圣勇者之一“盾之勇者”，驱逐给世界带来混沌的灾害“波”。因为大冒险而心潮澎湃，和同伴一同踏上旅程的尚文。但，他",
-            "score": 5.6,
+            "score": 5.7,
             "image_url": "https://lain.bgm.tv/pic/cover/l/b9/9b/217660_h3554.jpg",
             "eps": 25,
             "date": "2019-01-09",
@@ -176595,15 +176595,6 @@
             ],
             "relations": [
                 {
-                    "id": 243475,
-                    "name": "抜きゲーみたいな島に住んでる貧乳はどうすりゃいいですか？",
-                    "name_cn": "",
-                    "relation": "游戏",
-                    "type": 4,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/95/90/243475_n4jp9.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
                     "id": 565417,
                     "name": "ぬきたし THE ANIMATION オリジナルサウンドトラックCD",
                     "name_cn": "",
@@ -176619,15 +176610,6 @@
                     "relation": "片头曲",
                     "type": 3,
                     "image_url": "https://lain.bgm.tv/pic/cover/l/03/d7/566563_gPeuq.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
-                    "id": 568123,
-                    "name": "ラジオ『ぬきたし』 ～そうだ 青藍島、イこう～",
-                    "name_cn": "",
-                    "relation": "其他",
-                    "type": 6,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/a5/d9/568123_Fq4sx.jpg",
                     "__dataclass__": "Relation"
                 }
             ],
