@@ -1,7 +1,7 @@
 import { parse } from "@site/src/utils/anime/parser";
 import { Actor, ANiMeRecord } from "@site/src/utils/anime/types";
 import { useState, useEffect } from "react";
-import { toJsDelivrUrl } from '@site/src/utils/cdn/linkJsDelivr'
+import { toJsDelivrLatestCommitUrl } from '@site/src/utils/cdn/linkJsDelivr'
 
 let cachedRecords: readonly ANiMeRecord[] | null = null;
 let loadingPromise: Promise<readonly ANiMeRecord[]> | null = null;
@@ -19,7 +19,7 @@ function loadAnimeRecords (): Promise<readonly ANiMeRecord[]> {
     }
 
     loadingPromise = (async () => {
-        const response = await fetch(toJsDelivrUrl("/py/anime/data/ANiMeRecord.json"));
+        const response = await fetch(toJsDelivrLatestCommitUrl("/py/anime/data/ANiMeRecord.json"));
         if (!response.ok) {
             throw new Error(response.statusText);
         }
@@ -42,7 +42,7 @@ function loadActorMap (): Promise<Map<number, Actor>> {
     }
     
     loadingActorPromise = (async () => {
-        const response = await fetch(toJsDelivrUrl("/py/anime/data/Actor.json"));
+        const response = await fetch(toJsDelivrLatestCommitUrl("/py/anime/data/Actor.json"));
         if (!response.ok) {
             throw new Error(response.statusText);
         }

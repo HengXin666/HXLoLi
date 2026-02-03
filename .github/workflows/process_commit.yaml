@@ -1,0 +1,23 @@
+name: "小萝莉整理commit"
+on:
+  workflow_call:
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 'main'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: 蟒蛇 跑 GetCommit
+        run: python py/tools/GetCommit.py
+        working-directory: ./
+      - name: 小萝莉整理commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: '[LoLi-Bot]: Commit 整理完了!'
+          commit_user_name: 'Heng_Xin[LoLi-Bot]'
+          commit_user_email: '282000500@qq.com'
