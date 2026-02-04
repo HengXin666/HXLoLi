@@ -1,4 +1,4 @@
-from dataclasses import asdict, dataclass, field, fields, is_dataclass
+from dataclasses import dataclass, field, fields, is_dataclass
 from enum import Enum
 from typing import Any, List, get_type_hints
 import json
@@ -35,7 +35,9 @@ class EpisodeType(Enum):
     OP = 2  # OP
     ED = 3  # ED
     PROMO = 4  # 预告/宣传
-    OTHER = 5  # MAD 等其他
+    MAD = 5     # MAD
+    OTHER = 6   # 其他
+
 
 
 @dataclass

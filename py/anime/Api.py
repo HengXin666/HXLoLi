@@ -389,7 +389,8 @@ def load_from_json() -> Api:
         # 番剧记录
         with open(f"{DATA_ROOT_PATH}/ANiMeRecord.json", "r", encoding="utf-8") as f:
             anime_record: List[ANiMeRecord] = json.load(f, cls=ANiMeDecoder)
-    except:
+    except Exception as e:
+        print("Open File Err:", e)
         anime_record = []
     try:
         # 声优信息
