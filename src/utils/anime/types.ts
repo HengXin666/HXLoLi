@@ -26,7 +26,8 @@ export enum EpisodeType {
   OP = 2, // OP
   ED = 3, // ED
   PROMO = 4, // 预告/宣传
-  OTHER = 5, // MAD 等其他
+  MAD = 5, // MAD
+  OTHER = 6, // 其他
 }
 
 // ================= basic structs =================
