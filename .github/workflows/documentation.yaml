@@ -6,9 +6,9 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    # 对应北京时间 00:30 (16:30 UTC) 和 03:00 (19:00 UTC)
+    # 对应北京时间 00:30 (16:30 UTC) 和 15:00 (07:00 UTC)
     - cron: '30 16 * * *'
-    - cron: '0 19 * * *'
+    - cron: '0 7 * * *'
   workflow_dispatch:
     inputs:
       update_type:
