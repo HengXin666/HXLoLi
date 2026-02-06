@@ -8790,5 +8790,12 @@
         "short_summary": "日本の男性声優。香川県出身。ベルプロダクション所属。\r\n方言は関西弁、讃岐弁。趣味は食べ歩き、カラオケ、ゲーム、散策。特技なんでも美味しく食べる事、歌舞伎、水泳。資格は普通自動車免許。",
         "image_url": "https://lain.bgm.tv/pic/crt/l/16/21/68725_prsn_qbRDD.jpg",
         "__dataclass__": "Actor"
+    },
+    {
+        "id": 49618,
+        "name": "木田祐",
+        "short_summary": "",
+        "image_url": "https://lain.bgm.tv/pic/crt/l/92/7f/49618_prsn_nfQgE.jpg",
+        "__dataclass__": "Actor"
     }
 ]
