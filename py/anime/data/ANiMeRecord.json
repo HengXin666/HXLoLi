@@ -1997,6 +1997,51 @@
                     "__dataclass__": "Character"
                 },
                 {
+                    "id": 15076,
+                    "name": "ランスロット",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/6e/82/15076_crt_J9jCW.jpg?r=1568190509",
+                    "actor_ids": [],
+                    "name_cn": "兰斯洛特",
+                    "summary": "被讴歌为圆桌骑士中最强者的“湖之骑士”。\r\n他热爱正义，尊敬女性，憎恶邪恶，清廉而又洋溢着浪漫的身姿，被亚瑟王评价为「理想的骑士」。\r\n与王妃桂妮薇儿的不伦之恋将卡美洛引向了破灭，确实是象征着亚瑟王传说的败北的人物。\r\n幼时父母双亡，由湖之妖精妮妙养育长大，因此得到了“湖之骑士”的异名。\r\n成年后渡海来到不列颠岛，经历了与亚瑟王的相遇，继承了圆桌骑士之名。\r\n其武勇与骑士道精神同其他普通人不能相提并论。\r\n对王妃桂妮薇儿的感情而献出生命，是他的骑士道所导致的必然结果。若不是对王的背叛加快了他走向毁灭的速度，说不定还能得到救赎。但却正是因他的武勇天下无双，才致使事态发展到最坏的结局。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "兰斯洛特",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "191cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "体重",
+                            "value": "81kg",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "属性",
+                            "value": "秩序·善（Berserker时为秩序·狂）",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "画师",
+                            "value": "しまどりる，こやまひろかず",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
                     "id": 15420,
                     "name": "United States of America",
                     "relation": "闲角",
@@ -2102,6 +2147,31 @@
                     "__dataclass__": "Character"
                 },
                 {
+                    "id": 17529,
+                    "name": "モブキャラクター",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/1d/85/17529_crt_0dRZE.jpg",
+                    "actor_ids": [],
+                    "name_cn": "路人",
+                    "summary": "闲角，常称作路人，在电视剧、电影等作品中，指戏份薄弱的副角、不相关的小人物、串场的闲杂人等。可能用来表达地方民众的声音，或是充当背景。\r\nモブキャラクター（mob character）とは、漫画、アニメ、映画、コンピュータゲームなどに描かれる端役のこと。群衆（群集）、または主要キャラクター以外の、その他大勢のこと。群集キャラ、背景キャラともいう。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "路人",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "http://www.paradisearmy.com/doujin/pasok_mob.htm",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
                     "id": 29849,
                     "name": "エルキドゥ",
                     "relation": "主角",
@@ -2148,6 +2218,35 @@
                         {
                             "key": "画师",
                             "value": "森井しづき",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 34143,
+                    "name": "女子生徒",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/68/a8/34143_crt_Z34RP.jpg",
+                    "actor_ids": [
+                        39802,
+                        43611,
+                        45761
+                    ],
+                    "name_cn": "女学生",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "女学生",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
                             "__dataclass__": "KeyValue"
                         }
                     ],
@@ -2734,6 +2833,31 @@
                         {
                             "key": "性别",
                             "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 71077,
+                    "name": "化野菱理",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/bc/7e/71077_crt_5pwHZ.jpg?r=1564296113",
+                    "actor_ids": [],
+                    "name_cn": "化野菱理",
+                    "summary": "時計塔を管理・監督する異端の学科「法政科」に所属している魔術師。法政科の性質上、魔術絡みの案件に関わる事が多く、様々な事件でロード・エルメロイⅡ世と対立している。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "化野菱理",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
                             "__dataclass__": "KeyValue"
                         }
                     ],
@@ -3327,6 +3451,33 @@
                     "__dataclass__": "Character"
                 },
                 {
+                    "id": 132828,
+                    "name": "クリストフェル・ ベイルマン",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/01/5f/132828_crt_1Y74R.jpg?r=1688399714",
+                    "actor_ids": [
+                        44927
+                    ],
+                    "name_cn": "克里斯托弗·贝尔曼",
+                    "summary": "朗格尔的弟子。在第五卷改编漫画中初次透露了他的名字。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "克里斯托弗·贝尔曼",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
                     "id": 169208,
                     "name": "メイシア・クオ",
                     "relation": "配角",
@@ -3770,7 +3921,9 @@
                     "name": "サンジェルマン",
                     "relation": "闲角",
                     "image_url": "https://lain.bgm.tv/pic/crt/l/30/50/197583_crt_zXYfy.jpg",
-                    "actor_ids": [],
+                    "actor_ids": [
+                        5209
+                    ],
                     "name_cn": "圣日耳曼",
                     "summary": "",
                     "birth_year": null,
@@ -4162,9 +4315,9 @@
                 {
                     "id": 1427236,
                     "name": "彷徨える王のロックンロール",
-                    "name_cn": "",
+                    "name_cn": "彷徨之王的摇滚乐",
                     "air_date": "2026-02-07",
-                    "desc": "",
+                    "desc": "留置場を後にしたセイバーとアヤカは、同盟相手を求めてスノーフィールドを彷徨う。やがて二人が足を踏み入れたのは、先刻アーチャーと規格外の戦闘を繰り広げたサーヴァント──ランサーが居を構える森林地帯。自らが与するに相応しい相手か否か、武技をもって問われたセイバーは、獅子心王としてその宝具を開帳する。\r\n\r\n脚本：枦山大\r\n絵コンテ：宮川駿\r\n演出：宮川駿 , 森大貴\r\n総作画監督：山田有慶\r\n制作協力：WIT STUDIO（山中一樹）\r\n作画監督：井上真佑、内藤丈太朗、とまど",
                     "duration_seconds": 1420,
                     "ep": 6,
                     "sort": 6,
@@ -4173,7 +4326,7 @@
                 },
                 {
                     "id": 1427237,
-                    "name": "",
+                    "name": "神は黄昏より舞い戻り",
                     "name_cn": "",
                     "air_date": "2026-02-14",
                     "desc": "",
@@ -4260,8 +4413,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 4,
-            "last_update": "2026-02-02T12:54:58+08:00",
+            "watched_eps": 5,
+            "last_update": "2026-02-08T13:51:42+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"

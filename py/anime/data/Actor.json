@@ -8797,5 +8797,26 @@
         "short_summary": "",
         "image_url": "https://lain.bgm.tv/pic/crt/l/92/7f/49618_prsn_nfQgE.jpg",
         "__dataclass__": "Actor"
+    },
+    {
+        "id": 43611,
+        "name": "阿保まりあ",
+        "short_summary": "日本の女性声優。宮城県出身。81プロデュース所属。",
+        "image_url": "https://lain.bgm.tv/pic/crt/l/9b/6d/43611_prsn_IL1Z6.jpg",
+        "__dataclass__": "Actor"
+    },
+    {
+        "id": 45761,
+        "name": "薮島朱音",
+        "short_summary": "",
+        "image_url": "https://lain.bgm.tv/pic/crt/l/01/41/45761_prsn_Kj6Mj.jpg",
+        "__dataclass__": "Actor"
+    },
+    {
+        "id": 44927,
+        "name": "鵜澤正太郎",
+        "short_summary": "鵜澤 正太郎（うざわ しょうたろう、1997年1月22日 - ）は、日本の男性俳優・声優である。81プロデュース所属。\r\n\r\n姉が二人いる。\r\n\r\n2010年第1回ボウラープロジェクト審査員特別賞受賞。 \r\n　　\r\n劇団日本児童に所属していた。",
+        "image_url": "https://lain.bgm.tv/pic/crt/l/91/21/44927_prsn_cR2rz.jpg?r=1647382690",
+        "__dataclass__": "Actor"
     }
 ]
