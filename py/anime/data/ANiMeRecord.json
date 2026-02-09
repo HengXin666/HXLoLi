@@ -1510,7 +1510,7 @@
                 {
                     "id": 132763,
                     "name": "フワワ",
-                    "relation": "配角",
+                    "relation": "主角",
                     "image_url": "https://lain.bgm.tv/pic/crt/l/50/e6/132763_crt_76YGg.jpg",
                     "actor_ids": [],
                     "name_cn": "芬巴巴",
@@ -1555,7 +1555,7 @@
                 {
                     "id": 132764,
                     "name": "ハルリ・ボルザーク",
-                    "relation": "配角",
+                    "relation": "主角",
                     "image_url": "https://lain.bgm.tv/pic/crt/l/80/8e/132764_crt_ABLEg.jpg",
                     "actor_ids": [
                         40794
@@ -2412,7 +2412,7 @@
                 {
                     "id": 202251,
                     "name": "アシュリー·サウスウィック",
-                    "relation": "闲角",
+                    "relation": "配角",
                     "image_url": "https://lain.bgm.tv/pic/crt/l/e4/1e/202251_crt_iIQQF.jpg",
                     "actor_ids": [
                         29974
@@ -2767,8 +2767,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 5,
-            "last_update": "2026-02-08T13:51:42+08:00",
+            "watched_eps": 6,
+            "last_update": "2026-02-09T20:37:31+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
