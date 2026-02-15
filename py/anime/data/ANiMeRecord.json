@@ -1,12 +1,1164 @@
 [
     {
         "anime_data": {
+            "id": 517057,
+            "name": "【推しの子】 第3期",
+            "name_cn": "【我推的孩子】 第三季",
+            "short_summary": "故事迈向全新舞台——\r\n\r\n自「POP IN 2」发行已过了半年。多亏了MEM CYO的努力，如今的 B小町已在爆红前夕。\r\n阿库亚走在全方位艺人的道路上，茜则是在实力派女演员的路上逐步前进。\r\n然而另一方面，佳奈却失去了以往的开朗。\r\n而",
+            "score": 7.1,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/92/95/517057_257ad.jpg",
+            "eps": 11,
+            "date": "2026-01-14",
+            "summary": "故事迈向全新舞台——\r\n\r\n自「POP IN 2」发行已过了半年。多亏了MEM CYO的努力，如今的 B小町已在爆红前夕。\r\n阿库亚走在全方位艺人的道路上，茜则是在实力派女演员的路上逐步前进。\r\n然而另一方面，佳奈却失去了以往的开朗。\r\n而为了追查小爱与吾郎的死亡真相，露比在演艺圈中不断往上爬。\r\n\r\n────以谎言作为武器。\r\n\r\n\r\n\r\n[简介原文]\r\n物語は新たなステージへ──\r\n\r\n『POP IN ２』のリリースから半年。\r\nＭＥＭちょの尽力の甲斐もあり、今やB小町はブレイク寸前。\r\nアクアはマルチタレント、あかねは実力派女優の道を順調に歩んでいる。\r\n一方で、かなは以前の明るさを失っていた。\r\nそして、アイとゴローの死の真相を追い求め、\r\nルビーは芸能界を駆け上がる。\r\n────嘘を、武器にして。",
+            "total_episodes": 11,
+            "characters": [
+                {
+                    "id": 102125,
+                    "name": "アクア / 星野愛久愛海",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/c5/3a/102125_crt_I1eZN.jpg?r=1674520069",
+                    "actor_ids": [
+                        6560,
+                        32681
+                    ],
+                    "name_cn": "阿库亚 / 星野爱久爱海",
+                    "summary": "本作的主人公。[mask]转生前是宫崎县乡下的一名名为五郎的妇产科医生。在深交的已经去世的住院少女沙利奈的影响下，成为了偶像团体“B小町”成员之一的星野爱的粉丝。\r\n之后在医院偶然碰到了怀孕的爱来看诊，决定守护她怀孕直到分娩，但在分娩前被歹徒袭击而死亡，转生成为爱的孩子。[/mask]\r\n母亲给予的本名是星野爱久爱海，艺名阿库亚。[mask]因为拥有前世的记忆，在幼儿时期就能进行对话。用成人的思想看护着爱，但成长到一定程度就在母亲的事务所中出道成为童星，利用前世的知识展现出了特殊的才能。[/mask]从母亲那里遗传了右眼的星星。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "阿库亚 / 星野爱久爱海",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "172cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102126,
+                    "name": "ルビー / 星野瑠美衣",
+                    "relation": "主角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/71/cc/102126_crt_aJfCA.jpg?r=1674520085",
+                    "actor_ids": [
+                        49689
+                    ],
+                    "name_cn": "露比 / 星野瑠美衣",
+                    "summary": "本作的主人公。[mask]雨宫工作的医院里的患者，敬爱着星野爱的偶像宅少女，因星形细胞瘤去世，享年12岁。之后转生为爱的孩子，阿库亚的孪生妹妹。[/mask]母亲爱给予的名字是星野瑠美衣，和哥哥相对左眼遗传了母亲的星星。和阿库亚一样，在母亲的事务所出道。\r\n[mask]在幼儿时期就很早熟，和转生前一样的阿宅性格甚至让哥哥阿库亚敬而远之。和阿库亚相互了解对方也是转生者，但并未发觉相互的身份。[/mask]",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "露比 / 星野瑠美衣",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "158cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102127,
+                    "name": "星野アイ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/40/e1/102127_crt_1BT0Q.jpg?r=1681671679",
+                    "actor_ids": [
+                        17491
+                    ],
+                    "name_cn": "星野爱",
+                    "summary": "偶像团体“B小町”的C位偶像。故事开始时的年龄是16岁。[mask]对待工作十分上进，却意外怀孕。在生完双胞胎后立即返回偶像活动。孩子则作为秘密，阿库亚和露比对外被当做是事务所社长的孩子。[/mask]\r\n她的表演和演唱技巧一般，但作为偶像是一个天才。两只眼睛都有星星。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "星野爱",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "151cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102128,
+                    "name": "有馬かな",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/e8/fc/102128_crt_VBVt9.jpg?r=1681986163",
+                    "actor_ids": [
+                        7050
+                    ],
+                    "name_cn": "有马加奈",
+                    "summary": "少女演员。还是个儿童时就有了天才演员的名号与自信。在与阿库亚共同演出时因为输给了他对导演意图的理解，自此对他十分在意了起来。\r\n[mask]“今甜”电视剧后加入新生“B小町”。[/mask]",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "有马加奈",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "150cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102129,
+                    "name": "MEMちょ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/f9/c7/102129_crt_W1aI5.jpg?r=1679721906",
+                    "actor_ids": [
+                        6090
+                    ],
+                    "name_cn": "MEM啾",
+                    "summary": "自称高三的YouTuber，[mask]实际年龄25岁。[/mask]有着可爱的容貌，常带着像恶魔的角一样的发箍。看起来是天然的性格，但是能够通过网络进行营销，自称“营销专家”。\r\n[mask]“现恋”真人秀后加入新生“B小町”。[/mask]",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "MEM啾",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "155cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102130,
+                    "name": "黒川あかね",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/66/93/102130_crt_pPc77.jpg?r=1686710936",
+                    "actor_ids": [
+                        27559
+                    ],
+                    "name_cn": "黑川茜",
+                    "summary": "高二女演员。外表是冷美人，实际上是认真的努力家，随身携带记事本。对自己评价很低，认为自己只有演技这一个优点。\r\n是拥有一流演员的剧团“Lalalai”的年轻头牌，能够对演出的角色进行侧写，并以此为参考进行彻底的洞察和考察，拥有着这种能够完美演绎的第六感，以及甚至被有马评价为“只能称为天才”而嫉妒的演技能力。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "黑川茜",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "163cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102131,
+                    "name": "斎藤壱護",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/66/2a/102131_crt_svVFv.jpg?r=1635271214",
+                    "actor_ids": [
+                        4104
+                    ],
+                    "name_cn": "斋藤壹护",
+                    "summary": "爱所属的莓Production的社长，留着一副棕色胡须，戴太阳镜。故事开始时公司规模很小。[mask]爱过世后行踪不明。[/mask]",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "斋藤壹护",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102132,
+                    "name": "斎藤ミヤコ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/4f/cc/102132_crt_6Ec0E.jpg",
+                    "actor_ids": [
+                        15497
+                    ],
+                    "name_cn": "斋藤京子",
+                    "summary": "爱所属的莓Production的社长夫人。她与社长结婚是因为想靠近美少年，并打算再婚。相信了谎言，把露比当做上帝的化身。\r\n[mask]爱过世后接替了莓Pro的社长并正式收养了兄妹，将他们当成了自己的孩子来对待。[/mask]",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "斋藤京子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102136,
+                    "name": "寿みなみ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/ac/b7/102136_crt_ronz9.jpg?r=1635271670",
+                    "actor_ids": [
+                        40794
+                    ],
+                    "name_cn": "寿美奈美",
+                    "summary": "ルビーのクラスメイトの女子生徒。ウェーブヘアで胸の大きなグラドル。おっとりとした性格で、入学初日にルビーと友達になる。生まれも育ちも神奈川だが、ノリでエセ関西弁を使っている。ちなみに胸はG。\r\n\r\n写真偶像，露比的同班同学。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "寿美奈美",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102137,
+                    "name": "不知火フリル",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/f6/a3/102137_crt_Gm5C1.jpg?r=1635271804",
+                    "actor_ids": [
+                        5766
+                    ],
+                    "name_cn": "不知火芙莉露",
+                    "summary": "ルビーのクラスメイトの女子生徒。超人気の歌って踊れて演技もできるマルチタレント。黒髪のワンレングスで口元に黒子がある。美少女という言葉を聞いたら殆どの人が思い浮かべるとルビーは評価する。\r\n\r\n能歌善舞又会演戏的全方位艺人，露比的同班同学。是《辉夜姬想让人告白～天才们的恋爱头脑战～》中登场角色不知火衣的妹妹。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "不知火芙莉露",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102138,
+                    "name": "鏑木勝也",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/0a/93/102138_crt_z5L6d.jpg?r=1635271908",
+                    "actor_ids": [
+                        5617
+                    ],
+                    "name_cn": "镝木胜也",
+                    "summary": "インターネットテレビ局「ドットTV！」所属のプロデューサー。[mask]アイに営業先や事務所に内緒で彼氏に会うお店を紹介したりしていた。[/mask]",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "镝木胜也",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102143,
+                    "name": "鮫島アビ子",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/68/33/102143_crt_6ak9m.jpg?r=1635272343",
+                    "actor_ids": [
+                        5745
+                    ],
+                    "name_cn": "鲛岛阿比子",
+                    "summary": "《东京BLADE》作者。曾在吉祥寺赖子手下做过助手。\r\n\r\n漫画家。『東京ブレイド』の原作者。\r\nクリエイターとしての我が強い性格であり、舞台化にあたってキャラクターの改変を許さずに現場との意見の擦り合わせで衝突する。頼子を師匠と慕っている。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "鲛岛阿比子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102146,
+                    "name": "姬川大輝",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/ef/c2/102146_crt_5251C.jpg?r=1635272519",
+                    "actor_ids": [],
+                    "name_cn": "姬川大辉",
+                    "summary": "LALALAI剧团招牌演员。\r\n\r\n19歳。『劇団ララライ』看板役者。2.5次元舞台「東京ブレイド」の主人公役で出演する。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "姬川大辉",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 102148,
+                    "name": "金田一敏郎",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/89/7d/102148_crt_77jLL.jpg?r=1635272655",
+                    "actor_ids": [
+                        4266
+                    ],
+                    "name_cn": "金田一敏郎",
+                    "summary": "剧团LALALAI负责人。舞台导演。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "金田一敏郎",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 112829,
+                    "name": "吉住シュン",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/cb/65/112829_crt_8PiPY.jpg?r=1657137441",
+                    "actor_ids": [
+                        74363
+                    ],
+                    "name_cn": "吉住瞬",
+                    "summary": "《深挖 机不可失》节目组AD（助理导演）。\r\n\r\n第7章「中堅編」でアクアが出演するWeb番組「深堀れ☆ワンチャン!!」のアシスタントディレクター（AD）として登場。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "吉住瞬",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 113433,
+                    "name": "吉住未実",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/27/a1/113433_crt_52ZCC.jpg?r=1657919133",
+                    "actor_ids": [
+                        49243
+                    ],
+                    "name_cn": "吉住未实",
+                    "summary": "吉住俊的妹妹，Cosplayer兼Vtuber。\r\n\r\n第7章「中堅編」に登場。吉住シュンの妹。コスプレイヤー兼Vチューバー。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "吉住未实",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 120036,
+                    "name": "島政則",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/1e/37/120036_crt_ku6U6.jpg?r=1668121836",
+                    "actor_ids": [
+                        12143
+                    ],
+                    "name_cn": "岛政则",
+                    "summary": "当红电影导演。\r\n\r\n第8章「スキャンダル編」に登場。 通称「シマカン」。映画賞を受賞し勢いに乗っている映画監督。既婚者だがプレイボーイとして知られており、妻とは互いに不干渉という合意の元、仕事相手のことをよく知るための手段と称し、出演者と性的関係を結んでいる。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "岛政则",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 124382,
+                    "name": "雨宮吾郎",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/82/22/124382_crt_7JY2v.jpg?r=1676842774",
+                    "actor_ids": [
+                        18755
+                    ],
+                    "name_cn": "雨宫吾郎",
+                    "summary": "妇产科医生。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "雨宫吾郎",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 125986,
+                    "name": "カミキヒカル",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/04/36/125986_crt_gQFv6.jpg?r=1739356297",
+                    "actor_ids": [],
+                    "name_cn": "神木辉",
+                    "summary": "“神木Production”的执行董事。",
+                    "birth_year": null,
+                    "birth_month": 7,
+                    "birth_day": 27,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "神木辉",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "生日",
+                            "value": "7月27日",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "身高",
+                            "value": "178cm",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 138770,
+                    "name": "漆原鉄",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/88/6d/138770_crt_ldbh8.jpg?r=1695928037",
+                    "actor_ids": [
+                        4920
+                    ],
+                    "name_cn": "漆原铁",
+                    "summary": "第7章「中堅編」に登場。アクアが出演するWeb番組「深堀れ☆ワンチャン!!」のディレクター。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "漆原铁",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 138771,
+                    "name": "メイヤ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/44/ac/138771_crt_z1yD6.jpg?r=1695928113",
+                    "actor_ids": [
+                        4933
+                    ],
+                    "name_cn": "梅娅",
+                    "summary": "第7章「中堅編」に登場。アダルト系コスプレイヤー。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "梅娅",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": "wiki",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 160426,
+                    "name": "林原キイロ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/80/ad/160426_crt_797A3.jpg?r=1720022844",
+                    "actor_ids": [],
+                    "name_cn": "林原纪伊吕",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "林原纪伊吕",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 160427,
+                    "name": "化野めい",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/77/6d/160427_crt_CNnWH.jpg?r=1720022946",
+                    "actor_ids": [],
+                    "name_cn": "化野芽衣",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "化野芽衣",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 161077,
+                    "name": "編集",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/ae/99/161077_crt_8iEFM.jpg?r=1720664019",
+                    "actor_ids": [],
+                    "name_cn": "编辑",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "编辑",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 198422,
+                    "name": "サワ",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/56/01/198422_crt_0gviC.jpg",
+                    "actor_ids": [
+                        33487
+                    ],
+                    "name_cn": "阿泽",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "阿泽",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 198423,
+                    "name": "水野",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/4e/19/198423_crt_tF393.jpg",
+                    "actor_ids": [
+                        86586
+                    ],
+                    "name_cn": "水野",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "水野",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 198424,
+                    "name": "八木",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/5a/8a/198424_crt_vNvvG.jpg",
+                    "actor_ids": [
+                        73086
+                    ],
+                    "name_cn": "八木",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "八木",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 198425,
+                    "name": "小手ミモジ",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/ee/ae/198425_crt_x7H0Z.jpg",
+                    "actor_ids": [
+                        27806
+                    ],
+                    "name_cn": "小手实门司",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "小手实门司",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 199878,
+                    "name": "大迫",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/45/cc/199878_crt_ijiKG.jpg",
+                    "actor_ids": [
+                        44308
+                    ],
+                    "name_cn": "大迫",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "大迫",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 202396,
+                    "name": "アザミマコ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/60/a4/202396_crt_YhJM3.jpg",
+                    "actor_ids": [
+                        18600
+                    ],
+                    "name_cn": "浅见真子",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "浅见真子",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                }
+            ],
+            "relations": [
+                {
+                    "id": 303186,
+                    "name": "【推しの子】",
+                    "name_cn": "【我推的孩子】",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/35/b2/303186_oE6Bo.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 443428,
+                    "name": "【推しの子】 第2期",
+                    "name_cn": "【我推的孩子】 第二季",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/d1/1c/443428_FIhFu.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 616772,
+                    "name": "セレナーデ",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/d5/57/616772_9Z0DH.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 618418,
+                    "name": "TEST ME",
+                    "name_cn": "",
+                    "relation": "片头曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/dc/3a/618418_12Qjz.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 621535,
+                    "name": "TVアニメ「【推しの子】」 キャラクターソングCD Vol.5",
+                    "name_cn": "",
+                    "relation": "角色歌",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/9c/5d/621535_9I0Ro.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 621536,
+                    "name": "TVアニメ「【推しの子】」 オリジナルサウンドトラックVol.3",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "",
+                    "__dataclass__": "Relation"
+                }
+            ],
+            "episodes": [
+                {
+                    "id": 1588451,
+                    "name": "入れ込み",
+                    "name_cn": "投入",
+                    "air_date": "2026-01-14",
+                    "desc": "『POP IN 2』の発売から半年、B小町は今やブレイク寸前。あかねは実力派女優として表舞台へ、アクアも順調にマルチタレントの道を進み始めている。そんな中、かなは本来の明るさを失っていて──\r\n\r\n脚本：田中 仁\r\n絵コンテ・演出・カラースクリプト：平牧大輔\r\n総作画監督：平山寛菜\r\n作画監督：菊地奨之、山野雅明、室賀彩花",
+                    "duration_seconds": 1430,
+                    "ep": 1,
+                    "sort": 25,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588452,
+                    "name": "打算",
+                    "name_cn": "盘算",
+                    "air_date": "2026-01-21",
+                    "desc": "彼女らしからぬ戦略的な振る舞いで、ネットテレビ番組『深掘れ☆ワンチャン』内での地位を着々と築いていくルビー。その裏には、かつての苺プロ社長・壱護の存在があった──\r\n\r\nSTAFF\r\n脚本：田中 仁\r\n絵コンテ：入江泰浩\r\n演出：秋風一乃助\r\nカラースクリプト：平牧大輔、秋風一乃助\r\n総作画監督：室賀彩花\r\nキャラクター作画監修：平山寛菜\r\n作画監督：菊地奨之、鄧 佳湄、阪野日香莉、森川侑紀、磯本雅大、田舎方順一",
+                    "duration_seconds": 1455,
+                    "ep": 2,
+                    "sort": 26,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588453,
+                    "name": "コンプライアンス",
+                    "name_cn": "规范",
+                    "air_date": "2026-01-28",
+                    "desc": "番組のコスプレ取材回で、ルビーたち出演者は直前の衣装変更を余儀なくされる。更にディレクター・漆原のリスペクトのない姿勢が、コスプレイヤー・メイヤの怒りに触れ──\r\n\r\nSTAFF\r\n脚本：田中 仁\r\n絵コンテ・演出：西邑大輔\r\nカラースクリプト：平牧大輔、西邑大輔\r\n総作画監督：室賀彩花、稲手遥香\r\nキャラクター作画監修：平山寛菜\r\n作画監督：菊地奨之、新村香奈、三島千枝、田舎方順一、森川侑紀、STUDIO POLARIS（近澤純平、錦 寛乃）",
+                    "duration_seconds": 1529,
+                    "ep": 3,
+                    "sort": 27,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588454,
+                    "name": "盲目",
+                    "name_cn": "盲目",
+                    "air_date": "2026-02-04",
+                    "desc": "「無理なんだよ。綺麗にまっすぐこの世界で売れるなんて」人を利用し嘘をついてでも、売れることを選んだルビー。そして、急速に仕事を増やしていくルビーを訝しんだアクアが取った行動は──\r\n\r\nSTAFF\r\n脚本：田中 仁\r\n絵コンテ・演出：小松和映\r\nカラースクリプト：平牧大輔、小松和映\r\n総作画監督：森田莉奈、朱里\r\nキャラクター作画監修：平山寛菜\r\n作画監督：八木佐織、水野公彰",
+                    "duration_seconds": 1530,
+                    "ep": 4,
+                    "sort": 28,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588455,
+                    "name": "営業",
+                    "name_cn": "应酬",
+                    "air_date": "2026-02-11",
+                    "desc": "『カミキヒカル』の正体をたった一人で追いながら、アクアが苦しみから解放されることを願うあかね。一方、アクアに拒絶され、役者としてもアイドルとしても上手くいかない日々を送るかなは──\r\n\r\nSTAFF\r\n脚本：田中 仁\r\n絵コンテ：平牧大輔\r\n演出：佐々木秀一\r\nカラースクリプト：平牧大輔、佐々木秀一\r\n総作画監督：稲手遥香、室賀彩花\r\nキャラクター作画監修：平山寛菜\r\n作画監督：小林千鶴、海老澤舞子、校條あや、野田康行、寺尾憲治、石井久雄、春川彩子、菊地奨之",
+                    "duration_seconds": 1455,
+                    "ep": 5,
+                    "sort": 29,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588456,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-18",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 6,
+                    "sort": 30,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588457,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-02-25",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 7,
+                    "sort": 31,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588458,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-04",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 8,
+                    "sort": 32,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588459,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-11",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 9,
+                    "sort": 33,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588460,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-18",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 10,
+                    "sort": 34,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                },
+                {
+                    "id": 1588461,
+                    "name": "",
+                    "name_cn": "",
+                    "air_date": "2026-03-25",
+                    "desc": "",
+                    "duration_seconds": 0,
+                    "ep": 11,
+                    "sort": 35,
+                    "type": 0,
+                    "__dataclass__": "Episode"
+                }
+            ],
+            "__dataclass__": "ANiMeData"
+        },
+        "user_status": {
+            "watch_status": 3,
+            "watched_eps": 4,
+            "last_update": "2026-02-12T13:18:39+08:00",
+            "comment": null,
+            "tags": [],
+            "__dataclass__": "UserStatus"
+        },
+        "__dataclass__": "ANiMeRecord"
+    },
+    {
+        "anime_data": {
             "id": 443831,
             "name": "Fate/strange Fake",
             "name_cn": "Fate/strange Fake",
             "short_summary": "魔术师〈Master〉与英灵〈Servant〉为了争夺能实现一切愿望的愿望机「圣杯」，而彼此厮杀——这便是「圣杯战争」。\r\n\r\n在日本进行的第五次圣杯战争落下帷幕的几年之后。\r\n在美利坚合众国西部的城市——雪原市（Snowfield），观测",
             "score": 7.7,
-            "image_url": "https://lain.bgm.tv/pic/cover/l/f0/51/443831_84ZQs.jpg",
+            "image_url": "https://lain.bgm.tv/pic/cover/l/f0/51/443831_CNG0F.jpg",
             "eps": 13,
             "date": "2026-01-03",
             "summary": "魔术师〈Master〉与英灵〈Servant〉为了争夺能实现一切愿望的愿望机「圣杯」，而彼此厮杀——这便是「圣杯战争」。\r\n\r\n在日本进行的第五次圣杯战争落下帷幕的几年之后。\r\n在美利坚合众国西部的城市——雪原市（Snowfield），观测到了新圣杯即将出现的征兆。\r\n于是魔术师〈Master〉与英灵〈Servant〉们纷纷集结于此地——\r\n\r\n缺失的职阶。\r\n本不该被选中的从者。\r\n在暗处操盘的国家势力。\r\n为战争而建造的城市。\r\n——由于无数的异常状况（Irregular），「圣杯战争」逐渐走向失控，局势愈发混沌扭曲。\r\n\r\n在伪圣杯的祭坛之上共舞，人类与英灵〈Servant〉的饗宴就此拉开帷幕。",
@@ -475,31 +1627,6 @@
                     "__dataclass__": "Character"
                 },
                 {
-                    "id": 17529,
-                    "name": "モブキャラクター",
-                    "relation": "闲角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/1d/85/17529_crt_0dRZE.jpg",
-                    "actor_ids": [],
-                    "name_cn": "路人",
-                    "summary": "闲角，常称作路人，在电视剧、电影等作品中，指戏份薄弱的副角、不相关的小人物、串场的闲杂人等。可能用来表达地方民众的声音，或是充当背景。\r\nモブキャラクター（mob character）とは、漫画、アニメ、映画、コンピュータゲームなどに描かれる端役のこと。群衆（群集）、または主要キャラクター以外の、その他大勢のこと。群集キャラ、背景キャラともいう。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "路人",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "http://www.paradisearmy.com/doujin/pasok_mob.htm",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
                     "id": 29849,
                     "name": "エルキドゥ",
                     "relation": "主角",
@@ -783,7 +1910,9 @@
                     "name": "デルミオ・セルバンテス",
                     "relation": "配角",
                     "image_url": "https://lain.bgm.tv/pic/crt/l/cb/65/49944_crt_0afLm.jpg",
-                    "actor_ids": [],
+                    "actor_ids": [
+                        3998
+                    ],
                     "name_cn": "戴尔米奥·塞万提斯",
                     "summary": "ハンザ・セルバンテスの養父。ディーロの紹介で孤児だったハンザを引き取り、自身の武術をハンザに伝えた。頼りなさげな風貌で、人と会話する時に目を合わせようとしない癖がある。",
                     "birth_year": null,
@@ -2671,7 +3800,7 @@
                     "name": "彷徨える王のロックンロール",
                     "name_cn": "彷徨之王的摇滚乐",
                     "air_date": "2026-02-07",
-                    "desc": "留置場を後にしたセイバーとアヤカは、同盟相手を求めてスノーフィールドを彷徨う。やがて二人が足を踏み入れたのは、先刻アーチャーと規格外の戦闘を繰り広げたサーヴァント──ランサーが居を構える森林地帯。自らが与するに相応しい相手か否か、武技をもって問われたセイバーは、獅子心王としてその宝具を開帳する。\r\n\r\n脚本：枦山大\r\n絵コンテ：宮川駿\r\n演出：宮川駿 , 森大貴\r\n総作画監督：山田有慶\r\n制作協力：WIT STUDIO（山中一樹）\r\n作画監督：井上真佑、内藤丈太朗、とまど",
+                    "desc": "留置場を後にしたセイバーとアヤカは、同盟相手を求めてスノーフィールドを彷徨う。やがて二人が足を踏み入れたのは、先刻アーチャーと規格外の戦闘を繰り広げたサーヴァント──ランサーが居を構える森林地帯。自らが与するに相応しい相手か否か、武技をもって問われたセイバーは、獅子心王としてその宝具を開帳する。\r\n\r\n脚本：枦山大\r\n絵コンテ：宮川駿\r\n演出：宮川駿 , 森大貴\r\n総作画監督：山田有慶\r\n作画監督：井上真佑、内藤丈太朗、とまど\r\n制作協力：WIT STUDIO（山中一樹）",
                     "duration_seconds": 1420,
                     "ep": 6,
                     "sort": 6,
@@ -2683,7 +3812,7 @@
                     "name": "神は黄昏より舞い戻り",
                     "name_cn": "神自黄昏重返",
                     "air_date": "2026-02-14",
-                    "desc": "",
+                    "desc": "セイバーとランサーの決闘から時は前後し、魔術世界を憎む少女、ハルリ・ボルザークがサーヴァントを召喚していた。だが、顕現したのはあまりに御しがたい異物のごとき英霊。その腕に腹を抉られ、彼女の命は露と消えようとしていた──一人のホムンクルスが、倒れ伏すその手をとるまでは。\r\n\r\n脚本：窪山阿佐子\r\n絵コンテ・演出：小原正和\r\n総作画監督：山田有慶 , 滝山真哲\r\n総作画監督補佐：おかざきおか\r\n作画監督：二瓶令暁、Facu Escobedo、髙阪花世、戸谷賢都、天﨑まなむ、劉淯源、杨沛源",
                     "duration_seconds": 1420,
                     "ep": 7,
                     "sort": 7,
@@ -2692,8 +3821,8 @@
                 },
                 {
                     "id": 1427238,
-                    "name": "",
-                    "name_cn": "",
+                    "name": "三流喜劇の舞台裏",
+                    "name_cn": "三流喜剧的幕后",
                     "air_date": "2026-02-21",
                     "desc": "",
                     "duration_seconds": 1420,
@@ -3263,7 +4392,7 @@
                     "id": 200001,
                     "name": "セネルヴァ",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/3f/84/200001_crt_4Yx80.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/3f/84/200001_crt_ceUnc.jpg",
                     "actor_ids": [],
                     "name_cn": "赛涅露娃",
                     "summary": "",
@@ -3288,7 +4417,7 @@
                     "id": 200998,
                     "name": "カフゼン・ダクローム",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/ae/c2/200998_crt_mY4o4.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/ae/c2/200998_crt_m5yIj.jpg",
                     "actor_ids": [
                         3854
                     ],
@@ -3502,10 +4631,10 @@
                 },
                 {
                     "id": 1603698,
-                    "name": "",
-                    "name_cn": "",
+                    "name": "刑罰：ミューリッド要塞防衛汚染2",
+                    "name_cn": "刑罚：谬利特要塞防卫汙染2",
                     "air_date": "2026-02-12",
-                    "desc": "",
+                    "desc": "異形フェアリーに騎乗した人影の襲撃により、ミューリッド要塞が炎上。正門のノルガユと、地下道のタツヤが対応を迫られていた。一方、テオリッタはザイロが《女神》の在り方を否定する理由に気づき、その考えを彼にぶつける。\r\n\r\n脚本：猪原健太\r\n絵コンテ：梅本駿平、髙嶋宏之\r\n演出：中島 順\r\n作画監督：小林真平、式地幸喜、須川康太、鈴木 敦、髙嶋宏之、天界、平林 航、めろま、横松雄馬、米井大稀、狼嚎、鞠启、曾 品喬、阿菁、AsREM、fish、jxl、KANENOBU、MANEL、mono、TigerWasabi、YUMU\r\n総作画監督：小畑 賢、木村和貴",
                     "duration_seconds": 1470,
                     "ep": 6,
                     "sort": 6,
@@ -4491,7 +5620,7 @@
             "name_cn": "葬送的芙莉莲 第二季",
             "short_summary": "「流泪道别并不适合我们，因为下次再见时会很难为情。」\r\n在勇者欣梅尔一行人击败魔王后的世界中，与欣梅尔等人一同为世界带来和平、活了千年以上的精灵魔法使──芙莉莲。\r\n在面对寿命已尽的欣梅尔之死时，因落下的泪水与心中涌现的情感，踏上了「理解人",
             "score": 8,
-            "image_url": "https://lain.bgm.tv/pic/cover/l/0b/24/515759_qA1Zc.jpg",
+            "image_url": "https://lain.bgm.tv/pic/cover/l/0b/24/515759_1GGBy.jpg",
             "eps": 10,
             "date": "2026-01-16",
             "summary": "「流泪道别并不适合我们，因为下次再见时会很难为情。」\r\n在勇者欣梅尔一行人击败魔王后的世界中，与欣梅尔等人一同为世界带来和平、活了千年以上的精灵魔法使──芙莉莲。\r\n在面对寿命已尽的欣梅尔之死时，因落下的泪水与心中涌现的情感，踏上了「理解人类之心的旅程」。在旅途中，她与曾由过去伙伴海塔抚养长大的魔法使费伦，以及同为伙伴艾冉的弟子、战士修塔尔克结伴同行，一同朝向灵魂长眠之地前进。\r\n在旅程中，与各种人们相遇交流，并与狡诈的魔族与魔物展开战斗。有时平静温柔，有时无聊琐碎，有时激烈动荡，有时直击心扉……所有的一切、每一个瞬间，都一点一滴地堆叠成三人无可取代的珍贵回忆。而在这趟旅程的终点，究竟等待着他们的会是什么？\r\n魔法使资格测试结束后，他们三人将再度启程──\r\n\r\n\r\n\r\n[简介原文]\r\n「週刊少年サンデー」(小学館)で連載中、山田鐘人(原作)とアベツカサ(作画)による漫画『葬送のフリーレン』。\r\n勇者とそのパーティーによって魔王が倒された“その後”の世界を舞台に、\r\n勇者と共に魔王を打倒した千年以上生きる魔法使い・フリーレンと、彼女が新たに出会う人々の旅路が描かれていく。\r\n“魔王討伐後”という斬新な時系列で展開する胸に刺さるドラマやセリフ、魔法や剣による戦い、\r\n思わず笑ってしまうユーモアなど、キャラクターたちが織り成す物語で、多くの読者を獲得。\r\nこれまでに「マンガ大賞2021」大賞、「第25回手塚治虫文化賞」新生賞、\r\n「第69回(2023年度)小学館漫画賞」、「第48回講談社漫画賞」少年部門など数々の漫画賞を受賞。\r\nそして現在発売中のコミックスは累計部数3200万部を突破！漫画ファンの間で旋風を起こしている。\r\nそれを原作とするTVアニメは2023年9月から2024年3月まで放送され、\r\n国内外で幅広い、数多くのファンを獲得し、大きな反響を呼んだ。\r\nそしてこの度、待望の第2期が2026年1月より日本テレビ系で放送決定！\r\nフリーレンの「人の心を知る旅」が、再び始まる―。",
@@ -4925,6 +6054,114 @@
                     "__dataclass__": "Character"
                 },
                 {
+                    "id": 137371,
+                    "name": "ファス",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d7/9f/137371_crt_2P0Ei.jpg",
+                    "actor_ids": [
+                        4657
+                    ],
+                    "name_cn": "法斯",
+                    "summary": "ビーア地方の街に住んでいるドワーフ。過去に勇者一行とも出会ったことがあり、フリーレンと80年ぶりに再会する。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "法斯",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 137373,
+                    "name": "ミリアルデ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/3b/01/137373_crt_SPdh8.jpg",
+                    "actor_ids": [
+                        3827
+                    ],
+                    "name_cn": "米莉亚尔黛",
+                    "summary": "エルフの女性で、かつてのフリーレンの知り合い。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "米莉亚尔黛",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 137375,
+                    "name": "ノルム卿",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/1d/26/137375_crt_3dx8j.jpg",
+                    "actor_ids": [
+                        20142
+                    ],
+                    "name_cn": "诺姆会长",
+                    "summary": "北部高原を牛耳るノルム商会の会長。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "诺姆会长",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 137380,
+                    "name": "神技のレヴォルテ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/0f/57/137380_crt_z3Tl6.jpg",
+                    "actor_ids": [
+                        4101
+                    ],
+                    "name_cn": "神技的雷沃戴",
+                    "summary": "四本の腕と大蛇のような下半身をもつ魔族の将軍。複数の剣を巧みに操る。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "神技的雷沃戴",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
                     "id": 198692,
                     "name": "毒極竜",
                     "relation": "闲角",
@@ -5105,6 +6342,46 @@
                         }
                     ],
                     "__dataclass__": "Character"
+                },
+                {
+                    "id": 202508,
+                    "name": "三つ首の魔物",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/85/4e/202508_crt_ZoYGZ.jpg",
+                    "actor_ids": [],
+                    "name_cn": "三个头的魔物",
+                    "summary": "エトヴァス山の秘湯までの道のりに巣食う魔物。\r\n三つ首を同時に切り落とさないとすぐに再生する。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "三个头的魔物",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 202509,
+                    "name": "ナーハリヒト地方の魔物",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/9c/5a/202509_crt_ONZ2Z.jpg",
+                    "actor_ids": [],
+                    "name_cn": "纳哈里希德地区的魔物",
+                    "summary": "北部高原に巣食う、剣を操る魔物。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "纳哈里希德地区的魔物",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
                 }
             ],
             "relations": [
@@ -5217,7 +6494,7 @@
                     "name": "北部高原の物流",
                     "name_cn": "北部高原的物流",
                     "air_date": "2026-02-13",
-                    "desc": "",
+                    "desc": "ある酒場町でフリーレンはドワーフのファスと再会する。彼は無類の酒好きで、200年以上も皇帝酒ボースハフトを探しており、自身が掘った坑道の先にその酒が眠っているという。果たして見つかるのか…。そして次に訪れるノルム商会領では、なんとフリーレンに80年前から多額の借金があることが判明し…。\r\n\r\n脚本：鈴木智尋\r\n絵コンテ・演出・作画監督：小橋弘侑",
                     "duration_seconds": 1440,
                     "ep": 5,
                     "sort": 33,
@@ -5226,8 +6503,8 @@
                 },
                 {
                     "id": 1575941,
-                    "name": "",
-                    "name_cn": "",
+                    "name": "討伐要請",
+                    "name_cn": "讨伐委託",
                     "air_date": "2026-02-27",
                     "desc": "",
                     "duration_seconds": 1440,
@@ -5299,1164 +6576,12 @@
     },
     {
         "anime_data": {
-            "id": 517057,
-            "name": "【推しの子】 第3期",
-            "name_cn": "【我推的孩子】 第三季",
-            "short_summary": "故事迈向全新舞台——\r\n\r\n自「POP IN 2」发行已过了半年。多亏了MEM CYO的努力，如今的 B小町已在爆红前夕。\r\n阿库亚走在全方位艺人的道路上，茜则是在实力派女演员的路上逐步前进。\r\n然而另一方面，佳奈却失去了以往的开朗。\r\n而",
-            "score": 7.1,
-            "image_url": "https://lain.bgm.tv/pic/cover/l/92/95/517057_257ad.jpg",
-            "eps": 11,
-            "date": "2026-01-14",
-            "summary": "故事迈向全新舞台——\r\n\r\n自「POP IN 2」发行已过了半年。多亏了MEM CYO的努力，如今的 B小町已在爆红前夕。\r\n阿库亚走在全方位艺人的道路上，茜则是在实力派女演员的路上逐步前进。\r\n然而另一方面，佳奈却失去了以往的开朗。\r\n而为了追查小爱与吾郎的死亡真相，露比在演艺圈中不断往上爬。\r\n\r\n────以谎言作为武器。\r\n\r\n\r\n\r\n[简介原文]\r\n物語は新たなステージへ──\r\n\r\n『POP IN ２』のリリースから半年。\r\nＭＥＭちょの尽力の甲斐もあり、今やB小町はブレイク寸前。\r\nアクアはマルチタレント、あかねは実力派女優の道を順調に歩んでいる。\r\n一方で、かなは以前の明るさを失っていた。\r\nそして、アイとゴローの死の真相を追い求め、\r\nルビーは芸能界を駆け上がる。\r\n────嘘を、武器にして。",
-            "total_episodes": 11,
-            "characters": [
-                {
-                    "id": 102125,
-                    "name": "アクア / 星野愛久愛海",
-                    "relation": "主角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/c5/3a/102125_crt_I1eZN.jpg?r=1674520069",
-                    "actor_ids": [
-                        6560,
-                        32681
-                    ],
-                    "name_cn": "阿库亚 / 星野爱久爱海",
-                    "summary": "本作的主人公。[mask]转生前是宫崎县乡下的一名名为五郎的妇产科医生。在深交的已经去世的住院少女沙利奈的影响下，成为了偶像团体“B小町”成员之一的星野爱的粉丝。\r\n之后在医院偶然碰到了怀孕的爱来看诊，决定守护她怀孕直到分娩，但在分娩前被歹徒袭击而死亡，转生成为爱的孩子。[/mask]\r\n母亲给予的本名是星野爱久爱海，艺名阿库亚。[mask]因为拥有前世的记忆，在幼儿时期就能进行对话。用成人的思想看护着爱，但成长到一定程度就在母亲的事务所中出道成为童星，利用前世的知识展现出了特殊的才能。[/mask]从母亲那里遗传了右眼的星星。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "阿库亚 / 星野爱久爱海",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "身高",
-                            "value": "172cm",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102126,
-                    "name": "ルビー / 星野瑠美衣",
-                    "relation": "主角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/71/cc/102126_crt_aJfCA.jpg?r=1674520085",
-                    "actor_ids": [
-                        49689
-                    ],
-                    "name_cn": "露比 / 星野瑠美衣",
-                    "summary": "本作的主人公。[mask]雨宫工作的医院里的患者，敬爱着星野爱的偶像宅少女，因星形细胞瘤去世，享年12岁。之后转生为爱的孩子，阿库亚的孪生妹妹。[/mask]母亲爱给予的名字是星野瑠美衣，和哥哥相对左眼遗传了母亲的星星。和阿库亚一样，在母亲的事务所出道。\r\n[mask]在幼儿时期就很早熟，和转生前一样的阿宅性格甚至让哥哥阿库亚敬而远之。和阿库亚相互了解对方也是转生者，但并未发觉相互的身份。[/mask]",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "露比 / 星野瑠美衣",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "身高",
-                            "value": "158cm",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102127,
-                    "name": "星野アイ",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/40/e1/102127_crt_1BT0Q.jpg?r=1681671679",
-                    "actor_ids": [
-                        17491
-                    ],
-                    "name_cn": "星野爱",
-                    "summary": "偶像团体“B小町”的C位偶像。故事开始时的年龄是16岁。[mask]对待工作十分上进，却意外怀孕。在生完双胞胎后立即返回偶像活动。孩子则作为秘密，阿库亚和露比对外被当做是事务所社长的孩子。[/mask]\r\n她的表演和演唱技巧一般，但作为偶像是一个天才。两只眼睛都有星星。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "星野爱",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "身高",
-                            "value": "151cm",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102128,
-                    "name": "有馬かな",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/e8/fc/102128_crt_VBVt9.jpg?r=1681986163",
-                    "actor_ids": [
-                        7050
-                    ],
-                    "name_cn": "有马加奈",
-                    "summary": "少女演员。还是个儿童时就有了天才演员的名号与自信。在与阿库亚共同演出时因为输给了他对导演意图的理解，自此对他十分在意了起来。\r\n[mask]“今甜”电视剧后加入新生“B小町”。[/mask]",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "有马加奈",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "身高",
-                            "value": "150cm",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102129,
-                    "name": "MEMちょ",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/f9/c7/102129_crt_W1aI5.jpg?r=1679721906",
-                    "actor_ids": [
-                        6090
-                    ],
-                    "name_cn": "MEM啾",
-                    "summary": "自称高三的YouTuber，[mask]实际年龄25岁。[/mask]有着可爱的容貌，常带着像恶魔的角一样的发箍。看起来是天然的性格，但是能够通过网络进行营销，自称“营销专家”。\r\n[mask]“现恋”真人秀后加入新生“B小町”。[/mask]",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "MEM啾",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "身高",
-                            "value": "155cm",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102130,
-                    "name": "黒川あかね",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/66/93/102130_crt_pPc77.jpg?r=1686710936",
-                    "actor_ids": [
-                        27559
-                    ],
-                    "name_cn": "黑川茜",
-                    "summary": "高二女演员。外表是冷美人，实际上是认真的努力家，随身携带记事本。对自己评价很低，认为自己只有演技这一个优点。\r\n是拥有一流演员的剧团“Lalalai”的年轻头牌，能够对演出的角色进行侧写，并以此为参考进行彻底的洞察和考察，拥有着这种能够完美演绎的第六感，以及甚至被有马评价为“只能称为天才”而嫉妒的演技能力。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "黑川茜",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "身高",
-                            "value": "163cm",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102131,
-                    "name": "斎藤壱護",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/66/2a/102131_crt_svVFv.jpg?r=1635271214",
-                    "actor_ids": [
-                        4104
-                    ],
-                    "name_cn": "斋藤壹护",
-                    "summary": "爱所属的莓Production的社长，留着一副棕色胡须，戴太阳镜。故事开始时公司规模很小。[mask]爱过世后行踪不明。[/mask]",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "斋藤壹护",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102132,
-                    "name": "斎藤ミヤコ",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/4f/cc/102132_crt_6Ec0E.jpg",
-                    "actor_ids": [
-                        15497
-                    ],
-                    "name_cn": "斋藤京子",
-                    "summary": "爱所属的莓Production的社长夫人。她与社长结婚是因为想靠近美少年，并打算再婚。相信了谎言，把露比当做上帝的化身。\r\n[mask]爱过世后接替了莓Pro的社长并正式收养了兄妹，将他们当成了自己的孩子来对待。[/mask]",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "斋藤京子",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102136,
-                    "name": "寿みなみ",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/ac/b7/102136_crt_ronz9.jpg?r=1635271670",
-                    "actor_ids": [
-                        40794
-                    ],
-                    "name_cn": "寿美奈美",
-                    "summary": "ルビーのクラスメイトの女子生徒。ウェーブヘアで胸の大きなグラドル。おっとりとした性格で、入学初日にルビーと友達になる。生まれも育ちも神奈川だが、ノリでエセ関西弁を使っている。ちなみに胸はG。\r\n\r\n写真偶像，露比的同班同学。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "寿美奈美",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102137,
-                    "name": "不知火フリル",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/f6/a3/102137_crt_Gm5C1.jpg?r=1635271804",
-                    "actor_ids": [
-                        5766
-                    ],
-                    "name_cn": "不知火芙莉露",
-                    "summary": "ルビーのクラスメイトの女子生徒。超人気の歌って踊れて演技もできるマルチタレント。黒髪のワンレングスで口元に黒子がある。美少女という言葉を聞いたら殆どの人が思い浮かべるとルビーは評価する。\r\n\r\n能歌善舞又会演戏的全方位艺人，露比的同班同学。是《辉夜姬想让人告白～天才们的恋爱头脑战～》中登场角色不知火衣的妹妹。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "不知火芙莉露",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102138,
-                    "name": "鏑木勝也",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/0a/93/102138_crt_z5L6d.jpg?r=1635271908",
-                    "actor_ids": [
-                        5617
-                    ],
-                    "name_cn": "镝木胜也",
-                    "summary": "インターネットテレビ局「ドットTV！」所属のプロデューサー。[mask]アイに営業先や事務所に内緒で彼氏に会うお店を紹介したりしていた。[/mask]",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "镝木胜也",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102143,
-                    "name": "鮫島アビ子",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/68/33/102143_crt_6ak9m.jpg?r=1635272343",
-                    "actor_ids": [
-                        5745
-                    ],
-                    "name_cn": "鲛岛阿比子",
-                    "summary": "《东京BLADE》作者。曾在吉祥寺赖子手下做过助手。\r\n\r\n漫画家。『東京ブレイド』の原作者。\r\nクリエイターとしての我が強い性格であり、舞台化にあたってキャラクターの改変を許さずに現場との意見の擦り合わせで衝突する。頼子を師匠と慕っている。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "鲛岛阿比子",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102146,
-                    "name": "姬川大輝",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/ef/c2/102146_crt_5251C.jpg?r=1635272519",
-                    "actor_ids": [],
-                    "name_cn": "姬川大辉",
-                    "summary": "LALALAI剧团招牌演员。\r\n\r\n19歳。『劇団ララライ』看板役者。2.5次元舞台「東京ブレイド」の主人公役で出演する。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "姬川大辉",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 102148,
-                    "name": "金田一敏郎",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/89/7d/102148_crt_77jLL.jpg?r=1635272655",
-                    "actor_ids": [
-                        4266
-                    ],
-                    "name_cn": "金田一敏郎",
-                    "summary": "剧团LALALAI负责人。舞台导演。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "金田一敏郎",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 112829,
-                    "name": "吉住シュン",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/cb/65/112829_crt_8PiPY.jpg?r=1657137441",
-                    "actor_ids": [
-                        74363
-                    ],
-                    "name_cn": "吉住瞬",
-                    "summary": "《深挖 机不可失》节目组AD（助理导演）。\r\n\r\n第7章「中堅編」でアクアが出演するWeb番組「深堀れ☆ワンチャン!!」のアシスタントディレクター（AD）として登場。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "吉住瞬",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 113433,
-                    "name": "吉住未実",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/27/a1/113433_crt_52ZCC.jpg?r=1657919133",
-                    "actor_ids": [
-                        49243
-                    ],
-                    "name_cn": "吉住未实",
-                    "summary": "吉住俊的妹妹，Cosplayer兼Vtuber。\r\n\r\n第7章「中堅編」に登場。吉住シュンの妹。コスプレイヤー兼Vチューバー。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "吉住未实",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 120036,
-                    "name": "島政則",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/1e/37/120036_crt_ku6U6.jpg?r=1668121836",
-                    "actor_ids": [
-                        12143
-                    ],
-                    "name_cn": "岛政则",
-                    "summary": "当红电影导演。\r\n\r\n第8章「スキャンダル編」に登場。 通称「シマカン」。映画賞を受賞し勢いに乗っている映画監督。既婚者だがプレイボーイとして知られており、妻とは互いに不干渉という合意の元、仕事相手のことをよく知るための手段と称し、出演者と性的関係を結んでいる。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "岛政则",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 124382,
-                    "name": "雨宮吾郎",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/82/22/124382_crt_7JY2v.jpg?r=1676842774",
-                    "actor_ids": [
-                        18755
-                    ],
-                    "name_cn": "雨宫吾郎",
-                    "summary": "妇产科医生。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "雨宫吾郎",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 125986,
-                    "name": "カミキヒカル",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/04/36/125986_crt_gQFv6.jpg?r=1739356297",
-                    "actor_ids": [],
-                    "name_cn": "神木辉",
-                    "summary": "“神木Production”的执行董事。",
-                    "birth_year": null,
-                    "birth_month": 7,
-                    "birth_day": 27,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "神木辉",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "生日",
-                            "value": "7月27日",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "身高",
-                            "value": "178cm",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 138770,
-                    "name": "漆原鉄",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/88/6d/138770_crt_ldbh8.jpg?r=1695928037",
-                    "actor_ids": [
-                        4920
-                    ],
-                    "name_cn": "漆原铁",
-                    "summary": "第7章「中堅編」に登場。アクアが出演するWeb番組「深堀れ☆ワンチャン!!」のディレクター。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "漆原铁",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 138771,
-                    "name": "メイヤ",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/44/ac/138771_crt_z1yD6.jpg?r=1695928113",
-                    "actor_ids": [
-                        4933
-                    ],
-                    "name_cn": "梅娅",
-                    "summary": "第7章「中堅編」に登場。アダルト系コスプレイヤー。",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "梅娅",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "引用来源",
-                            "value": "wiki",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 160426,
-                    "name": "林原キイロ",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/80/ad/160426_crt_797A3.jpg?r=1720022844",
-                    "actor_ids": [],
-                    "name_cn": "林原纪伊吕",
-                    "summary": "",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "林原纪伊吕",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 160427,
-                    "name": "化野めい",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/77/6d/160427_crt_CNnWH.jpg?r=1720022946",
-                    "actor_ids": [],
-                    "name_cn": "化野芽衣",
-                    "summary": "",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "化野芽衣",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 161077,
-                    "name": "編集",
-                    "relation": "闲角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/ae/99/161077_crt_8iEFM.jpg?r=1720664019",
-                    "actor_ids": [],
-                    "name_cn": "编辑",
-                    "summary": "",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "编辑",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 198422,
-                    "name": "サワ",
-                    "relation": "闲角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/56/01/198422_crt_0gviC.jpg",
-                    "actor_ids": [
-                        33487
-                    ],
-                    "name_cn": "阿泽",
-                    "summary": "",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "阿泽",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 198423,
-                    "name": "水野",
-                    "relation": "闲角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/4e/19/198423_crt_tF393.jpg",
-                    "actor_ids": [
-                        86586
-                    ],
-                    "name_cn": "水野",
-                    "summary": "",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "水野",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 198424,
-                    "name": "八木",
-                    "relation": "闲角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/5a/8a/198424_crt_vNvvG.jpg",
-                    "actor_ids": [
-                        73086
-                    ],
-                    "name_cn": "八木",
-                    "summary": "",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "八木",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 198425,
-                    "name": "小手ミモジ",
-                    "relation": "闲角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/ee/ae/198425_crt_x7H0Z.jpg",
-                    "actor_ids": [
-                        27806
-                    ],
-                    "name_cn": "小手实门司",
-                    "summary": "",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "小手实门司",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "男",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 199878,
-                    "name": "大迫",
-                    "relation": "闲角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/45/cc/199878_crt_ijiKG.jpg",
-                    "actor_ids": [
-                        44308
-                    ],
-                    "name_cn": "大迫",
-                    "summary": "",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "大迫",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                },
-                {
-                    "id": 202396,
-                    "name": "アザミマコ",
-                    "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/60/a4/202396_crt_YhJM3.jpg",
-                    "actor_ids": [
-                        18600
-                    ],
-                    "name_cn": "浅见真子",
-                    "summary": "",
-                    "birth_year": null,
-                    "birth_month": null,
-                    "birth_day": null,
-                    "tags": [
-                        {
-                            "key": "简体中文名",
-                            "value": "浅见真子",
-                            "__dataclass__": "KeyValue"
-                        },
-                        {
-                            "key": "性别",
-                            "value": "女",
-                            "__dataclass__": "KeyValue"
-                        }
-                    ],
-                    "__dataclass__": "Character"
-                }
-            ],
-            "relations": [
-                {
-                    "id": 303186,
-                    "name": "【推しの子】",
-                    "name_cn": "【我推的孩子】",
-                    "relation": "书籍",
-                    "type": 1,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/35/b2/303186_oE6Bo.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
-                    "id": 443428,
-                    "name": "【推しの子】 第2期",
-                    "name_cn": "【我推的孩子】 第二季",
-                    "relation": "前传",
-                    "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/d1/1c/443428_FIhFu.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
-                    "id": 616772,
-                    "name": "セレナーデ",
-                    "name_cn": "",
-                    "relation": "片尾曲",
-                    "type": 3,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/d5/57/616772_9Z0DH.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
-                    "id": 618418,
-                    "name": "TEST ME",
-                    "name_cn": "",
-                    "relation": "片头曲",
-                    "type": 3,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/dc/3a/618418_12Qjz.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
-                    "id": 621535,
-                    "name": "TVアニメ「【推しの子】」 キャラクターソングCD Vol.5",
-                    "name_cn": "",
-                    "relation": "角色歌",
-                    "type": 3,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/9c/5d/621535_9I0Ro.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
-                    "id": 621536,
-                    "name": "TVアニメ「【推しの子】」 オリジナルサウンドトラックVol.3",
-                    "name_cn": "",
-                    "relation": "原声集",
-                    "type": 3,
-                    "image_url": "",
-                    "__dataclass__": "Relation"
-                }
-            ],
-            "episodes": [
-                {
-                    "id": 1588451,
-                    "name": "入れ込み",
-                    "name_cn": "投入",
-                    "air_date": "2026-01-14",
-                    "desc": "『POP IN 2』の発売から半年、B小町は今やブレイク寸前。あかねは実力派女優として表舞台へ、アクアも順調にマルチタレントの道を進み始めている。そんな中、かなは本来の明るさを失っていて──\r\n\r\n脚本：田中 仁\r\n絵コンテ・演出・カラースクリプト：平牧大輔\r\n総作画監督：平山寛菜\r\n作画監督：菊地奨之、山野雅明、室賀彩花",
-                    "duration_seconds": 1430,
-                    "ep": 1,
-                    "sort": 25,
-                    "type": 0,
-                    "__dataclass__": "Episode"
-                },
-                {
-                    "id": 1588452,
-                    "name": "打算",
-                    "name_cn": "盘算",
-                    "air_date": "2026-01-21",
-                    "desc": "彼女らしからぬ戦略的な振る舞いで、ネットテレビ番組『深掘れ☆ワンチャン』内での地位を着々と築いていくルビー。その裏には、かつての苺プロ社長・壱護の存在があった──\r\n\r\nSTAFF\r\n脚本：田中 仁\r\n絵コンテ：入江泰浩\r\n演出：秋風一乃助\r\nカラースクリプト：平牧大輔、秋風一乃助\r\n総作画監督：室賀彩花\r\nキャラクター作画監修：平山寛菜\r\n作画監督：菊地奨之、鄧 佳湄、阪野日香莉、森川侑紀、磯本雅大、田舎方順一",
-                    "duration_seconds": 1455,
-                    "ep": 2,
-                    "sort": 26,
-                    "type": 0,
-                    "__dataclass__": "Episode"
-                },
-                {
-                    "id": 1588453,
-                    "name": "コンプライアンス",
-                    "name_cn": "规范",
-                    "air_date": "2026-01-28",
-                    "desc": "番組のコスプレ取材回で、ルビーたち出演者は直前の衣装変更を余儀なくされる。更にディレクター・漆原のリスペクトのない姿勢が、コスプレイヤー・メイヤの怒りに触れ──\r\n\r\nSTAFF\r\n脚本：田中 仁\r\n絵コンテ・演出：西邑大輔\r\nカラースクリプト：平牧大輔、西邑大輔\r\n総作画監督：室賀彩花、稲手遥香\r\nキャラクター作画監修：平山寛菜\r\n作画監督：菊地奨之、新村香奈、三島千枝、田舎方順一、森川侑紀、STUDIO POLARIS（近澤純平、錦 寛乃）",
-                    "duration_seconds": 1529,
-                    "ep": 3,
-                    "sort": 27,
-                    "type": 0,
-                    "__dataclass__": "Episode"
-                },
-                {
-                    "id": 1588454,
-                    "name": "盲目",
-                    "name_cn": "盲目",
-                    "air_date": "2026-02-04",
-                    "desc": "「無理なんだよ。綺麗にまっすぐこの世界で売れるなんて」人を利用し嘘をついてでも、売れることを選んだルビー。そして、急速に仕事を増やしていくルビーを訝しんだアクアが取った行動は──\r\n\r\nSTAFF\r\n脚本：田中 仁\r\n絵コンテ・演出：小松和映\r\nカラースクリプト：平牧大輔、小松和映\r\n総作画監督：森田莉奈、朱里\r\nキャラクター作画監修：平山寛菜\r\n作画監督：八木佐織、水野公彰",
-                    "duration_seconds": 1530,
-                    "ep": 4,
-                    "sort": 28,
-                    "type": 0,
-                    "__dataclass__": "Episode"
-                },
-                {
-                    "id": 1588455,
-                    "name": "営業",
-                    "name_cn": "应酬",
-                    "air_date": "2026-02-11",
-                    "desc": "『カミキヒカル』の正体をたった一人で追いながら、アクアが苦しみから解放されることを願うあかね。一方、アクアに拒絶され、役者としてもアイドルとしても上手くいかない日々を送るかなは──\r\n\r\nSTAFF\r\n脚本：田中 仁\r\n絵コンテ：平牧大輔\r\n演出：佐々木秀一\r\nカラースクリプト：平牧大輔、佐々木秀一\r\n総作画監督：稲手遥香、室賀彩花\r\nキャラクター作画監修：平山寛菜\r\n作画監督：小林千鶴、海老澤舞子、校條あや、野田康行、寺尾憲治、石井久雄、春川彩子、菊地奨之",
-                    "duration_seconds": 1455,
-                    "ep": 5,
-                    "sort": 29,
-                    "type": 0,
-                    "__dataclass__": "Episode"
-                },
-                {
-                    "id": 1588456,
-                    "name": "",
-                    "name_cn": "",
-                    "air_date": "2026-02-18",
-                    "desc": "",
-                    "duration_seconds": 0,
-                    "ep": 6,
-                    "sort": 30,
-                    "type": 0,
-                    "__dataclass__": "Episode"
-                },
-                {
-                    "id": 1588457,
-                    "name": "",
-                    "name_cn": "",
-                    "air_date": "2026-02-25",
-                    "desc": "",
-                    "duration_seconds": 0,
-                    "ep": 7,
-                    "sort": 31,
-                    "type": 0,
-                    "__dataclass__": "Episode"
-                },
-                {
-                    "id": 1588458,
-                    "name": "",
-                    "name_cn": "",
-                    "air_date": "2026-03-04",
-                    "desc": "",
-                    "duration_seconds": 0,
-                    "ep": 8,
-                    "sort": 32,
-                    "type": 0,
-                    "__dataclass__": "Episode"
-                },
-                {
-                    "id": 1588459,
-                    "name": "",
-                    "name_cn": "",
-                    "air_date": "2026-03-11",
-                    "desc": "",
-                    "duration_seconds": 0,
-                    "ep": 9,
-                    "sort": 33,
-                    "type": 0,
-                    "__dataclass__": "Episode"
-                },
-                {
-                    "id": 1588460,
-                    "name": "",
-                    "name_cn": "",
-                    "air_date": "2026-03-18",
-                    "desc": "",
-                    "duration_seconds": 0,
-                    "ep": 10,
-                    "sort": 34,
-                    "type": 0,
-                    "__dataclass__": "Episode"
-                },
-                {
-                    "id": 1588461,
-                    "name": "",
-                    "name_cn": "",
-                    "air_date": "2026-03-25",
-                    "desc": "",
-                    "duration_seconds": 0,
-                    "ep": 11,
-                    "sort": 35,
-                    "type": 0,
-                    "__dataclass__": "Episode"
-                }
-            ],
-            "__dataclass__": "ANiMeData"
-        },
-        "user_status": {
-            "watch_status": 3,
-            "watched_eps": 4,
-            "last_update": "2026-02-12T13:18:39+08:00",
-            "comment": null,
-            "tags": [],
-            "__dataclass__": "UserStatus"
-        },
-        "__dataclass__": "ANiMeRecord"
-    },
-    {
-        "anime_data": {
             "id": 510753,
             "name": "死亡遊戯で飯を食う。",
             "name_cn": "靠死亡游戏混饭吃。",
             "short_summary": "这是某个疯狂世界里的故事。\r\n\r\n少女（玩家）们挑战与死亡比邻的游戏。\r\n若能生还便可获得奖金，但哪怕做到万无一失也仍有可能命丧黄泉。\r\n\r\n世上确实存在着这样一群人，\r\n生活在这种疯狂世界中。\r\n\r\n玩家名：幽鬼（YUKI）。\r\n职业：杀",
-            "score": 6.5,
-            "image_url": "https://lain.bgm.tv/pic/cover/l/0d/a2/510753_3zw53.jpg",
+            "score": 6.4,
+            "image_url": "https://lain.bgm.tv/pic/cover/l/0d/a2/510753_8CZ48.jpg",
             "eps": 11,
             "date": "2026-01-07",
             "summary": "这是某个疯狂世界里的故事。\r\n\r\n少女（玩家）们挑战与死亡比邻的游戏。\r\n若能生还便可获得奖金，但哪怕做到万无一失也仍有可能命丧黄泉。\r\n\r\n世上确实存在着这样一群人，\r\n生活在这种疯狂世界中。\r\n\r\n玩家名：幽鬼（YUKI）。\r\n职业：杀人游戏的职业玩家。\r\n她今天也依旧靠着死亡游戏混饭吃。\r\n\r\n\r\n\r\n[简介原文]\r\nこれは、とあるいかれた世界の話。\r\n\r\n少女《プレイヤー》たちが挑むのは、死が隣り合わせのゲーム。\r\n生還すれば賞金を得るが、万全を尽くしても命を落とすことがある。\r\n\r\nそんな世界で、生きていく。\r\nこの世にはそういう人間たちが確かにいる。\r\n\r\nプレイヤーネーム・幽鬼《ユウキ》。\r\n職業・殺人ゲームのプロフェッショナル。\r\n彼女は今日も、死亡遊戯で飯を食う。",
@@ -7049,6 +7174,102 @@
                     "birth_day": null,
                     "tags": [],
                     "__dataclass__": "Character"
+                },
+                {
+                    "id": 202399,
+                    "name": "亜門",
+                    "relation": "配角",
+                    "image_url": "",
+                    "actor_ids": [
+                        28452
+                    ],
+                    "name_cn": "",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 202400,
+                    "name": "花梨",
+                    "relation": "配角",
+                    "image_url": "",
+                    "actor_ids": [
+                        26994
+                    ],
+                    "name_cn": "",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 202401,
+                    "name": "杉山",
+                    "relation": "配角",
+                    "image_url": "",
+                    "actor_ids": [
+                        52738
+                    ],
+                    "name_cn": "",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 202402,
+                    "name": "蕨",
+                    "relation": "配角",
+                    "image_url": "",
+                    "actor_ids": [
+                        47172
+                    ],
+                    "name_cn": "",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 202403,
+                    "name": "水戸",
+                    "relation": "配角",
+                    "image_url": "",
+                    "actor_ids": [
+                        59342
+                    ],
+                    "name_cn": "",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 202404,
+                    "name": "檜皮",
+                    "relation": "配角",
+                    "image_url": "",
+                    "actor_ids": [
+                        70435
+                    ],
+                    "name_cn": "",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [],
+                    "__dataclass__": "Character"
                 }
             ],
             "relations": [
@@ -7162,7 +7383,7 @@
                 {
                     "id": 1593459,
                     "name": "Who's ----ing You",
-                    "name_cn": "",
+                    "name_cn": "Who's ----ing You",
                     "air_date": "2026-02-11",
                     "desc": "湯気の立ち込める巨大浴場、身を包むのは一枚のタオル。他プレイヤーから随分と遅れて幽鬼は目を覚ます。\r\n脱出の鍵を巡るゲームは既に白熱し、盤面は膠着し始めていた。\r\n「ここに残ってるのは、〈出遅れ組〉なんだね」\r\nこの窮地を打開し、幽鬼は〈三十の壁〉を超え、生還できるのか──\r\n\r\nStaff\r\n脚本：深谷 匠\r\n絵コンテ：小林美月\r\n演出：渡辺正彦",
                     "duration_seconds": 1430,
@@ -7173,10 +7394,10 @@
                 },
                 {
                     "id": 1593460,
-                    "name": "",
+                    "name": "Good ----",
                     "name_cn": "",
                     "air_date": "2026-02-18",
-                    "desc": "",
+                    "desc": "御城が仕掛けた作戦が、弛緩していた幽鬼たちを強襲する。\r\n自戒する幽鬼だが、仲間たちは壊滅する。捕らえられた幽鬼は、遂に御城の面前へと引き据えられる。\r\n「……決着は、もっと劇的なものでなければならないはずだ」\r\n“四十回目”の御城と“三十回目”の幽鬼。彼女と彼女は再会する──\r\n\r\nStaff\r\n脚本：池田臨太郎\r\n絵コンテ：安東大瑛\r\n演出：田口慶次郎、浅見松雄",
                     "duration_seconds": 1430,
                     "ep": 7,
                     "sort": 7,
@@ -11042,10 +11263,10 @@
                 {
                     "id": 600425,
                     "name": "バゼットはじめてのアルバイト",
-                    "name_cn": "",
+                    "name_cn": "巴泽特第一次的打工",
                     "air_date": "2016-01-29",
                     "desc": "",
-                    "duration_seconds": 0,
+                    "duration_seconds": 405,
                     "ep": 0,
                     "sort": 5,
                     "type": 1,
@@ -11836,7 +12057,7 @@
                     "name_cn": "辉夜大小姐想让我告白-初吻不会结束-",
                     "relation": "前传",
                     "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/ca/79/425211_nVNvq.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/ca/79/425211_bPbra.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -18132,7 +18353,7 @@
             "name": "とある科学の超電磁砲 第4期",
             "name_cn": "某科学的超电磁炮 第四季",
             "short_summary": "",
-            "score": 9.6,
+            "score": 9.7,
             "image_url": "https://lain.bgm.tv/pic/cover/l/c0/94/537743_yYZxV.jpg",
             "eps": 0,
             "date": null,
@@ -19553,7 +19774,7 @@
                     "name_cn": "Fate/strange Fake",
                     "relation": "不同世界观",
                     "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/f0/51/443831_84ZQs.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/f0/51/443831_CNG0F.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -46702,7 +46923,7 @@
                     "name_cn": "辉夜大小姐想让我告白-初吻不会结束-",
                     "relation": "全集",
                     "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/ca/79/425211_nVNvq.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/ca/79/425211_bPbra.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -50554,7 +50775,7 @@
                     "name_cn": "Fate/strange Fake",
                     "relation": "不同世界观",
                     "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/f0/51/443831_84ZQs.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/f0/51/443831_CNG0F.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -53617,7 +53838,7 @@
                     "name_cn": "Fate/strange Fake",
                     "relation": "不同世界观",
                     "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/f0/51/443831_84ZQs.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/f0/51/443831_CNG0F.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -74114,6 +74335,36 @@
                         {
                             "key": "引用来源",
                             "value": "https://mzh.moegirl.org.cn/宿海塔子",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 202275,
+                    "name": "超平和バスターズ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d5/7e/202275_crt_FQ4f5.jpg",
+                    "actor_ids": [],
+                    "name_cn": "超和平Busters",
+                    "summary": "由宿海仁太孩童时期组建，成员有本间芽衣子(面码)、安城鸣子(安鸣)、松雪集(雪集)、鹤见知利子(鹤子) 、久川铁道(波波)六人「为了守护世上所有的和平」为目的而组成。集会地点是山上的秘密基地。在芽衣子死后解散。为了恢复昔日友谊而展开此故事。\r\n\r\n芽衣子在山丘上走后的每年夏天，超和平Busters剩下的五人会在秘密基地聚会、举行活动，追忆那个如花朵一般的本间芽衣子。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "超和平Busters",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "引用来源",
+                            "value": [
+                                {
+                                    "k": "萌娘百科",
+                                    "v": "https://mzh.moegirl.org.cn/超和平Busters(未闻花名)#"
+                                }
+                            ],
                             "__dataclass__": "KeyValue"
                         }
                     ],
@@ -99305,7 +99556,7 @@
                 {
                     "id": 173163,
                     "name": "華野超美",
-                    "relation": "声库",
+                    "relation": "客串",
                     "image_url": "https://lain.bgm.tv/pic/crt/l/be/55/173163_crt_AqZA5.jpg",
                     "actor_ids": [
                         9096
@@ -110318,7 +110569,7 @@
                     "name_cn": "辉夜大小姐想让我告白-初吻不会结束-",
                     "relation": "续集",
                     "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/ca/79/425211_nVNvq.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/ca/79/425211_bPbra.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -128724,7 +128975,7 @@
                 {
                     "id": 173163,
                     "name": "華野超美",
-                    "relation": "声库",
+                    "relation": "客串",
                     "image_url": "https://lain.bgm.tv/pic/crt/l/be/55/173163_crt_AqZA5.jpg",
                     "actor_ids": [
                         9096
@@ -133324,7 +133575,7 @@
             "name": "ご注文はうさぎですか？",
             "name_cn": "请问您今天要来点兔子吗？",
             "short_summary": "为了便于上高中，高中入学新生心爱准备搬来这由石板路、木制房组成的街道。她在寻找寄宿的地点时迷路了，迷茫之中来到了一家名为“rabbit house”的咖啡店门前。看到这间名字都充满小兔风格的可爱咖啡店，心爱忍不住踏进了店门。在店里，她遇见了",
-            "score": 7.4,
+            "score": 7.3,
             "image_url": "https://lain.bgm.tv/pic/cover/l/9f/2f/88287_h4xKo.jpg",
             "eps": 12,
             "date": "2014-04-10",
@@ -177245,6 +177496,15 @@
             ],
             "relations": [
                 {
+                    "id": 243475,
+                    "name": "抜きゲーみたいな島に住んでる貧乳はどうすりゃいいですか？",
+                    "name_cn": "",
+                    "relation": "游戏",
+                    "type": 4,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/95/90/243475_n4jp9.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
                     "id": 565417,
                     "name": "ぬきたし THE ANIMATION オリジナルサウンドトラックCD",
                     "name_cn": "",
@@ -177260,6 +177520,15 @@
                     "relation": "片头曲",
                     "type": 3,
                     "image_url": "https://lain.bgm.tv/pic/cover/l/03/d7/566563_gPeuq.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 568123,
+                    "name": "ラジオ『ぬきたし』 ～そうだ 青藍島、イこう～",
+                    "name_cn": "",
+                    "relation": "其他",
+                    "type": 6,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/a5/d9/568123_Fq4sx.jpg",
                     "__dataclass__": "Relation"
                 }
             ],
