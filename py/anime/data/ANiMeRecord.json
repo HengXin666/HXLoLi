@@ -5,7 +5,7 @@
             "name": "【推しの子】 第3期",
             "name_cn": "【我推的孩子】 第三季",
             "short_summary": "故事迈向全新舞台——\r\n\r\n自「POP IN 2」发行已过了半年。多亏了MEM CYO的努力，如今的 B小町已在爆红前夕。\r\n阿库亚走在全方位艺人的道路上，茜则是在实力派女演员的路上逐步前进。\r\n然而另一方面，佳奈却失去了以往的开朗。\r\n而",
-            "score": 7.1,
+            "score": 7,
             "image_url": "https://lain.bgm.tv/pic/cover/l/92/95/517057_257ad.jpg",
             "eps": 11,
             "date": "2026-01-14",
@@ -714,7 +714,7 @@
                 {
                     "id": 160426,
                     "name": "林原キイロ",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "https://lain.bgm.tv/pic/crt/l/80/ad/160426_crt_797A3.jpg?r=1720022844",
                     "actor_ids": [],
                     "name_cn": "林原纪伊吕",
@@ -739,7 +739,7 @@
                 {
                     "id": 160427,
                     "name": "化野めい",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "https://lain.bgm.tv/pic/crt/l/77/6d/160427_crt_CNnWH.jpg?r=1720022946",
                     "actor_ids": [],
                     "name_cn": "化野芽衣",
@@ -947,6 +947,60 @@
                         }
                     ],
                     "__dataclass__": "Character"
+                },
+                {
+                    "id": 203018,
+                    "name": "岩崎",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/f8/2c/203018_crt_ZbVVY.jpg",
+                    "actor_ids": [
+                        56924
+                    ],
+                    "name_cn": "岩崎",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "岩崎",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 203019,
+                    "name": "板野",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/61/9f/203019_crt_i6uEU.jpg",
+                    "actor_ids": [
+                        25582
+                    ],
+                    "name_cn": "板野",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "板野",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
                 }
             ],
             "relations": [
@@ -1068,11 +1122,11 @@
                 },
                 {
                     "id": 1588456,
-                    "name": "",
-                    "name_cn": "",
+                    "name": "アイドルと恋愛",
+                    "name_cn": "偶像与恋爱",
                     "air_date": "2026-02-18",
-                    "desc": "",
-                    "duration_seconds": 0,
+                    "desc": "島の事務所に出入りする姿を、記者に撮られてしまったかな。何もしていない。だが状況証拠は真っ黒。自分を責めるかなは、街を彷徨い続け──\r\n\r\nSTAFF\r\n脚本：田中 仁\r\n絵コンテ・演出：内野宮晃希\r\nカラースクリプト：平牧大輔、内野宮晃希\r\n総作画監督：STUDIO POLARIS（錦 寛乃）、山野雅明\r\nキャラクター作画監修：平山寛菜\r\n作画監督：澤井 駿、内田孝行、阪野日香莉、新村香奈、STUDIO POLARIS（須佐祥智、Choi Hye jeong）",
+                    "duration_seconds": 1420,
                     "ep": 6,
                     "sort": 30,
                     "type": 0,
@@ -1756,13 +1810,13 @@
                 },
                 {
                     "id": 38178,
-                    "name": "——",
+                    "name": "爛熟なる狂信者",
                     "relation": "主角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/88/be/38178_crt_XQc63.jpg?r=1742722012",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/88/be/38178_crt_E7EW5.jpg",
                     "actor_ids": [
                         15497
                     ],
-                    "name_cn": "——",
+                    "name_cn": "烂熟的狂信者",
                     "summary": "スノーフィールドの聖杯戦争において召喚されたアサシン。召喚されるや否やマスターであるジェスターを殺害、以降は自らの教義に背く聖杯戦争の儀式そのものを壊すことを目的に行動する。",
                     "birth_year": null,
                     "birth_month": null,
@@ -1770,7 +1824,7 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "——",
+                            "value": "烂熟的狂信者",
                             "__dataclass__": "KeyValue"
                         },
                         {
@@ -2838,7 +2892,7 @@
                     "id": 132786,
                     "name": "繰丘夕鶴",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/91/8d/132786_crt_7jX66.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/91/8d/132786_crt_dV77F.jpg",
                     "actor_ids": [],
                     "name_cn": "缲丘夕鹤",
                     "summary": "椿の父。年齢は30代ほど。オーランドらと共闘を約定していた、偽りの聖杯戦争の主催者側の魔術師。以前より妻と共に冬木の聖杯戦争を研究しており、その経過でマキリの魔術を椿に流用させている。椿に対しては魔術師の娘としての愛情は与えているものの一般的な娘としての愛情は感じておらず、椿が昏倒した現在はただ彼女の持つ優秀な魔術回路と血筋を絶やさないための生殖機能の無事のみを考えている。",
@@ -2863,7 +2917,7 @@
                     "id": 132787,
                     "name": "繰丘母",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/bc/51/132787_crt_MDor7.jpg?r=1688370569",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/bc/51/132787_crt_AC11o.jpg",
                     "actor_ids": [],
                     "name_cn": "缲丘母",
                     "summary": "",
@@ -2888,7 +2942,7 @@
                     "id": 132788,
                     "name": "ヴェラ・レヴィット",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/9e/59/132788_crt_XZK42.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/9e/59/132788_crt_9qb5x.jpg?r=1771692888",
                     "actor_ids": [
                         15417
                     ],
@@ -2985,7 +3039,9 @@
                     "name": "ヴィオラ・ヴァルストロム",
                     "relation": "配角",
                     "image_url": "https://lain.bgm.tv/pic/crt/l/e0/7e/169210_crt_8yfLm.jpg?r=1735656752",
-                    "actor_ids": [],
+                    "actor_ids": [
+                        49576
+                    ],
                     "name_cn": "",
                     "summary": "ハンザの部下として共にスノーフィールドへ赴いた、 4人の少女。 彼の奔放な勤務態度に時折呆れながらも、 有事となれば忠実にその任務をサポートする。\r\n\r\nツインテールの少女。ハンザを呼び捨てにする。",
                     "birth_year": null,
@@ -3071,7 +3127,7 @@
                     "id": 184266,
                     "name": "アメリア・レヴィット",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/b6/b3/184266_crt_odpYE.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/b6/b3/184266_crt_hHfL8.jpg",
                     "actor_ids": [
                         23544
                     ],
@@ -3098,10 +3154,10 @@
                     "id": 193655,
                     "name": "沙条綾香 (氷室の天地)",
                     "relation": "闲角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/27/02/193655_crt_CMTK4.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/27/02/193655_crt_bQjL2.jpg",
                     "actor_ids": [],
                     "name_cn": "沙条绫香（冰室的天地）",
-                    "summary": "穗群原学园二年A班学生，一位过着无忧无虑生活的谜之眼镜娘。戴眼镜是因为视力不好，并不具备摘眼镜切换人格的功能。性格上也不“阴沉、胆小、目光短浅、爱慕虚荣”。\r\n据说90年代她的父亲从负责远坂家财产的言峰绮礼手中购买了一处优质的龙脉土地并建造了房屋，她也就随家里一起从东京搬到了冬木，因而结识了一直想要回土地的远坂凛。\r\n家庭方面父亲和姐姐都健在，20世纪初姐姐从家里搬了出去。虽然不常见面，但姐妹关系和睦，她称呼姐姐为“笨蛋姐姐”。为了照顾没遇到“王子”而变得废柴的姐姐，她决心成为一个立派的大人。\r\n她经常背着一个比自己大得多的背包，里面塞满了采集的野生草药，她自称这是爱好，采集的草药并非食用而是药用，即使是外人也能看出其中的蹊跷之处。\r\n她的真实身份是一名魔术师，使用黑魔术。二年级的暑假曾到时钟塔体验入学，是埃尔梅罗教室的记名弟子。在二世的建议下，她开始混合使用黑魔术与元素变换。同时二世还建议她如果不愿伤害动物，可以转攻植物科。\r\n第五次圣杯战争期间，她和希耶尔负责暗中应对各种异常状况。但没防住冬木圣杯碎片被盗，引发了多年后美国的一场大事件。\r\n如前文所言，关系很好的姐姐做过不少让她感谢的事，也正是因为姐姐，她才得以摆脱被迫参加圣杯战争的命运，但姐姐经常到处惹祸需要她来擦屁股，算是抵消了。《冰室的天地》最终卷中她要前往罗马尼亚为姐姐和塞蕾妮可犯下的暴行收拾烂摊子。",
+                    "summary": "穂群原学園2年A組に所属する謎の森ガール。その正体は黒魔術を得意とし、「いずれ聖杯戦争に強制的に参加せねばならない」という頸木から解放されたフリーダムな綾香。親が存命、姉との仲も良好だが、目の前で優秀な姉が駄目人間化していくのを目撃。そして龍脈直上での修行が彼女に「自信が持でる最低限ライン」までの腕前修得を成功させ、「この家は私がしっかりしないと…!!」という精神変化も引き起こし、プロトタイプ綾香のような内向性・自信のなさ・自虐的性格は発生しなかった。\r\n魔女の釜が設置されている薄暗い地下室で魔術書を読みまくったせいで純粋に視力が低いため、眼鏡を外して性格スイッチ…といった技能もない。パーフェクトナチュラル眼鏡ッ娘。\r\n2年の夏にロンドンへ赴き「時計搭」に体験入学をした。その際に「サジョウ」の名に興味を示した時計塔のカリスマとの縁が生まれ、ほんの一時であるが師事を受け、「生け贄用の動物を殺すことに抵抗あるなら植物メインでやっていく方向もある」という助言を授かったことが天啓というか致命的というかこの世界線における綾香に決定的な何かを方向づけてしまったらしい。\r\n当然植物だけの黒魔術などどう転んでも破綻しかないわけでトラップ的な意味の助言であり、将来的には培った黒魔術の才と本来の才である元素変換（フォーマルクラフト)をハイブリッドした何かに落とし込むというのがカリスマの目論見だったのだが……………。",
                     "birth_year": null,
                     "birth_month": null,
                     "birth_day": null,
@@ -3134,6 +3190,33 @@
                         {
                             "key": "简体中文名",
                             "value": "小红帽",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 195601,
+                    "name": "アルレット・エスカルドス",
+                    "relation": "闲角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/e4/8d/195601_crt_ILUIu.jpg",
+                    "actor_ids": [
+                        12761
+                    ],
+                    "name_cn": "阿尔蕾特·艾斯卡尔德斯",
+                    "summary": "地中海のモナコに拠点を構える魔術師一族であるエスカルドス家の現当主夫妻の片割れ。\r\nモナコで開催されたフェムの船宴にプレイヤーの一人として参加し、ロード・エルメロイⅡ世の前に立ち塞がる。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "阿尔蕾特·艾斯卡尔德斯",
                             "__dataclass__": "KeyValue"
                         },
                         {
@@ -3179,12 +3262,17 @@
                     "actor_ids": [
                         24428
                     ],
-                    "name_cn": "",
+                    "name_cn": "约翰·温高德",
                     "summary": "オールバックの青年。ダガーの宝具を使用する。\r\nダガーを右腕ごと破壊されてしまった後はキャスターから義手の宝具を新たに提供された。",
                     "birth_year": null,
                     "birth_month": null,
                     "birth_day": null,
                     "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "约翰·温高德",
+                            "__dataclass__": "KeyValue"
+                        },
                         {
                             "key": "性别",
                             "value": "男",
@@ -3224,7 +3312,7 @@
                     "id": 197570,
                     "name": "絡繰り翼の少年",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/93/64/197570_crt_E7xC7.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/93/64/197570_crt_Z9haz.jpg?r=1771713297",
                     "actor_ids": [
                         19619
                     ],
@@ -3251,7 +3339,7 @@
                     "id": 197571,
                     "name": "蛇の杖を持つ子供",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/45/a9/197571_crt_clV00.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/45/a9/197571_crt_wdn8c.jpg?r=1771713320",
                     "actor_ids": [
                         30620
                     ],
@@ -3458,7 +3546,7 @@
                     "id": 198011,
                     "name": "アルドラ",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/53/08/198011_crt_lWrz1.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/53/08/198011_crt_k1gK6.jpg?r=1771692912",
                     "actor_ids": [
                         43372
                     ],
@@ -3824,7 +3912,7 @@
                     "name": "三流喜劇の舞台裏",
                     "name_cn": "三流喜剧的幕后",
                     "air_date": "2026-02-21",
-                    "desc": "",
+                    "desc": "破損した宝具の修繕のため、キャスターの魔術工房へと数人の「二十八人の怪物」が遣わされていた。先の戦闘で右腕を失った警官ジョン・ウィンガードは、それでもなお聖杯戦争に挑む意気をキャスターより問われる。一方で、街を包む不穏な魔力を察知したフラットとバーサーカーは、警察署への侵入を試みていた。\r\n\r\n脚本：大東大介\r\n絵コンテ・演出：仲野良\r\n総作画監督：滝山真哲",
                     "duration_seconds": 1420,
                     "ep": 8,
                     "sort": 8,
@@ -3833,7 +3921,7 @@
                 },
                 {
                     "id": 1427239,
-                    "name": "",
+                    "name": "悪夢は倫敦の暁と共に",
                     "name_cn": "",
                     "air_date": "2026-02-28",
                     "desc": "",
@@ -4537,6 +4625,55 @@
                         }
                     ],
                     "__dataclass__": "Character"
+                },
+                {
+                    "id": 203081,
+                    "name": "プージャム",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/95/df/203081_crt_qGz7W.jpg",
+                    "actor_ids": [
+                        4101
+                    ],
+                    "name_cn": "普佳姆",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "普佳姆",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 203082,
+                    "name": "シジ・バウ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/58/bf/203082_crt_vTPZk.jpg",
+                    "actor_ids": [
+                        4613
+                    ],
+                    "name_cn": "西基·巴乌",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "西基·巴乌",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
                 }
             ],
             "relations": [
@@ -4565,6 +4702,15 @@
                     "relation": "片头曲",
                     "type": 3,
                     "image_url": "https://lain.bgm.tv/pic/cover/l/3b/3e/620819_7q7Ba.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 630508,
+                    "name": "TVアニメ『勇者刑に処す 懲罰勇者 9004 隊刑務記録』オリジナルサウンドトラック",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/55/cf/630508_JMBJX.jpg",
                     "__dataclass__": "Relation"
                 }
             ],
@@ -4643,10 +4789,10 @@
                 },
                 {
                     "id": 1603699,
-                    "name": "",
-                    "name_cn": "",
+                    "name": "刑罰：港湾都市ヨーフ休暇偽装",
+                    "name_cn": "刑罚：港湾都市幽湖休假伪装",
                     "air_date": "2026-02-19",
-                    "desc": "",
+                    "desc": "ヨーフ市で療養中のザイロとテオリッタは、暫定的にパトーシェの部隊に配備される。街には新たな《女神》を認めない神殿の異端者が潜んでいるといい、ザイロたちは休暇を偽装して、異端者をおびき寄せようとする。\r\n\r\n脚本：猪原健太\r\n絵コンテ：竹田直樹\r\n演出：下平佑一\r\n作画監督：竹田直樹\r\n総作画監督：野田 猛",
                     "duration_seconds": 1470,
                     "ep": 7,
                     "sort": 7,
@@ -5619,7 +5765,7 @@
             "name": "葬送のフリーレン 第2期",
             "name_cn": "葬送的芙莉莲 第二季",
             "short_summary": "「流泪道别并不适合我们，因为下次再见时会很难为情。」\r\n在勇者欣梅尔一行人击败魔王后的世界中，与欣梅尔等人一同为世界带来和平、活了千年以上的精灵魔法使──芙莉莲。\r\n在面对寿命已尽的欣梅尔之死时，因落下的泪水与心中涌现的情感，踏上了「理解人",
-            "score": 8,
+            "score": 7.9,
             "image_url": "https://lain.bgm.tv/pic/cover/l/0b/24/515759_1GGBy.jpg",
             "eps": 10,
             "date": "2026-01-16",
@@ -6580,7 +6726,7 @@
             "name": "死亡遊戯で飯を食う。",
             "name_cn": "靠死亡游戏混饭吃。",
             "short_summary": "这是某个疯狂世界里的故事。\r\n\r\n少女（玩家）们挑战与死亡比邻的游戏。\r\n若能生还便可获得奖金，但哪怕做到万无一失也仍有可能命丧黄泉。\r\n\r\n世上确实存在着这样一群人，\r\n生活在这种疯狂世界中。\r\n\r\n玩家名：幽鬼（YUKI）。\r\n职业：杀",
-            "score": 6.4,
+            "score": 6.1,
             "image_url": "https://lain.bgm.tv/pic/cover/l/0d/a2/510753_8CZ48.jpg",
             "eps": 11,
             "date": "2026-01-07",
@@ -6817,12 +6963,12 @@
                     "id": 197505,
                     "name": "藍里",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/19/f4/197505_crt_K1H2R.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/19/f4/197505_crt_vEaF3.jpg",
                     "actor_ids": [
                         5494
                     ],
                     "name_cn": "蓝里",
-                    "summary": "",
+                    "summary": "その名にたがわぬ綺麗な藍色の瞳を持つ。\r\n年齢の割に妙に落ち着いた雰囲気をまとう。\r\n\r\nメモ\r\n＜切り株＞チーム所属。今回のゲームが初参加の初心者。\r\n\r\n次回参加予定\r\nCANDLE WOODS（参加１回目）",
                     "birth_year": null,
                     "birth_month": null,
                     "birth_day": null,
@@ -6844,12 +6990,12 @@
                     "id": 197506,
                     "name": "萌黄",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/aa/b8/197506_crt_NwcaA.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/aa/b8/197506_crt_fMjnk.jpg",
                     "actor_ids": [
                         48672
                     ],
                     "name_cn": "萌黄",
-                    "summary": "",
+                    "summary": "萌黄色の髪を二つ結びにしている。\r\n生真面目で思い込みが強い性格。\r\n\r\nメモ\r\n＜切り株＞チーム所属。＜観客＞の中には、彼女の熱心なファンが一定数いる様子。\r\n\r\n次回参加予定\r\nCANDLE WOODS（参加３回目）",
                     "birth_year": null,
                     "birth_month": null,
                     "birth_day": null,
@@ -6871,12 +7017,12 @@
                     "id": 197507,
                     "name": "白士",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/ad/94/197507_crt_VRc94.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/ad/94/197507_crt_lNz4A.jpg",
                     "actor_ids": [
                         4272
                     ],
                     "name_cn": "白士",
-                    "summary": "",
+                    "summary": "白くウェーブのかかった髪を持つこのゲームの最古参。\r\nゲームを99回クリアすることを目標にしている。\r\n\r\nメモ\r\n＜うさぎ＞チーム所属。幽鬼の師匠として、弟子にプレイの手ほどきを与える。\r\n\r\n次回参加予定\r\nCANDLE WOODS（参加96回目）",
                     "birth_year": null,
                     "birth_month": null,
                     "birth_day": null,
@@ -6898,10 +7044,12 @@
                     "id": 197567,
                     "name": "墨家",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/32/2e/197567_crt_32oYA.jpg",
-                    "actor_ids": [],
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/32/2e/197567_crt_2KZk9.jpg",
+                    "actor_ids": [
+                        5228
+                    ],
                     "name_cn": "墨家",
-                    "summary": "",
+                    "summary": "かつては\"やんちゃ\"していたと想起させる容貌のプレイヤー。\r\n幽鬼とも面識がある。\r\n\r\nメモ\r\n＜うさぎ＞チーム所属。常連組の１人で、＜三十の壁＞も迫っている。\r\n\r\n次回参加予定\r\nCANDLE WOODS（参加29回目）",
                     "birth_year": null,
                     "birth_month": null,
                     "birth_day": null,
@@ -6923,10 +7071,12 @@
                     "id": 197568,
                     "name": "伽羅",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/d1/d9/197568_crt_Q89Jk.jpg",
-                    "actor_ids": [],
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/d1/d9/197568_crt_LI55u.jpg",
+                    "actor_ids": [
+                        23513
+                    ],
                     "name_cn": "伽罗",
-                    "summary": "",
+                    "summary": "長身長髪の女で、キャラメルのような色の髪が目を惹く。\r\n幽鬼曰く、顔の印象を言語化することが難しい。\r\n\r\nメモ\r\n＜うさぎ＞チームの初心者組と行動を共にしている様子。\r\n\r\n次回参加予定\r\nCANDLE WOODS（参加10回目）",
                     "birth_year": null,
                     "birth_month": null,
                     "birth_day": null,
@@ -7082,7 +7232,7 @@
                 {
                     "id": 201720,
                     "name": "真弓",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "",
                     "actor_ids": [
                         67773
@@ -7098,7 +7248,7 @@
                 {
                     "id": 201721,
                     "name": "蜜柑",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "",
                     "actor_ids": [
                         32858
@@ -7114,7 +7264,7 @@
                 {
                     "id": 201722,
                     "name": "夏夜",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "",
                     "actor_ids": [
                         18733
@@ -7130,7 +7280,7 @@
                 {
                     "id": 201723,
                     "name": "金子の父",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "",
                     "actor_ids": [
                         49554
@@ -7146,7 +7296,7 @@
                 {
                     "id": 201724,
                     "name": "竹葉",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "",
                     "actor_ids": [
                         80924
@@ -7162,7 +7312,7 @@
                 {
                     "id": 201725,
                     "name": "幽鬼のエージェント",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "",
                     "actor_ids": [
                         10640
@@ -7178,7 +7328,7 @@
                 {
                     "id": 202399,
                     "name": "亜門",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "",
                     "actor_ids": [
                         28452
@@ -7194,7 +7344,7 @@
                 {
                     "id": 202400,
                     "name": "花梨",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "",
                     "actor_ids": [
                         26994
@@ -7210,7 +7360,7 @@
                 {
                     "id": 202401,
                     "name": "杉山",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "",
                     "actor_ids": [
                         52738
@@ -7226,7 +7376,7 @@
                 {
                     "id": 202402,
                     "name": "蕨",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "",
                     "actor_ids": [
                         47172
@@ -7242,7 +7392,7 @@
                 {
                     "id": 202403,
                     "name": "水戸",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "",
                     "actor_ids": [
                         59342
@@ -7258,7 +7408,7 @@
                 {
                     "id": 202404,
                     "name": "檜皮",
-                    "relation": "配角",
+                    "relation": "闲角",
                     "image_url": "",
                     "actor_ids": [
                         70435
@@ -7316,6 +7466,15 @@
                     "relation": "插入歌",
                     "type": 3,
                     "image_url": "https://lain.bgm.tv/pic/cover/l/27/03/624602_deT4K.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 630178,
+                    "name": "ReBreathe",
+                    "name_cn": "",
+                    "relation": "插入歌",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/63/36/630178_z99Yd.jpg",
                     "__dataclass__": "Relation"
                 }
             ],
@@ -7395,7 +7554,7 @@
                 {
                     "id": 1593460,
                     "name": "Good ----",
-                    "name_cn": "",
+                    "name_cn": "Good ----",
                     "air_date": "2026-02-18",
                     "desc": "御城が仕掛けた作戦が、弛緩していた幽鬼たちを強襲する。\r\n自戒する幽鬼だが、仲間たちは壊滅する。捕らえられた幽鬼は、遂に御城の面前へと引き据えられる。\r\n「……決着は、もっと劇的なものでなければならないはずだ」\r\n“四十回目”の御城と“三十回目”の幽鬼。彼女と彼女は再会する──\r\n\r\nStaff\r\n脚本：池田臨太郎\r\n絵コンテ：安東大瑛\r\n演出：田口慶次郎、浅見松雄",
                     "duration_seconds": 1430,
@@ -7406,10 +7565,10 @@
                 },
                 {
                     "id": 1593461,
-                    "name": "",
-                    "name_cn": "",
+                    "name": "----It All",
+                    "name_cn": "----It All",
                     "air_date": "2026-02-25",
-                    "desc": "",
+                    "desc": "森を想起させる箱庭、うさぎ耳が特徴的なバニースーツ。人工的な音声で幽鬼は目を覚ます。\r\n幽鬼が属する〈うさぎ〉チームは、師匠と仰ぐ白士を筆頭に常連たちがゲーム開始を待つ。\r\n「うさぎはな、切り株に殺されるんだ」\r\n一方、対峙する〈切り株〉チームではプレイヤー・萌黄が目を覚ますが──\r\n\r\n脚本：池田臨太郎\r\n絵コンテ：石平信司\r\n演出：村田尚樹",
                     "duration_seconds": 1430,
                     "ep": 8,
                     "sort": 8,
@@ -7471,7 +7630,7 @@
             "name": "小林さんちのメイドラゴン さみしがりやの竜",
             "name_cn": "小林家的龙女仆 怕寂寞的龙",
             "short_summary": "影片延续了系列标志性的温情基调，融合冒险与奇幻色彩。小林、托尔、康娜等人在现代人类世界享受平静生活，直到康娜的父亲——奇姆恩卡姆依——突然现身，打破了所有的宁静。异世界两大阵营一触即发，奇姆恩卡姆依决定带康娜归返异界，归还曾因恶作剧而无意吸",
-            "score": 6.7,
+            "score": 6.6,
             "image_url": "https://lain.bgm.tv/pic/cover/l/f1/22/514353_21EQD.jpg",
             "eps": 1,
             "date": "2025-06-27",
@@ -12085,6 +12244,15 @@
                     "relation": "片尾曲",
                     "type": 3,
                     "image_url": "https://lain.bgm.tv/pic/cover/l/f8/34/619034_wlVO8.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 630138,
+                    "name": "かぐや様は告らせたい 大人への階段 Blu-ray & DVD 特典CD",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "",
                     "__dataclass__": "Relation"
                 }
             ],
@@ -20194,7 +20362,7 @@
             "name": "無職転生Ⅲ ～異世界行ったら本気だす～",
             "name_cn": "无职转生 第三季 ～到了异世界就拿出真本事～",
             "short_summary": "",
-            "score": 7.8,
+            "score": 8.1,
             "image_url": "https://lain.bgm.tv/pic/cover/l/1f/9e/501963_h8jWc.jpg",
             "eps": 0,
             "date": null,
@@ -26838,7 +27006,7 @@
     {
         "anime_data": {
             "id": 26804,
-            "name": "とある魔術の禁書目録 エンデュミオンの奇蹟",
+            "name": "とある魔術の禁書目録―エンデュミオンの奇蹟―",
             "name_cn": "魔法禁书目录 恩底弥翁的奇迹",
             "short_summary": "在学园都市制作的宇宙升降机“恩底弥翁”完成在即的某一天，上条当麻和茵蒂克丝与一位无能力者（Lv0）少女鸣护艾丽莎相遇了。\r\n茵蒂克丝与艾丽莎两人因为“旺盛的食欲”这样谜一般的羁绊而意气相合起来，就在三人享受放学后的愉快时光之时，带着魔术师的",
             "score": 6.4,
@@ -33664,7 +33832,7 @@
                     "name_cn": "某暗部的少女共栖",
                     "relation": "相同世界观",
                     "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/1c/9b/537738_j7JKy.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/1c/9b/537738_0zLU6.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -39010,12 +39178,30 @@
             ],
             "relations": [
                 {
-                    "id": 259330,
-                    "name": "OVERLORD ORIGINAL SOUNDTRACK",
+                    "id": 262865,
+                    "name": "異世界かるてっと",
+                    "name_cn": "异世界四重奏",
+                    "relation": "角色出演",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/c0/e9/262865_P6q49.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 629627,
+                    "name": "DJCD「オーバーロードII～ナザリック地下大墳墓 定例報告会～」",
                     "name_cn": "",
-                    "relation": "原声集",
+                    "relation": "其他",
                     "type": 3,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/fd/8c/259330_JUn0g.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/ba/a0/629627_q3kKP.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 629626,
+                    "name": "ラジオCD「オーバーロード～至高のラジオに忠誠の儀を～」",
+                    "name_cn": "",
+                    "relation": "其他",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/f6/f9/629626_vYu78.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -39127,21 +39313,21 @@
                     "__dataclass__": "Relation"
                 },
                 {
-                    "id": 262865,
-                    "name": "異世界かるてっと",
-                    "name_cn": "异世界四重奏",
-                    "relation": "角色出演",
-                    "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/c0/e9/262865_P6q49.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
                     "id": 101929,
                     "name": "オーバーロード",
                     "name_cn": "OVERLORD",
                     "relation": "书籍",
                     "type": 1,
                     "image_url": "https://lain.bgm.tv/pic/cover/l/23/e9/101929_rFf6w.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 259330,
+                    "name": "OVERLORD ORIGINAL SOUNDTRACK",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/fd/8c/259330_JUn0g.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -64306,7 +64492,7 @@
                     "name_cn": "某暗部的少女共栖",
                     "relation": "衍生",
                     "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/1c/9b/537738_j7JKy.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/1c/9b/537738_0zLU6.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -68821,6 +69007,15 @@
                     "relation": "续集",
                     "type": 2,
                     "image_url": "https://lain.bgm.tv/pic/cover/l/9c/cf/619632_5ZzO5.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 629701,
+                    "name": "魔女のラジ々〜配信するのは、そう、私イレイナです！〜",
+                    "name_cn": "",
+                    "relation": "衍生",
+                    "type": 6,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/32/79/629701_zAI3n.jpg",
                     "__dataclass__": "Relation"
                 }
             ],
@@ -103193,7 +103388,7 @@
                 },
                 {
                     "id": 26804,
-                    "name": "とある魔術の禁書目録 エンデュミオンの奇蹟",
+                    "name": "とある魔術の禁書目録―エンデュミオンの奇蹟―",
                     "name_cn": "魔法禁书目录 恩底弥翁的奇迹",
                     "relation": "番外篇",
                     "type": 2,
@@ -114978,7 +115173,7 @@
                     "name_cn": "某暗部的少女共栖",
                     "relation": "相同世界观",
                     "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/1c/9b/537738_j7JKy.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/1c/9b/537738_0zLU6.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -156073,7 +156268,7 @@
                     "name_cn": "碧蓝航线：微速前行！第二季",
                     "relation": "续集",
                     "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/61/12/454083_F8gwG.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/61/12/454083_4DZpt.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -170189,21 +170384,21 @@
             ],
             "relations": [
                 {
-                    "id": 106818,
-                    "name": "暗殺教室",
-                    "name_cn": "暗杀教室",
-                    "relation": "前传",
-                    "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/f4/91/106818_YJ4JT.jpg",
+                    "id": 184011,
+                    "name": "暗殺教室 第2期 サウンドトラックセレクション2",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/1e/85/184011_OpPpr.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
-                    "id": 131892,
-                    "name": "暗殺教室〜卒業編〜",
-                    "name_cn": "暗杀教室 毕业篇",
-                    "relation": "不同演绎",
-                    "type": 6,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/d2/cc/131892_z7rKc.jpg",
+                    "id": 630122,
+                    "name": "アニメ「暗殺教室」10th anniversary Music Collection",
+                    "name_cn": "",
+                    "relation": "其他",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/7b/c1/630122_egLLF.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -170225,30 +170420,12 @@
                     "__dataclass__": "Relation"
                 },
                 {
-                    "id": 48620,
-                    "name": "暗殺教室",
-                    "name_cn": "暗杀教室",
-                    "relation": "书籍",
-                    "type": 1,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/bf/7f/48620_MxH7J.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
-                    "id": 184011,
-                    "name": "暗殺教室 第2期 サウンドトラックセレクション2",
-                    "name_cn": "",
-                    "relation": "原声集",
-                    "type": 3,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/1e/85/184011_OpPpr.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
-                    "id": 184012,
-                    "name": "暗殺教室 第2期 サウンドトラックセレクション3",
-                    "name_cn": "",
-                    "relation": "原声集",
-                    "type": 3,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/bf/0d/184012_Vw16l.jpg",
+                    "id": 186099,
+                    "name": "劇場版 暗殺教室 365日の時間",
+                    "name_cn": "剧场版 暗杀教室 365天的时间",
+                    "relation": "总集篇",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/16/a7/186099_F03Q2.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -170261,21 +170438,48 @@
                     "__dataclass__": "Relation"
                 },
                 {
-                    "id": 186099,
-                    "name": "劇場版 暗殺教室 365日の時間",
-                    "name_cn": "剧场版 暗杀教室 365天的时间",
-                    "relation": "总集篇",
-                    "type": 2,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/16/a7/186099_F03Q2.jpg",
+                    "id": 184012,
+                    "name": "暗殺教室 第2期 サウンドトラックセレクション3",
+                    "name_cn": "",
+                    "relation": "原声集",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/bf/0d/184012_Vw16l.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
-                    "id": 165084,
-                    "name": "QUESTION",
+                    "id": 48620,
+                    "name": "暗殺教室",
+                    "name_cn": "暗杀教室",
+                    "relation": "书籍",
+                    "type": 1,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/bf/7f/48620_MxH7J.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 131892,
+                    "name": "暗殺教室〜卒業編〜",
+                    "name_cn": "暗杀教室 毕业篇",
+                    "relation": "不同演绎",
+                    "type": 6,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/d2/cc/131892_z7rKc.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 106818,
+                    "name": "暗殺教室",
+                    "name_cn": "暗杀教室",
+                    "relation": "前传",
+                    "type": 2,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/f4/91/106818_YJ4JT.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 176986,
+                    "name": "暗殺教室 第2期 第1巻 スペシャルCD",
                     "name_cn": "",
-                    "relation": "片头曲",
+                    "relation": "原声集",
                     "type": 3,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/45/6d/165084_aK442.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/e5/32/176986_9gpb6.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -170288,12 +170492,12 @@
                     "__dataclass__": "Relation"
                 },
                 {
-                    "id": 176986,
-                    "name": "暗殺教室 第2期 第1巻 スペシャルCD",
+                    "id": 165084,
+                    "name": "QUESTION",
                     "name_cn": "",
-                    "relation": "原声集",
+                    "relation": "片头曲",
                     "type": 3,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/e5/32/176986_9gpb6.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/45/6d/165084_aK442.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -170339,6 +170543,15 @@
                     "relation": "片头曲",
                     "type": 3,
                     "image_url": "https://lain.bgm.tv/pic/cover/l/34/f8/590716_46Iy1.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 630121,
+                    "name": "スピカ",
+                    "name_cn": "",
+                    "relation": "片尾曲",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/0b/51/630121_6aAe3.jpg",
                     "__dataclass__": "Relation"
                 }
             ],
@@ -173003,6 +173216,15 @@
                     "__dataclass__": "Relation"
                 },
                 {
+                    "id": 630122,
+                    "name": "アニメ「暗殺教室」10th anniversary Music Collection",
+                    "name_cn": "",
+                    "relation": "其他",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/7b/c1/630122_egLLF.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
                     "id": 583746,
                     "name": "劇場版 暗殺教室 みんなの時間",
                     "name_cn": "剧场版 暗杀教室 大家的时间",
@@ -173120,21 +173342,21 @@
                     "__dataclass__": "Relation"
                 },
                 {
-                    "id": 142930,
-                    "name": "暗殺教室 学園ドラマ主題歌カバーシリーズ-1",
-                    "name_cn": "",
-                    "relation": "角色歌",
-                    "type": 3,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/28/35/142930_8grYg.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
                     "id": 122428,
                     "name": "Hello,shooting-star",
                     "name_cn": "",
                     "relation": "片尾曲",
                     "type": 3,
                     "image_url": "https://lain.bgm.tv/pic/cover/l/f8/ed/122428_zzuJy.jpg",
+                    "__dataclass__": "Relation"
+                },
+                {
+                    "id": 142930,
+                    "name": "暗殺教室 学園ドラマ主題歌カバーシリーズ-1",
+                    "name_cn": "",
+                    "relation": "角色歌",
+                    "type": 3,
+                    "image_url": "https://lain.bgm.tv/pic/cover/l/28/35/142930_8grYg.jpg",
                     "__dataclass__": "Relation"
                 },
                 {
@@ -177496,15 +177718,6 @@
             ],
             "relations": [
                 {
-                    "id": 243475,
-                    "name": "抜きゲーみたいな島に住んでる貧乳はどうすりゃいいですか？",
-                    "name_cn": "",
-                    "relation": "游戏",
-                    "type": 4,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/95/90/243475_n4jp9.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
                     "id": 565417,
                     "name": "ぬきたし THE ANIMATION オリジナルサウンドトラックCD",
                     "name_cn": "",
@@ -177520,15 +177733,6 @@
                     "relation": "片头曲",
                     "type": 3,
                     "image_url": "https://lain.bgm.tv/pic/cover/l/03/d7/566563_gPeuq.jpg",
-                    "__dataclass__": "Relation"
-                },
-                {
-                    "id": 568123,
-                    "name": "ラジオ『ぬきたし』 ～そうだ 青藍島、イこう～",
-                    "name_cn": "",
-                    "relation": "其他",
-                    "type": 6,
-                    "image_url": "https://lain.bgm.tv/pic/cover/l/a5/d9/568123_Fq4sx.jpg",
                     "__dataclass__": "Relation"
                 }
             ],
