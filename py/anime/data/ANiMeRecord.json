@@ -4801,10 +4801,10 @@
                 },
                 {
                     "id": 1603700,
-                    "name": "",
-                    "name_cn": "",
+                    "name": "刑罰：ソドリック街区潜入調査1",
+                    "name_cn": "刑罚：索多利克街潜入调查1",
                     "air_date": "2026-02-26",
-                    "desc": "",
+                    "desc": "刺客の手際のよさから、ザイロは冒険者ギルドが裏で糸を引いていると疑い、ギルド長リデオ・ソドリックの調査を提案。パトーシェとザイロは貴族夫人と間男に扮し、旦那の暗殺を依頼するという体裁でギルドに潜入する。\r\n\r\n脚本：猪原健太\r\n絵コンテ：藤原 準\r\n演出：藤原 準\r\n作画監督：KAGO、菊池有騎、車車人、長沼智也、槙田路子\r\n総作画監督：木村和貴",
                     "duration_seconds": 1470,
                     "ep": 8,
                     "sort": 8,
@@ -4864,8 +4864,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 6,
-            "last_update": "2026-02-24T13:45:55+08:00",
+            "watched_eps": 7,
+            "last_update": "2026-02-25T13:11:13+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -6652,7 +6652,7 @@
                     "name": "討伐要請",
                     "name_cn": "讨伐委託",
                     "air_date": "2026-02-27",
-                    "desc": "",
+                    "desc": "北部高原のある村に、ゼーリエからの魔族討伐の要請を受けた一級魔法使い、ゲナウとメトーデの姿があった。その村はゲナウの故郷だという…。そしてそこに、同じく討伐要請を受けたフェルン、そしてフリーレンとシュタルクもやって来た。村はすでに全滅しており、犠牲者の特徴的な傷跡から、ある魔族の姿が見え隠れする。",
                     "duration_seconds": 1440,
                     "ep": 6,
                     "sort": 34,
@@ -6712,8 +6712,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 3,
-            "last_update": "2026-02-02T13:15:30+08:00",
+            "watched_eps": 4,
+            "last_update": "2026-02-25T13:56:26+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -7616,8 +7616,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 4,
-            "last_update": "2026-01-29T00:32:57+08:00",
+            "watched_eps": 5,
+            "last_update": "2026-02-25T13:32:50+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
