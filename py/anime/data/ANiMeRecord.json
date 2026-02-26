@@ -977,13 +977,13 @@
                 },
                 {
                     "id": 203019,
-                    "name": "板野",
+                    "name": "板野一彦",
                     "relation": "配角",
                     "image_url": "https://lain.bgm.tv/pic/crt/l/61/9f/203019_crt_i6uEU.jpg",
                     "actor_ids": [
                         25582
                     ],
-                    "name_cn": "板野",
+                    "name_cn": "板野一彦",
                     "summary": "",
                     "birth_year": null,
                     "birth_month": null,
@@ -991,7 +991,7 @@
                     "tags": [
                         {
                             "key": "简体中文名",
-                            "value": "板野",
+                            "value": "板野一彦",
                             "__dataclass__": "KeyValue"
                         },
                         {
@@ -1138,7 +1138,7 @@
                     "name_cn": "决裂",
                     "air_date": "2026-02-25",
                     "desc": "記者に撮られたことを、事務所の皆に謝罪するかな。「たとえ痛みを伴うとしてもかなを救いたいか？」という問いに、当然だと答えるルビー。アクアが選んだ、かなを救う唯一の方法とは――\r\n\r\n脚本：田中 仁\r\n絵コンテ：入江泰浩\r\n演出：平牧大輔\r\n監督補佐：猫富ちゃお、仁科くにやす\r\n演出補佐：西邑大輔、金 成旻\r\nカラースクリプト：平牧大輔\r\n総作画監督：朱里、森田莉奈、稲手遥香、杉田まるみ、竹本佳子、室賀彩花\r\nキャラクター作画監修：平山寛菜\r\n作画監督：金子美咲、本谷 愛、菊地奨之、栗原 優、澤井 駿、稲手遥香、立口徳孝、曾我篤史、板倉 健",
-                    "duration_seconds": 0,
+                    "duration_seconds": 1429,
                     "ep": 7,
                     "sort": 31,
                     "type": 0,
@@ -1197,8 +1197,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 5,
-            "last_update": "2026-02-24T13:21:01+08:00",
+            "watched_eps": 6,
+            "last_update": "2026-02-26T13:03:04+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
@@ -6712,8 +6712,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 4,
-            "last_update": "2026-02-25T13:56:26+08:00",
+            "watched_eps": 5,
+            "last_update": "2026-02-26T13:26:13+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
