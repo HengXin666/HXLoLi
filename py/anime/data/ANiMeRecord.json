@@ -4360,7 +4360,7 @@
                     "id": 197320,
                     "name": "ゾフレク・オストビシュ",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/b8/c0/197320_crt_lsqSZ.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/b8/c0/197320_crt_t6GPw.jpg",
                     "actor_ids": [
                         4323
                     ],
@@ -4387,7 +4387,7 @@
                     "id": 197321,
                     "name": "シエナ",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/5d/37/197321_crt_3cxkS.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/5d/37/197321_crt_VIL0V.jpg",
                     "actor_ids": [
                         5724
                     ],
@@ -4652,7 +4652,7 @@
                     "id": 203082,
                     "name": "シジ・バウ",
                     "relation": "配角",
-                    "image_url": "https://lain.bgm.tv/pic/crt/l/58/bf/203082_crt_vTPZk.jpg",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/58/bf/203082_crt_oEigR.jpg",
                     "actor_ids": [
                         4613
                     ],
@@ -4665,6 +4665,87 @@
                         {
                             "key": "简体中文名",
                             "value": "西基·巴乌",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 203689,
+                    "name": "マーレン・キヴィアア",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/63/7b/203689_crt_gFto1.jpg",
+                    "actor_ids": [
+                        7559
+                    ],
+                    "name_cn": "马连·基维亚",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "马连·基维亚",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 203690,
+                    "name": "リデオ・ソドリック",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/8a/d9/203690_crt_ZZh0p.jpg",
+                    "actor_ids": [
+                        4443
+                    ],
+                    "name_cn": "利迪欧·索多力克",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "利迪欧·索多力克",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "男",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
+                    "id": 203691,
+                    "name": "イリ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/4b/2e/203691_crt_xJQFP.jpg",
+                    "actor_ids": [
+                        27194
+                    ],
+                    "name_cn": "伊莉",
+                    "summary": "",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "伊莉",
                             "__dataclass__": "KeyValue"
                         },
                         {
@@ -4864,8 +4945,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 7,
-            "last_update": "2026-02-25T13:11:13+08:00",
+            "watched_eps": 8,
+            "last_update": "2026-02-27T13:32:46+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
