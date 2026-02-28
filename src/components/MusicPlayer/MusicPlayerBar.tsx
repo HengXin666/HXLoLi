@@ -146,9 +146,21 @@ function MusicPanel(): React.ReactElement {
         };
     }, [closePanel]);
 
-    // 进度条拖拽
-    const handleSeek = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        seek(parseFloat(e.target.value));
+    // 进度条拖拽 - 用 ref 跟踪是否正在拖拽，减少 seek 调用
+    const seekingRef = useRef(false);
+    const seekValueRef = useRef(0);
+
+    // input 事件: 实时更新显示值但不频繁 seek
+    const handleSeekInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        seekingRef.current = true;
+        seekValueRef.current = parseFloat(e.target.value);
+    }, []);
+
+    // change 事件 (鼠标松开时): 真正执行 seek
+    const handleSeekChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const time = parseFloat(e.target.value);
+        seekingRef.current = false;
+        seek(time);
     }, [seek]);
 
     // 音量拖拽
@@ -179,8 +191,9 @@ function MusicPanel(): React.ReactElement {
                     min={0}
                     max={duration || 0}
                     step={0.1}
-                    value={currentTime}
-                    onChange={handleSeek}
+                    value={seekingRef.current ? seekValueRef.current : currentTime}
+                    onInput={handleSeekInput}
+                    onChange={handleSeekChange}
                     className={styles.progressBar}
                 />
                 <span className={styles.timeLabel}>{formatTime(duration)}</span>
@@ -214,7 +227,7 @@ function MusicPanel(): React.ReactElement {
                 </button>
                 <button onClick={next} className={styles.controlBtn} title="下一曲">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6 18l8.5-6L6 6v12zm2 0h2V6h-2v12z" transform="scale(-1,1) translate(-24,0)" />
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
                     </svg>
                 </button>
             </div>
