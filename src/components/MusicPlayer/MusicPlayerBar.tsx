@@ -3,7 +3,7 @@
  *
  * 放在 Navbar 右侧 "更多" 按钮的前面
  */
-import { useMusicStore } from '@site/src/utils/music/musicStore';
+import { useMusicStore, type PlayMode } from '@site/src/utils/music/musicStore';
 import React, { useCallback, useEffect, useRef } from 'react';
 import styles from './MusicPlayerBar.module.css';
 
@@ -19,6 +19,35 @@ function formatTime(seconds: number): string {
     const s = Math.floor(seconds % 60);
     return `${m}:${s.toString().padStart(2, '0')}`;
 }
+
+/** 播放模式图标和描述 */
+const PLAY_MODE_INFO: Record<PlayMode, { icon: React.ReactNode; title: string }> = {
+    'list-loop': {
+        icon: (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z" />
+            </svg>
+        ),
+        title: '列表循环',
+    },
+    'single-loop': {
+        icon: (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z" />
+                <text x="12" y="14.5" textAnchor="middle" fontSize="7" fontWeight="bold" fill="currentColor">1</text>
+            </svg>
+        ),
+        title: '单曲循环',
+    },
+    'shuffle': {
+        icon: (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z" />
+            </svg>
+        ),
+        title: '随机播放',
+    },
+};
 
 /** Navbar 上的播放按钮 (精简) */
 export function MusicNavbarButton(): React.ReactElement | null {
@@ -81,6 +110,7 @@ function MusicPanel(): React.ReactElement {
     const isPlaying = useMusicStore((s) => s.isPlaying);
     const volume = useMusicStore((s) => s.volume);
     const showLyrics = useMusicStore((s) => s.showLyrics);
+    const playMode = useMusicStore((s) => s.playMode);
 
     const toggle = useMusicStore((s) => s.toggle);
     const next = useMusicStore((s) => s.next);
@@ -90,6 +120,7 @@ function MusicPanel(): React.ReactElement {
     const setTrack = useMusicStore((s) => s.setTrack);
     const toggleLyrics = useMusicStore((s) => s.toggleLyrics);
     const closePanel = useMusicStore((s) => s.closePanel);
+    const cyclePlayMode = useMusicStore((s) => s.cyclePlayMode);
 
     const panelRef = useRef<HTMLDivElement>(null);
     const currentTrack = pl[trackIndex] ?? null;
@@ -157,6 +188,13 @@ function MusicPanel(): React.ReactElement {
 
             {/* 控制按钮 */}
             <div className={styles.controls}>
+                <button
+                    onClick={cyclePlayMode}
+                    className={styles.controlBtn}
+                    title={PLAY_MODE_INFO[playMode].title}
+                >
+                    {PLAY_MODE_INFO[playMode].icon}
+                </button>
                 <button onClick={prev} className={styles.controlBtn} title="上一曲">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
