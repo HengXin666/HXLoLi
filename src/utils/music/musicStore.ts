@@ -177,21 +177,47 @@ export const useMusicStore = create<MusicStore>((set, get) => {
         if (index < 0 || index >= list.length) return;
         const track = list[index];
 
+        // 先暂停当前播放，避免 play() 的 AbortError
+        audio.pause();
+
+        set({ trackIndex: index, currentTime: seekTo ?? 0, duration: 0, isPlaying: false });
+
+        // 设置 src 会自动触发加载，不需要手动调 load()
         audio.src = track.audioUrl;
-        audio.load();
-        set({ trackIndex: index, currentTime: 0, duration: 0 });
 
-        if (seekTo !== undefined) {
-            audio.currentTime = seekTo;
-        }
+        // 等待媒体元数据加载完成后再 seek 和 play
+        const onReady = () => {
+            audio!.removeEventListener('loadedmetadata', onReady);
+            audio!.removeEventListener('error', onError);
 
-        if (autoPlay) {
-            audio.play().catch(() => {
-                // 浏览器自动播放限制
-                set({ isPlaying: false });
-            });
-            set({ isPlaying: true });
-        }
+            set({ duration: audio!.duration || 0 });
+
+            if (seekTo !== undefined && seekTo > 0) {
+                audio!.currentTime = seekTo;
+            }
+
+            if (autoPlay) {
+                const playPromise = audio!.play();
+                if (playPromise) {
+                    playPromise.then(() => {
+                        set({ isPlaying: true });
+                    }).catch(() => {
+                        // 浏览器自动播放限制
+                        set({ isPlaying: false });
+                    });
+                }
+            }
+        };
+
+        const onError = () => {
+            audio!.removeEventListener('loadedmetadata', onReady);
+            audio!.removeEventListener('error', onError);
+            console.error('[MusicPlayer] 加载音频失败:', track.audioUrl);
+            set({ isPlaying: false });
+        };
+
+        audio.addEventListener('loadedmetadata', onReady);
+        audio.addEventListener('error', onError);
     }
 
     /** 执行命令 (Leader 收到命令后执行) */
@@ -202,8 +228,13 @@ export const useMusicStore = create<MusicStore>((set, get) => {
         switch (cmd.action) {
             case 'play':
                 if (s.playlist.length === 0) return;
-                audio.play().catch(() => set({ isPlaying: false }));
-                set({ isPlaying: true });
+                {
+                    const p = audio.play();
+                    if (p) {
+                        p.then(() => set({ isPlaying: true }))
+                         .catch(() => set({ isPlaying: false }));
+                    }
+                }
                 break;
             case 'pause':
                 audio.pause();
@@ -212,8 +243,11 @@ export const useMusicStore = create<MusicStore>((set, get) => {
             case 'toggle':
                 if (s.playlist.length === 0) return;
                 if (audio.paused) {
-                    audio.play().catch(() => set({ isPlaying: false }));
-                    set({ isPlaying: true });
+                    const p = audio.play();
+                    if (p) {
+                        p.then(() => set({ isPlaying: true }))
+                         .catch(() => set({ isPlaying: false }));
+                    }
                 } else {
                     audio.pause();
                     set({ isPlaying: false });
@@ -300,6 +334,9 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                         loadTrack(saved.trackIndex, saved.isPlaying, saved.currentTime);
                         set({ volume: saved.volume });
                         audio!.volume = saved.volume;
+                    } else if (list.length > 0) {
+                        // 没有保存状态时，预加载第一首歌（不自动播放）
+                        loadTrack(0, false);
                     }
 
                     startTimeUpdate();
