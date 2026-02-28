@@ -14,10 +14,12 @@ const RESET_POSITION_EVENT = 'hxloli-lyrics-reset-position';
 const POSITION_KEY = 'hxloli-lyrics-position';
 const SIZE_KEY = 'hxloli-lyrics-size';
 
-/** 默认位置 */
+/** 默认位置 (浏览器居中) */
 function defaultPosition(): { x: number; y: number } {
-    if (typeof window === 'undefined') return { x: 100, y: 80 };
-    return { x: Math.max(0, window.innerWidth - 520), y: 80 };
+    if (typeof window === 'undefined') return { x: 100, y: 100 };
+    const x = Math.max(0, Math.round((window.innerWidth - DEFAULT_SIZE.w) / 2));
+    const y = Math.max(0, Math.round((window.innerHeight - DEFAULT_SIZE.h) / 2));
+    return { x, y };
 }
 
 /** 默认尺寸 */
