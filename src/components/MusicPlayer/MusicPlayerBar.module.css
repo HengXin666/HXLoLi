@@ -1,0 +1,376 @@
+/* 音乐播放器 Navbar 按钮 & 下拉面板样式 */
+
+/* ---- Navbar 按钮 ---- */
+.navbarBtn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-right: 4px;
+    height: 100%;
+}
+
+.playToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: var(--ifm-color-primary);
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.playToggle:hover {
+    opacity: 0.85;
+}
+
+.trackTitle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    color: var(--ifm-navbar-link-color);
+    cursor: pointer;
+    font-size: 13px;
+    padding: 4px 6px;
+    border-radius: 4px;
+    transition: background 0.15s;
+    max-width: 120px;
+    overflow: hidden;
+}
+
+.trackTitle:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.trackTitleText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.playingDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ifm-color-primary);
+    animation: pulse 1.5s infinite;
+    flex-shrink: 0;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* ---- 下拉面板 ---- */
+.panel {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    width: 320px;
+    background: var(--ifm-background-color);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    padding: 16px;
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    animation: panelIn 0.15s ease-out;
+}
+
+@keyframes panelIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ---- 曲目信息 ---- */
+.trackInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cover {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.coverPlaceholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.trackMeta {
+    overflow: hidden;
+}
+
+.trackName {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ifm-font-color-base);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.trackArtist {
+    font-size: 12px;
+    color: var(--ifm-font-color-secondary, rgba(255,255,255,0.5));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 2px;
+}
+
+/* ---- 进度条 ---- */
+.progressRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.timeLabel {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    min-width: 32px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.progressBar {
+    flex: 1;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+.progressBar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--ifm-color-primary);
+    cursor: pointer;
+    margin-top: -4px;
+}
+
+.progressBar::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 2px;
+}
+
+/* ---- 控制按钮 ---- */
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.controlBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+    color: var(--ifm-font-color-base);
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.15s;
+    padding: 0;
+}
+
+.controlBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.controlBtnMain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: var(--ifm-color-primary);
+    color: #fff;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: opacity 0.15s;
+    padding: 0;
+}
+
+.controlBtnMain:hover {
+    opacity: 0.85;
+}
+
+/* ---- 音量 & 歌词 ---- */
+.bottomRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.volumeRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+}
+
+.volumeBar {
+    width: 80px;
+    height: 3px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+.volumeBar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ifm-color-primary);
+    cursor: pointer;
+    margin-top: -3.5px;
+}
+
+.lyricsBtn {
+    font-size: 12px;
+    font-weight: 700;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    background: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    padding: 0;
+}
+
+.lyricsBtn:hover {
+    border-color: var(--ifm-color-primary);
+    color: var(--ifm-color-primary);
+}
+
+.lyricsBtnActive {
+    background: var(--ifm-color-primary);
+    border-color: var(--ifm-color-primary);
+    color: #fff;
+}
+
+/* ---- 播放列表 ---- */
+.playlistSection {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 8px;
+}
+
+.playlistTitle {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.playlistItems {
+    max-height: 150px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.playlistItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: none;
+    background: none;
+    color: var(--ifm-font-color-base);
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+    width: 100%;
+    font-size: 13px;
+}
+
+.playlistItem:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.playlistItemActive {
+    background: rgba(255, 136, 255, 0.12);
+    color: var(--ifm-color-primary);
+}
+
+.playlistItemIndex {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    min-width: 16px;
+    text-align: right;
+}
+
+.playlistItemTitle {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.playlistItemArtist {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+}
+
+/* 滚动条 */
+.playlistItems::-webkit-scrollbar {
+    width: 4px;
+}
+
+.playlistItems::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+}
