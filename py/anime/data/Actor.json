@@ -8930,5 +8930,12 @@
         "short_summary": "日本の男性声優。香川県出身。ベルプロダクション所属。\r\n方言は関西弁、讃岐弁。趣味は食べ歩き、カラオケ、ゲーム、散策。特技なんでも美味しく食べる事、歌舞伎、水泳。資格は普通自動車免許。",
         "image_url": "https://lain.bgm.tv/pic/crt/l/16/21/68725_prsn_qbRDD.jpg",
         "__dataclass__": "Actor"
+    },
+    {
+        "id": 16029,
+        "name": "西田雅一",
+        "short_summary": "日本の男性声優。東京都出身。アミューズメントメディア総合学院卒業。東京俳優生活協同組合所属。妻は元声優の野田絵里香。",
+        "image_url": "https://lain.bgm.tv/pic/crt/l/0d/6d/16029_prsn_b5mic.jpg",
+        "__dataclass__": "Actor"
     }
 ]
