@@ -210,6 +210,11 @@ export const useMusicStore = create<MusicStore>((set, get) => {
     /** Leader 定期广播状态给 Follower */
     function startStateBroadcast(): void {
         stopStateBroadcast();
+        // 用于记录上次保存的状态，避免无变化时重复写入 sessionStorage
+        let lastSavedTime = -1;
+        let lastSavedTrack = -1;
+        let lastSavedPlaying = false;
+
         stateInterval = setInterval(() => {
             const s = get();
             if (crossTab?.isLeader) {
@@ -223,8 +228,16 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                     timestamp: Date.now(),
                 });
             }
-            // 定期保存状态
-            saveState(s);
+            // 只在播放状态变化或时间有明显变化时才保存到 sessionStorage
+            const timeChanged = Math.abs(s.currentTime - lastSavedTime) > 1;
+            const trackChanged = s.trackIndex !== lastSavedTrack;
+            const playingChanged = s.isPlaying !== lastSavedPlaying;
+            if (timeChanged || trackChanged || playingChanged) {
+                saveState(s);
+                lastSavedTime = s.currentTime;
+                lastSavedTrack = s.trackIndex;
+                lastSavedPlaying = s.isPlaying;
+            }
         }, 500);
     }
 
@@ -478,8 +491,14 @@ export const useMusicStore = create<MusicStore>((set, get) => {
             set({ playMode: next });
             savePlayMode(next);
         },
-        toggleLyrics: () => set((s) => ({ showLyrics: !s.showLyrics })),
-        toggleLyricsFullscreen: () => set((s) => ({ lyricsFullscreen: !s.lyricsFullscreen })),
+        toggleLyrics: () => {
+            set((s) => ({ showLyrics: !s.showLyrics }));
+            // 立即持久化，确保刷新后能恢复
+            saveState(get());
+        },
+        toggleLyricsFullscreen: () => {
+            set((s) => ({ lyricsFullscreen: !s.lyricsFullscreen }));
+        },
         togglePanel: () => set((s) => ({ panelExpanded: !s.panelExpanded })),
         closePanel: () => set({ panelExpanded: false }),
 
