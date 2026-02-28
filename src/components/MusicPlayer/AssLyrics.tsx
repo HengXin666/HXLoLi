@@ -59,20 +59,19 @@ let scriptCallbacks: Array<() => void> = [];
 
 /**
  * 通过 <script> 标签加载 subtitles-octopus.js
- * SubtitlesOctopus 会注册到全局变量 (因为源码末尾没有 UMD wrapper 来挂载到 window)
- * 不过它有: if (typeof exports !== 'undefined') { exports = module.exports = SubtitlesOctopus }
- * 在浏览器 <script> 标签下, exports 和 module 都是 undefined, 所以
- * SubtitlesOctopus 会留在闭包内但不会挂到 window 上。
- *
- * 解决方案: 我们手动把它放到 window 上。
+ * 
+ * subtitles-octopus.js 中用 `var SubtitlesOctopus = function(options) { ... };` 声明，
+ * 在 <script> 标签中 `var` 声明会自动注册到 window 全局对象上。
  */
 function loadSubtitlesOctopusScript(baseUrl: string, onReady: () => void): void {
     if ((window as any).SubtitlesOctopus) {
+        console.log('[ASS] SubtitlesOctopus 已存在于 window');
         scriptLoaded = true;
         onReady();
         return;
     }
     if (scriptLoaded) {
+        console.log('[ASS] 脚本已加载但 window.SubtitlesOctopus 不存在!');
         onReady();
         return;
     }
@@ -80,39 +79,56 @@ function loadSubtitlesOctopusScript(baseUrl: string, onReady: () => void): void 
     if (scriptLoading) return;
     scriptLoading = true;
 
-    // 通过 fetch 获取脚本内容并 eval, 同时将 module/exports mock 掉来捕获构造函数
     const scriptUrl = `${baseUrl}music/ass-worker/subtitles-octopus.js`;
-    fetch(scriptUrl)
-        .then((res) => res.text())
-        .then((code) => {
-            // 使用 Function 构造器来执行, 同时传入 mock 的 module/exports
-            const fakeModule: any = { exports: {} };
-            const fakeExports = fakeModule.exports;
-            // 包装成函数执行，这样 subtitles-octopus.js 中的
-            // `if (typeof exports !== 'undefined') { exports = module.exports = SubtitlesOctopus }`
-            // 会把构造函数赋值给 fakeModule.exports
-            const wrapper = new Function('module', 'exports', code);
-            wrapper(fakeModule, fakeExports);
+    console.log('[ASS] 开始加载脚本:', scriptUrl);
 
-            // fakeModule.exports 现在应该是 SubtitlesOctopus 构造函数
-            const Ctor = fakeModule.exports;
-            if (typeof Ctor === 'function') {
-                (window as any).SubtitlesOctopus = Ctor;
-                console.log('[ASS] SubtitlesOctopus 构造函数加载成功');
-            } else {
-                console.error('[ASS] SubtitlesOctopus 加载后不是函数:', typeof Ctor);
-            }
+    const script = document.createElement('script');
+    script.src = scriptUrl;
+    script.async = true;
 
-            scriptLoaded = true;
-            scriptLoading = false;
-            const cbs = scriptCallbacks.slice();
-            scriptCallbacks = [];
-            cbs.forEach((cb) => cb());
-        })
-        .catch((err) => {
-            console.error('[ASS] 加载 subtitles-octopus.js 失败:', err);
-            scriptLoading = false;
-        });
+    script.onload = () => {
+        console.log('[ASS] 脚本加载完成, window.SubtitlesOctopus:', typeof (window as any).SubtitlesOctopus);
+
+        if (typeof (window as any).SubtitlesOctopus !== 'function') {
+            console.error('[ASS] 脚本加载后 window.SubtitlesOctopus 不是函数! 尝试 fetch+eval 方式...');
+            // 兜底: 用 fetch + eval 方式
+            fetch(scriptUrl)
+                .then(r => r.text())
+                .then(code => {
+                    const fakeModule: any = { exports: {} };
+                    const wrapper = new Function('module', 'exports', code);
+                    wrapper(fakeModule, fakeModule.exports);
+                    if (typeof fakeModule.exports === 'function') {
+                        (window as any).SubtitlesOctopus = fakeModule.exports;
+                        console.log('[ASS] fetch+eval 方式成功!');
+                    } else {
+                        console.error('[ASS] fetch+eval 也失败了:', typeof fakeModule.exports);
+                    }
+                    finishLoading();
+                })
+                .catch(err => {
+                    console.error('[ASS] fetch+eval 失败:', err);
+                    finishLoading();
+                });
+        } else {
+            finishLoading();
+        }
+    };
+
+    script.onerror = (err) => {
+        console.error('[ASS] 脚本加载失败:', err);
+        scriptLoading = false;
+    };
+
+    function finishLoading() {
+        scriptLoaded = true;
+        scriptLoading = false;
+        const cbs = scriptCallbacks.slice();
+        scriptCallbacks = [];
+        cbs.forEach(cb => cb());
+    }
+
+    document.head.appendChild(script);
 }
 
 export default function AssLyrics(): React.ReactElement | null {
