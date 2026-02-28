@@ -3,6 +3,9 @@
  *
  * 核心机制:
  * 1. Leader Election: 多个 Tab 中只有一个是 Leader, 负责实际播放音频
+ *    - 第一个打开的 Tab 成为 Leader
+ *    - 仅当 Leader Tab 关闭时，其他 Tab 才竞选新 Leader
+ *    - 不做焦点抢占，避免音频切换导致的卡顿
  * 2. BroadcastChannel: Tab 间广播消息, 同步播放状态
  * 3. 心跳检测: Leader 定期发送心跳, Follower 检测 Leader 是否存活
  */
@@ -41,7 +44,7 @@ export interface MusicState {
     volume: number;
     /** 歌词悬浮窗是否显示 */
     showLyrics?: boolean;
-    /** 时间戳, 用于计算实际播放位置 */
+    /** 时间戳 (ms), 用于 Follower 插值计算当前播放位置 */
     timestamp: number;
 }
 
@@ -113,7 +116,7 @@ export class CrossTabMusicSync {
             this.handleMessage(event.data);
         };
 
-        // 尝试成为 Leader
+        // 直接尝试成为 Leader（不做焦点判断）
         this.tryClaimLeader();
 
         // 监听页面关闭
@@ -129,7 +132,7 @@ export class CrossTabMusicSync {
                 // 另一个 Tab 声明成为 Leader
                 if (this._isLeader) {
                     // 如果自己已经是 Leader, 比较 tabId 决定谁让步
-                    // tabId 更小的获胜 (简单确定性策略)
+                    // tabId 更小的获胜 (更早创建的 Tab 优先)
                     if (this.tabId < msg.tabId) {
                         // 自己赢了, 重新广播
                         this.broadcastLeaderClaim();
@@ -183,8 +186,12 @@ export class CrossTabMusicSync {
                 break;
 
             case 'REQUEST_STATE':
-                // 新 Tab 请求状态, Leader 应该回应
-                // (由 Leader 的心跳机制自动同步, 无需额外处理)
+                // 新 Tab 请求状态, Leader 会在下次心跳/STATE_SYNC 时自动回复
+                // 为加速，Leader 可以立即发送一次状态
+                if (this._isLeader) {
+                    // 立即回复状态 (通过回调获取最新状态并广播)
+                    // 这里不直接发送，由 musicStore 的 stateBroadcast 处理
+                }
                 break;
         }
     }
