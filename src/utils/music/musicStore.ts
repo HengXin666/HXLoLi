@@ -10,6 +10,9 @@ import { playlist, type MusicTrack } from '@site/src/config/musicData';
 import { create } from 'zustand';
 import { CrossTabMusicSync, type MusicCommand, type MusicState } from './crossTabSync';
 
+/** 播放模式 */
+export type PlayMode = 'list-loop' | 'single-loop' | 'shuffle';
+
 /** 播放器 UI 状态 */
 interface MusicPlayerState {
     /** 播放列表 */
@@ -24,6 +27,8 @@ interface MusicPlayerState {
     isPlaying: boolean;
     /** 音量 0-1 */
     volume: number;
+    /** 播放模式 */
+    playMode: PlayMode;
     /** 当前 Tab 是否为 Leader (负责实际音频播放) */
     isLeader: boolean;
     /** 播放器是否已初始化 */
@@ -59,6 +64,8 @@ interface MusicPlayerActions {
     toggleLyrics: () => void;
     /** 切换歌词全屏 */
     toggleLyricsFullscreen: () => void;
+    /** 切换播放模式 */
+    cyclePlayMode: () => void;
     /** 切换播放器面板 */
     togglePanel: () => void;
     /** 关闭面板 */
@@ -119,6 +126,62 @@ function saveVolume(vol: number): void {
     try {
         localStorage.setItem('hxloli-music-volume', String(vol));
     } catch { /* ignore */ }
+}
+
+/** 从 localStorage 读取播放模式 */
+function loadPlayMode(): PlayMode {
+    try {
+        const m = localStorage.getItem('hxloli-music-playmode');
+        if (m === 'list-loop' || m === 'single-loop' || m === 'shuffle') return m;
+    } catch { /* ignore */ }
+    return 'list-loop';
+}
+
+/** 持久化播放模式到 localStorage */
+function savePlayMode(mode: PlayMode): void {
+    try {
+        localStorage.setItem('hxloli-music-playmode', mode);
+    } catch { /* ignore */ }
+}
+
+/** 获取下一曲索引 (根据播放模式) */
+function getNextIndex(current: number, total: number, mode: PlayMode): number {
+    if (total === 0) return 0;
+    switch (mode) {
+        case 'single-loop':
+            return current;
+        case 'shuffle': {
+            if (total <= 1) return 0;
+            let next = current;
+            while (next === current) {
+                next = Math.floor(Math.random() * total);
+            }
+            return next;
+        }
+        case 'list-loop':
+        default:
+            return (current + 1) % total;
+    }
+}
+
+/** 获取上一曲索引 (根据播放模式) */
+function getPrevIndex(current: number, total: number, mode: PlayMode): number {
+    if (total === 0) return 0;
+    switch (mode) {
+        case 'single-loop':
+            return current;
+        case 'shuffle': {
+            if (total <= 1) return 0;
+            let prev = current;
+            while (prev === current) {
+                prev = Math.floor(Math.random() * total);
+            }
+            return prev;
+        }
+        case 'list-loop':
+        default:
+            return (current - 1 + total) % total;
+    }
 }
 
 export const useMusicStore = create<MusicStore>((set, get) => {
@@ -255,13 +318,13 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                 break;
             case 'next': {
                 if (s.playlist.length === 0) return;
-                const next = (s.trackIndex + 1) % s.playlist.length;
+                const next = getNextIndex(s.trackIndex, s.playlist.length, s.playMode);
                 loadTrack(next, true);
                 break;
             }
             case 'prev': {
                 if (s.playlist.length === 0) return;
-                const prev = (s.trackIndex - 1 + s.playlist.length) % s.playlist.length;
+                const prev = getPrevIndex(s.trackIndex, s.playlist.length, s.playMode);
                 loadTrack(prev, true);
                 break;
             }
@@ -288,6 +351,7 @@ export const useMusicStore = create<MusicStore>((set, get) => {
         duration: 0,
         isPlaying: false,
         volume: loadVolume(),
+        playMode: loadPlayMode(),
         isLeader: false,
         initialized: false,
         showLyrics: false,
@@ -312,12 +376,22 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                         audio = new Audio();
                         audio.volume = get().volume;
 
-                        // 监听播放结束 -> 自动下一曲
+                        // 监听播放结束 -> 根据播放模式决定下一曲
                         audio.addEventListener('ended', () => {
                             const s = get();
                             if (s.playlist.length > 0) {
-                                const next = (s.trackIndex + 1) % s.playlist.length;
-                                loadTrack(next, true);
+                                if (s.playMode === 'single-loop') {
+                                    // 单曲循环：重新播放当前曲目
+                                    audio!.currentTime = 0;
+                                    const p = audio!.play();
+                                    if (p) {
+                                        p.then(() => set({ isPlaying: true }))
+                                         .catch(() => set({ isPlaying: false }));
+                                    }
+                                } else {
+                                    const next = getNextIndex(s.trackIndex, s.playlist.length, s.playMode);
+                                    loadTrack(next, true);
+                                }
                             }
                         });
 
@@ -380,6 +454,14 @@ export const useMusicStore = create<MusicStore>((set, get) => {
         setTrack: (index: number) => crossTab?.sendCommand({ action: 'setTrack', trackIndex: index }),
         setVolume: (vol: number) => crossTab?.sendCommand({ action: 'setVolume', volume: vol }),
 
+        cyclePlayMode: () => {
+            const modes: PlayMode[] = ['list-loop', 'single-loop', 'shuffle'];
+            const current = get().playMode;
+            const idx = modes.indexOf(current);
+            const next = modes[(idx + 1) % modes.length];
+            set({ playMode: next });
+            savePlayMode(next);
+        },
         toggleLyrics: () => set((s) => ({ showLyrics: !s.showLyrics })),
         toggleLyricsFullscreen: () => set((s) => ({ lyricsFullscreen: !s.lyricsFullscreen })),
         togglePanel: () => set((s) => ({ panelExpanded: !s.panelExpanded })),

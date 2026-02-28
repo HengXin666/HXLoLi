@@ -14,6 +14,9 @@ const RESET_POSITION_EVENT = 'hxloli-lyrics-reset-position';
 const POSITION_KEY = 'hxloli-lyrics-position';
 const SIZE_KEY = 'hxloli-lyrics-size';
 
+/** 默认尺寸 */
+const DEFAULT_SIZE = { w: 500, h: 350 };
+
 /** 默认位置 (浏览器居中) */
 function defaultPosition(): { x: number; y: number } {
     if (typeof window === 'undefined') return { x: 100, y: 100 };
@@ -21,9 +24,6 @@ function defaultPosition(): { x: number; y: number } {
     const y = Math.max(0, Math.round((window.innerHeight - DEFAULT_SIZE.h) / 2));
     return { x, y };
 }
-
-/** 默认尺寸 */
-const DEFAULT_SIZE = { w: 500, h: 350 };
 
 /** 加载保存的位置 */
 function loadPosition(): { x: number; y: number } {
@@ -56,7 +56,6 @@ function saveSize(size: { w: number; h: number }): void {
 export default function AssLyrics(): React.ReactElement | null {
     const showLyrics = useMusicStore((s) => s.showLyrics);
     const lyricsFullscreen = useMusicStore((s) => s.lyricsFullscreen);
-    const currentTime = useMusicStore((s) => s.currentTime);
     const trackIndex = useMusicStore((s) => s.trackIndex);
     const pl = useMusicStore((s) => s.playlist);
     const toggleLyrics = useMusicStore((s) => s.toggleLyrics);
@@ -72,12 +71,12 @@ export default function AssLyrics(): React.ReactElement | null {
     const octopusRef = useRef<any>(null);
     const [position, setPosition] = useState(loadPosition);
     const [size, setSize] = useState(loadSize);
-    const [locked, setLocked] = useState(false); // 锁定 (全透明穿透)
+    const [locked, setLocked] = useState(false);
     const [, forceUpdate] = useState(0);
     const isDragging = useRef(false);
     const isResizing = useRef(false);
     const dragOffset = useRef({ x: 0, y: 0 });
-    const lastTimeRef = useRef(-1);
+    const rafIdRef = useRef<number | null>(null);
     const initRetryRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // 位置重置
@@ -95,7 +94,7 @@ export default function AssLyrics(): React.ReactElement | null {
         setLocked((prev) => !prev);
     }, []);
 
-    // 监听外部触发的重置位置事件（从播放器面板发出）
+    // 监听外部触发的重置位置事件
     useEffect(() => {
         const handler = () => {
             const pos = defaultPosition();
@@ -110,6 +109,40 @@ export default function AssLyrics(): React.ReactElement | null {
         return () => window.removeEventListener(RESET_POSITION_EVENT, handler);
     }, []);
 
+    // ---- 持续推送 currentTime 到 octopus 的 RAF 循环 ----
+    useEffect(() => {
+        if (!showLyrics) return;
+
+        let lastPushedTime = -1;
+
+        const tick = () => {
+            const oct = octopusRef.current;
+            if (oct) {
+                // 直接从 store 读取最新 currentTime (不通过 React 订阅，避免重渲染)
+                const ct = useMusicStore.getState().currentTime;
+                // 只在时间变化时推送 (阈值 20ms)
+                if (Math.abs(ct - lastPushedTime) > 0.02) {
+                    try {
+                        oct.setCurrentTime(ct);
+                    } catch {
+                        // octopus 可能已销毁
+                    }
+                    lastPushedTime = ct;
+                }
+            }
+            rafIdRef.current = requestAnimationFrame(tick);
+        };
+
+        rafIdRef.current = requestAnimationFrame(tick);
+
+        return () => {
+            if (rafIdRef.current !== null) {
+                cancelAnimationFrame(rafIdRef.current);
+                rafIdRef.current = null;
+            }
+        };
+    }, [showLyrics]);
+
     // ---- 初始化 / 切换曲目时重建 octopus ----
     useEffect(() => {
         if (!showLyrics || !currentTrack?.assUrl) {
@@ -122,39 +155,50 @@ export default function AssLyrics(): React.ReactElement | null {
 
         let disposed = false;
 
-        const initOctopus = async () => {
-            // 等待 canvas 实际渲染到 DOM 并获得尺寸
+        const initOctopus = () => {
             const canvas = canvasRef.current;
             const container = canvasContainerRef.current;
             if (!canvas || !container) {
                 // canvas 还未挂载, 重试
                 if (!disposed) {
-                    initRetryRef.current = setTimeout(initOctopus, 100);
+                    initRetryRef.current = setTimeout(initOctopus, 150);
                 }
                 return;
             }
 
             // 获取容器的实际像素尺寸
             const rect = container.getBoundingClientRect();
-            const pixelW = Math.round(rect.width) || size.w;
-            const pixelH = Math.round(rect.height) || (size.h - 32); // 减去标题栏高度
+            const pixelW = Math.round(rect.width);
+            const pixelH = Math.round(rect.height);
 
-            // 设置 canvas 像素尺寸
+            if (pixelW <= 0 || pixelH <= 0) {
+                // 容器还没有尺寸，重试
+                console.warn('[ASS] 容器尺寸为 0，等待布局完成...');
+                if (!disposed) {
+                    initRetryRef.current = setTimeout(initOctopus, 200);
+                }
+                return;
+            }
+
+            // 设置 canvas 像素尺寸（关键！必须在 SubtitlesOctopus 初始化前设置）
             canvas.width = pixelW;
             canvas.height = pixelH;
 
+            console.log(`[ASS] 初始化 canvas: ${pixelW}x${pixelH}, assUrl: ${currentTrack.assUrl}`);
+
+            // 销毁旧实例
+            if (octopusRef.current) {
+                try { octopusRef.current.dispose(); } catch { /* ignore */ }
+                octopusRef.current = null;
+            }
+
+            const workerUrl = `${baseUrl}music/ass-worker/subtitles-octopus-worker.js`;
+            const legacyWorkerUrl = `${baseUrl}music/ass-worker/subtitles-octopus-worker-legacy.js`;
+
             try {
-                const SubtitlesOctopus = (await import('libass-wasm')).default;
-                if (disposed) return;
-
-                // 销毁旧实例
-                if (octopusRef.current) {
-                    try { octopusRef.current.dispose(); } catch { /* ignore */ }
-                    octopusRef.current = null;
-                }
-
-                const workerUrl = `${baseUrl}music/ass-worker/subtitles-octopus-worker.js`;
-                const legacyWorkerUrl = `${baseUrl}music/ass-worker/subtitles-octopus-worker-legacy.js`;
+                // 直接使用全局构造函数或通过 require
+                // libass-wasm 的 subtitles-octopus.js 是一个传统的构造函数
+                const SubtitlesOctopus = require('libass-wasm');
 
                 const instance = new SubtitlesOctopus({
                     canvas: canvas,
@@ -163,30 +207,104 @@ export default function AssLyrics(): React.ReactElement | null {
                     workerUrl,
                     legacyWorkerUrl,
                     renderMode: 'wasm-blend',
-                    targetFps: 24, // 性能优先, 24fps 足够
+                    targetFps: 24,
                     prescaleFactor: 0.8,
                     prescaleHeightLimit: 1080,
                     maxRenderHeight: 720,
                     debug: false,
+                    onReady: () => {
+                        console.log('[ASS] SubtitlesOctopus 就绪');
+                    },
+                    onError: (err: any) => {
+                        console.error('[ASS] SubtitlesOctopus 错误:', err);
+                    },
                 });
 
                 if (!disposed) {
                     octopusRef.current = instance;
-                    // 初始化完成后立即同步当前时间
-                    if (currentTime > 0) {
-                        instance.setCurrentTime(currentTime);
+                    // 立即同步当前时间
+                    const ct = useMusicStore.getState().currentTime;
+                    if (ct > 0) {
+                        instance.setCurrentTime(ct);
                     }
+                    console.log('[ASS] SubtitlesOctopus 实例创建成功');
                 } else {
                     instance.dispose();
                 }
             } catch (err) {
-                console.error('[MusicPlayer] 加载 ASS 渲染器失败:', err);
+                console.error('[ASS] 加载 ASS 渲染器失败:', err);
+                // 尝试通过 script 标签加载
+                if (!disposed) {
+                    loadOctopusViaScript(canvas, workerUrl, legacyWorkerUrl, disposed);
+                }
             }
         };
 
-        // 延迟一帧确保 DOM 已渲染
+        /** 通过 script 标签加载 (备用方案) */
+        const loadOctopusViaScript = (
+            canvas: HTMLCanvasElement,
+            workerUrl: string,
+            legacyWorkerUrl: string,
+            isDisposed: boolean,
+        ) => {
+            // 检查全局是否已经有 SubtitlesOctopus
+            if ((window as any).SubtitlesOctopus) {
+                createFromGlobal(canvas, workerUrl, legacyWorkerUrl, isDisposed);
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.src = `${baseUrl}music/ass-worker/subtitles-octopus.js`;
+            script.onload = () => {
+                if (!isDisposed) {
+                    createFromGlobal(canvas, workerUrl, legacyWorkerUrl, isDisposed);
+                }
+            };
+            script.onerror = () => {
+                console.error('[ASS] 加载 subtitles-octopus.js 脚本失败');
+            };
+            document.head.appendChild(script);
+        };
+
+        const createFromGlobal = (
+            canvas: HTMLCanvasElement,
+            workerUrl: string,
+            legacyWorkerUrl: string,
+            isDisposed: boolean,
+        ) => {
+            const Ctor = (window as any).SubtitlesOctopus;
+            if (!Ctor) return;
+
+            const instance = new Ctor({
+                canvas: canvas,
+                subUrl: currentTrack!.assUrl,
+                fonts: currentTrack!.fonts || [],
+                workerUrl,
+                legacyWorkerUrl,
+                renderMode: 'wasm-blend',
+                targetFps: 24,
+                prescaleFactor: 0.8,
+                prescaleHeightLimit: 1080,
+                maxRenderHeight: 720,
+                debug: false,
+            });
+
+            if (!isDisposed) {
+                octopusRef.current = instance;
+                console.log('[ASS] SubtitlesOctopus 实例创建成功 (via script)');
+            } else {
+                instance.dispose();
+            }
+        };
+
+        // 延迟一帧以确保 DOM 完成布局
         const raf = requestAnimationFrame(() => {
-            initOctopus();
+            // 再延迟一帧，双重保险
+            requestAnimationFrame(() => {
+                if (!disposed) {
+                    initOctopus();
+                }
+            });
         });
 
         return () => {
@@ -201,17 +319,8 @@ export default function AssLyrics(): React.ReactElement | null {
                 octopusRef.current = null;
             }
         };
-        // 注意: 不依赖 lyricsFullscreen, 因为全屏只改尺寸不重建
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [showLyrics, currentTrack?.assUrl, currentTrack?.fonts]);
-
-    // ---- 同步播放时间到歌词渲染器 ----
-    useEffect(() => {
-        if (octopusRef.current && Math.abs(currentTime - lastTimeRef.current) > 0.03) {
-            octopusRef.current.setCurrentTime(currentTime);
-            lastTimeRef.current = currentTime;
-        }
-    }, [currentTime]);
+    }, [showLyrics, currentTrack?.assUrl, currentTrack?.fonts, baseUrl]);
 
     // ---- 全屏/尺寸变化时调整 canvas ----
     useEffect(() => {
@@ -219,21 +328,28 @@ export default function AssLyrics(): React.ReactElement | null {
         const container = canvasContainerRef.current;
         if (!canvas || !container || !octopusRef.current) return;
 
-        let w: number, h: number;
-        if (lyricsFullscreen) {
-            w = window.innerWidth;
-            h = window.innerHeight;
-        } else {
-            const rect = container.getBoundingClientRect();
-            w = Math.round(rect.width) || size.w;
-            h = Math.round(rect.height) || (size.h - 32);
-        }
+        // 延迟一帧，等布局完成
+        const raf = requestAnimationFrame(() => {
+            let w: number, h: number;
+            if (lyricsFullscreen) {
+                w = window.innerWidth;
+                h = window.innerHeight;
+            } else {
+                const rect = container.getBoundingClientRect();
+                w = Math.round(rect.width) || size.w;
+                h = Math.round(rect.height) || (size.h - 32);
+            }
 
-        if (canvas.width !== w || canvas.height !== h) {
-            canvas.width = w;
-            canvas.height = h;
-            octopusRef.current.resize(w, h);
-        }
+            if (w > 0 && h > 0 && (canvas.width !== w || canvas.height !== h)) {
+                canvas.width = w;
+                canvas.height = h;
+                try {
+                    octopusRef.current?.resize(w, h);
+                } catch { /* ignore */ }
+            }
+        });
+
+        return () => cancelAnimationFrame(raf);
     }, [lyricsFullscreen, size]);
 
     // ---- 拖拽逻辑 ----
@@ -292,14 +408,20 @@ export default function AssLyrics(): React.ReactElement | null {
             const container = canvasContainerRef.current;
             if (canvas && container && octopusRef.current) {
                 const rect = container.getBoundingClientRect();
-                canvas.width = Math.round(rect.width);
-                canvas.height = Math.round(rect.height);
-                octopusRef.current.resize(canvas.width, canvas.height);
+                const w = Math.round(rect.width);
+                const h = Math.round(rect.height);
+                if (w > 0 && h > 0) {
+                    canvas.width = w;
+                    canvas.height = h;
+                    try {
+                        octopusRef.current.resize(w, h);
+                    } catch { /* ignore */ }
+                }
             }
         }
     }, [size]);
 
-    // ---- 全屏切换（浏览器页面内全屏，非 Fullscreen API）----
+    // ---- 全屏切换 ----
     const handleFullscreen = useCallback(() => {
         toggleLyricsFullscreen();
     }, [toggleLyricsFullscreen]);
@@ -405,7 +527,7 @@ export default function AssLyrics(): React.ReactElement | null {
                 />
             </div>
 
-            {/* 锁定时: 悬浮的解锁按钮 (需要 pointer-events) */}
+            {/* 锁定时: 悬浮的解锁按钮 */}
             {locked && (
                 <button
                     onClick={toggleLock}
