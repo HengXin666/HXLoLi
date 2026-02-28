@@ -42,6 +42,10 @@ try:
 except ImportError:
     HAS_REQUESTS = False
 
+import struct
+import subprocess
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
 # 项目根目录 (py/music/gen_music_playlist.py -> py/music -> py -> 项目根)
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 STATIC_MUSIC_DIR = PROJECT_ROOT / "static" / "music"
@@ -341,6 +345,184 @@ def path_to_url(filepath: Path) -> str:
     return f"{BASE_URL}/music/{rel.as_posix()}"
 
 
+# ========== ASS 预扫描 (用 ffmpeg + libass 计算边界框) ==========
+# 对应 C++ 版 preprocessLyricBoundingBoxes: 固定 1920x1080 画布, 采样帧扫描像素
+
+# 预扫描分辨率 (与 C++ 版 _assParse.setFrameSize(1920, 1080) 一致)
+PRESCAN_WIDTH = 1920
+PRESCAN_HEIGHT = 1080
+PRESCAN_FPS = 2  # 每秒采样帧数
+
+
+def _scan_frame_rgba(data: bytes, width: int, height: int) -> dict:
+    """扫描单帧 RGBA 原始数据, 返回该帧的 TwoBlockBounds.
+
+    上下分区: y < midLine 归上区块, y >= midLine 归下区块.
+    像素 RGB 非黑 视为有内容 (ffmpeg 渲染在黑底上, alpha 恒为 255).
+    """
+    mid_line = height >> 1
+    step = 2  # 隔行扫描加速
+    top_y_min = float('inf')
+    top_y_max = 0
+    btm_y_min = float('inf')
+    btm_y_max = 0
+    left = float('inf')
+    right = 0
+
+    row_bytes = width * 4  # RGBA, 每像素4字节
+    for y in range(0, height, step):
+        row_start = y * row_bytes
+        for x in range(0, width, step):
+            px = row_start + x * 4
+            # 检查 RGB 任一通道非零 (ffmpeg 黑底上的字幕)
+            if data[px] > 0 or data[px + 1] > 0 or data[px + 2] > 0:
+                if x < left:
+                    left = x
+                if x + step > right:
+                    right = x + step
+                if y < mid_line:
+                    if y < top_y_min:
+                        top_y_min = y
+                    if y + step > top_y_max:
+                        top_y_max = y + step
+                else:
+                    if y < btm_y_min:
+                        btm_y_min = y
+                    if y + step > btm_y_max:
+                        btm_y_max = y + step
+
+    # 裁剪到画布范围
+    if right > width:
+        right = width
+    if top_y_max > height:
+        top_y_max = height
+    if btm_y_max > height:
+        btm_y_max = height
+
+    return {
+        'topYMin': top_y_min if top_y_min != float('inf') else 0,
+        'topYMax': top_y_max,
+        'btmYMin': btm_y_min if btm_y_min != float('inf') else 0,
+        'btmYMax': btm_y_max,
+        'left': left if left != float('inf') else 0,
+        'right': right,
+    }
+
+
+def _merge_bounds(a: dict, b: dict) -> dict:
+    """合并两个 bounds (取并集)"""
+    def safe_min(x, y):
+        if x == 0 and y == 0:
+            return 0
+        if x == 0:
+            return y
+        if y == 0:
+            return x
+        return min(x, y)
+
+    return {
+        'topYMin': safe_min(a['topYMin'], b['topYMin']),
+        'topYMax': max(a['topYMax'], b['topYMax']),
+        'btmYMin': safe_min(a['btmYMin'], b['btmYMin']),
+        'btmYMax': max(a['btmYMax'], b['btmYMax']),
+        'left': safe_min(a['left'], b['left']),
+        'right': max(a['right'], b['right']),
+    }
+
+
+def prescan_ass_bounds(ass_path: Path, duration_sec: float) -> dict | None:
+    """用 ffmpeg 渲染 ASS 字幕并扫描像素, 计算全局 TwoBlockBounds.
+
+    类似 C++ 版 preprocessLyricBoundingBoxes:
+    - 固定 1920x1080 画布
+    - 以 2fps 采样整首歌
+    - 每帧扫描像素, 合并得到全局边界框
+
+    Args:
+        ass_path: ASS 字幕文件路径
+        duration_sec: 歌曲总时长 (秒)
+
+    Returns:
+        TwoBlockBounds dict, 如果没有内容则返回 None
+    """
+    if duration_sec <= 0:
+        print(f"    └─ [预扫描] 时长为 0, 跳过")
+        return None
+
+    # 检查 ffmpeg 是否可用
+    try:
+        subprocess.run(['ffmpeg', '-version'], capture_output=True, check=True)
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        print(f"    └─ [预扫描] ffmpeg 不可用, 跳过")
+        return None
+
+    w, h = PRESCAN_WIDTH, PRESCAN_HEIGHT
+    frame_size = w * h * 4  # RGBA 每帧字节数
+
+    # ffmpeg 命令: 黑底 + ASS 字幕渲染, 输出 rawvideo RGBA
+    # 注意: subtitles 滤镜需要对特殊字符转义
+    ass_path_escaped = str(ass_path).replace('\\', '/').replace(':', '\\:').replace("'", "\\'")
+    cmd = [
+        'ffmpeg',
+        '-f', 'lavfi',
+        '-i', f'color=c=black:s={w}x{h}:d={duration_sec:.2f}:r={PRESCAN_FPS}',
+        '-vf', f"subtitles=filename='{ass_path_escaped}'",
+        '-f', 'rawvideo',
+        '-pix_fmt', 'rgba',
+        '-v', 'error',
+        '-',
+    ]
+
+    try:
+        proc = subprocess.Popen(
+            cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        )
+    except Exception as e:
+        print(f"    └─ [预扫描] ffmpeg 启动失败: {e}")
+        return None
+
+    global_bounds = {
+        'topYMin': 0, 'topYMax': 0,
+        'btmYMin': 0, 'btmYMax': 0,
+        'left': 0, 'right': 0,
+    }
+    frame_count = 0
+    has_content = False
+
+    try:
+        while True:
+            data = proc.stdout.read(frame_size)
+            if len(data) < frame_size:
+                break
+            frame_count += 1
+            fb = _scan_frame_rgba(data, w, h)
+            # 只有有内容才合并
+            if fb['topYMax'] > 0 or fb['btmYMax'] > 0 or fb['right'] > 0:
+                if not has_content:
+                    global_bounds = fb
+                    has_content = True
+                else:
+                    global_bounds = _merge_bounds(global_bounds, fb)
+    finally:
+        proc.stdout.close()
+        proc.wait()
+
+    stderr_output = proc.stderr.read().decode(errors='replace').strip()
+    proc.stderr.close()
+    if stderr_output:
+        print(f"    └─ [预扫描] ffmpeg stderr: {stderr_output[:200]}")
+
+    if not has_content:
+        print(f"    └─ [预扫描] {frame_count} 帧, 无字幕内容")
+        return None
+
+    print(f"    └─ [预扫描] {frame_count} 帧, bounds: "
+          f"top=[{global_bounds['topYMin']},{global_bounds['topYMax']}] "
+          f"btm=[{global_bounds['btmYMin']},{global_bounds['btmYMax']}] "
+          f"lr=[{global_bounds['left']},{global_bounds['right']}]")
+    return global_bounds
+
+
 def scan_music_dir() -> list[dict]:
     """扫描 static/music/ 目录, 收集所有音频文件信息"""
     if not STATIC_MUSIC_DIR.exists():
@@ -400,6 +582,13 @@ def scan_music_dir() -> list[dict]:
                 track["assFonts"] = ass_fonts
                 print(f"    └─ ASS 字体: {', '.join(ass_fonts)}")
 
+            # 用 ffmpeg 预扫描 ASS 字幕边界框
+            duration = meta.get("duration", 0)
+            if duration > 0:
+                bounds = prescan_ass_bounds(ass_path, duration)
+                if bounds:
+                    track["assBounds"] = bounds
+
         if cover_path:
             track["coverUrl"] = path_to_url(cover_path)
             print(f"    └─ 封面: {cover_path.name}")
@@ -447,6 +636,15 @@ def generate_ts(tracks: list[dict]) -> str:
         '    coverUrl?: string;',
         '    /** ASS 歌词中使用的字体名列表 (用于 fallback 映射, 可选) */',
         '    assFonts?: string[];',
+        '    /** ASS 预扫描边界框 (由 Python 脚本预计算, 固定 1920x1080 画布) */',
+        '    assBounds?: {',
+        '        topYMin: number;',
+        '        topYMax: number;',
+        '        btmYMin: number;',
+        '        btmYMax: number;',
+        '        left: number;',
+        '        right: number;',
+        '    };',
         '}',
         '',
         '/** 播放列表 */',
