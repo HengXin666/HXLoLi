@@ -16,6 +16,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
     FaAlignCenter,
     FaBackward,
+    FaCrop,
     FaExpand,
     FaFastBackward,
     FaForward,
@@ -36,6 +37,7 @@ const POSITION_KEY = 'hxloli-lyrics-position';
 const SIZE_KEY = 'hxloli-lyrics-size';
 const LOCK_KEY = 'hxloli-lyrics-locked';
 const SUBTITLE_OFFSET_KEY = 'hxloli-lyrics-subtitle-offset';
+const PREPROCESS_ASS_KEY = 'hxloli-lyrics-preprocess-ass';
 
 /** 默认尺寸 */
 const DEFAULT_SIZE = { w: 500, h: 350 };
@@ -93,6 +95,113 @@ function loadSubtitleOffset(): number {
 
 function saveSubtitleOffset(offset: number): void {
     try { localStorage.setItem(SUBTITLE_OFFSET_KEY, JSON.stringify(offset)); } catch { /* ignore */ }
+}
+
+function loadPreprocessAss(): boolean {
+    try {
+        return localStorage.getItem(PREPROCESS_ASS_KEY) === 'true';
+    } catch { /* ignore */ }
+    return false;
+}
+
+function savePreprocessAss(enabled: boolean): void {
+    try { localStorage.setItem(PREPROCESS_ASS_KEY, JSON.stringify(enabled)); } catch { /* ignore */ }
+}
+
+/**
+ * ASS 预处理: 上下两区块边界框
+ * 参考 C++ 版 preprocessLyricBoundingBoxes 的逻辑:
+ * 预扫描整首歌所有采样帧, 合并得到一个全局固定的 TwoBlockBounds,
+ * 渲染时始终使用这个固定框裁剪, 避免抖动.
+ */
+interface TwoBlockBounds {
+    topYMin: number;
+    topYMax: number;
+    btmYMin: number;
+    btmYMax: number;
+    left: number;
+    right: number;
+}
+
+/** 合并两个 bounds (取并集) */
+function mergeBounds(a: TwoBlockBounds, b: TwoBlockBounds): TwoBlockBounds {
+    return {
+        topYMin: Math.min(a.topYMin, b.topYMin),
+        topYMax: Math.max(a.topYMax, b.topYMax),
+        btmYMin: Math.min(a.btmYMin, b.btmYMin),
+        btmYMax: Math.max(a.btmYMax, b.btmYMax),
+        left: Math.min(a.left, b.left),
+        right: Math.max(a.right, b.right),
+    };
+}
+
+function emptyBounds(): TwoBlockBounds {
+    return {
+        topYMin: Infinity, topYMax: 0,
+        btmYMin: Infinity, btmYMax: 0,
+        left: Infinity, right: 0,
+    };
+}
+
+function boundsHasTop(b: TwoBlockBounds): boolean { return b.topYMin !== Infinity; }
+function boundsHasBtm(b: TwoBlockBounds): boolean { return b.btmYMin !== Infinity; }
+function boundsHasContent(b: TwoBlockBounds): boolean { return boundsHasTop(b) || boundsHasBtm(b); }
+
+
+
+/**
+ * 用固定的全局边界框裁剪离屏 canvas, 合并上下两区块后绘制到显示 canvas.
+ * 边界框是预扫描得到的, 每帧都用同一个框, 不会抖动.
+ */
+function cropAndDraw(
+    srcCanvas: HTMLCanvasElement,
+    dstCanvas: HTMLCanvasElement,
+    bounds: TwoBlockBounds,
+): void {
+    const hasTop = boundsHasTop(bounds);
+    const hasBtm = boundsHasBtm(bounds);
+    if (!hasTop && !hasBtm) return;
+
+    const contentW = bounds.right - bounds.left;
+    const topH = hasTop ? (bounds.topYMax - bounds.topYMin) : 0;
+    const btmH = hasBtm ? (bounds.btmYMax - bounds.btmYMin) : 0;
+    const totalH = topH + btmH;
+
+    if (contentW <= 0 || totalH <= 0) return;
+
+    const dstCtx = dstCanvas.getContext('2d');
+    if (!dstCtx) return;
+
+    // 清空显示 canvas
+    dstCtx.clearRect(0, 0, dstCanvas.width, dstCanvas.height);
+
+    // 计算缩放以适应显示 canvas
+    const scaleX = dstCanvas.width / contentW;
+    const scaleY = dstCanvas.height / totalH;
+    const scale = Math.min(scaleX, scaleY, 1); // 不放大, 只缩小
+
+    const drawW = contentW * scale;
+    const drawH = totalH * scale;
+    const offsetX = (dstCanvas.width - drawW) / 2;
+    const offsetY = (dstCanvas.height - drawH) / 2;
+
+    // 绘制上半部分
+    if (hasTop && topH > 0) {
+        dstCtx.drawImage(
+            srcCanvas,
+            bounds.left, bounds.topYMin, contentW, topH,
+            offsetX, offsetY, drawW, topH * scale,
+        );
+    }
+
+    // 绘制下半部分 (紧接上半部分)
+    if (hasBtm && btmH > 0) {
+        dstCtx.drawImage(
+            srcCanvas,
+            bounds.left, bounds.btmYMin, contentW, btmH,
+            offsetX, offsetY + topH * scale, drawW, btmH * scale,
+        );
+    }
 }
 
 // ========== Script loader (单例) ==========
@@ -204,6 +313,10 @@ export default function AssLyrics(): React.ReactElement | null {
     const [toolbarVisible, setToolbarVisible] = useState(false);
     const [, forceUpdate] = useState(0);
     const [rebuildToken, setRebuildToken] = useState(0);
+    const [preprocessAss, setPreprocessAss] = useState(loadPreprocessAss);
+    const offscreenCanvasRef = useRef<HTMLCanvasElement | null>(null);
+    const displayCanvasRef = useRef<HTMLCanvasElement>(null);
+    const cachedBoundsRef = useRef<TwoBlockBounds | null>(null); // 预计算的全局固定边界 (来自 musicData.ts)
     const isDragging = useRef(false);
     const isResizing = useRef(false);
     const dragOffset = useRef({ x: 0, y: 0 });
@@ -259,6 +372,17 @@ export default function AssLyrics(): React.ReactElement | null {
     const seekToStart = useCallback(() => {
         seek(0);
     }, [seek]);
+
+    /** 切换预处理ASS */
+    const togglePreprocessAss = useCallback(() => {
+        setPreprocessAss((prev) => {
+            const next = !prev;
+            savePreprocessAss(next);
+            // 切换时需要重建 octopus 实例
+            setRebuildToken((n) => n + 1);
+            return next;
+        });
+    }, []);
 
     /** 窗口水平居中 */
     const centerHorizontally = useCallback(() => {
@@ -325,6 +449,10 @@ export default function AssLyrics(): React.ReactElement | null {
                         globalSubtitleOffset = val;
                         break;
                     }
+                    case PREPROCESS_ASS_KEY:
+                        setPreprocessAss(e.newValue === 'true');
+                        setRebuildToken((n) => n + 1);
+                        break;
                 }
             } catch { /* ignore */ }
         };
@@ -342,6 +470,7 @@ export default function AssLyrics(): React.ReactElement | null {
     }, []);
 
     // ---- 持续推送 currentTime 到 octopus 的 RAF 循环 (含字幕偏移) ----
+    // 预处理模式下, 用预扫描得到的固定边界框裁剪离屏 canvas 到显示 canvas
     const shouldRender = showLyrics && pageVisible;
 
     useEffect(() => {
@@ -352,6 +481,12 @@ export default function AssLyrics(): React.ReactElement | null {
         const tick = () => {
             const oct = octopusRef.current;
             if (oct) {
+                // 预处理模式: 用固定的全局边界框裁剪 (不抖动)
+                const fixedBounds = cachedBoundsRef.current;
+                if (preprocessAss && fixedBounds && offscreenCanvasRef.current && displayCanvasRef.current) {
+                    cropAndDraw(offscreenCanvasRef.current, displayCanvasRef.current, fixedBounds);
+                }
+
                 const ct = useMusicStore.getState().getInterpolatedTime() + globalSubtitleOffset;
                 const adjustedCt = Math.max(0, ct);
                 const delta = adjustedCt - lastPushedTime;
@@ -375,7 +510,7 @@ export default function AssLyrics(): React.ReactElement | null {
                 rafIdRef.current = null;
             }
         };
-    }, [shouldRender]);
+    }, [shouldRender, preprocessAss]);
 
     // ---- 初始化 / 切换曲目时重建 octopus ----
     // 注意: canvas 尺寸不再受 locked 影响, 始终使用 size.w x size.h
@@ -391,8 +526,35 @@ export default function AssLyrics(): React.ReactElement | null {
         let disposed = false;
 
         const initOctopus = async () => {
-            const canvas = canvasRef.current;
-            if (!canvas) {
+            // 预处理模式: SubtitlesOctopus 渲染到离屏 canvas, 再裁剪到显示 canvas
+            // 非预处理模式: 直接渲染到可见 canvas
+            let renderCanvas: HTMLCanvasElement;
+
+            if (preprocessAss) {
+                // 创建或复用离屏 canvas (固定 1920x1080, 与 ASS 脚本分辨率一致)
+                if (!offscreenCanvasRef.current) {
+                    offscreenCanvasRef.current = document.createElement('canvas');
+                }
+                renderCanvas = offscreenCanvasRef.current;
+                renderCanvas.width = 1920;
+                renderCanvas.height = 1080;
+
+                // 设置显示 canvas 尺寸
+                const displayCanvas = displayCanvasRef.current;
+                if (displayCanvas) {
+                    if (lyricsFullscreen) {
+                        displayCanvas.width = window.innerWidth;
+                        displayCanvas.height = window.innerHeight;
+                    } else {
+                        displayCanvas.width = Math.round(size.w);
+                        displayCanvas.height = Math.round(size.h);
+                    }
+                }
+            } else {
+                renderCanvas = canvasRef.current!;
+            }
+
+            if (!renderCanvas) {
                 if (!disposed) {
                     initRetryRef.current = setTimeout(initOctopus, 150);
                 }
@@ -400,11 +562,14 @@ export default function AssLyrics(): React.ReactElement | null {
             }
 
             let pixelW: number, pixelH: number;
-            if (lyricsFullscreen) {
+            if (preprocessAss) {
+                // 预处理模式固定使用 1920x1080
+                pixelW = 1920;
+                pixelH = 1080;
+            } else if (lyricsFullscreen) {
                 pixelW = window.innerWidth;
                 pixelH = window.innerHeight;
             } else {
-                // 不再减去标题栏高度, canvas 始终占满整个容器
                 pixelW = Math.round(size.w);
                 pixelH = Math.round(size.h);
             }
@@ -417,10 +582,10 @@ export default function AssLyrics(): React.ReactElement | null {
                 return;
             }
 
-            canvas.width = pixelW;
-            canvas.height = pixelH;
+            renderCanvas.width = pixelW;
+            renderCanvas.height = pixelH;
 
-            console.log(`[ASS] 初始化 canvas: ${pixelW}x${pixelH}, assUrl: ${currentTrack.assUrl}`);
+            console.log(`[ASS] 初始化 canvas: ${pixelW}x${pixelH}, 预处理模式: ${preprocessAss}, assUrl: ${currentTrack.assUrl}`);
 
             if (octopusRef.current) {
                 try { octopusRef.current.dispose(); } catch { /* ignore */ }
@@ -468,7 +633,7 @@ export default function AssLyrics(): React.ReactElement | null {
 
             try {
                 const instance = new Ctor({
-                    canvas: canvas,
+                    canvas: renderCanvas,
                     subContent: subContent,
                     fonts: fontsFullUrls,
                     availableFonts,
@@ -483,7 +648,28 @@ export default function AssLyrics(): React.ReactElement | null {
                     maxRenderHeight: 720,
                     debug: true,
                     onReady: () => {
-                        console.log('[ASS] SubtitlesOctopus 就绪, canvas:', canvas.width, 'x', canvas.height);
+                        console.log('[ASS] SubtitlesOctopus 就绪, canvas:', renderCanvas.width, 'x', renderCanvas.height, ', 预处理:', preprocessAss);
+
+                        if (preprocessAss && currentTrack.assBounds) {
+                            // 预处理模式: 直接使用 musicData.ts 中由 Python 脚本预计算的 bounds
+                            const b = currentTrack.assBounds;
+                            const bounds: TwoBlockBounds = {
+                                topYMin: b.topYMin,
+                                topYMax: b.topYMax,
+                                btmYMin: b.btmYMin,
+                                btmYMax: b.btmYMax,
+                                left: b.left,
+                                right: b.right,
+                            };
+                            if (boundsHasContent(bounds)) {
+                                cachedBoundsRef.current = bounds;
+                                console.log('[ASS] 使用预计算的 assBounds:', bounds);
+                            } else {
+                                cachedBoundsRef.current = null;
+                                console.log('[ASS] assBounds 无内容, 跳过裁剪');
+                            }
+                        }
+
                         const ct = useMusicStore.getState().getInterpolatedTime() + globalSubtitleOffset;
                         try { instance.setCurrentTime(Math.max(0, ct)); } catch { /* ignore */ }
                     },
@@ -520,13 +706,14 @@ export default function AssLyrics(): React.ReactElement | null {
                 clearTimeout(initRetryRef.current);
                 initRetryRef.current = null;
             }
+            cachedBoundsRef.current = null;
             if (octopusRef.current) {
                 try { octopusRef.current.dispose(); } catch { /* ignore */ }
                 octopusRef.current = null;
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [showLyrics, currentTrack?.assUrl, currentTrack?.fonts, baseUrl, lyricsFullscreen, size, rebuildToken]);
+    }, [showLyrics, currentTrack?.assUrl, currentTrack?.fonts, baseUrl, lyricsFullscreen, size, rebuildToken, preprocessAss]);
 
     // ---- 全屏切换 / 浏览器窗口 resize 时重建 ----
     useEffect(() => {
@@ -668,6 +855,16 @@ export default function AssLyrics(): React.ReactElement | null {
             <button onClick={centerHorizontally} style={toolbarBtnStyle} title="窗口水平居中">
                 <FaAlignCenter size={11} />
             </button>
+            <button
+                onClick={togglePreprocessAss}
+                style={{
+                    ...toolbarBtnStyle,
+                    background: preprocessAss ? 'rgba(0, 200, 100, 0.4)' : toolbarBtnStyle.background,
+                }}
+                title={preprocessAss ? '关闭 ASS 预处理 (当前: 裁剪模式)' : '开启 ASS 预处理 (自动裁剪空白区域)'}
+            >
+                <FaCrop size={11} />
+            </button>
             <button onClick={handleFullscreen} style={toolbarBtnStyle} title="页面全屏"><FaExpand size={11} /></button>
             <button onClick={toggleLyrics} style={toolbarBtnStyle} title="关闭"><FaTimes size={11} /></button>
         </div>
@@ -709,7 +906,18 @@ export default function AssLyrics(): React.ReactElement | null {
                     {toolbarContent}
                 </div>
                 <div ref={canvasContainerRef} style={{ width: '100%', height: '100%', position: 'relative' }}>
-                    <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+                    {/* 预处理模式: canvasRef 是离屏的, displayCanvasRef 用于显示; 非预处理: canvasRef 直接显示 */}
+                    <canvas
+                        ref={preprocessAss ? displayCanvasRef : canvasRef}
+                        style={{ width: '100%', height: '100%', display: 'block' }}
+                    />
+                    {/* 预处理模式下, canvasRef 作为离屏渲染目标需挂载到 DOM 但隐藏 */}
+                    {preprocessAss && (
+                        <canvas
+                            ref={canvasRef}
+                            style={{ display: 'none' }}
+                        />
+                    )}
                 </div>
             </div>
         );
@@ -743,10 +951,18 @@ export default function AssLyrics(): React.ReactElement | null {
         >
             {/* Canvas 区域 - 始终占满整个容器 */}
             <div ref={canvasContainerRef} style={{ width: '100%', height: '100%', position: 'relative' }}>
+                {/* 预处理模式: canvasRef 是离屏的, displayCanvasRef 用于显示; 非预处理: canvasRef 直接显示 */}
                 <canvas
-                    ref={canvasRef}
+                    ref={preprocessAss ? displayCanvasRef : canvasRef}
                     style={{ width: '100%', height: '100%', display: 'block' }}
                 />
+                {/* 预处理模式下, canvasRef 作为离屏渲染目标需挂载到 DOM 但隐藏 */}
+                {preprocessAss && (
+                    <canvas
+                        ref={canvasRef}
+                        style={{ display: 'none' }}
+                    />
+                )}
             </div>
 
             {/* 浮动工具栏 - 绝对定位在顶部, 不影响布局 */}

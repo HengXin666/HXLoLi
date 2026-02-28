@@ -29,6 +29,15 @@ export interface MusicTrack {
     coverUrl?: string;
     /** ASS 歌词中使用的字体名列表 (用于 fallback 映射, 可选) */
     assFonts?: string[];
+    /** ASS 预扫描边界框 (由 Python 脚本预计算, 固定 1920x1080 画布) */
+    assBounds?: {
+        topYMin: number;
+        topYMax: number;
+        btmYMin: number;
+        btmYMax: number;
+        left: number;
+        right: number;
+    };
 }
 
 /** 播放列表 */
@@ -43,6 +52,14 @@ export const playlist: MusicTrack[] =
         "assFonts": [
             "TakaoPGothic"
         ],
+        "assBounds": {
+            "topYMin": 0,
+            "topYMax": 0,
+            "btmYMin": 624,
+            "btmYMax": 1038,
+            "left": 326,
+            "right": 1646
+        },
         "coverUrl": "/HXLoLi/music/Team.ねこかん[猫] - ツナグキズナ (相连的羁绊).jpg",
         "fonts": [
             "/HXLoLi/music/fonts/NotoSansSC-Regular.ttf"
@@ -54,6 +71,14 @@ export const playlist: MusicTrack[] =
         "artist": "Unknown",
         "audioUrl": "/HXLoLi/music/test_audio.mp3",
         "assUrl": "/HXLoLi/music/test_audio.ass",
+        "assBounds": {
+            "topYMin": 34,
+            "topYMax": 540,
+            "btmYMin": 1002,
+            "btmYMax": 1056,
+            "left": 20,
+            "right": 1920
+        },
         "fonts": [
             "/HXLoLi/music/fonts/NotoSansSC-Regular.ttf"
         ]
@@ -74,6 +99,14 @@ export const playlist: MusicTrack[] =
             "方正楷体_GBK",
             "方正韵动中黑_GBK"
         ],
+        "assBounds": {
+            "topYMin": 4,
+            "topYMax": 192,
+            "btmYMin": 986,
+            "btmYMax": 1080,
+            "left": 154,
+            "right": 1762
+        },
         "fonts": [
             "/HXLoLi/music/fonts/NotoSansSC-Regular.ttf"
         ]
