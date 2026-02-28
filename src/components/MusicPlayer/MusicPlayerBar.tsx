@@ -4,8 +4,23 @@
  * 放在 Navbar 右侧 "更多" 按钮的前面
  */
 import { useMusicStore, type PlayMode } from '@site/src/utils/music/musicStore';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import {
+    FaLock, FaLockOpen, FaMusic,
+    FaPause,
+    FaPlay,
+    FaRandom,
+    FaRedo,
+    FaRetweet,
+    FaStepBackward, FaStepForward,
+    FaVolumeDown,
+    FaVolumeMute,
+    FaVolumeUp
+} from 'react-icons/fa';
 import styles from './MusicPlayerBar.module.css';
+
+/** 歌词悬浮窗锁定状态的 localStorage key (与 AssLyrics.tsx 共享) */
+const LOCK_KEY = 'hxloli-lyrics-locked';
 
 /** 触发 ASS 歌词悬浮窗位置重置 */
 function resetLyricsPosition(): void {
@@ -23,28 +38,20 @@ function formatTime(seconds: number): string {
 /** 播放模式图标和描述 */
 const PLAY_MODE_INFO: Record<PlayMode, { icon: React.ReactNode; title: string }> = {
     'list-loop': {
-        icon: (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z" />
-            </svg>
-        ),
+        icon: <FaRetweet size={14} />,
         title: '列表循环',
     },
     'single-loop': {
         icon: (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z" />
-                <text x="12" y="14.5" textAnchor="middle" fontSize="7" fontWeight="bold" fill="currentColor">1</text>
-            </svg>
+            <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                <FaRetweet size={14} />
+                <span style={{ position: 'absolute', fontSize: 7, fontWeight: 'bold', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>1</span>
+            </span>
         ),
         title: '单曲循环',
     },
     'shuffle': {
-        icon: (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z" />
-            </svg>
-        ),
+        icon: <FaRandom size={14} />,
         title: '随机播放',
     },
 };
@@ -58,10 +65,29 @@ export function MusicNavbarButton(): React.ReactElement | null {
     const trackIndex = useMusicStore((s) => s.trackIndex);
     const panelExpanded = useMusicStore((s) => s.panelExpanded);
 
+    const currentTrack = pl[trackIndex] ?? null;
+
+    // 检测标题文字是否溢出（比较子元素宽度与父容器宽度）
+    const navTitleContainerRef = useRef<HTMLButtonElement>(null);
+    const navTitleRef = useRef<HTMLSpanElement>(null);
+    const [navTitleOverflow, setNavTitleOverflow] = useState(false);
+
+    useEffect(() => {
+        const checkOverflow = () => {
+            const container = navTitleContainerRef.current;
+            const textEl = navTitleRef.current;
+            if (container && textEl) {
+                // 比较文字实际宽度和容器可用宽度（减去 playingDot 和 padding）
+                setNavTitleOverflow(textEl.scrollWidth > container.clientWidth - 20);
+            }
+        };
+        checkOverflow();
+        window.addEventListener('resize', checkOverflow);
+        return () => window.removeEventListener('resize', checkOverflow);
+    }, [trackIndex, currentTrack?.title]);
+
     // 没有歌曲时不显示
     if (pl.length === 0) return null;
-
-    const currentTrack = pl[trackIndex];
 
     return (
         <div className={styles.navbarBtn}>
@@ -71,27 +97,31 @@ export function MusicNavbarButton(): React.ReactElement | null {
                 onClick={toggle}
                 title={isPlaying ? '暂停' : '播放'}
             >
-                {isPlaying ? (
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <rect x="6" y="4" width="4" height="16" rx="1" />
-                        <rect x="14" y="4" width="4" height="16" rx="1" />
-                    </svg>
-                ) : (
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z" />
-                    </svg>
-                )}
+                {isPlaying ? <FaPause size={12} /> : <FaPlay size={12} style={{ marginLeft: 2 }} />}
             </button>
 
             {/* 歌曲标题 (点击展开面板) */}
             <button
-                className={styles.trackTitle}
+                ref={navTitleContainerRef}
+                className={`${styles.trackTitle} ${navTitleOverflow ? styles.navMarquee : ''}`}
                 onClick={togglePanel}
                 title="展开播放器"
             >
-                <span className={styles.trackTitleText}>
+                <span
+                    ref={navTitleRef}
+                    className={`${styles.trackTitleText} ${navTitleOverflow ? styles.navMarqueeInner : ''}`}
+                >
                     {currentTrack?.title || '未知'}
                 </span>
+                {/* 双份文本实现无缝循环滚动 */}
+                {navTitleOverflow && (
+                    <span
+                        className={`${styles.trackTitleText} ${styles.navMarqueeInner}`}
+                        aria-hidden="true"
+                    >
+                        {currentTrack?.title || '未知'}
+                    </span>
+                )}
                 {isPlaying && <span className={styles.playingDot} />}
             </button>
 
@@ -125,18 +155,36 @@ function MusicPanel(): React.ReactElement {
     const panelRef = useRef<HTMLDivElement>(null);
     const currentTrack = pl[trackIndex] ?? null;
 
+    // 歌词悬浮窗锁定状态 (从 localStorage 读取，与 AssLyrics 共享)
+    const [lyricsLocked, setLyricsLocked] = useState(() => {
+        try { return localStorage.getItem(LOCK_KEY) === 'true'; } catch { return false; }
+    });
+
+    // 静音功能：记录静音前的音量
+    const [muted, setMuted] = useState(false);
+    const prevVolumeRef = useRef(volume);
+
+    // 监听 localStorage 变化同步锁定状态
+    useEffect(() => {
+        const handleStorage = (e: StorageEvent) => {
+            if (e.key === LOCK_KEY && e.newValue !== null) {
+                setLyricsLocked(e.newValue === 'true');
+            }
+        };
+        window.addEventListener('storage', handleStorage);
+        return () => window.removeEventListener('storage', handleStorage);
+    }, []);
+
     // 点击外部关闭面板
     useEffect(() => {
         const handler = (e: MouseEvent) => {
             if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
-                // 检查是否点击了 navbar 按钮区域
                 const btn = (e.target as HTMLElement).closest(`.${styles.navbarBtn}`);
                 if (!btn) {
                     closePanel();
                 }
             }
         };
-        // 延迟添加，防止当前点击立即触发
         const timer = setTimeout(() => {
             document.addEventListener('mousedown', handler);
         }, 100);
@@ -146,17 +194,15 @@ function MusicPanel(): React.ReactElement {
         };
     }, [closePanel]);
 
-    // 进度条拖拽 - 用 ref 跟踪是否正在拖拽，减少 seek 调用
+    // 进度条拖拽
     const seekingRef = useRef(false);
     const seekValueRef = useRef(0);
 
-    // input 事件: 实时更新显示值但不频繁 seek
     const handleSeekInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         seekingRef.current = true;
         seekValueRef.current = parseFloat(e.target.value);
     }, []);
 
-    // change 事件 (鼠标松开时): 真正执行 seek
     const handleSeekChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const time = parseFloat(e.target.value);
         seekingRef.current = false;
@@ -165,8 +211,65 @@ function MusicPanel(): React.ReactElement {
 
     // 音量拖拽
     const handleVolume = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setVolume(parseFloat(e.target.value));
+        const vol = parseFloat(e.target.value);
+        setVolume(vol);
+        if (vol > 0) {
+            setMuted(false);
+            prevVolumeRef.current = vol;
+        }
     }, [setVolume]);
+
+    // 一键静音/取消静音
+    const toggleMute = useCallback(() => {
+        if (muted || volume === 0) {
+            // 取消静音：恢复之前的音量
+            const restoreVol = prevVolumeRef.current > 0 ? prevVolumeRef.current : 0.7;
+            setVolume(restoreVol);
+            setMuted(false);
+        } else {
+            // 静音
+            prevVolumeRef.current = volume;
+            setVolume(0);
+            setMuted(true);
+        }
+    }, [muted, volume, setVolume]);
+
+    // 切换歌词悬浮窗锁定状态
+    const toggleLyricsLock = useCallback(() => {
+        const next = !lyricsLocked;
+        setLyricsLocked(next);
+        try { localStorage.setItem(LOCK_KEY, JSON.stringify(next)); } catch { /* ignore */ }
+        // 触发 storage 事件让 AssLyrics 同步（同一标签页需要手动 dispatch）
+        window.dispatchEvent(new StorageEvent('storage', {
+            key: LOCK_KEY,
+            newValue: JSON.stringify(next),
+        }));
+    }, [lyricsLocked]);
+
+    // 获取音量图标
+    const VolumeIcon = volume === 0 || muted ? FaVolumeMute : volume < 0.5 ? FaVolumeDown : FaVolumeUp;
+
+    // 判断文字是否需要滚动（用于歌名和歌手）
+    // 用 hidden span 测量文本真实宽度，再与父容器宽度对比
+    const nameRef = useRef<HTMLDivElement>(null);
+    const artistRef = useRef<HTMLDivElement>(null);
+    const nameTextRef = useRef<HTMLSpanElement>(null);
+    const artistTextRef = useRef<HTMLSpanElement>(null);
+    const [nameOverflow, setNameOverflow] = useState(false);
+    const [artistOverflow, setArtistOverflow] = useState(false);
+
+    useEffect(() => {
+        // 延迟一帧检测，确保 DOM 已渲染
+        const raf = requestAnimationFrame(() => {
+            if (nameRef.current && nameTextRef.current) {
+                setNameOverflow(nameTextRef.current.scrollWidth > nameRef.current.clientWidth);
+            }
+            if (artistRef.current && artistTextRef.current) {
+                setArtistOverflow(artistTextRef.current.scrollWidth > artistRef.current.clientWidth);
+            }
+        });
+        return () => cancelAnimationFrame(raf);
+    }, [trackIndex, currentTrack?.title, currentTrack?.artist]);
 
     return (
         <div ref={panelRef} className={styles.panel}>
@@ -175,11 +278,37 @@ function MusicPanel(): React.ReactElement {
                 {currentTrack?.coverUrl ? (
                     <img src={currentTrack.coverUrl} alt="" className={styles.cover} />
                 ) : (
-                    <div className={styles.coverPlaceholder}>🎵</div>
+                    <div className={styles.coverPlaceholder}>
+                        <FaMusic size={20} />
+                    </div>
                 )}
                 <div className={styles.trackMeta}>
-                    <div className={styles.trackName}>{currentTrack?.title || '无曲目'}</div>
-                    <div className={styles.trackArtist}>{currentTrack?.artist || ''}</div>
+                    <div
+                        ref={nameRef}
+                        className={`${styles.trackName} ${nameOverflow ? styles.marquee : ''}`}
+                    >
+                        <span ref={nameTextRef} className={nameOverflow ? styles.marqueeInner : undefined}>
+                            {currentTrack?.title || '无曲目'}
+                        </span>
+                        {nameOverflow && (
+                            <span className={styles.marqueeInner} aria-hidden="true">
+                                {currentTrack?.title || '无曲目'}
+                            </span>
+                        )}
+                    </div>
+                    <div
+                        ref={artistRef}
+                        className={`${styles.trackArtist} ${artistOverflow ? styles.marquee : ''}`}
+                    >
+                        <span ref={artistTextRef} className={artistOverflow ? styles.marqueeInner : undefined}>
+                            {currentTrack?.artist || ''}
+                        </span>
+                        {artistOverflow && (
+                            <span className={styles.marqueeInner} aria-hidden="true">
+                                {currentTrack?.artist || ''}
+                            </span>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -209,35 +338,36 @@ function MusicPanel(): React.ReactElement {
                     {PLAY_MODE_INFO[playMode].icon}
                 </button>
                 <button onClick={prev} className={styles.controlBtn} title="上一曲">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
-                    </svg>
+                    <FaStepBackward size={14} />
                 </button>
                 <button onClick={toggle} className={styles.controlBtnMain} title={isPlaying ? '暂停' : '播放'}>
-                    {isPlaying ? (
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                            <rect x="6" y="4" width="4" height="16" rx="1" />
-                            <rect x="14" y="4" width="4" height="16" rx="1" />
-                        </svg>
-                    ) : (
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    )}
+                    {isPlaying ? <FaPause size={18} /> : <FaPlay size={18} style={{ marginLeft: 2 }} />}
                 </button>
                 <button onClick={next} className={styles.controlBtn} title="下一曲">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
-                    </svg>
+                    <FaStepForward size={14} />
                 </button>
+                {/* 歌词悬浮窗锁定按钮 */}
+                {showLyrics && (
+                    <button
+                        onClick={toggleLyricsLock}
+                        className={`${styles.controlBtn} ${lyricsLocked ? styles.controlBtnActive : ''}`}
+                        title={lyricsLocked ? '解锁歌词悬浮窗' : '锁定歌词悬浮窗（全透明穿透）'}
+                    >
+                        {lyricsLocked ? <FaLock size={12} /> : <FaLockOpen size={12} />}
+                    </button>
+                )}
             </div>
 
             {/* 音量 + 歌词按钮 */}
             <div className={styles.bottomRow}>
                 <div className={styles.volumeRow}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" opacity={0.6}>
-                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
-                    </svg>
+                    <button
+                        onClick={toggleMute}
+                        className={styles.volumeBtn}
+                        title={muted || volume === 0 ? '取消静音' : '静音'}
+                    >
+                        <VolumeIcon size={14} />
+                    </button>
                     <input
                         type="range"
                         min={0}
@@ -247,6 +377,7 @@ function MusicPanel(): React.ReactElement {
                         onChange={handleVolume}
                         className={styles.volumeBar}
                     />
+                    <span className={styles.volumeLabel}>{Math.round(volume * 100)}%</span>
                 </div>
                 {currentTrack?.assUrl && (
                     <>
@@ -263,7 +394,7 @@ function MusicPanel(): React.ReactElement {
                                 className={styles.lyricsBtn}
                                 title="重置歌词悬浮窗位置"
                             >
-                                ↺
+                                <FaRedo size={10} />
                             </button>
                         )}
                     </>
