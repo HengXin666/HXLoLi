@@ -39,6 +39,8 @@ export interface MusicState {
     isPlaying: boolean;
     /** 音量 0-1 */
     volume: number;
+    /** 歌词悬浮窗是否显示 */
+    showLyrics?: boolean;
     /** 时间戳, 用于计算实际播放位置 */
     timestamp: number;
 }

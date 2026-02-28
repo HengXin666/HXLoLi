@@ -93,6 +93,7 @@ function saveState(state: MusicPlayerState): void {
             duration: state.duration,
             isPlaying: state.isPlaying,
             volume: state.volume,
+            showLyrics: state.showLyrics,
             timestamp: Date.now(),
         };
         sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -218,6 +219,7 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                     duration: s.duration,
                     isPlaying: s.isPlaying,
                     volume: s.volume,
+                    showLyrics: s.showLyrics,
                     timestamp: Date.now(),
                 });
             }
@@ -366,6 +368,12 @@ export const useMusicStore = create<MusicStore>((set, get) => {
             // 仅在浏览器环境中运行
             if (typeof window === 'undefined') return;
 
+            // 尝试恢复 showLyrics 状态 (无论 Leader/Follower 都需要)
+            const savedInit = loadState();
+            if (savedInit?.showLyrics !== undefined) {
+                set({ showLyrics: savedInit.showLyrics });
+            }
+
             // 初始化跨 Tab 同步
             crossTab = new CrossTabMusicSync();
             crossTab.init({
@@ -408,6 +416,10 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                         loadTrack(saved.trackIndex, saved.isPlaying, saved.currentTime);
                         set({ volume: saved.volume });
                         audio!.volume = saved.volume;
+                        // 恢复歌词悬浮窗状态
+                        if (saved.showLyrics !== undefined) {
+                            set({ showLyrics: saved.showLyrics });
+                        }
                     } else if (list.length > 0) {
                         // 没有保存状态时，预加载第一首歌（不自动播放）
                         loadTrack(0, false);
@@ -429,13 +441,17 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                 },
                 onStateUpdate: (state: MusicState) => {
                     // Follower 收到状态同步
-                    set({
+                    const update: any = {
                         trackIndex: state.trackIndex,
                         currentTime: state.currentTime,
                         duration: state.duration,
                         isPlaying: state.isPlaying,
                         volume: state.volume,
-                    });
+                    };
+                    if (state.showLyrics !== undefined) {
+                        update.showLyrics = state.showLyrics;
+                    }
+                    set(update);
                     // 也保存到 sessionStorage, 以便这个 Tab 变成 Leader 时恢复
                     saveState(get());
                 },
