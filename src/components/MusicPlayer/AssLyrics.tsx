@@ -273,11 +273,19 @@ export default function AssLyrics(): React.ReactElement | null {
                 return;
             }
 
+            // 字体配置：Worker 通过 fetch 下载字体文件，需要完整可访问的 URL
+            const fallbackFontUrl = `${baseUrl}music/ass-worker/default.ttf`;
+
             try {
                 const instance = new Ctor({
                     canvas: canvas,
                     subUrl: currentTrack.assUrl,
                     fonts: currentTrack.fonts || [],
+                    availableFonts: {
+                        'arial': fallbackFontUrl,
+                        'liberation sans': fallbackFontUrl,
+                    },
+                    fallbackFont: fallbackFontUrl,
                     workerUrl,
                     legacyWorkerUrl,
                     renderMode: 'wasm-blend',
