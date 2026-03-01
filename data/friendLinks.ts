@@ -46,7 +46,7 @@ export const friendLinks: FriendLink[] = [
     github: "https://github.com/HengXin666",
     avatar: "https://avatars.githubusercontent.com/u/103022267",
     description: "ここから先は一方通行だ!",
-  },{
+  }, {
     name: "HXLoLi",
     owner: "Heng_Xin",
     url: "https://hengxin666.github.io/HXLoLi",
