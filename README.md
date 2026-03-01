@@ -14,7 +14,7 @@
 
 ## 二、功能亮点
 
-### Anime - 番剧追番记录
+### 2.1 Anime - 番剧追番记录
 
 集成 [Bangumi](https://bgm.tv/) 数据, 展示个人追番记录与详细信息。
 
@@ -25,7 +25,7 @@
 
 > 数据通过 Python 脚本从 Bangumi API 抓取并存储为 JSON, 前端通过 jsDelivr CDN 加载. (更新日志: ([#17](https://github.com/HengXin666/HXLoLi/issues/17)))
 
-### Music - 音乐播放器
+### 2.2 Music - 音乐播放器
 
 内置全局音乐播放器, 支持在浏览博客的同时享受音乐。
 
