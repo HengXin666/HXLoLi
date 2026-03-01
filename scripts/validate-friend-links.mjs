@@ -55,7 +55,7 @@ try {
     .split('\n')
     .filter(Boolean);
 } catch {
-  // 如果 merge-base 比较失败，尝试直接 diff
+  // 如果 merge-base 比较失败, 尝试直接 diff
   changedFiles = execSync(`git diff --name-only ${baseSha} HEAD`, {
     cwd: ROOT,
     encoding: 'utf-8',
@@ -69,11 +69,11 @@ const ALLOWED_FILE = 'data/friendLinks.ts';
 const disallowed = changedFiles.filter((f) => f !== ALLOWED_FILE);
 
 if (disallowed.length > 0) {
-  fail(`PR 只允许修改 ${ALLOWED_FILE}，但还修改了: ${disallowed.join(', ')}`);
+  fail(`PR 只允许修改 ${ALLOWED_FILE}, 但还修改了: ${disallowed.join(', ')}`);
 }
 
 if (!changedFiles.includes(ALLOWED_FILE)) {
-  fail(`PR 没有修改 ${ALLOWED_FILE}，无需验证友链`);
+  fail(`PR 没有修改 ${ALLOWED_FILE}, 无需验证友链`);
 }
 
 /* ========== 2. 解析新旧友链数据 ========== */
@@ -122,7 +122,7 @@ try {
   });
   baseLinks = parseFriendLinks(baseSource);
 } catch {
-  log.warn('无法获取基准版本的友链数据，跳过增量检查 (可能是首次添加)');
+  log.warn('无法获取基准版本的友链数据, 跳过增量检查 (可能是首次添加)');
 }
 
 log.ok(`基准版本: ${baseLinks.length} 条友链, 当前版本: ${currentLinks.length} 条友链`);
@@ -154,12 +154,28 @@ for (let i = 0; i < currentLinks.length; i++) {
 
   // GitHub 链接格式
   if (link.github && !/^https:\/\/github\.com\/[\w-]+\/?$/.test(link.github)) {
-    fail(`${prefix}: "github" 格式不正确，应为 https://github.com/用户名`);
+    fail(`${prefix}: "github" 格式不正确, 应为 https://github.com/用户名`);
   }
 
   // 描述长度
   if (link.description && link.description.length > MAX_DESC_LEN) {
     fail(`${prefix}: "description" 超过 ${MAX_DESC_LEN} 字 (当前 ${link.description.length} 字)`);
+  }
+}
+
+// 检查 github 字段是否有重复 (不允许多条友链使用相同的 github 链接)
+log.info('检查 github 字段唯一性...');
+const githubCounts = new Map();
+for (const link of currentLinks) {
+  const key = link.github?.toLowerCase().replace(/\/$/, '');
+  if (key) {
+    const count = githubCounts.get(key) || 0;
+    githubCounts.set(key, count + 1);
+  }
+}
+for (const [github, count] of githubCounts) {
+  if (count > 1) {
+    fail(`github 字段 "${github}" 出现了 ${count} 次, 每个 GitHub 用户只允许添加一条友链`);
   }
 }
 
@@ -213,35 +229,52 @@ log.info('检查 GitHub 链接与提交人一致性...');
 log.info(`PR 提交人 (PR_AUTHOR): "${prAuthor || '(未设置)'}"`);
 
 if (prAuthor) {
-  // 找出新增的记录
-  const baseGithubs = new Set(
-    baseLinks.map((l) => l.github?.toLowerCase().replace(/\/$/, ''))
-  );
+  /**
+   * 通过逐条索引比对来识别新增记录
+   * 不再仅依赖 github 字段作为唯一标识, 避免出现:
+   * 用户复制已有记录的 github 字段, 导致被误判为 "已有记录" 而跳过检查
+   */
+  const newLinks = [];
+  for (let i = 0; i < currentLinks.length; i++) {
+    // 如果索引超出基准版本范围, 说明是新增的
+    if (i >= baseLinks.length) {
+      newLinks.push(currentLinks[i]);
+      continue;
+    }
+    // 如果同一索引位置的记录内容不同, 也视为新增/被篡改
+    const base = baseLinks[i];
+    const curr = currentLinks[i];
+    const changed = REQUIRED_FIELDS.some((f) => base[f] !== curr[f]);
+    if (changed) {
+      newLinks.push(curr);
+    }
+  }
 
-  for (const link of currentLinks) {
+  if (newLinks.length === 0) {
+    log.info('未发现新增/变更的友链记录');
+  }
+
+  for (const link of newLinks) {
     const key = link.github?.toLowerCase().replace(/\/$/, '');
-    if (!baseGithubs.has(key)) {
-      // 新增记录 — github 链接必须与 PR 提交人一致
-      const linkOwner = key?.split('/').pop() || '';
-      log.info(`新增友链 "${link.name}": github 用户 = "${linkOwner}", PR 提交人 = "${prAuthor}"`);
-      if (linkOwner !== prAuthor) {
-        fail(
-          `新增友链的 github 字段必须与 PR 提交人一致: github 用户 "${linkOwner}" ≠ PR 提交人 "${prAuthor}"`
-        );
-      } else {
-        log.ok(`新增友链 "${link.name}" 的 github 字段与 PR 提交人一致 ✓`);
-      }
+    const linkOwner = key?.split('/').pop() || '';
+    log.info(`新增/变更友链 "${link.name}": github 用户 = "${linkOwner}", PR 提交人 = "${prAuthor}"`);
+    if (linkOwner !== prAuthor) {
+      fail(
+        `新增/变更友链的 github 字段必须与 PR 提交人一致: github 用户 "${linkOwner}" ≠ PR 提交人 "${prAuthor}"`
+      );
+    } else {
+      log.ok(`新增/变更友链 "${link.name}" 的 github 字段与 PR 提交人一致 ✓`);
     }
   }
 } else {
-  log.warn('未设置 PR_AUTHOR 环境变量，跳过提交人一致性检查 (本地测试模式)');
+  log.warn('未设置 PR_AUTHOR 环境变量, 跳过提交人一致性检查 (本地测试模式)');
 }
 
 /* ========== 6. TypeScript 编译检查 (仅检查友链数据文件) ========== */
 log.info('运行 TypeScript 类型检查 (仅 data/friendLinks.ts)...');
 
 try {
-  // 仅对友链数据文件进行编译检查，避免项目其他无关的 TS 错误导致误判
+  // 仅对友链数据文件进行编译检查, 避免项目其他无关的 TS 错误导致误判
   execSync(
     'npx tsc --noEmit --strict --esModuleInterop --resolveJsonModule --moduleResolution node --target ES2020 --module ES2020 --skipLibCheck data/friendLinks.ts',
     { cwd: ROOT, encoding: 'utf-8', stdio: 'pipe' }
@@ -266,7 +299,7 @@ log.info('检查所有链接的可达性 (HTTP 200)...');
 
 /**
  * 检测 URL 是否可达
- * 带重试机制，最多重试 2 次
+ * 带重试机制, 最多重试 2 次
  */
 async function checkUrl(url, retries = 2) {
   for (let attempt = 0; attempt <= retries; attempt++) {
@@ -286,7 +319,7 @@ async function checkUrl(url, retries = 2) {
 
       if (resp.ok) return { url, ok: true };
 
-      // 某些站点不支持 HEAD，用 GET 再试
+      // 某些站点不支持 HEAD, 用 GET 再试
       if (resp.status === 405 || resp.status === 403) {
         const controller2 = new AbortController();
         const timeout2 = setTimeout(() => controller2.abort(), 15000);
