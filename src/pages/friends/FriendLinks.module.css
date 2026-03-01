@@ -409,3 +409,229 @@
 .cardWrapper:nth-child(10) { animation-delay: 0.50s; }
 .cardWrapper:nth-child(11) { animation-delay: 0.55s; }
 .cardWrapper:nth-child(12) { animation-delay: 0.60s; }
+
+/* ========== 申请友链引导弹窗 ========== */
+
+/* 遮罩层 */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: modalFadeIn 0.25s ease;
+  padding: 1rem;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* 弹窗容器 */
+.modalContent {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: #1a1a2e;
+  border: 1px solid #ff88ff44;
+  border-radius: 20px;
+  padding: 2rem 2rem 1.5rem;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 136, 255, 0.1);
+  animation: modalSlideUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(32px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* 关闭按钮 */
+.modalClose {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #929AA1;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.modalClose:hover {
+  background: rgba(255, 136, 255, 0.15);
+  border-color: #ff88ff66;
+  color: #ff88ff;
+}
+
+/* 标题 & 副标题 */
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff88ff, #c084fc, #6be4f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 0.35rem;
+}
+
+.modalSubtitle {
+  color: #929AA1;
+  font-size: 0.9rem;
+  margin: 0 0 1.5rem;
+}
+
+/* 步骤列表 */
+.modalSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.stepItem {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+}
+
+/* 步骤编号徽标 */
+.stepBadge {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff88ff33, #c084fc33);
+  border: 1px solid #ff88ff55;
+  color: #ff88ff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.stepBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.stepTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin-bottom: 0.25rem;
+}
+
+.stepTitle code {
+  background: rgba(255, 136, 255, 0.12);
+  color: #ff88ff;
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.stepDesc {
+  font-size: 0.85rem;
+  color: #929AA1;
+  line-height: 1.55;
+}
+
+.stepDesc strong {
+  color: #c084fc;
+}
+
+/* 图片占位区域 — 到时候替换为真实截图 */
+.stepImgPlaceholder {
+  margin-top: 0.6rem;
+  padding: 1.5rem 1rem;
+  border-radius: 10px;
+  border: 1px dashed #ff88ff33;
+  background: rgba(255, 136, 255, 0.03);
+  color: #929AA1;
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+/* 底部操作区 */
+.modalFooter {
+  margin-top: 1.8rem;
+  display: flex;
+  justify-content: center;
+}
+
+.modalGoBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 2rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff88ff22, #c084fc22);
+  border: 1px solid #ff88ff66;
+  color: #ff88ff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.35s ease;
+}
+
+.modalGoBtn:hover {
+  background: linear-gradient(135deg, #ff88ff33, #c084fc33);
+  border-color: #ff88ffaa;
+  color: #ffaaff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 136, 255, 0.25);
+  text-decoration: none;
+}
+
+/* 弹窗内部滚动条美化 */
+.modalContent::-webkit-scrollbar {
+  width: 5px;
+}
+
+.modalContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+  background: #ff88ff33;
+  border-radius: 4px;
+}
+
+.modalContent::-webkit-scrollbar-thumb:hover {
+  background: #ff88ff66;
+}
+
+/* 移动端适配 */
+@media (max-width: 520px) {
+  .modalContent {
+    padding: 1.5rem 1.2rem 1.2rem;
+    border-radius: 16px;
+  }
+
+  .modalTitle {
+    font-size: 1.25rem;
+  }
+
+  .stepItem {
+    gap: 0.65rem;
+  }
+
+  .modalGoBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
