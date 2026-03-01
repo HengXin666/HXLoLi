@@ -212,6 +212,7 @@ if (baseLinks.length > 0) {
 
 /* ========== 5. GitHub 链接与 PR 提交人一致性 ========== */
 log.info('检查 GitHub 链接与提交人一致性...');
+log.info(`PR 提交人 (PR_AUTHOR): "${prAuthor || '(未设置)'}"`);
 
 if (prAuthor) {
   // 找出新增的记录
@@ -224,10 +225,13 @@ if (prAuthor) {
     if (!baseGithubs.has(key)) {
       // 新增记录 — github 链接必须与 PR 提交人一致
       const linkOwner = key?.split('/').pop() || '';
+      log.info(`新增友链 "${link.name}": github 用户 = "${linkOwner}", PR 提交人 = "${prAuthor}"`);
       if (linkOwner !== prAuthor) {
         fail(
           `新增友链的 github 字段必须与 PR 提交人一致: github 用户 "${linkOwner}" ≠ PR 提交人 "${prAuthor}"`
         );
+      } else {
+        log.ok(`新增友链 "${link.name}" 的 github 字段与 PR 提交人一致 ✓`);
       }
     }
   }

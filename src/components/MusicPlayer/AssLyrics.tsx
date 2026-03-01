@@ -100,9 +100,10 @@ function saveSubtitleOffset(offset: number): void {
 
 function loadPreprocessAss(): boolean {
     try {
-        return localStorage.getItem(PREPROCESS_ASS_KEY) === 'true';
+        const raw = localStorage.getItem(PREPROCESS_ASS_KEY);
+        if (raw !== null) return raw === 'true';
     } catch { /* ignore */ }
-    return true;
+    return true; // 默认开启
 }
 
 function savePreprocessAss(enabled: boolean): void {

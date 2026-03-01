@@ -1,7 +1,7 @@
 name: 🔗 友链 PR 验证
 
 on:
-  pull_request:
+  pull_request_target:
     paths:
       - 'data/friendLinks.ts'
 
@@ -20,10 +20,19 @@ jobs:
     name: 🔍 自动验证友链数据
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 检出代码
+      - name: 📥 检出主仓库代码 (可信的验证脚本)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 需要完整历史用于 diff
+          ref: ${{ github.event.pull_request.base.ref }}
+          fetch-depth: 0
+
+      - name: 🔀 获取 PR 提交的代码变更
+        run: |
+          git remote add pr_fork ${{ github.event.pull_request.head.repo.clone_url }} || true
+          git fetch pr_fork ${{ github.event.pull_request.head.ref }}
+          git checkout -B pr_branch FETCH_HEAD
+          # 此时工作区是 PR 的代码, 但 scripts/ 目录下的验证脚本来自主仓库
+          git checkout ${{ github.event.pull_request.base.sha }} -- scripts/validate-friend-links.mjs
 
       - name: 📦 安装 Node.js
         uses: actions/setup-node@v4
@@ -38,7 +47,9 @@ jobs:
         env:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
-        run: node scripts/validate-friend-links.mjs
+        run: |
+          echo "PR Author: $PR_AUTHOR"
+          node scripts/validate-friend-links.mjs
 
       - name: 💬 验证失败 - 评论 PR
         if: failure()
