@@ -105,12 +105,12 @@ function ApplyModal ({ open, onClose }: { open: boolean; onClose: () => void }) 
             <div className={styles.stepBody}>
               <div className={styles.stepTitle}>保存并提交 PR</div>
               <div className={styles.stepDesc}>
-                点击 <strong>Propose changes</strong> 按钮后, 在 PR 创建页面
-                的模板下拉框中选择 <strong>friend_link</strong> 模板,
-                按提示填写后提交即可, CI 会自动校验。
+                点击 <strong>Propose changes</strong> 按钮, PR 描述会
+                <strong>自动填充友链模板</strong>, 按提示填写自检清单后提交即可,
+                CI 会自动校验。
               </div>
               {/* TODO: 到时候贴图 — 步骤3示意图 */}
-              <div className={styles.stepImgPlaceholder}>📸 示意图 — 提交 PR & 选择模板</div>
+              <div className={styles.stepImgPlaceholder}>📸 示意图 — 提交 PR</div>
             </div>
           </div>
         </div>
