@@ -1,0 +1,411 @@
+/* 友链页面样式 */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: visible;
+  padding: 2rem 0 0;
+}
+
+/* 顶部装饰背景光晕 */
+.headerBg {
+  position: absolute;
+  top: -60%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 136, 255, 0.08) 0%, rgba(107, 228, 246, 0.05) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: headerGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes headerGlow {
+  0% {
+    opacity: 0.6;
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.15);
+  }
+}
+
+.title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ff88ff, #c084fc, #6be4f6);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  animation: gradientShift 4s ease-in-out infinite alternate;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.titleIcon {
+  font-size: 2rem;
+  animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-3px) rotate(-5deg);
+  }
+  75% {
+    transform: translateY(-3px) rotate(5deg);
+  }
+}
+
+.subtitle {
+  color: #929AA1;
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.15em;
+  font-style: italic;
+}
+
+/* 头图包裹容器 */
+.headerImageWrapper {
+  position: relative;
+  display: inline-block;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 1.8rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 136, 255, 0.15);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1;
+  /* 允许内部绝对定位 */
+  max-width: 100%;
+}
+
+.headerImageWrapper:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 136, 255, 0.3),
+    0 0 40px rgba(255, 136, 255, 0.08);
+}
+
+.headerImage {
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.headerImageWrapper:hover .headerImage {
+  transform: scale(1.05);
+}
+
+/* 头图底部渐变遮罩 */
+.headerImageOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(26, 26, 46, 0.7), transparent);
+  pointer-events: none;
+}
+
+.addButton {
+  /* 绝对定位在图片右上角 */
+  position: absolute;
+  top: 14px;
+  right: 64px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  background: rgba(26, 26, 46, 0.75);
+  border: 1px solid #ff88ff55;
+  color: #ff88ff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: btnPulse 3s ease-in-out infinite;
+}
+
+@keyframes btnPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 136, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(255, 136, 255, 0);
+  }
+}
+
+.addButton:hover {
+  background: rgba(255, 136, 255, 0.2);
+  border-color: #ff88ffcc;
+  color: #ffaaff;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 24px rgba(255, 136, 255, 0.3), 0 0 0 3px rgba(255, 136, 255, 0.08);
+  text-decoration: none;
+  animation: none;
+}
+
+/* 卡片网格 */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 卡片外层 - 渐变边框效果 */
+.cardWrapper {
+  position: relative;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, #ff88ff22, #6be4f622);
+  transition: all 0.4s ease;
+}
+
+.cardWrapper:hover {
+  background: linear-gradient(135deg, #ff88ff66, #6be4f666);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(107, 228, 246, 0.15), 0 4px 16px rgba(255, 136, 255, 0.1);
+}
+
+/* 卡片内容 */
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 15px;
+  background: #1a1a2e;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.card:hover {
+  text-decoration: none;
+  color: inherit;
+  background: #1e1e35;
+}
+
+/* 背景光晕效果 */
+.card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 136, 255, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  opacity: 0;
+}
+
+.cardWrapper:hover .card::before {
+  opacity: 1;
+}
+
+/* 头像 */
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #ff88ff33;
+  transition: all 0.4s ease;
+  background: #2a2a4a;
+}
+
+.cardWrapper:hover .avatar {
+  border-color: #ff88ff88;
+  box-shadow: 0 0 16px rgba(255, 136, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* 信息区 */
+.info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nameRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.3s ease;
+}
+
+.cardWrapper:hover .name {
+  color: #ff88ff;
+}
+
+.owner {
+  font-size: 0.78rem;
+  color: #6be4f6aa;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.owner:hover {
+  color: #6be4f6 !important;
+  text-decoration: underline;
+}
+
+.description {
+  font-size: 0.85rem;
+  color: #929AA1;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+/* 链接图标 */
+.linkIcon {
+  color: #929AA1;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateX(-8px);
+}
+
+.cardWrapper:hover .linkIcon {
+  opacity: 1;
+  transform: translateX(0);
+  color: #6be4f6;
+}
+
+/* 空状态 */
+.empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #929AA1;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.emptyText {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* 底部提示 */
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-radius: 12px;
+  background: #1a1a2e88;
+  border: 1px dashed #ff88ff33;
+}
+
+.footerText {
+  color: #929AA1;
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.footerLink {
+  color: #ff88ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+  color: #ffaaff;
+}
+
+/* 入场动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cardWrapper {
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+
+.cardWrapper:nth-child(1) { animation-delay: 0.05s; }
+.cardWrapper:nth-child(2) { animation-delay: 0.10s; }
+.cardWrapper:nth-child(3) { animation-delay: 0.15s; }
+.cardWrapper:nth-child(4) { animation-delay: 0.20s; }
+.cardWrapper:nth-child(5) { animation-delay: 0.25s; }
+.cardWrapper:nth-child(6) { animation-delay: 0.30s; }
+.cardWrapper:nth-child(7) { animation-delay: 0.35s; }
+.cardWrapper:nth-child(8) { animation-delay: 0.40s; }
+.cardWrapper:nth-child(9) { animation-delay: 0.45s; }
+.cardWrapper:nth-child(10) { animation-delay: 0.50s; }
+.cardWrapper:nth-child(11) { animation-delay: 0.55s; }
+.cardWrapper:nth-child(12) { animation-delay: 0.60s; }

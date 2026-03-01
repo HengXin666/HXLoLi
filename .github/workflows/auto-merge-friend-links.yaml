@@ -1,0 +1,167 @@
+name: "[LoLi]: 自动合并友链 PR"
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+    paths:
+      - 'data/friendLinks.ts'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  # --- Job 1: 自动审批并合并友链 PR ---
+  auto-merge-friend-link-pr:
+    # 安全校验: 仅处理满足所有条件的 PR
+    # 1. PR 标题包含 [友链]
+    # 2. PR 不是来自 fork 仓库 (安全考虑, 也可以放开此限制)
+    if: |
+      contains(github.event.pull_request.title, '[友链]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: 安全校验
+        run: |
+          echo "🔗 友链 PR 安全校验:"
+          echo "  - 提交者: ${{ github.event.pull_request.user.login }}"
+          echo "  - 来源仓库: ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "  - 目标仓库: ${{ github.repository }}"
+          echo "  - PR 标题: ${{ github.event.pull_request.title }}"
+
+      - name: 校验 PR 只修改了 data/friendLinks.ts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # 获取 PR 修改的文件列表
+          CHANGED_FILES=$(gh pr diff "${PR_NUMBER}" \
+            --repo "${{ github.repository }}" \
+            --name-only)
+          echo "📄 PR 修改的文件:"
+          echo "${CHANGED_FILES}"
+
+          # 只允许修改 data/friendLinks.ts
+          ALLOWED_FILES="data/friendLinks.ts"
+          while IFS= read -r file; do
+            if [ -n "$file" ] && ! echo "${ALLOWED_FILES}" | grep -qF "$file"; then
+              echo "❌ 发现未授权的文件修改: ${file}"
+              echo "🚫 安全校验失败, 拒绝自动合并!"
+              exit 1
+            fi
+          done <<< "${CHANGED_FILES}"
+          echo "✅ 文件修改范围校验通过 (仅修改 data/friendLinks.ts)"
+
+      - name: 校验友链数据格式
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # 检出 PR 的代码
+          gh pr checkout "${PR_NUMBER}" --repo "${{ github.repository }}"
+
+          # 简单校验: 检查 friendLinks.ts 是否有语法错误 (使用 node 解析)
+          node -e "
+            const fs = require('fs');
+            const content = fs.readFileSync('data/friendLinks.ts', 'utf-8');
+
+            // 检查基本结构
+            if (!content.includes('friendLinks')) {
+              console.error('❌ 文件中未找到 friendLinks 导出');
+              process.exit(1);
+            }
+
+            // 检查是否包含必要的字段关键字
+            const requiredFields = ['name', 'owner', 'url', 'github', 'avatar', 'description'];
+            for (const field of requiredFields) {
+              if (!content.includes(field)) {
+                console.error('❌ 文件中缺少必要字段: ' + field);
+                process.exit(1);
+              }
+            }
+
+            // 检查是否有明显的恶意代码 (import/require/eval/fetch 等)
+            const dangerousPatterns = [/require\s*\(/, /import\s+.*from/, /eval\s*\(/, /Function\s*\(/];
+            // 排除原始的 export/interface 声明
+            const cleanContent = content
+              .replace(/export\s+(interface|const|type)/g, '')
+              .replace(/import\s+type/g, '');
+
+            for (const pattern of dangerousPatterns) {
+              if (pattern.test(cleanContent)) {
+                console.error('❌ 检测到可疑代码模式: ' + pattern.toString());
+                process.exit(1);
+              }
+            }
+
+            console.log('✅ 友链数据格式校验通过');
+          "
+
+      - name: 审批并合并 PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_USER: ${{ github.event.pull_request.user.login }}
+        run: |
+          echo "🔗 检测到友链 PR #${PR_NUMBER} (by @${PR_USER})"
+          echo "📋 标题: ${{ github.event.pull_request.title }}"
+
+          # 审批 PR
+          echo "✅ 正在审批 PR..."
+          gh pr review "${PR_NUMBER}" \
+            --repo "${{ github.repository }}" \
+            --approve \
+            --body "🤖 友链审核通过, 自动合入にゃ♪ 欢迎 @${PR_USER} 的友链!"
+
+          # 等待一小会儿确保状态同步
+          sleep 5
+
+          # Squash 合并 PR
+          echo "🔀 正在合并 PR..."
+          gh pr merge "${PR_NUMBER}" \
+            --repo "${{ github.repository }}" \
+            --squash \
+            --subject "[友链]: 🔗 添加 @${PR_USER} 的友链にゃ♪" \
+            --delete-branch
+
+          echo "🎉 友链 PR #${PR_NUMBER} 合并成功!"
+
+  # --- Job 2: 合并成功后触发部署 ---
+  deploy-after-merge:
+    needs: auto-merge-friend-link-pr
+    runs-on: ubuntu-latest
+    steps:
+      - name: 同步最新代码
+        uses: actions/checkout@v4
+        with:
+          ref: 'main'
+
+      - name: 启动 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: 安装 dependencies
+        run: |
+          if [ -e yarn.lock ]; then
+            yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+            npm ci
+          else
+            npm i
+          fi
+
+      - name: 为工作流启用 SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
+
+      - name: 部署到 Github Pages
+        env:
+          USE_SSH: true
+          GIT_USER: Heng_Xin
+        run: |
+          git config --global user.email "282000500@qq.com"
+          git config --global user.name "Heng_Xin"
+          npm run deploy
