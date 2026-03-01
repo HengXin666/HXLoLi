@@ -173,6 +173,10 @@ const config: Config = {
               label: "归档",
             },
             {
+              to: "/friends",
+              label: "友链",
+            },
+            {
               href: "https://github.com/HengXin666/HXLoLi", // 项目的 GitHub 地址
               label: "GitHub",
             },

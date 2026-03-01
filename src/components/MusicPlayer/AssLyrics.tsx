@@ -603,7 +603,7 @@ export default function AssLyrics(): React.ReactElement | null {
                 return;
             }
 
-            const cjkFallbackUrl = toMusicCdnUrl('/music/fonts/NotoSansSC-Regular.ttf');
+            const cjkFallbackUrl = toMusicCdnUrl('/static/music/fonts/NotoSansSC-Regular.ttf');
             const availableFonts: Record<string, string> = {};
 
             const safeUrl = (url: string): string => {
