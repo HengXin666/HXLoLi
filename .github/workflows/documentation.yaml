@@ -122,10 +122,10 @@ jobs:
   # --- 脚本 3: 部署 ---
   deploy:
     needs: [sync-data, process-commit]
-    # 如果是手动触发, 或者脚本 1 有变动成功, 则执行部署
+    # 如果是 push/手动触发, 或者脚本 1 有变动成功, 则执行部署
     if: |
       always() &&
-      (github.event_name == 'workflow_dispatch' || needs.sync-data.outputs.changes_detected == 'true')
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || needs.sync-data.outputs.changes_detected == 'true')
     runs-on: ubuntu-latest
     steps:
       - name: 同步最新代码
