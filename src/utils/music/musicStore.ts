@@ -8,9 +8,10 @@
  *    - Follower 通过时间插值实现流畅的 ASS 歌词渲染
  * 3. 状态持久化 (sessionStorage 恢复播放)
  */
-import { playlist, type MusicTrack } from '@site/src/config/musicData';
+import type { MusicTrack } from '@site/src/config/musicData';
 import { create } from 'zustand';
 import { CrossTabMusicSync, type MusicCommand, type MusicState } from './crossTabSync';
+import { loadPlaylist } from './musicDataLoader';
 
 /** 播放模式 */
 export type PlayMode = 'list-loop' | 'single-loop' | 'shuffle';
@@ -457,7 +458,7 @@ export const useMusicStore = create<MusicStore>((set, get) => {
 
     return {
         // ---- 状态 ----
-        playlist,
+        playlist: [],
         trackIndex: 0,
         currentTime: 0,
         duration: 0,
@@ -478,6 +479,27 @@ export const useMusicStore = create<MusicStore>((set, get) => {
 
             // 仅在浏览器环境中运行
             if (typeof window === 'undefined') return;
+
+            // 异步加载播放列表 (从 HXLoLi-Music 仓库 CDN)
+            loadPlaylist().then(playlistData => {
+                set({ playlist: playlistData });
+                // 如果已经有 Leader 且 playlist 之前为空, 触发恢复
+                const s = get();
+                if (s.isLeader && playlistData.length > 0 && audio && !audio.src) {
+                    const shared = loadSharedState();
+                    const saved = loadState();
+                    const restoreTrack = shared?.trackIndex ?? saved?.trackIndex ?? 0;
+                    const restoreTime = shared?.currentTime ?? saved?.currentTime ?? 0;
+                    const restorePlaying = shared?.isPlaying ?? saved?.isPlaying ?? false;
+                    if (restoreTrack < playlistData.length) {
+                        loadTrack(restoreTrack, restorePlaying, restoreTime);
+                    } else {
+                        loadTrack(0, false);
+                    }
+                }
+            }).catch(err => {
+                console.error('[MusicPlayer] 加载播放列表失败:', err);
+            });
 
             // 尝试恢复 showLyrics 状态 (无论 Leader/Follower 都需要)
             const savedInit = loadState();

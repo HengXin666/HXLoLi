@@ -11,6 +11,7 @@
  * 不使用 require/import，因为 webpack 的 CJS/ESM interop 会破坏构造函数。
  */
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { toMusicCdnUrl } from '@site/src/utils/cdn/linkJsDelivr';
 import { useMusicStore } from '@site/src/utils/music/musicStore';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -101,7 +102,7 @@ function loadPreprocessAss(): boolean {
     try {
         return localStorage.getItem(PREPROCESS_ASS_KEY) === 'true';
     } catch { /* ignore */ }
-    return false;
+    return true;
 }
 
 function savePreprocessAss(enabled: boolean): void {
@@ -602,7 +603,7 @@ export default function AssLyrics(): React.ReactElement | null {
                 return;
             }
 
-            const cjkFallbackUrl = `${origin}${baseUrl}music/fonts/NotoSansSC-Regular.ttf`;
+            const cjkFallbackUrl = toMusicCdnUrl('/music/fonts/NotoSansSC-Regular.ttf');
             const availableFonts: Record<string, string> = {};
 
             const safeUrl = (url: string): string => {
