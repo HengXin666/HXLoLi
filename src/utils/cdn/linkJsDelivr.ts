@@ -1,5 +1,6 @@
+import { LATEST_COMMIT_ID } from "@site/data/gitVersion";
+import { MUSIC_COMMIT_ID } from "@site/data/musicVersion";
 import { GITHUB_CONFIG } from "@site/src/config/github";
-import { LATEST_COMMIT_ID } from "@site/data/gitVersion"
 
 /**
  * 将相对于项目根目录的文件路径转换为 jsDelivr 的 GitHub CDN URL
@@ -35,4 +36,19 @@ export function toJsDelivrLatestCommitUrl(relativePath: string): string {
     ? relativePath
     : `/${relativePath}`;
   return `https://cdn.jsdelivr.net/gh/${GITHUB_CONFIG.USER}/${GITHUB_CONFIG.REPO}@${LATEST_COMMIT_ID}${cleanPath}`;
+}
+
+/**
+ * 将相对于 HXLoLi-Music 仓库根目录的文件路径转换为 jsDelivr CDN URL
+ * @param relativePath - 相对于 Music 仓库根目录的路径 (例如, '/music/xxx.mp3')
+ * @returns 完整的 jsDelivr CDN URL
+ */
+export function toMusicCdnUrl(relativePath: string): string {
+  if (!relativePath) {
+    return "";
+  }
+  const cleanPath = relativePath.startsWith("/")
+    ? relativePath
+    : `/${relativePath}`;
+  return `https://cdn.jsdelivr.net/gh/${GITHUB_CONFIG.USER}/HXLoLi-Music@${MUSIC_COMMIT_ID}${cleanPath}`;
 }

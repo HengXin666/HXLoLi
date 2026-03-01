@@ -1,9 +1,9 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config, PluginConfig} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
-import remarkGithubAlerts from 'remark-github-alerts'; // Github tip标签渲染
-import remarkMath from 'remark-math';   // 数学渲染
+import type { Config, PluginConfig } from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
 import rehypeKatex from 'rehype-katex'; // katex渲染
+import remarkGithubAlerts from 'remark-github-alerts'; // Github tip标签渲染
+import remarkMath from 'remark-math'; // 数学渲染
 
 // 基础路径, 末尾不带 '/'
 const BaseUrl = "/HXLoLi";
@@ -159,6 +159,10 @@ const config: Config = {
           to: "/anime",
           label: "アニメ",
           position: "left",
+        },
+        {
+          type: "custom-musicPlayer" as any,
+          position: "right",
         },
         {
           label: "更多",

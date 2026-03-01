@@ -32,6 +32,7 @@
     "framer-motion": "^12.7.4",
     "fs-extra": "^11.3.0",
     "github-markdown-css": "^5.8.1",
+    "libass-wasm": "^4.1.0",
     "lodash": "^4.17.21",
     "mitt": "^3.0.1",
     "monaco-editor": "^0.52.2",
