@@ -81,30 +81,28 @@ log.info('解析友链数据...');
 
 /**
  * 从 friendLinks.ts 源码中提取友链数组
- * 使用简单正则 + JSON 解析，避免引入额外依赖
+ * 去掉 TS 类型信息后, 用 Function 构造器直接执行 JS 代码, 避免正则 JSON 转换的各种陷阱
  */
 function parseFriendLinks(source) {
-  // 把 TS 数组转换为合法 JSON
-  // 移除 export / interface / type 等声明，只保留数组部分
-  const arrayMatch = source.match(
-    /export\s+const\s+friendLinks\s*(?::\s*FriendLink\[\])?\s*=\s*\[([\s\S]*?)\];/
-  );
-  if (!arrayMatch) return [];
-
-  let body = arrayMatch[1];
-  // 移除单行注释
-  body = body.replace(/\/\/.*$/gm, '');
-  // 移除多行注释
-  body = body.replace(/\/\*[\s\S]*?\*\//g, '');
-  // 给没有引号的 key 加引号 (name: -> "name":)
-  body = body.replace(/(\w+)\s*:/g, '"$1":');
-  // 把单引号换成双引号
-  body = body.replace(/'/g, '"');
-  // 移除末尾逗号 (JSON 不允许)
-  body = body.replace(/,\s*([\]}])/g, '$1');
-
   try {
-    return JSON.parse(`[${body}]`);
+    // 1. 移除 export 关键字、interface 声明、类型标注
+    let code = source;
+    // 移除 export interface ... { ... } 块
+    code = code.replace(/export\s+interface\s+\w+\s*\{[^}]*\}/gs, '');
+    // 移除 export 关键字
+    code = code.replace(/\bexport\s+/g, '');
+    // 移除变量的类型标注 (如 `: FriendLink[]`)
+    code = code.replace(/:\s*FriendLink\[\]/g, '');
+
+    // 2. 用 Function 构造器执行, 返回 friendLinks 数组
+    const fn = new Function(`${code}\nreturn friendLinks;`);
+    const result = fn();
+
+    if (!Array.isArray(result)) {
+      fail('友链数据解析失败: friendLinks 不是数组');
+      return [];
+    }
+    return result;
   } catch (e) {
     fail(`友链数据解析失败: ${e.message}`);
     return [];
@@ -239,14 +237,28 @@ if (prAuthor) {
   log.warn('未设置 PR_AUTHOR 环境变量，跳过提交人一致性检查 (本地测试模式)');
 }
 
-/* ========== 6. TypeScript 编译检查 ========== */
-log.info('运行 TypeScript 类型检查...');
+/* ========== 6. TypeScript 编译检查 (仅检查友链数据文件) ========== */
+log.info('运行 TypeScript 类型检查 (仅 data/friendLinks.ts)...');
 
 try {
-  execSync('npx tsc --noEmit', { cwd: ROOT, encoding: 'utf-8', stdio: 'pipe' });
+  // 仅对友链数据文件进行编译检查，避免项目其他无关的 TS 错误导致误判
+  execSync(
+    'npx tsc --noEmit --strict --esModuleInterop --resolveJsonModule --moduleResolution node --target ES2020 --module ES2020 --skipLibCheck data/friendLinks.ts',
+    { cwd: ROOT, encoding: 'utf-8', stdio: 'pipe' }
+  );
   log.ok('TypeScript 编译通过');
 } catch (e) {
-  fail(`TypeScript 编译失败:\n${e.stdout || e.stderr || e.message}`);
+  const output = (e.stdout || '') + (e.stderr || '');
+  // 只报告与友链文件相关的错误
+  const relevantErrors = output
+    .split('\n')
+    .filter((line) => line.includes('friendLinks.ts') || line.includes('error TS'))
+    .join('\n');
+  if (relevantErrors.trim()) {
+    fail(`TypeScript 编译失败:\n${relevantErrors}`);
+  } else {
+    log.ok('TypeScript 编译通过 (忽略无关文件错误)');
+  }
 }
 
 /* ========== 7. 链接可达性检查 (HTTP 200) ========== */

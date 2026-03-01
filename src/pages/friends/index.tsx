@@ -109,8 +109,7 @@ function ApplyModal ({ open, onClose }: { open: boolean; onClose: () => void }) 
                 <strong>自动填充友链模板</strong>, 按提示填写自检清单后提交即可,
                 CI 会自动校验。
               </div>
-              {/* TODO: 到时候贴图 — 步骤3示意图 */}
-              <div className={styles.stepImgPlaceholder}>📸 示意图 — 提交 PR</div>
+              <ZoomImage src="img/friends/do_pr_03.png" alt="Fork 提示" />
             </div>
           </div>
         </div>
