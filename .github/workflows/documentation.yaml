@@ -132,6 +132,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: 'main'
+          fetch-depth: 0  # 拉取完整 git 历史, 以正确获取文件的最后修改时间和作者
 
       - name: 启动 Node.js
         uses: actions/setup-node@v4
