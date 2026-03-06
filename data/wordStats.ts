@@ -602,9 +602,51 @@ export const stats: RecordItem[] = [
     "message": "[docs]C++源码阅读: 粗读sqlpp11 如何做到基于不同的 SQL类型, 提供不同的运算符, 并且在编译期诊断. 而且可以直接使用名称"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2025-12-31T15:23:09.642Z",
+    "commit": "78a44485602d061931acda870177fafe643bdc30",
+    "date": "2025-12-31T23:23:09+08:00",
     "wordCount": 3786617,
     "message": "[blog]编写【2025】年终总结"
+  },
+  {
+    "commit": "58ec13bd753dc512873bef5697828e2304a8cf1c",
+    "date": "2025-12-31T23:27:02+08:00",
+    "wordCount": 3786617,
+    "message": "Merge branch 'main' of github.com:HengXin666/HXLoLi"
+  },
+  {
+    "commit": "bd82bb34e35d3acf3fadb60c5024ca3f5e4f3196",
+    "date": "2026-01-31T09:30:18+00:00",
+    "wordCount": 3786723,
+    "message": "\\[LoLi-Bot\\]: ご主人さま、アニメデータを更新しましたにゃ"
+  },
+  {
+    "commit": "274cefe35d090048903560c54b6d089a561bb2fa",
+    "date": "2026-01-31T16:54:54+00:00",
+    "wordCount": 3786723,
+    "message": "\\[LoLi-Bot\\]: ご主人さま、アニメデータを更新しましたにゃ"
+  },
+  {
+    "commit": "2166688407e13f5432d3341073c3adde48db4948",
+    "date": "2026-02-02T00:52:41+08:00",
+    "wordCount": 3786723,
+    "message": "Merge branch 'main' of github.com:HengXin666/HXLoLi"
+  },
+  {
+    "commit": "7ba5aa0ad9782e3346338ccd418c348d9fc6a27e",
+    "date": "2026-03-01T00:36:09+08:00",
+    "wordCount": 3786723,
+    "message": "[refactor] 将 ASS 悬浮窗工具栏的 emoji/文字图标替换为 react-icons/fa 图标"
+  },
+  {
+    "commit": "ad588ede7af6a474450a73ad366529711725d9ca",
+    "date": "2026-03-01T19:22:03+08:00",
+    "wordCount": 3786723,
+    "message": "Merge pull request #48 from HengXin666/feature/music-player"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-03-06T02:52:46.010Z",
+    "wordCount": 3819854,
+    "message": "[doc]新增面试知识点文章(ai)"
   }
 ];
