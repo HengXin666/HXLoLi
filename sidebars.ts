@@ -15500,6 +15500,37 @@ module.exports = {
     },
     {
       "type": "category",
+      "label": "面试",
+      "collapsible": true,
+      "items": [
+        {
+          "type": "doc",
+          "id": "面试/分布式系统面试知识点图解"
+        },
+        {
+          "type": "doc",
+          "id": "面试/后端开发面试知识点图解"
+        },
+        {
+          "type": "doc",
+          "id": "面试/操作系统面试知识点图解"
+        },
+        {
+          "type": "doc",
+          "id": "面试/数据库面试知识点图解"
+        },
+        {
+          "type": "doc",
+          "id": "面试/计算机网络面试知识点图解"
+        }
+      ],
+      "customProps": {
+        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "tags": []
+      }
+    },
+    {
+      "type": "category",
       "label": "嵌入式",
       "collapsible": true,
       "items": [
