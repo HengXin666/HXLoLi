@@ -31,5 +31,28 @@ export interface MusicTrack {
         btmYMax: number;
         left: number;
         right: number;
+        /** top 区域独立左边界 (可选, 用于精确裁剪) */
+        leftT?: number;
+        /** top 区域独立右边界 */
+        rightT?: number;
+        /** btm 区域独立左边界 */
+        leftB?: number;
+        /** btm 区域独立右边界 */
+        rightB?: number;
     };
+    /** ASS 预扫描边界框时间轴 (滑动窗口 + EMA 平滑, 每个关键点含时间戳) */
+    assBoundsTimeline?: Array<{
+        t: number;
+        topYMin: number;
+        topYMax: number;
+        btmYMin: number;
+        btmYMax: number;
+        left: number;
+        right: number;
+        /** top/btm 独立左右 (用于分区域居中裁剪) */
+        leftT?: number;
+        rightT?: number;
+        leftB?: number;
+        rightB?: number;
+    }>;
 }
