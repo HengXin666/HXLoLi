@@ -123,31 +123,82 @@ interface TwoBlockBounds {
     btmYMax: number;
     left: number;
     right: number;
+    /** top/btm 区域独立的左右边界 (可选, 用于分区域居中裁剪) */
+    leftT?: number;
+    rightT?: number;
+    leftB?: number;
+    rightB?: number;
 }
 
-/** 合并两个 bounds (取并集) */
-function mergeBounds(a: TwoBlockBounds, b: TwoBlockBounds): TwoBlockBounds {
+/** 时间轴 bounds 关键点 (由 Python 预计算) */
+interface BoundsTimelinePoint extends TwoBlockBounds {
+    t: number;
+}
+
+function boundsHasTop(b: TwoBlockBounds): boolean { return b.topYMax > 0; }
+function boundsHasBtm(b: TwoBlockBounds): boolean { return b.btmYMax > 0; }
+function boundsHasContent(b: TwoBlockBounds): boolean { return boundsHasTop(b) || boundsHasBtm(b) || b.right > 0; }
+
+/**
+ * 从时间轴 bounds 中按当前时间插值获取 bounds
+ *
+ * 使用二分查找找到最近的两个关键点, 线性插值得到当前时刻的 bounds
+ * 这样可以在不同时间段使用不同的裁剪窗口, 实现实时跟踪
+ */
+function interpolateBoundsAtTime(timeline: BoundsTimelinePoint[], time: number): TwoBlockBounds | null {
+    const n = timeline.length;
+    if (n === 0) return null;
+    if (n === 1 || time <= timeline[0].t) {
+        const p = timeline[0];
+        return (p.topYMax > 0 || p.btmYMax > 0 || p.right > 0) ? p : null;
+    }
+    if (time >= timeline[n - 1].t) {
+        const p = timeline[n - 1];
+        return (p.topYMax > 0 || p.btmYMax > 0 || p.right > 0) ? p : null;
+    }
+
+    // 二分查找: 找到最大的 i 使得 timeline[i].t <= time
+    let lo = 0, hi = n - 1;
+    while (lo < hi - 1) {
+        const mid = (lo + hi) >> 1;
+        if (timeline[mid].t <= time) lo = mid;
+        else hi = mid;
+    }
+
+    const a = timeline[lo];
+    const b = timeline[hi];
+    const aHas = a.topYMax > 0 || a.btmYMax > 0 || a.right > 0;
+    const bHas = b.topYMax > 0 || b.btmYMax > 0 || b.right > 0;
+
+    // 如果两端都是空区间, 返回 null (不裁剪)
+    if (!aHas && !bHas) return null;
+    // 如果只有一端有内容, 用有内容的那端 (不在空帧和有效帧之间插值)
+    if (!aHas) return b;
+    if (!bHas) return a;
+
+    // 两端都有内容 → 线性插值
+    const dt = b.t - a.t;
+    if (dt <= 0) return a;
+
+    const ratio = (time - a.t) / dt;
+    const lerp = (v1: number, v2: number) => Math.round(v1 + (v2 - v1) * ratio);
+    const lerpOpt = (v1: number | undefined, v2: number | undefined) => {
+        if (v1 == null || v2 == null) return undefined;
+        return Math.round(v1 + (v2 - v1) * ratio);
+    };
     return {
-        topYMin: Math.min(a.topYMin, b.topYMin),
-        topYMax: Math.max(a.topYMax, b.topYMax),
-        btmYMin: Math.min(a.btmYMin, b.btmYMin),
-        btmYMax: Math.max(a.btmYMax, b.btmYMax),
-        left: Math.min(a.left, b.left),
-        right: Math.max(a.right, b.right),
+        topYMin: lerp(a.topYMin, b.topYMin),
+        topYMax: lerp(a.topYMax, b.topYMax),
+        btmYMin: lerp(a.btmYMin, b.btmYMin),
+        btmYMax: lerp(a.btmYMax, b.btmYMax),
+        left:    lerp(a.left,    b.left),
+        right:   lerp(a.right,   b.right),
+        leftT:   lerpOpt((a as any).leftT,  (b as any).leftT),
+        rightT:  lerpOpt((a as any).rightT, (b as any).rightT),
+        leftB:   lerpOpt((a as any).leftB,  (b as any).leftB),
+        rightB:  lerpOpt((a as any).rightB, (b as any).rightB),
     };
 }
-
-function emptyBounds(): TwoBlockBounds {
-    return {
-        topYMin: Infinity, topYMax: 0,
-        btmYMin: Infinity, btmYMax: 0,
-        left: Infinity, right: 0,
-    };
-}
-
-function boundsHasTop(b: TwoBlockBounds): boolean { return b.topYMin !== Infinity; }
-function boundsHasBtm(b: TwoBlockBounds): boolean { return b.btmYMin !== Infinity; }
-function boundsHasContent(b: TwoBlockBounds): boolean { return boundsHasTop(b) || boundsHasBtm(b); }
 
 
 
@@ -164,45 +215,48 @@ function cropAndDraw(
     const hasBtm = boundsHasBtm(bounds);
     if (!hasTop && !hasBtm) return;
 
-    const contentW = bounds.right - bounds.left;
+    // top/btm 各自使用独立的左右边界 (如果有的话)
+    // 这样当 top 居中, btm 在左下角时, 各自裁剪后居中绘制, 不会互相干扰
+    const topLeftX  = (bounds.leftT != null && bounds.rightT != null && bounds.rightT > 0) ? bounds.leftT : bounds.left;
+    const topRightX = (bounds.leftT != null && bounds.rightT != null && bounds.rightT > 0) ? bounds.rightT : bounds.right;
+    const btmLeftX  = (bounds.leftB != null && bounds.rightB != null && bounds.rightB > 0) ? bounds.leftB : bounds.left;
+    const btmRightX = (bounds.leftB != null && bounds.rightB != null && bounds.rightB > 0) ? bounds.rightB : bounds.right;
+
+    const topW = topRightX - topLeftX;
+    const btmW = btmRightX - btmLeftX;
     const topH = hasTop ? (bounds.topYMax - bounds.topYMin) : 0;
     const btmH = hasBtm ? (bounds.btmYMax - bounds.btmYMin) : 0;
     const totalH = topH + btmH;
 
-    if (contentW <= 0 || totalH <= 0) return;
+    if (totalH <= 0) return;
 
     const dstCtx = dstCanvas.getContext('2d');
     if (!dstCtx) return;
-
-    // 清空显示 canvas
     dstCtx.clearRect(0, 0, dstCanvas.width, dstCanvas.height);
 
-    // 计算缩放以适应显示 canvas
-    const scaleX = dstCanvas.width / contentW;
+    // 统一缩放基于最宽的区域和总高度
+    const maxContentW = Math.max(topW, btmW, 1);
+    const scaleX = dstCanvas.width / maxContentW;
     const scaleY = dstCanvas.height / totalH;
     const scale = Math.min(scaleX, scaleY, 1); // 不放大, 只缩小
 
-    const drawW = contentW * scale;
-    const drawH = totalH * scale;
-    const offsetX = (dstCanvas.width - drawW) / 2;
-    const offsetY = (dstCanvas.height - drawH) / 2;
+    const drawTotalH = totalH * scale;
+    const offsetY = (dstCanvas.height - drawTotalH) / 2;
 
-    // 绘制上半部分
-    if (hasTop && topH > 0) {
-        dstCtx.drawImage(
-            srcCanvas,
-            bounds.left, bounds.topYMin, contentW, topH,
-            offsetX, offsetY, drawW, topH * scale,
-        );
+    // top 区域: 水平居中绘制
+    if (hasTop && topH > 0 && topW > 0) {
+        const drawTopW = topW * scale;
+        const topOffsetX = (dstCanvas.width - drawTopW) / 2;
+        dstCtx.drawImage(srcCanvas, topLeftX, bounds.topYMin, topW, topH,
+                         topOffsetX, offsetY, drawTopW, topH * scale);
     }
 
-    // 绘制下半部分 (紧接上半部分)
-    if (hasBtm && btmH > 0) {
-        dstCtx.drawImage(
-            srcCanvas,
-            bounds.left, bounds.btmYMin, contentW, btmH,
-            offsetX, offsetY + topH * scale, drawW, btmH * scale,
-        );
+    // btm 区域: 水平居中绘制
+    if (hasBtm && btmH > 0 && btmW > 0) {
+        const drawBtmW = btmW * scale;
+        const btmOffsetX = (dstCanvas.width - drawBtmW) / 2;
+        dstCtx.drawImage(srcCanvas, btmLeftX, bounds.btmYMin, btmW, btmH,
+                         btmOffsetX, offsetY + topH * scale, drawBtmW, btmH * scale);
     }
 }
 
@@ -319,6 +373,7 @@ export default function AssLyrics(): React.ReactElement | null {
     const offscreenCanvasRef = useRef<HTMLCanvasElement | null>(null);
     const displayCanvasRef = useRef<HTMLCanvasElement>(null);
     const cachedBoundsRef = useRef<TwoBlockBounds | null>(null); // 预计算的全局固定边界 (来自 musicData.ts)
+    const timelineRef = useRef<BoundsTimelinePoint[] | null>(null); // 时间轴 bounds (新方案)
     const isDragging = useRef(false);
     const isResizing = useRef(false);
     const dragOffset = useRef({ x: 0, y: 0 });
@@ -483,10 +538,33 @@ export default function AssLyrics(): React.ReactElement | null {
         const tick = () => {
             const oct = octopusRef.current;
             if (oct) {
-                // 预处理模式: 用固定的全局边界框裁剪 (不抖动)
-                const fixedBounds = cachedBoundsRef.current;
-                if (preprocessAss && fixedBounds && offscreenCanvasRef.current && displayCanvasRef.current) {
-                    cropAndDraw(offscreenCanvasRef.current, displayCanvasRef.current, fixedBounds);
+                // 如果有时间轴 bounds, 动态插值获取当前时刻的裁剪窗口
+                // 否则退回到全局固定 bounds
+                if (preprocessAss && offscreenCanvasRef.current && displayCanvasRef.current) {
+                    const ct2 = useMusicStore.getState().getInterpolatedTime() + globalSubtitleOffset;
+                    const tl = timelineRef.current;
+                    const currentBounds = tl
+                        ? interpolateBoundsAtTime(tl, Math.max(0, ct2))
+                        : cachedBoundsRef.current;
+                    if (currentBounds && boundsHasContent(currentBounds)) {
+                        cropAndDraw(offscreenCanvasRef.current, displayCanvasRef.current, currentBounds);
+                    } else if (tl) {
+                        // 空区间: 直接从 offscreen 1:1 复制到 display (不裁剪)
+                        const dCtx = displayCanvasRef.current.getContext('2d');
+                        if (dCtx) {
+                            dCtx.clearRect(0, 0, displayCanvasRef.current.width, displayCanvasRef.current.height);
+                            const s = Math.min(
+                                displayCanvasRef.current.width / offscreenCanvasRef.current.width,
+                                displayCanvasRef.current.height / offscreenCanvasRef.current.height,
+                                1
+                            );
+                            const dw = offscreenCanvasRef.current.width * s;
+                            const dh = offscreenCanvasRef.current.height * s;
+                            const dx = (displayCanvasRef.current.width - dw) / 2;
+                            const dy = (displayCanvasRef.current.height - dh) / 2;
+                            dCtx.drawImage(offscreenCanvasRef.current, 0, 0, offscreenCanvasRef.current.width, offscreenCanvasRef.current.height, dx, dy, dw, dh);
+                        }
+                    }
                 }
 
                 const ct = useMusicStore.getState().getInterpolatedTime() + globalSubtitleOffset;
@@ -652,23 +730,30 @@ export default function AssLyrics(): React.ReactElement | null {
                     onReady: () => {
                         console.log('[ASS] SubtitlesOctopus 就绪, canvas:', renderCanvas.width, 'x', renderCanvas.height, ', 预处理:', preprocessAss);
 
-                        if (preprocessAss && currentTrack.assBounds) {
-                            // 预处理模式: 直接使用 musicData.ts 中由 Python 脚本预计算的 bounds
-                            const b = currentTrack.assBounds;
-                            const bounds: TwoBlockBounds = {
-                                topYMin: b.topYMin,
-                                topYMax: b.topYMax,
-                                btmYMin: b.btmYMin,
-                                btmYMax: b.btmYMax,
-                                left: b.left,
-                                right: b.right,
-                            };
-                            if (boundsHasContent(bounds)) {
-                                cachedBoundsRef.current = bounds;
-                                console.log('[ASS] 使用预计算的 assBounds:', bounds);
-                            } else {
-                                cachedBoundsRef.current = null;
-                                console.log('[ASS] assBounds 无内容, 跳过裁剪');
+                        if (preprocessAss) {
+                            // 优先使用时间轴 bounds (新方案: 滑动窗口 + EMA 平滑)
+                            if (currentTrack.assBoundsTimeline && currentTrack.assBoundsTimeline.length > 0) {
+                                timelineRef.current = currentTrack.assBoundsTimeline as BoundsTimelinePoint[];
+                                cachedBoundsRef.current = null; // 有 timeline 就不用固定 bounds
+                                console.log(`[ASS] 使用时间轴 bounds: ${currentTrack.assBoundsTimeline.length} 个关键点`);
+                            } else if (currentTrack.assBounds) {
+                                // 回退到全局固定 bounds (旧方案)
+                                const b = currentTrack.assBounds;
+                                const bounds: TwoBlockBounds = {
+                                    topYMin: b.topYMin,
+                                    topYMax: b.topYMax,
+                                    btmYMin: b.btmYMin,
+                                    btmYMax: b.btmYMax,
+                                    left: b.left,
+                                    right: b.right,
+                                };
+                                if (boundsHasContent(bounds)) {
+                                    cachedBoundsRef.current = bounds;
+                                    console.log('[ASS] 使用全局 assBounds (无时间轴):', bounds);
+                                } else {
+                                    cachedBoundsRef.current = null;
+                                }
+                                timelineRef.current = null;
                             }
                         }
 
@@ -709,6 +794,7 @@ export default function AssLyrics(): React.ReactElement | null {
                 initRetryRef.current = null;
             }
             cachedBoundsRef.current = null;
+            timelineRef.current = null;
             if (octopusRef.current) {
                 try { octopusRef.current.dispose(); } catch { /* ignore */ }
                 octopusRef.current = null;
