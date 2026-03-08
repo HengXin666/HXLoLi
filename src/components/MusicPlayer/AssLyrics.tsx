@@ -11,7 +11,7 @@
  * 不使用 require/import，因为 webpack 的 CJS/ESM interop 会破坏构造函数。
  */
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { toMusicCdnUrl } from '@site/src/utils/cdn/linkJsDelivr';
+import { isLocalDev, toMusicCdnUrl, toMusicLocalUrl } from '@site/src/utils/cdn/linkJsDelivr';
 import { useMusicStore } from '@site/src/utils/music/musicStore';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -206,6 +206,14 @@ function interpolateBoundsAtTime(timeline: BoundsTimelinePoint[], time: number):
  * 用固定的全局边界框裁剪离屏 canvas, 合并上下两区块后绘制到显示 canvas.
  * 边界框是预扫描得到的, 每帧都用同一个框, 不会抖动.
  */
+/**
+ * 安全边距 (像素, 基于 1920x1080 画布)
+ * 补偿 Python 预扫描 (ffmpeg libass) 和前端 (SubtitlesOctopus) 之间的字体渲染差异
+ * 预扫描时可能因缺少原始字体而使用不同的 fallback 字体, 导致文字宽度/高度不同
+ */
+const BOUNDS_PADDING_X = 30;
+const BOUNDS_PADDING_Y = 10;
+
 function cropAndDraw(
     srcCanvas: HTMLCanvasElement,
     dstCanvas: HTMLCanvasElement,
@@ -215,17 +223,34 @@ function cropAndDraw(
     const hasBtm = boundsHasBtm(bounds);
     if (!hasTop && !hasBtm) return;
 
+    const canvasW = srcCanvas.width;
+    const canvasH = srcCanvas.height;
+
+    // 对 bounds 应用安全边距, 防止字体差异导致裁切
+    const pad = (val: number, delta: number, min: number, max: number) =>
+        Math.max(min, Math.min(max, val + delta));
+
     // top/btm 各自使用独立的左右边界 (如果有的话)
     // 这样当 top 居中, btm 在左下角时, 各自裁剪后居中绘制, 不会互相干扰
-    const topLeftX  = (bounds.leftT != null && bounds.rightT != null && bounds.rightT > 0) ? bounds.leftT : bounds.left;
-    const topRightX = (bounds.leftT != null && bounds.rightT != null && bounds.rightT > 0) ? bounds.rightT : bounds.right;
-    const btmLeftX  = (bounds.leftB != null && bounds.rightB != null && bounds.rightB > 0) ? bounds.leftB : bounds.left;
-    const btmRightX = (bounds.leftB != null && bounds.rightB != null && bounds.rightB > 0) ? bounds.rightB : bounds.right;
+    let topLeftX  = (bounds.leftT != null && bounds.rightT != null && bounds.rightT > 0) ? bounds.leftT : bounds.left;
+    let topRightX = (bounds.leftT != null && bounds.rightT != null && bounds.rightT > 0) ? bounds.rightT : bounds.right;
+    let btmLeftX  = (bounds.leftB != null && bounds.rightB != null && bounds.rightB > 0) ? bounds.leftB : bounds.left;
+    let btmRightX = (bounds.leftB != null && bounds.rightB != null && bounds.rightB > 0) ? bounds.rightB : bounds.right;
+
+    // 应用安全边距
+    topLeftX  = pad(topLeftX,  -BOUNDS_PADDING_X, 0, canvasW);
+    topRightX = pad(topRightX,  BOUNDS_PADDING_X, 0, canvasW);
+    btmLeftX  = pad(btmLeftX,  -BOUNDS_PADDING_X, 0, canvasW);
+    btmRightX = pad(btmRightX,  BOUNDS_PADDING_X, 0, canvasW);
+    const topYMin = hasTop ? pad(bounds.topYMin, -BOUNDS_PADDING_Y, 0, canvasH) : 0;
+    const topYMax = hasTop ? pad(bounds.topYMax,  BOUNDS_PADDING_Y, 0, canvasH) : 0;
+    const btmYMin = hasBtm ? pad(bounds.btmYMin, -BOUNDS_PADDING_Y, 0, canvasH) : 0;
+    const btmYMax = hasBtm ? pad(bounds.btmYMax,  BOUNDS_PADDING_Y, 0, canvasH) : 0;
 
     const topW = topRightX - topLeftX;
     const btmW = btmRightX - btmLeftX;
-    const topH = hasTop ? (bounds.topYMax - bounds.topYMin) : 0;
-    const btmH = hasBtm ? (bounds.btmYMax - bounds.btmYMin) : 0;
+    const topH = hasTop ? (topYMax - topYMin) : 0;
+    const btmH = hasBtm ? (btmYMax - btmYMin) : 0;
     const totalH = topH + btmH;
 
     if (totalH <= 0) return;
@@ -247,7 +272,7 @@ function cropAndDraw(
     if (hasTop && topH > 0 && topW > 0) {
         const drawTopW = topW * scale;
         const topOffsetX = (dstCanvas.width - drawTopW) / 2;
-        dstCtx.drawImage(srcCanvas, topLeftX, bounds.topYMin, topW, topH,
+        dstCtx.drawImage(srcCanvas, topLeftX, topYMin, topW, topH,
                          topOffsetX, offsetY, drawTopW, topH * scale);
     }
 
@@ -255,7 +280,7 @@ function cropAndDraw(
     if (hasBtm && btmH > 0 && btmW > 0) {
         const drawBtmW = btmW * scale;
         const btmOffsetX = (dstCanvas.width - drawBtmW) / 2;
-        dstCtx.drawImage(srcCanvas, btmLeftX, bounds.btmYMin, btmW, btmH,
+        dstCtx.drawImage(srcCanvas, btmLeftX, btmYMin, btmW, btmH,
                          btmOffsetX, offsetY + topH * scale, drawBtmW, btmH * scale);
     }
 }
@@ -682,7 +707,9 @@ export default function AssLyrics(): React.ReactElement | null {
                 return;
             }
 
-            const cjkFallbackUrl = toMusicCdnUrl('/static/music/fonts/NotoSansSC-Regular.ttf');
+            const cjkFallbackUrl = isLocalDev()
+                ? toMusicLocalUrl('/static/music/fonts/NotoSansSC-Regular.ttf')
+                : toMusicCdnUrl('/static/music/fonts/NotoSansSC-Regular.ttf');
             const availableFonts: Record<string, string> = {};
 
             const safeUrl = (url: string): string => {

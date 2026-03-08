@@ -52,3 +52,30 @@ export function toMusicCdnUrl(relativePath: string): string {
     : `/${relativePath}`;
   return `https://cdn.jsdelivr.net/gh/${GITHUB_CONFIG.USER}/HXLoLi-Music@${MUSIC_COMMIT_ID}${cleanPath}`;
 }
+
+/**
+ * 本地音乐文件服务器地址 (由 HXLoLi-Music/serve.py 启动)
+ * 用于本地开发时直接读取本地 HXLoLi-Music 仓库的资源, 无需等待远程 CDN 更新
+ */
+export const LOCAL_MUSIC_SERVER = 'http://localhost:9527';
+
+/**
+ * 判断当前是否为本地开发环境
+ */
+export function isLocalDev(): boolean {
+  if (typeof window === 'undefined') return false;
+  const host = window.location.hostname;
+  return host === 'localhost' || host === '127.0.0.1';
+}
+
+/**
+ * 将相对路径转换为本地音乐服务器 URL
+ * @param relativePath - 相对于 Music 仓库根目录的路径
+ */
+export function toMusicLocalUrl(relativePath: string): string {
+  if (!relativePath) return "";
+  const cleanPath = relativePath.startsWith("/")
+    ? relativePath
+    : `/${relativePath}`;
+  return `${LOCAL_MUSIC_SERVER}${cleanPath}`;
+}
