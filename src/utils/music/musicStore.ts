@@ -496,6 +496,12 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                     } else {
                         loadTrack(0, false);
                     }
+                    // CDN 慢时 onBecomeLeader 中 list.length===0 会跳过 showLyrics 恢复
+                    // 在这里补充恢复, 确保 showLyrics 状态不丢失
+                    const lyricsState = shared?.showLyrics ?? saved?.showLyrics;
+                    if (lyricsState !== undefined) {
+                        set({ showLyrics: lyricsState });
+                    }
                 }
             }).catch(err => {
                 console.error('[MusicPlayer] 加载播放列表失败:', err);
@@ -719,6 +725,8 @@ export const useMusicStore = create<MusicStore>((set, get) => {
         toggleLyrics: () => {
             set((s) => ({ showLyrics: !s.showLyrics }));
             saveState(get());
+            // 同步到 localStorage, 让 Leader 广播时也使用新状态
+            saveSharedState(get());
         },
         toggleLyricsFullscreen: () => {
             set((s) => ({ lyricsFullscreen: !s.lyricsFullscreen }));
