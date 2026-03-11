@@ -986,6 +986,7 @@ var SubtitlesOctopus = function (options) {
     self.prescaleHeightLimit = options.prescaleHeightLimit || 1080;
     self.maxRenderHeight = options.maxRenderHeight || 0; // 0 - no limit
     self.dropAllAnimations = options.dropAllAnimations || false; // attempt to remove all animations as a last ditch effort for displaying on weak hardware; may severly mangle subtitles if enabled
+    self.imageFiles = options.imageFiles || null; // Array of {path, data} for \1img image files to write into Emscripten FS before ASS parsing
     self.isOurCanvas = false; // (internal) we created canvas and manage it
     self.video = options.video; // HTML video element (optional if canvas specified)
     self.canvasParent = null; // (internal) HTML canvas parent element
@@ -1084,7 +1085,8 @@ var SubtitlesOctopus = function (options) {
             targetFps: self.targetFps,
             libassMemoryLimit: self.libassMemoryLimit,
             libassGlyphLimit: self.libassGlyphLimit,
-            dropAllAnimations: self.dropAllAnimations
+            dropAllAnimations: self.dropAllAnimations,
+            imageFiles: self.imageFiles
         });
     };
 
