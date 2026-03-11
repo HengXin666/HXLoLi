@@ -11,7 +11,9 @@
  * 不使用 require/import，因为 webpack 的 CJS/ESM interop 会破坏构造函数。
  */
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import type { MusicTrackDetail } from '@site/src/config/musicData';
 import { isLocalDev, toMusicCdnUrl, toMusicLocalUrl } from '@site/src/utils/cdn/linkJsDelivr';
+import { loadTrackDetail } from '@site/src/utils/music/musicDataLoader';
 import { useMusicStore } from '@site/src/utils/music/musicStore';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -285,6 +287,116 @@ function cropAndDraw(
     }
 }
 
+// ========== \1img 图片叠加渲染 ==========
+
+/** \1img 图片事件 (由 Python 预解析) */
+interface ImageEvent {
+    start: number;
+    end: number;
+    img: string;
+    pos?: [number, number];
+    move?: [number, number, number, number];
+    moveT?: [number, number];
+    fadIn?: number;
+    fadOut?: number;
+    an?: number;
+    drawW?: number;
+    drawH?: number;
+}
+
+/**
+ * 在 canvas 上叠加绘制 \1img 图片事件
+ *
+ * libass 不支持 \1img 标签, 需要我们自行在 ASS 渲染结果之上叠加绘制图片.
+ * 基于 1920x1080 坐标系统, 支持:
+ * - \pos(x,y) 静态定位
+ * - \move(x1,y1,x2,y2) 线性移动动画
+ * - \fad(in,out) 淡入淡出
+ * - \an5 锚点居中 (仅支持 an5, 其他值 fallback 到左上角)
+ */
+function drawImageEvents(
+    ctx: CanvasRenderingContext2D,
+    events: ImageEvent[],
+    images: Map<string, HTMLImageElement>,
+    time: number,
+    canvasW: number,
+    canvasH: number,
+): void {
+    // ASS 脚本分辨率 (坐标系统基准)
+    const scriptW = 1920;
+    const scriptH = 1080;
+    const scaleX = canvasW / scriptW;
+    const scaleY = canvasH / scriptH;
+
+    for (const ev of events) {
+        if (time < ev.start || time > ev.end) continue;
+
+        const img = images.get(ev.img);
+        if (!img || !img.complete || !img.naturalWidth) continue;
+
+        const duration = ev.end - ev.start;
+        const elapsed = time - ev.start;
+        const elapsedMs = elapsed * 1000;
+        const durationMs = duration * 1000;
+
+        // 淡入淡出 alpha
+        let alpha = 1;
+        const fadIn = ev.fadIn ?? 0;
+        const fadOut = ev.fadOut ?? 0;
+        if (fadIn > 0 && elapsedMs < fadIn) {
+            alpha = elapsedMs / fadIn;
+        } else if (fadOut > 0 && (durationMs - elapsedMs) < fadOut) {
+            alpha = (durationMs - elapsedMs) / fadOut;
+        }
+        alpha = Math.max(0, Math.min(1, alpha));
+        if (alpha <= 0) continue;
+
+        // 计算位置 (脚本坐标系)
+        let x = 0, y = 0;
+        if (ev.move) {
+            const [x1, y1, x2, y2] = ev.move;
+            let t: number;
+            if (ev.moveT) {
+                const [t1, t2] = ev.moveT;
+                t = Math.max(0, Math.min(1, (elapsedMs - t1) / (t2 - t1)));
+            } else {
+                t = elapsed / duration;
+            }
+            t = Math.max(0, Math.min(1, t));
+            x = x1 + (x2 - x1) * t;
+            y = y1 + (y2 - y1) * t;
+        } else if (ev.pos) {
+            [x, y] = ev.pos;
+        }
+
+        // 图片显示大小 (使用绘图区域大小, 回退到图片原始大小)
+        const drawW = ev.drawW ?? img.naturalWidth;
+        const drawH = ev.drawH ?? img.naturalHeight;
+
+        // 锚点调整 (\an5 = 居中)
+        let ox = x, oy = y;
+        const an = ev.an ?? 7; // 默认 7 = 左上角
+        // \an 1-9 按九宫格排列:
+        // 7(左上) 8(中上) 9(右上)
+        // 4(左中) 5(中中) 6(右中)
+        // 1(左下) 2(中下) 3(右下)
+        const col = ((an - 1) % 3); // 0=左, 1=中, 2=右
+        const row = Math.floor((an - 1) / 3); // 0=下, 1=中, 2=上
+        ox -= col * drawW / 2;
+        oy -= (2 - row) * drawH / 2;
+
+        // 转换到 canvas 坐标并绘制
+        const dx = ox * scaleX;
+        const dy = oy * scaleY;
+        const dw = drawW * scaleX;
+        const dh = drawH * scaleY;
+
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(img, dx, dy, dw, dh);
+    }
+    ctx.globalAlpha = 1;
+}
+
 // ========== Script loader (单例) ==========
 let scriptLoaded = false;
 let scriptLoading = false;
@@ -399,6 +511,9 @@ export default function AssLyrics(): React.ReactElement | null {
     const displayCanvasRef = useRef<HTMLCanvasElement>(null);
     const cachedBoundsRef = useRef<TwoBlockBounds | null>(null); // 预计算的全局固定边界 (来自 musicData.ts)
     const timelineRef = useRef<BoundsTimelinePoint[] | null>(null); // 时间轴 bounds (新方案)
+    const imageEventsRef = useRef<ImageEvent[] | null>(null); // \1img 图片事件
+    const loadedImagesRef = useRef<Map<string, HTMLImageElement>>(new Map()); // 预加载的图片
+    const imageOverlayCanvasRef = useRef<HTMLCanvasElement>(null); // 独立的图片叠加 canvas (非预处理模式下使用, 避免被 SubtitlesOctopus clearRect 清除)
     const isDragging = useRef(false);
     const isResizing = useRef(false);
     const dragOffset = useRef({ x: 0, y: 0 });
@@ -563,14 +678,32 @@ export default function AssLyrics(): React.ReactElement | null {
         const tick = () => {
             const oct = octopusRef.current;
             if (oct) {
+                const ct = useMusicStore.getState().getInterpolatedTime() + globalSubtitleOffset;
+                const adjustedCt = Math.max(0, ct);
+
                 // 如果有时间轴 bounds, 动态插值获取当前时刻的裁剪窗口
                 // 否则退回到全局固定 bounds
                 if (preprocessAss && offscreenCanvasRef.current && displayCanvasRef.current) {
-                    const ct2 = useMusicStore.getState().getInterpolatedTime() + globalSubtitleOffset;
                     const tl = timelineRef.current;
                     const currentBounds = tl
-                        ? interpolateBoundsAtTime(tl, Math.max(0, ct2))
+                        ? interpolateBoundsAtTime(tl, adjustedCt)
                         : cachedBoundsRef.current;
+
+                    // 叠加绘制 \1img 图片到离屏 canvas (在 cropAndDraw 之前)
+                    if (imageEventsRef.current && imageEventsRef.current.length > 0) {
+                        const offCtx = offscreenCanvasRef.current.getContext('2d');
+                        if (offCtx) {
+                            drawImageEvents(
+                                offCtx,
+                                imageEventsRef.current,
+                                loadedImagesRef.current,
+                                adjustedCt,
+                                offscreenCanvasRef.current.width,
+                                offscreenCanvasRef.current.height,
+                            );
+                        }
+                    }
+
                     if (currentBounds && boundsHasContent(currentBounds)) {
                         cropAndDraw(offscreenCanvasRef.current, displayCanvasRef.current, currentBounds);
                     } else if (tl) {
@@ -590,10 +723,29 @@ export default function AssLyrics(): React.ReactElement | null {
                             dCtx.drawImage(offscreenCanvasRef.current, 0, 0, offscreenCanvasRef.current.width, offscreenCanvasRef.current.height, dx, dy, dw, dh);
                         }
                     }
+                } else if (!preprocessAss && imageEventsRef.current && imageEventsRef.current.length > 0 && imageOverlayCanvasRef.current) {
+                    // 非预处理模式: 在独立的覆盖 canvas 上绘制图片
+                    // SubtitlesOctopus 的 renderFrames 会 clearRect 渲染 canvas, 如果图片画在同一个 canvas 上会被清除导致闪烁
+                    const overlayCanvas = imageOverlayCanvasRef.current;
+                    const srcCanvas = canvasRef.current;
+                    if (srcCanvas && (overlayCanvas.width !== srcCanvas.width || overlayCanvas.height !== srcCanvas.height)) {
+                        overlayCanvas.width = srcCanvas.width;
+                        overlayCanvas.height = srcCanvas.height;
+                    }
+                    const overlayCtx = overlayCanvas.getContext('2d');
+                    if (overlayCtx) {
+                        overlayCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+                        drawImageEvents(
+                            overlayCtx,
+                            imageEventsRef.current,
+                            loadedImagesRef.current,
+                            adjustedCt,
+                            overlayCanvas.width,
+                            overlayCanvas.height,
+                        );
+                    }
                 }
 
-                const ct = useMusicStore.getState().getInterpolatedTime() + globalSubtitleOffset;
-                const adjustedCt = Math.max(0, ct);
                 const delta = adjustedCt - lastPushedTime;
                 if (delta > 0.016 || delta < -0.5) {
                     try {
@@ -707,17 +859,41 @@ export default function AssLyrics(): React.ReactElement | null {
                 return;
             }
 
-            const cjkFallbackUrl = isLocalDev()
-                ? toMusicLocalUrl('/static/music/fonts/NotoSansSC-Regular.ttf')
-                : toMusicCdnUrl('/static/music/fonts/NotoSansSC-Regular.ttf');
-            const availableFonts: Record<string, string> = {};
+            // 按需加载歌曲详细配置 (fonts, assBounds, assImageData 等)
+            console.log(`[ASS] 加载歌曲详细配置: ${currentTrack.id}`);
+            let trackDetail: MusicTrackDetail | null = null;
+            try {
+                trackDetail = await loadTrackDetail(currentTrack.id);
+            } catch (detailErr) {
+                console.warn('[ASS] 加载详细配置失败, 继续使用基础模式:', detailErr);
+            }
+            if (disposed) return;
+
+            const toFontUrl = isLocalDev() ? toMusicLocalUrl : toMusicCdnUrl;
+
+            const cjkFallbackUrl = toFontUrl('/static/music/fonts/NotoSansSC-Regular.ttf');
 
             const safeUrl = (url: string): string => {
                 if (/%[0-9A-Fa-f]{2}/.test(url)) return url;
                 return encodeURI(url);
             };
 
+            // 从详细配置的 assFontMap 构建 availableFonts: 字体家族名 → 字体文件 URL
+            // SubtitlesOctopus 使用此映射来加载 ASS 中引用的字体
+            const availableFonts: Record<string, string> = {};
+            if (trackDetail?.assFontMap) {
+                for (const [fontName, fontUrl] of Object.entries(trackDetail.assFontMap)) {
+                    availableFonts[fontName] = safeUrl(fontUrl);
+                }
+            }
+
+            // 收集所有需要预加载的字体文件 URL
             const fontsFullUrls: string[] = [];
+            if (trackDetail?.fonts) {
+                for (const fontUrl of trackDetail.fonts) {
+                    fontsFullUrls.push(safeUrl(fontUrl));
+                }
+            }
 
             const assUrlRaw = currentTrack.assUrl!;
             const subFullUrl = safeUrl(
@@ -738,6 +914,63 @@ export default function AssLyrics(): React.ReactElement | null {
 
             if (disposed) return;
 
+            // 将包含 \1img 的 Dialogue 行注释掉, 防止 libass 渲染白色矩形
+            // libass 不认识 \1img 但会渲染 \p1 矢量绘图 (用样式默认的白色填充),
+            // 这些矩形会遮挡我们自行叠加绘制的图片
+            if (trackDetail?.assImageEvents && trackDetail.assImageEvents.length > 0) {
+                const lines = subContent!.split('\n');
+                let commented = 0;
+                for (let i = 0; i < lines.length; i++) {
+                    if (lines[i].startsWith('Dialogue:') && lines[i].includes('\\1img(')) {
+                        lines[i] = 'Comment:' + lines[i].slice('Dialogue:'.length);
+                        commented++;
+                    }
+                }
+                if (commented > 0) {
+                    subContent = lines.join('\n');
+                    console.log(`[ASS] 已注释 ${commented} 行包含 \\1img 的 Dialogue (防止 libass 渲染白色矩形)`);
+                }
+            }
+
+            // 将 VSFilter 专有的 \fsvp (垂直透视倾斜) 转换为 libass 支持的 \fax (水平剪切)
+            // \fsvp 单位是角度, \fax = tan(角度 * π / 180)
+            // libass 不认识 \fsvp, 会将其前缀 \fs 误读为字体大小, 导致异常闪烁
+            {
+                let fsvpCount = 0;
+                subContent = subContent!.replace(/\\fsvp(-?[\d.]+)/g, (_match, val) => {
+                    const deg = parseFloat(val);
+                    const fax = Math.tan(deg * Math.PI / 180);
+                    fsvpCount++;
+                    // 保留 6 位小数, 去掉尾零
+                    return `\\fax${parseFloat(fax.toFixed(6))}`;
+                });
+                if (fsvpCount > 0) {
+                    console.log(`[ASS] 已将 ${fsvpCount} 处 \\fsvp 转换为 \\fax (VSFilter → libass 兼容)`);
+                }
+            }
+
+            // 准备 \1img 图片数据, 在 worker-init 时写入 Emscripten FS (必须在 ASS 解析前)
+            let imageFiles: Array<{path: string; data: ArrayBuffer}> | null = null;
+            if (trackDetail?.assImageData) {
+                imageFiles = [];
+                for (const [filePath, dataUri] of Object.entries(trackDetail.assImageData)) {
+                    try {
+                        const base64 = dataUri.split(',')[1];
+                        const binary = atob(base64);
+                        const buffer = new ArrayBuffer(binary.length);
+                        const view = new Uint8Array(buffer);
+                        for (let i = 0; i < binary.length; i++) {
+                            view[i] = binary.charCodeAt(i);
+                        }
+                        imageFiles.push({ path: filePath, data: buffer });
+                        console.log(`[ASS] 准备图片: ${filePath} (${binary.length} bytes)`);
+                    } catch (imgErr) {
+                        console.error(`[ASS] 图片解码失败: ${filePath}`, imgErr);
+                    }
+                }
+                if (imageFiles.length === 0) imageFiles = null;
+            }
+
             try {
                 const instance = new Ctor({
                     canvas: renderCanvas,
@@ -753,19 +986,38 @@ export default function AssLyrics(): React.ReactElement | null {
                     prescaleFactor: 0.8,
                     prescaleHeightLimit: 1080,
                     maxRenderHeight: 720,
+                    imageFiles: imageFiles,
                     debug: true,
                     onReady: () => {
                         console.log('[ASS] SubtitlesOctopus 就绪, canvas:', renderCanvas.width, 'x', renderCanvas.height, ', 预处理:', preprocessAss);
 
+                        // 预加载 \1img 图片并设置图片事件
+                        if (trackDetail?.assImageEvents && trackDetail.assImageEvents.length > 0 && trackDetail?.assImageData) {
+                            imageEventsRef.current = trackDetail.assImageEvents as ImageEvent[];
+                            const imgMap = loadedImagesRef.current;
+                            imgMap.clear();
+                            for (const ev of trackDetail.assImageEvents) {
+                                if (imgMap.has(ev.img)) continue;
+                                const dataUri = trackDetail.assImageData[ev.img];
+                                if (!dataUri) continue;
+                                const imgEl = new Image();
+                                imgEl.src = dataUri;
+                                imgMap.set(ev.img, imgEl);
+                            }
+                            console.log(`[ASS] 预加载 \\1img 图片: ${imgMap.size} 个, 事件: ${trackDetail.assImageEvents.length} 个`);
+                        } else {
+                            imageEventsRef.current = null;
+                        }
+
                         if (preprocessAss) {
                             // 优先使用时间轴 bounds (新方案: 滑动窗口 + EMA 平滑)
-                            if (currentTrack.assBoundsTimeline && currentTrack.assBoundsTimeline.length > 0) {
-                                timelineRef.current = currentTrack.assBoundsTimeline as BoundsTimelinePoint[];
+                            if (trackDetail?.assBoundsTimeline && trackDetail.assBoundsTimeline.length > 0) {
+                                timelineRef.current = trackDetail.assBoundsTimeline as BoundsTimelinePoint[];
                                 cachedBoundsRef.current = null; // 有 timeline 就不用固定 bounds
-                                console.log(`[ASS] 使用时间轴 bounds: ${currentTrack.assBoundsTimeline.length} 个关键点`);
-                            } else if (currentTrack.assBounds) {
+                                console.log(`[ASS] 使用时间轴 bounds: ${trackDetail.assBoundsTimeline.length} 个关键点`);
+                            } else if (trackDetail?.assBounds) {
                                 // 回退到全局固定 bounds (旧方案)
-                                const b = currentTrack.assBounds;
+                                const b = trackDetail.assBounds;
                                 const bounds: TwoBlockBounds = {
                                     topYMin: b.topYMin,
                                     topYMax: b.topYMax,
@@ -822,13 +1074,14 @@ export default function AssLyrics(): React.ReactElement | null {
             }
             cachedBoundsRef.current = null;
             timelineRef.current = null;
+            imageEventsRef.current = null;
             if (octopusRef.current) {
                 try { octopusRef.current.dispose(); } catch { /* ignore */ }
                 octopusRef.current = null;
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [showLyrics, currentTrack?.assUrl, currentTrack?.fonts, baseUrl, lyricsFullscreen, size, rebuildToken, preprocessAss]);
+    }, [showLyrics, currentTrack?.assUrl, baseUrl, lyricsFullscreen, size, rebuildToken, preprocessAss]);
 
     // ---- 全屏切换 / 浏览器窗口 resize 时重建 ----
     useEffect(() => {
@@ -1026,6 +1279,13 @@ export default function AssLyrics(): React.ReactElement | null {
                         ref={preprocessAss ? displayCanvasRef : canvasRef}
                         style={{ width: '100%', height: '100%', display: 'block' }}
                     />
+                    {/* 非预处理模式下的图片覆盖层 (独立 canvas, 避免被 SubtitlesOctopus clearRect 清除导致闪烁) */}
+                    {!preprocessAss && (
+                        <canvas
+                            ref={imageOverlayCanvasRef}
+                            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+                        />
+                    )}
                     {/* 预处理模式下, canvasRef 作为离屏渲染目标需挂载到 DOM 但隐藏 */}
                     {preprocessAss && (
                         <canvas
@@ -1071,6 +1331,13 @@ export default function AssLyrics(): React.ReactElement | null {
                     ref={preprocessAss ? displayCanvasRef : canvasRef}
                     style={{ width: '100%', height: '100%', display: 'block' }}
                 />
+                {/* 非预处理模式下的图片覆盖层 (独立 canvas, 避免被 SubtitlesOctopus clearRect 清除导致闪烁) */}
+                {!preprocessAss && (
+                    <canvas
+                        ref={imageOverlayCanvasRef}
+                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+                    />
+                )}
                 {/* 预处理模式下, canvasRef 作为离屏渲染目标需挂载到 DOM 但隐藏 */}
                 {preprocessAss && (
                     <canvas
