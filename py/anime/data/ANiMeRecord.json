@@ -10100,6 +10100,33 @@
                     "__dataclass__": "Character"
                 },
                 {
+                    "id": 138772,
+                    "name": "ツクヨミ",
+                    "relation": "配角",
+                    "image_url": "https://lain.bgm.tv/pic/crt/l/8f/3a/138772_crt_vAmpS.jpg?r=1695928233",
+                    "actor_ids": [
+                        19643
+                    ],
+                    "name_cn": "月读",
+                    "summary": "第6章「プライベート」から登場。幼い少女の外見をした謎の人物。名前は明かされておらず、アクアからは疫病神などと呼ばれる。カラスの群れを引き連れてアクアやルビーの前に時折現れ、皮肉めいた口調で意味深な言葉を投げかける。",
+                    "birth_year": null,
+                    "birth_month": null,
+                    "birth_day": null,
+                    "tags": [
+                        {
+                            "key": "简体中文名",
+                            "value": "月读",
+                            "__dataclass__": "KeyValue"
+                        },
+                        {
+                            "key": "性别",
+                            "value": "女",
+                            "__dataclass__": "KeyValue"
+                        }
+                    ],
+                    "__dataclass__": "Character"
+                },
+                {
                     "id": 160426,
                     "name": "林原キイロ",
                     "relation": "闲角",
@@ -10582,11 +10609,11 @@
                 },
                 {
                     "id": 1588459,
-                    "name": "",
-                    "name_cn": "",
+                    "name": "拝金と情熱",
+                    "name_cn": "拜金与热情",
                     "air_date": "2026-03-11",
-                    "desc": "",
-                    "duration_seconds": 0,
+                    "desc": "出資者集め、配給会社へのプレゼン、キャスティング……社会現象を起こせる映画を生み出すため奔走する五反田と鏑木。主演候補者選びが難航するなか、五反田が推したのは──\r\n\r\nSTAFF\r\n脚本：大内珠帆\r\n絵コンテ：吉川博明\r\n演出：秋風一乃助\r\nカラースクリプト：平牧大輔、秋風一乃助\r\n総作画監督：室賀彩花、STUDIO POLARIS（錦 寛乃）\r\nキャラクター作画監修：平山寛菜\r\n作画監督：木村圭之介、磯本雅大、菊地奨之、鈴木水彩、鄧 佳湄、森川侑紀、本谷 愛、立口徳孝、曾我篤史、板倉 健、STUDIO POLARIS（須佐祥智）",
+                    "duration_seconds": 1530,
                     "ep": 9,
                     "sort": 33,
                     "type": 0,
@@ -10621,8 +10648,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 6,
-            "last_update": "2026-02-26T13:03:04+08:00",
+            "watched_eps": 7,
+            "last_update": "2026-03-12T13:40:21+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
