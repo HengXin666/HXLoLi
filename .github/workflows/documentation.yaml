@@ -164,6 +164,11 @@ jobs:
           git config --global user.name "Heng_Xin"
           npm run deploy
 
+      - name: 为 Cloudflare Pages 重新构建 (baseUrl=/)
+        run: npm run build
+        env:
+          DEPLOY_TARGET: cloudflare
+
       - name: 移除超过 25MB 的文件 (Cloudflare Pages 限制)
         run: find build -type f -size +25M -print -delete
 
