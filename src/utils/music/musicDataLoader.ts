@@ -45,7 +45,7 @@ function resolveUrl(relativePath: string | undefined, useLocal: boolean): string
 }
 
 /** 判断是否使用本地服务器 (缓存结果) */
-async function shouldUseLocal(): Promise<boolean> {
+export async function shouldUseLocal(): Promise<boolean> {
     if (!isLocalDev()) return false;
     return await checkLocalServer();
 }
