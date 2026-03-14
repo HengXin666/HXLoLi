@@ -164,9 +164,12 @@ jobs:
           git config --global user.name "Heng_Xin"
           npm run deploy
 
+      - name: 移除超过 25MB 的文件 (Cloudflare Pages 限制)
+        run: find build -type f -size +25M -print -delete
+
       - name: 部署到 Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy build --project-name=hxloli
+          command: pages deploy build --project-name=hxloli --commit-dirty=true
