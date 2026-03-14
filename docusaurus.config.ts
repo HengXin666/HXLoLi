@@ -6,7 +6,11 @@ import remarkGithubAlerts from 'remark-github-alerts'; // Github tip标签渲染
 import remarkMath from 'remark-math'; // 数学渲染
 
 // 基础路径, 末尾不带 '/'
-const BaseUrl = "/HXLoLi";
+// 通过环境变量 DEPLOY_TARGET 来区分部署目标:
+//   DEPLOY_TARGET=cloudflare => baseUrl = "", url = "https://hxloli.pages.dev"
+//   默认 (GitHub Pages)     => baseUrl = "/HXLoLi", url = "https://HengXin666.github.io"
+const isCloudflare = process.env.DEPLOY_TARGET === 'cloudflare';
+const BaseUrl = isCloudflare ? "" : "/HXLoLi";
 
 // 插件配置
 const plugins: PluginConfig[] = [
@@ -34,9 +38,9 @@ const config: Config = {
   tagline: "ここから先は一方通行だ!", // 项目的 tagline（副标题）
   favicon: "img/favicon.ico", // 项目图标, 可以根据实际情况更换
 
-  // 站点的URL, GitHub Pages 一般需要设置为项目的路径
-  url: "https://HengXin666.github.io", // GitHub Pages 地址
-  baseUrl: BaseUrl, // 基础路径
+  // 站点的URL, 根据部署目标动态切换
+  url: isCloudflare ? "https://hxloli.pages.dev" : "https://HengXin666.github.io",
+  baseUrl: BaseUrl || "/", // Cloudflare 为 "/", GitHub Pages 为 "/HXLoLi"
   trailingSlash: false,
 
   // GitHub Pages 部署配置, 修改为你的 GitHub 项目名称
