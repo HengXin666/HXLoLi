@@ -163,3 +163,10 @@ jobs:
           git config --global user.email "282000500@qq.com"
           git config --global user.name "Heng_Xin"
           npm run deploy
+
+      - name: 部署到 Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy build --project-name=hxloli
