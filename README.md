@@ -30,7 +30,7 @@
 内置全局音乐播放器, 支持在浏览博客的同时享受音乐。
 
 - **全局播放控制**: 导航栏集成播放按钮, 展开面板即可操作
-- **ASS 歌词渲染**: 使用 [SubtitlesOctopus (HX)](https://github.com/HengXin666/JavascriptSubtitlesOctopus) 在 Canvas 上渲染 ASS 格式字幕歌词, 支持丰富的特效与字体; 个人 fork 二次开发, 以支持 VX
+- **ASS 歌词渲染**: 使用 [SubtitlesOctopus (HX)](https://github.com/HengXin666/JavascriptSubtitlesOctopus) 在 Canvas 上渲染 ASS 格式字幕歌词, 支持丰富的特效与字体; 个人 fork 二次开发, 以支持 VSFilterMod 的部分拓展标签
 - **多种播放模式**: 支持顺序播放、单曲循环、随机播放
 - **跨标签页同步**: 使用 BroadcastChannel 实现多标签页播放状态同步, 避免重复播放
 - **独立资源仓库**: 音乐资源托管在 [HXLoLi-Music](https://github.com/HengXin666/HXLoLi-Music) 仓库, 通过 jsDelivr CDN 加载, CI/CD 自动生成播放列表
