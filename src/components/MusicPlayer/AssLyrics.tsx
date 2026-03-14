@@ -19,25 +19,25 @@
  */
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import type { MusicTrackDetail } from '@site/src/config/musicData';
-import { isLocalDev, toMusicCdnUrl, toMusicLocalUrl } from '@site/src/utils/cdn/linkJsDelivr';
-import { loadTrackDetail } from '@site/src/utils/music/musicDataLoader';
+import { toMusicCdnUrl, toMusicLocalUrl } from '@site/src/utils/cdn/linkJsDelivr';
+import { loadTrackDetail, shouldUseLocal } from '@site/src/utils/music/musicDataLoader';
 import { useMusicStore } from '@site/src/utils/music/musicStore';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
-    FaAlignCenter,
-    FaBackward,
-    FaCrop,
-    FaExpand,
-    FaFastBackward,
-    FaForward,
-    FaLock,
-    FaLockOpen,
-    FaPause,
-    FaPlay,
-    FaStepBackward,
-    FaStepForward,
-    FaTimes,
-    FaUndo,
+  FaAlignCenter,
+  FaBackward,
+  FaCrop,
+  FaExpand,
+  FaFastBackward,
+  FaForward,
+  FaLock,
+  FaLockOpen,
+  FaPause,
+  FaPlay,
+  FaStepBackward,
+  FaStepForward,
+  FaTimes,
+  FaUndo,
 } from 'react-icons/fa';
 
 // ========== SubtitlesOctopus 类型声明 (Worker 模式) ==========
@@ -627,7 +627,11 @@ export default function AssLyrics(): React.ReactElement | null {
         }
         if (disposed) return;
 
-        const toFontUrl = isLocalDev() ? toMusicLocalUrl : toMusicCdnUrl;
+        // 使用 shouldUseLocal() 正确检测本地服务器是否可用，
+        // 而非仅凭 isLocalDev() 判断（serve.py 未运行时需 fallback 到 CDN，
+        // 否则 Worker 加载字体 URL 失败会导致整个渲染引擎卡死）
+        const useLocal = await shouldUseLocal();
+        const toFontUrl = useLocal ? toMusicLocalUrl : toMusicCdnUrl;
         const cjkFallbackUrl = toFontUrl('/static/music/fonts/NotoSansSC-Regular.ttf');
 
         const safeUrl = (url: string): string => {
