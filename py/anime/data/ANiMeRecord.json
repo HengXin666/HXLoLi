@@ -3327,8 +3327,8 @@
         },
         "user_status": {
             "watch_status": 3,
-            "watched_eps": 10,
-            "last_update": "2026-03-15T19:42:31+08:00",
+            "watched_eps": 11,
+            "last_update": "2026-03-16T23:48:12+08:00",
             "comment": null,
             "tags": [],
             "__dataclass__": "UserStatus"
