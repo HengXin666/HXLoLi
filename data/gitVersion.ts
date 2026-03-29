@@ -1,1 +1,1 @@
-export const LATEST_COMMIT_ID = '2f79c2fa86c68b97e5d0a65bdfe00e9503eb9d25';
+export const LATEST_COMMIT_ID = 'd6ed3a4cf66a168af2fb7803ae02f584d467dfb3';
