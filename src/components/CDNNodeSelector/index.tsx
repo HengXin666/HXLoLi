@@ -2,49 +2,53 @@
  * CDN 节点选择器 — Navbar 下拉面板
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { mainEngine, ensureInit } from '@site/src/utils/cdn/linkJsDelivr';
+import { mainEngine, ensureInit, selectNodeAll } from '@site/src/utils/cdn/linkJsDelivr';
+
+const CDN_STORAGE_KEY = 'hxloli-cdn-node';
 
 interface NodeInfo {
   id: string;
   name: string;
   region: string;
-  latency: number | null; // null = 未测速, -1 = 超时
+  latency: number | null;
   selected: boolean;
   testing: boolean;
 }
 
-function CDNNodePanel(): React.ReactElement {
-  const [nodes, setNodes] = useState<NodeInfo[]>([]);
+function getNodeList(markAllTesting = false): NodeInfo[] {
+  if (!mainEngine) return [];
+  const nodes = mainEngine.getNodes();
+  const current = mainEngine.getCurrentNode();
+  const latencyMap = mainEngine.getLatencyResults();
+
+  return nodes.map((n: any) => {
+    const result = latencyMap.get(n.id);
+    return {
+      id: n.id,
+      name: n.name,
+      region: n.region ?? 'global',
+      latency: markAllTesting ? null : (result?.latency ?? null),
+      selected: current?.id === n.id,
+      testing: markAllTesting,
+    };
+  });
+}
+
+function CDNNodePanel({ onUpdate }: { onUpdate: () => void }): React.ReactElement {
+  const [nodes, setNodes] = useState<NodeInfo[]>(() => getNodeList());
   const [testing, setTesting] = useState(false);
 
-  const refreshNodes = useCallback((markAllTesting = false) => {
-    if (!mainEngine.isInitialized()) return;
-    const sorted = mainEngine.getSortedNodes();
-    const current = mainEngine.getCurrentNode();
-    setNodes(
-      sorted.map((n) => ({
-        id: n.id,
-        name: n.name,
-        region: n.region ?? 'global',
-        latency: markAllTesting ? null : (n.latency ?? null),
-        selected: current?.id === n.id,
-        testing: markAllTesting,
-      })),
-    );
-  }, []);
-
   useEffect(() => {
-    ensureInit().then(() => refreshNodes());
-  }, [refreshNodes]);
+    setNodes(getNodeList());
+    ensureInit().then(() => { setNodes(getNodeList()); onUpdate(); });
+  }, [onUpdate]);
 
   const handleTest = useCallback(async () => {
+    if (!mainEngine) return;
     setTesting(true);
-    // 先把所有节点标记为「测速中」
-    refreshNodes(true);
-
+    setNodes(getNodeList(true));
     try {
-      // 流式测速：每个节点完成立即更新
-      await mainEngine.testAllNodesStreaming((result) => {
+      await mainEngine.testAllNodesStreaming((result: any) => {
         setNodes((prev) =>
           prev.map((n) =>
             n.id === result.nodeId
@@ -52,30 +56,23 @@ function CDNNodePanel(): React.ReactElement {
               : n,
           ),
         );
+        onUpdate();
       });
-      // 测速完成后刷新选中状态
-      const current = mainEngine.getCurrentNode();
-      setNodes((prev) =>
-        prev
-          .map((n) => ({ ...n, selected: current?.id === n.id }))
-          .sort((a, b) => {
-            const la = a.latency == null || a.latency < 0 ? Infinity : a.latency;
-            const lb = b.latency == null || b.latency < 0 ? Infinity : b.latency;
-            return la - lb;
-          }),
-      );
+      // 测速完成后同步最优节点到所有引擎
+      const best = mainEngine.getCurrentNode();
+      if (best) selectNodeAll(best.id);
+      setNodes(getNodeList());
+      onUpdate();
     } finally {
       setTesting(false);
     }
-  }, [refreshNodes]);
+  }, [onUpdate]);
 
-  const handleSelect = useCallback(
-    (nodeId: string) => {
-      mainEngine.selectNode(nodeId);
-      refreshNodes();
-    },
-    [refreshNodes],
-  );
+  const handleSelect = useCallback((nodeId: string) => {
+    selectNodeAll(nodeId);
+    setNodes(getNodeList());
+    onUpdate();
+  }, [onUpdate]);
 
   return (
     <div style={panelStyle}>
@@ -97,26 +94,15 @@ function CDNNodePanel(): React.ReactElement {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ fontSize: 10 }}>
-              {node.region === 'china' ? '🇨🇳' : '🌐'}
-            </span>
+            <span style={{ fontSize: 10 }}>{node.region === 'china' ? '🇨🇳' : '🌐'}</span>
             <span style={{ fontSize: 13 }}>{node.name}</span>
             {node.selected && <span style={{ fontSize: 10, color: '#6366f1' }}>✓</span>}
           </div>
           <span style={{
-            fontSize: 12,
-            fontFamily: 'monospace',
-            color: node.testing
-              ? '#888'
-              : node.latency != null
-                ? latencyColor(node.latency)
-                : '#666',
+            ...latencyFont,
+            color: node.testing ? '#888' : node.latency != null ? latencyColor(node.latency) : '#666',
           }}>
-            {node.testing
-              ? '测速中...'
-              : node.latency != null
-                ? formatLatency(node.latency)
-                : '---'}
+            {node.testing ? '测速中...' : node.latency != null ? formatLatency(node.latency) : '---'}
           </span>
         </div>
       ))}
@@ -127,24 +113,44 @@ function CDNNodePanel(): React.ReactElement {
   );
 }
 
-/** Navbar 按钮 */
 export function CDNNavbarButton(): React.ReactElement {
   const [open, setOpen] = useState(false);
-  const [currentLatency, setCurrentLatency] = useState<number | null>(null);
+  const [label, setLabel] = useState('CDN');
+  const [color, setColor] = useState('var(--ifm-navbar-link-color)');
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    ensureInit().then(() => {
-      const node = mainEngine.getCurrentNode();
-      if (node) {
-        const sorted = mainEngine.getSortedNodes();
-        const found = sorted.find((n) => n.id === node.id);
-        if (found?.latency != null) setCurrentLatency(found.latency);
+  const refreshLabel = useCallback(() => {
+    if (!mainEngine) return;
+    const node = mainEngine.getCurrentNode();
+    if (node) {
+      const latencyMap = mainEngine.getLatencyResults();
+      const result = latencyMap.get(node.id);
+      if (result?.latency != null) {
+        setLabel(formatLatency(result.latency));
+        setColor(latencyColor(result.latency));
+        return;
       }
-    });
-  }, [open]);
+    }
+    setLabel('CDN');
+    setColor('var(--ifm-navbar-link-color)');
+  }, []);
 
-  // 点击外部关闭
+  useEffect(() => {
+    ensureInit().then(refreshLabel);
+  }, [refreshLabel]);
+
+  // 跨页面同步
+  useEffect(() => {
+    const handler = (e: StorageEvent) => {
+      if (e.key === CDN_STORAGE_KEY && e.newValue) {
+        selectNodeAll(e.newValue);
+        refreshLabel();
+      }
+    };
+    window.addEventListener('storage', handler);
+    return () => window.removeEventListener('storage', handler);
+  }, [refreshLabel]);
+
   useEffect(() => {
     if (!open) return;
     const handler = (e: MouseEvent) => {
@@ -168,15 +174,9 @@ export function CDNNavbarButton(): React.ReactElement {
         title="CDN 节点选择"
       >
         <span style={{ fontSize: 11 }}>⚡</span>
-        <span style={{
-          fontFamily: 'monospace',
-          fontSize: 12,
-          color: currentLatency != null ? latencyColor(currentLatency) : 'var(--ifm-navbar-link-color)',
-        }}>
-          {currentLatency != null ? formatLatency(currentLatency) : 'CDN'}
-        </span>
+        <span style={{ ...latencyFont, color }}>{label}</span>
       </button>
-      {open && <CDNNodePanel />}
+      {open && <CDNNodePanel onUpdate={refreshLabel} />}
     </div>
   );
 }
@@ -187,54 +187,45 @@ function formatLatency(ms: number): string {
 }
 
 function latencyColor(ms: number): string {
-  if (ms < 0) return '#ef4444';  // 超时 = 红色
+  if (ms < 0) return '#ef4444';
   if (ms < 100) return '#22c55e';
   if (ms < 300) return '#eab308';
   if (ms < 600) return '#f97316';
   return '#ef4444';
 }
 
+const latencyFont: React.CSSProperties = {
+  fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
+  fontSize: 12,
+  fontVariantNumeric: 'tabular-nums',
+  letterSpacing: -0.3,
+};
+
 const panelStyle: React.CSSProperties = {
-  position: 'absolute',
-  top: '100%',
-  right: 0,
-  marginTop: 4,
+  position: 'absolute', top: '100%', right: 0, marginTop: 4,
   background: 'var(--ifm-background-surface-color, #1e1e2e)',
   border: '1px solid var(--ifm-color-emphasis-300, #3a3a4a)',
-  borderRadius: 8,
-  boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
-  minWidth: 240,
-  zIndex: 1000,
-  overflow: 'hidden',
+  borderRadius: 8, boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+  minWidth: 240, zIndex: 1000, overflow: 'hidden',
 };
 
 const panelHeader: React.CSSProperties = {
-  padding: '8px 12px',
-  fontSize: 11,
+  padding: '8px 12px', fontSize: 11,
   color: 'var(--ifm-color-emphasis-600, #999)',
   borderBottom: '1px solid var(--ifm-color-emphasis-200, #2a2a3a)',
 };
 
 const nodeStyle: React.CSSProperties = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  padding: '8px 12px',
-  cursor: 'pointer',
-  transition: 'background 0.15s',
+  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+  padding: '8px 12px', cursor: 'pointer', transition: 'background 0.15s',
   color: 'var(--ifm-font-color-base, #e0e0e0)',
 };
 
 const btnStyle: React.CSSProperties = {
-  width: '100%',
-  padding: '8px 12px',
-  border: 'none',
+  width: '100%', padding: '8px 12px', border: 'none',
   borderTop: '1px solid var(--ifm-color-emphasis-200, #2a2a3a)',
-  background: 'transparent',
-  color: 'var(--ifm-color-primary, #6366f1)',
-  cursor: 'pointer',
-  fontSize: 12,
-  fontWeight: 600,
+  background: 'transparent', color: 'var(--ifm-color-primary, #6366f1)',
+  cursor: 'pointer', fontSize: 12, fontWeight: 600,
 };
 
 export default CDNNodePanel;

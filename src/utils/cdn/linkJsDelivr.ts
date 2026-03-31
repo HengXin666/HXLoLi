@@ -7,64 +7,65 @@
  * - HXLoLi-Music → 音乐/ASS/字体 (tag ref, 大文件自动切片)
  */
 
-import { ForgeEngine, createForgeConfig } from 'hx-cdn-forge';
 import { LATEST_COMMIT_ID } from '@site/data/gitVersion';
 import { ANIME_CDN_TAG } from '@site/data/animeCdnVersion';
 import { MUSIC_CDN_TAG } from '@site/data/musicCdnVersion';
 import { GITHUB_CONFIG } from '@site/src/config/github';
 
+// SSR 安全: hx-cdn-forge 只在浏览器端加载
+let ForgeEngine: any = null;
+let createForgeConfig: any = null;
+
+if (typeof window !== 'undefined') {
+  try {
+    const mod = require('hx-cdn-forge');
+    ForgeEngine = mod.ForgeEngine;
+    createForgeConfig = mod.createForgeConfig;
+  } catch {}
+}
+
 // ============================================================
-// ForgeEngine 实例 (每个仓库一个)
+// ForgeEngine 实例
 // ============================================================
 
-/** HXLoLi 主仓库 — 博客图片等静态资源 */
-const mainEngine = new ForgeEngine(createForgeConfig({
-  user: GITHUB_CONFIG.USER,
-  repo: GITHUB_CONFIG.REPO,
-  ref: GITHUB_CONFIG.BRANCH,
-}));
+const DEFAULT_NODE = 'jsd-mirror';
 
-/** HXLoLi 主仓库 (commit ref) — 精确缓存 */
-const mainCommitEngine = new ForgeEngine(createForgeConfig({
-  user: GITHUB_CONFIG.USER,
-  repo: GITHUB_CONFIG.REPO,
-  ref: LATEST_COMMIT_ID,
-}));
+function createEngine(github: any, options?: any) {
+  if (!ForgeEngine || !createForgeConfig) return null;
+  return new ForgeEngine(createForgeConfig(github, { defaultNodeId: DEFAULT_NODE, ...options }));
+}
 
-/** HXLoLi-ANiMe — 番剧数据 + 图片 */
-const animeEngine = new ForgeEngine(createForgeConfig({
-  user: GITHUB_CONFIG.USER,
-  repo: 'HXLoLi-ANiMe',
-  ref: ANIME_CDN_TAG,
-}));
+const mainEngine = createEngine({
+  user: GITHUB_CONFIG.USER, repo: GITHUB_CONFIG.REPO, ref: GITHUB_CONFIG.BRANCH,
+});
 
-/** HXLoLi-Music — 音乐/ASS/字体 (带切片支持) */
-const musicEngine = new ForgeEngine(createForgeConfig(
-  {
-    user: GITHUB_CONFIG.USER,
-    repo: 'HXLoLi-Music',
-    ref: MUSIC_CDN_TAG,
-  },
-  {
-    splitStoragePath: 'static/cdn',
-    mappingPrefix: 'static',
-    turboMode: true,
-    turboConcurrentCDNs: 3,
-  },
-));
+const mainCommitEngine = createEngine({
+  user: GITHUB_CONFIG.USER, repo: GITHUB_CONFIG.REPO, ref: LATEST_COMMIT_ID,
+});
 
-// 初始化 (自动测速选最快节点)
+const animeEngine = createEngine({
+  user: GITHUB_CONFIG.USER, repo: 'HXLoLi-ANiMe', ref: ANIME_CDN_TAG,
+});
+
+const musicEngine = createEngine(
+  { user: GITHUB_CONFIG.USER, repo: 'HXLoLi-Music', ref: MUSIC_CDN_TAG },
+  { splitStoragePath: 'static/cdn', mappingPrefix: 'static', turboMode: true, turboConcurrentCDNs: 3 },
+);
+
+/** 所有引擎列表 (方便同步操作) */
+const allEngines = [mainEngine, mainCommitEngine, animeEngine, musicEngine].filter(Boolean);
+
+// ============================================================
+// 初始化
+// ============================================================
+
 let _initPromise: Promise<void> | null = null;
 function ensureInit(): Promise<void> {
   if (_initPromise) return _initPromise;
-  _initPromise = (async () => {
-    await Promise.all([
-      mainEngine.initialize(),
-      animeEngine.initialize(),
-      musicEngine.initialize(),
-    ]);
-    // mainCommitEngine 共享 mainEngine 的节点选择，不需要重复测速
-  })();
+  if (allEngines.length === 0) return Promise.resolve();
+  _initPromise = Promise.all(
+    allEngines.map((e) => e.initialize().catch(() => {})),
+  ).then(() => {});
   return _initPromise;
 }
 
@@ -72,60 +73,74 @@ if (typeof window !== 'undefined') {
   ensureInit();
 }
 
+/** 切换节点 — 同步到所有引擎 */
+function selectNodeAll(nodeId: string) {
+  for (const engine of allEngines) {
+    try { engine.selectNode(nodeId); } catch {}
+  }
+  try { localStorage.setItem('hxloli-cdn-node', nodeId); } catch {}
+}
+
 // ============================================================
-// URL 构建函数 (兼容旧 API)
+// URL 构建函数
 // ============================================================
 
-/** HXLoLi 仓库资源 URL (branch ref — 图片等) */
+/** jsDelivr 直连 URL 构建 (SSR fallback) */
+function directUrl(user: string, repo: string, ref: string, path: string): string {
+  const p = path.startsWith('/') ? path : `/${path}`;
+  return `https://cdn.jsdmirror.com/gh/${user}/${repo}@${ref}${p}`;
+}
+
 export function toJsDelivrUrl(relativePath: string): string {
   if (!relativePath) return '';
-  return mainEngine.buildUrl(relativePath);
+  if (mainEngine) return mainEngine.buildUrl(relativePath);
+  return directUrl(GITHUB_CONFIG.USER, GITHUB_CONFIG.REPO, GITHUB_CONFIG.BRANCH, relativePath);
 }
 
-/** HXLoLi 仓库资源 URL (commit ref — JSON 等精确缓存) */
 export function toJsDelivrLatestCommitUrl(relativePath: string): string {
   if (!relativePath) return '';
-  return mainCommitEngine.buildUrl(relativePath);
+  if (mainCommitEngine) return mainCommitEngine.buildUrl(relativePath);
+  return directUrl(GITHUB_CONFIG.USER, GITHUB_CONFIG.REPO, LATEST_COMMIT_ID, relativePath);
 }
 
-/** HXLoLi-ANiMe 仓库资源 URL */
 export function toAnimeCdnUrl(relativePath: string): string {
   if (!relativePath) return '';
-  return animeEngine.buildUrl(relativePath);
+  if (animeEngine) return animeEngine.buildUrl(relativePath);
+  return directUrl(GITHUB_CONFIG.USER, 'HXLoLi-ANiMe', ANIME_CDN_TAG, relativePath);
 }
 
-/** HXLoLi-Music 仓库资源 URL */
 export function toMusicCdnUrl(relativePath: string): string {
   if (!relativePath) return '';
-  return musicEngine.buildUrl(relativePath);
+  if (musicEngine) return musicEngine.buildUrl(relativePath);
+  return directUrl(GITHUB_CONFIG.USER, 'HXLoLi-Music', MUSIC_CDN_TAG, relativePath);
 }
 
 // ============================================================
-// 大文件透明请求 (reqByCDN — 自动检测切片)
+// 大文件透明请求
 // ============================================================
 
 export type { DownloadResult, DownloadProgress } from 'hx-cdn-forge';
 
-/** Music 仓库大文件透明请求 (ASS/字体等, 自动切片并行下载) */
 export async function reqMusicByCDN(
   path: string,
   onProgress?: (p: import('hx-cdn-forge').DownloadProgress) => void,
 ) {
   await ensureInit();
+  if (!musicEngine) throw new Error('musicEngine not available');
   return musicEngine.reqByCDN(path, onProgress);
 }
 
-/** ANiMe 仓库大文件透明请求 (JSON 等) */
 export async function reqAnimeByCDN(
   path: string,
   onProgress?: (p: import('hx-cdn-forge').DownloadProgress) => void,
 ) {
   await ensureInit();
+  if (!animeEngine) throw new Error('animeEngine not available');
   return animeEngine.reqByCDN(path, onProgress);
 }
 
 // ============================================================
-// 本地开发服务器 (保持兼容)
+// 本地开发服务器
 // ============================================================
 
 export const LOCAL_MUSIC_SERVER = 'http://localhost:9527';
@@ -143,7 +158,7 @@ export function toMusicLocalUrl(relativePath: string): string {
 }
 
 // ============================================================
-// 导出引擎实例 (供高级使用)
+// 导出
 // ============================================================
 
-export { mainEngine, animeEngine, musicEngine, ensureInit };
+export { mainEngine, animeEngine, musicEngine, allEngines, ensureInit, selectNodeAll };
