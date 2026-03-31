@@ -165,6 +165,10 @@ const config: Config = {
           position: "left",
         },
         {
+          type: "custom-cdnSelector" as any,
+          position: "right",
+        },
+        {
           type: "custom-musicPlayer" as any,
           position: "right",
         },
