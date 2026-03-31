@@ -78,6 +78,7 @@ export function loadPlaylist(): Promise<MusicTrack[]> {
             ...track,
             audioUrl: resolveUrl(track.audioUrl, useLocal)!,
             assUrl: resolveUrl(track.assUrl, useLocal),
+            assRelativePath: track.assUrl,  // 保留原始相对路径
             coverUrl: resolveUrl(track.coverUrl, useLocal),
         }));
         return cachedPlaylist;

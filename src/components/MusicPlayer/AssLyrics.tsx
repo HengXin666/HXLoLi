@@ -19,7 +19,7 @@
  */
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import type { MusicTrackDetail } from '@site/src/config/musicData';
-import { toMusicCdnUrl, toMusicLocalUrl } from '@site/src/utils/cdn/linkJsDelivr';
+import { toMusicCdnUrl, toMusicLocalUrl, reqMusicByCDN } from '@site/src/utils/cdn/linkJsDelivr';
 import { loadTrackDetail, shouldUseLocal } from '@site/src/utils/music/musicDataLoader';
 import { useMusicStore } from '@site/src/utils/music/musicStore';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -655,21 +655,31 @@ export default function AssLyrics(): React.ReactElement | null {
           }
         }
 
-        // 加载 ASS 字幕内容
-        const assUrlRaw = currentTrack.assUrl!;
-        const origin = typeof window !== 'undefined' ? window.location.origin : '';
-        const subFullUrl = safeUrl(
-          assUrlRaw.startsWith('http') ? assUrlRaw : `${origin}${assUrlRaw}`
-        );
-        console.log('[JSO] 正在 fetch ASS 文件:', subFullUrl);
+        // 加载 ASS 字幕内容 — 通过 ForgeEngine 切片并行下载
+        console.log('[JSO] 正在加载 ASS 文件...');
         let subContent: string;
         try {
-          const resp = await fetch(subFullUrl);
-          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-          subContent = await resp.text();
-          console.log(`[JSO] ASS 文件加载成功, 大小: ${subContent.length} 字符`);
+          if (useLocal) {
+            // 本地开发: 直接 fetch
+            const assUrlRaw = currentTrack.assUrl!;
+            const origin = typeof window !== 'undefined' ? window.location.origin : '';
+            const subFullUrl = safeUrl(
+              assUrlRaw.startsWith('http') ? assUrlRaw : `${origin}${assUrlRaw}`
+            );
+            console.log('[JSO] 本地 fetch ASS:', subFullUrl);
+            const resp = await fetch(subFullUrl);
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            subContent = await resp.text();
+          } else {
+            // 生产: reqMusicByCDN 自动检测切片 (info.yaml → 并行下载 → 拼接)
+            const relativePath = currentTrack.assRelativePath ?? currentTrack.assUrl!;
+            console.log('[JSO] reqMusicByCDN ASS:', relativePath);
+            const result = await reqMusicByCDN(relativePath);
+            subContent = await result.blob.text();
+            console.log(`[JSO] ASS 加载完成: ${subContent.length} 字符, 切片模式: ${result.usedSplitMode}, 耗时: ${result.totalTime.toFixed(0)}ms`);
+          }
         } catch (fetchErr) {
-          console.error('[JSO] fetch ASS 文件失败:', fetchErr);
+          console.error('[JSO] ASS 文件加载失败:', fetchErr);
           setInitError(`加载 ASS 文件失败: ${fetchErr}`);
           return;
         }

@@ -17,6 +17,8 @@ export interface MusicTrack {
     audioUrl: string;
     /** ASS 歌词文件URL (可选) */
     assUrl?: string;
+    /** ASS 歌词文件的原始相对路径 (供 reqMusicByCDN 切片加载使用) */
+    assRelativePath?: string;
     /** 封面图片 URL (可选) */
     coverUrl?: string;
     /** ASS 歌词中使用的字体名列表 (用于 fallback 映射, 可选) */
