@@ -11,36 +11,6 @@ permissions:
   contents: write
 
 jobs:
-  # --- 脚本 1: 更新 Commit 信息 ---
-  process-commit:
-    if: |
-      github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[LoLi-Bot]')
-    runs-on: ubuntu-latest
-    outputs:
-      changes_detected: ${{ steps.auto-commit.outputs.changes_detected }}
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          ref: 'main'
-
-      - name: 启用 Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: 执行 GetCommit 脚本
-        run: python py/tools/GetCommit.py
-
-      - name: 提交更新后的 Commit 数据
-        id: auto-commit
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: '[LoLi-Bot]: Commit 「最后之作」'
-          commit_user_name: 'Heng_Xin[LoLi-Bot]'
-          commit_user_email: '282000500@qq.com'
-
-  # --- 脚本 2: 部署 ---
   deploy:
     needs: [process-commit]
     if: |
