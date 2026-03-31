@@ -3,7 +3,7 @@ import type { ForceGraphMethods, NodeObject, LinkObject } from 'react-force-grap
 import { useActorMap, useAnimeRecords } from "@site/src/utils/anime/animeStore";
 import { ANiMeRecord, Character } from "@site/src/utils/anime/types";
 import BrowserOnly from '@docusaurus/BrowserOnly';
-import { toJsDelivrUrl } from '@site/src/utils/cdn/linkJsDelivr';
+import { toAnimeCdnUrl } from '@site/src/utils/cdn/linkJsDelivr';
 
 // ================= 1. 类型定义 =================
 
@@ -398,7 +398,7 @@ export const AnimeForceGraph: React.FC<AnimeForceGraphProps> = ({
                 type: 'Anime',
                 name: anime.name,
                 name_cn: anime.name_cn,
-                image_url: toJsDelivrUrl(`/py/anime/data/anime/${anime.id}.jpg`),
+                image_url: toAnimeCdnUrl(`/data/anime/${anime.id}.jpg`),
                 val: 80,
                 rawAnimeId: anime.id
             });
@@ -411,7 +411,7 @@ export const AnimeForceGraph: React.FC<AnimeForceGraphProps> = ({
                     type: 'Character',
                     name: char.name,
                     name_cn: char.name_cn,
-                    image_url: toJsDelivrUrl(`/py/anime/data/kyara/${char.id}.jpg`),
+                    image_url: toAnimeCdnUrl(`/data/kyara/${char.id}.jpg`),
                     val: 20,
                     rawCharacter: char
                 });
@@ -425,7 +425,7 @@ export const AnimeForceGraph: React.FC<AnimeForceGraphProps> = ({
                             id: actorNodeId,
                             type: 'Actor',
                             name: actor.name,
-                            image_url: toJsDelivrUrl(`/py/anime/data/cv/${actor.id}.jpg`),
+                            image_url: toAnimeCdnUrl(`/data/cv/${actor.id}.jpg`),
                             val: 12,
                             rawActorId: actor.id
                         });

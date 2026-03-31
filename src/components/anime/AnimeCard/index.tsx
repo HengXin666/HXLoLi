@@ -3,7 +3,7 @@ import Heading from "@theme/Heading";
 import Link from "@docusaurus/Link";
 import MDXA from "@site/src/theme/MDXComponents/A";
 import { ANiMeRecord, EpisodeType } from "@site/src/utils/anime/types";
-import { toJsDelivrUrl } from "@site/src/utils/cdn/linkJsDelivr";
+import { toAnimeCdnUrl } from "@site/src/utils/cdn/linkJsDelivr";
 import styles from "./AnimeCard.module.css";
 import { SortMode } from "../SortTabs";
 import Tag from "../Tag";
@@ -43,7 +43,7 @@ export default function AnimeCard ({
             <div className={styles.animeCard}>
                 <div className={styles.cardImageColumn}>
                     <ZoomImage
-                        src={toJsDelivrUrl(`/py/anime/data/anime/${anime_data.id}.jpg`)}
+                        src={toAnimeCdnUrl(`/data/anime/${anime_data.id}.jpg`)}
                         alt={anime_data.name_cn}
                         loading="lazy"
                         decoding="async"

@@ -1,7 +1,7 @@
 import { parse } from "@site/src/utils/anime/parser";
 import { Actor, ANiMeRecord } from "@site/src/utils/anime/types";
 import { useState, useEffect } from "react";
-import { toJsDelivrLatestCommitUrl } from '@site/src/utils/cdn/linkJsDelivr'
+import { reqAnimeByCDN } from '@site/src/utils/cdn/linkJsDelivr'
 
 let cachedRecords: readonly ANiMeRecord[] | null = null;
 let loadingPromise: Promise<readonly ANiMeRecord[]> | null = null;
@@ -19,11 +19,9 @@ function loadAnimeRecords (): Promise<readonly ANiMeRecord[]> {
     }
 
     loadingPromise = (async () => {
-        const response = await fetch(toJsDelivrLatestCommitUrl("/py/anime/data/ANiMeRecord.json"));
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-        const data = parse<ANiMeRecord[]>(await response.text());
+        const result = await reqAnimeByCDN('/data/ANiMeRecord.json');
+        const text = await result.blob.text();
+        const data = parse<ANiMeRecord[]>(text);
 
         cachedRecords = Object.freeze(data);
         return cachedRecords;
@@ -42,11 +40,9 @@ function loadActorMap (): Promise<Map<number, Actor>> {
     }
     
     loadingActorPromise = (async () => {
-        const response = await fetch(toJsDelivrLatestCommitUrl("/py/anime/data/Actor.json"));
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-        const data = parse<Actor[]>(await response.text());
+        const result = await reqAnimeByCDN('/data/Actor.json');
+        const text = await result.blob.text();
+        const data = parse<Actor[]>(text);
         
         const map = new Map<number, Actor>();
         data.forEach(actor => {

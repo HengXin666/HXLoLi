@@ -8,7 +8,7 @@ import { type Variants, motion } from "framer-motion";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { useActorMap, useAnimeRecordMap, useAnimeRecords } from "@site/src/utils/anime/animeStore";
 import useQuery from "@site/src/utils/url/useQuery";
-import { toJsDelivrUrl } from "@site/src/utils/cdn/linkJsDelivr";
+import { toAnimeCdnUrl } from "@site/src/utils/cdn/linkJsDelivr";
 import styles from "./CvPage.module.css";
 import Tooltip from "@site/src/components/common/Tooltip";
 import MDXA from "@site/src/theme/MDXComponents/A";
@@ -104,7 +104,7 @@ function Year ({ posts }: YearProp) {
                                 content={
                                     <>
                                         <ZoomImage
-                                            src={toJsDelivrUrl(`/py/anime/data/anime/${post.metadata.anime_id}.jpg`)}
+                                            src={toAnimeCdnUrl(`/data/anime/${post.metadata.anime_id}.jpg`)}
                                             loading="lazy"
                                             decoding="async"
                                             style={{
@@ -156,7 +156,7 @@ function Year ({ posts }: YearProp) {
                                         content={
                                             <>
                                                 <ZoomImage
-                                                    src={toJsDelivrUrl(`/py/anime/data/kyara/${kyaraId}.jpg`)}
+                                                    src={toAnimeCdnUrl(`/data/kyara/${kyaraId}.jpg`)}
                                                     loading="lazy"
                                                     decoding="async"
                                                     style={{
@@ -321,7 +321,7 @@ export default function CvPage (): ReactNode {
                         {currentActor &&
                             <>
                                 <ZoomImage
-                                    src={toJsDelivrUrl(`/py/anime/data/cv/${currentActor.id}.jpg`)}
+                                    src={toAnimeCdnUrl(`/data/cv/${currentActor.id}.jpg`)}
                                     alt={currentActor.name}
                                     loading="lazy"
                                     decoding="async"

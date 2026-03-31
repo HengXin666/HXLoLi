@@ -6,7 +6,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import BlogWithCats from "@site/src/components/BlogWithCats";
 import { useActorMap, useAnimeRecords } from "@site/src/utils/anime/animeStore";
-import { toJsDelivrUrl } from "@site/src/utils/cdn/linkJsDelivr";
+import { toAnimeCdnUrl } from "@site/src/utils/cdn/linkJsDelivr";
 import { ANiMeRecord, EpisodeType, WatchStatus } from "@site/src/utils/anime/types";
 import styles from './AnimeDetailPage.module.css';
 import MDXA from "@site/src/theme/MDXComponents/A";
@@ -112,7 +112,7 @@ const RelationList = ({ record }: { record: ANiMeRecord }) => {
                                     style={{ width: "auto" }}
                                 >
                                     <div key={rel.id} className={styles.relationItem}>
-                                        <ZoomImage src={toJsDelivrUrl(`/py/anime/data/relation/${rel.id}.jpg`)} alt={rel.name} className={styles.relationImage} />
+                                        <ZoomImage src={toAnimeCdnUrl(`/data/relation/${rel.id}.jpg`)} alt={rel.name} className={styles.relationImage} />
                                         <div className={styles.relationInfo}>
                                             <MDXA href={`${siteConfig.baseUrl}anime/details?id=${rel.id}`}>{rel.name}</MDXA>
                                         </div>
@@ -185,7 +185,7 @@ export default function AnimeDetailPage (): React.ReactElement {
 
                         <main className={styles.mainContent}>
                             <aside>
-                                <ZoomImage src={toJsDelivrUrl(`/py/anime/data/anime/${record.anime_data.id}.jpg`)} alt={record.anime_data.name_cn} className={styles.coverImage} />
+                                <ZoomImage src={toAnimeCdnUrl(`/data/anime/${record.anime_data.id}.jpg`)} alt={record.anime_data.name_cn} className={styles.coverImage} />
                             </aside>
 
                             <section className={styles.infoColumn}>
@@ -374,7 +374,7 @@ export default function AnimeDetailPage (): React.ReactElement {
                                             <a href={`https://bgm.tv/character/${char.id}`} target="_blank" className={styles.characterImageLink} title={char.name}>
                                                 <span
                                                     className={styles.characterImageSpan}
-                                                    style={{ backgroundImage: `url(${toJsDelivrUrl(`/py/anime/data/kyara/${char.id}.jpg`)})` }}
+                                                    style={{ backgroundImage: `url(${toAnimeCdnUrl(`/data/kyara/${char.id}.jpg`)})` }}
                                                 ></span>
                                             </a>
                                         </Tooltip>
@@ -410,7 +410,7 @@ export default function AnimeDetailPage (): React.ReactElement {
                                                                             }}
                                                                         >
                                                                             <ZoomImage
-                                                                                src={toJsDelivrUrl(`/py/anime/data/cv/${actor.id}.jpg`)}
+                                                                                src={toAnimeCdnUrl(`/data/cv/${actor.id}.jpg`)}
                                                                                 alt={actor.name}
                                                                                 loading="lazy"
                                                                                 decoding="async"
