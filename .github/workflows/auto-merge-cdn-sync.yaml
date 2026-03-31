@@ -1,0 +1,78 @@
+name: "[LoLi]: 自动合并子仓库 CDN 同步 PR"
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge-cdn-pr:
+    # 安全校验:
+    # 1. 来自 auto/*-cdn-* 分支 (子仓库 CI 创建的)
+    # 2. PR 创建者是仓库所有者
+    # 3. 非 fork PR
+    if: |
+      startsWith(github.head_ref, 'auto/') &&
+      contains(github.head_ref, '-cdn-') &&
+      github.event.pull_request.user.login == 'HengXin666' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔒 安全校验
+        run: |
+          echo "🔒 安全校验通过:"
+          echo "  - 分支: ${{ github.head_ref }}"
+          echo "  - 提交者: ${{ github.event.pull_request.user.login }}"
+
+      - name: 📄 校验 PR 只修改了 *CdnVersion.ts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          CHANGED_FILES=$(gh pr diff "${PR_NUMBER}" \
+            --repo "${{ github.repository }}" \
+            --name-only)
+          echo "📄 PR 修改的文件:"
+          echo "${CHANGED_FILES}"
+
+          # 只允许修改 data/*CdnVersion.ts 格式的文件
+          while IFS= read -r file; do
+            if [ -z "$file" ]; then
+              continue
+            fi
+            if echo "$file" | grep -qE '^data/[a-zA-Z]+CdnVersion\.ts$'; then
+              echo "✅ 合法文件: ${file}"
+            else
+              echo "❌ 发现未授权的文件修改: ${file}"
+              echo "🚫 安全校验失败, 拒绝自动合并!"
+              exit 1
+            fi
+          done <<< "${CHANGED_FILES}"
+          echo "✅ 文件修改范围校验通过"
+
+      - name: ✅ 审批并合并 PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          echo "🏷️ 检测到子仓库 CDN 同步 PR #${PR_NUMBER}"
+          echo "📋 标题: ${{ github.event.pull_request.title }}"
+
+          gh pr review "${PR_NUMBER}" \
+            --repo "${{ github.repository }}" \
+            --approve \
+            --body "🤖 LoLi-Bot 自动审批通过にゃ♪"
+
+          sleep 5
+
+          gh pr merge "${PR_NUMBER}" \
+            --repo "${{ github.repository }}" \
+            --squash \
+            --subject "${{ github.event.pull_request.title }}" \
+            --delete-branch
+
+          echo "🎉 PR #${PR_NUMBER} 合并成功!"
