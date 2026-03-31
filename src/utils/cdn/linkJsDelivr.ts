@@ -46,7 +46,7 @@ const musicEngine = new ForgeEngine(createForgeConfig(
     ref: MUSIC_CDN_TAG,
   },
   {
-    splitStoragePath: 'cdn-split',
+    splitStoragePath: 'static/cdn',
     mappingPrefix: 'static',
     turboMode: true,
     turboConcurrentCDNs: 3,
