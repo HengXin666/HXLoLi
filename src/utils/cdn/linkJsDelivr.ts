@@ -5,6 +5,12 @@
  * - HXLoLi       → 博客静态资源 (branch ref)
  * - HXLoLi-ANiMe → 番剧数据 + 图片 (tag ref)
  * - HXLoLi-Music → 音乐/ASS/字体 (tag ref, 大文件自动切片)
+ *
+ * CDN 节点同步策略:
+ * - 只有 mainEngine 执行测速, 其他 engine 设 autoTest: false
+ * - 测速结果通过 selectNodeAll() 同步到所有 engine
+ * - 节点选择持久化到 localStorage, 跨 Tab 通过 storage 事件同步
+ * - 新页面加载时: 有持久化节点 → 直接用不测速; 没有 → mainEngine 测速
  */
 
 import { LATEST_COMMIT_ID } from '@site/data/gitVersion';
@@ -28,11 +34,27 @@ if (typeof window !== 'undefined') {
 // ForgeEngine 实例
 // ============================================================
 
+const CDN_STORAGE_KEY = 'hxloli-cdn-node';
 const DEFAULT_NODE = 'jsd-mirror';
+
+/** 检查 localStorage 是否已有保存的节点 */
+function getSavedNodeId(): string | null {
+  if (typeof window === 'undefined') return null;
+  try { return localStorage.getItem(CDN_STORAGE_KEY); } catch { return null; }
+}
+
+const savedNodeId = getSavedNodeId();
+// 有持久化节点 → 所有 engine 都不测速, 直接用已选节点
+// 没有 → 只让 mainEngine 测速, 其余跟随
+const shouldAutoTest = !savedNodeId;
 
 function createEngine(github: any, options?: any) {
   if (!ForgeEngine || !createForgeConfig) return null;
-  return new ForgeEngine(createForgeConfig(github, { defaultNodeId: DEFAULT_NODE, ...options }));
+  return new ForgeEngine(createForgeConfig(github, {
+    defaultNodeId: savedNodeId || DEFAULT_NODE,
+    autoTest: false,   // 所有 engine 禁用自动测速, 由统一初始化控制
+    ...options,
+  }));
 }
 
 const mainEngine = createEngine({
@@ -56,29 +78,64 @@ const musicEngine = createEngine(
 const allEngines = [mainEngine, mainCommitEngine, animeEngine, musicEngine].filter(Boolean);
 
 // ============================================================
-// 初始化
+// 初始化 — 统一测速, 跨页面同步
 // ============================================================
 
 let _initPromise: Promise<void> | null = null;
+
 function ensureInit(): Promise<void> {
   if (_initPromise) return _initPromise;
   if (allEngines.length === 0) return Promise.resolve();
-  _initPromise = Promise.all(
-    allEngines.map((e) => e.initialize().catch(() => {})),
-  ).then(() => {});
+
+  _initPromise = (async () => {
+    if (shouldAutoTest && mainEngine) {
+      // 没有持久化节点 → mainEngine 测速, 选最优, 同步到所有 engine
+      try {
+        await mainEngine.initializeStreaming(
+          () => {},              // 每个结果回调 (不需要)
+          () => {                // 第一个成功结果 → 立即同步到所有 engine
+            const best = mainEngine.getCurrentNode();
+            if (best) selectNodeAll(best.id);
+          },
+        );
+        // 全部测完后最终同步
+        const best = mainEngine.getCurrentNode();
+        if (best) selectNodeAll(best.id);
+      } catch {}
+    }
+    // 标记所有 engine 就绪 (包括没有 autoTest 的)
+    for (const engine of allEngines) {
+      try {
+        if (!engine.isInitialized()) {
+          // 手动触发 markReady — 通过 initialize() 但 autoTest=false 所以不会测速
+          await engine.initialize();
+        }
+      } catch {}
+    }
+  })();
+
   return _initPromise;
 }
 
 if (typeof window !== 'undefined') {
   ensureInit();
+
+  // 跨 Tab 同步: 其他 Tab 切换了节点 → 本 Tab 跟随
+  window.addEventListener('storage', (e: StorageEvent) => {
+    if (e.key === CDN_STORAGE_KEY && e.newValue) {
+      for (const engine of allEngines) {
+        try { engine.selectNode(e.newValue); } catch {}
+      }
+    }
+  });
 }
 
-/** 切换节点 — 同步到所有引擎 */
+/** 切换节点 — 同步到所有引擎 + 持久化 + 触发跨 Tab */
 function selectNodeAll(nodeId: string) {
   for (const engine of allEngines) {
     try { engine.selectNode(nodeId); } catch {}
   }
-  try { localStorage.setItem('hxloli-cdn-node', nodeId); } catch {}
+  try { localStorage.setItem(CDN_STORAGE_KEY, nodeId); } catch {}
 }
 
 // ============================================================
@@ -121,13 +178,30 @@ export function toMusicCdnUrl(relativePath: string): string {
 
 export type { DownloadResult, DownloadProgress } from 'hx-cdn-forge';
 
+/**
+ * IDM 模式下载 — HTTP Range 多节点分段并行 + 动态劈半窃取
+ * 适用于 ASS 字幕、音频等中大文件
+ * 有切片版本时自动走切片并行 (更高效)
+ */
 export async function reqMusicByCDN(
   path: string,
   onProgress?: (p: import('hx-cdn-forge').DownloadProgress) => void,
 ) {
   await ensureInit();
   if (!musicEngine) throw new Error('musicEngine not available');
-  return musicEngine.reqByCDN(path, onProgress);
+  return musicEngine.reqByCDNRange(path, onProgress);
+}
+
+/**
+ * 多 CDN 竞速下载 — 同一文件从所有节点并发请求, 最快的赢
+ * 适用于字体等较小非切片文件
+ */
+export async function reqMusicRace(
+  path: string,
+): Promise<import('hx-cdn-forge').DownloadResult> {
+  await ensureInit();
+  if (!musicEngine) throw new Error('musicEngine not available');
+  return musicEngine.reqByCDNRace(path);
 }
 
 export async function reqAnimeByCDN(

@@ -19,7 +19,7 @@
  */
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import type { MusicTrackDetail } from '@site/src/config/musicData';
-import { toMusicCdnUrl, toMusicLocalUrl, reqMusicByCDN } from '@site/src/utils/cdn/linkJsDelivr';
+import { toMusicLocalUrl, reqMusicByCDN, reqMusicRace } from '@site/src/utils/cdn/linkJsDelivr';
 import { loadTrackDetail, shouldUseLocal } from '@site/src/utils/music/musicDataLoader';
 import { useMusicStore } from '@site/src/utils/music/musicStore';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -631,36 +631,34 @@ export default function AssLyrics(): React.ReactElement | null {
         // 而非仅凭 isLocalDev() 判断（serve.py 未运行时需 fallback 到 CDN，
         // 否则 Worker 加载字体 URL 失败会导致整个渲染引擎卡死）
         const useLocal = await shouldUseLocal();
-        const toFontUrl = useLocal ? toMusicLocalUrl : toMusicCdnUrl;
-        const cjkFallbackUrl = toFontUrl('/static/music/fonts/NotoSansSC-Regular.ttf');
 
         const safeUrl = (url: string): string => {
           if (/%[0-9A-Fa-f]{2}/.test(url)) return url;
           return encodeURI(url);
         };
 
-        // 构建 availableFonts 映射 (字体名 -> URL)
-        const availableFonts: Record<string, string> = {};
+        // 收集字体信息 (但不传给 JSO 构造函数 — 改为后台渐进式加载)
+        const fontRelativePaths: Array<{ name?: string; relativePath: string }> = [];
         if (trackDetail?.assFontMap) {
           for (const [fontName, fontUrl] of Object.entries(trackDetail.assFontMap)) {
-            availableFonts[fontName] = safeUrl(fontUrl);
+            // fontUrl 已经是绝对 CDN URL, 需要还原为相对路径供 reqMusicByCDN 使用
+            fontRelativePaths.push({ name: fontName, relativePath: fontUrl });
           }
         }
-
-        // 收集所有需要预加载的字体文件 URL
-        const fontUrls: string[] = [];
         if (trackDetail?.fonts) {
           for (const fontUrl of trackDetail.fonts) {
-            fontUrls.push(safeUrl(fontUrl));
+            fontRelativePaths.push({ relativePath: fontUrl });
           }
         }
+        // CJK fallback 字体也加入后台加载队列
+        const cjkRelativePath = '/static/music/fonts/NotoSansSC-Regular.ttf';
+        fontRelativePaths.push({ name: '__cjk_fallback__', relativePath: useLocal ? toMusicLocalUrl(cjkRelativePath) : cjkRelativePath });
 
-        // 加载 ASS 字幕内容 — 通过 ForgeEngine 切片并行下载
+        // 加载 ASS 字幕内容 — 通过 ForgeEngine 切片并行下载 (最高优先级)
         console.log('[JSO] 正在加载 ASS 文件...');
         let subContent: string;
         try {
           if (useLocal) {
-            // 本地开发: 直接 fetch
             const assUrlRaw = currentTrack.assUrl!;
             const origin = typeof window !== 'undefined' ? window.location.origin : '';
             const subFullUrl = safeUrl(
@@ -671,7 +669,6 @@ export default function AssLyrics(): React.ReactElement | null {
             if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
             subContent = await resp.text();
           } else {
-            // 生产: reqMusicByCDN 自动检测切片 (info.yaml → 并行下载 → 拼接)
             const relativePath = currentTrack.assRelativePath ?? currentTrack.assUrl!;
             console.log('[JSO] reqMusicByCDN ASS:', relativePath);
             const result = await reqMusicByCDN(relativePath);
@@ -685,7 +682,7 @@ export default function AssLyrics(): React.ReactElement | null {
         }
         if (disposed) return;
 
-        // 创建 SubtitlesOctopus 实例 (Worker 模式)
+        // 创建 SubtitlesOctopus 实例 — 不传字体, 使用内置 default.woff2 立即渲染
         if (!renderCanvas) {
           console.error('[JSO] renderCanvas 未就绪');
           return;
@@ -699,12 +696,12 @@ export default function AssLyrics(): React.ReactElement | null {
           workerUrl: workerUrl,
           legacyWorkerUrl: legacyWorkerUrl,
           subContent: subContent,
-          fonts: fontUrls,
-          fallbackFont: safeUrl(cjkFallbackUrl),
-          availableFonts: availableFonts,
+          fonts: [],             // 不传字体 — 后台渐进式加载
+          fallbackFont: 'default.woff2',  // 用内置字体立即渲染
+          availableFonts: {},    // 空映射 — 字体下载完后 writeFile + setTrack 热重载
           debug: false,
           onReady: () => {
-            console.log('[JSO] Worker 就绪 ✅');
+            console.log('[JSO] Worker 就绪 ✅ (使用内置字体, 字体后台加载中...)');
 
             // 写入图片到 Worker FS
             let hasImages = false;
@@ -726,13 +723,11 @@ export default function AssLyrics(): React.ReactElement | null {
               }
             }
 
-            // 如果写入了图片, 需要重新加载 track, 使 libass 重新解析 ASS 时能找到 \1img 引用的图片
             if (hasImages && subContent) {
               console.log('[JSO] 图片已写入, 重新加载 track 以使 \\1img 生效...');
               jso.setTrack(subContent);
             }
 
-            // 确保 Worker 知道正确的 canvas 尺寸
             jso.resize(pixelW, pixelH);
 
             // 设置预处理 bounds
@@ -758,11 +753,65 @@ export default function AssLyrics(): React.ReactElement | null {
               }
             }
 
-            // 立即渲染当前帧
             const ct = useMusicStore.getState().getInterpolatedTime() + globalSubtitleOffset;
             const currentTime = Math.max(0, ct);
             jso.setCurrentTime(currentTime);
             console.log(`[JSO] 开始渲染: time=${currentTime.toFixed(3)}, size=${pixelW}x${pixelH}`);
+
+            // ── 后台渐进式字体加载 ──
+            // 所有字体通过 reqMusicByCDN 并行下载 (turbo mode + 多CDN竞速)
+            // 每个下载完立即 writeFile 到 Worker FS, 100ms 防抖后 setTrack 热重载
+            if (fontRelativePaths.length > 0 && !disposed) {
+              let reloadTimer: ReturnType<typeof setTimeout> | null = null;
+              let loadedCount = 0;
+              const totalFonts = fontRelativePaths.length;
+
+              const scheduleReload = () => {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(() => {
+                  if (disposed || !rendererRef.current) return;
+                  console.log(`[JSO] 字体热重载 (${loadedCount}/${totalFonts} 已加载)`);
+                  rendererRef.current.setTrack(subContent);
+                }, 100);
+              };
+
+              console.log(`[JSO] 开始后台加载 ${totalFonts} 个字体文件...`);
+
+              for (const fontItem of fontRelativePaths) {
+                if (disposed) break;
+
+                // 并行启动所有字体下载 (不 await, 全部火力全开)
+                (async () => {
+                  try {
+                    let fontData: ArrayBuffer;
+                    if (useLocal) {
+                      // 本地: 直接 fetch
+                      const resp = await fetch(safeUrl(fontItem.relativePath));
+                      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                      fontData = await resp.arrayBuffer();
+                    } else {
+                      // 生产: reqMusicRace — 多 CDN 竞速下载 (IDM 风格)
+                      const result = await reqMusicRace(fontItem.relativePath);
+                      fontData = await result.arrayBuffer();
+                      console.log(`[JSO] 字体下载完成: ${fontItem.relativePath} (${(fontData.byteLength / 1024).toFixed(0)}KB, ${result.totalTime.toFixed(0)}ms)`);
+                    }
+
+                    if (disposed || !rendererRef.current) return;
+
+                    // 从 URL/路径中提取文件名作为 Worker FS 路径
+                    const urlPath = fontItem.relativePath;
+                    const fileName = urlPath.split('/').pop() || 'font.ttf';
+                    rendererRef.current.writeFile(`/fonts/${fileName}`, new Uint8Array(fontData));
+
+                    loadedCount++;
+                    scheduleReload();
+                  } catch (fontErr) {
+                    console.warn(`[JSO] 字体加载失败 (非致命): ${fontItem.relativePath}`, fontErr);
+                    loadedCount++;
+                  }
+                })();
+              }
+            }
           },
           onError: (error: any) => {
             console.error('[JSO] Worker 错误:', error);
@@ -776,7 +825,7 @@ export default function AssLyrics(): React.ReactElement | null {
         }
 
         rendererRef.current = jso;
-        console.log('[JSO] SubtitlesOctopus 实例创建完成 ✅');
+        console.log('[JSO] SubtitlesOctopus 实例创建完成 ✅ (字体后台加载中)');
 
       } catch (err) {
         console.error('[JSO] 初始化失败:', err);
