@@ -78,7 +78,8 @@ const animeEngine = createEngine({
 const musicEngine = createEngine(
   { user: GITHUB_CONFIG.USER, repo: 'HXLoLi-Music', ref: MUSIC_CDN_TAG },
   {
-    splitStoragePath: 'static/cdn',
+    splitStoragePath: 'static/cdn/all',               // 切片 (info.yaml)
+    preCompressionStoragePath: 'static/cdn/gzip',      // 预压缩 (info-zip.yaml + .gz)
     mappingPrefix: 'static',
     turboMode: true,
     turboConcurrentCDNs: 3,
