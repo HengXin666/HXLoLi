@@ -38,12 +38,8 @@ function CDNNodePanel({ onUpdate }: { onUpdate: () => void }): React.ReactElemen
   const [nodes, setNodes] = useState<NodeInfo[]>(() => getNodeList());
   const [testing, setTesting] = useState(false);
 
-  useEffect(() => {
-    setNodes(getNodeList());
-    ensureInit().then(() => { setNodes(getNodeList()); onUpdate(); });
-  }, [onUpdate]);
-
-  const handleTest = useCallback(async () => {
+  /** 执行一次完整测速 */
+  const runSpeedTest = useCallback(async () => {
     if (!mainEngine) return;
     setTesting(true);
     setNodes(getNodeList(true));
@@ -67,6 +63,20 @@ function CDNNodePanel({ onUpdate }: { onUpdate: () => void }): React.ReactElemen
       setTesting(false);
     }
   }, [onUpdate]);
+
+  useEffect(() => {
+    setNodes(getNodeList());
+    ensureInit().then(() => {
+      const currentNodes = getNodeList();
+      setNodes(currentNodes);
+      onUpdate();
+      // 如果没有测速数据 (所有节点延迟为 null), 自动触发一次测速
+      const hasLatency = currentNodes.some((n) => n.latency != null);
+      if (!hasLatency && mainEngine) {
+        runSpeedTest();
+      }
+    });
+  }, [onUpdate, runSpeedTest]);
 
   const handleSelect = useCallback((nodeId: string) => {
     selectNodeAll(nodeId);
@@ -106,7 +116,7 @@ function CDNNodePanel({ onUpdate }: { onUpdate: () => void }): React.ReactElemen
           </span>
         </div>
       ))}
-      <button onClick={handleTest} disabled={testing} style={btnStyle}>
+      <button onClick={runSpeedTest} disabled={testing} style={btnStyle}>
         {testing ? '⏳ 测速中...' : '🔄 重新测速'}
       </button>
     </div>

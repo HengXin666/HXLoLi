@@ -671,9 +671,22 @@ export default function AssLyrics(): React.ReactElement | null {
           } else {
             const relativePath = currentTrack.assRelativePath ?? currentTrack.assUrl!;
             console.log('[JSO] reqMusicByCDN ASS:', relativePath);
-            const result = await reqMusicByCDN(relativePath);
-            subContent = await result.blob.text();
-            console.log(`[JSO] ASS 加载完成: ${subContent.length} 字符, 切片模式: ${result.usedSplitMode}, 耗时: ${result.totalTime.toFixed(0)}ms`);
+            try {
+              const result = await reqMusicByCDN(relativePath);
+              subContent = await result.blob.text();
+              console.log(`[JSO] ASS 加载完成: ${subContent.length} 字符, 切片模式: ${result.usedSplitMode}, 耗时: ${result.totalTime.toFixed(0)}ms`);
+            } catch (rangeErr) {
+              // Range 下载失败 (常见于 CORS preflight 拦截 Range 头)
+              // fallback: 直接 fetch CDN URL (不带 Range 头, 绕过 preflight)
+              console.warn('[JSO] reqMusicByCDN (Range) 失败, fallback 到直接 fetch:', rangeErr);
+              const cdnUrl = currentTrack.assUrl!;
+              const fetchUrl = cdnUrl.startsWith('http') ? cdnUrl : safeUrl(cdnUrl);
+              console.log('[JSO] 直接 fetch ASS:', fetchUrl);
+              const resp = await fetch(safeUrl(fetchUrl), { mode: 'cors' });
+              if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+              subContent = await resp.text();
+              console.log(`[JSO] ASS fallback 加载完成: ${subContent.length} 字符`);
+            }
           }
         } catch (fetchErr) {
           console.error('[JSO] ASS 文件加载失败:', fetchErr);
@@ -782,32 +795,51 @@ export default function AssLyrics(): React.ReactElement | null {
 
                 // 并行启动所有字体下载 (不 await, 全部火力全开)
                 (async () => {
-                  try {
-                    let fontData: ArrayBuffer;
-                    if (useLocal) {
-                      // 本地: 直接 fetch
-                      const resp = await fetch(safeUrl(fontItem.relativePath));
-                      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-                      fontData = await resp.arrayBuffer();
-                    } else {
-                      // 生产: reqMusicRace — 多 CDN 竞速下载 (IDM 风格)
-                      const result = await reqMusicRace(fontItem.relativePath);
-                      fontData = await result.arrayBuffer();
-                      console.log(`[JSO] 字体下载完成: ${fontItem.relativePath} (${(fontData.byteLength / 1024).toFixed(0)}KB, ${result.totalTime.toFixed(0)}ms)`);
+                  const MAX_FONT_RETRIES = 2;
+                  for (let attempt = 0; attempt <= MAX_FONT_RETRIES; attempt++) {
+                    try {
+                      if (disposed || !rendererRef.current) return;
+
+                      let fontData: ArrayBuffer;
+                      if (useLocal) {
+                        // 本地: 直接 fetch
+                        const resp = await fetch(safeUrl(fontItem.relativePath));
+                        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                        fontData = await resp.arrayBuffer();
+                      } else if (fontItem.relativePath.startsWith('http://') || fontItem.relativePath.startsWith('https://')) {
+                        // 已经是绝对 CDN URL (musicDataLoader 已转换), 直接 fetch 不走 reqMusicRace
+                        // 避免 buildUrl 二次拼接导致 URL 错误
+                        const resp = await fetch(safeUrl(fontItem.relativePath), { mode: 'cors' });
+                        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                        fontData = await resp.arrayBuffer();
+                        console.log(`[JSO] 字体下载完成 (直接): ${fontItem.relativePath} (${(fontData.byteLength / 1024).toFixed(0)}KB)`);
+                      } else {
+                        // 生产: reqMusicRace — 多 CDN 竞速下载 (相对路径)
+                        const result = await reqMusicRace(fontItem.relativePath);
+                        fontData = await result.arrayBuffer();
+                        console.log(`[JSO] 字体下载完成: ${fontItem.relativePath} (${(fontData.byteLength / 1024).toFixed(0)}KB, ${result.totalTime.toFixed(0)}ms)`);
+                      }
+
+                      if (disposed || !rendererRef.current) return;
+
+                      // 从 URL/路径中提取文件名作为 Worker FS 路径
+                      const urlPath = fontItem.relativePath;
+                      const fileName = urlPath.split('/').pop() || 'font.ttf';
+                      rendererRef.current.writeFile(`/fonts/${fileName}`, new Uint8Array(fontData));
+
+                      loadedCount++;
+                      scheduleReload();
+                      break; // 成功，退出重试循环
+                    } catch (fontErr) {
+                      if (attempt < MAX_FONT_RETRIES) {
+                        const delay = (attempt + 1) * 2000; // 2s, 4s 递增延迟
+                        console.warn(`[JSO] 字体加载失败 (第${attempt + 1}次, ${delay / 1000}s 后重试): ${fontItem.relativePath}`, fontErr);
+                        await new Promise(r => setTimeout(r, delay));
+                      } else {
+                        console.warn(`[JSO] 字体加载失败 (非致命, 已重试${MAX_FONT_RETRIES}次): ${fontItem.relativePath}`, fontErr);
+                        loadedCount++;
+                      }
                     }
-
-                    if (disposed || !rendererRef.current) return;
-
-                    // 从 URL/路径中提取文件名作为 Worker FS 路径
-                    const urlPath = fontItem.relativePath;
-                    const fileName = urlPath.split('/').pop() || 'font.ttf';
-                    rendererRef.current.writeFile(`/fonts/${fileName}`, new Uint8Array(fontData));
-
-                    loadedCount++;
-                    scheduleReload();
-                  } catch (fontErr) {
-                    console.warn(`[JSO] 字体加载失败 (非致命): ${fontItem.relativePath}`, fontErr);
-                    loadedCount++;
                   }
                 })();
               }

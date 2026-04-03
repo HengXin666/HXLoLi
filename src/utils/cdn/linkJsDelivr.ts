@@ -4,7 +4,13 @@
  * 3 个仓库:
  * - HXLoLi       → 博客静态资源 (branch ref)
  * - HXLoLi-ANiMe → 番剧数据 + 图片 (tag ref)
- * - HXLoLi-Music → 音乐/ASS/字体 (tag ref, 大文件自动切片)
+ * - HXLoLi-Music → 音乐/ASS/字体 (tag ref, 大文件自动切片 + 预压缩)
+ *
+ * Music 下载策略 (reqByCDNAuto):
+ * - 有预切片 (info.yaml) → split 并行
+ * - 有预压缩 (info-zip.yaml) → Range 并行下载 .gz + DecompressionStream 解压
+ * - 二进制文件 → Range 多节点分段并行
+ * - 文本文件 → direct (CDN gzip)
  *
  * CDN 节点同步策略:
  * - 只有 mainEngine 执行测速, 其他 engine 设 autoTest: false
@@ -71,7 +77,13 @@ const animeEngine = createEngine({
 
 const musicEngine = createEngine(
   { user: GITHUB_CONFIG.USER, repo: 'HXLoLi-Music', ref: MUSIC_CDN_TAG },
-  { splitStoragePath: 'static/cdn', mappingPrefix: 'static', turboMode: true, turboConcurrentCDNs: 3 },
+  {
+    splitStoragePath: 'static/cdn',
+    mappingPrefix: 'static',
+    turboMode: true,
+    turboConcurrentCDNs: 3,
+    enablePreCompression: true,  // 预压缩 + Range 并行: 对 .gz 文件 Range 下载 → DecompressionStream 解压
+  },
 );
 
 /** 所有引擎列表 (方便同步操作) */
@@ -179,9 +191,13 @@ export function toMusicCdnUrl(relativePath: string): string {
 export type { DownloadResult, DownloadProgress } from 'hx-cdn-forge';
 
 /**
- * IDM 模式下载 — HTTP Range 多节点分段并行 + 动态劈半窃取
- * 适用于 ASS 字幕、音频等中大文件
- * 有切片版本时自动走切片并行 (更高效)
+ * 智能模式下载 — 自动选择最优策略:
+ * 1. 有预切片 (info.yaml) → split 并行
+ * 2. 有预压缩 (info-zip.yaml) → Range 并行下载 .gz + DecompressionStream 解压
+ * 3. 二进制文件 → Range 多节点分段并行
+ * 4. 文本文件 → direct (CDN gzip)
+ *
+ * 适用于 ASS 字幕、音频、字体等各类文件
  */
 export async function reqMusicByCDN(
   path: string,
@@ -189,7 +205,7 @@ export async function reqMusicByCDN(
 ) {
   await ensureInit();
   if (!musicEngine) throw new Error('musicEngine not available');
-  return musicEngine.reqByCDNRange(path, onProgress);
+  return musicEngine.reqByCDNAuto(path, onProgress);
 }
 
 /**
