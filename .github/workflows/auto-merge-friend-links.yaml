@@ -131,10 +131,17 @@ jobs:
     needs: auto-merge-friend-link-pr
     runs-on: ubuntu-latest
     steps:
-      - name: 同步最新代码
+      - name: 同步最新代码 (合并后的 main)
         uses: actions/checkout@v4
         with:
           ref: 'main'
+          fetch-depth: 0
+
+      - name: 确保拉取合并后的最新 main
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+          echo "✅ 当前 HEAD: $(git log --oneline -1)"
 
       - name: 启动 Node.js
         uses: actions/setup-node@v4
@@ -151,6 +158,20 @@ jobs:
           else
             npm i
           fi
+
+      - name: 📋 打印 CDN 版本信息
+        run: |
+          echo "========== CDN 版本信息 =========="
+          for f in data/*CdnVersion.ts; do
+            if [ -f "$f" ]; then
+              VERSION=$(grep -oP "=\s*'[^']+'" "$f" | sed "s/=\s*'//;s/'//")
+              LAST_MODIFIED=$(TZ='Asia/Shanghai' git log -1 --format='%cd' --date=format:'%Y-%-m-%-d %H:%M:%S' -- "$f")
+              echo "📦 $f"
+              echo "   版本号: ${VERSION}"
+              echo "   最近更新 (北京时间): ${LAST_MODIFIED}"
+            fi
+          done
+          echo "=================================="
 
       - name: 为工作流启用 SSH
         uses: webfactory/ssh-agent@v0.9.0

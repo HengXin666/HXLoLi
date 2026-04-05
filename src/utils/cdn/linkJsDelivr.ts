@@ -7,8 +7,8 @@
  * - HXLoLi-Music → 音乐/ASS/字体 (tag ref, 大文件自动切片 + 预压缩)
  *
  * Music 下载策略 (reqByCDNAuto):
+ * - ★ 有预压缩 (info-zip.yaml) → Range 并行下载 .gz + DecompressionStream 解压 (最优)
  * - 有预切片 (info.yaml) → split 并行
- * - 有预压缩 (info-zip.yaml) → Range 并行下载 .gz + DecompressionStream 解压
  * - 二进制文件 → Range 多节点分段并行
  * - 文本文件 → direct (CDN gzip)
  *
@@ -83,7 +83,8 @@ const musicEngine = createEngine(
     mappingPrefix: 'static',
     turboMode: true,
     turboConcurrentCDNs: 3,
-    enablePreCompression: true,  // 预压缩 + Range 并行: 对 .gz 文件 Range 下载 → DecompressionStream 解压
+    // enablePreCompression 默认 true: 自动检测 info-zip.yaml
+    // → 对文本文件走 Range 并行下载 .gz + DecompressionStream 解压 (最优策略)
   },
 );
 

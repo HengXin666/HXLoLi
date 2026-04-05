@@ -3,8 +3,6 @@ name: "[LoLi]: 构建部署博客"
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -15,7 +13,7 @@ jobs:
   deploy:
     if: |
       always() &&
-      (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request')
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     steps:
       - name: 同步最新代码
@@ -39,6 +37,20 @@ jobs:
           else
             npm i
           fi
+
+      - name: 📋 打印 CDN 版本信息
+        run: |
+          echo "========== CDN 版本信息 =========="
+          for f in data/*CdnVersion.ts; do
+            if [ -f "$f" ]; then
+              VERSION=$(grep -oP "=\s*'[^']+'" "$f" | sed "s/=\s*'//;s/'//")
+              LAST_MODIFIED=$(TZ='Asia/Shanghai' git log -1 --format='%cd' --date=format:'%Y-%-m-%-d %H:%M:%S' -- "$f")
+              echo "📦 $f"
+              echo "   版本号: ${VERSION}"
+              echo "   最近更新 (北京时间): ${LAST_MODIFIED}"
+            fi
+          done
+          echo "=================================="
 
       - name: 为工作流启用 SSH
         uses: webfactory/ssh-agent@v0.9.0
