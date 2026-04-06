@@ -4,16 +4,17 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+  repository_dispatch:
+    types: [private-pages-updated]
 
 permissions:
   contents: write
 
 jobs:
-  # --- 部署 ---
   deploy:
     if: |
       always() &&
-      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch')
     runs-on: ubuntu-latest
     steps:
       - name: 同步最新代码
@@ -37,6 +38,68 @@ jobs:
           else
             npm i
           fi
+
+      # ===== 受保护页面流程 =====
+
+      - name: 🔐 克隆私有仓库 (HXLoLi-imouto)
+        env:
+          PRIVATE_REPO_TOKEN: ${{ secrets.PRIVATE_PAGES_TOKEN }}
+        run: |
+          if [ -z "${PRIVATE_REPO_TOKEN}" ]; then
+            echo "⚠️  未配置 PRIVATE_PAGES_TOKEN, 跳过私有页面"
+            echo "SKIP_PRIVATE=true" >> $GITHUB_ENV
+          else
+            echo "🔑 正在克隆私有仓库 HXLoLi-imouto ..."
+            git clone --depth 1 \
+              "https://x-access-token:${PRIVATE_REPO_TOKEN}@github.com/HengXin666/HXLoLi-imouto.git" \
+              ./private-pages-repo
+            echo "✅ 私有仓库 HXLoLi-imouto 克隆成功"
+
+            # 统计文件
+            DOCS_COUNT=$(find ./private-pages-repo/docs -name "*.md" -o -name "*.mdx" 2>/dev/null | wc -l)
+            BLOG_COUNT=$(find ./private-pages-repo/blog -name "*.md" -o -name "*.mdx" 2>/dev/null | wc -l)
+            echo "📄 发现 docs: ${DOCS_COUNT}, blog: ${BLOG_COUNT}"
+            echo "SKIP_PRIVATE=false" >> $GITHUB_ENV
+          fi
+
+      - name: 🔒 混合加密私有页面 (RSA-OAEP + AES-256-GCM)
+        if: env.SKIP_PRIVATE != 'true'
+        env:
+          HXLOLI_RSA_PUBLIC_KEY: ${{ secrets.HXLOLI_RSA_PUBLIC_KEY }}
+        run: |
+          if [ -z "${HXLOLI_RSA_PUBLIC_KEY}" ]; then
+            echo "❌ 未配置 HXLOLI_RSA_PUBLIC_KEY, 无法加密!"
+            echo "   注意: 只需要公钥! 公钥泄露也无法解密."
+            echo "   生成密钥对:"
+            echo "     openssl genrsa -out hxloli_private.pem 2048"
+            echo "     openssl rsa -in hxloli_private.pem -pubout -out hxloli_public.pem"
+            echo "   然后将 hxloli_public.pem 的内容设为 HXLOLI_RSA_PUBLIC_KEY Secret"
+            exit 1
+          fi
+
+          echo "🔒 开始 RSA-OAEP + AES-256-GCM 混合加密..."
+          node scripts/encrypt-private.mjs \
+            --source ./private-pages-repo \
+            --mode deploy \
+            --docs-output ./docs \
+            --blog-output ./blog
+          echo "✅ 混合加密完成, 密文已嵌入占位页面"
+          echo "   🔓 公钥加密 → 即使泄露也无法解密"
+
+      - name: 📋 重新生成侧边栏 (包含私有 docs 页面)
+        if: env.SKIP_PRIVATE != 'true'
+        run: |
+          echo "📋 重新生成侧边栏..."
+          node scripts/generateSidebar.js
+          echo "✅ 侧边栏已更新"
+
+      - name: 🧹 清理私有仓库 (安全)
+        if: env.SKIP_PRIVATE != 'true'
+        run: |
+          rm -rf ./private-pages-repo
+          echo "🧹 私有仓库已清理"
+
+      # ===== 原有构建流程 =====
 
       - name: 📋 打印 CDN 版本信息
         run: |
