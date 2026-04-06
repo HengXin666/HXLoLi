@@ -4,6 +4,12 @@
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+# 清理 dev:private 可能残留的私有明文文件
+if [ -d "../HXLoLi-imouto" ]; then
+    echo "🧹 清理私有页面残留文件..."
+    npm run clean:private 2>/dev/null || true
+fi
+
 # 执行构建侧边栏的 Node 脚本
 node ./scripts/generateSidebar.js
 

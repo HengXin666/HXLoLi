@@ -1,0 +1,12 @@
+{
+  "magic": "HXLOLI_PROTECTED_V3",
+  "version": 3,
+  "encryption": "RSA-OAEP(SHA-256) + AES-256-GCM",
+  "note": "公钥加密, 只有持有 RSA 私钥的浏览器插件才能解密",
+  "generatedAt": "2026-04-06T09:54:43.771Z",
+  "stats": {
+    "docs": 2,
+    "blog": 1,
+    "assets": 1
+  }
+}

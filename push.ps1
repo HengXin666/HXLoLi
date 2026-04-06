@@ -1,6 +1,12 @@
 # 设置编码为 UTF-8
 $OutputEncoding = New-Object -typename System.Text.UTF8Encoding
 
+# 清理 dev:private 可能残留的私有明文文件
+if (Test-Path "..\HXLoLi-imouto") {
+    Write-Host "🧹 清理私有页面残留文件..."
+    try { npm run clean:private 2>$null } catch {}
+}
+
 # 构建目录文件
 node .\scripts\generateSidebar.js
 

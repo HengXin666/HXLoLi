@@ -86,13 +86,16 @@ function scanDocs(dir, relativePath = '') {
                 };
             }
 
-            items.push(subCategory);
-        } else if (entry === 'index.md') {
+            // 跳过空分类 (无子项且无 index): 避免 Docusaurus 报错
+            if (result.items.length > 0 || result.hasIndex) {
+                items.push(subCategory);
+            }
+        } else if (entry === 'index.md' || entry === 'index.mdx') {
             hasIndex = true;
-        } else if (entry.endsWith('.md')) {
+        } else if (entry.endsWith('.md') || entry.endsWith('.mdx')) {
             const id = path.posix.join(
                 ...relativePath.split(path.sep).map(stripPrefix),
-                stripPrefix(entry.replace(/\.md$/, ''))
+                stripPrefix(entry.replace(/\.mdx?$/, ''))
             );
             // 普通文档没有图标
             items.push({

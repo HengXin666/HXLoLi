@@ -285,6 +285,12 @@ const config: Config = {
         language: ["en", "zh"],
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
+        // 排除受保护页面不被全文搜索索引 (占位页面不含真实内容, 但标题也应排除)
+        // 可以通过 CSS 选择器排除 ProtectedPage 组件的内容
+        ignoreCssSelectors: [
+          "[data-hx-protected='true']",    // 排除受保护标记元素
+          ".protectedContainer",            // 排除锁定 UI
+        ],
       },
     ],
   ],
