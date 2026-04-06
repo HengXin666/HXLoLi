@@ -1,0 +1,13 @@
+{
+  "magic": "HXLOLI_ENCRYPTED_V1",
+  "version": 1,
+  "algorithm": "aes-256-gcm",
+  "kdf": "scrypt",
+  "kdfParams": {
+    "N": 16384,
+    "r": 8,
+    "p": 1
+  },
+  "totalPages": 1,
+  "generatedAt": "2026-04-06T06:41:05.469Z"
+}
