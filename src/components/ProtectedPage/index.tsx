@@ -1,16 +1,18 @@
 /**
- * ProtectedPage - HXLoLi 受保护页面组件 v2
+ * ProtectedPage - HXLoLi 受保护页面组件 v3
  *
  * 设计:
  *   - 此组件 **不包含任何解密逻辑**
- *   - 密文 (AES-256-GCM 加密后的 base64) 通过 props 传入, 嵌入 DOM data 属性中
- *   - 浏览器插件读取 DOM 中的密文 → 本地 AES 解密 → 通过 CustomEvent 发送 HTML
+ *   - 密文 (RSA-OAEP + AES-256-GCM 混合加密后的 base64) 通过 props 传入, 嵌入 DOM data 属性中
+ *   - 浏览器插件读取 DOM 中的密文 → 本地混合解密 → 通过 DOM 属性 + CustomEvent 双通道发送 HTML
+ *   - 主要通过 MutationObserver 监听 DOM 属性变化 (最可靠的 isolated ↔ main world 通信)
+ *   - 备选通过 CustomEvent 接收解密结果
  *   - 零网络请求, 纯本地操作
  *   - 普通用户只看到锁定界面, 没有密码输入框
  *   - 解密算法只在插件代码中, 前端完全不知道加密方式
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import styles from './styles.module.css';
 
 interface ProtectedPageProps {
@@ -18,8 +20,14 @@ interface ProtectedPageProps {
   magic: string;
   /** 页面标题 */
   title?: string;
-  /** AES-256-GCM 加密后的 base64 密文 */
+  /** 混合加密后的 base64 密文 */
   cipher: string;
+}
+
+/** 生成稳定的唯一 ID */
+let idCounter = 0;
+function generateInstanceId(): string {
+  return `hxloli-${Date.now()}-${++idCounter}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
 export default function ProtectedPage({
@@ -30,14 +38,40 @@ export default function ProtectedPage({
   const [status, setStatus] = useState<'locked' | 'decrypting' | 'decrypted'>('locked');
   const [decryptedHtml, setDecryptedHtml] = useState('');
   const [progress, setProgress] = useState('');
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  // 监听来自浏览器插件的消息
+  // instanceId 在组件生命周期内保持稳定, 直接写入 JSX
+  const instanceId = useMemo(() => generateInstanceId(), []);
+
+  const markerRef = useRef<HTMLDivElement>(null);
+
+  // 监听来自浏览器插件的解密结果
   useEffect(() => {
-    // 为每个组件生成唯一 ID (同一页面可能有多个受保护块)
-    const instanceId = `hxloli-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const markerEl = markerRef.current;
+    if (!markerEl) return;
 
-    // 插件解密完成后, 通过 CustomEvent 将渲染好的 HTML 发送过来
+    // ====== 方案 A (主要): 通过 MutationObserver 监听 DOM 属性变化 ======
+    // 插件 content.js 会将解密结果写入 data-hx-decrypted-html 和 data-hx-status 属性
+    // MutationObserver 是跨 world (isolated ↔ main) 最可靠的通信方式
+    const checkDecrypted = () => {
+      const html = markerEl.getAttribute('data-hx-decrypted-html');
+      const s = markerEl.getAttribute('data-hx-status');
+      if (s === 'decrypted' && html) {
+        setDecryptedHtml(html);
+        setStatus('decrypted');
+        return true;
+      }
+      return false;
+    };
+
+    // 先检查是否已经解密 (插件可能在 React 挂载之前就完成了)
+    if (checkDecrypted()) return;
+
+    const observer = new MutationObserver(() => {
+      checkDecrypted();
+    });
+    observer.observe(markerEl, { attributes: true, attributeFilter: ['data-hx-status', 'data-hx-decrypted-html'] });
+
+    // ====== 方案 B (备选): CustomEvent 监听 ======
     const handleDecrypted = (e: CustomEvent) => {
       const detail = e.detail;
       if (detail?.type === 'HXLOLI_DECRYPTED' && detail?.instanceId === instanceId) {
@@ -46,7 +80,6 @@ export default function ProtectedPage({
       }
     };
 
-    // 插件正在解密
     const handleDecrypting = (e: CustomEvent) => {
       const detail = e.detail;
       if (detail?.type === 'HXLOLI_DECRYPTING' && detail?.instanceId === instanceId) {
@@ -57,12 +90,6 @@ export default function ProtectedPage({
 
     window.addEventListener('hxloli-decrypted', handleDecrypted as EventListener);
     window.addEventListener('hxloli-decrypting', handleDecrypting as EventListener);
-
-    // 将 instanceId 写入 DOM, 让插件可以关联
-    const dataEl = containerRef.current?.querySelector('[data-hx-protected]');
-    if (dataEl) {
-      dataEl.setAttribute('data-hx-instance', instanceId);
-    }
 
     // 通知插件: 此页面有受保护内容, 需要解密
     window.dispatchEvent(new CustomEvent('hxloli-protected-page', {
@@ -76,18 +103,16 @@ export default function ProtectedPage({
     }));
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('hxloli-decrypted', handleDecrypted as EventListener);
       window.removeEventListener('hxloli-decrypting', handleDecrypting as EventListener);
     };
-  }, [magic, cipher, title]);
+  }, [magic, cipher, title, instanceId]);
 
   // 已解密 - 渲染插件发送过来的 HTML 内容
   if (status === 'decrypted') {
     return (
       <div className={styles.decryptedContent}>
-        <div className={styles.decryptedBadge}>
-          🔓 内容已解锁
-        </div>
         <div
           className="markdown"
           dangerouslySetInnerHTML={{ __html: decryptedHtml }}
@@ -98,13 +123,16 @@ export default function ProtectedPage({
 
   // 锁定 / 解密中 界面
   return (
-    <div ref={containerRef} className={styles.protectedContainer}>
-      {/* 隐藏的密文数据 (供插件 Content Script 读取) */}
+    <div className={styles.protectedContainer}>
+      {/* 隐藏的密文数据 (供插件 Content Script 读取)
+          关键: data-hx-instance 在 JSX 渲染时就写入, 不依赖 useEffect
+          ref 用于 MutationObserver 监听插件写入的 data-hx-decrypted-html 属性 */}
       <div
-        id="hxloli-protected-data"
+        ref={markerRef}
         data-hx-protected="true"
         data-hx-magic={magic}
         data-hx-cipher={cipher}
+        data-hx-instance={instanceId}
         style={{ display: 'none' }}
       />
 
