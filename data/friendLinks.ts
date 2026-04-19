@@ -47,5 +47,13 @@ export const friendLinks: FriendLink[] = [
     avatar: "https://avatars.githubusercontent.com/u/103022267",
     description: "ここから先は一方通行だ!",
   },
+  {
+    name: "Firefly",
+    owner: "shadow",
+    url: "https://monster176.github.io/Firefly/",
+    github: "https://github.com/monster176",
+    avatar: "https://monster176.github.io/Firefly/assets/images/touxiang.jpg",
+    description: "次元補給ステーション",
+  },
   // ↑↑↑ 在这里添加你的友链 ↑↑↑
 ];
