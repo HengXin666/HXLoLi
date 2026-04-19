@@ -608,40 +608,10 @@ export const stats: RecordItem[] = [
     "message": "[blog]编写【2025】年终总结"
   },
   {
-    "commit": "ef8eaf16a2e1d151b9c8eed976ce509bae89f624",
-    "date": "2025-12-31T23:27:02+08:00",
-    "wordCount": 3786617,
-    "message": "Merge branch 'main' of github.com:HengXin666/HXLoLi"
-  },
-  {
-    "commit": "8510be54057c38c66cd510cd554cb854e0b6b392",
-    "date": "2026-02-02T00:52:41+08:00",
-    "wordCount": 3786723,
-    "message": "Merge branch 'main' of github.com:HengXin666/HXLoLi"
-  },
-  {
-    "commit": "3c9dcea781ae0dd5ecc0271fec28d5b359f1bd93",
-    "date": "2026-03-01T00:36:09+08:00",
-    "wordCount": 3786723,
-    "message": "[refactor] 将 ASS 悬浮窗工具栏的 emoji/文字图标替换为 react-icons/fa 图标"
-  },
-  {
-    "commit": "f21f9ccb16277f591b34cb39fd0399675b2e0271",
-    "date": "2026-03-01T19:22:03+08:00",
-    "wordCount": 3786723,
-    "message": "Merge pull request #48 from HengXin666/feature/music-player"
-  },
-  {
     "commit": "bf88ea1950702780cc4766c1bd4d211458f58e1c",
     "date": "2026-03-06T10:52:46+08:00",
     "wordCount": 3819854,
     "message": "[doc]新增面试知识点文章(ai)"
-  },
-  {
-    "commit": "4a838f9241db2fabfe41c9636fc8694dc5132a19",
-    "date": "2026-03-14T22:02:32+08:00",
-    "wordCount": 3819895,
-    "message": "Merge branch 'main' of github.com:HengXin666/HXLoLi"
   },
   {
     "commit": "5b801e08b369718a82e96db28f96b53dd6bebfa4",
