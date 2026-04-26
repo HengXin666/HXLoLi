@@ -24,7 +24,17 @@ jobs:
           node-version: '20.x'
           cache: 'npm'
 
+      - name: 缓存 node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json', 'yarn.lock', 'package.json') }}
+          restore-keys: |
+            node-modules-${{ runner.os }}-
+
       - name: 安装 dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: |
           if [ -e yarn.lock ]; then
             yarn install --frozen-lockfile
@@ -33,6 +43,17 @@ jobs:
           else
             npm i
           fi
+
+      - name: 缓存 Docusaurus 构建缓存
+        uses: actions/cache@v4
+        with:
+          path: |
+            .docusaurus
+            node_modules/.cache
+          key: docusaurus-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+          restore-keys: |
+            docusaurus-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+            docusaurus-${{ runner.os }}-
 
       # ===== 受保护页面流程 =====
 
@@ -132,7 +153,15 @@ jobs:
       - name: 拆分搜索索引 (Cloudflare Workers 单文件 ≤25MB)
         run: node scripts/split-search-index.mjs --max-size 20 --build-dir ./build
 
+      - name: 缓存 ffmpeg
+        id: cache-ffmpeg
+        uses: actions/cache@v4
+        with:
+          path: /usr/bin/ffmpeg
+          key: ffmpeg-${{ runner.os }}-${{ runner.arch }}
+
       - name: 📦 安装 ffmpeg (用于压缩超大 GIF)
+        if: steps.cache-ffmpeg.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg > /dev/null 2>&1
@@ -140,7 +169,8 @@ jobs:
 
       - name: 🗜️ 压缩超过 25MB 的静态资源 (Cloudflare 单文件限制)
         run: |
-          echo "🔍 扫描超过 25MB 的文件..."          OVERSIZED=$(find ./build -type f -size +25M)
+          echo "🔍 扫描超过 25MB 的文件..."
+          OVERSIZED=$(find ./build -type f -size +25M)
           if [ -z "$OVERSIZED" ]; then
             echo "✅ 没有超限文件"
             exit 0
