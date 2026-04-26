@@ -153,15 +153,7 @@ jobs:
       - name: 拆分搜索索引 (Cloudflare Workers 单文件 ≤25MB)
         run: node scripts/split-search-index.mjs --max-size 20 --build-dir ./build
 
-      - name: 缓存 ffmpeg
-        id: cache-ffmpeg
-        uses: actions/cache@v4
-        with:
-          path: /usr/bin/ffmpeg
-          key: ffmpeg-${{ runner.os }}-${{ runner.arch }}
-
       - name: 📦 安装 ffmpeg (用于压缩超大 GIF)
-        if: steps.cache-ffmpeg.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg > /dev/null 2>&1
@@ -208,6 +200,15 @@ jobs:
               rm -f "$file"
             fi
           done
+          echo "🔍 兜底检查: 确保没有残留超限文件..."
+          REMAINING=$(find ./build -type f -size +25M)
+          if [ -n "$REMAINING" ]; then
+            echo "⚠️ 仍有超限文件, 强制删除:"
+            echo "$REMAINING" | while read -r f; do
+              echo "   🗑️ 删除: $f ($(du -h "$f" | cut -f1))"
+              rm -f "$f"
+            done
+          fi
           echo "✅ 超限文件处理完成"
 
       - name: 生成 wrangler.toml 和 worker.js
