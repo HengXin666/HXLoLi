@@ -132,10 +132,15 @@ jobs:
       - name: 拆分搜索索引 (Cloudflare Workers 单文件 ≤25MB)
         run: node scripts/split-search-index.mjs --max-size 20 --build-dir ./build
 
-      - name: �️ 压缩超过 25MB 的静态资源 (Cloudflare 单文件限制)
+      - name: 📦 安装 ffmpeg (用于压缩超大 GIF)
         run: |
-          echo "🔍 扫描超过 25MB 的文件..."
-          OVERSIZED=$(find ./build -type f -size +25M)
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg > /dev/null 2>&1
+          ffmpeg -version | head -1
+
+      - name: 🗜️ 压缩超过 25MB 的静态资源 (Cloudflare 单文件限制)
+        run: |
+          echo "🔍 扫描超过 25MB 的文件..."          OVERSIZED=$(find ./build -type f -size +25M)
           if [ -z "$OVERSIZED" ]; then
             echo "✅ 没有超限文件"
             exit 0
