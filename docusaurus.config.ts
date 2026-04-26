@@ -16,7 +16,7 @@ const BaseUrl = isCloudflare ? "" : "/HXLoLi";
 
 // 插件配置
 const plugins: PluginConfig[] = [
-  // 你原来的 postcss 插件, 原样保留
+  // postcss 插件
   function myPlugin() {
     return {
       name: "postcss-tailwindcss-loader",
@@ -28,6 +28,18 @@ const plugins: PluginConfig[] = [
           require("autoprefixer"),
         );
         return postcssOptions;
+      },
+    };
+  },
+  // docs 链接关系图数据生成插件
+  function docsGraphPlugin() {
+    return {
+      name: "docs-links-graph",
+      async loadContent() {
+        const { execSync } = require("child_process");
+        try {
+          execSync("node scripts/generate-docs-graph.mjs", { stdio: "inherit" });
+        } catch {}
       },
     };
   },
@@ -183,11 +195,15 @@ const config: Config = {
               label: "归档",
             },
             {
+              to: "/docs-graph",
+              label: "笔记关系图",
+            },
+            {
               to: "/friends",
               label: "友链",
             },
             {
-              href: "https://github.com/HengXin666/HXLoLi", // 项目的 GitHub 地址
+              href: "https://github.com/HengXin666/HXLoLi",
               label: "GitHub",
             },
           ]

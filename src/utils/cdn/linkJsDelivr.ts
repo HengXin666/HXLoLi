@@ -19,8 +19,8 @@
  * - 新页面加载时: 有持久化节点 → 直接用不测速; 没有 → mainEngine 测速
  */
 
-import { LATEST_COMMIT_ID } from '@site/data/gitVersion';
 import { ANIME_CDN_TAG } from '@site/data/animeCdnVersion';
+import { LATEST_COMMIT_ID } from '@site/data/gitVersion';
 import { MUSIC_CDN_TAG } from '@site/data/musicCdnVersion';
 import { GITHUB_CONFIG } from '@site/src/config/github';
 
@@ -93,7 +93,19 @@ const allEngines = [mainEngine, mainCommitEngine, animeEngine, musicEngine].filt
 
 // ============================================================
 // 初始化 — 统一测速, 跨页面同步
-// ============================================================
+
+type CdnListener = () => void;
+const _cdnListeners: Set<CdnListener> = new Set();
+
+/** 注册测速完成回调 (UI 组件用) */
+function onCdnReady(fn: CdnListener): () => void {
+  _cdnListeners.add(fn);
+  return () => { _cdnListeners.delete(fn); };
+}
+
+function _notifyListeners() {
+  _cdnListeners.forEach(fn => { try { fn(); } catch {} });
+}
 
 let _initPromise: Promise<void> | null = null;
 
@@ -105,27 +117,31 @@ function ensureInit(): Promise<void> {
     if (shouldAutoTest && mainEngine) {
       // 没有持久化节点 → mainEngine 测速, 选最优, 同步到所有 engine
       try {
-        await mainEngine.initializeStreaming(
-          () => {},              // 每个结果回调 (不需要)
-          () => {                // 第一个成功结果 → 立即同步到所有 engine
+        await mainEngine.testAndSelectBest((result: any) => {
+          // 每个节点测速完成时通知 UI
+          if (result.success) {
             const best = mainEngine.getCurrentNode();
             if (best) selectNodeAll(best.id);
-          },
-        );
-        // 全部测完后最终同步
+          }
+          _notifyListeners();
+        });
         const best = mainEngine.getCurrentNode();
         if (best) selectNodeAll(best.id);
-      } catch {}
+        _notifyListeners();
+      } catch (e) {
+        // 测速失败不阻塞初始化
+        if (typeof console !== 'undefined') console.warn('[CDN] testAndSelectBest failed:', e);
+      }
     }
-    // 标记所有 engine 就绪 (包括没有 autoTest 的)
+    // 标记所有 engine 就绪
     for (const engine of allEngines) {
       try {
         if (!engine.isInitialized()) {
-          // 手动触发 markReady — 通过 initialize() 但 autoTest=false 所以不会测速
           await engine.initialize();
         }
       } catch {}
     }
+    _notifyListeners();
   })();
 
   return _initPromise;
@@ -190,7 +206,7 @@ export function toMusicCdnUrl(relativePath: string): string {
 // 大文件透明请求
 // ============================================================
 
-export type { DownloadResult, DownloadProgress } from 'hx-cdn-forge';
+export type { DownloadProgress, DownloadResult } from 'hx-cdn-forge';
 
 /**
  * 智能模式下载 — 自动选择最优策略:
@@ -253,4 +269,4 @@ export function toMusicLocalUrl(relativePath: string): string {
 // 导出
 // ============================================================
 
-export { mainEngine, animeEngine, musicEngine, allEngines, ensureInit, selectNodeAll };
+export { allEngines, animeEngine, ensureInit, mainEngine, musicEngine, onCdnReady, selectNodeAll };

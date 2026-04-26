@@ -83,7 +83,7 @@ function HomepageHeader () {
                     }}
                 >
                     <img
-                        src={`${config.baseUrl}/img/main_menu_misaka.png`}
+                        src={`${config.baseUrl}img/main_menu_misaka.png`}
                         alt="Image"
                         style={{
                             width: '100%',

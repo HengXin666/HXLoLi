@@ -129,8 +129,8 @@ jobs:
         env:
           DEPLOY_TARGET: cloudflare
 
-      - name: 移除超过 25MB 的文件 (Cloudflare Workers 限制)
-        run: find build -type f -size +25M -print -delete
+      - name: 拆分搜索索引 (Cloudflare Workers 单文件 ≤25MB)
+        run: node scripts/split-search-index.mjs --max-size 20 --build-dir ./build
 
       - name: 生成 wrangler.toml 配置
         run: |
@@ -146,6 +146,34 @@ jobs:
           cat > worker.js << 'WORKEREOF'
           export default {
             async fetch(request, env) {
+              const url = new URL(request.url);
+
+              // 拦截 search-index.json 请求, 从 chunk 文件合并返回
+              if (url.pathname === '/search-index.json' || url.pathname.match(/^\/search-index(-[a-z0-9]+)?\.json$/)) {
+                const manifestUrl = new URL('/search-index-manifest.json', url.origin);
+                const manifestResp = await env.ASSETS.fetch(manifestUrl);
+                if (!manifestResp.ok) {
+                  // 没有 manifest 说明索引未拆分, 回退到静态资源
+                  return env.ASSETS.fetch(request);
+                }
+                const manifest = await manifestResp.json();
+                const parts = [];
+                for (const chunk of manifest.chunks) {
+                  const chunkUrl = new URL('/' + chunk, url.origin);
+                  const chunkResp = await env.ASSETS.fetch(chunkUrl);
+                  if (!chunkResp.ok) {
+                    return new Response('Search index chunk not found: ' + chunk, { status: 500 });
+                  }
+                  parts.push(await chunkResp.text());
+                }
+                return new Response(parts.join(''), {
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Cache-Control': 'public, max-age=604800, immutable',
+                  },
+                });
+              }
+
               return env.ASSETS.fetch(request);
             },
           };

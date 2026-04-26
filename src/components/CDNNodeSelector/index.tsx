@@ -1,8 +1,8 @@
 /**
  * CDN 节点选择器 — Navbar 下拉面板
  */
+import { ensureInit, mainEngine, onCdnReady, selectNodeAll } from '@site/src/utils/cdn/linkJsDelivr';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { mainEngine, ensureInit, selectNodeAll } from '@site/src/utils/cdn/linkJsDelivr';
 
 const CDN_STORAGE_KEY = 'hxloli-cdn-node';
 
@@ -147,6 +147,9 @@ export function CDNNavbarButton(): React.ReactElement {
 
   useEffect(() => {
     ensureInit().then(refreshLabel);
+    // 监听测速完成事件, 自动刷新标签
+    const unsub = onCdnReady(refreshLabel);
+    return unsub;
   }, [refreshLabel]);
 
   // 跨页面同步

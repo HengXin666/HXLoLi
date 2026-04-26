@@ -1,28 +1,28 @@
+import Link from '@docusaurus/Link';
+import {
+    findFirstSidebarItemLink,
+    isActiveSidebarItem,
+    useDocSidebarItemsExpandedState,
+} from '@docusaurus/plugin-content-docs/client';
+import {
+    Collapsible,
+    ThemeClassNames,
+    useCollapsible,
+    usePrevious,
+    useThemeConfig,
+} from '@docusaurus/theme-common';
+import { isSamePath } from '@docusaurus/theme-common/internal';
+import { translate } from '@docusaurus/Translate';
+import useIsBrowser from '@docusaurus/useIsBrowser';
+import type { Props } from '@theme/DocSidebarItem/Category';
+import DocSidebarItems from '@theme/DocSidebarItems';
+import clsx from 'clsx';
 import React, {
     type ComponentProps,
     type ReactNode,
     useEffect,
     useMemo,
 } from 'react';
-import clsx from 'clsx';
-import {
-    ThemeClassNames,
-    useThemeConfig,
-    usePrevious,
-    Collapsible,
-    useCollapsible,
-} from '@docusaurus/theme-common';
-import { isSamePath } from '@docusaurus/theme-common/internal';
-import {
-    isActiveSidebarItem,
-    findFirstSidebarItemLink,
-    useDocSidebarItemsExpandedState,
-} from '@docusaurus/plugin-content-docs/client';
-import Link from '@docusaurus/Link';
-import { translate } from '@docusaurus/Translate';
-import useIsBrowser from '@docusaurus/useIsBrowser';
-import DocSidebarItems from '@theme/DocSidebarItems';
-import type { Props } from '@theme/DocSidebarItem/Category';
 
 // If we navigate to a category and it becomes active, it should automatically
 // expand itself
@@ -229,6 +229,7 @@ export default function DocSidebarItemCategory ({
                         <div style={{flex: '1'}}>
                             {tagsArr.map((tag, index) => (
                                 <span
+                                    key={index}
                                     style={{
                                         marginRight: '8px',
                                         paddingLeft: '5px',

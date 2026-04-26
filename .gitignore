@@ -15,6 +15,7 @@ package-lock.json
 # Generated files
 .docusaurus
 .cache-loader
+static/docs-links-graph.json
 
 # Misc
 .DS_Store
