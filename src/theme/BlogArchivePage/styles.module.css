@@ -126,3 +126,16 @@
 .archiveItem a > span:hover {
   color: var(--ifm-color-primary);
 }
+
+@media (max-width: 768px) {
+  .archiveItem a {
+    font-size: 1rem;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .archiveTime {
+    width: 2.5rem;
+    font-size: 0.75rem;
+  }
+}

@@ -2,6 +2,7 @@
   padding: 20px;
   margin: 20px;
   width: 30%;
+  min-width: 250px;
   background-color: #202126;
   border-radius: 10px;
   box-shadow: 0px 15px 20px 10px #6be4f600;
@@ -10,4 +11,12 @@
 
 .animated-box:hover {
   box-shadow: 0px 0px 2px 2px #6be4f6;
+}
+
+@media (max-width: 768px) {
+  .animated-box {
+    width: 100%;
+    min-width: unset;
+    margin: 10px 0;
+  }
 }

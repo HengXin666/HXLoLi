@@ -124,17 +124,36 @@ jobs:
           git config --global user.name "Heng_Xin"
           npm run deploy
 
-      - name: 为 Cloudflare Pages 重新构建 (baseUrl=/)
+      - name: 为 Cloudflare Workers 重新构建 (baseUrl=/)
         run: npm run build
         env:
           DEPLOY_TARGET: cloudflare
 
-      - name: 移除超过 25MB 的文件 (Cloudflare Pages 限制)
+      - name: 移除超过 25MB 的文件 (Cloudflare Workers 限制)
         run: find build -type f -size +25M -print -delete
 
-      - name: 部署到 Cloudflare Pages
+      - name: 生成 wrangler.toml 配置
+        run: |
+          cat > wrangler.toml << 'EOF'
+          name = "hxloli"
+          main = "./worker.js"
+          compatibility_date = "2024-09-23"
+
+          [assets]
+          directory = "./build"
+          EOF
+
+          cat > worker.js << 'WORKEREOF'
+          export default {
+            async fetch(request, env) {
+              return env.ASSETS.fetch(request);
+            },
+          };
+          WORKEREOF
+
+      - name: 部署到 Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy build --project-name=hxloli --commit-dirty=true
+          command: deploy

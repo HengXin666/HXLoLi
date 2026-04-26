@@ -25,9 +25,12 @@ export function Tabs<T extends number | string> ({
                 backgroundColor: "#1e1e1e",
                 borderRadius: "12px",
                 width: "fit-content",
+                maxWidth: "100%",
                 margin: "0 auto",
                 marginTop: "10px",
-                marginBlock: "10px"
+                marginBlock: "10px",
+                flexWrap: "wrap",
+                justifyContent: "center",
             }}
         >
             {items.map(item => {

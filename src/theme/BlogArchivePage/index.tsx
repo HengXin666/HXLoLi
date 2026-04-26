@@ -1,11 +1,11 @@
-import React, { type ReactNode } from "react";
 import Link from "@docusaurus/Link";
 import Translate, { translate } from "@docusaurus/Translate";
 import { PageMetadata } from "@docusaurus/theme-common";
-import Layout from "@theme/Layout";
-import type { ArchiveBlogPost, Props } from "@theme/BlogArchivePage";
 import BlogWithCats from "@site/src/components/BlogWithCats";
+import type { ArchiveBlogPost, Props } from "@theme/BlogArchivePage";
+import Layout from "@theme/Layout";
 import { type Variants, motion } from "framer-motion"; // 动画库
+import React, { type ReactNode } from "react";
 import styles from "./styles.module.css";
 
 /**
@@ -138,7 +138,7 @@ export default function BlogArchive({ archive }: Props): ReactNode {
           </div>
         </header>
         <BlogWithCats style={{ width: "100%", padding: "20px" }}>
-          <div className="container" style={{ width: "75%" }}>
+          <div className="container" style={{ width: "min(75%, 100%)", maxWidth: "100%", boxSizing: "border-box" }}>
             {years.length > 0 && <YearsSection years={years} />}
           </div>
         </BlogWithCats>

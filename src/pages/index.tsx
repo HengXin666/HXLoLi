@@ -1,18 +1,18 @@
-import React from 'react';
-import type { ReactNode } from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
-import Heading from '@theme/Heading';
 import config from '@generated/docusaurus.config';
 import { stats } from '@site/data/wordStats';
+import Heading from '@theme/Heading';
+import Layout from '@theme/Layout';
+import type { ReactNode } from 'react';
+import React, { useEffect, useState } from 'react';
+import BlogWithCats from '../components/BlogWithCats';
 import WordCountChart from '../components/chart/WordCountChart';
 import HXLink from '../components/HXLink';
-import BlogWithCats from '../components/BlogWithCats';
 import ProjectCarousel from '../components/ProjectCarousel';
 
-import './index.css';
 import WakaTimeChart from '../components/chart/WakaTimeChart';
+import './index.css';
 
 // 模块卡片组件
 function FeatureCard ({
@@ -38,31 +38,47 @@ function FeatureCard ({
 
 function HomepageHeader () {
     const { siteConfig } = useDocusaurusContext();
+
+    const [isMobile, setIsMobile] = useState<boolean>(() => {
+        if (typeof window !== "undefined") {
+            return window.innerWidth <= 768;
+        }
+        return false;
+    });
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     return (
         <header
             style={{
                 display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: '40px 0',
-                marginLeft: '100px',
-                marginRight: '100px',
+                padding: isMobile ? '20px 16px' : '40px 0',
+                marginLeft: isMobile ? '0' : '100px',
+                marginRight: isMobile ? '0' : '100px',
+                gap: isMobile ? '24px' : '0',
             }}
         >
             <div className="container" style={{ flex: 1, textAlign: 'center' }}>
-                <Heading as="h1" className="hero__title" style={{ color: '#8CFF00' }}>
+                <Heading as="h1" className="hero__title" style={{ color: '#8CFF00', fontSize: isMobile ? '1.5rem' : undefined }}>
                     {siteConfig.title}
                 </Heading>
-                <p className="hero__subtitle" style={{ color: '#A9A9A9' }}>
+                <p className="hero__subtitle" style={{ color: '#A9A9A9', fontSize: isMobile ? '0.9rem' : undefined }}>
                     {siteConfig.tagline}
                 </p>
                 <div className="image-container"
                     style={{
-                        position: 'relative', // 让按钮以这个为定位参考
-                        maxWidth: '85%', // 控制最大宽度
-                        margin: '0 auto', // 水平居中
+                        position: 'relative',
+                        maxWidth: isMobile ? '100%' : '85%',
+                        margin: '0 auto',
                         borderRadius: '10px',
-                        overflow: 'hidden', // 防止按钮超出边界
+                        overflow: 'hidden',
                         boxShadow: '0px 5px 10px 1px #6BE4F6',
                     }}
                 >
@@ -82,10 +98,12 @@ function HomepageHeader () {
                             color: 'black',
                             borderRadius: '8px',
                             position: 'absolute',
-                            bottom: '20px',           // 距离底部 20px
-                            left: '50%',              // 居中
-                            transform: 'translateX(-50%)', // 精确水平居中
-                            zIndex: 10
+                            bottom: isMobile ? '10px' : '20px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 10,
+                            fontSize: isMobile ? '0.85rem' : undefined,
+                            padding: isMobile ? '8px 16px' : undefined,
                         }}
                         to="/docs/关于"
                     >
@@ -94,7 +112,7 @@ function HomepageHeader () {
                 </div>
 
             </div>
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1, width: isMobile ? '100%' : undefined }}>
                 <div className="p-4 max-w-4xl mx-auto">
                     <WordCountChart rawData={stats} />
                 </div>
@@ -113,7 +131,7 @@ export default function Home (): ReactNode {
             <HomepageHeader />
             <WakaTimeChart />
             <BlogWithCats style={{textAlign: 'center', padding: '20px', backgroundColor: '#2b2b2b'}}>
-                <div className="container">
+                <div className="container" style={{ maxWidth: '100%', overflow: 'hidden' }}>
                     <h2 style={{color: '#E3E3E3'}}>
                         这里是 <HXLink title='Heng_Xin' url='https://github.com/HengXin666' /> 的个人博客~, 可以去<HXLink title='仓库' url='https://github.com/HengXin666/HXLoLi' />点一个 star 支持一下吗?
                     </h2>
@@ -126,11 +144,10 @@ export default function Home (): ReactNode {
                         href="https://github-readme-stats-flame-pi-70.vercel.app/api?username=HengXin666&show_icons=true&theme=transparent&locale=ja&title_color=990099&hide_border=true&icon_color=F7CE45&text_color=D17277"
                     >
                         <img
-                            width={400}
+                            style={{ maxWidth: "100%", width: "400px" }}
                             src="https://github-readme-stats-flame-pi-70.vercel.app/api?username=HengXin666&show_icons=true&theme=transparent&locale=ja&title_color=990099&hide_border=true&icon_color=F7CE45&text_color=D17277"
                             title="GitHub Stats"
                             data-canonical-src="https://github-readme-stats-flame-pi-70.vercel.app/api?username=HengXin666&show_icons=true&theme=transparent&locale=ja&title_color=990099&hide_border=true&icon_color=F7CE45&text_color=D17277"
-                            style={{ maxWidth: "100%" }}
                         />
                     </a>
                     <a
@@ -139,11 +156,10 @@ export default function Home (): ReactNode {
                         href="https://github-readme-streak-stats-two-coral-24.vercel.app?user=HengXin666&theme=radical&hide_border=true&border_radius=10&locale=ja&short_numbers=false%C2%A0%C2%A0%E6%97%A0%E6%95%88&date_format=%5BY.%5Dn.j"
                     >
                         <img
-                            width={400}
+                            style={{ maxWidth: "100%", width: "400px" }}
                             src="https://github-readme-streak-stats-two-coral-24.vercel.app?user=HengXin666&theme=radical&hide_border=true&border_radius=10&locale=ja&short_numbers=false%C2%A0%C2%A0%E6%97%A0%E6%95%88&date_format=%5BY.%5Dn.j"
                             title="GitHub Streak"
                             data-canonical-src="https://github-readme-streak-stats-two-coral-24.vercel.app?user=HengXin666&theme=radical&hide_border=true&border_radius=10&locale=ja&short_numbers=false%C2%A0%C2%A0%E6%97%A0%E6%95%88&date_format=%5BY.%5Dn.j"
-                            style={{ maxWidth: "100%" }}
                         />
                     </a>
                     <p dir="auto">

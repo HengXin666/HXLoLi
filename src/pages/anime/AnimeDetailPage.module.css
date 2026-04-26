@@ -30,6 +30,7 @@
 
 .coverImage {
     width: 300px;
+    max-width: 100%;
     height: auto;
     border-radius: 8px;
     object-fit: cover;
@@ -266,6 +267,50 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* 允许 \n 渲染 */
     white-space: pre-wrap;
+}
+
+@media (max-width: 768px) {
+    .mainContent {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .coverImage {
+        width: 200px;
+        position: static;
+    }
+
+    .mainTitle {
+        font-size: 1.6rem;
+    }
+
+    .subTitle {
+        font-size: 1rem;
+    }
+
+    .characterScrollContainer {
+        padding-top: 80px;
+        margin-top: -80px;
+    }
+
+    .characterCard {
+        flex: 0 0 80px;
+    }
+
+    .relationItem {
+        width: 100%;
+        max-width: 285px;
+    }
+
+    .relationList {
+        grid-template-columns: 1fr;
+    }
+
+    .episodeItem {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
 }

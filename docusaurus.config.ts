@@ -11,6 +11,8 @@ import remarkMath from 'remark-math'; // 数学渲染
 //   默认 (GitHub Pages)     => baseUrl = "/HXLoLi", url = "https://HengXin666.github.io"
 const isCloudflare = process.env.DEPLOY_TARGET === 'cloudflare';
 const BaseUrl = isCloudflare ? "" : "/HXLoLi";
+// Workers 部署: 使用 wrangler deploy (Static Assets 模式)
+// Pages 部署已迁移至 Workers, URL 保持不变 (自定义域名或 .workers.dev)
 
 // 插件配置
 const plugins: PluginConfig[] = [

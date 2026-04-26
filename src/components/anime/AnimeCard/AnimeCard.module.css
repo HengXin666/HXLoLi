@@ -207,20 +207,18 @@
    ========================================= */
 @media (max-width: 768px) {
   :root {
-    --timeline-axis-x: 0px; /* 移动端重置轴线 */
+    --timeline-axis-x: 0px;
   }
 
   .archiveList::before { display: none; }
   .archiveItem::before { display: none; }
 
-  /* 垂直堆叠 */
   .archiveItem {
     flex-direction: column; 
-    align-items: flex-start; /* 移动端恢复左对齐 */
-    margin-bottom: 3rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
   }
 
-  /* 时间放到上面 */
   .archiveTime {
     width: 100%;
     text-align: left;
@@ -232,6 +230,38 @@
 
   .animeCard {
     margin-left: 0;
-    width: 100%; /* 占满宽度 */
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .cardImageColumn {
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .cardDetailsColumn {
+    width: 100%;
+  }
+
+  .metaRow {
+    flex-wrap: wrap;
+  }
+
+  .commentRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .buttonContainer {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+
+  .archiveListTitle {
+    margin-left: 0;
+    transform: none;
   }
 }
