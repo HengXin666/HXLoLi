@@ -59,7 +59,9 @@ export default function DocsGraphPage() {
   const [error, setError] = useState<string | null>(null);
 
   const params = new URLSearchParams(location.search);
-  const docParam = params.get('doc') || undefined;
+  const docParamRaw = params.get('doc') || undefined;
+  // URL 参数可能是编码后的中文路径，需要解码以匹配图数据中的原始中文 id
+  const docParam = docParamRaw ? decodeURIComponent(docParamRaw) : undefined;
   const [viewMode, setViewMode] = useState<ViewMode>(docParam ? 'current' : 'global');
   const [showExternal, setShowExternal] = useState(
     params.has('ext') ? params.get('ext') !== 'false' : false

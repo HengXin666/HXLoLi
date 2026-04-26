@@ -227,24 +227,45 @@ jobs:
             async fetch(request, env) {
               const url = new URL(request.url);
 
-              // 拦截 search-index.json 请求, 从 chunk 文件合并返回
-              if (url.pathname === '/search-index.json' || url.pathname.match(/^\/search-index(-[a-z0-9]+)?\.json$/)) {
+              // 拦截 search-index.json 请求, 从 chunk 文件流式合并返回
+              if (url.pathname === '/search-index.json' || url.pathname.match(/^\/search-index(-[a-zA-Z0-9]+)?\.json$/)) {
                 const manifestUrl = new URL('/search-index-manifest.json', url.origin);
                 const manifestResp = await env.ASSETS.fetch(manifestUrl);
                 if (!manifestResp.ok) {
                   return env.ASSETS.fetch(request);
                 }
                 const manifest = await manifestResp.json();
-                const parts = [];
+
+                // 预先获取所有 chunk 的 Response 对象
+                const chunkResponses = [];
                 for (const chunk of manifest.chunks) {
                   const chunkUrl = new URL('/' + chunk, url.origin);
                   const chunkResp = await env.ASSETS.fetch(chunkUrl);
                   if (!chunkResp.ok) {
                     return new Response('Search index chunk not found: ' + chunk, { status: 500 });
                   }
-                  parts.push(await chunkResp.text());
+                  chunkResponses.push(chunkResp);
                 }
-                return new Response(parts.join(''), {
+
+                // 使用 ReadableStream 流式拼接, 避免在内存中合并大字符串
+                const { readable, writable } = new TransformStream();
+                (async () => {
+                  const writer = writable.getWriter();
+                  try {
+                    for (const resp of chunkResponses) {
+                      const reader = resp.body.getReader();
+                      while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+                        await writer.write(value);
+                      }
+                    }
+                  } finally {
+                    await writer.close();
+                  }
+                })();
+
+                return new Response(readable, {
                   headers: {
                     'Content-Type': 'application/json',
                     'Cache-Control': 'public, max-age=604800, immutable',

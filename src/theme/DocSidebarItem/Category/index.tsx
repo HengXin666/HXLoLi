@@ -13,6 +13,7 @@ import {
 } from '@docusaurus/theme-common';
 import { isSamePath } from '@docusaurus/theme-common/internal';
 import { translate } from '@docusaurus/Translate';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import type { Props } from '@theme/DocSidebarItem/Category';
 import DocSidebarItems from '@theme/DocSidebarItems';
@@ -155,8 +156,11 @@ export default function DocSidebarItemCategory ({
         }
     }, [collapsible, expandedItem, index, setCollapsed, autoCollapseCategories]);
 
+    const { siteConfig } = useDocusaurusContext();
     // @ts-ignore
-    const iconSrc: string = customProps && customProps.icon;
+    const rawIcon: string = customProps && customProps.icon;
+    // 图标路径不带 baseUrl 前缀，运行时拼接
+    const iconSrc = rawIcon ? `${siteConfig.baseUrl}${rawIcon}` : undefined;
     // @ts-ignore
     const tagsArr: [] = customProps && customProps.tags;
 

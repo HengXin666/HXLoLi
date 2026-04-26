@@ -6,11 +6,9 @@ const sidebar = {
     tutorialSidebar: []
 };
 
-const baseUrl = "/HXLoLi";
-
-// 默认图标路径，位于 static/icons 下
-const defaultFolderIcon = `${baseUrl}/default-icons/default_folder.svg`;  // 默认文件夹图标
-const defaultDocIcon = `${baseUrl}/default-icons/file_type_markdown.svg`;  // 默认文档图标
+// 图标路径不带 baseUrl 前缀, 运行时由组件根据实际 baseUrl 拼接
+const defaultFolderIcon = `default-icons/default_folder.svg`;  // 默认文件夹图标
+const defaultDocIcon = `default-icons/file_type_markdown.svg`;  // 默认文档图标
 
 function stripPrefix(name) {
     return name.replace(/^\d+[-_]/, ''); // 去掉类似 01- 前缀
@@ -24,10 +22,10 @@ function getJsonTagConfig(folderPath) {
             const data = fs.readFileSync(tagJsonPath, 'utf-8');
             const config = JSON.parse(data);
             if (config.icon) {
-                console.log(`找到图标: ${baseUrl}/icons/${config.icon}`);
+                console.log(`找到图标: icons/${config.icon}`);
             }
             return {
-                icon: config.icon ? `${baseUrl}/icons/${config.icon}` : undefined,
+                icon: config.icon ? `icons/${config.icon}` : undefined,
                 tags: Array.isArray(config.tags) ? config.tags : []
             };
         } catch (err) {

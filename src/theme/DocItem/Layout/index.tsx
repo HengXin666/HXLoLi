@@ -49,7 +49,9 @@ export default function DocItemLayout ({ children }: Props): ReactNode {
     const docGraphUrl = (() => {
         const permalink = metadata.permalink || '';
         const base = config.baseUrl.replace(/\/$/, '');
-        const docPath = permalink.startsWith(base) ? permalink.slice(base.length) : permalink;
+        let docPath = permalink.startsWith(base) ? permalink.slice(base.length) : permalink;
+        // permalink 可能是 URL 编码的中文路径，需要解码以匹配图数据中的原始 id
+        try { docPath = decodeURIComponent(docPath); } catch {}
         return `${config.baseUrl}docs-graph?doc=${encodeURIComponent(docPath)}`;
     })();
 
