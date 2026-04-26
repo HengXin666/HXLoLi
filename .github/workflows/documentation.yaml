@@ -214,16 +214,22 @@ jobs:
         run: |
           cat > wrangler.toml << 'EOF'
           name = "hxloli"
-          main = "./worker.js"
+          main = "worker.js"
           compatibility_date = "2024-09-23"
+          compatibility_flags = ["nodejs_compat"]
 
-          [assets]
-          directory = "./build"
+          [env.production]
+          [env.production.vars]
+          NODE_ENV = "production"
+
+          [site]
+          bucket = "./build"
+          entry-point = "."
           EOF
 
           cat > worker.js << 'WORKEREOF'
           export default {
-            async fetch(request, env) {
+            async fetch(request, env, ctx) {
               const url = new URL(request.url);
 
               // 拦截 search-index.json 请求, 从 chunk 文件合并返回
@@ -264,9 +270,56 @@ jobs:
           };
           WORKEREOF
 
+          echo "✅ wrangler.toml 和 worker.js 已生成"
+
+      - name: 验证 Wrangler 配置
+        run: |
+          echo "🔍 检查生成的配置文件..."
+          ls -la wrangler.toml worker.js
+          echo "=== wrangler.toml 内容 ==="
+          cat wrangler.toml
+          echo "=== worker.js 前50行 ==="
+          head -50 worker.js
+          echo "=== 检查构建目录 ==="
+          ls -la build/ | head -10
+          echo "✅ 配置验证完成"
+
+      - name: 验证 Cloudflare 权限
+        run: |
+          echo "🔑 验证 Cloudflare API Token 权限..."
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "❌ CLOUDFLARE_API_TOKEN 未设置"
+            exit 1
+          fi
+          if [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "❌ CLOUDFLARE_ACCOUNT_ID 未设置"
+            exit 1
+          fi
+          echo "✅ Cloudflare 权限配置正常"
+
+      - name: 安装 Wrangler CLI
+        run: |
+          echo "📥 安装 Wrangler CLI..."
+          npm install -g wrangler@3
+          echo "✅ Wrangler 版本信息:"
+          wrangler --version
+          echo "✅ Wrangler 安装完成"
+
+      - name: 验证 Wrangler 配置
+        run: |
+          echo "🔍 验证 Wrangler 配置..."
+          wrangler validate
+          echo "✅ Wrangler 配置验证通过"
+          echo "🔍 检查配置详情:"
+          wrangler whoami
+          wrangler kv:namespace list || echo "⚠️ KV namespaces 不可用（正常）"
+
       - name: 部署到 Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy
+        run: |
+          echo "🚀 开始部署到 Cloudflare Workers..."
+          wrangler deploy --env production
+          echo "✅ Cloudflare Workers 部署完成"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        timeout-minutes: 10
