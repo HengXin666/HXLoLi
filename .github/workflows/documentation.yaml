@@ -132,6 +132,49 @@ jobs:
       - name: 拆分搜索索引 (Cloudflare Workers 单文件 ≤25MB)
         run: node scripts/split-search-index.mjs --max-size 20 --build-dir ./build
 
+      - name: �️ 压缩超过 25MB 的静态资源 (Cloudflare 单文件限制)
+        run: |
+          echo "🔍 扫描超过 25MB 的文件..."
+          OVERSIZED=$(find ./build -type f -size +25M)
+          if [ -z "$OVERSIZED" ]; then
+            echo "✅ 没有超限文件"
+            exit 0
+          fi
+          echo "$OVERSIZED" | while read -r file; do
+            SIZE=$(du -h "$file" | cut -f1)
+            EXT="${file##*.}"
+            EXT_LOWER=$(echo "$EXT" | tr '[:upper:]' '[:lower:]')
+            if [ "$EXT_LOWER" = "gif" ]; then
+              WEBP="${file%.${EXT}}.webp"
+              echo "�️ 转换 GIF → WebP: $file ($SIZE)"
+              ffmpeg -i "$file" -vcodec libwebp -lossless 0 -q:v 75 -loop 0 \
+                -an -vsync 0 "$WEBP" -y 2>/dev/null
+              if [ -f "$WEBP" ]; then
+                NEW_SIZE=$(du -h "$WEBP" | cut -f1)
+                echo "   ✅ 转换成功: $WEBP ($NEW_SIZE)"
+                rm -f "$file"
+              else
+                echo "   ❌ 转换失败, 移除原文件"
+                rm -f "$file"
+              fi
+            elif echo "$EXT_LOWER" | grep -qE "^(png|jpg|jpeg)$"; then
+              echo "🗜️ 压缩图片: $file ($SIZE)"
+              convert "$file" -quality 80 -resize '4096x4096>' "$file" 2>/dev/null
+              NEW_SIZE=$(du -h "$file" | cut -f1)
+              NEW_BYTES=$(stat -c%s "$file")
+              if [ "$NEW_BYTES" -gt 26214400 ]; then
+                echo "   ⚠️ 压缩后仍超限 ($NEW_SIZE), 移除"
+                rm -f "$file"
+              else
+                echo "   ✅ 压缩后: $NEW_SIZE"
+              fi
+            else
+              echo "🗑️ 无法压缩, 移除: $file ($SIZE)"
+              rm -f "$file"
+            fi
+          done
+          echo "✅ 超限文件处理完成"
+
       - name: 生成 wrangler.toml 配置
         run: |
           cat > wrangler.toml << 'EOF'
@@ -174,7 +217,14 @@ jobs:
                 });
               }
 
-              return env.ASSETS.fetch(request);
+              // GIF → WebP 回退: 超大 GIF 在构建时被转为 WebP
+              const resp = await env.ASSETS.fetch(request);
+              if (resp.status === 404 && url.pathname.endsWith('.gif')) {
+                const webpUrl = new URL(url.pathname.replace(/\.gif$/i, '.webp'), url.origin);
+                const webpResp = await env.ASSETS.fetch(new Request(webpUrl, request));
+                if (webpResp.ok) return webpResp;
+              }
+              return resp;
             },
           };
           WORKEREOF
