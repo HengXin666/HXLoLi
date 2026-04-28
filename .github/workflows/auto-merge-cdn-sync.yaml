@@ -76,3 +76,13 @@ jobs:
             --delete-branch
 
           echo "🎉 PR #${PR_NUMBER} 合并成功!"
+
+      - name: 🚀 触发文档构建
+        env:
+          GH_TOKEN: ${{ secrets.PRIVATE_PAGES_TOKEN }}
+        run: |
+          echo "🚀 触发 documentation.yaml 工作流..."
+          gh workflow run documentation.yaml \
+            --repo "${{ github.repository }}" \
+            --ref main
+          echo "✅ 文档构建已触发"
