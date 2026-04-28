@@ -54,9 +54,9 @@ jobs:
           done <<< "${CHANGED_FILES}"
           echo "✅ 文件修改范围校验通过"
 
-      - name: ✅ 审批并合并 PR
+      - name: ✅ 审批 PR
         env:
-          GH_TOKEN: ${{ secrets.PRIVATE_PAGES_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           echo "🏷️ 检测到子仓库 CDN 同步 PR #${PR_NUMBER}"
@@ -67,6 +67,11 @@ jobs:
             --approve \
             --body "🤖 LoLi-Bot 自动审批通过にゃ♪"
 
+      - name: 🔀 合并 PR
+        env:
+          GH_TOKEN: ${{ secrets.PRIVATE_PAGES_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
           sleep 5
 
           gh pr merge "${PR_NUMBER}" \
