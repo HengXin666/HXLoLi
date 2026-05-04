@@ -54,29 +54,37 @@ jobs:
           done <<< "${CHANGED_FILES}"
           echo "✅ 文件修改范围校验通过"
 
-      - name: ✅ 审批 PR
+      - name: ✅ 审批并合并 PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          echo "🏷️ 检测到子仓库 CDN 同步 PR #${PR_NUMBER}}"
+          echo "🏷️ 检测到子仓库 CDN 同步 PR #${PR_NUMBER}"
           echo "📋 标题: ${{ github.event.pull_request.title }}"
 
+          # 审批 PR
           gh pr review "${PR_NUMBER}" \
             --repo "${{ github.repository }}" \
             --approve \
             --body "🤖 LoLi-Bot 自动审批通过にゃ♪"
-      - name: 🔀 合并 PR (触发文档构建)
-        env:
-          GH_TOKEN: ${{ secrets.PRIVATE_PAGES_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
+
           sleep 5
 
+          # 合并 PR
           gh pr merge "${PR_NUMBER}" \
             --repo "${{ github.repository }}" \
             --squash \
             --subject "${{ github.event.pull_request.title }}" \
             --delete-branch
 
-          echo "🎉 PR #${PR_NUMBER} 合并成功! PAT 产生的 push 将自动触发 documentation.yaml"
+          echo "🎉 PR #${PR_NUMBER} 合并成功!"
+
+      - name: 🚀 触发文档构建
+        env:
+          GH_TOKEN: ${{ secrets.PRIVATE_PAGES_TOKEN }}
+        run: |
+          echo "🚀 触发 documentation.yaml 工作流..."
+          gh workflow run documentation.yaml \
+            --repo "${{ github.repository }}" \
+            --ref main
+          echo "✅ 文档构建已触发"
