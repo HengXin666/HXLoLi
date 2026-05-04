@@ -56,17 +56,16 @@ jobs:
 
       - name: ✅ 审批 PR
         env:
-          GH_TOKEN: ${{ secrets.PRIVATE_PAGES_TOKEN  }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          echo "🏷️ 检测到子仓库 CDN 同步 PR #${PR_NUMBER}"
+          echo "🏷️ 检测到子仓库 CDN 同步 PR #${PR_NUMBER}}"
           echo "📋 标题: ${{ github.event.pull_request.title }}"
 
           gh pr review "${PR_NUMBER}" \
             --repo "${{ github.repository }}" \
             --approve \
             --body "🤖 LoLi-Bot 自动审批通过にゃ♪"
-
       - name: 🔀 合并 PR (触发文档构建)
         env:
           GH_TOKEN: ${{ secrets.PRIVATE_PAGES_TOKEN }}
