@@ -61,10 +61,13 @@ export default function DocsGraphPage() {
   const params = new URLSearchParams(location.search);
   const docParamRaw = params.get('doc') || undefined;
   // URL 参数可能是编码后的中文路径，需要解码以匹配图数据中的原始中文 id
-  const docParam = docParamRaw ? decodeURIComponent(docParamRaw) : undefined;
+  // 去除尾部斜杠以匹配图数据中的节点 id（图数据 id 无尾部斜杠）
+  const docParam = docParamRaw
+    ? decodeURIComponent(docParamRaw).replace(/\/+$/, '')
+    : undefined;
   const [viewMode, setViewMode] = useState<ViewMode>(docParam ? 'current' : 'global');
   const [showExternal, setShowExternal] = useState(
-    params.has('ext') ? params.get('ext') !== 'false' : false
+    params.has('ext') ? params.get('ext') !== 'false' : !!docParam
   );
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [chargeStrength, setChargeStrength] = useState(
@@ -202,7 +205,11 @@ export default function DocsGraphPage() {
         relevantNodeIds.add(l.source);
         relevantNodeIds.add(l.target);
       });
-      rawData.nodes.forEach(n => relevantNodeIds.add(n.id));
+      rawData.nodes.forEach(n => {
+        // 不显示外部链接时跳过外部节点
+        if (!showExternal && /^https?:\/\//i.test(n.id)) return;
+        relevantNodeIds.add(n.id);
+      });
     }
 
     const linkCountMap = new Map<string, number>();

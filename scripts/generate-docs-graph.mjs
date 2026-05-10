@@ -44,7 +44,7 @@ function extractTitle(content) {
   return match ? match[1].trim() : null;
 }
 
-// 从 markdown 内容提取所有链接
+// 从 markdown 内容提取所有链接, 返回 { url, text } 数组
 // 匹配 [text](url) 和 <a href="url">
 function extractLinks(content) {
   const links = [];
@@ -53,18 +53,19 @@ function extractLinks(content) {
   let match;
   while ((match = mdLinkRegex.exec(content)) !== null) {
     const url = match[2].trim();
+    const text = match[1].trim();
     // 跳过图片引用 (以 .png, .jpg, .svg, .gif, .webp 等结尾)
     if (/\.(png|jpe?g|svg|gif|webp|bmp|ico|drawio)(\?.*)?$/i.test(url)) continue;
     // 跳过锚点链接
     if (url.startsWith('#')) continue;
-    links.push(url);
+    links.push({ url, text });
   }
   // HTML 链接: href="url"
   const htmlLinkRegex = /href=["']([^"']+)["']/g;
   while ((match = htmlLinkRegex.exec(content)) !== null) {
     const url = match[1].trim();
     if (url.startsWith('#')) continue;
-    links.push(url);
+    links.push({ url, text: '' });
   }
   return links;
 }
@@ -72,6 +73,15 @@ function extractLinks(content) {
 // 判断是否为外部链接
 function isExternal(url) {
   return /^https?:\/\//i.test(url) || url.startsWith('//');
+}
+
+// 从 URL 提取域名作为显示文本
+function extractDomain(url) {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return url.split('/').pop() || url;
+  }
 }
 
 // 将相对链接解析为 docs URL
@@ -160,7 +170,7 @@ function main() {
         nodesMap.set(url, { id: url, title });
 
         const rawLinks = extractLinks(content);
-        for (const rawLink of rawLinks) {
+        for (const { url: rawLink, text: linkText } of rawLinks) {
           const resolved = resolveDocLink(fullPath, rawLink);
           if (!resolved) continue;
 
@@ -168,9 +178,14 @@ function main() {
           if (linksSet.has(key)) continue;
           linksSet.add(key);
 
-          // 确保外部链接的目标也作为节点存在
-          if (!resolved.external && !nodesMap.has(resolved.url)) {
-            nodesMap.set(resolved.url, { id: resolved.url, title: resolved.url.split('/').pop() || resolved.url });
+          // 确保链接目标作为节点存在
+          if (!nodesMap.has(resolved.url)) {
+            if (resolved.external) {
+              // 外部链接: 使用 markdown 链接文本作为节点标题
+              nodesMap.set(resolved.url, { id: resolved.url, title: linkText || extractDomain(resolved.url) });
+            } else {
+              nodesMap.set(resolved.url, { id: resolved.url, title: resolved.url.split('/').pop() || resolved.url });
+            }
           }
 
           links.push({
