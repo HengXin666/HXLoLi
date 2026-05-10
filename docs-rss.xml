@@ -4,26 +4,18 @@
         <title>HXLoLi 笔记</title>
         <link>https://HengXin666.github.io/HXLoLi/docs</link>
         <description>HXLoLi 最新笔记更新</description>
-        <lastBuildDate>Sun, 10 May 2026 14:06:56 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 10 May 2026 16:24:54 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-Hans</language>
         <copyright>© 2026 HXLoLi</copyright>
         <item>
-            <title><![CDATA[私密笔记]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/015-私密笔记</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/015-私密笔记</guid>
-            <pubDate>Sun, 10 May 2026 14:06:56 GMT</pubDate>
-            <description><![CDATA[import ProtectedPage from '@site/src/components/ProtectedPage'; <ProtectedPage magic="HXLOLI_PROTECTED_V3" title="私密笔记" cipher="AQBF5YxoV3IsbQdoqxyu6kUIK6nAeQr+wOtFBGqYkYi/CSd2mxTGwvWSTDQeIM0vqw/HxKMQ...]]></description>
-            <category>私密笔记</category>
-        </item>
-        <item>
-            <title><![CDATA[密码管理]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/015-私密笔记/001-密码管理</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/015-私密笔记/001-密码管理</guid>
-            <pubDate>Sun, 10 May 2026 14:06:56 GMT</pubDate>
-            <description><![CDATA[import ProtectedPage from '@site/src/components/ProtectedPage'; <ProtectedPage magic="HXLOLI_PROTECTED_V3" title="密码管理" cipher="AQAPjuhXKqJZzrL/02DkWLpV4jQ768tbrK+QpULV+Et7LKst7z1u85vplWOQDmTKz8w+ol8x...]]></description>
-            <category>私密笔记</category>
+            <title><![CDATA[剖析 std::ranges / std::views 库的胖次]]></title>
+            <link>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/004-现代C++元模版/004-范围视图</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/004-现代C++元模版/004-范围视图</guid>
+            <pubDate>Sun, 10 May 2026 16:24:54 GMT</pubDate>
+            <description><![CDATA[一、起因 最近打算学习一下 C++26 的 std executor 库 看看如何把 HXLibs 的接口对其兼容, 以及写一个该接口规范的线程池 , 发现其一些内容实际上思想是和 std ranges / std views 库相关的, 所以决定先学习一下 std ranges / std views 库. 学习之后, 发现我对 std ranges 这些认知都太浅了. 总觉得就仅仅是 记住这海...]]></description>
+            <category>程序语言</category>
         </item>
         <item>
             <title><![CDATA[HX::net 简介]]></title>
@@ -167,6 +159,14 @@
             <guid>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/001-数据结构与算法/014-【板子】算法模版/007-数学/001-质数</guid>
             <pubDate>Fri, 13 Jun 2025 07:45:15 GMT</pubDate>
             <description><![CDATA[零、何为质数 如果一个数 $x$ 只能 被 $1$ 或者 $x$ 整除, 那么 $x$ 就是质数 素数 . 特别的, $1$ 不是 质数. 冷知识 如果当前数字长度为 8, 那么可以跳过检查, 因为不存在 8 长度的素数. 偶数 长度的 回文数 中, 只有 11 是素数. 一、判断质数 C++ auto isFk = int x for int i = 2; i i <= x; ++i if x ...]]></description>
+            <category>计佬常識</category>
+        </item>
+        <item>
+            <title><![CDATA[直线]]></title>
+            <link>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/001-数据结构与算法/014-【板子】算法模版/007-数学/003-【解析几何】直线</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/001-数据结构与算法/014-【板子】算法模版/007-数学/003-【解析几何】直线</guid>
+            <pubDate>Fri, 13 Jun 2025 07:45:15 GMT</pubDate>
+            <description><![CDATA[一、计算直线解析式 1.1 斜截式 y = kx + b C++ bool get_line_slope_intercept int x1, int y1, int x2, int y2, double &k, double &b if x1 == x2 return false; // 垂直线, 无法表示为斜截式 k = y2 y1 1.0 / x2 x1 ; b = y1 k x1; retu...]]></description>
             <category>计佬常識</category>
         </item>
     </channel>
