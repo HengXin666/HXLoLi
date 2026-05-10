@@ -27,14 +27,14 @@ import { GITHUB_CONFIG } from '@site/src/config/github';
 // SSR 安全: hx-cdn-forge 只在浏览器端加载
 let ForgeEngine: any = null;
 let createForgeConfig: any = null;
-let CDN_NODE_PRESETS: any[] = [];
+let DEFAULT_GITHUB_CDN_NODES: any[] = [];
 
 if (typeof window !== 'undefined') {
   try {
     const mod = require('hx-cdn-forge');
     ForgeEngine = mod.ForgeEngine;
     createForgeConfig = mod.createForgeConfig;
-    CDN_NODE_PRESETS = mod.CDN_NODE_PRESETS || [];
+    DEFAULT_GITHUB_CDN_NODES = mod.DEFAULT_GITHUB_CDN_NODES || [];
   } catch {}
 }
 
@@ -89,7 +89,7 @@ function buildCfWorkerNode(repo: string) {
 /** 构建引擎的 CDN 节点列表: CF Worker 直连 (仅子仓库) + jsDelivr 节点 */
 function buildNodes(repo: string) {
   const cfNode = buildCfWorkerNode(repo);
-  const jsDelivrNodes = CDN_NODE_PRESETS.filter((n: any) => n.id !== 'cf-worker');
+  const jsDelivrNodes = DEFAULT_GITHUB_CDN_NODES.filter((n: any) => n.id !== 'cf-worker');
   return cfNode ? [cfNode, ...jsDelivrNodes] : jsDelivrNodes;
 }
 
