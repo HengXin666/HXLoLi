@@ -78,3 +78,17 @@ jobs:
             --delete-branch
 
           echo "🎉 PR #${PR_NUMBER} 合并成功!"
+
+  # --- Job 2: 合并成功后触发主部署 workflow (含私有笔记) ---
+  trigger-deploy:
+    needs: auto-merge-cdn-pr
+    runs-on: ubuntu-latest
+    steps:
+      - name: 触发主部署 workflow (documentation.yaml)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api repos/${{ github.repository }}/dispatches \
+            -f event_type='cdn-updated' \
+            -f client_payload[source]='auto-merge-cdn-sync'
+          echo "🚀 已触发 documentation.yaml 部署 (含私有笔记加密)"

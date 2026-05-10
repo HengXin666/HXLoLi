@@ -126,63 +126,16 @@ jobs:
 
           echo "🎉 友链 PR #${PR_NUMBER} 合并成功!"
 
-  # --- Job 2: 合并成功后触发部署 ---
-  deploy-after-merge:
+  # --- Job 2: 合并成功后触发主部署 workflow (含私有笔记) ---
+  trigger-deploy:
     needs: auto-merge-friend-link-pr
     runs-on: ubuntu-latest
     steps:
-      - name: 同步最新代码 (合并后的 main)
-        uses: actions/checkout@v4
-        with:
-          ref: 'main'
-          fetch-depth: 0
-
-      - name: 确保拉取合并后的最新 main
-        run: |
-          git fetch origin main
-          git reset --hard origin/main
-          echo "✅ 当前 HEAD: $(git log --oneline -1)"
-
-      - name: 启动 Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'npm'
-
-      - name: 安装 dependencies
-        run: |
-          if [ -e yarn.lock ]; then
-            yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-            npm ci
-          else
-            npm i
-          fi
-
-      - name: 📋 打印 CDN 版本信息
-        run: |
-          echo "========== CDN 版本信息 =========="
-          for f in data/*CdnVersion.ts; do
-            if [ -f "$f" ]; then
-              VERSION=$(grep -oP "=\s*'[^']+'" "$f" | sed "s/=\s*'//;s/'//")
-              LAST_MODIFIED=$(TZ='Asia/Shanghai' git log -1 --format='%cd' --date=format:'%Y-%-m-%-d %H:%M:%S' -- "$f")
-              echo "📦 $f"
-              echo "   版本号: ${VERSION}"
-              echo "   最近更新 (北京时间): ${LAST_MODIFIED}"
-            fi
-          done
-          echo "=================================="
-
-      - name: 为工作流启用 SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
-
-      - name: 部署到 Github Pages
+      - name: 触发主部署 workflow (documentation.yaml)
         env:
-          USE_SSH: true
-          GIT_USER: Heng_Xin
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --global user.email "282000500@qq.com"
-          git config --global user.name "Heng_Xin"
-          npm run deploy
+          gh api repos/${{ github.repository }}/dispatches \
+            -f event_type='friend-link-updated' \
+            -f client_payload[source]='auto-merge-friend-links'
+          echo "🚀 已触发 documentation.yaml 部署 (含私有笔记加密)"

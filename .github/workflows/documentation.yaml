@@ -5,7 +5,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
   repository_dispatch:
-    types: [cdn-updated]
+    types: [cdn-updated, friend-link-updated]
   pull_request_target:
     types: [closed]
     branches: [main]
