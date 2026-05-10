@@ -1,7 +1,7 @@
 /**
  * CDN 节点选择器 — Navbar 下拉面板
  */
-import { ensureInit, mainEngine, onCdnReady, selectNodeAll } from '@site/src/utils/cdn/linkJsDelivr';
+import { ensureInit, mainEngine, musicEngine, onCdnReady, selectNodeAll } from '@site/src/utils/cdn/linkJsDelivr';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 const CDN_STORAGE_KEY = 'hxloli-cdn-node';
@@ -16,10 +16,13 @@ interface NodeInfo {
 }
 
 function getNodeList(markAllTesting = false): NodeInfo[] {
-  if (!mainEngine) return [];
-  const nodes = mainEngine.getNodes();
-  const current = mainEngine.getCurrentNode();
-  const latencyMap = mainEngine.getLatencyResults();
+  // 使用 musicEngine 获取节点列表 (包含 CF Worker + 所有 jsDelivr 节点)
+  // mainEngine 只有 jsDelivr 节点, 缺少子仓库专用的 CF Worker 节点
+  const engine = musicEngine || mainEngine;
+  if (!engine) return [];
+  const nodes = engine.getNodes();
+  const current = engine.getCurrentNode();
+  const latencyMap = engine.getLatencyResults();
 
   return nodes.map((n: any) => {
     const result = latencyMap.get(n.id);
@@ -40,11 +43,12 @@ function CDNNodePanel({ onUpdate }: { onUpdate: () => void }): React.ReactElemen
 
   /** 执行一次完整测速 */
   const runSpeedTest = useCallback(async () => {
-    if (!mainEngine) return;
+    const engine = musicEngine || mainEngine;
+    if (!engine) return;
     setTesting(true);
     setNodes(getNodeList(true));
     try {
-      await mainEngine.testAllNodesStreaming((result: any) => {
+      await engine.testAllNodesStreaming((result: any) => {
         setNodes((prev) =>
           prev.map((n) =>
             n.id === result.nodeId
@@ -55,7 +59,7 @@ function CDNNodePanel({ onUpdate }: { onUpdate: () => void }): React.ReactElemen
         onUpdate();
       });
       // 测速完成后同步最优节点到所有引擎
-      const best = mainEngine.getCurrentNode();
+      const best = engine.getCurrentNode();
       if (best) selectNodeAll(best.id);
       setNodes(getNodeList());
       onUpdate();
@@ -72,7 +76,7 @@ function CDNNodePanel({ onUpdate }: { onUpdate: () => void }): React.ReactElemen
       onUpdate();
       // 如果没有测速数据 (所有节点延迟为 null), 自动触发一次测速
       const hasLatency = currentNodes.some((n) => n.latency != null);
-      if (!hasLatency && mainEngine) {
+      if (!hasLatency && (musicEngine || mainEngine)) {
         runSpeedTest();
       }
     });
@@ -130,10 +134,12 @@ export function CDNNavbarButton(): React.ReactElement {
   const ref = useRef<HTMLDivElement>(null);
 
   const refreshLabel = useCallback(() => {
-    if (!mainEngine) return;
-    const node = mainEngine.getCurrentNode();
+    // 优先用 musicEngine (有完整节点列表含 CF Worker), fallback 到 mainEngine
+    const engine = musicEngine || mainEngine;
+    if (!engine) return;
+    const node = engine.getCurrentNode();
     if (node) {
-      const latencyMap = mainEngine.getLatencyResults();
+      const latencyMap = engine.getLatencyResults();
       const result = latencyMap.get(node.id);
       if (result?.latency != null) {
         setLabel(formatLatency(result.latency));
