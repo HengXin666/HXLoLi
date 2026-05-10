@@ -3,8 +3,8 @@
  *
  * 3 个仓库:
  * - HXLoLi       → 博客静态资源 (branch ref)
- * - HXLoLi-ANiMe → 番剧数据 + 图片 (tag ref)
- * - HXLoLi-Music → 音乐/ASS/字体 (tag ref, 大文件自动切片 + 预压缩)
+ * - HXLoLi-ANiMe → 番剧数据 + 图片 (tag ref) + CF Worker: hxloli-anime.woa.qzz.io
+ * - HXLoLi-Music → 音乐/ASS/字体 (tag ref, 大文件自动切片 + 预压缩) + CF Worker: hxloli-music.woa.qzz.io
  *
  * Music 下载策略 (reqByCDNAuto):
  * - ★ 有预压缩 (info-zip.yaml) → Range 并行下载 .gz + DecompressionStream 解压 (最优)
@@ -27,12 +27,14 @@ import { GITHUB_CONFIG } from '@site/src/config/github';
 // SSR 安全: hx-cdn-forge 只在浏览器端加载
 let ForgeEngine: any = null;
 let createForgeConfig: any = null;
+let CDN_NODE_PRESETS: any[] = [];
 
 if (typeof window !== 'undefined') {
   try {
     const mod = require('hx-cdn-forge');
     ForgeEngine = mod.ForgeEngine;
     createForgeConfig = mod.createForgeConfig;
+    CDN_NODE_PRESETS = mod.CDN_NODE_PRESETS || [];
   } catch {}
 }
 
@@ -54,11 +56,49 @@ const savedNodeId = getSavedNodeId();
 // 没有 → 只让 mainEngine 测速, 其余跟随
 const shouldAutoTest = !savedNodeId;
 
+/**
+ * CF Worker 直连节点 — 静态文件从 Workers 直接提供
+ *
+ * 仅用于子仓库 (主站已部署在 km.woa.qzz.io):
+ * - HXLoLi-ANiMe → hxloli-anime.woa.qzz.io
+ * - HXLoLi-Music → hxloli-music.woa.qzz.io
+ */
+const cfWorkerDomainMap: Record<string, string> = {
+  'HXLoLi-ANiMe': 'hxloli-anime.woa.qzz.io',
+  'HXLoLi-Music': 'hxloli-music.woa.qzz.io',
+};
+
+function buildCfWorkerNode(repo: string) {
+  const domain = cfWorkerDomainMap[repo];
+  if (!domain) return null; // 主站不需要 CF Worker 节点
+  return {
+    id: 'cf-worker',
+    name: 'CF Worker',
+    baseUrl: `https://${domain}`,
+    region: 'china' as const,
+    buildUrl: (_ctx: any, filePath: string) => {
+      const path = filePath.startsWith('/') ? filePath : `/${filePath}`;
+      return `https://${domain}${path}`;
+    },
+    maxFileSize: -1, // Workers 响应体上限 100MB
+    supportsRange: true,
+    description: `Cloudflare Workers 直连 (${domain})`,
+  };
+}
+
+/** 构建引擎的 CDN 节点列表: CF Worker 直连 (仅子仓库) + jsDelivr 节点 */
+function buildNodes(repo: string) {
+  const cfNode = buildCfWorkerNode(repo);
+  const jsDelivrNodes = CDN_NODE_PRESETS.filter((n: any) => n.id !== 'cf-worker');
+  return cfNode ? [cfNode, ...jsDelivrNodes] : jsDelivrNodes;
+}
+
 function createEngine(github: any, options?: any) {
   if (!ForgeEngine || !createForgeConfig) return null;
   return new ForgeEngine(createForgeConfig(github, {
     defaultNodeId: savedNodeId || DEFAULT_NODE,
     autoTest: false,   // 所有 engine 禁用自动测速, 由统一初始化控制
+    nodes: buildNodes(github.repo),
     ...options,
   }));
 }

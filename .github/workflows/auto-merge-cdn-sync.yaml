@@ -8,6 +8,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
 
 jobs:
   auto-merge-cdn-pr:
@@ -67,7 +68,7 @@ jobs:
             --approve \
             --body "🤖 LoLi-Bot 自动审批通过にゃ♪"
 
-      - name: 🔀 合并 PR (触发文档构建)
+      - name: 🔀 合并 PR
         env:
           GH_TOKEN: ${{ secrets.PRIVATE_PAGES_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -80,4 +81,14 @@ jobs:
             --subject "${{ github.event.pull_request.title }}" \
             --delete-branch
 
-          echo "🎉 PR #${PR_NUMBER} 合并成功! PAT 产生的 push 将自动触发 documentation.yaml"
+          echo "🎉 PR #${PR_NUMBER} 合并成功!"
+
+      - name: 🚀 触发部署 workflow
+        env:
+          GH_TOKEN: ${{ secrets.PRIVATE_PAGES_TOKEN }}
+        run: |
+          sleep 5
+          gh workflow run documentation.yaml \
+            --repo "${{ github.repository }}" \
+            --ref main
+          echo "✅ 已触发 documentation.yaml 部署"
