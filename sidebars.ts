@@ -15474,7 +15474,7 @@ module.exports = {
             },
             {
               "type": "category",
-              "label": "HX::net简介",
+              "label": "HX-net简介",
               "collapsible": true,
               "items": [],
               "customProps": {
@@ -15483,7 +15483,7 @@ module.exports = {
               },
               "link": {
                 "type": "doc",
-                "id": "开源项目/HXLibs/HX::net简介/index"
+                "id": "开源项目/HXLibs/HX-net简介/index"
               }
             }
           ],
