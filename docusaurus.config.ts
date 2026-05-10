@@ -7,12 +7,12 @@ import remarkMath from 'remark-math'; // 数学渲染
 
 // 基础路径, 末尾不带 '/'
 // 通过环境变量 DEPLOY_TARGET 来区分部署目标:
-//   DEPLOY_TARGET=cloudflare => baseUrl = "", url = "https://hxloli.pages.dev"
+//   DEPLOY_TARGET=cloudflare => baseUrl = "", url = "https://km.woa.qzz.io"
 //   默认 (GitHub Pages)     => baseUrl = "/HXLoLi", url = "https://HengXin666.github.io"
 const isCloudflare = process.env.DEPLOY_TARGET === 'cloudflare';
 const BaseUrl = isCloudflare ? "" : "/HXLoLi";
 // Workers 部署: 使用 wrangler deploy (Static Assets 模式)
-// Pages 部署已迁移至 Workers, URL 保持不变 (自定义域名或 .workers.dev)
+// 自定义域名: km.woa.qzz.io
 
 // 插件配置
 const plugins: PluginConfig[] = [
@@ -43,6 +43,9 @@ const plugins: PluginConfig[] = [
       },
     };
   },
+  // docs RSS/Atom feed + latest docs data 生成插件
+  // 类似博客插件的 feed 生成，但是针对 docs (笔记)
+  require('./plugins/docs-rss-plugin.mjs'),
 ];
 
 
@@ -53,7 +56,7 @@ const config: Config = {
   favicon: "img/favicon.ico", // 项目图标, 可以根据实际情况更换
 
   // 站点的URL, 根据部署目标动态切换
-  url: isCloudflare ? "https://hxloli.pages.dev" : "https://HengXin666.github.io",
+  url: isCloudflare ? "https://km.woa.qzz.io" : "https://HengXin666.github.io",
   baseUrl: BaseUrl || "/", // Cloudflare 为 "/", GitHub Pages 为 "/HXLoLi"
   trailingSlash: false,
 

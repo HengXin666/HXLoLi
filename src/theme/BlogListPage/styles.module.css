@@ -1,0 +1,126 @@
+.latestDocsSection {
+  margin: 2rem 0 1rem;
+  padding: 0;
+}
+
+.latestDocsTitle {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 0 0 1rem;
+  color: var(--ifm-heading-color);
+}
+
+.latestDocsTitle::after {
+  content: "";
+  flex: 1;
+  margin-left: 1rem;
+  height: 1px;
+  background: var(--ifm-color-primary-lighter);
+  opacity: 0.3;
+  min-width: 2rem;
+}
+
+.latestDocsList {
+  padding: 0;
+  margin: 0;
+}
+
+.latestDocsItem {
+  position: relative;
+  display: flex;
+  list-style: none;
+}
+
+.latestDocsItem::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  top: 0;
+  left: 0.1rem;
+  height: 100%;
+  background: var(--ifm-color-primary-lighter);
+}
+
+.latestDocsItem:first-child::before {
+  height: 50%;
+  transform: translateY(100%);
+}
+
+.latestDocsItem:last-child::before {
+  height: 50%;
+}
+
+.latestDocsItem a {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--ifm-text-color);
+  padding: 0.2rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-family: var(--ifm-font-family-base);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: padding 0.3s;
+}
+
+.latestDocsItem a::before {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 0.8rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-left: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--ifm-color-primary);
+  background-color: #2b2b2b;
+  z-index: 1;
+  transition-duration: 0.3s;
+  transition-delay: 0s;
+  transition-property: background;
+}
+
+.latestDocsItem a:hover::before {
+  background: var(--ifm-color-primary);
+}
+
+.latestDocsTime {
+  opacity: 0.6;
+  font-size: 0.85rem;
+  font-weight: 400;
+  min-width: 5.5rem;
+  position: relative;
+  color: var(--hty-secondary-text-color);
+  font-family: "Source Code Pro", Consolas, Monaco, SFMono-Regular, "Ubuntu Mono", Menlo, monospace;
+}
+
+.latestDocsCategory {
+  font-size: 0.8rem;
+  opacity: 0.5;
+  color: var(--ifm-color-primary-lighter);
+  flex-shrink: 0;
+}
+
+.latestDocsItem a > span:last-child:hover {
+  color: var(--ifm-color-primary);
+}
+
+@media (max-width: 768px) {
+  .latestDocsItem a {
+    font-size: 1rem;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .latestDocsTime {
+    min-width: 5rem;
+    font-size: 0.75rem;
+  }
+
+  .latestDocsCategory {
+    display: none;
+  }
+}
