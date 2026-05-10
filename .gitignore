@@ -27,3 +27,7 @@ static/docs-links-graph.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# rss
+static/docs-atoms.xml
+static/docs-rss.xml

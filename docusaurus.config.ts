@@ -113,6 +113,13 @@ const config: Config = {
           feedOptions: {
             type: ["rss", "atom"], // 支持的博客订阅格式
             xslt: true,
+            createFeedItems: async ({ blogPosts, defaultCreateFeedItems, siteConfig, outDir }) => {
+              // 排除加密的私有博客文章
+              const filtered = blogPosts.filter(
+                (post) => !post.metadata.frontMatter.hx_protected,
+              );
+              return defaultCreateFeedItems({ blogPosts: filtered, siteConfig, outDir });
+            },
           },
           editUrl: "https://github.com/HengXin666/HXLoLi/edit/main/", // 博客编辑链接, 指向 GitHub 项目
           showReadingTime: true,      // 显示博客阅读时间

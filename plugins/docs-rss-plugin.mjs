@@ -92,7 +92,7 @@ function collectDocs(docsDir) {
       } else if (entry.name.endsWith('.md') || entry.name.endsWith('.mdx')) {
         const content = fs.readFileSync(full, 'utf8');
         const { data: fm } = matter(content);
-        if (fm.draft || fm.unlisted) continue;
+        if (fm.draft || fm.unlisted || fm.hx_protected) continue;
         results.push(parseDocMeta(full, content, docsDir));
       }
     }

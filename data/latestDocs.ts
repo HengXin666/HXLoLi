@@ -9,6 +9,13 @@ export interface LatestDoc {
 
 export const latestDocs: LatestDoc[] = [
   {
+    "title": "剖析 std::ranges / std::views 库的胖次",
+    "to": "/docs/002-程序语言/001-C++/003-现代C++/004-现代C++元模版/004-ranges库",
+    "date": "2026-05-10",
+    "category": "程序语言",
+    "description": ""
+  },
+  {
     "title": "HX::net 简介",
     "to": "/docs/008-开源项目/001-HXLibs/002-HX-net简介",
     "date": "2026-05-10",
@@ -35,12 +42,5 @@ export const latestDocs: LatestDoc[] = [
     "date": "2026-03-06",
     "category": "面试",
     "description": "一、操作系统整体架构 mermaid mindmap root 操作系统 进程管理 进程与线程 进程调度 进程同步与互斥 死锁 内存管理 虚拟内存 页面置换算法 内存分配 文件系统 文件组织 磁盘调度"
-  },
-  {
-    "title": "数据库大厂面试高频知识点图解",
-    "to": "/docs/010-面试/数据库面试知识点图解",
-    "date": "2026-03-06",
-    "category": "面试",
-    "description": "一、数据库整体知识体系 mermaid mindmap root 数据库 MySQL 存储引擎 索引 事务 锁 日志 SQL优化 Redis 数据结构 持久化 过期删除与淘汰 缓存问题 集群方案 分库"
   }
 ];
