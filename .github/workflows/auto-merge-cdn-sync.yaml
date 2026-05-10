@@ -8,7 +8,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  actions: write
 
 jobs:
   auto-merge-cdn-pr:
@@ -55,7 +54,7 @@ jobs:
           done <<< "${CHANGED_FILES}"
           echo "✅ 文件修改范围校验通过"
 
-      - name: ✅ 审批 PR
+      - name: ✅ 审批并合并 PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -63,18 +62,15 @@ jobs:
           echo "🏷️ 检测到子仓库 CDN 同步 PR #${PR_NUMBER}"
           echo "📋 标题: ${{ github.event.pull_request.title }}"
 
+          # 审批 PR
           gh pr review "${PR_NUMBER}" \
             --repo "${{ github.repository }}" \
             --approve \
             --body "🤖 LoLi-Bot 自动审批通过にゃ♪"
 
-      - name: 🔀 合并 PR
-        env:
-          GH_TOKEN: ${{ secrets.PRIVATE_PAGES_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
           sleep 5
 
+          # 合并 PR
           gh pr merge "${PR_NUMBER}" \
             --repo "${{ github.repository }}" \
             --squash \
@@ -82,13 +78,3 @@ jobs:
             --delete-branch
 
           echo "🎉 PR #${PR_NUMBER} 合并成功!"
-
-      - name: 🚀 触发部署 workflow
-        env:
-          GH_TOKEN: ${{ secrets.PRIVATE_PAGES_TOKEN }}
-        run: |
-          sleep 5
-          gh workflow run documentation.yaml \
-            --repo "${{ github.repository }}" \
-            --ref main
-          echo "✅ 已触发 documentation.yaml 部署"

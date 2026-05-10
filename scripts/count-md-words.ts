@@ -31,6 +31,7 @@ const IGNORE_COMMIT_PREFIXES: string[] = [
   "[feat]",
   "[fix]",
   "[LoLi-Bot]",
+  "Merge"
 ];
 
 if (!fs.existsSync(DATA_DIR)) {

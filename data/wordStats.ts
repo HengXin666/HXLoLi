@@ -608,6 +608,12 @@ export const stats: RecordItem[] = [
     "message": "[blog]编写【2025】年终总结"
   },
   {
+    "commit": "3c9dcea781ae0dd5ecc0271fec28d5b359f1bd93",
+    "date": "2026-03-01T00:36:09+08:00",
+    "wordCount": 3786723,
+    "message": "[refactor] 将 ASS 悬浮窗工具栏的 emoji/文字图标替换为 react-icons/fa 图标"
+  },
+  {
     "commit": "bf88ea1950702780cc4766c1bd4d211458f58e1c",
     "date": "2026-03-06T10:52:46+08:00",
     "wordCount": 3819854,
@@ -620,9 +626,15 @@ export const stats: RecordItem[] = [
     "message": "[doc] 新增 博客更新日志 (III)"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-04-15T15:49:13.400Z",
+    "commit": "32426011f9f696e8533cbaa7b1e3335df927efec",
+    "date": "2026-04-19T11:54:55+08:00",
     "wordCount": 3821696,
-    "message": "[fix] 重新生成计数"
+    "message": "Add Firefly to friend links"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-05-07T16:24:58.458Z",
+    "wordCount": 3826112,
+    "message": "[blog] 新增最近的项目吹水"
   }
 ];

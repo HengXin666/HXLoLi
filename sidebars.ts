@@ -6,7 +6,7 @@ module.exports = {
       "collapsible": true,
       "items": [],
       "customProps": {
-        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+        "icon": "default-icons/file_type_markdown.svg",
         "tags": []
       },
       "link": {
@@ -30,7 +30,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -49,7 +49,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -59,7 +59,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -74,7 +74,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -88,7 +88,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -102,7 +102,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -116,7 +116,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -130,7 +130,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -144,7 +144,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -158,7 +158,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -172,7 +172,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -186,7 +186,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -200,7 +200,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -214,7 +214,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -228,7 +228,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -242,7 +242,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -256,7 +256,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -270,7 +270,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -284,7 +284,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -294,7 +294,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -309,7 +309,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -323,7 +323,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -337,7 +337,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -351,7 +351,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -365,7 +365,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -379,7 +379,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -393,7 +393,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -407,7 +407,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -417,7 +417,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -432,7 +432,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -446,7 +446,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -460,7 +460,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -474,7 +474,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -493,7 +493,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -507,7 +507,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -521,7 +521,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -531,7 +531,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -546,7 +546,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -560,7 +560,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -570,7 +570,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -580,7 +580,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -594,7 +594,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -608,7 +608,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -618,7 +618,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -633,7 +633,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -647,7 +647,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -661,7 +661,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -675,7 +675,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -689,7 +689,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -703,7 +703,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -713,7 +713,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -728,7 +728,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -742,7 +742,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -756,7 +756,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -770,7 +770,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -784,7 +784,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -794,7 +794,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -809,7 +809,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -828,7 +828,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -842,7 +842,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -852,7 +852,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -867,7 +867,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -881,7 +881,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -891,7 +891,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -906,7 +906,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -916,13 +916,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -937,7 +937,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -951,7 +951,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -965,7 +965,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -975,7 +975,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -990,7 +990,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1000,7 +1000,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -1020,7 +1020,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1034,7 +1034,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1048,7 +1048,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1058,7 +1058,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -1073,7 +1073,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1087,7 +1087,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1101,7 +1101,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1111,7 +1111,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -1121,7 +1121,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1135,7 +1135,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1149,7 +1149,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1163,7 +1163,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1177,7 +1177,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1191,7 +1191,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1201,7 +1201,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -1216,7 +1216,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1226,7 +1226,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -1241,7 +1241,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1255,7 +1255,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1265,7 +1265,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -1285,7 +1285,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1299,7 +1299,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1313,7 +1313,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1323,7 +1323,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -1338,7 +1338,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1352,7 +1352,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1362,7 +1362,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -1377,7 +1377,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1387,7 +1387,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -1402,7 +1402,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1416,7 +1416,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1426,7 +1426,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -1441,7 +1441,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1455,7 +1455,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1469,7 +1469,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1483,7 +1483,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1497,7 +1497,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1511,7 +1511,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1525,7 +1525,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1535,7 +1535,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -1550,7 +1550,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1564,7 +1564,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1574,7 +1574,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -1589,7 +1589,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1603,7 +1603,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1617,7 +1617,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1631,7 +1631,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1641,7 +1641,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -1651,7 +1651,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1661,13 +1661,13 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": [
               "数据结构与算法"
             ]
@@ -1684,7 +1684,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -1698,7 +1698,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -1712,7 +1712,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -1726,7 +1726,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -1745,7 +1745,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1764,7 +1764,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1778,7 +1778,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1792,7 +1792,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1806,7 +1806,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1820,7 +1820,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1834,7 +1834,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1848,7 +1848,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1862,7 +1862,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -1872,13 +1872,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -1888,7 +1888,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -1907,7 +1907,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1921,7 +1921,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1935,7 +1935,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1949,7 +1949,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1963,7 +1963,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1977,7 +1977,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -1987,7 +1987,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -2002,7 +2002,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2016,7 +2016,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2030,7 +2030,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2044,7 +2044,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2058,7 +2058,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2072,7 +2072,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2086,7 +2086,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2096,7 +2096,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -2111,7 +2111,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2125,7 +2125,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2139,7 +2139,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2153,7 +2153,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2167,7 +2167,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2181,7 +2181,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2195,7 +2195,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2209,7 +2209,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2223,7 +2223,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2237,7 +2237,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2251,7 +2251,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2261,7 +2261,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -2271,7 +2271,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -2281,7 +2281,7 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": [
               "设计模式",
               "架构"
@@ -2299,7 +2299,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -2313,7 +2313,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -2323,7 +2323,7 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         },
@@ -2338,7 +2338,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -2357,7 +2357,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2371,7 +2371,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2385,7 +2385,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2395,7 +2395,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -2410,7 +2410,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2424,7 +2424,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2438,7 +2438,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2452,7 +2452,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2466,7 +2466,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2480,7 +2480,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2494,7 +2494,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2504,7 +2504,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -2519,7 +2519,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2533,7 +2533,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2547,7 +2547,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2561,7 +2561,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2571,7 +2571,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -2586,7 +2586,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2600,7 +2600,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2614,7 +2614,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2628,7 +2628,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2638,7 +2638,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -2653,7 +2653,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2667,7 +2667,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2681,7 +2681,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2695,7 +2695,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2709,7 +2709,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2719,7 +2719,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -2734,7 +2734,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2744,13 +2744,13 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": [
               "OS"
             ]
@@ -2767,7 +2767,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -2786,7 +2786,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2800,7 +2800,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2814,7 +2814,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2828,7 +2828,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2842,7 +2842,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2852,7 +2852,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -2867,7 +2867,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2881,7 +2881,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2895,7 +2895,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2909,7 +2909,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2923,7 +2923,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2937,7 +2937,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2951,7 +2951,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2961,7 +2961,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -2976,7 +2976,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -2990,7 +2990,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3004,7 +3004,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3018,7 +3018,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3032,7 +3032,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3046,7 +3046,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3060,7 +3060,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3074,7 +3074,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3088,7 +3088,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3098,7 +3098,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -3113,7 +3113,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3127,7 +3127,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3141,7 +3141,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3155,7 +3155,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3169,7 +3169,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3183,7 +3183,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3197,7 +3197,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3211,7 +3211,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3225,7 +3225,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3235,7 +3235,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -3250,7 +3250,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3264,7 +3264,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3278,7 +3278,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3292,7 +3292,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3306,7 +3306,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3320,7 +3320,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3330,7 +3330,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -3345,7 +3345,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3359,7 +3359,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3373,7 +3373,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3383,7 +3383,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -3398,7 +3398,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -3408,13 +3408,13 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": [
               "计算机组成与设计：硬件软件接口",
               "计算机组成与系统结构"
@@ -3423,7 +3423,7 @@ module.exports = {
         }
       ],
       "customProps": {
-        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "icon": "default-icons/default_folder.svg",
         "tags": []
       }
     },
@@ -3443,7 +3443,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -3472,7 +3472,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3482,7 +3482,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -3497,7 +3497,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3511,7 +3511,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3521,7 +3521,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -3541,7 +3541,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -3551,19 +3551,19 @@ module.exports = {
                             }
                           ],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/default_folder.svg",
+                            "icon": "default-icons/default_folder.svg",
                             "tags": []
                           }
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -3578,7 +3578,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -3592,7 +3592,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -3606,7 +3606,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -3620,7 +3620,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -3634,7 +3634,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -3644,7 +3644,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -3664,7 +3664,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3678,7 +3678,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3692,7 +3692,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3706,7 +3706,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3720,7 +3720,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3734,7 +3734,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3748,7 +3748,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3762,7 +3762,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3776,7 +3776,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3790,7 +3790,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3804,7 +3804,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3814,7 +3814,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -3829,7 +3829,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3843,7 +3843,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3857,7 +3857,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3871,7 +3871,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3885,7 +3885,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3899,7 +3899,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3913,7 +3913,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3927,7 +3927,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3941,7 +3941,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3955,7 +3955,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3969,7 +3969,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3983,7 +3983,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -3997,7 +3997,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4011,7 +4011,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4025,7 +4025,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4039,7 +4039,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4053,7 +4053,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4067,7 +4067,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4081,7 +4081,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4091,7 +4091,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -4106,7 +4106,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4120,7 +4120,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4134,7 +4134,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4148,7 +4148,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4162,7 +4162,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4176,7 +4176,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4190,7 +4190,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4204,7 +4204,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4218,7 +4218,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4232,7 +4232,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4242,13 +4242,13 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -4268,7 +4268,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4282,7 +4282,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4296,7 +4296,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4310,7 +4310,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4324,7 +4324,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4338,7 +4338,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4352,7 +4352,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4366,7 +4366,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4380,7 +4380,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4390,7 +4390,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -4405,7 +4405,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4419,7 +4419,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4433,7 +4433,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4443,7 +4443,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -4453,7 +4453,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4463,7 +4463,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -4483,7 +4483,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4497,7 +4497,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4511,7 +4511,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4525,7 +4525,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4539,7 +4539,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4553,7 +4553,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4567,7 +4567,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4581,7 +4581,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4595,7 +4595,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4605,7 +4605,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -4620,7 +4620,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4634,7 +4634,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4648,7 +4648,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4662,7 +4662,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4676,7 +4676,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4690,7 +4690,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4704,7 +4704,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4714,7 +4714,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -4729,7 +4729,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4743,7 +4743,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4757,7 +4757,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -4767,19 +4767,19 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -4794,7 +4794,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -4813,7 +4813,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4827,7 +4827,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4841,7 +4841,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4855,7 +4855,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4869,7 +4869,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4883,7 +4883,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4893,7 +4893,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -4908,7 +4908,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4922,7 +4922,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4936,7 +4936,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4950,7 +4950,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4964,7 +4964,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4978,7 +4978,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -4992,7 +4992,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5006,7 +5006,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5020,7 +5020,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5034,7 +5034,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5048,7 +5048,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5058,7 +5058,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -5073,7 +5073,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5087,7 +5087,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5101,7 +5101,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5111,7 +5111,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -5126,7 +5126,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5136,7 +5136,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -5151,7 +5151,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5165,7 +5165,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5179,7 +5179,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5189,7 +5189,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -5209,7 +5209,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5219,7 +5219,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -5234,7 +5234,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5244,7 +5244,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -5254,7 +5254,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5268,7 +5268,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5287,7 +5287,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5301,7 +5301,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5315,7 +5315,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5329,7 +5329,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5343,7 +5343,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5357,7 +5357,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5371,7 +5371,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5385,7 +5385,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5399,7 +5399,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5413,7 +5413,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5427,7 +5427,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5441,7 +5441,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5455,7 +5455,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5469,7 +5469,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5483,7 +5483,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5497,7 +5497,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5507,13 +5507,13 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -5528,7 +5528,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5542,7 +5542,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5552,7 +5552,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": [
                       "图形学",
                       "渲染"
@@ -5580,7 +5580,7 @@ module.exports = {
                             }
                           ],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/default_folder.svg",
+                            "icon": "default-icons/default_folder.svg",
                             "tags": []
                           },
                           "link": {
@@ -5594,7 +5594,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5604,7 +5604,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -5619,7 +5619,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5629,13 +5629,13 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -5650,7 +5650,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5660,13 +5660,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": [
                   "现代C++",
                   "C++最佳实践"
@@ -5684,7 +5684,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -5698,7 +5698,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -5712,7 +5712,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -5726,7 +5726,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -5755,7 +5755,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -5765,13 +5765,13 @@ module.exports = {
                             }
                           ],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/default_folder.svg",
+                            "icon": "default-icons/default_folder.svg",
                             "tags": []
                           }
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -5786,7 +5786,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -5796,7 +5796,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -5806,7 +5806,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5820,7 +5820,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5830,7 +5830,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -5840,7 +5840,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -5854,7 +5854,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -5868,7 +5868,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -5882,7 +5882,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -5896,7 +5896,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -5910,7 +5910,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -5920,7 +5920,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -5940,7 +5940,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5954,7 +5954,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5964,7 +5964,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -5979,7 +5979,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -5989,7 +5989,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -6004,7 +6004,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -6028,7 +6028,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6042,7 +6042,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6056,7 +6056,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6070,7 +6070,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6080,7 +6080,7 @@ module.exports = {
                             }
                           ],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/default_folder.svg",
+                            "icon": "default-icons/default_folder.svg",
                             "tags": []
                           }
                         },
@@ -6095,7 +6095,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6109,7 +6109,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6123,7 +6123,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6137,7 +6137,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6151,7 +6151,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6165,7 +6165,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6175,7 +6175,7 @@ module.exports = {
                             }
                           ],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/default_folder.svg",
+                            "icon": "default-icons/default_folder.svg",
                             "tags": []
                           }
                         },
@@ -6190,7 +6190,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6200,7 +6200,7 @@ module.exports = {
                             }
                           ],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/default_folder.svg",
+                            "icon": "default-icons/default_folder.svg",
                             "tags": []
                           }
                         },
@@ -6210,7 +6210,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6229,7 +6229,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6243,7 +6243,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6257,7 +6257,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6271,7 +6271,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6285,7 +6285,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6299,7 +6299,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -6309,7 +6309,7 @@ module.exports = {
                             }
                           ],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/default_folder.svg",
+                            "icon": "default-icons/default_folder.svg",
                             "tags": []
                           }
                         },
@@ -6319,7 +6319,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6329,7 +6329,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -6344,7 +6344,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6354,7 +6354,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -6369,7 +6369,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6379,7 +6379,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -6394,7 +6394,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6408,7 +6408,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6422,7 +6422,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6432,7 +6432,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -6447,7 +6447,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6457,7 +6457,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -6472,7 +6472,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6486,7 +6486,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6496,7 +6496,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -6511,7 +6511,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6525,7 +6525,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6535,7 +6535,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -6550,7 +6550,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6560,7 +6560,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -6575,7 +6575,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6585,13 +6585,13 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -6606,7 +6606,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -6616,7 +6616,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -6631,7 +6631,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -6641,7 +6641,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -6656,7 +6656,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -6666,13 +6666,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -6692,7 +6692,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -6706,7 +6706,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -6720,7 +6720,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -6730,7 +6730,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -6745,7 +6745,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -6755,7 +6755,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -6770,7 +6770,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -6784,7 +6784,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -6794,13 +6794,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -6815,7 +6815,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -6829,7 +6829,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -6839,7 +6839,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -6864,7 +6864,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6878,7 +6878,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6892,7 +6892,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6906,7 +6906,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6920,7 +6920,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6934,7 +6934,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6948,7 +6948,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6962,7 +6962,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6976,7 +6976,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -6990,7 +6990,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -7004,7 +7004,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -7014,7 +7014,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -7029,7 +7029,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -7043,7 +7043,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -7053,25 +7053,25 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/icons/ISO_C++_Logo.svg",
+            "icon": "icons/ISO_C++_Logo.svg",
             "tags": [
               "高性能"
             ]
@@ -7088,7 +7088,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -7112,7 +7112,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7126,7 +7126,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7136,7 +7136,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7151,7 +7151,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7165,7 +7165,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7179,7 +7179,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7193,7 +7193,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7203,7 +7203,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7218,7 +7218,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7232,7 +7232,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7242,7 +7242,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7257,7 +7257,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7271,7 +7271,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7281,7 +7281,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7296,7 +7296,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7310,7 +7310,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7324,7 +7324,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7338,7 +7338,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7352,7 +7352,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7366,7 +7366,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7380,7 +7380,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7394,7 +7394,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7408,7 +7408,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7422,7 +7422,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7436,7 +7436,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7446,7 +7446,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7461,7 +7461,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7475,7 +7475,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7485,7 +7485,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7500,7 +7500,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7514,7 +7514,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7524,7 +7524,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7539,7 +7539,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7553,7 +7553,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7563,7 +7563,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7578,7 +7578,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7592,7 +7592,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7602,7 +7602,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7617,7 +7617,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7631,7 +7631,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7645,7 +7645,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7659,7 +7659,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7673,7 +7673,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7687,7 +7687,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7701,7 +7701,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7715,7 +7715,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7729,7 +7729,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7743,7 +7743,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7753,7 +7753,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7768,7 +7768,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7782,7 +7782,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7792,7 +7792,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7807,7 +7807,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7821,7 +7821,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7835,7 +7835,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7845,7 +7845,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7860,7 +7860,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7874,7 +7874,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7888,7 +7888,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7902,7 +7902,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7916,7 +7916,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7926,7 +7926,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -7941,7 +7941,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7955,7 +7955,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7969,7 +7969,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7983,7 +7983,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -7993,7 +7993,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -8008,7 +8008,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8022,7 +8022,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8036,7 +8036,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8046,13 +8046,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -8067,7 +8067,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8081,7 +8081,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8095,7 +8095,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8109,7 +8109,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8119,7 +8119,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -8139,7 +8139,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8153,7 +8153,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8167,7 +8167,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8181,7 +8181,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8195,7 +8195,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8209,7 +8209,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8223,7 +8223,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8233,13 +8233,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -8254,7 +8254,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8268,7 +8268,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8282,7 +8282,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8296,7 +8296,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8310,7 +8310,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8324,7 +8324,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8338,7 +8338,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8357,7 +8357,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8371,7 +8371,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8385,7 +8385,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8399,7 +8399,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8409,7 +8409,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -8424,7 +8424,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8438,7 +8438,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8452,7 +8452,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8466,7 +8466,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8476,13 +8476,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -8502,7 +8502,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8516,7 +8516,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8530,7 +8530,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8544,7 +8544,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8558,7 +8558,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8568,13 +8568,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -8594,7 +8594,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8608,7 +8608,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8622,7 +8622,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8636,7 +8636,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8650,7 +8650,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8664,7 +8664,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8678,7 +8678,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8692,7 +8692,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8706,7 +8706,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8720,7 +8720,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8734,7 +8734,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8748,7 +8748,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8758,7 +8758,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -8773,7 +8773,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8787,7 +8787,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8797,13 +8797,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -8813,7 +8813,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -8823,7 +8823,7 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         },
@@ -8848,7 +8848,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -8858,19 +8858,19 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         },
@@ -8885,7 +8885,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -8904,7 +8904,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8918,7 +8918,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8932,7 +8932,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8946,7 +8946,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8960,7 +8960,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8970,7 +8970,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -8985,7 +8985,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -8999,7 +8999,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -9013,7 +9013,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -9032,7 +9032,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9046,7 +9046,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9060,7 +9060,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9070,13 +9070,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -9096,7 +9096,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9110,7 +9110,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9124,7 +9124,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9138,7 +9138,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9152,7 +9152,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9166,7 +9166,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9176,7 +9176,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -9191,7 +9191,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9205,7 +9205,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9219,7 +9219,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9233,7 +9233,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9247,7 +9247,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9257,7 +9257,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -9272,7 +9272,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9286,7 +9286,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9300,7 +9300,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9314,7 +9314,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9328,7 +9328,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9342,7 +9342,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9352,13 +9352,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -9373,7 +9373,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -9387,7 +9387,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -9401,7 +9401,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -9415,7 +9415,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -9429,7 +9429,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -9439,7 +9439,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -9459,7 +9459,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9473,7 +9473,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9487,7 +9487,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9501,7 +9501,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9515,7 +9515,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9529,7 +9529,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9543,7 +9543,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9557,7 +9557,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9571,7 +9571,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9585,7 +9585,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9599,7 +9599,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9613,7 +9613,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9627,7 +9627,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9641,7 +9641,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9655,7 +9655,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9665,7 +9665,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -9685,7 +9685,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -9695,31 +9695,31 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         }
       ],
       "customProps": {
-        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "icon": "default-icons/default_folder.svg",
         "tags": []
       }
     },
@@ -9739,7 +9739,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -9763,7 +9763,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9777,7 +9777,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9791,7 +9791,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9805,7 +9805,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9819,7 +9819,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9833,7 +9833,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9847,7 +9847,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9861,7 +9861,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9875,7 +9875,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9889,7 +9889,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9903,7 +9903,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9917,7 +9917,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9931,7 +9931,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9945,7 +9945,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9955,7 +9955,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -9970,7 +9970,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9984,7 +9984,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -9998,7 +9998,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10012,7 +10012,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10026,7 +10026,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10040,7 +10040,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10054,7 +10054,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10068,7 +10068,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10082,7 +10082,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10101,7 +10101,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -10111,7 +10111,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -10121,7 +10121,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10135,7 +10135,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10149,7 +10149,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10163,7 +10163,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10177,7 +10177,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10191,7 +10191,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10205,7 +10205,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10219,7 +10219,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10233,7 +10233,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10247,7 +10247,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10261,7 +10261,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10275,7 +10275,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10289,7 +10289,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10303,7 +10303,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10317,7 +10317,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10331,7 +10331,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10345,7 +10345,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10359,7 +10359,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10373,7 +10373,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10383,7 +10383,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -10398,7 +10398,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10412,7 +10412,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10422,25 +10422,25 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         }
       ],
       "customProps": {
-        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "icon": "default-icons/default_folder.svg",
         "tags": []
       }
     },
@@ -10460,7 +10460,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -10484,7 +10484,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10498,7 +10498,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10512,7 +10512,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10526,7 +10526,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10540,7 +10540,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10554,7 +10554,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10568,7 +10568,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10582,7 +10582,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10596,7 +10596,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10610,7 +10610,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10624,7 +10624,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10634,7 +10634,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -10649,7 +10649,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10663,7 +10663,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10677,7 +10677,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10691,7 +10691,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10701,7 +10701,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -10716,7 +10716,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10730,7 +10730,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10740,7 +10740,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -10755,7 +10755,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10765,7 +10765,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -10780,7 +10780,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10794,7 +10794,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10808,7 +10808,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10822,7 +10822,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10832,7 +10832,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -10847,7 +10847,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10861,7 +10861,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10875,7 +10875,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10885,7 +10885,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -10900,7 +10900,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10914,7 +10914,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10928,7 +10928,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10938,7 +10938,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -10953,7 +10953,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10967,7 +10967,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10981,7 +10981,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -10995,7 +10995,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11005,7 +11005,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -11020,7 +11020,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11034,7 +11034,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11044,7 +11044,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -11059,7 +11059,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11073,7 +11073,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11083,13 +11083,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -11109,7 +11109,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11123,7 +11123,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11137,7 +11137,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11151,7 +11151,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11165,7 +11165,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11179,7 +11179,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11193,7 +11193,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11207,7 +11207,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11221,7 +11221,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11231,7 +11231,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -11246,7 +11246,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11260,7 +11260,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11274,7 +11274,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11288,7 +11288,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11302,7 +11302,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11312,13 +11312,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -11338,7 +11338,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11348,7 +11348,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -11358,7 +11358,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -11372,7 +11372,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -11386,7 +11386,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -11400,7 +11400,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -11414,7 +11414,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -11424,7 +11424,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -11444,7 +11444,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11454,7 +11454,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -11469,7 +11469,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11479,19 +11479,19 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": [
               "操作系统"
             ]
@@ -11508,7 +11508,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -11522,7 +11522,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -11541,7 +11541,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -11555,7 +11555,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -11569,7 +11569,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -11583,7 +11583,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -11597,7 +11597,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -11611,7 +11611,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -11625,7 +11625,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -11644,7 +11644,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11658,7 +11658,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11672,7 +11672,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11682,13 +11682,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -11708,7 +11708,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11722,7 +11722,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11736,7 +11736,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11750,7 +11750,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11760,7 +11760,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -11775,7 +11775,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11789,7 +11789,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11803,7 +11803,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11817,7 +11817,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11827,7 +11827,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -11842,7 +11842,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11856,7 +11856,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -11866,13 +11866,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -11882,7 +11882,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -11896,7 +11896,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -11906,7 +11906,7 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": [
               "Docker",
               "虚拟环境"
@@ -11924,7 +11924,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -11938,7 +11938,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -11952,7 +11952,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -11962,7 +11962,7 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": [
               "Git",
               "分布式版本管理工具"
@@ -11971,7 +11971,7 @@ module.exports = {
         }
       ],
       "customProps": {
-        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "icon": "default-icons/default_folder.svg",
         "tags": []
       }
     },
@@ -11991,7 +11991,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -12010,7 +12010,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12024,7 +12024,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12038,7 +12038,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12052,7 +12052,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12066,7 +12066,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12080,7 +12080,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12094,7 +12094,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12104,13 +12104,13 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         },
@@ -12125,7 +12125,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -12144,7 +12144,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12158,7 +12158,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12172,7 +12172,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12186,7 +12186,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12200,7 +12200,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12214,7 +12214,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12224,13 +12224,13 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": [
               "消息队列"
             ]
@@ -12238,7 +12238,7 @@ module.exports = {
         }
       ],
       "customProps": {
-        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "icon": "default-icons/default_folder.svg",
         "tags": []
       }
     },
@@ -12258,7 +12258,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -12277,7 +12277,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12291,7 +12291,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12305,7 +12305,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12319,7 +12319,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12333,7 +12333,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12347,7 +12347,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12361,7 +12361,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12375,7 +12375,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12389,7 +12389,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12399,7 +12399,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -12414,7 +12414,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -12424,13 +12424,13 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": [
               "数据库",
               "MySQL"
@@ -12439,7 +12439,7 @@ module.exports = {
         }
       ],
       "customProps": {
-        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "icon": "default-icons/default_folder.svg",
         "tags": []
       }
     },
@@ -12454,7 +12454,7 @@ module.exports = {
           "collapsible": true,
           "items": [],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+            "icon": "default-icons/file_type_markdown.svg",
             "tags": []
           },
           "link": {
@@ -12483,7 +12483,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -12502,7 +12502,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12516,7 +12516,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12530,7 +12530,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12544,7 +12544,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12558,7 +12558,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12572,7 +12572,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12586,7 +12586,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12600,7 +12600,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12610,7 +12610,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -12625,7 +12625,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12639,7 +12639,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12653,7 +12653,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12667,7 +12667,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12677,7 +12677,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -12692,7 +12692,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12706,7 +12706,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12720,7 +12720,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12734,7 +12734,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12748,7 +12748,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12762,7 +12762,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12776,7 +12776,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12790,7 +12790,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12800,7 +12800,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -12815,7 +12815,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12829,7 +12829,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12843,7 +12843,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12857,7 +12857,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12871,7 +12871,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -12881,7 +12881,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -12891,7 +12891,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -12901,7 +12901,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -12916,7 +12916,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -12930,7 +12930,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -12940,7 +12940,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -12955,7 +12955,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -12969,7 +12969,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -12983,7 +12983,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -12997,7 +12997,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -13007,7 +13007,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -13022,7 +13022,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -13041,7 +13041,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13055,7 +13055,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13069,7 +13069,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13079,7 +13079,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -13094,7 +13094,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13104,13 +13104,13 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -13125,7 +13125,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -13149,7 +13149,7 @@ module.exports = {
                               "collapsible": true,
                               "items": [],
                               "customProps": {
-                                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                                "icon": "default-icons/file_type_markdown.svg",
                                 "tags": []
                               },
                               "link": {
@@ -13159,25 +13159,25 @@ module.exports = {
                             }
                           ],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/default_folder.svg",
+                            "icon": "default-icons/default_folder.svg",
                             "tags": []
                           }
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -13202,7 +13202,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13216,7 +13216,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13230,7 +13230,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13244,7 +13244,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13254,7 +13254,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -13269,7 +13269,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13283,7 +13283,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13297,7 +13297,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13311,7 +13311,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13321,7 +13321,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -13336,7 +13336,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13350,7 +13350,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13364,7 +13364,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13378,7 +13378,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13388,7 +13388,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -13403,7 +13403,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13417,7 +13417,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13431,7 +13431,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13445,7 +13445,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13455,7 +13455,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -13470,7 +13470,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13484,7 +13484,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13498,7 +13498,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13512,7 +13512,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13522,7 +13522,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -13537,7 +13537,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13551,7 +13551,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13565,7 +13565,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13579,7 +13579,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13589,7 +13589,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -13604,7 +13604,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13618,7 +13618,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13632,7 +13632,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13646,7 +13646,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13656,7 +13656,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -13671,7 +13671,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13685,7 +13685,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13699,7 +13699,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13713,7 +13713,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13723,7 +13723,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -13738,7 +13738,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13752,7 +13752,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13766,7 +13766,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13780,7 +13780,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13790,7 +13790,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -13805,7 +13805,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13815,13 +13815,13 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -13841,7 +13841,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13855,7 +13855,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13869,7 +13869,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13879,7 +13879,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -13894,7 +13894,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13908,7 +13908,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13922,7 +13922,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13936,7 +13936,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13946,7 +13946,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -13961,7 +13961,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13975,7 +13975,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -13989,7 +13989,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -14003,7 +14003,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -14013,7 +14013,7 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     },
@@ -14028,7 +14028,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -14042,7 +14042,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -14056,7 +14056,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -14070,7 +14070,7 @@ module.exports = {
                           "collapsible": true,
                           "items": [],
                           "customProps": {
-                            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                            "icon": "default-icons/file_type_markdown.svg",
                             "tags": []
                           },
                           "link": {
@@ -14080,19 +14080,19 @@ module.exports = {
                         }
                       ],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/default_folder.svg",
+                        "icon": "default-icons/default_folder.svg",
                         "tags": []
                       }
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -14107,7 +14107,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14121,7 +14121,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14135,7 +14135,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14149,7 +14149,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14163,7 +14163,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14177,7 +14177,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14191,7 +14191,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14205,7 +14205,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14219,7 +14219,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14233,7 +14233,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14247,7 +14247,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14261,7 +14261,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14275,7 +14275,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14289,7 +14289,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14303,7 +14303,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14317,7 +14317,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14331,7 +14331,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14345,7 +14345,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14359,7 +14359,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14373,7 +14373,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14387,7 +14387,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14401,7 +14401,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14415,7 +14415,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14429,7 +14429,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14443,7 +14443,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14457,7 +14457,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14471,7 +14471,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14485,7 +14485,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14499,7 +14499,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14513,7 +14513,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14527,7 +14527,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14541,7 +14541,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14555,7 +14555,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14569,7 +14569,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14583,7 +14583,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14597,7 +14597,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14611,7 +14611,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14625,7 +14625,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14635,13 +14635,13 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         },
@@ -14656,7 +14656,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14670,7 +14670,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14684,7 +14684,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14698,7 +14698,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14712,7 +14712,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14726,7 +14726,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14740,7 +14740,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14754,7 +14754,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14768,7 +14768,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14782,7 +14782,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14796,7 +14796,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14806,7 +14806,7 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         },
@@ -14821,7 +14821,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14835,7 +14835,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -14854,7 +14854,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14868,7 +14868,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14882,7 +14882,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14896,7 +14896,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14910,7 +14910,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14924,7 +14924,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14938,7 +14938,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14952,7 +14952,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14966,7 +14966,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14980,7 +14980,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -14994,7 +14994,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -15004,7 +15004,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -15019,7 +15019,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -15033,7 +15033,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -15043,7 +15043,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -15058,7 +15058,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -15077,7 +15077,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -15087,7 +15087,7 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 },
@@ -15102,7 +15102,7 @@ module.exports = {
                       "collapsible": true,
                       "items": [],
                       "customProps": {
-                        "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                        "icon": "default-icons/file_type_markdown.svg",
                         "tags": []
                       },
                       "link": {
@@ -15112,13 +15112,13 @@ module.exports = {
                     }
                   ],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/default_folder.svg",
+                    "icon": "default-icons/default_folder.svg",
                     "tags": []
                   }
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -15133,7 +15133,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -15143,7 +15143,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -15158,7 +15158,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -15168,13 +15168,13 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         },
@@ -15184,7 +15184,7 @@ module.exports = {
           "collapsible": true,
           "items": [],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+            "icon": "default-icons/file_type_markdown.svg",
             "tags": []
           },
           "link": {
@@ -15203,7 +15203,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15217,7 +15217,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15231,7 +15231,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15245,7 +15245,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15259,7 +15259,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15273,7 +15273,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15283,7 +15283,7 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         },
@@ -15298,7 +15298,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15312,7 +15312,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15326,7 +15326,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15340,7 +15340,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15354,7 +15354,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15368,7 +15368,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15382,7 +15382,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15396,7 +15396,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15410,7 +15410,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15424,7 +15424,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15434,13 +15434,13 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         }
       ],
       "customProps": {
-        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "icon": "default-icons/default_folder.svg",
         "tags": [
           "刷题",
           "就业",
@@ -15464,7 +15464,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15478,7 +15478,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15488,13 +15488,13 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         }
       ],
       "customProps": {
-        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "icon": "default-icons/default_folder.svg",
         "tags": []
       }
     },
@@ -15525,7 +15525,7 @@ module.exports = {
         }
       ],
       "customProps": {
-        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "icon": "default-icons/default_folder.svg",
         "tags": []
       }
     },
@@ -15545,7 +15545,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15559,7 +15559,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15573,7 +15573,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15587,7 +15587,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15597,7 +15597,7 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         },
@@ -15617,7 +15617,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -15631,7 +15631,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -15641,7 +15641,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -15651,7 +15651,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15661,7 +15661,7 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         },
@@ -15676,7 +15676,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15690,7 +15690,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15704,7 +15704,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15718,7 +15718,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15732,7 +15732,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15746,7 +15746,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15760,7 +15760,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15774,7 +15774,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15788,7 +15788,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15802,7 +15802,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15816,7 +15816,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15830,7 +15830,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15844,7 +15844,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15858,7 +15858,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15868,13 +15868,13 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         }
       ],
       "customProps": {
-        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "icon": "default-icons/default_folder.svg",
         "tags": []
       }
     },
@@ -15899,7 +15899,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -15913,7 +15913,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -15927,7 +15927,7 @@ module.exports = {
                   "collapsible": true,
                   "items": [],
                   "customProps": {
-                    "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                    "icon": "default-icons/file_type_markdown.svg",
                     "tags": []
                   },
                   "link": {
@@ -15937,7 +15937,7 @@ module.exports = {
                 }
               ],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/default_folder.svg",
+                "icon": "default-icons/default_folder.svg",
                 "tags": []
               }
             },
@@ -15947,7 +15947,7 @@ module.exports = {
               "collapsible": true,
               "items": [],
               "customProps": {
-                "icon": "/HXLoLi/default-icons/file_type_markdown.svg",
+                "icon": "default-icons/file_type_markdown.svg",
                 "tags": []
               },
               "link": {
@@ -15957,13 +15957,13 @@ module.exports = {
             }
           ],
           "customProps": {
-            "icon": "/HXLoLi/default-icons/default_folder.svg",
+            "icon": "default-icons/default_folder.svg",
             "tags": []
           }
         }
       ],
       "customProps": {
-        "icon": "/HXLoLi/default-icons/default_folder.svg",
+        "icon": "default-icons/default_folder.svg",
         "tags": []
       }
     }
