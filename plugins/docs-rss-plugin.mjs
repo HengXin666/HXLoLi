@@ -39,6 +39,11 @@ function getFsDate(filePath) {
  * @param {string} content   file contents
  * @param {string} docsDir   absolute path to the docs/ directory
  */
+/** 模仿 Docusaurus DefaultNumberPrefixParser: 去掉路径段的前缀数字 */
+function stripNumberPrefix(segment) {
+  return segment.replace(/^\d+\s*[-_.]+\s*/, '');
+}
+
 function parseDocMeta(filePath, content, docsDir) {
   const { data: frontmatter } = matter(content);
 
@@ -66,7 +71,12 @@ function parseDocMeta(filePath, content, docsDir) {
   const date = frontmatter.date || getGitDate(filePath) || getFsDate(filePath);
 
   const rel = path.relative(docsDir, filePath).replace(/\\/g, '/');
-  const slug = rel.replace(/(\/index)?\.mdx?$/, '');
+  // 去掉扩展名和 /index, 然后对每段路径去掉数字前缀, 匹配 Docusaurus 默认 URL
+  const slug = rel
+    .replace(/(\/index)?\.mdx?$/, '')
+    .split('/')
+    .map(stripNumberPrefix)
+    .join('/');
 
   let category = '笔记';
   const parts = rel.split('/');

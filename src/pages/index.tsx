@@ -7,6 +7,7 @@ import Layout from '@theme/Layout';
 import type { ReactNode } from 'react';
 import React, { useEffect, useState } from 'react';
 import BlogWithCats from '../components/BlogWithCats';
+import LatestDocsSection from '../components/LatestDocsSection';
 import WordCountChart from '../components/chart/WordCountChart';
 import HXLink from '../components/HXLink';
 import ProjectCarousel from '../components/ProjectCarousel';
@@ -129,6 +130,7 @@ export default function Home (): ReactNode {
             description="<head />"
         >
             <HomepageHeader />
+            <LatestDocsSection />
             <WakaTimeChart />
             <BlogWithCats style={{textAlign: 'center', padding: '20px', backgroundColor: '#2b2b2b'}}>
                 <div className="container" style={{ maxWidth: '100%', overflow: 'hidden' }}>
