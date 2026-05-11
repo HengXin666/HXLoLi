@@ -11,160 +11,160 @@
         <copyright>© 2026 HXLoLi</copyright>
         <item>
             <title><![CDATA[剖析 std::ranges / std::views 库的胖次]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/004-现代C++元模版/004-范围视图</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/004-现代C++元模版/004-范围视图</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/现代C++元模版/范围视图</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/现代C++元模版/范围视图</guid>
             <pubDate>Sun, 10 May 2026 16:24:54 GMT</pubDate>
             <description><![CDATA[一、起因 最近打算学习一下 C++26 的 std executor 库 看看如何把 HXLibs 的接口对其兼容, 以及写一个该接口规范的线程池 , 发现其一些内容实际上思想是和 std ranges / std views 库相关的, 所以决定先学习一下 std ranges / std views 库. 学习之后, 发现我对 std ranges 这些认知都太浅了. 总觉得就仅仅是 记住这海...]]></description>
             <category>程序语言</category>
         </item>
         <item>
             <title><![CDATA[HX::net 简介]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/008-开源项目/001-HXLibs/002-HX-net简介</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/008-开源项目/001-HXLibs/002-HX-net简介</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/开源项目/HXLibs/HX-net简介</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/开源项目/HXLibs/HX-net简介</guid>
             <pubDate>Sun, 10 May 2026 05:42:28 GMT</pubDate>
             <description><![CDATA[HX net 为 网络库, 使用 Http1.1 协议; 相关头文件存放于 HXLibs/net 。 一、服务端 1.1 快速示例 一个简单的hello world cpp include <HXLibs/net/server/HttpServer.hpp int main using namespace HX net; HttpServer server / port /28205 ; serv...]]></description>
             <category>开源项目</category>
         </item>
         <item>
             <title><![CDATA[分布式系统大厂面试高频知识点图解]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/010-面试/分布式系统面试知识点图解</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/010-面试/分布式系统面试知识点图解</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/面试/分布式系统面试知识点图解</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/面试/分布式系统面试知识点图解</guid>
             <pubDate>Fri, 06 Mar 2026 02:52:46 GMT</pubDate>
             <description><![CDATA[一、分布式知识体系总览 mermaid mindmap root 分布式系统 理论基础 CAP定理 BASE理论 一致性模型 分布式协调 分布式锁 分布式ID 分布式事务 服务治理 服务注册发现 负载均衡 熔断降级限流 链路追踪 数据层 分库分表 读写分离 数据一致性 高可用 主从复制 集群 故障转移 分布式存储 一致性哈希 分片策略 二、CAP 定理 mermaid graph TD CAP C...]]></description>
             <category>面试</category>
         </item>
         <item>
             <title><![CDATA[后端开发大厂面试高频知识点图解（现代C++）]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/010-面试/后端开发面试知识点图解</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/010-面试/后端开发面试知识点图解</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/面试/后端开发面试知识点图解</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/面试/后端开发面试知识点图解</guid>
             <pubDate>Fri, 06 Mar 2026 02:52:46 GMT</pubDate>
             <description><![CDATA[一、后端知识体系总览 mermaid mindmap root 后端开发 语言基础 现代C++ C++11/14/17/20/23 内存管理 RAII 智能指针 并发编程 模板与泛型编程 Web框架 Drogon oat++ Crow/Cinatra 设计模式 单例/工厂/策略/观察者 代理/装饰器/模板方法 消息队列 Kafka/RocketMQ/RabbitMQ 微服务 gRPC 服务注册发现...]]></description>
             <category>面试</category>
         </item>
         <item>
             <title><![CDATA[操作系统大厂面试高频知识点图解]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/010-面试/操作系统面试知识点图解</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/010-面试/操作系统面试知识点图解</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/面试/操作系统面试知识点图解</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/面试/操作系统面试知识点图解</guid>
             <pubDate>Fri, 06 Mar 2026 02:52:46 GMT</pubDate>
             <description><![CDATA[一、操作系统整体架构 mermaid mindmap root 操作系统 进程管理 进程与线程 进程调度 进程同步与互斥 死锁 内存管理 虚拟内存 页面置换算法 内存分配 文件系统 文件组织 磁盘调度 IO管理 IO模型 零拷贝 中断与系统调用 用户态与内核态 中断处理流程 二、进程 vs 线程 vs 协程 mermaid graph TB subgraph 进程 Process P1 独立地址空...]]></description>
             <category>面试</category>
         </item>
         <item>
             <title><![CDATA[数据库大厂面试高频知识点图解]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/010-面试/数据库面试知识点图解</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/010-面试/数据库面试知识点图解</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/面试/数据库面试知识点图解</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/面试/数据库面试知识点图解</guid>
             <pubDate>Fri, 06 Mar 2026 02:52:46 GMT</pubDate>
             <description><![CDATA[一、数据库整体知识体系 mermaid mindmap root 数据库 MySQL 存储引擎 索引 事务 锁 日志 SQL优化 Redis 数据结构 持久化 过期删除与淘汰 缓存问题 集群方案 分库分表 垂直拆分 水平拆分 分布式ID 二、MySQL 存储引擎 mermaid graph TB subgraph InnoDB 默认引擎 I1 支持事务 ACID I2 支持行级锁 I3 支持外键 ...]]></description>
             <category>面试</category>
         </item>
         <item>
             <title><![CDATA[计算机网络大厂面试高频知识点图解]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/010-面试/计算机网络面试知识点图解</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/010-面试/计算机网络面试知识点图解</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/面试/计算机网络面试知识点图解</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/面试/计算机网络面试知识点图解</guid>
             <pubDate>Fri, 06 Mar 2026 02:52:46 GMT</pubDate>
             <description><![CDATA[一、OSI 七层模型 vs TCP/IP 四层模型 mermaid graph TD subgraph OSI七层模型 A7 应用层 A6 表示层 A5 会话层 A4 传输层 A3 网络层 A2 数据链路层 A1 物理层 end subgraph TCP/IP四层模型 B4 应用层<br/ HTTP/FTP/DNS/SMTP B3 传输层<br/ TCP/UDP B2 网络层<br/ IP/ICM...]]></description>
             <category>面试</category>
         </item>
         <item>
             <title><![CDATA[sqlpp11]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/800-源码阅读/002-sql相关/001-sqlpp11</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/800-源码阅读/002-sql相关/001-sqlpp11</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/源码阅读/sql相关/sqlpp11</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/源码阅读/sql相关/sqlpp11</guid>
             <pubDate>Tue, 30 Dec 2025 17:03:34 GMT</pubDate>
             <description><![CDATA[一个知名的 仅C++11 的类型安全的SQL侵入式库 https //github.com/rbock/sqlpp11 一、使用效果展示 看看它如何使用 sql 我们有如下表 CREATE TABLE foo id bigint, name varchar 50 , hasFun bool ; cpp // 假设你定义好了 TabFoo TabFoo foo; Db db / some argum...]]></description>
             <category>程序语言</category>
         </item>
         <item>
             <title><![CDATA[HXLibs]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/008-开源项目/001-HXLibs/001-简介</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/008-开源项目/001-HXLibs/001-简介</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/开源项目/HXLibs/简介</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/开源项目/HXLibs/简介</guid>
             <pubDate>Sun, 02 Nov 2025 15:35:49 GMT</pubDate>
             <description><![CDATA[一、简介 HXLibs 是一个现代C++基础工具库, 目前包括以下模块 container 容器库 编译期容器 编译期 vector / 编译期完美哈希表 void 类型擦除类型 / 未初始化容器 / 未初始化且擦除void的 Variant 容器 线程安全容器 SafeQueue 擦除void的 Try 容器 可存放数据或异常指针 线程池 / 未来体 FutureResult 适配 线程池 & ...]]></description>
             <category>开源项目</category>
         </item>
         <item>
             <title><![CDATA[关于]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/000-关于</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/000-关于</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/关于</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/关于</guid>
             <pubDate>Tue, 05 Aug 2025 06:37:24 GMT</pubDate>
             <description><![CDATA[一、项目描述 本项目基于 HXLoLiHub C++ HX LoLi Heng_Xin's Loli Optimizes Loli Iteratively // static_cast<void / \ // "Heng_Xinのロリがロリを繰り返しオプティマイズする"sv Loli Optimizes Loli Optimizes // ; /\ Loli Iteratively /\ Loli...]]></description>
             <category>关于</category>
         </item>
         <item>
             <title><![CDATA[三维模型的加载与相机控制]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/008-现代OpenGL/003-三维模型的加载与相机控制</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/008-现代OpenGL/003-三维模型的加载与相机控制</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/现代OpenGL/三维模型的加载与相机控制</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/现代OpenGL/三维模型的加载与相机控制</guid>
             <pubDate>Tue, 05 Aug 2025 06:37:24 GMT</pubDate>
             <description><![CDATA[一、回顾三角形大作 1.1 三角形大作存在的问题 之前 第一章 的三角形大作, 顶点信息是写死在代码上的, 如果我们要新增一个点, 就需要重新调用一遍 glVertex3f , 非常的不方便 而且还要重新编译 cpp glBegin GL_TRIANGLES ; glVertex3f 0.0f, 0.5f, 0.0f ; glVertex3f 0.5f, 0.5f, 0.0f ; glVertex...]]></description>
             <category>程序语言</category>
         </item>
         <item>
             <title><![CDATA[有符号数和无符号数]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/005-计算机组成原理/003-第二章指令系统/002-有符号数和无符号数</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/005-计算机组成原理/003-第二章指令系统/002-有符号数和无符号数</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第二章指令系统/有符号数和无符号数</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/计佬常識/计算机组成原理/第二章指令系统/有符号数和无符号数</guid>
             <pubDate>Mon, 28 Jul 2025 01:17:14 GMT</pubDate>
             <description><![CDATA[在计算机硬件中, 数是以一串或高或低的电信号来体现的, 这恰好可以被认为是基为 2 的 数 与基为 10 的数称为十进制数一样, 基为 2 的数称为二进制数 。 所有信息都由二进制数位 binary digit 或位 bit 组成, 因此二进制数运算基本单位是 bit, 取值可以是两种状态之一 高或低, 开或关, 真或假, 1 或 0。 二进制数的重要性 简洁性 二进制只有两个数字 0 和 1 ,...]]></description>
             <category>计佬常識</category>
         </item>
         <item>
             <title><![CDATA[宏魔法]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/003-现代C++项目实战/011-宏魔法</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/003-现代C++项目实战/011-宏魔法</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/现代C++项目实战/宏魔法</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/现代C++项目实战/宏魔法</guid>
             <pubDate>Sun, 27 Jul 2025 09:54:20 GMT</pubDate>
             <description><![CDATA[一、为什么需要学习宏 你知道. 现代 C++ 都有模板了, 为什么还需要这个破宏? 有什么是模板做不到的吗? 条件编译, 根据不同平台、编译器选择不同的代码. 这个就不说了 代码生成. 例如在 C++26 之前反射, 就是需要宏才可以反射私有成员... 二、宏使用 2.1 常见用法 cpp c1 简单声明 define THE_JJ x, y x y define THE_J x, y x y d...]]></description>
             <category>程序语言</category>
         </item>
         <item>
             <title><![CDATA[细节研究]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/800-源码阅读/001-雅兰亭库/001-C++无宏反射研究/细节研究</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/800-源码阅读/001-雅兰亭库/001-C++无宏反射研究/细节研究</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/源码阅读/雅兰亭库/C++无宏反射研究/细节研究</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/源码阅读/雅兰亭库/C++无宏反射研究/细节研究</guid>
             <pubDate>Thu, 24 Jul 2025 06:26:36 GMT</pubDate>
             <description><![CDATA[一、判断成员个数 之前讲解的判断元素个数的方法, 对于普通的数据类型, 是正确的. 但是对于某些模版; 甚至是某些编译器, 它的结果都是不一样的... 例如 cpp c1 聚合初始化 vscode // https //godbolt.org/z/1abP8orMh // 下面结果 // GCC N = 1 // Clang N = 2 // MSVC N = 0 struct Any templ...]]></description>
             <category>程序语言</category>
         </item>
         <item>
             <title><![CDATA[编译期哈希表]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/003-现代C++项目实战/010-编译期哈希表</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/003-现代C++项目实战/010-编译期哈希表</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/现代C++项目实战/编译期哈希表</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/现代C++项目实战/编译期哈希表</guid>
             <pubDate>Thu, 17 Jul 2025 11:57:25 GMT</pubDate>
             <description><![CDATA[一、需求产生 最近在重构 基于反射的 Json 解析库, 在写反序列化部分. 发现, 需要一个哈希表, 因为我可以把结构体字段反射为 index name 的 std array , 但是在反序列化的时候, 需要从 name 快速映射到 index , 然后在通过一些操作进行赋值... 此处就需要一个哈希表. 然后正打算使用 std unordered_map 直接开造. 但是还是很强迫的想到性能...]]></description>
             <category>程序语言</category>
         </item>
         <item>
             <title><![CDATA[auto]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/004-现代C++元模版/003-auto</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/002-程序语言/001-C++/003-现代C++/004-现代C++元模版/003-auto</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/现代C++元模版/auto</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/现代C++元模版/auto</guid>
             <pubDate>Tue, 17 Jun 2025 07:03:48 GMT</pubDate>
             <description><![CDATA[一、各个版本更新的新特性 from https //cppreference.cn/w/cpp/keyword/auto 用法 自动存储期说明符 之前 C++11 auto 占位符类型说明符、具有尾随返回类型的函数声明 起始 C++11 结构化绑定声明 起始 C++17 缩写函数模板 起始 C++20 显式转换为 prvalue 副本 起始 C++23 参见 decltype decltype a...]]></description>
             <category>程序语言</category>
         </item>
         <item>
             <title><![CDATA[模运算 | 模运算除法 | 组合数]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/001-数据结构与算法/014-【板子】算法模版/007-数学/004-【模运算】除法、组合数</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/001-数据结构与算法/014-【板子】算法模版/007-数学/004-【模运算】除法、组合数</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【板子】算法模版/数学/【模运算】除法、组合数</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【板子】算法模版/数学/【模运算】除法、组合数</guid>
             <pubDate>Sun, 15 Jun 2025 15:38:45 GMT</pubDate>
             <description><![CDATA[常识的 模运算 对 加减乘 是没有影响的 $$ a \pm b \text \ mod \ p = a \text \ mod \ p \pm b \text \ mod \ p \text \ mod \ p \\ \\ a \times b \text \ mod \ p = a \text \ mod \ p \times b \text \ mod \ p \text \ mod \ p ...]]></description>
             <category>计佬常識</category>
         </item>
         <item>
             <title><![CDATA[树状数组]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/001-数据结构与算法/014-【板子】算法模版/005-常用数据结构/007-树状数组</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/001-数据结构与算法/014-【板子】算法模版/005-常用数据结构/007-树状数组</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【板子】算法模版/常用数据结构/树状数组</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【板子】算法模版/常用数据结构/树状数组</guid>
             <pubDate>Sat, 14 Jun 2025 09:57:17 GMT</pubDate>
             <description><![CDATA[要求维护的数据可逆 结合律 且 可差分 , 如加法、乘法、异或等 gcd、max这种, 就不能使用普通树状数组了 什么是树状数组, 请看灵神 cpp template <typename T class TreeArr vector<T tree; public TreeArr int n tree n + 1 // i 从 1 开始, 到 n // 单点修改 void add int i, T ...]]></description>
             <category>计佬常識</category>
         </item>
         <item>
             <title><![CDATA[质数]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/001-数据结构与算法/014-【板子】算法模版/007-数学/001-质数</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/001-数据结构与算法/014-【板子】算法模版/007-数学/001-质数</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【板子】算法模版/数学/质数</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【板子】算法模版/数学/质数</guid>
             <pubDate>Fri, 13 Jun 2025 07:45:15 GMT</pubDate>
             <description><![CDATA[零、何为质数 如果一个数 $x$ 只能 被 $1$ 或者 $x$ 整除, 那么 $x$ 就是质数 素数 . 特别的, $1$ 不是 质数. 冷知识 如果当前数字长度为 8, 那么可以跳过检查, 因为不存在 8 长度的素数. 偶数 长度的 回文数 中, 只有 11 是素数. 一、判断质数 C++ auto isFk = int x for int i = 2; i i <= x; ++i if x ...]]></description>
             <category>计佬常識</category>
         </item>
         <item>
             <title><![CDATA[直线]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/001-数据结构与算法/014-【板子】算法模版/007-数学/003-【解析几何】直线</link>
-            <guid>https://HengXin666.github.io/HXLoLi/docs/001-计佬常識/001-数据结构与算法/014-【板子】算法模版/007-数学/003-【解析几何】直线</guid>
+            <link>https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【板子】算法模版/数学/【解析几何】直线</link>
+            <guid>https://HengXin666.github.io/HXLoLi/docs/计佬常識/数据结构与算法/【板子】算法模版/数学/【解析几何】直线</guid>
             <pubDate>Fri, 13 Jun 2025 07:45:15 GMT</pubDate>
             <description><![CDATA[一、计算直线解析式 1.1 斜截式 y = kx + b C++ bool get_line_slope_intercept int x1, int y1, int x2, int y2, double &k, double &b if x1 == x2 return false; // 垂直线, 无法表示为斜截式 k = y2 y1 1.0 / x2 x1 ; b = y1 k x1; retu...]]></description>
             <category>计佬常識</category>
