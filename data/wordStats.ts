@@ -632,9 +632,27 @@ export const stats: RecordItem[] = [
     "message": "Add Firefly to friend links"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-05-07T16:24:58.458Z",
+    "commit": "58200542e4a3d9de02c781a7a3ba4d72be2614c4",
+    "date": "2026-05-08T00:24:58+08:00",
     "wordCount": 3826112,
     "message": "[blog] 新增最近的项目吹水"
+  },
+  {
+    "commit": "ba563674297e406058a7e71c6e0f5d4db297b905",
+    "date": "2026-05-10T13:48:40+08:00",
+    "wordCount": 3830477,
+    "message": "merge: 合并远程更新, 解决auto-merge-cdn-sync冲突"
+  },
+  {
+    "commit": "592fd6ba71815cf87a77d255d6c61ccc3a00ba97",
+    "date": "2026-05-11T00:24:54+08:00",
+    "wordCount": 3837276,
+    "message": "[doc] 新增 范围库 的简单源码实现笔记"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-05-12T15:56:01.488Z",
+    "wordCount": 3842777,
+    "message": "[doc] 完成views的初步介绍"
   }
 ];

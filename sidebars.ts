@@ -5108,6 +5108,20 @@ module.exports = {
                         "type": "doc",
                         "id": "程序语言/C++/现代C++/现代C++元模版/auto/index"
                       }
+                    },
+                    {
+                      "type": "category",
+                      "label": "范围视图",
+                      "collapsible": true,
+                      "items": [],
+                      "customProps": {
+                        "icon": "default-icons/file_type_markdown.svg",
+                        "tags": []
+                      },
+                      "link": {
+                        "type": "doc",
+                        "id": "程序语言/C++/现代C++/现代C++元模版/范围视图/index"
+                      }
                     }
                   ],
                   "customProps": {

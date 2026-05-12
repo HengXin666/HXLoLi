@@ -180,7 +180,7 @@ concept Pred = requires(F&& func, Arg&& arg) {
 };
 ```
 
-如果你观察了标准库, 实际上 `FilterView` 还需要实习一些接口. 比如: `size()`, `empty()`, `base()` 等等:
+如果你观察了标准库, 实际上 `FilterView` 还需要实现一些接口. 比如: `size()`, `empty()`, `base()` 等等:
 
 > [!TIP]
 > 标准库是使用 CRTP 技术来实现这些接口的, 我们可以学习一下标准库是如何约束 CRTP 的.
@@ -327,4 +327,235 @@ FilterView(R&&, P) -> FilterView<std::views::all_t<R>, P>;
 
 ### 3.2 views
 
-这里更加nb! 明天再说!
+views 是在 `std::ranges::views` 中, 提供了很多 **定制点对象**, 以及运算符重载:
+
+```cpp
+namespace std::ranges::views {
+
+inline constexpr _Filter filter{}; // 定制点对象
+
+} // namespace std::ranges::views
+```
+
+它可以方便的被如下使用:
+
+```cpp
+using views = std::ranges::views;
+auto view = std::vector<int>{1,2,3} | views::filter([](auto v) { return true; });
+```
+
+或许你会下意识的以为, 其相当于:
+
+```cpp
+constexpr auto operator|(auto&& r, auto&& v) /* 省略了约束 */ {
+    return FilterView{std::forward<decltype(r)>(r), std::forward<decltype(v)>(v)};
+}
+```
+
+但是实际上它的求值顺序是 ~~(忽略 vector 的构造, 这谁都知道)~~:
+
+1. 先是 `views::filter([](auto v) { return true; })` 这个对象被创建 (注意, 此处的 `filter` 不是类型, 是 **对象**, 调用的是 `filter` 的 `operator()` 运算符重载)
+2. 然后才是对 arr 和 `1.` 的返回值 调用 `operator|` 运算符重载
+
+但是, 注意, 我们在 `views::filter([](auto v) { return true; })` 处, 传入的是 `auto`, 但是编译器是可以推断其为 int 的:
+
+![编译器推导](HX_2026-05-12_23-16-26.png)
+
+这时候, 如果我们去看源码, 你只能看到:
+
+> [!TIP]
+> @todo 待补充 gcc libc 实现. MSVC 这个没有那么妙的感觉..
+
+```cpp [stdcxx-MSVC]
+struct _Filter_fn {
+    template <viewable_range _Rng, class _Pr>
+    _NODISCARD _STATIC_CALL_OPERATOR constexpr auto operator()(_Rng&& _Range, _Pr&& _Pred) _CONST_CALL_OPERATOR
+        noexcept(noexcept(filter_view(_STD forward<_Rng>(_Range), _STD forward<_Pr>(_Pred))))
+        requires requires { filter_view(static_cast<_Rng&&>(_Range), _STD forward<_Pr>(_Pred)); }
+    {
+        return filter_view(_STD forward<_Rng>(_Range), _STD forward<_Pr>(_Pred));
+    }
+
+    template <class _Pr>
+        requires constructible_from<decay_t<_Pr>, _Pr>
+    _NODISCARD _STATIC_CALL_OPERATOR constexpr auto operator()(_Pr&& _Pred) _CONST_CALL_OPERATOR
+        noexcept(is_nothrow_constructible_v<decay_t<_Pr>, _Pr>) {
+        return _Range_closure<_Filter_fn, decay_t<_Pr>>{_STD forward<_Pr>(_Pred)};
+    }
+};
+
+_EXPORT_STD inline constexpr _Filter_fn filter;
+
+_EXPORT_STD template <class _Left, class _Right>
+    requires (_Range_adaptor_closure_object<_Right> && range<_Left>)
+_NODISCARD constexpr decltype(auto) operator|(_Left&& __l, _Right&& __r)
+    noexcept(noexcept(_STD forward<_Right>(__r)(_STD forward<_Left>(__l))))
+    requires requires { static_cast<_Right&&>(__r)(static_cast<_Left&&>(__l)); }
+{
+    return _STD forward<_Right>(__r)(_STD forward<_Left>(__l));
+}
+```
+
+其简单版本就是:
+
+```cpp
+namespace HX::ranges {
+
+namespace views {
+
+namespace internal {
+
+template <typename Derived, typename... Args>
+concept IsMemoOpCall = requires {
+    std::declval<Derived>()(std::declval<Args>()...);
+};
+
+template <typename Derived, typename... Args>
+struct MemoOp {
+    std::tuple<Args...> _tp;
+    
+    template <typename... Ts>
+    constexpr MemoOp(int, Ts&&... ts)
+        : _tp{std::forward<Ts>(ts)...}
+    {}
+
+    template <Range R>
+        requires (IsMemoOpCall<Derived, R, Args...>)
+    constexpr auto operator()(R&& range) && noexcept {
+        return std::apply([&range](auto&... args) {
+            return Derived{}(std::forward<R>(range), std::move(args)...);
+        }, _tp);
+    }
+
+    template <Range R>
+        requires (IsMemoOpCall<Derived, R, Args const&...>)
+    constexpr auto operator()(R&& range) const& noexcept {
+        return std::apply([&range](auto const&... args) {
+            return Derived{}(std::forward<R>(range), args...);
+        }, _tp);
+    }
+
+    // 为了避免 std::move(const obj) 这种使用, 在编译期报出
+    template <Range R>
+    constexpr auto operator()(R&&) const&& noexcept = delete;
+};
+
+template <typename Derived, typename... Args>
+concept IsOpMakeOp = Derived::_OpArgCnt > 1
+    && Derived::_OpArgCnt - 1 == sizeof...(Args)
+    && (std::constructible_from<std::decay_t<Args>, Args> && ...);
+
+template <typename Derived>
+struct OpMake {
+    template <typename... Args>
+        requires (IsOpMakeOp<Derived, Args...>)
+    constexpr auto operator()(Args&&... args) const {
+        return MemoOp<Derived, std::decay_t<Args>...>{0, std::forward<Args>(args)...};
+    }
+};
+
+} // namespace internal
+
+struct FilterOp : public internal::OpMake<FilterOp> {
+    template <typename R, typename P>
+        // @todo requires 是否可以被 FilterView 调用
+    [[nodiscard]] constexpr auto operator()(R&& range, P&& pred) const {
+        return FilterView{std::forward<R>(range), std::forward<P>(pred)};
+    }
+
+    using internal::OpMake<FilterOp>::operator();
+    inline static constexpr int _OpArgCnt = 2;
+};
+
+inline constexpr FilterOp filter{};
+
+template <Range R, typename Self>
+    // @todo requires 是否可以被调用 && Self 的类型概念
+constexpr auto operator|(R&& range, Self&& self) {
+    return std::forward<Self>(self)(std::forward<R>(range));
+}
+
+} // namespace views
+
+} // namespace HX::ranges
+```
+
+在 gcc 的实现中, 你只能在 Filter 类中, 看到其有一个运算符重载. 就是你之前的直觉:
+
+```cpp
+struct FilterOp : public internal::OpMake<FilterOp> {
+    template <typename R, typename P>
+        // @todo requires 是否可以被 FilterView 调用
+    [[nodiscard]] constexpr auto operator()(R&& range, P&& pred) const {
+        return FilterView{std::forward<R>(range), std::forward<P>(pred)};
+    }
+};
+```
+
+但是, 这两个参数的啊, 怎么被 `views::filter([](auto v) { return true; })` 调用?
+
+其答案是, 使用一个基类 `OpMake`:
+
+```cpp
+template <typename Derived>
+struct OpMake {
+    template <typename... Args>
+        requires (IsOpMakeOp<Derived, Args...>)
+    constexpr auto operator()(Args&&... args) const {
+        return MemoOp<Derived, std::decay_t<Args>...>{0, std::forward<Args>(args)...};
+    }
+};
+```
+
+此处实际上就是匹配 lambda 参数的. 然后生成一个临时对象 `MemoOp`:
+
+```cpp
+template <typename Derived, typename... Args>
+struct MemoOp {
+    std::tuple<Args...> _tp;
+    
+    template <typename... Ts>
+    constexpr MemoOp(int, Ts&&... ts)  // 此处使用 int, 是为了不让它在 sizeof...(Ts) == 0 情况下,
+        : _tp{std::forward<Ts>(ts)...} // 被作为 拷贝/移动 构造函数
+    {}
+
+    template <Range R>
+        requires (IsMemoOpCall<Derived, R, Args...>)
+    constexpr auto operator()(this auto&&, R&& range) noexcept { // C++23
+        return std::apply([&range](auto&&... args) {
+            return Derived{}(std::forward<R>(range), std::forward<decltype(args)>(args)...);
+        }, _tp);
+    }
+};
+```
+
+而这个临时对象用于那个全局的 `operator|` 重载中, 用于被调用 `operator()`:
+
+```cpp
+template <Range R, typename Self>
+    // @todo requires 是否可以被调用 && Self 的类型概念
+constexpr auto operator|(R&& range, Self&& self) {
+    return std::forward<Self>(self)(std::forward<R>(range));
+}
+```
+
+从而其在内部调用到 原本 `filter` 定制点对象的 2 个参数的 `operator` 重载. 是不是非常妙?
+
+不像 MSVC; gcc 这样写, 方便复用. 只需要继承一下就可以了~
+
+> [!NOTE]
+> 注意, 这里有个小细节, `OpMake<FilterOp>` 是模版类, 这样写是为了传递给 `MemoOp<FilterOp>`, 以便其构造出 `[Derived = FilterOp]` 的对象, 使用其 2 个参数的 `operator` 重载.
+
+> [!TIP]
+> 正因为 `filter` 是 **定制点对象**, 所以 `filter()` 和 `FilterOp{}()` 是完全等价的
+
+### 3.3 曼妙的 Pipeline
+
+此处仅展示了 views 的冰山一角. 其重点的 `lazy`, 还要更曼妙:
+
+![曼妙的类型 ##w800##](HX_2026-05-12_23-45-21.png)
+
+> [!TIP]
+> 此处@todo, 暂时没有时间细看. 不过其原理和理论上和我的 HXLibs::db 模块异曲同工:
+>
+> ![HXLibs::db ##w800##](HX_2026-05-12_23-53-55.png)
