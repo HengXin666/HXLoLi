@@ -650,9 +650,15 @@ export const stats: RecordItem[] = [
     "message": "[doc] 新增 范围库 的简单源码实现笔记"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-05-12T15:56:01.488Z",
+    "commit": "36d63ecc49d501d394c749eff28a901c9077f8bf",
+    "date": "2026-05-12T23:56:01+08:00",
     "wordCount": 3842777,
     "message": "[doc] 完成views的初步介绍"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-05-17T05:05:42.234Z",
+    "wordCount": 3845409,
+    "message": "[blog] 新增codexFreePool搭建教程; 补充 doc glibc++ 实现"
   }
 ];

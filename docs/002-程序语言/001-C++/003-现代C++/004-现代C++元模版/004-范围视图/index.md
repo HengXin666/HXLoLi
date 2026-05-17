@@ -366,6 +366,82 @@ constexpr auto operator|(auto&& r, auto&& v) /* 省略了约束 */ {
 > [!TIP]
 > @todo 待补充 gcc libc 实现. MSVC 这个没有那么妙的感觉..
 
+```cpp [stdcxx-GLIBCXX]
+  // A range adaptor closure that represents partial application of
+  // the range adaptor _Adaptor with arguments _Args.
+template<typename _Adaptor, typename... _Args>
+struct _Partial : _RangeAdaptorClosure<_Partial<_Adaptor, _Args...>>
+{
+    using _Binder = _Bind_back_t<_Adaptor, _Args...>;
+    [[no_unique_address]] _Binder _M_binder;
+
+    // First parameter is to ensure this constructor is never used
+    // instead of the copy/move constructor.
+    template<typename... _Ts>
+constexpr
+_Partial(int, _Ts&&... __args)
+    : _M_binder(0, _Adaptor(), std::forward<_Ts>(__args)...)
+{ }
+
+#if _GLIBCXX_EXPLICIT_THIS_PARAMETER
+# pragma GCC diagnostic push
+# pragma GCC diagnostic ignored "-Wc++23-extensions" // deducing this
+    template<typename _Self, typename _Range>
+requires __adaptor_invocable<_Adaptor, _Range, __like_t<_Self, _Args>...>
+constexpr auto
+operator()(this _Self&& __self, _Range&& __r)
+{
+    return _Binder::_S_call(__like_t<_Self, _Partial>(__self)._M_binder,
+            std::forward<_Range>(__r));
+}
+# pragma GCC diagnostic pop
+#else
+    // ...
+#endif
+};
+
+template<typename _Derived> // in namespace __adaptor
+struct _RangeAdaptor
+{
+    // Partially apply the arguments __args to the range adaptor _Derived,
+    // returning a range adaptor closure object.
+    template<typename... _Args>
+requires __adaptor_partial_app_viable<_Derived, _Args...>
+constexpr auto
+operator()(_Args&&... __args) const
+{
+    return _Partial<_Derived, decay_t<_Args>...>{0, std::forward<_Args>(__args)...};
+}
+};
+
+namespace views
+{
+namespace __detail
+{
+    template<typename _Range, typename _Pred>
+concept __can_filter_view
+    = requires { filter_view(std::declval<_Range>(), std::declval<_Pred>()); };
+} // namespace __detail
+
+struct _Filter : __adaptor::_RangeAdaptor<_Filter>
+{
+    template<viewable_range _Range, typename _Pred>
+requires __detail::__can_filter_view<_Range, _Pred>
+constexpr auto
+operator() [[nodiscard]] (_Range&& __r, _Pred&& __p) const
+{
+    return filter_view(std::forward<_Range>(__r), std::forward<_Pred>(__p));
+}
+
+    using _RangeAdaptor<_Filter>::operator();
+    static constexpr int _S_arity = 2;
+    static constexpr bool _S_has_simple_extra_args = true;
+};
+
+inline constexpr _Filter filter;
+} // namespace views
+```
+
 ```cpp [stdcxx-MSVC]
 struct _Filter_fn {
     template <viewable_range _Rng, class _Pr>
