@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://HengXin666.github.io/HXLoLi/docs</id>
     <title>HXLoLi 笔记</title>
-    <updated>2026-05-12T15:56:01.000Z</updated>
+    <updated>2026-05-17T05:05:42.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://HengXin666.github.io/HXLoLi/docs"/>
     <subtitle>HXLoLi 最新笔记更新</subtitle>
@@ -12,7 +12,7 @@
         <title type="html"><![CDATA[剖析 std::ranges / std::views 库的胖次]]></title>
         <id>https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/现代C++元模版/范围视图</id>
         <link href="https://HengXin666.github.io/HXLoLi/docs/程序语言/C++/现代C++/现代C++元模版/范围视图"/>
-        <updated>2026-05-12T15:56:01.000Z</updated>
+        <updated>2026-05-17T05:05:42.000Z</updated>
         <summary type="html"><![CDATA[一、起因 最近打算学习一下 C++26 的 std executor 库 看看如何把 HXLibs 的接口对其兼容, 以及写一个该接口规范的线程池 , 发现其一些内容实际上思想是和 std ranges / std views 库相关的, 所以决定先学习一下 std ranges / std views 库. 学习之后, 发现我对 std ranges 这些认知都太浅了. 总觉得就仅仅是 记住这海...]]></summary>
         <category label="程序语言"/>
     </entry>
