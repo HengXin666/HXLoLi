@@ -656,9 +656,15 @@ export const stats: RecordItem[] = [
     "message": "[doc] 完成views的初步介绍"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-05-17T05:05:42.234Z",
+    "commit": "ebb8b9a041f561f9361c3c2b3345fcd86f621225",
+    "date": "2026-05-17T13:05:42+08:00",
     "wordCount": 3845409,
     "message": "[blog] 新增codexFreePool搭建教程; 补充 doc glibc++ 实现"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-06-03T17:11:04.380Z",
+    "wordCount": 3858199,
+    "message": "[feat] 新增ai-docs编写模块, 新增对应的skill, 并且新增一番ai辅助文章"
   }
 ];

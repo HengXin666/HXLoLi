@@ -1,0 +1,493 @@
+/* ============================================================
+   AI 知识库 全局样式
+   风格: 赛博朋克 / AI / 黑客 / 极客
+   设计原则: GPU 加速, CSS-only 特效, 零持续 JS 开销
+
+   通过 DocItem/Layout 中的 useEffect,
+   在知识库页面激活时注入 ai-kb-page class 到 html 元素,
+   所有样式通过此 class 限定作用域, 不影响其他页面。
+   ============================================================ */
+
+/* ---- CSS 自定义属性 ---- */
+:root {
+  --ai-cyan: #00e5ff;
+  --ai-cyan-dim: rgba(0, 229, 255, 0.15);
+  --ai-magenta: #ff00ff;
+  --ai-magenta-dim: rgba(255, 0, 255, 0.15);
+  --ai-green: #00ff41;
+  --ai-green-dim: rgba(0, 255, 65, 0.12);
+  --ai-bg-elevated: rgba(13, 17, 28, 0.85);
+  --ai-border: rgba(0, 229, 255, 0.12);
+  --ai-border-bright: rgba(0, 229, 255, 0.35);
+  --ai-text-secondary: #8892a4;
+  --ai-glow-cyan: 0 0 10px rgba(0, 229, 255, 0.25);
+  --ai-glow-magenta: 0 0 10px rgba(255, 0, 255, 0.2);
+  --ai-radius: 10px;
+  --ai-transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================================================================
+   侧边栏样式
+   ================================================================ */
+.ai-kb-page .theme-doc-sidebar-container {
+  /* 侧边栏整体容器 */
+}
+
+/* 侧边栏文件夹图标微调 */
+.ai-kb-page .menu__link img {
+  width: 20px !important;
+  height: 20px !important;
+  object-fit: contain;
+  border-radius: 3px;
+  transition: filter 0.25s ease;
+  opacity: 0.75;
+}
+
+.ai-kb-page .menu__link:hover img {
+  opacity: 1;
+  filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.4));
+}
+
+.ai-kb-page .menu__link--active img {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.5));
+}
+
+.ai-kb-page .theme-doc-sidebar-menu {
+  padding: 0.5rem 0.5rem 0.5rem 0.25rem !important;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+}
+
+/* 侧边栏分类标题 */
+.ai-kb-page .theme-doc-sidebar-item-category .menu__list-item-collapsible .menu__link {
+  position: relative;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 0.82rem;
+  color: #c0caf5 !important;
+  text-transform: uppercase;
+  border-radius: 6px;
+  margin: 0.15rem 0;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid transparent;
+  transition: all var(--ai-transition);
+  /* GPU 加速 */
+  transform: translateZ(0);
+}
+
+.ai-kb-page .theme-doc-sidebar-item-category .menu__list-item-collapsible .menu__link:hover {
+  background: rgba(0, 229, 255, 0.06);
+  border-color: rgba(0, 229, 255, 0.15);
+}
+
+.ai-kb-page .theme-doc-sidebar-item-category .menu__list-item-collapsible .menu__link--active {
+  color: var(--ai-cyan) !important;
+  background: rgba(0, 229, 255, 0.08);
+  border-color: rgba(0, 229, 255, 0.25);
+  text-shadow: 0 0 6px rgba(0, 229, 255, 0.3);
+}
+
+/* 展开/折叠箭头 */
+.ai-kb-page .theme-doc-sidebar-item-category .menu__caret {
+  color: rgba(0, 229, 255, 0.5);
+  transition: all var(--ai-transition);
+}
+.ai-kb-page .theme-doc-sidebar-item-category .menu__caret:hover {
+  color: var(--ai-cyan);
+}
+
+/* 侧边栏普通文档链接 */
+.ai-kb-page .theme-doc-sidebar-item-link .menu__link {
+  position: relative;
+  color: #8892a4 !important;
+  border-radius: 6px;
+  margin: 0.1rem 0;
+  padding: 0.35rem 0.75rem;
+  border-left: 2px solid transparent;
+  transition: all var(--ai-transition);
+  font-size: 0.83rem;
+  transform: translateZ(0);
+}
+
+.ai-kb-page .theme-doc-sidebar-item-link .menu__link:hover {
+  color: #c0caf5 !important;
+  background: rgba(0, 229, 255, 0.04);
+  border-left-color: rgba(0, 229, 255, 0.3);
+}
+
+/* 终端风格: 活跃项前面加 > 符号 */
+.ai-kb-page .theme-doc-sidebar-item-link .menu__link--active {
+  color: var(--ai-cyan) !important;
+  background: rgba(0, 229, 255, 0.07);
+  border-left: 2px solid var(--ai-cyan);
+  box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.03);
+}
+
+.ai-kb-page .theme-doc-sidebar-item-link .menu__link--active::before {
+  content: '>';
+  position: absolute;
+  left: -1px;
+  color: var(--ai-cyan);
+  font-weight: 700;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  transform: translateX(-16px);
+  text-shadow: 0 0 6px rgba(0, 229, 255, 0.4);
+}
+
+/* 侧边栏二级/三级列表缩进微调 */
+.ai-kb-page .theme-doc-sidebar-item-category .menu__list .menu__link {
+  padding-left: 1.5rem;
+}
+.ai-kb-page .theme-doc-sidebar-item-category .menu__list .menu__list .menu__link {
+  padding-left: 2.25rem;
+}
+
+/* ================================================================
+   TOC (目录栏) 样式
+   ================================================================ */
+/* TOC — 与 /docs 保持一致布局, 仅改颜色主题 */
+
+.ai-kb-page .table-of-contents {
+  position: relative;
+  padding: 0.75rem 0.4rem 0.75rem 0.75rem;
+  font-size: 0.73rem;
+  border-left: 1px solid rgba(0, 229, 255, 0.1) !important;
+}
+
+/* TOC 链接 */
+.ai-kb-page .table-of-contents__link {
+  color: #8892a4 !important;
+  position: relative;
+  padding: 0.18rem 0;
+  display: block;
+  line-height: 1.35;
+  transition: all var(--ai-transition);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.01em;
+  transform: translateZ(0);
+  word-break: break-word;
+}
+
+.ai-kb-page .table-of-contents__link:hover {
+  color: var(--ai-cyan) !important;
+  text-shadow: 0 0 4px rgba(0, 229, 255, 0.2);
+}
+
+/* TOC 活跃项 */
+.ai-kb-page .table-of-contents__link--active {
+  color: var(--ai-cyan) !important;
+  font-weight: 500;
+}
+
+/* 覆盖原来的粉色竖线 -> 赛博青色 */
+.ai-kb-page li:has(> .table-of-contents__link--active)::before {
+  border-left-color: var(--ai-cyan) !important;
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.4), 0 0 20px rgba(0, 229, 255, 0.15) !important;
+}
+
+/* TOC 进度条 (复用 ProgressBar) */
+.ai-kb-page .tailwind .text-fuchsia-400 {
+  color: var(--ai-cyan) !important;
+  border-left-color: rgba(0, 229, 255, 0.15) !important;
+}
+
+/* ================================================================
+   内容区域
+   ================================================================ */
+
+/* 主内容区域微妙背景 */
+.ai-kb-page article {
+  position: relative;
+}
+
+/* 代码块增强 */
+.ai-kb-page .theme-code-block {
+  border: 1px solid rgba(0, 229, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  transition: border-color var(--ai-transition);
+}
+.ai-kb-page .theme-code-block:hover {
+  border-color: rgba(0, 229, 255, 0.25);
+}
+
+/* 内联代码 */
+.ai-kb-page code:not([class*='codeBlock']) {
+  color: var(--ai-cyan);
+  background: rgba(0, 229, 255, 0.06);
+  border: 1px solid rgba(0, 229, 255, 0.12);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  font-size: 0.88em;
+}
+
+/* 表格样式增强 */
+.ai-kb-page .markdown table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid rgba(0, 229, 255, 0.12);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ai-kb-page .markdown table th {
+  background: rgba(0, 229, 255, 0.08);
+  color: var(--ai-cyan);
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.ai-kb-page .markdown table td {
+  border-bottom: 1px solid rgba(0, 229, 255, 0.05);
+}
+
+.ai-kb-page .markdown table tr:last-child td {
+  border-bottom: none;
+}
+
+.ai-kb-page .markdown table tr:hover td {
+  background: rgba(0, 229, 255, 0.03);
+}
+
+/* 引用块 */
+.ai-kb-page .markdown blockquote {
+  border-left: 3px solid var(--ai-cyan);
+  background: rgba(0, 229, 255, 0.04);
+  border-radius: 0 8px 8px 0;
+  padding: 0.8rem 1.2rem;
+  color: #b0bec5;
+  position: relative;
+}
+
+.ai-kb-page .markdown blockquote::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--ai-cyan);
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
+  border-radius: 3px 0 0 3px;
+}
+
+/* 链接 */
+.ai-kb-page .markdown a:not(.table-of-contents__link):not(.menu__link) {
+  color: var(--ai-cyan);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(0, 229, 255, 0.3);
+  transition: all var(--ai-transition);
+}
+.ai-kb-page .markdown a:not(.table-of-contents__link):not(.menu__link):hover {
+  border-bottom-style: solid;
+  text-shadow: 0 0 6px rgba(0, 229, 255, 0.3);
+}
+
+/* 分割线 */
+.ai-kb-page .markdown hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 229, 255, 0.3) 20%,
+    rgba(255, 0, 255, 0.3) 50%,
+    rgba(0, 229, 255, 0.3) 80%,
+    transparent 100%
+  );
+  margin: 2rem 0;
+}
+
+/* 标题样式微调 */
+.ai-kb-page .markdown h1 {
+  background: linear-gradient(135deg, #00e5ff 0%, #ff00ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.ai-kb-page .markdown h2 {
+  color: #e0e0e0;
+  border-bottom-color: rgba(0, 229, 255, 0.2) !important;
+}
+
+.ai-kb-page .markdown h3 {
+  color: #c0caf5;
+}
+
+/* 列表项样式 — 仅对 markdown 直接子 ul 的 li 添加自定义标记
+   使用 > 选择器避免穿透到嵌套代码块、tabs 等结构 */
+.ai-kb-page .markdown > ul,
+.ai-kb-page .markdown > ol > li > ul,
+.ai-kb-page .markdown > ul > li > ul {
+  list-style: none;
+  padding-left: 1.5em;
+}
+
+.ai-kb-page .markdown > ul > li:not(:has(input[type='checkbox']))::before,
+.ai-kb-page .markdown > ol > li > ul > li:not(:has(input[type='checkbox']))::before,
+.ai-kb-page .markdown > ul > li > ul > li:not(:has(input[type='checkbox']))::before {
+  content: '›';
+  color: var(--ai-cyan);
+  font-weight: 700;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+/* 三级列表 */
+.ai-kb-page .markdown > ul > li > ul > li > ul > li:not(:has(input[type='checkbox']))::before,
+.ai-kb-page .markdown > ol > li > ul > li > ul > li:not(:has(input[type='checkbox']))::before {
+  content: '»';
+  color: rgba(0, 229, 255, 0.5);
+}
+
+/* 任务列表恢复默认样式 */
+.ai-kb-page .markdown ul:has(input[type='checkbox']) {
+  list-style: none;
+  padding-left: 0.5em;
+}
+
+.ai-kb-page .markdown ul li:has(input[type='checkbox'])::before {
+  content: none;
+}
+
+/* 复选框美化 */
+.ai-kb-page .markdown input[type='checkbox'] {
+  accent-color: var(--ai-cyan);
+  margin-right: 0.35em;
+  transform: translateZ(0);
+  width: 0.9em;
+  height: 0.9em;
+  vertical-align: middle;
+}
+
+/* ================================================================
+   面包屑
+   ================================================================ */
+.ai-kb-page .breadcrumbs__link {
+  color: #8892a4 !important;
+  font-size: 0.78rem;
+  transition: color var(--ai-transition);
+}
+.ai-kb-page .breadcrumbs__link:hover {
+  color: var(--ai-cyan) !important;
+}
+.ai-kb-page .breadcrumbs__item--active .breadcrumbs__link {
+  color: var(--ai-cyan) !important;
+}
+
+/* ================================================================
+   评论区容器
+   ================================================================ */
+.ai-kb-page #comment {
+  position: relative;
+}
+
+.ai-kb-page #comment::before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--ai-cyan),
+    var(--ai-magenta),
+    var(--ai-cyan),
+    transparent
+  );
+  border-radius: 1px;
+}
+
+/* ================================================================
+   导航栏微调 (仅在知识库页面)
+   ================================================================ */
+.ai-kb-page .navbar__item.navbar__link--active {
+  color: var(--ai-cyan) !important;
+}
+
+/* ================================================================
+   分页导航
+   ================================================================ */
+.ai-kb-page .pagination-nav__link {
+  border: 1px solid rgba(0, 229, 255, 0.1);
+  border-radius: 8px;
+  transition: all var(--ai-transition);
+  background: rgba(0, 229, 255, 0.02);
+}
+
+.ai-kb-page .pagination-nav__link:hover {
+  border-color: rgba(0, 229, 255, 0.25);
+  box-shadow: 0 2px 12px rgba(0, 229, 255, 0.08);
+}
+
+.ai-kb-page .pagination-nav__label {
+  color: var(--ai-cyan);
+}
+
+/* ================================================================
+   滚动条 (知识库页面)
+   ================================================================ */
+.ai-kb-page .thin-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.ai-kb-page .thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.ai-kb-page .thin-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.2);
+  border-radius: 2px;
+}
+.ai-kb-page .thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 229, 255, 0.4);
+}
+
+/* ================================================================
+   文档页脚 (编辑链接等)
+   ================================================================ */
+.ai-kb-page .theme-doc-footer {
+  border-top: 1px solid rgba(0, 229, 255, 0.08);
+  padding-top: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* ================================================================
+   响应式
+   ================================================================ */
+@media (max-width: 996px) {
+  .ai-kb-page .theme-doc-sidebar-item-link .menu__link--active::before {
+    content: none;
+  }
+
+  .ai-kb-page .markdown ul {
+    padding-left: 1.2em;
+  }
+}
+
+/* ================================================================
+   过渡动画 (使用 CSS, 零 JS 开销)
+   ================================================================ */
+
+/* 内容淡入 (由 framer-motion 在 React 组件中处理) */
+
+/* 微妙的悬浮脉冲 - 仅用于装饰元素 */
+@keyframes aiPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ================================================================
+   @see DocItem/Layout 中检测 ai-docs 插件,
+   向 document.documentElement 注入 ai-kb-page class
+   ================================================================ */

@@ -11,7 +11,7 @@ export const latestDocs: LatestDoc[] = [
   {
     "title": "剖析 std::ranges / std::views 库的胖次",
     "to": "/docs/程序语言/C++/现代C++/现代C++元模版/范围视图",
-    "date": "2026-05-12",
+    "date": "2026-05-17",
     "category": "程序语言",
     "description": "一、起因 最近打算学习一下 C++26 的 std executor 库 看看如何把 HXLibs 的接口对其兼容, 以及写一个该接口规范的线程池 , 发现其一些内容实际上思想是和 std range"
   },

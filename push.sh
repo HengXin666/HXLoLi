@@ -12,6 +12,7 @@ fi
 
 # 执行构建侧边栏的 Node 脚本
 node ./scripts/generateSidebar.js
+node ./scripts/generateAiDocsSidebar.js
 
 # 检查是否传入了参数
 if [ $# -eq 0 ]; then

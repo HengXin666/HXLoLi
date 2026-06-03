@@ -87,6 +87,7 @@ case "${choice:-1}" in
 
         # Step 3: 重新生成 sidebar
         node scripts/generateSidebar.js
+        node scripts/generateAiDocsSidebar.js
 
         # Step 4: 启动 dev server
         echo ""

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <!-- AI 主题文档图标 -->
+  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"
+    fill="rgba(0,229,255,0.06)" stroke="#00e5ff" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="M14 2v6h6" stroke="#00e5ff" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="M8 13h8M8 17h5" stroke="rgba(0,229,255,0.4)" stroke-width="1"/>
+  <!-- AI 数据流线 -->
+  <path d="M10 9l2-2 2 2" stroke="#ff00ff" stroke-width="0.8" opacity="0.5" stroke-linecap="round"/>
+  <circle cx="12" cy="8" r="1.2" fill="#00e5ff" opacity="0.6"/>
+</svg>

@@ -46,6 +46,31 @@ const plugins: PluginConfig[] = [
   // docs RSS/Atom feed + latest docs data 生成插件
   // 类似博客插件的 feed 生成，但是针对 docs (笔记)
   require('./plugins/docs-rss-plugin.mjs'),
+  // AI 知识库: 第二个 @docusaurus/plugin-content-docs 实例
+  // 独立于主文档 (docs/), 内容存储在 ai-docs/ 目录
+  // 路由: /knowledge-base
+  [
+    '@docusaurus/plugin-content-docs',
+    {
+      id: 'ai-docs',
+      path: 'ai-docs',
+      routeBasePath: 'knowledge-base',
+      include: ['**/*.{md,mdx}'],
+      sidebarPath: './sidebarsAiDocs.ts',
+      remarkPlugins: [remarkGithubAlerts, remarkMath],
+      rehypePlugins: [
+        [
+          rehypeKatex,
+          {
+            strict: false,
+            errorColor: '#cc0000',
+          },
+        ],
+      ],
+      showLastUpdateTime: true,
+      showLastUpdateAuthor: true,
+    } satisfies import('@docusaurus/plugin-content-docs').Options,
+  ],
 ];
 
 
@@ -136,6 +161,7 @@ const config: Config = {
           // 可以放置自定义的 CSS 样式
           customCss: [
             "./src/css/custom.css",
+            "./src/css/ai-kb.css",
             "./static/katex/katex.css",
           ],
         },
@@ -182,6 +208,13 @@ const config: Config = {
           to: "/blog", // 跳转到博客页面
           label: "博客",
           position: "left",
+        },
+        {
+          type: "docSidebar",
+          sidebarId: "aiDocsSidebar",
+          docsPluginId: "ai-docs",
+          position: "left",
+          label: "知识库",
         },
         {
           to: "/anime",

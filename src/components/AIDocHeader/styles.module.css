@@ -1,0 +1,267 @@
+/* ============================================================
+   AI Doc Header — 知识库文档元数据头部组件
+   风格: AI / 黑客 / 赛博朋克, 暗色主题, 低 CPU 占用
+
+   新增:
+   - 从左到右金属亮光扫描动画 (metal shine)
+   - Skill 徽章点击跳转到 GitHub .claude/skills/${name}
+   - 打字机特效标题
+   - AI 标注可点击
+   ============================================================ */
+
+.aiDocHeader {
+  position: relative;
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 229, 255, 0.04) 0%,
+    rgba(255, 0, 255, 0.04) 50%,
+    rgba(0, 229, 255, 0.04) 100%
+  );
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  /* GPU 加速 */
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* 顶部发光线 */
+.aiDocHeader::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5%;
+  width: 90%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 229, 255, 0.5) 20%,
+    rgba(255, 0, 255, 0.5) 50%,
+    rgba(0, 229, 255, 0.5) 80%,
+    transparent 100%
+  );
+  animation: scanLine 3s ease-in-out infinite;
+}
+
+/* 背景网格 */
+.bgGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 金属亮光扫过 (left → right) */
+.metalShine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.015) 30%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.015) 70%,
+    transparent 100%
+  );
+  animation: metalSweep 4s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+  transform: skewX(-15deg);
+}
+
+@keyframes scanLine {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes metalSweep {
+  0% { left: -100%; }
+  100% { left: 120%; }
+}
+
+.headerContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* 标题行 */
+.titleRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.aiIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  color: #00e5ff;
+  font-size: 16px;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.aiIcon:hover {
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.3);
+  border-color: rgba(0, 229, 255, 0.6);
+}
+
+/* 打字机文本 */
+.typewriter {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #00e5ff;
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+.typewriterCursor {
+  color: #00e5ff;
+  font-weight: 400;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
+}
+
+/* 元数据徽章行 */
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.metaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+  line-height: 1.4;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+  transform: translateZ(0);
+  cursor: default;
+}
+
+.metaBadge:hover {
+  transform: translateY(-1px) translateZ(0);
+}
+
+/* 可点击的徽章 */
+.clickableBadge {
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+/* 创建时间 */
+.dateBadge {
+  color: #00ff41;
+  background: rgba(0, 255, 65, 0.06);
+  border-color: rgba(0, 255, 65, 0.25);
+}
+.dateBadge:hover {
+  box-shadow: 0 0 12px rgba(0, 255, 65, 0.2);
+  border-color: rgba(0, 255, 65, 0.5);
+}
+
+/* AI 模型 */
+.modelBadge {
+  color: #00e5ff;
+  background: rgba(0, 229, 255, 0.06);
+  border-color: rgba(0, 229, 255, 0.25);
+}
+.modelBadge:hover {
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+  border-color: rgba(0, 229, 255, 0.5);
+}
+
+/* Skill (可点击) */
+.skillBadge {
+  color: #ff00ff;
+  background: rgba(255, 0, 255, 0.06);
+  border-color: rgba(255, 0, 255, 0.25);
+  cursor: pointer;
+  text-decoration: none !important;
+}
+.skillBadge:hover {
+  box-shadow: 0 0 12px rgba(255, 0, 255, 0.2);
+  border-color: rgba(255, 0, 255, 0.5);
+}
+
+/* Skill 外部链接图标 */
+.skillExternalIcon {
+  font-size: 0.65em;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.skillBadge:hover .skillExternalIcon {
+  opacity: 1;
+}
+
+/* 标签徽章 */
+.tagBadge {
+  color: #b0b0b0;
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  font-size: 0.7rem;
+}
+.tagBadge:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.badgeIcon {
+  display: flex;
+  align-items: center;
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .aiDocHeader {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .metaRow {
+    gap: 0.4rem;
+  }
+
+  .metaBadge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .metalShine {
+    animation-duration: 5s;
+  }
+}
