@@ -48,6 +48,8 @@ function scanDocs(dir, relativePath = '') {
         const fullPath = path.join(dir, entry);
         const stat = fs.statSync(fullPath);
 
+        if (entry.startsWith('.')) continue;
+
         if (stat.isDirectory()) {
             const cleanLabel = stripPrefix(entry);
             const folderRelative = path.join(relativePath, entry);

@@ -663,8 +663,8 @@ export const stats: RecordItem[] = [
   },
   {
     "commit": "WORKING_DIR",
-    "date": "2026-06-03T17:11:04.380Z",
+    "date": "2026-06-04T15:18:28.871Z",
     "wordCount": 3858199,
-    "message": "[feat] 新增ai-docs编写模块, 新增对应的skill, 并且新增一番ai辅助文章"
+    "message": "[fix] 修复部署错误: 屏蔽隐藏文件索引"
   }
 ];

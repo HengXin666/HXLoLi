@@ -40,14 +40,9 @@ const aiDocsSidebar = [
                 "label": "HXLibs编写串行协程调度器",
                 "collapsible": true,
                 "collapsed": false,
-                "items": [
-                  {
-                    "type": "doc",
-                    "id": "知识沉淀/现代C++/日常探索/HXLibs编写串行协程调度器/.hx-mitemite"
-                  }
-                ],
+                "items": [],
                 "customProps": {
-                  "icon": "default-icons/ai-folder.svg",
+                  "icon": "default-icons/ai-doc.svg",
                   "tags": []
                 },
                 "link": {
