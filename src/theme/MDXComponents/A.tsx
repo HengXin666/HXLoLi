@@ -36,10 +36,12 @@ export default function MDXA (props: Props): ReactNode {
 
     return (
         <span className="tailwind">
-            <HXLink 
+            <HXLink
                 title={typeof props.children === "string" ? props.children : ""}
                 url={props.href || ''}
-            />
+            >
+                {props.children}
+            </HXLink>
         </span>
     );
 }

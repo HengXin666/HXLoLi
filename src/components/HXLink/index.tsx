@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { type ReactNode, useRef, useState } from "react";
 import { useLocation } from "@docusaurus/router";
 import { useColorMode } from "@docusaurus/theme-common";
 import classNames from "classnames";
@@ -8,6 +8,7 @@ interface Props {
     url: string;
     open?: "newTab" | "sameTab";
     onSameUrl?: "open" | "refresh" | "disable";
+    children?: ReactNode;
 }
 
 /**
@@ -37,6 +38,7 @@ const HXLink = ({
     url,
     open = "newTab",
     onSameUrl = "refresh",
+    children,
 }: Props) => {
     const [hover, setHover] = useState(false);
     const [leaving, setLeaving] = useState(true);
@@ -88,7 +90,7 @@ const HXLink = ({
             }
             rel="noopener noreferrer"
         >
-            {title}
+            {children || title}
 
             <span
                 className={classNames({
