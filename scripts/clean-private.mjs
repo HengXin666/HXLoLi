@@ -2,15 +2,15 @@
 /**
  * clean-private.mjs
  *
- * 清理开发模式下拷贝到 docs/ 和 blog/ 的私有页面文件
+ * 清理开发模式下映射/拷贝到 docs/、blog/ 和 ai-docs/ 的私有页面文件
  * 通过对比私有仓库目录结构来精确删除, 不会影响公有仓库原有文件
  *
  * 用法:
  *   node scripts/clean-private.mjs [私有仓库本地路径]
  */
 
-import { existsSync, readdirSync, statSync, unlinkSync, rmdirSync } from 'fs';
-import { join, resolve, dirname } from 'path';
+import { existsSync, lstatSync, readdirSync, statSync, unlinkSync, rmdirSync } from 'fs';
+import { join, resolve, dirname, sep } from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -40,9 +40,43 @@ function getRelativePaths(dir, base = dir) {
   return results;
 }
 
+function collectPrivateMappingSymlinks(sourceDir, targetDir, base = sourceDir) {
+  const results = [];
+  if (!existsSync(sourceDir)) return results;
+
+  for (const item of readdirSync(sourceDir)) {
+    if (item.startsWith('.')) continue;
+    const sourcePath = join(sourceDir, item);
+    const relPath = sourcePath.slice(base.length + 1);
+    const targetPath = join(targetDir, relPath);
+
+    if (existsSync(targetPath) && lstatSync(targetPath).isSymbolicLink()) {
+      results.push(relPath);
+      continue;
+    }
+
+    const sourceStat = statSync(sourcePath);
+    if (sourceStat.isDirectory()) {
+      results.push(...collectPrivateMappingSymlinks(sourcePath, targetDir, base));
+    }
+  }
+
+  return results;
+}
+
+function isUnderPath(path, parent) {
+  return path === parent || path.startsWith(`${parent}${sep}`);
+}
+
 function tryRemove(filePath) {
   try {
     if (existsSync(filePath)) {
+      const linkStat = lstatSync(filePath);
+      if (linkStat.isSymbolicLink()) {
+        unlinkSync(filePath);
+        return true;
+      }
+
       const stat = statSync(filePath);
       if (stat.isDirectory()) {
         // 只删除空目录
@@ -74,63 +108,56 @@ function main() {
 
   let cleaned = 0;
 
-  // 清理 docs 相关文件
-  const docsSource = join(localPath, 'docs');
-  if (existsSync(docsSource)) {
-    console.log('📁 清理 docs/ 中的私有文件...');
-    const files = getRelativePaths(docsSource);
-    // 先删除文件, 后删除目录
-    const fileEntries = files.filter(f => !f.isDir);
-    const dirEntries = files.filter(f => f.isDir).reverse(); // 从深到浅
+  for (const section of ['docs', 'blog', 'ai-docs']) {
+    const sectionSource = join(localPath, section);
+    if (!existsSync(sectionSource)) continue;
 
-    for (const entry of fileEntries) {
-      // .md 可能被转为 .mdx
-      const targetPath = join(projectRoot, 'docs', entry.path);
-      const mdxPath = targetPath.replace(/\.md$/, '.mdx');
+    console.log(`📁 清理 ${section}/ 中的私有文件...`);
+
+    const sectionTarget = join(projectRoot, section);
+    const symlinks = collectPrivateMappingSymlinks(sectionSource, sectionTarget);
+
+    for (const relPath of symlinks) {
+      const targetPath = join(sectionTarget, relPath);
       if (tryRemove(targetPath)) {
-        console.log(`  🗑️  docs/${entry.path}`);
-        cleaned++;
-      }
-      if (tryRemove(mdxPath)) {
-        console.log(`  🗑️  docs/${entry.path.replace(/\.md$/, '.mdx')}`);
+        console.log(`  🗑️  ${section}/${relPath} -> 映射`);
         cleaned++;
       }
     }
 
-    for (const entry of dirEntries) {
-      const targetPath = join(projectRoot, 'docs', entry.path);
-      if (tryRemove(targetPath)) {
-        console.log(`  🗑️  docs/${entry.path}/`);
-        cleaned++;
-      }
-    }
-  }
-
-  // 清理 blog 相关文件
-  const blogSource = join(localPath, 'blog');
-  if (existsSync(blogSource)) {
-    console.log('📁 清理 blog/ 中的私有文件...');
-    const files = getRelativePaths(blogSource);
+    const files = getRelativePaths(sectionSource)
+      .filter(entry => !symlinks.some(linkPath => isUnderPath(entry.path, linkPath)));
     const fileEntries = files.filter(f => !f.isDir);
     const dirEntries = files.filter(f => f.isDir).reverse();
 
+    for (const entry of readdirSync(sectionSource)) {
+      if (entry.startsWith('.')) continue;
+      const targetPath = join(sectionTarget, entry);
+      if (existsSync(targetPath) && lstatSync(targetPath).isSymbolicLink()) {
+        if (tryRemove(targetPath)) {
+          console.log(`  🗑️  ${section}/${entry} -> 映射`);
+          cleaned++;
+        }
+      }
+    }
+
     for (const entry of fileEntries) {
-      const targetPath = join(projectRoot, 'blog', entry.path);
+      const targetPath = join(sectionTarget, entry.path);
       const mdxPath = targetPath.replace(/\.md$/, '.mdx');
       if (tryRemove(targetPath)) {
-        console.log(`  🗑️  blog/${entry.path}`);
+        console.log(`  🗑️  ${section}/${entry.path}`);
         cleaned++;
       }
       if (tryRemove(mdxPath)) {
-        console.log(`  🗑️  blog/${entry.path.replace(/\.md$/, '.mdx')}`);
+        console.log(`  🗑️  ${section}/${entry.path.replace(/\.md$/, '.mdx')}`);
         cleaned++;
       }
     }
 
     for (const entry of dirEntries) {
-      const targetPath = join(projectRoot, 'blog', entry.path);
+      const targetPath = join(sectionTarget, entry.path);
       if (tryRemove(targetPath)) {
-        console.log(`  🗑️  blog/${entry.path}/`);
+        console.log(`  🗑️  ${section}/${entry.path}/`);
         cleaned++;
       }
     }

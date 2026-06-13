@@ -29,7 +29,7 @@
  *   # 部署模式 (CI 中使用, 需要 RSA 公钥)
  *   node scripts/encrypt-private.mjs --source ./private-pages-repo --mode deploy --pubkey <PEM文件路径>
  *
- *   # 本地开发模式: 直接拷贝明文到 docs/blog 目录
+ *   # 本地开发模式: 直接拷贝明文到 docs/blog/ai-docs 目录
  *   node scripts/encrypt-private.mjs --source ./private-pages-repo --mode dev
  */
 
@@ -51,6 +51,7 @@ function parseArgs() {
     mode: 'deploy',       // deploy | dev
     docsOutput: './docs',
     blogOutput: './blog',
+    aiDocsOutput: './ai-docs',
     pubkeyPath: '',       // RSA 公钥 PEM 文件路径
     pubkeyPem: '',        // RSA 公钥 PEM 字符串 (从环境变量)
   };
@@ -71,6 +72,9 @@ function parseArgs() {
       case '--blog-output':
         opts.blogOutput = args[++i];
         break;
+      case '--ai-docs-output':
+        opts.aiDocsOutput = args[++i];
+        break;
       case '--pubkey':
       case '-p':
         opts.pubkeyPath = args[++i];
@@ -85,6 +89,7 @@ function parseArgs() {
   --mode, -m        模式: deploy (加密嵌入) | dev (拷贝明文) (默认: deploy)
   --docs-output     docs 输出目录 (默认: ./docs)
   --blog-output     blog 输出目录 (默认: ./blog)
+  --ai-docs-output  ai-docs 输出目录 (默认: ./ai-docs)
   --pubkey, -p      RSA 公钥 PEM 文件路径 (deploy 模式必需)
                     也可通过环境变量 HXLOLI_RSA_PUBLIC_KEY 设置 PEM 内容
   --help, -h        显示帮助
@@ -367,15 +372,18 @@ function main() {
 
   const docsSource = join(opts.source, 'docs');
   const blogSource = join(opts.source, 'blog');
+  const aiDocsSource = join(opts.source, 'ai-docs');
   const hasDocsSrc = existsSync(docsSource);
   const hasBlogSrc = existsSync(blogSource);
+  const hasAiDocsSrc = existsSync(aiDocsSource);
 
-  if (!hasDocsSrc && !hasBlogSrc) {
-    console.log('⚠️  私有仓库中没有找到 docs/ 或 blog/ 目录');
+  if (!hasDocsSrc && !hasBlogSrc && !hasAiDocsSrc) {
+    console.log('⚠️  私有仓库中没有找到 docs/、blog/ 或 ai-docs/ 目录');
     console.log('   期望的目录结构:');
     console.log('   private-repo/');
     console.log('   ├── docs/     (笔记页面)');
-    console.log('   └── blog/     (博客文章)');
+    console.log('   ├── blog/     (博客文章)');
+    console.log('   └── ai-docs/  (AI 知识库)');
     return;
   }
 
@@ -397,6 +405,13 @@ function main() {
       console.log(`   ✅ ${blogFiles.length} 个 Markdown 文件已拷贝到 ${opts.blogOutput}/`);
     }
 
+    if (hasAiDocsSrc) {
+      console.log('📁 拷贝 ai-docs/ ...');
+      copyDirRecursive(aiDocsSource, opts.aiDocsOutput);
+      const aiDocFiles = getAllFiles(aiDocsSource, f => /\.(md|mdx)$/i.test(f));
+      console.log(`   ✅ ${aiDocFiles.length} 个 Markdown 文件已拷贝到 ${opts.aiDocsOutput}/`);
+    }
+
     console.log('\n🎉 开发模式: 所有文件已拷贝, 运行 npm start 即可预览');
     return;
   }
@@ -406,6 +421,7 @@ function main() {
 
   let docsCount = 0;
   let blogCount = 0;
+  let aiDocsCount = 0;
   let nonMdCount = 0;
 
   // --- 处理 docs ---
@@ -443,6 +459,46 @@ function main() {
         docsCount++;
       } else {
         // 非 Markdown 文件 (tag.json, 图片等): 直接拷贝
+        mkdirSync(dirname(outPath), { recursive: true });
+        copyFileSync(filePath, outPath);
+        nonMdCount++;
+      }
+    }
+  }
+
+  // --- 处理 ai-docs ---
+  if (hasAiDocsSrc) {
+    console.log('📁 处理 ai-docs/ ...');
+
+    const allFiles = getAllFiles(aiDocsSource);
+
+    for (const filePath of allFiles) {
+      const relPath = relative(aiDocsSource, filePath);
+      const outPath = join(opts.aiDocsOutput, relPath);
+
+      if (/\.(md|mdx)$/i.test(filePath)) {
+        const content = readFileSync(filePath, 'utf8');
+        const { frontmatter, body } = parseFrontmatter(content);
+
+        const mdxOutPath = outPath.replace(/\.md$/, '.mdx');
+        mkdirSync(dirname(mdxOutPath), { recursive: true });
+
+        const placeholder = generateDocsPlaceholder({
+          frontmatter,
+          body,
+          rsaPublicPem: opts.pubkeyPem,
+        });
+
+        writeFileSync(mdxOutPath, placeholder, 'utf8');
+
+        if (mdxOutPath !== outPath && existsSync(outPath)) {
+          unlinkSync(outPath);
+          console.log(`  🗑️  ai-docs: 已删除残留明文 ${basename(outPath)}`);
+        }
+
+        console.log(`  🔒 ai-docs: ${relPath} → ${basename(mdxOutPath)} (${body.length} chars encrypted)`);
+        aiDocsCount++;
+      } else {
         mkdirSync(dirname(outPath), { recursive: true });
         copyFileSync(filePath, outPath);
         nonMdCount++;
@@ -506,6 +562,7 @@ function main() {
       stats: {
         docs: docsCount,
         blog: blogCount,
+        aiDocs: aiDocsCount,
         assets: nonMdCount,
       }
     };
@@ -517,7 +574,7 @@ function main() {
   }
 
   console.log('\n' + '━'.repeat(60));
-  console.log(`🎉 完成! docs: ${docsCount}, blog: ${blogCount}, 资源: ${nonMdCount}`);
+  console.log(`🎉 完成! docs: ${docsCount}, blog: ${blogCount}, ai-docs: ${aiDocsCount}, 资源: ${nonMdCount}`);
   console.log(`   所有内容已使用 RSA-OAEP + AES-256-GCM 混合加密`);
   console.log(`   🔓 公钥加密 → 即使泄露也无法解密`);
   console.log(`   🔐 私钥解密 → 只有浏览器插件持有`);
