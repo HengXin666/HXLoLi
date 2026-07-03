@@ -8,24 +8,24 @@ EMAIL = "hxloli@qq.com"
 VERSION = "0.0.1"
 
 
-def findSkillsRoot() -> Path:
+def findCommandsRoot() -> Path:
     current = Path.cwd().resolve()
 
     while True:
-        candidate = current / ".claude" / "skills"
+        candidate = current / ".agents" / "commands"
 
         if candidate.exists():
             return candidate
 
         if current.parent == current:
             raise RuntimeError(
-                "Cannot find '.claude/skills' from current path"
+                "Cannot find '.agents/commands' from current path"
             )
 
         current = current.parent
 
 
-SKILL_TEMPLATE = """---
+COMMAND_TEMPLATE = """---
 name: {name}
 description: 描述和触发词语
 metadata:
@@ -60,20 +60,20 @@ TODO
 """
 
 
-def createSkill(skillName: str) -> None:
-    skillsRoot = findSkillsRoot()
+def createCommand(commandName: str) -> None:
+    commandsRoot = findCommandsRoot()
 
-    skillRoot = skillsRoot / skillName
+    commandRoot = commandsRoot / commandName
 
-    skillRoot.mkdir(parents=True, exist_ok=False)
+    commandRoot.mkdir(parents=True, exist_ok=False)
 
-    (skillRoot / "docs").mkdir()
-    (skillRoot / "scripts").mkdir()
-    (skillRoot / "templates").mkdir()
+    (commandRoot / "docs").mkdir()
+    (commandRoot / "scripts").mkdir()
+    (commandRoot / "templates").mkdir()
 
-    (skillRoot / "SKILL.md").write_text(
-        SKILL_TEMPLATE.format(
-            name=skillName,
+    (commandRoot / "COMMAND.md").write_text(
+        COMMAND_TEMPLATE.format(
+            name=commandName,
             version=VERSION,
             author=AUTHOR,
             email=EMAIL,
@@ -81,23 +81,23 @@ def createSkill(skillName: str) -> None:
         encoding="utf-8",
     )
 
-    (skillRoot / "README.md").write_text(
+    (commandRoot / "README.md").write_text(
         README_TEMPLATE.format(
-            name=skillName,
+            name=commandName,
         ),
         encoding="utf-8",
     )
 
-    print(f"已创建 skill 于: {skillRoot}")
+    print(f"已创建 command 于: {commandRoot}")
 
 
 def main() -> int:
     if len(sys.argv) != 2:
         print(
-            f"Usage: {Path(sys.argv[0]).name} <skill-name>"
+            f"Usage: {Path(sys.argv[0]).name} <command-name>"
         )
         return 1
-    createSkill(sys.argv[1])
+    createCommand(sys.argv[1])
     return 0
 
 if __name__ == "__main__":
