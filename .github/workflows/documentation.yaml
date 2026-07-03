@@ -171,52 +171,60 @@ jobs:
 
       - name: 🗜️ 压缩超过 25MB 的静态资源 (Cloudflare 单文件限制)
         run: |
+          format_size() {
+            local bytes="$1"
+            numfmt --to=iec --suffix=B "$bytes" 2>/dev/null || echo "${bytes}B"
+          }
+
           echo "🔍 扫描超过 25MB 的文件..."
-          OVERSIZED=$(find ./build -type f -size +25M)
-          if [ -z "$OVERSIZED" ]; then
+          if ! find ./build -type f -size +25M -print -quit | grep -q .; then
             echo "✅ 没有超限文件"
             exit 0
           fi
-          echo "$OVERSIZED" | while read -r file; do
-            SIZE=$(du -h "$file" | cut -f1)
+
+          find ./build -type f -size +25M -print0 | while IFS= read -r -d '' file; do
+            SIZE=$(format_size "$(stat -c%s -- "$file")")
             EXT="${file##*.}"
-            EXT_LOWER=$(echo "$EXT" | tr '[:upper:]' '[:lower:]')
+            EXT_LOWER=$(printf '%s' "$EXT" | tr '[:upper:]' '[:lower:]')
             if [ "$EXT_LOWER" = "gif" ]; then
               WEBP="${file%.${EXT}}.webp"
-              echo "�️ 转换 GIF → WebP: $file ($SIZE)"
-              ffmpeg -i "$file" -vcodec libwebp -lossless 0 -q:v 75 -loop 0 \
-                -an -vsync 0 "$WEBP" -y 2>/dev/null
-              if [ -f "$WEBP" ]; then
-                NEW_SIZE=$(du -h "$WEBP" | cut -f1)
+              echo "🎞️ 转换 GIF → WebP: $file ($SIZE)"
+              if ffmpeg -i "$file" -vcodec libwebp -lossless 0 -q:v 75 -loop 0 \
+                -an -vsync 0 "$WEBP" -y 2>/dev/null && [ -f "$WEBP" ]; then
+                NEW_SIZE=$(format_size "$(stat -c%s -- "$WEBP")")
                 echo "   ✅ 转换成功: $WEBP ($NEW_SIZE)"
-                rm -f "$file"
+                rm -f -- "$file"
               else
                 echo "   ❌ 转换失败, 移除原文件"
-                rm -f "$file"
+                rm -f -- "$file" "$WEBP"
               fi
             elif echo "$EXT_LOWER" | grep -qE "^(png|jpg|jpeg)$"; then
               echo "🗜️ 压缩图片: $file ($SIZE)"
-              convert "$file" -quality 80 -resize '4096x4096>' "$file" 2>/dev/null
-              NEW_SIZE=$(du -h "$file" | cut -f1)
-              NEW_BYTES=$(stat -c%s "$file")
-              if [ "$NEW_BYTES" -gt 26214400 ]; then
-                echo "   ⚠️ 压缩后仍超限 ($NEW_SIZE), 移除"
-                rm -f "$file"
+              if convert "$file" -quality 80 -resize '4096x4096>' "$file" 2>/dev/null; then
+                NEW_BYTES=$(stat -c%s -- "$file")
+                NEW_SIZE=$(format_size "$NEW_BYTES")
+                if [ "$NEW_BYTES" -gt 26214400 ]; then
+                  echo "   ⚠️ 压缩后仍超限 ($NEW_SIZE), 移除"
+                  rm -f -- "$file"
+                else
+                  echo "   ✅ 压缩后: $NEW_SIZE"
+                fi
               else
-                echo "   ✅ 压缩后: $NEW_SIZE"
+                echo "   ❌ 压缩失败, 移除原文件"
+                rm -f -- "$file"
               fi
             else
               echo "🗑️ 无法压缩, 移除: $file ($SIZE)"
-              rm -f "$file"
+              rm -f -- "$file"
             fi
           done
+
           echo "🔍 兜底检查: 确保没有残留超限文件..."
-          REMAINING=$(find ./build -type f -size +25M)
-          if [ -n "$REMAINING" ]; then
+          if find ./build -type f -size +25M -print -quit | grep -q .; then
             echo "⚠️ 仍有超限文件, 强制删除:"
-            echo "$REMAINING" | while read -r f; do
-              echo "   🗑️ 删除: $f ($(du -h "$f" | cut -f1))"
-              rm -f "$f"
+            find ./build -type f -size +25M -print0 | while IFS= read -r -d '' f; do
+              echo "   🗑️ 删除: $f ($(format_size "$(stat -c%s -- "$f")"))"
+              rm -f -- "$f"
             done
           fi
           echo "✅ 超限文件处理完成"
