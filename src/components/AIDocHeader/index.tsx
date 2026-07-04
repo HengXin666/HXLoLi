@@ -40,7 +40,7 @@ export default function AIDocHeader({ className }: AIDocHeaderProps): ReactNode 
 
   const skillUrl = useMemo(() => {
     if (!skill) return undefined;
-    return `${GITHUB_REPO}/tree/main/.claude/skills/${skill}`;
+    return `${GITHUB_REPO}/tree/main/.agents/skills/${skill}`;
   }, [skill]);
 
   if (!created && !model && !skill && !tags?.length) {

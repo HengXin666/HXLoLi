@@ -1,23 +1,11 @@
 ---
 name: hx-make-ai-docs
-description: 反问方式沉淀 HXLoLi 笔记; 通过关键词 `沉淀笔记` 触发
-metadata:
-    version: 0.0.3
-    author: Heng_Xin
-    email: hxloli@qq.com
+description: 反问方式沉淀 HXLoLi ai-docs 笔记. Use when the user wants to create, refine, or maintain HXLoLi ai-docs notes, especially when they mention `沉淀笔记`, `ai-docs`, `.hx-mitemite.md`, HXLoLi Markdown, or need the local makeDoc.py template workflow.
 ---
 
 # hx-make-ai-docs
 
 ## 目标
-
-兼容旧的 `.agents/commands` 入口. Codex 当前可共享的仓库级工作流以 skill 为主, 因此真正的权威说明位于:
-
-```text
-.agents/skills/hx-make-ai-docs/SKILL.md
-```
-
-当用户以 command 方式提到 `hx-make-ai-docs` 时, 先读取该 skill 并按其流程执行. 禁止把脚本路径写死到仓库根目录下的 `plugins/`.
 
 作为 HXLoLi 的笔记编写助手. 需要基于用户的描述进行沉淀.
 

@@ -8,30 +8,26 @@ EMAIL = "hxloli@qq.com"
 VERSION = "0.0.1"
 
 
-def findCommandsRoot() -> Path:
+def findAgentsRoot() -> Path:
     current = Path.cwd().resolve()
 
     while True:
-        candidate = current / ".agents" / "commands"
+        candidate = current / ".agents"
 
-        if candidate.exists():
+        if candidate.is_dir():
             return candidate
 
         if current.parent == current:
             raise RuntimeError(
-                "Cannot find '.agents/commands' from current path"
+                "Cannot find '.agents' from current path"
             )
 
         current = current.parent
 
 
-COMMAND_TEMPLATE = """---
+SKILL_TEMPLATE = """---
 name: {name}
-description: 描述和触发词语
-metadata:
-    version: {version}
-    author: {author}
-    email: {email}
+description: TODO: 描述这个 Codex skill 的能力和触发场景.
 ---
 
 # {name}
@@ -48,56 +44,52 @@ TODO
 """
 
 
-README_TEMPLATE = """# {name}
+OPENAI_YAML_TEMPLATE = """interface:
+  display_name: "{name}"
+  short_description: "TODO: 补充 25-64 字简介"
+  default_prompt: "Use ${name} to TODO."
 
-## 说明
-
-TODO
-
-## 使用方法
-
-TODO
+policy:
+  allow_implicit_invocation: true
 """
 
 
-def createCommand(commandName: str) -> None:
-    commandsRoot = findCommandsRoot()
+def createSkill(commandName: str) -> None:
+    agentsRoot = findAgentsRoot()
 
-    commandRoot = commandsRoot / commandName
+    skillRoot = agentsRoot / "skills" / commandName
 
-    commandRoot.mkdir(parents=True, exist_ok=False)
+    skillRoot.mkdir(parents=True, exist_ok=False)
 
-    (commandRoot / "docs").mkdir()
-    (commandRoot / "scripts").mkdir()
-    (commandRoot / "templates").mkdir()
+    (skillRoot / "agents").mkdir()
+    (skillRoot / "docs").mkdir()
+    (skillRoot / "scripts").mkdir()
+    (skillRoot / "templates").mkdir()
 
-    (commandRoot / "COMMAND.md").write_text(
-        COMMAND_TEMPLATE.format(
-            name=commandName,
-            version=VERSION,
-            author=AUTHOR,
-            email=EMAIL,
-        ),
-        encoding="utf-8",
-    )
-
-    (commandRoot / "README.md").write_text(
-        README_TEMPLATE.format(
+    (skillRoot / "SKILL.md").write_text(
+        SKILL_TEMPLATE.format(
             name=commandName,
         ),
         encoding="utf-8",
     )
 
-    print(f"已创建 command 于: {commandRoot}")
+    (skillRoot / "agents" / "openai.yaml").write_text(
+        OPENAI_YAML_TEMPLATE.format(
+            name=commandName,
+        ),
+        encoding="utf-8",
+    )
+
+    print(f"已创建 Codex skill 于: {skillRoot}")
 
 
 def main() -> int:
     if len(sys.argv) != 2:
         print(
-            f"Usage: {Path(sys.argv[0]).name} <command-name>"
+            f"Usage: {Path(sys.argv[0]).name} <skill-name>"
         )
         return 1
-    createCommand(sys.argv[1])
+    createSkill(sys.argv[1])
     return 0
 
 if __name__ == "__main__":

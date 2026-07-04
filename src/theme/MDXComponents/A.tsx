@@ -3,6 +3,43 @@ import React, { type ReactNode } from 'react';
 import type { Props } from '@theme/MDXComponents/A';
 
 import HXLink from '@site/src/components/HXLink';
+import PptHtmlViewer from '@site/src/components/PptHtmlViewer';
+import matchRegex from '@site/src/utils/matchRegex';
+
+function getNodeText (node: ReactNode): string {
+    if (typeof node === 'string' || typeof node === 'number') {
+        return String(node);
+    }
+
+    if (Array.isArray(node)) {
+        return node.map(getNodeText).join('');
+    }
+
+    if (React.isValidElement(node)) {
+        const props = node.props as { children?: ReactNode };
+        return getNodeText(props.children);
+    }
+
+    return '';
+}
+
+function toCssWidth (value: string | undefined): string | undefined {
+    if (!value) return undefined;
+    return value.includes('%') ? value : `${value}px`;
+}
+
+function isHtmlHref (href: string): boolean {
+    const path = href.split(/[?#]/, 1)[0]?.toLowerCase() || '';
+    return path.endsWith('.html');
+}
+
+function stripPptSyntax (text: string): string {
+    return text
+        .replace(/##[wW]\d+%?##/g, '')
+        .replace(/(^|\s)#ppt(?=\s|##|$)/gi, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
 
 export default function MDXA (props: Props): ReactNode {
     /*
@@ -34,11 +71,27 @@ export default function MDXA (props: Props): ReactNode {
     } = props;
     */
 
+    const href = props.href || '';
+    const text = getNodeText(props.children);
+
+    if (href && isHtmlHref(href) && /(^|\s)#ppt(?=\s|##|$)/i.test(text)) {
+        const width = toCssWidth(matchRegex("##[wW](\\d+%?)##", text)) || '80%';
+        const title = stripPptSyntax(text) || href;
+
+        return (
+            <PptHtmlViewer
+                title={title}
+                src={href}
+                width={width}
+            />
+        );
+    }
+
     return (
         <span className="tailwind">
             <HXLink
-                title={typeof props.children === "string" ? props.children : ""}
-                url={props.href || ''}
+                title={text}
+                url={href}
             >
                 {props.children}
             </HXLink>

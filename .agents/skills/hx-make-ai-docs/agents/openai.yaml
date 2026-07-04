@@ -1,0 +1,8 @@
+interface:
+  display_name: "HX Make AI Docs"
+  short_description: "沉淀 HXLoLi ai-docs 笔记"
+  brand_color: "#2563EB"
+  default_prompt: "Use $hx-make-ai-docs to create or refine a HXLoLi ai-docs note with the local template workflow."
+
+policy:
+  allow_implicit_invocation: true

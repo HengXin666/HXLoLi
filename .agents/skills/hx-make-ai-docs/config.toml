@@ -1,0 +1,19 @@
+# Optional fallback for scripts/makeDoc.py only.
+#
+# This file is not read by Codex runtime and cannot prove the real model used
+# in the current chat. Prefer passing --model explicitly when accuracy matters:
+#
+#   uv run .agents/skills/hx-make-ai-docs/scripts/makeDoc.py \
+#     --model "gpt-5.5-xhigh" \
+#     --title "..." \
+#     --output "ai-docs/.../index.md"
+#
+# You can also set environment variables before running the script:
+#
+#   HX_AI_DOCS_MODEL="gpt-5.5" \
+#   HX_AI_DOCS_MODEL_REASONING_EFFORT="xhigh" \
+#   uv run .agents/skills/hx-make-ai-docs/scripts/makeDoc.py ...
+#
+# Uncomment only when you intentionally want a project-level fallback.
+# model = "gpt-5.5"
+# model_reasoning_effort = "xhigh"

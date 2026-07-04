@@ -8,5 +8,6 @@
         "RAII"
     ],
     "commentTranslate.browse.mode": "inplace",
-    "codingcopilot.autoRun": false
+    "codingcopilot.autoRun": false,
+    "window.title": "${rootName}${separator}${activeEditorShort} [WD:3659616bcf]"
 }
