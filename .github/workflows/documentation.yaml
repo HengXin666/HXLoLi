@@ -146,6 +146,19 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
 
+      - name: 为 GitHub Pages 构建
+        run: npm run build
+
+      - name: 📦 安装 ffmpeg (用于压缩超大 GIF)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg > /dev/null 2>&1
+          ffmpeg -version | head -1
+
+      - name: 🗜️ 优化 GitHub Pages 超大 GIF
+        timeout-minutes: 8
+        run: node scripts/optimize-large-assets.mjs --build-dir ./build --max-size 25 --only-gif --rewrite-references --gif-timeout 180
+
       - name: 部署到 Github Pages
         env:
           USE_SSH: true
@@ -153,7 +166,7 @@ jobs:
         run: |
           git config --global user.email "282000500@qq.com"
           git config --global user.name "Heng_Xin"
-          npm run deploy
+          npm run deploy -- --skip-build
 
       - name: 为 Cloudflare Workers 重新构建 (baseUrl=/)
         run: npm run build
@@ -163,71 +176,9 @@ jobs:
       - name: 拆分搜索索引 (Cloudflare Workers 单文件 ≤25MB)
         run: node scripts/split-search-index.mjs --max-size 20 --build-dir ./build
 
-      - name: 📦 安装 ffmpeg (用于压缩超大 GIF)
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg > /dev/null 2>&1
-          ffmpeg -version | head -1
-
-      - name: 🗜️ 压缩超过 25MB 的静态资源 (Cloudflare 单文件限制)
-        run: |
-          format_size() {
-            local bytes="$1"
-            numfmt --to=iec --suffix=B "$bytes" 2>/dev/null || echo "${bytes}B"
-          }
-
-          echo "🔍 扫描超过 25MB 的文件..."
-          if ! find ./build -type f -size +25M -print -quit | grep -q .; then
-            echo "✅ 没有超限文件"
-            exit 0
-          fi
-
-          find ./build -type f -size +25M -print0 | while IFS= read -r -d '' file; do
-            SIZE=$(format_size "$(stat -c%s -- "$file")")
-            EXT="${file##*.}"
-            EXT_LOWER=$(printf '%s' "$EXT" | tr '[:upper:]' '[:lower:]')
-            if [ "$EXT_LOWER" = "gif" ]; then
-              WEBP="${file%.${EXT}}.webp"
-              echo "🎞️ 转换 GIF → WebP: $file ($SIZE)"
-              if ffmpeg -i "$file" -vcodec libwebp -lossless 0 -q:v 75 -loop 0 \
-                -an -vsync 0 "$WEBP" -y 2>/dev/null && [ -f "$WEBP" ]; then
-                NEW_SIZE=$(format_size "$(stat -c%s -- "$WEBP")")
-                echo "   ✅ 转换成功: $WEBP ($NEW_SIZE)"
-                rm -f -- "$file"
-              else
-                echo "   ❌ 转换失败, 移除原文件"
-                rm -f -- "$file" "$WEBP"
-              fi
-            elif echo "$EXT_LOWER" | grep -qE "^(png|jpg|jpeg)$"; then
-              echo "🗜️ 压缩图片: $file ($SIZE)"
-              if convert "$file" -quality 80 -resize '4096x4096>' "$file" 2>/dev/null; then
-                NEW_BYTES=$(stat -c%s -- "$file")
-                NEW_SIZE=$(format_size "$NEW_BYTES")
-                if [ "$NEW_BYTES" -gt 26214400 ]; then
-                  echo "   ⚠️ 压缩后仍超限 ($NEW_SIZE), 移除"
-                  rm -f -- "$file"
-                else
-                  echo "   ✅ 压缩后: $NEW_SIZE"
-                fi
-              else
-                echo "   ❌ 压缩失败, 移除原文件"
-                rm -f -- "$file"
-              fi
-            else
-              echo "🗑️ 无法压缩, 移除: $file ($SIZE)"
-              rm -f -- "$file"
-            fi
-          done
-
-          echo "🔍 兜底检查: 确保没有残留超限文件..."
-          if find ./build -type f -size +25M -print -quit | grep -q .; then
-            echo "⚠️ 仍有超限文件, 强制删除:"
-            find ./build -type f -size +25M -print0 | while IFS= read -r -d '' f; do
-              echo "   🗑️ 删除: $f ($(format_size "$(stat -c%s -- "$f")"))"
-              rm -f -- "$f"
-            done
-          fi
-          echo "✅ 超限文件处理完成"
+      - name: 🗜️ 优化 Cloudflare Workers 超大静态资源
+        timeout-minutes: 10
+        run: node scripts/optimize-large-assets.mjs --build-dir ./build --max-size 25 --rewrite-references --remove-unsupported --remove-remaining --gif-timeout 180 --image-timeout 120
 
       - name: 生成 wrangler.toml 和 worker.js
         run: |

@@ -1,0 +1,8 @@
+interface:
+  display_name: "HX Look Video"
+  short_description: "从视频、音频、字幕提取 transcript 并生成可靠中文总结"
+  brand_color: "#0EA5E9"
+  default_prompt: "Use $hx-look-video to summarize a video, audio file, URL, or transcript with evidence from the transcript."
+
+policy:
+  allow_implicit_invocation: true
