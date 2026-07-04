@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>react-bits 分门别类学习总览</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0f0e17;
+      --bg-2: #171625;
+      --panel: rgba(255, 255, 254, 0.06);
+      --panel-strong: rgba(255, 255, 254, 0.1);
+      --line: rgba(255, 255, 254, 0.14);
+      --text: #fffffe;
+      --muted: #a7a9be;
+      --orange: #ff6b35;
+      --amber: #f4a261;
+      --coral: #e76f51;
+      --red: #e71d36;
+      --teal: #2ec4b6;
+      --blue: #4a90d9;
+      --violet: #7f5af0;
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.32);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    body {
+      min-width: 320px;
+    }
+
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(255, 255, 254, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 254, 0.035) 1px, transparent 1px),
+        radial-gradient(circle at 15% 15%, rgba(255, 107, 53, 0.2), transparent 28rem),
+        radial-gradient(circle at 82% 78%, rgba(46, 196, 182, 0.16), transparent 26rem),
+        var(--bg);
+      background-size: 44px 44px, 44px 44px, auto, auto, auto;
+    }
+
+    .deck::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(255, 107, 53, 0.08) 20%, transparent 38%),
+        linear-gradient(300deg, transparent 0%, rgba(74, 144, 217, 0.08) 18%, transparent 34%);
+      opacity: 0.75;
+    }
+
+    .particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--amber);
+      opacity: 0;
+      animation: float-particle linear infinite;
+    }
+
+    @keyframes float-particle {
+      0% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+      12% {
+        opacity: 0.75;
+      }
+      88% {
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-12vh);
+        opacity: 0;
+      }
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.35rem;
+      padding: 4.8rem 5rem 5.6rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(1.4rem);
+      transition: opacity 480ms ease, transform 480ms ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    .slide-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      width: fit-content;
+      padding: 0.45rem 0.7rem;
+      border-left: 3px solid var(--orange);
+      background: rgba(255, 107, 53, 0.12);
+      color: var(--amber);
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .title-xl {
+      max-width: 13ch;
+      font-size: 4.25rem;
+      line-height: 1.05;
+      font-weight: 950;
+    }
+
+    .title-lg {
+      max-width: 24ch;
+      font-size: 3.05rem;
+      line-height: 1.16;
+      font-weight: 920;
+    }
+
+    .title-md {
+      font-size: 2.35rem;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .lead {
+      max-width: 58rem;
+      color: var(--muted);
+      font-size: 1.28rem;
+      line-height: 1.68;
+    }
+
+    .lead strong,
+    .accent {
+      color: var(--text);
+      font-weight: 900;
+    }
+
+    .mark-orange {
+      color: var(--orange);
+    }
+
+    .mark-teal {
+      color: var(--teal);
+    }
+
+    .mark-red {
+      color: var(--red);
+    }
+
+    .mark-amber {
+      color: var(--amber);
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .underline {
+      text-decoration: underline;
+      text-decoration-thickness: 0.2rem;
+      text-underline-offset: 0.32rem;
+      text-decoration-color: var(--orange);
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 0.3rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.25rem;
+      padding: 0.45rem 0.72rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 254, 0.06);
+      color: var(--text);
+      font-size: 0.92rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pill i {
+      color: var(--orange);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.05rem;
+      width: min(100%, 72rem);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      width: min(100%, 74rem);
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.9rem;
+      width: min(100%, 76rem);
+    }
+
+    .card {
+      position: relative;
+      min-height: 9.6rem;
+      padding: 1.25rem;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--orange);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .card.teal {
+      border-left-color: var(--teal);
+    }
+
+    .card.blue {
+      border-left-color: var(--blue);
+    }
+
+    .card.violet {
+      border-left-color: var(--violet);
+    }
+
+    .card.red {
+      border-left-color: var(--red);
+    }
+
+    .card.amber {
+      border-left-color: var(--amber);
+    }
+
+    .card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 0.7rem;
+      font-size: 1.25rem;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .card h3 i {
+      color: var(--orange);
+    }
+
+    .card.teal h3 i {
+      color: var(--teal);
+    }
+
+    .card.blue h3 i {
+      color: var(--blue);
+    }
+
+    .card.violet h3 i {
+      color: var(--violet);
+    }
+
+    .card.red h3 i {
+      color: var(--red);
+    }
+
+    .card.amber h3 i {
+      color: var(--amber);
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.5;
+    }
+
+    .card ul {
+      display: grid;
+      gap: 0.42rem;
+      list-style: none;
+    }
+
+    .card li::before {
+      content: "";
+      display: inline-block;
+      width: 0.48rem;
+      height: 0.48rem;
+      margin-right: 0.55rem;
+      background: var(--orange);
+      vertical-align: 0.08rem;
+    }
+
+    .card.teal li::before {
+      background: var(--teal);
+    }
+
+    .card.blue li::before {
+      background: var(--blue);
+    }
+
+    .card.violet li::before {
+      background: var(--violet);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1.4fr;
+      gap: 1.2rem;
+      align-items: stretch;
+      width: min(100%, 76rem);
+    }
+
+    .metric-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+      min-height: 23rem;
+      padding: 1.7rem;
+      border-left: 5px solid var(--orange);
+      background: rgba(255, 107, 53, 0.11);
+      box-shadow: var(--shadow);
+    }
+
+    .metric-number {
+      font-size: 5rem;
+      line-height: 1;
+      font-weight: 960;
+      color: var(--orange);
+    }
+
+    .metric-label {
+      color: var(--text);
+      font-size: 1.38rem;
+      font-weight: 900;
+    }
+
+    .metric-note {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.58;
+    }
+
+    .bars {
+      display: grid;
+      gap: 0.82rem;
+      padding: 1.2rem;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 11.5rem 1fr 3rem;
+      gap: 0.9rem;
+      align-items: center;
+    }
+
+    .bar-row span {
+      color: var(--text);
+      font-size: 0.98rem;
+      font-weight: 850;
+    }
+
+    .bar-track {
+      height: 0.75rem;
+      background: rgba(255, 255, 254, 0.09);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: var(--w);
+      background: linear-gradient(90deg, var(--orange), var(--amber));
+      transform-origin: left;
+    }
+
+    .bar-row:nth-child(2) .bar-fill {
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+    }
+
+    .bar-row:nth-child(3) .bar-fill {
+      background: linear-gradient(90deg, var(--violet), var(--blue));
+    }
+
+    .bar-row:nth-child(4) .bar-fill,
+    .bar-row:nth-child(5) .bar-fill,
+    .bar-row:nth-child(6) .bar-fill {
+      background: linear-gradient(90deg, var(--coral), var(--orange));
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.85rem;
+      width: min(100%, 78rem);
+      align-items: stretch;
+    }
+
+    .flow-step {
+      position: relative;
+      min-height: 12rem;
+      padding: 1.2rem 1rem;
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--orange);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .flow-step::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -0.85rem;
+      width: 0.85rem;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .flow-step:last-child::after {
+      display: none;
+    }
+
+    .flow-step i {
+      margin-bottom: 0.85rem;
+      color: var(--orange);
+      font-size: 1.75rem;
+    }
+
+    .flow-step h3 {
+      margin-bottom: 0.48rem;
+      font-size: 1.08rem;
+      line-height: 1.3;
+      font-weight: 900;
+    }
+
+    .flow-step p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .variant-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      width: min(100%, 76rem);
+    }
+
+    .variant {
+      min-height: 14rem;
+      padding: 1.25rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 254, 0.06);
+      box-shadow: var(--shadow);
+    }
+
+    .variant-code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 4.4rem;
+      height: 4.4rem;
+      margin-bottom: 1rem;
+      background: rgba(255, 107, 53, 0.14);
+      color: var(--orange);
+      font-size: 1.08rem;
+      font-weight: 960;
+    }
+
+    .variant h3 {
+      margin-bottom: 0.55rem;
+      font-size: 1.25rem;
+      font-weight: 900;
+    }
+
+    .variant p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+
+    .vs-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: center;
+      width: min(100%, 76rem);
+    }
+
+    .vs-panel {
+      min-height: 22rem;
+      padding: 1.45rem;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .vs-panel.bad {
+      border-left: 5px solid var(--red);
+    }
+
+    .vs-panel.good {
+      border-left: 5px solid var(--teal);
+    }
+
+    .vs-panel h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+      font-size: 1.35rem;
+      font-weight: 920;
+    }
+
+    .vs-panel.bad h3 i {
+      color: var(--red);
+    }
+
+    .vs-panel.good h3 i {
+      color: var(--teal);
+    }
+
+    .vs-panel ul {
+      display: grid;
+      gap: 0.7rem;
+      list-style: none;
+    }
+
+    .vs-panel li {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .vs-token {
+      display: grid;
+      place-items: center;
+      width: 4.5rem;
+      height: 4.5rem;
+      color: var(--orange);
+      font-size: 1.5rem;
+      font-weight: 960;
+      border: 1px solid rgba(255, 107, 53, 0.4);
+      background: rgba(255, 107, 53, 0.12);
+    }
+
+    .warn-box,
+    .success-box {
+      width: min(100%, 72rem);
+      padding: 1.15rem 1.35rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 254, 0.06);
+      box-shadow: var(--shadow);
+    }
+
+    .warn-box {
+      border-left: 5px solid var(--red);
+    }
+
+    .success-box {
+      border-left: 5px solid var(--teal);
+    }
+
+    .warn-box h3,
+    .success-box h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.62rem;
+      margin-bottom: 0.55rem;
+      font-size: 1.25rem;
+      font-weight: 900;
+    }
+
+    .warn-box h3 i {
+      color: var(--red);
+    }
+
+    .success-box h3 i {
+      color: var(--teal);
+    }
+
+    .warn-box p,
+    .success-box p {
+      color: var(--muted);
+      font-size: 1.04rem;
+      line-height: 1.55;
+    }
+
+    .code-box {
+      width: min(100%, 72rem);
+      padding: 1.2rem;
+      border: 1px solid rgba(255, 107, 53, 0.24);
+      border-left: 5px solid var(--orange);
+      background: rgba(15, 14, 23, 0.84);
+      color: #f5f5f5;
+      box-shadow: var(--shadow);
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      overflow-wrap: anywhere;
+    }
+
+    .doc-preview {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 1.2rem;
+      align-items: stretch;
+      width: min(100%, 78rem);
+      min-height: 25rem;
+    }
+
+    .doc-info {
+      padding: 1.35rem;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--orange);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .doc-info h3 {
+      margin-bottom: 0.8rem;
+      font-size: 1.35rem;
+      font-weight: 920;
+    }
+
+    .doc-info p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.56;
+    }
+
+    .doc-frame-wrap {
+      position: relative;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 254, 0.06);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .doc-frame-label {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.55rem;
+      background: rgba(15, 14, 23, 0.84);
+      color: var(--amber);
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .doc-frame {
+      width: 100%;
+      height: 100%;
+      min-height: 25rem;
+      border: 0;
+      background: #101018;
+      transform: scale(0.98);
+      transform-origin: center;
+    }
+
+    .html-panel {
+      display: flex;
+      flex-direction: column;
+      min-height: 25rem;
+      border: 1px solid var(--line);
+      background: rgba(15, 14, 23, 0.84);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .html-window-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      min-height: 2.6rem;
+      padding: 0.55rem 0.8rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 254, 0.06);
+      color: var(--amber);
+      font-size: 0.9rem;
+      font-weight: 850;
+    }
+
+    .html-lines {
+      display: grid;
+      gap: 0.75rem;
+      padding: 1rem;
+      color: var(--muted);
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    .html-line {
+      display: grid;
+      grid-template-columns: 2.2rem 1fr;
+      gap: 0.8rem;
+      align-items: start;
+      min-width: 0;
+    }
+
+    .html-line span:first-child {
+      color: rgba(255, 255, 254, 0.38);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .html-line code {
+      color: var(--text);
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .html-tag {
+      color: var(--orange);
+    }
+
+    .html-text {
+      color: var(--teal);
+    }
+
+    .html-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: fit-content;
+      margin-top: 1rem;
+      padding: 0.62rem 0.82rem;
+      border: 1px solid rgba(255, 107, 53, 0.4);
+      background: rgba(255, 107, 53, 0.14);
+      color: var(--text);
+      font-size: 0.98rem;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .html-link:hover {
+      background: rgba(255, 107, 53, 0.22);
+    }
+
+    .quote {
+      max-width: 64rem;
+      padding: 1.6rem 1.8rem;
+      border-left: 6px solid var(--orange);
+      background: rgba(255, 107, 53, 0.12);
+      color: var(--text);
+      font-size: 1.7rem;
+      line-height: 1.48;
+      font-weight: 850;
+      box-shadow: var(--shadow);
+    }
+
+    .final-statement {
+      max-width: 78rem;
+      font-size: 2.9rem;
+      line-height: 1.22;
+      font-weight: 960;
+    }
+
+    .source-line {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .source-line code {
+      color: var(--amber);
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+
+    .page-number {
+      position: fixed;
+      top: 1.35rem;
+      left: 1.55rem;
+      z-index: 30;
+      color: rgba(255, 255, 254, 0.75);
+      font-size: 0.9rem;
+      font-weight: 850;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .deck-title {
+      position: fixed;
+      top: 1.35rem;
+      right: 1.55rem;
+      z-index: 30;
+      color: rgba(255, 255, 254, 0.55);
+      font-size: 0.82rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      position: fixed;
+      left: 50%;
+      bottom: 1.1rem;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.55rem;
+      border: 1px solid rgba(255, 255, 254, 0.14);
+      background: rgba(15, 14, 23, 0.78);
+      box-shadow: var(--shadow);
+      transform: translateX(-50%);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav button {
+      display: inline-grid;
+      place-items: center;
+      width: 2.55rem;
+      height: 2.55rem;
+      border: 1px solid rgba(255, 255, 254, 0.12);
+      background: rgba(255, 255, 254, 0.08);
+      color: var(--text);
+      cursor: pointer;
+      transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+    }
+
+    .nav button:hover {
+      border-color: rgba(255, 107, 53, 0.55);
+      background: rgba(255, 107, 53, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .nav button:focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: 2px;
+    }
+
+    .nav button:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .nav-count {
+      min-width: 5.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 850;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .anim-item {
+      opacity: 0;
+      transform: translateY(1.4rem);
+      transition: opacity 620ms ease, transform 620ms ease;
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .slide.active .anim-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide.active .bar-fill.anim-item.visible {
+      animation: grow-x 900ms ease both;
+    }
+
+    @keyframes grow-x {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .slide {
+        padding: 4.4rem 1.35rem 5.4rem;
+        justify-content: flex-start;
+        overflow-y: auto;
+      }
+
+      .title-xl {
+        max-width: 100%;
+        font-size: 2.45rem;
+      }
+
+      .title-lg {
+        max-width: 100%;
+        font-size: 2.05rem;
+      }
+
+      .title-md {
+        font-size: 1.65rem;
+      }
+
+      .lead {
+        font-size: 1.02rem;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .metric-grid,
+      .variant-grid,
+      .doc-preview,
+      .vs-row {
+        grid-template-columns: 1fr;
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-step {
+        min-height: auto;
+      }
+
+      .flow-step::after,
+      .vs-token {
+        display: none;
+      }
+
+      .bar-row {
+        grid-template-columns: 7.5rem 1fr 2.5rem;
+      }
+
+      .metric-main {
+        min-height: auto;
+      }
+
+      .metric-number {
+        font-size: 3.4rem;
+      }
+
+      .quote {
+        font-size: 1.18rem;
+      }
+
+      .final-statement {
+        font-size: 2rem;
+      }
+
+      .doc-frame-wrap {
+        min-height: 20rem;
+      }
+
+      .doc-frame,
+      .html-panel {
+        min-height: 20rem;
+      }
+
+      .deck-title {
+        display: none;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .slide {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .title-xl {
+        font-size: 2.05rem;
+      }
+
+      .title-lg {
+        font-size: 1.72rem;
+      }
+
+      .bar-row {
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+      }
+
+      .nav {
+        bottom: 0.7rem;
+      }
+
+      .nav-count {
+        min-width: 4.6rem;
+      }
+
+      .card,
+      .variant,
+      .doc-info,
+      .warn-box,
+      .success-box,
+      .code-box {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-live="polite">
+    <div class="particles" aria-hidden="true" id="particles"></div>
+    <div class="page-number" id="pageNumber">01 / 12</div>
+    <div class="deck-title">react-bits overview</div>
+
+    <section class="slide active" data-title="封面">
+      <div class="slide-kicker anim-item" style="--delay: 0ms"><i class="fa-solid fa-layer-group"></i> Project Study Overview</div>
+      <h1 class="title-xl anim-item" style="--delay: 90ms">react-bits <span class="mark-orange">分门别类</span>学习</h1>
+      <p class="lead anim-item" style="--delay: 180ms">
+        这不是逐个翻译 134 个组件，而是把它压成一张可用于选型、迁移和复盘的分类地图。
+      </p>
+      <div class="meta-row anim-item" style="--delay: 270ms">
+        <span class="pill"><i class="fa-brands fa-react"></i> React 动效源码库</span>
+        <span class="pill"><i class="fa-solid fa-code-branch"></i> f292047</span>
+        <span class="pill"><i class="fa-solid fa-calendar-days"></i> 2026-07-04</span>
+        <span class="pill"><i class="fa-solid fa-file-code"></i> Markdown + Built HTML</span>
+      </div>
+    </section>
+
+    <section class="slide" data-title="核心定位">
+      <div class="slide-kicker anim-item"><i class="fa-solid fa-bullseye"></i> 核心定位</div>
+      <h2 class="title-lg anim-item" style="--delay: 90ms">它更像 <span class="underline">源码片段注册表</span>，不是低成本运行时 UI 库</h2>
+      <div class="vs-row">
+        <div class="vs-panel bad anim-item" style="--delay: 180ms">
+          <h3><i class="fa-solid fa-circle-xmark"></i> 不要这样理解</h3>
+          <ul>
+            <li>全量安装、全站堆动效</li>
+            <li>把它当基础 UI 组件库替代品</li>
+            <li>忽略 WebGL、3D、鼠标跟随的性能成本</li>
+          </ul>
+        </div>
+        <div class="vs-token anim-item" style="--delay: 260ms">VS</div>
+        <div class="vs-panel good anim-item" style="--delay: 340ms">
+          <h3><i class="fa-solid fa-circle-check"></i> 更合理的用法</h3>
+          <ul>
+            <li>只挑 1 到 3 个高收益视觉点</li>
+            <li>优先选择匹配技术栈的源码变体</li>
+            <li>复制后自己负责升级、降级和维护</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="四大分类">
+      <div class="slide-kicker anim-item"><i class="fa-solid fa-table-cells-large"></i> 分类地图</div>
+      <h2 class="title-lg anim-item" style="--delay: 90ms">134 个组件可以先按 <span class="mark-orange">四类需求</span>进入</h2>
+      <div class="grid-4">
+        <article class="card anim-item" style="--delay: 170ms">
+          <h3><i class="fa-solid fa-font"></i> TextAnimations</h3>
+          <p><strong class="mark-orange">23</strong> 个。标题、slogan、数字指标、滚动揭示和文字扰动。</p>
+        </article>
+        <article class="card teal anim-item" style="--delay: 260ms">
+          <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Animations</h3>
+          <p><strong class="mark-teal">30</strong> 个。进入、悬停、边框、鼠标反馈和局部视觉效果。</p>
+        </article>
+        <article class="card blue anim-item" style="--delay: 350ms">
+          <h3><i class="fa-solid fa-cubes"></i> Components</h3>
+          <p><strong class="mark-amber">36</strong> 个。卡片、导航、画廊、dock、stepper、profile 等完整片段。</p>
+        </article>
+        <article class="card violet anim-item" style="--delay: 440ms">
+          <h3><i class="fa-solid fa-panorama"></i> Backgrounds</h3>
+          <p><strong class="mark-red">45</strong> 个。shader、canvas、3D、粒子、网格、光效背景。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" data-title="选型入口">
+      <div class="slide-kicker anim-item"><i class="fa-solid fa-signs-post"></i> 怎么选</div>
+      <h2 class="title-lg anim-item" style="--delay: 90ms">先问页面需要什么，再进入对应分类</h2>
+      <div class="grid-2">
+        <article class="card anim-item" style="--delay: 170ms">
+          <h3><i class="fa-solid fa-heading"></i> 标题需要记忆点</h3>
+          <p>先看 <strong>TextAnimations</strong>。优先从 SplitText、BlurText、CountUp、RotatingText 开始。</p>
+        </article>
+        <article class="card teal anim-item" style="--delay: 250ms">
+          <h3><i class="fa-solid fa-computer-mouse"></i> 交互需要反馈</h3>
+          <p>先看 <strong>Animations</strong>。AnimatedContent、FadeContent、GlareHover 更容易局部接入。</p>
+        </article>
+        <article class="card blue anim-item" style="--delay: 330ms">
+          <h3><i class="fa-solid fa-window-restore"></i> 需要完整 UI 片段</h3>
+          <p>先看 <strong>Components</strong>。画廊、卡片、导航类要先和现有设计系统对齐。</p>
+        </article>
+        <article class="card violet anim-item" style="--delay: 410ms">
+          <h3><i class="fa-solid fa-chart-area"></i> 首屏需要氛围</h3>
+          <p>先看 <strong>Backgrounds</strong>。博客和文档站应优先保证正文可读性。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" data-title="产品闭环">
+      <div class="slide-kicker anim-item"><i class="fa-solid fa-diagram-project"></i> Product Loop</div>
+      <h2 class="title-lg anim-item" style="--delay: 90ms">最值得学的是从元数据到分发的闭环</h2>
+      <div class="flow">
+        <article class="flow-step anim-item" style="--delay: 160ms">
+          <i class="fa-solid fa-database"></i>
+          <h3>componentMetadata</h3>
+          <p>组件名称、分类、描述、文档 URL 和视频地址的单一来源。</p>
+        </article>
+        <article class="flow-step anim-item" style="--delay: 240ms">
+          <i class="fa-solid fa-book-open"></i>
+          <h3>Docs</h3>
+          <p>侧栏、页面、Preview、Props、Dependencies 和 Code 面板。</p>
+        </article>
+        <article class="flow-step anim-item" style="--delay: 320ms">
+          <i class="fa-solid fa-box-open"></i>
+          <h3>Registry</h3>
+          <p>jsrepo 生成 shadcn/jsrepo 可拉取的 JSON。</p>
+        </article>
+        <article class="flow-step anim-item" style="--delay: 400ms">
+          <i class="fa-solid fa-terminal"></i>
+          <h3>CLI</h3>
+          <p>用户按组件和变体拉取源码，而不是引入整个库。</p>
+        </article>
+        <article class="flow-step anim-item" style="--delay: 480ms">
+          <i class="fa-solid fa-robot"></i>
+          <h3>llms.txt</h3>
+          <p>为 AI agent 提供压缩、稳定、分类好的机器可读索引。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" data-title="实现变体">
+      <div class="slide-kicker anim-item"><i class="fa-solid fa-code"></i> Variant Strategy</div>
+      <h2 class="title-lg anim-item" style="--delay: 90ms">每个组件默认维护四个实现变体</h2>
+      <div class="variant-grid">
+        <article class="variant anim-item" style="--delay: 170ms">
+          <div class="variant-code">JS<br>CSS</div>
+          <h3>普通 React + CSS</h3>
+          <p>路径：src/content。适合非 TypeScript、非 Tailwind 项目。</p>
+        </article>
+        <article class="variant anim-item" style="--delay: 250ms">
+          <div class="variant-code">JS<br>TW</div>
+          <h3>JavaScript + Tailwind</h3>
+          <p>路径：src/tailwind。适合轻量复制到 Tailwind 项目。</p>
+        </article>
+        <article class="variant anim-item" style="--delay: 330ms">
+          <div class="variant-code">TS<br>CSS</div>
+          <h3>TypeScript + CSS</h3>
+          <p>路径：src/ts-default。类型明确，样式隔离更直观。</p>
+        </article>
+        <article class="variant anim-item" style="--delay: 410ms">
+          <div class="variant-code">TS<br>TW</div>
+          <h3>TypeScript + Tailwind</h3>
+          <p>路径：src/ts-tailwind。对 HXLoLi 这类 TS 项目更值得优先看。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" data-title="依赖成本">
+      <div class="slide-kicker anim-item"><i class="fa-solid fa-gauge-high"></i> Dependency Cost</div>
+      <h2 class="title-lg anim-item" style="--delay: 90ms">“只装所选组件依赖”不等于“每个组件都轻”</h2>
+      <div class="metric-grid">
+        <aside class="metric-main anim-item" style="--delay: 180ms">
+          <div class="metric-number">30</div>
+          <div class="metric-label">ogl 出现次数最高</div>
+          <p class="metric-note">Backgrounds 和 shader 类效果很吸睛，但也是移动端和低端设备上最需要降级的一组。</p>
+        </aside>
+        <div class="bars anim-item" style="--delay: 270ms">
+          <div class="bar-row"><span>ogl</span><div class="bar-track"><div class="bar-fill anim-item" style="--w: 100%"></div></div><span>30</span></div>
+          <div class="bar-row"><span>gsap</span><div class="bar-track"><div class="bar-fill anim-item" style="--w: 80%"></div></div><span>24</span></div>
+          <div class="bar-row"><span>three</span><div class="bar-track"><div class="bar-fill anim-item" style="--w: 67%"></div></div><span>20</span></div>
+          <div class="bar-row"><span>motion</span><div class="bar-track"><div class="bar-fill anim-item" style="--w: 60%"></div></div><span>18</span></div>
+          <div class="bar-row"><span>@react-three/fiber</span><div class="bar-track"><div class="bar-fill anim-item" style="--w: 20%"></div></div><span>6</span></div>
+          <div class="bar-row"><span>@react-three/drei</span><div class="bar-track"><div class="bar-fill anim-item" style="--w: 17%"></div></div><span>5</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="风险边界">
+      <div class="slide-kicker anim-item"><i class="fa-solid fa-shield-halved"></i> Risk Boundary</div>
+      <h2 class="title-lg anim-item" style="--delay: 90ms">复用前必须把边界写清楚</h2>
+      <div class="grid-3">
+        <article class="card red anim-item" style="--delay: 170ms">
+          <h3><i class="fa-solid fa-microchip"></i> 性能边界</h3>
+          <p>一屏 1 到 2 个主视觉动效通常已经足够，shader、3D、cursor-follow 要谨慎。</p>
+        </article>
+        <article class="card amber anim-item" style="--delay: 250ms">
+          <h3><i class="fa-solid fa-mobile-screen"></i> 移动端边界</h3>
+          <p>WebGL、canvas、鼠标类交互需要关闭、静态图或低复杂度替代方案。</p>
+        </article>
+        <article class="card blue anim-item" style="--delay: 330ms">
+          <h3><i class="fa-solid fa-server"></i> SSR 边界</h3>
+          <p>搬到 Docusaurus 或 Next 时，要处理 window、document、WebGL 和动态 import。</p>
+        </article>
+        <article class="card teal anim-item" style="--delay: 410ms">
+          <h3><i class="fa-solid fa-screwdriver-wrench"></i> 维护边界</h3>
+          <p>复制源码之后，上游更新不会自动进入项目，后续 bugfix 要人工追踪。</p>
+        </article>
+        <article class="card violet anim-item" style="--delay: 490ms">
+          <h3><i class="fa-solid fa-scale-balanced"></i> License 边界</h3>
+          <p>MIT + Commons Clause 可以用于应用和网站，但限制再售卖、再授权或再分发组件本身。</p>
+        </article>
+        <article class="card anim-item" style="--delay: 570ms">
+          <h3><i class="fa-solid fa-palette"></i> 一致性边界</h3>
+          <p>完整 UI 片段最容易和已有设计系统冲突，接入前先做视觉归一。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" data-title="HXLoLi 落地">
+      <div class="slide-kicker anim-item"><i class="fa-solid fa-route"></i> HXLoLi Adoption</div>
+      <h2 class="title-lg anim-item" style="--delay: 90ms">迁移思路：先做候选清单，再做可审计搬运</h2>
+      <div class="grid-2">
+        <div class="success-box anim-item" style="--delay: 170ms">
+          <h3><i class="fa-solid fa-check-double"></i> 可以学习</h3>
+          <p>componentMetadata 模式、public/llms.txt、文档站即实验台、Preview / Code / Props / Dependencies 的展示闭环。</p>
+        </div>
+        <div class="warn-box anim-item" style="--delay: 250ms">
+          <h3><i class="fa-solid fa-triangle-exclamation"></i> 不建议默认照搬</h3>
+          <p>四变体全量维护对个人知识库或博客组件成本偏高。先维护 TS + Tailwind 一个主版本更现实。</p>
+        </div>
+        <article class="card teal anim-item" style="--delay: 330ms">
+          <h3><i class="fa-solid fa-list-check"></i> 推荐第一批试验</h3>
+          <ul>
+            <li>SplitText 或 BlurText：文章标题</li>
+            <li>AnimatedContent 或 FadeContent：通用进入动画</li>
+            <li>Aurora 或 DotGrid：低密度背景实验</li>
+          </ul>
+        </article>
+        <article class="card amber anim-item" style="--delay: 410ms">
+          <h3><i class="fa-solid fa-clipboard-check"></i> 每次搬运要记录</h3>
+          <ul>
+            <li>上游 commit URL</li>
+            <li>本地改动说明</li>
+            <li>License 提醒和性能验证结果</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" data-title="HTML 正文">
+      <div class="slide-kicker anim-item"><i class="fa-solid fa-file-lines"></i> Corresponding HTML</div>
+      <h2 class="title-lg anim-item" style="--delay: 90ms">这份 PPT 做总览，项目生成的 HTML 承接正文细节</h2>
+      <div class="doc-preview">
+        <aside class="doc-info anim-item" style="--delay: 180ms">
+          <h3>对应页面</h3>
+          <p>这篇 Markdown 已经被 Docusaurus 构建为静态 HTML。PPT 不复制全部正文，而是保留路径和预览入口，让总览页与详细页分工清楚。</p>
+          <div class="meta-row" style="margin-top: 1rem">
+            <span class="pill"><i class="fa-solid fa-diagram-project"></i> PPT: 观点总览</span>
+            <span class="pill"><i class="fa-solid fa-book"></i> HTML: 细节正文</span>
+          </div>
+          <a class="html-link" href="../../../../build/knowledge-base/知识沉淀/项目学习/react-bits-classified-study.html">
+            <i class="fa-solid fa-up-right-from-square"></i> 打开构建 HTML
+          </a>
+          <p class="source-line" style="margin-top: 1rem">
+            <code>../../../../build/knowledge-base/知识沉淀/项目学习/react-bits-classified-study.html</code>
+          </p>
+        </aside>
+        <div class="html-panel anim-item" style="--delay: 280ms">
+          <div class="html-window-bar"><i class="fa-solid fa-code"></i> Built HTML Structure</div>
+          <div class="html-lines" aria-label="构建 HTML 结构摘录">
+            <div class="html-line"><span>01</span><code><span class="html-tag">&lt;article&gt;</span> <span class="html-text">react-bits 分门别类学习</span> <span class="html-tag">&lt;/article&gt;</span></code></div>
+            <div class="html-line"><span>02</span><code><span class="html-tag">&lt;h2&gt;</span>0x00 背景<span class="html-tag">&lt;/h2&gt;</span>：项目定位、快照、学习目标</code></div>
+            <div class="html-line"><span>03</span><code><span class="html-tag">&lt;h2&gt;</span>0x01 核心结论<span class="html-tag">&lt;/h2&gt;</span>：源码片段注册表，而非运行时 UI 库</code></div>
+            <div class="html-line"><span>04</span><code><span class="html-tag">&lt;h2&gt;</span>0x02 关键细节<span class="html-tag">&lt;/h2&gt;</span>：分类、变体、registry、依赖、文档站结构</code></div>
+            <div class="html-line"><span>05</span><code><span class="html-tag">&lt;h2&gt;</span>0x03 验证与引用<span class="html-tag">&lt;/h2&gt;</span>：commit、统计口径、源码入口</code></div>
+            <div class="html-line"><span>06</span><code><span class="html-tag">&lt;section&gt;</span>本 PPT 只抽取总览层，正文层继续交给构建 HTML<span class="html-tag">&lt;/section&gt;</span></code></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="核心洞察总结">
+      <div class="slide-kicker anim-item"><i class="fa-solid fa-compass"></i> 核心洞察总结</div>
+      <h2 class="title-lg anim-item" style="--delay: 90ms">学习 react-bits 的重点不是“收集更多特效”</h2>
+      <div class="grid-3">
+        <article class="card anim-item" style="--delay: 170ms">
+          <h3><i class="fa-solid fa-map"></i> 先有分类地图</h3>
+          <p>用 TextAnimations、Animations、Components、Backgrounds 快速定位需求。</p>
+        </article>
+        <article class="card teal anim-item" style="--delay: 250ms">
+          <h3><i class="fa-solid fa-filter"></i> 再做成本过滤</h3>
+          <p>依赖、移动端、SSR、License、维护成本先过一遍。</p>
+        </article>
+        <article class="card blue anim-item" style="--delay: 330ms">
+          <h3><i class="fa-solid fa-seedling"></i> 最后小步迁移</h3>
+          <p>只选少量高收益组件，保留来源、验证记录和降级方案。</p>
+        </article>
+      </div>
+      <div class="quote anim-item" style="--delay: 450ms">
+        对 HXLoLi 来说，真正可复用的是“组件资产如何被登记、展示、复制、索引和审计”的工程模式。
+      </div>
+    </section>
+
+    <section class="slide" data-title="点睛之笔">
+      <div class="slide-kicker anim-item"><i class="fa-solid fa-lightbulb"></i> 点睛之笔</div>
+      <p class="final-statement anim-item" style="--delay: 90ms">
+        react-bits 的价值不只是动效漂亮，<br>
+        而是把视觉源码变成<br>
+        <span class="mark-orange">可检索</span>、
+        <span class="mark-teal">可复制</span>、
+        <span class="mark-amber">可分发</span>、
+        <span class="mark-red">AI 可读</span>
+        的<span class="nowrap">工程资产。</span>
+      </p>
+      <div class="code-box anim-item" style="--delay: 260ms">
+        componentMetadata -> Docs Preview -> Registry JSON -> CLI Install -> llms.txt -> AI-readable component map
+      </div>
+      <p class="source-line anim-item" style="--delay: 360ms">
+        Source note: <code>ai-docs/002-知识沉淀/002-项目学习/002-react-bits-classified-study/index.md</code>
+      </p>
+    </section>
+
+    <nav class="nav" aria-label="幻灯片导航">
+      <button type="button" id="prevBtn" title="上一页" aria-label="上一页"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="nav-count" id="navCount">01 / 12</div>
+      <button type="button" id="nextBtn" title="下一页" aria-label="下一页"><i class="fa-solid fa-chevron-right"></i></button>
+    </nav>
+  </main>
+
+  <script>
+    (function() {
+      var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+      var pageNumber = document.getElementById('pageNumber');
+      var navCount = document.getElementById('navCount');
+      var prevBtn = document.getElementById('prevBtn');
+      var nextBtn = document.getElementById('nextBtn');
+      var active = 0;
+      var wheelLock = false;
+      var touchStartX = 0;
+      var touchStartY = 0;
+
+      function pad(num) {
+        return String(num).padStart(2, '0');
+      }
+
+      function resetAnimation(slide) {
+        slide.querySelectorAll('.an, .anim-item, [style*="animation"]').forEach(function(item) {
+          var clone = item.cloneNode(true);
+          item.parentNode.replaceChild(clone, item);
+        });
+      }
+
+      function reveal(slide) {
+        var items = Array.prototype.slice.call(slide.querySelectorAll('.anim-item'));
+        requestAnimationFrame(function() {
+          items.forEach(function(item) {
+            item.classList.add('visible');
+          });
+        });
+      }
+
+      function readHash() {
+        var match = String(window.location.hash || '').match(/^#(?:slide-)?(\d+)$/);
+        if (!match) return 0;
+        return Math.max(0, Math.min(slides.length - 1, Number(match[1]) - 1));
+      }
+
+      function syncHash() {
+        var nextHash = '#slide-' + pad(active + 1);
+        if (window.location.hash !== nextHash) {
+          window.history.replaceState(null, '', nextHash);
+        }
+      }
+
+      function update() {
+        slides.forEach(function(slide, index) {
+          var isActive = index === active;
+          slide.classList.toggle('active', isActive);
+          if (isActive) {
+            resetAnimation(slide);
+            reveal(slide);
+          }
+        });
+        var label = pad(active + 1) + ' / ' + pad(slides.length);
+        pageNumber.textContent = label;
+        navCount.textContent = label;
+        prevBtn.disabled = active === 0;
+        nextBtn.disabled = active === slides.length - 1;
+        syncHash();
+      }
+
+      function go(next) {
+        var target = Math.max(0, Math.min(slides.length - 1, next));
+        if (target === active) return;
+        active = target;
+        update();
+      }
+
+      prevBtn.addEventListener('click', function() { go(active - 1); });
+      nextBtn.addEventListener('click', function() { go(active + 1); });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
+          event.preventDefault();
+          go(active + 1);
+        }
+        if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+          event.preventDefault();
+          go(active - 1);
+        }
+        if (event.key === 'Home') {
+          event.preventDefault();
+          go(0);
+        }
+        if (event.key === 'End') {
+          event.preventDefault();
+          go(slides.length - 1);
+        }
+      });
+
+      document.addEventListener('wheel', function(event) {
+        if (Math.abs(event.deltaY) < 30 || wheelLock) return;
+        wheelLock = true;
+        go(active + (event.deltaY > 0 ? 1 : -1));
+        window.setTimeout(function() { wheelLock = false; }, 620);
+      }, { passive: true });
+
+      document.addEventListener('touchstart', function(event) {
+        if (!event.touches.length) return;
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+      }, { passive: true });
+
+      document.addEventListener('touchend', function(event) {
+        if (!event.changedTouches.length) return;
+        var dx = event.changedTouches[0].clientX - touchStartX;
+        var dy = event.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) {
+          go(active + (dx < 0 ? 1 : -1));
+        }
+      }, { passive: true });
+
+      window.addEventListener('hashchange', function() {
+        active = readHash();
+        update();
+      });
+
+      function createParticles() {
+        var root = document.getElementById('particles');
+        for (var i = 0; i < 32; i += 1) {
+          var p = document.createElement('span');
+          p.className = 'particle';
+          p.style.left = (3 + Math.random() * 94).toFixed(2) + '%';
+          p.style.animationDelay = (Math.random() * 10).toFixed(2) + 's';
+          p.style.animationDuration = (8 + Math.random() * 12).toFixed(2) + 's';
+          p.style.background = i % 3 === 0 ? 'var(--teal)' : (i % 3 === 1 ? 'var(--amber)' : 'var(--orange)');
+          root.appendChild(p);
+        }
+      }
+
+      createParticles();
+      active = readHash();
+      update();
+    })();
+  </script>
+</body>
+</html>
