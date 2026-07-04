@@ -61,6 +61,93 @@ const aiDocsSidebar = [
           "icon": "default-icons/ai-folder.svg",
           "tags": []
         }
+      },
+      {
+        "type": "category",
+        "label": "项目学习",
+        "collapsible": true,
+        "collapsed": false,
+        "items": [
+          {
+            "type": "category",
+            "label": "obsidian-second-brain",
+            "collapsible": true,
+            "collapsed": false,
+            "items": [
+              {
+                "type": "doc",
+                "id": "知识沉淀/项目学习/obsidian-second-brain/ai-first-rules"
+              },
+              {
+                "type": "doc",
+                "id": "知识沉淀/项目学习/obsidian-second-brain/claude-md-template"
+              },
+              {
+                "type": "doc",
+                "id": "知识沉淀/项目学习/obsidian-second-brain/commands-index"
+              },
+              {
+                "type": "doc",
+                "id": "知识沉淀/项目学习/obsidian-second-brain/ecosystem"
+              },
+              {
+                "type": "doc",
+                "id": "知识沉淀/项目学习/obsidian-second-brain/fork-insights"
+              },
+              {
+                "type": "doc",
+                "id": "知识沉淀/项目学习/obsidian-second-brain/hx-loli-adoption-plan"
+              },
+              {
+                "type": "doc",
+                "id": "知识沉淀/项目学习/obsidian-second-brain/hx-loli-borrow-list"
+              },
+              {
+                "type": "doc",
+                "id": "知识沉淀/项目学习/obsidian-second-brain/readme-public"
+              },
+              {
+                "type": "doc",
+                "id": "知识沉淀/项目学习/obsidian-second-brain/skill-manual"
+              },
+              {
+                "type": "doc",
+                "id": "知识沉淀/项目学习/obsidian-second-brain/vault-schema"
+              },
+              {
+                "type": "doc",
+                "id": "知识沉淀/项目学习/obsidian-second-brain/write-rules"
+              }
+            ],
+            "customProps": {
+              "icon": "default-icons/ai-folder.svg",
+              "tags": []
+            },
+            "link": {
+              "type": "doc",
+              "id": "知识沉淀/项目学习/obsidian-second-brain/index"
+            }
+          },
+          {
+            "type": "category",
+            "label": "react-bits-classified-study",
+            "collapsible": true,
+            "collapsed": false,
+            "items": [],
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            },
+            "link": {
+              "type": "doc",
+              "id": "知识沉淀/项目学习/react-bits-classified-study/index"
+            }
+          }
+        ],
+        "customProps": {
+          "icon": "default-icons/ai-folder.svg",
+          "tags": []
+        }
       }
     ],
     "customProps": {

@@ -14,6 +14,157 @@ const BaseUrl = isCloudflare ? "" : "/HXLoLi";
 // Workers 部署: 使用 wrangler deploy (Static Assets 模式)
 // 自定义域名: km.woa.qzz.io
 
+type PptHtmlCopyPattern = {
+  from: string;
+  to: string;
+  noErrorOnMissing: boolean;
+};
+
+type PptHtmlContentSection = {
+  contentDir: string;
+  routeBasePath: string;
+  kind: 'docs' | 'blog';
+};
+
+function toPosixPath(filePath: string): string {
+  return filePath.replace(/\\/g, '/');
+}
+
+function joinUrlPath(parts: Array<string | undefined>): string {
+  return parts
+    .filter((part): part is string => Boolean(part))
+    .join('/')
+    .replace(/\/+/g, '/')
+    .replace(/^\/+|\/+$/g, '');
+}
+
+function stripNumberPrefix(name: string): string {
+  if (/^\d+[-_.]\d+/.test(name)) return name;
+
+  const match = /^(?<numberPrefix>\d+)\s*[-_.]+\s*(?<suffix>[^-_.\s].*)$/.exec(name);
+  return match?.groups?.suffix ?? name;
+}
+
+function stripPathNumberPrefixes(filePath: string): string {
+  return filePath
+    .split('/')
+    .map(stripNumberPrefix)
+    .join('/');
+}
+
+function getDocsMarkdownRoute(rootDir: string, markdownFile: string, routeBasePath: string): string {
+  const path = require('path') as typeof import('path');
+  const relativeFile = toPosixPath(path.relative(rootDir, markdownFile));
+  const sourceDirName = path.posix.dirname(relativeFile);
+  const fileName = path.posix.basename(relativeFile, path.posix.extname(relativeFile));
+  const baseId = stripNumberPrefix(fileName);
+  const dirSlug = sourceDirName === '.' ? '' : stripPathNumberPrefixes(sourceDirName);
+  const nearestDir = sourceDirName === '.' ? undefined : sourceDirName.split('/').at(-1)?.toLowerCase();
+  const categoryIndexNames = ['index', 'readme', nearestDir].filter(Boolean);
+  const isCategoryIndex = categoryIndexNames.includes(fileName.toLowerCase());
+
+  return isCategoryIndex
+    ? joinUrlPath([routeBasePath, dirSlug])
+    : joinUrlPath([routeBasePath, dirSlug, baseId]);
+}
+
+function getBlogMarkdownRoute(rootDir: string, markdownFile: string, routeBasePath: string): string {
+  const path = require('path') as typeof import('path');
+  const relativeFile = toPosixPath(path.relative(rootDir, markdownFile));
+  const dateFileNameMatch = relativeFile.match(
+    /^(?<folder>.*)(?<date>\d{4}[-/]\d{1,2}[-/]\d{1,2})[-/]?(?<text>.*?)(?:\/index)?\.mdx?$/
+  );
+
+  if (dateFileNameMatch?.groups) {
+    const slugDate = dateFileNameMatch.groups.date.replace(/-/g, '/');
+    return joinUrlPath([
+      routeBasePath,
+      slugDate,
+      `${dateFileNameMatch.groups.folder ?? ''}${dateFileNameMatch.groups.text ?? ''}`,
+    ]);
+  }
+
+  return joinUrlPath([
+    routeBasePath,
+    relativeFile.replace(/(?:\/index)?\.mdx?$/, ''),
+  ]);
+}
+
+function getPptHtmlCopyPatterns(siteDir: string): PptHtmlCopyPattern[] {
+  const fs = require('fs') as typeof import('fs');
+  const path = require('path') as typeof import('path');
+
+  const sections: PptHtmlContentSection[] = [
+    { contentDir: 'docs', routeBasePath: 'docs', kind: 'docs' },
+    { contentDir: 'ai-docs', routeBasePath: 'knowledge-base', kind: 'docs' },
+    { contentDir: 'blog', routeBasePath: 'blog', kind: 'blog' },
+  ];
+
+  function listFiles(dir: string, predicate: (file: string) => boolean): string[] {
+    if (!fs.existsSync(dir)) return [];
+
+    const files: string[] = [];
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      if (entry.name.startsWith('.')) continue;
+
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        files.push(...listFiles(fullPath, predicate));
+      } else if (entry.isFile() && predicate(fullPath)) {
+        files.push(fullPath);
+      }
+    }
+
+    return files;
+  }
+
+  const patterns = new Map<string, PptHtmlCopyPattern>();
+
+  for (const section of sections) {
+    const rootDir = path.join(siteDir, section.contentDir);
+    const markdownFiles = listFiles(rootDir, file => /\.mdx?$/i.test(file));
+    const htmlFiles = listFiles(rootDir, file => /\.html?$/i.test(file));
+    const markdownFilesByDir = new Map<string, string[]>();
+
+    for (const markdownFile of markdownFiles) {
+      const dir = path.dirname(markdownFile);
+      const dirFiles = markdownFilesByDir.get(dir) ?? [];
+      dirFiles.push(markdownFile);
+      markdownFilesByDir.set(dir, dirFiles);
+    }
+
+    for (const htmlFile of htmlFiles) {
+      const markdownSiblings = markdownFilesByDir.get(path.dirname(htmlFile));
+      if (!markdownSiblings) continue;
+
+      for (const markdownFile of markdownSiblings) {
+        const route = section.kind === 'docs'
+          ? getDocsMarkdownRoute(rootDir, markdownFile, section.routeBasePath)
+          : getBlogMarkdownRoute(rootDir, markdownFile, section.routeBasePath);
+        const htmlBaseName = path.basename(htmlFile);
+        const to = joinUrlPath([route, htmlBaseName]);
+        patterns.set(`${htmlFile}->${to}`, {
+          from: htmlFile,
+          to,
+          noErrorOnMissing: true,
+        });
+
+        const cleanRouteName = htmlBaseName.replace(/\.html?$/i, '');
+        const cleanUrlTo = joinUrlPath([route, cleanRouteName, 'index.html']);
+        patterns.set(`${htmlFile}->${cleanUrlTo}`, {
+          from: htmlFile,
+          to: cleanUrlTo,
+          noErrorOnMissing: true,
+        });
+      }
+    }
+  }
+
+  return [...patterns.values()];
+}
+
 // 插件配置
 const plugins: PluginConfig[] = [
   // postcss 插件
@@ -28,6 +179,33 @@ const plugins: PluginConfig[] = [
           require("autoprefixer"),
         );
         return postcssOptions;
+      },
+    };
+  },
+  // 将与 Markdown 同目录的 HTML 资源发布到对应页面路由下, 供 #ppt iframe 使用
+  function pptHtmlAssetsPlugin(context: { siteDir: string }) {
+    const siteDir = context.siteDir;
+    return {
+      name: "ppt-html-assets",
+      getPathsToWatch() {
+        return [
+          "docs/**/*.html",
+          "ai-docs/**/*.html",
+          "blog/**/*.html",
+        ];
+      },
+      configureWebpack(_config: unknown, isServer: boolean) {
+        if (isServer) return {};
+
+        const patterns = getPptHtmlCopyPatterns(siteDir);
+        if (patterns.length === 0) return {};
+
+        const CopyWebpackPlugin = require("copy-webpack-plugin");
+        return {
+          plugins: [
+            new CopyWebpackPlugin({ patterns }),
+          ],
+        };
       },
     };
   },
