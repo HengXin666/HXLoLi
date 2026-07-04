@@ -662,9 +662,15 @@ export const stats: RecordItem[] = [
     "message": "[blog] 新增codexFreePool搭建教程; 补充 doc glibc++ 实现"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-07-04T10:16:36.492Z",
+    "commit": "2ef415c03bc75f86c8d13bad5a9c9dcf184c80d1",
+    "date": "2026-07-04T18:16:36+08:00",
     "wordCount": 3942697,
     "message": "[blog] 新增项目调研学习"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-07-04T17:10:16.218Z",
+    "wordCount": 3954163,
+    "message": "[blog] 新增cppcon和py爬虫库的调研"
   }
 ];

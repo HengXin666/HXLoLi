@@ -55,6 +55,33 @@ const aiDocsSidebar = [
               "icon": "default-icons/ai-folder.svg",
               "tags": []
             }
+          },
+          {
+            "type": "category",
+            "label": "CppCon",
+            "collapsible": true,
+            "collapsed": false,
+            "items": [
+              {
+                "type": "category",
+                "label": "现代C++编译期多态审视",
+                "collapsible": true,
+                "collapsed": false,
+                "items": [],
+                "customProps": {
+                  "icon": "default-icons/ai-doc.svg",
+                  "tags": []
+                },
+                "link": {
+                  "type": "doc",
+                  "id": "知识沉淀/现代C++/CppCon/现代C++编译期多态审视/index"
+                }
+              }
+            ],
+            "customProps": {
+              "icon": "default-icons/ai-folder.svg",
+              "tags": []
+            }
           }
         ],
         "customProps": {
@@ -141,6 +168,45 @@ const aiDocsSidebar = [
             "link": {
               "type": "doc",
               "id": "知识沉淀/项目学习/react-bits-classified-study/index"
+            }
+          }
+        ],
+        "customProps": {
+          "icon": "default-icons/ai-folder.svg",
+          "tags": []
+        }
+      },
+      {
+        "type": "category",
+        "label": "Python",
+        "collapsible": true,
+        "collapsed": false,
+        "items": [
+          {
+            "type": "category",
+            "label": "日常探索",
+            "collapsible": true,
+            "collapsed": false,
+            "items": [
+              {
+                "type": "category",
+                "label": "Python爬虫库选型调研",
+                "collapsible": true,
+                "collapsed": false,
+                "items": [],
+                "customProps": {
+                  "icon": "default-icons/ai-doc.svg",
+                  "tags": []
+                },
+                "link": {
+                  "type": "doc",
+                  "id": "知识沉淀/Python/日常探索/Python爬虫库选型调研/index"
+                }
+              }
+            ],
+            "customProps": {
+              "icon": "default-icons/ai-folder.svg",
+              "tags": []
             }
           }
         ],
