@@ -30,119 +30,264 @@
    侧边栏样式
    ================================================================ */
 .ai-kb-page .theme-doc-sidebar-container {
-  /* 侧边栏整体容器 */
-}
-
-/* 侧边栏文件夹图标微调 */
-.ai-kb-page .menu__link img {
-  width: 20px !important;
-  height: 20px !important;
-  object-fit: contain;
-  border-radius: 3px;
-  transition: filter 0.25s ease;
-  opacity: 0.75;
-}
-
-.ai-kb-page .menu__link:hover img {
-  opacity: 1;
-  filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.4));
-}
-
-.ai-kb-page .menu__link--active img {
-  opacity: 1;
-  filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.5));
+  border-right: 1px solid rgba(0, 229, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(0, 229, 255, 0.035), transparent 12rem),
+    rgba(5, 8, 15, 0.18);
 }
 
 .ai-kb-page .theme-doc-sidebar-menu {
-  padding: 0.5rem 0.5rem 0.5rem 0.25rem !important;
+  padding: 0.7rem 0.65rem 1rem 0.4rem !important;
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+}
+
+.ai-kb-page .ai-kb-sidebar-item {
+  position: relative;
+  margin: 0.08rem 0;
+  transform: translateZ(0);
+}
+
+.ai-kb-page .ai-kb-sidebar-item + .ai-kb-sidebar-level-1 {
+  margin-top: 0.5rem;
+}
+
+.ai-kb-page .ai-kb-sidebar-collapsible {
+  display: flex;
+  align-items: stretch;
+  border-radius: 8px;
+}
+
+.ai-kb-page .ai-kb-sidebar-content {
+  display: flex;
+  min-width: 0;
+  width: 100%;
+  flex-direction: column;
+}
+
+.ai-kb-page .ai-kb-sidebar-main-row {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.48rem;
+}
+
+.ai-kb-page .ai-kb-sidebar-icon {
+  width: 1.12rem !important;
+  height: 1.12rem !important;
+  flex: 0 0 1.12rem;
+  object-fit: contain;
+  border-radius: 4px;
+  opacity: 0.72;
+  transition:
+    opacity var(--ai-transition),
+    filter var(--ai-transition),
+    transform var(--ai-transition);
+}
+
+.ai-kb-page .menu__link:hover .ai-kb-sidebar-icon,
+.ai-kb-page .menu__link--active .ai-kb-sidebar-icon {
+  opacity: 1;
+  filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.45));
+  transform: translateY(-1px);
+}
+
+.ai-kb-page .ai-kb-sidebar-text {
+  min-width: 0;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.ai-kb-page .ai-kb-sidebar-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.32rem;
+  padding-left: 1.6rem;
+}
+
+.ai-kb-page .ai-kb-sidebar-tag {
+  max-width: 100%;
+  padding: 0.05rem 0.38rem;
+  border: 1px solid rgba(255, 0, 255, 0.22);
+  border-radius: 999px;
+  color: rgba(244, 179, 255, 0.92);
+  background: rgba(255, 0, 255, 0.08);
+  font-size: 0.66rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.ai-kb-page .ai-kb-sidebar-children {
+  position: relative;
+  margin: 0.22rem 0 0.4rem 0.78rem !important;
+  padding-left: 0.72rem !important;
+  border-left: 1px solid rgba(0, 229, 255, 0.16);
+}
+
+.ai-kb-page .ai-kb-sidebar-children .ai-kb-sidebar-children {
+  border-left-style: dashed;
+  border-left-color: rgba(136, 146, 164, 0.22);
+}
+
+.ai-kb-page .ai-kb-sidebar-level-2::before,
+.ai-kb-page .ai-kb-sidebar-level-3::before,
+.ai-kb-page .ai-kb-sidebar-level-4::before,
+.ai-kb-page .ai-kb-sidebar-level-5::before {
+  content: '';
+  position: absolute;
+  top: 1.05rem;
+  left: -0.72rem;
+  width: 0.52rem;
+  border-top: 1px solid rgba(0, 229, 255, 0.15);
 }
 
 /* 侧边栏分类标题 */
-.ai-kb-page .theme-doc-sidebar-item-category .menu__list-item-collapsible .menu__link {
+.ai-kb-page .ai-kb-sidebar-category > .menu__list-item-collapsible .menu__link,
+.ai-kb-page .ai-kb-sidebar-link > .menu__link {
   position: relative;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  font-size: 0.82rem;
-  color: #c0caf5 !important;
-  text-transform: uppercase;
-  border-radius: 6px;
-  margin: 0.15rem 0;
-  padding: 0.4rem 0.75rem;
+  min-width: 0;
+  width: 100%;
+  border-radius: 8px;
   border: 1px solid transparent;
-  transition: all var(--ai-transition);
-  /* GPU 加速 */
+  color: #aeb8c9 !important;
+  transition:
+    color var(--ai-transition),
+    background var(--ai-transition),
+    border-color var(--ai-transition),
+    box-shadow var(--ai-transition),
+    transform var(--ai-transition);
   transform: translateZ(0);
 }
 
-.ai-kb-page .theme-doc-sidebar-item-category .menu__list-item-collapsible .menu__link:hover {
-  background: rgba(0, 229, 255, 0.06);
-  border-color: rgba(0, 229, 255, 0.15);
+.ai-kb-page .ai-kb-sidebar-category > .menu__list-item-collapsible .menu__link {
+  flex: 1 1 auto;
+  font-weight: 650;
 }
 
-.ai-kb-page .theme-doc-sidebar-item-category .menu__list-item-collapsible .menu__link--active {
+.ai-kb-page .ai-kb-sidebar-level-1 > .menu__list-item-collapsible .menu__link {
+  min-height: 2.45rem;
+  padding: 0.5rem 0.68rem;
+  color: #e6f7ff !important;
+  background:
+    linear-gradient(135deg, rgba(0, 229, 255, 0.12), rgba(255, 0, 255, 0.05)),
+    rgba(8, 13, 24, 0.72);
+  border-color: rgba(0, 229, 255, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.ai-kb-page .ai-kb-sidebar-level-1 > .menu__list-item-collapsible .ai-kb-sidebar-text {
+  font-size: 0.86rem;
+}
+
+.ai-kb-page .ai-kb-sidebar-level-2 > .menu__list-item-collapsible .menu__link {
+  padding: 0.42rem 0.62rem;
+  color: #cdd7ec !important;
+  background: rgba(255, 255, 255, 0.025);
+  border-left-color: rgba(0, 229, 255, 0.24);
+}
+
+.ai-kb-page .ai-kb-sidebar-level-3 > .menu__list-item-collapsible .menu__link,
+.ai-kb-page .ai-kb-sidebar-level-4 > .menu__list-item-collapsible .menu__link,
+.ai-kb-page .ai-kb-sidebar-level-5 > .menu__list-item-collapsible .menu__link {
+  padding: 0.35rem 0.52rem;
+  color: #a7b0c3 !important;
+  background: rgba(255, 255, 255, 0.012);
+  font-weight: 560;
+}
+
+.ai-kb-page .ai-kb-sidebar-link > .menu__link {
+  padding: 0.34rem 0.54rem;
+  border-left: 2px solid transparent;
+  font-size: 0.8rem;
+}
+
+.ai-kb-page .ai-kb-sidebar-level-1.ai-kb-sidebar-link > .menu__link {
+  padding: 0.44rem 0.65rem;
+  background: rgba(0, 229, 255, 0.035);
+  border-color: rgba(0, 229, 255, 0.12);
+  font-weight: 650;
+}
+
+.ai-kb-page .ai-kb-sidebar-level-2.ai-kb-sidebar-link > .menu__link {
+  color: #b8c2d6 !important;
+}
+
+.ai-kb-page .ai-kb-sidebar-level-3.ai-kb-sidebar-link > .menu__link,
+.ai-kb-page .ai-kb-sidebar-level-4.ai-kb-sidebar-link > .menu__link,
+.ai-kb-page .ai-kb-sidebar-level-5.ai-kb-sidebar-link > .menu__link {
+  color: #8f9aae !important;
+  font-size: 0.77rem;
+}
+
+.ai-kb-page .ai-kb-sidebar-category > .menu__list-item-collapsible .menu__link:hover,
+.ai-kb-page .ai-kb-sidebar-link > .menu__link:hover {
+  color: #e4f8ff !important;
+  background: rgba(0, 229, 255, 0.06);
+  border-color: rgba(0, 229, 255, 0.18);
+  transform: translateX(2px) translateZ(0);
+}
+
+.ai-kb-page .ai-kb-sidebar-category > .menu__list-item-collapsible .menu__link--active,
+.ai-kb-page .ai-kb-sidebar-link > .menu__link--active {
   color: var(--ai-cyan) !important;
-  background: rgba(0, 229, 255, 0.08);
-  border-color: rgba(0, 229, 255, 0.25);
-  text-shadow: 0 0 6px rgba(0, 229, 255, 0.3);
+  background:
+    linear-gradient(90deg, rgba(0, 229, 255, 0.13), rgba(0, 229, 255, 0.035)),
+    rgba(0, 229, 255, 0.035);
+  border-color: rgba(0, 229, 255, 0.32);
+  text-shadow: 0 0 6px rgba(0, 229, 255, 0.28);
+  box-shadow:
+    inset 2px 0 0 var(--ai-cyan),
+    inset 0 0 18px rgba(0, 229, 255, 0.035);
+}
+
+.ai-kb-page .ai-kb-sidebar-link > .menu__link--active::before {
+  content: '';
+  position: absolute;
+  top: 0.45rem;
+  bottom: 0.45rem;
+  left: -2px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--ai-cyan);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.55);
 }
 
 /* 展开/折叠箭头 */
-.ai-kb-page .theme-doc-sidebar-item-category .menu__caret {
-  color: rgba(0, 229, 255, 0.5);
-  transition: all var(--ai-transition);
+.ai-kb-page .ai-kb-sidebar-category .menu__caret {
+  align-self: stretch;
+  width: 1.95rem;
+  margin-left: 0.18rem;
+  border: 1px solid rgba(0, 229, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(0, 229, 255, 0.62);
+  background: rgba(0, 229, 255, 0.025);
+  transition:
+    color var(--ai-transition),
+    background var(--ai-transition),
+    border-color var(--ai-transition),
+    transform var(--ai-transition);
 }
-.ai-kb-page .theme-doc-sidebar-item-category .menu__caret:hover {
+
+.ai-kb-page .ai-kb-sidebar-category .menu__caret:hover {
   color: var(--ai-cyan);
-}
-
-/* 侧边栏普通文档链接 */
-.ai-kb-page .theme-doc-sidebar-item-link .menu__link {
-  position: relative;
-  color: #8892a4 !important;
-  border-radius: 6px;
-  margin: 0.1rem 0;
-  padding: 0.35rem 0.75rem;
-  border-left: 2px solid transparent;
-  transition: all var(--ai-transition);
-  font-size: 0.83rem;
-  transform: translateZ(0);
-}
-
-.ai-kb-page .theme-doc-sidebar-item-link .menu__link:hover {
-  color: #c0caf5 !important;
-  background: rgba(0, 229, 255, 0.04);
-  border-left-color: rgba(0, 229, 255, 0.3);
-}
-
-/* 终端风格: 活跃项前面加 > 符号 */
-.ai-kb-page .theme-doc-sidebar-item-link .menu__link--active {
-  color: var(--ai-cyan) !important;
   background: rgba(0, 229, 255, 0.07);
-  border-left: 2px solid var(--ai-cyan);
-  box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.03);
+  border-color: rgba(0, 229, 255, 0.22);
 }
 
-.ai-kb-page .theme-doc-sidebar-item-link .menu__link--active::before {
-  content: '>';
-  position: absolute;
-  left: -1px;
-  color: var(--ai-cyan);
-  font-weight: 700;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 0.75rem;
-  opacity: 0.7;
-  transform: translateX(-16px);
-  text-shadow: 0 0 6px rgba(0, 229, 255, 0.4);
+.ai-kb-page .ai-kb-sidebar-category:not(.menu__list-item--collapsed) > .menu__list-item-collapsible .menu__caret {
+  transform: rotate(90deg);
 }
 
-/* 侧边栏二级/三级列表缩进微调 */
-.ai-kb-page .theme-doc-sidebar-item-category .menu__list .menu__link {
-  padding-left: 1.5rem;
+.ai-kb-page .ai-kb-sidebar-category .menu__link--sublist-caret::after {
+  background-size: 1.45rem 1.45rem;
+  filter: hue-rotate(132deg) saturate(1.8);
+  opacity: 0.72;
 }
-.ai-kb-page .theme-doc-sidebar-item-category .menu__list .menu__list .menu__link {
-  padding-left: 2.25rem;
+
+.ai-kb-page .ai-kb-sidebar-category-leaf > .menu__list-item-collapsible .menu__caret,
+.ai-kb-page .ai-kb-sidebar-category-leaf > .ai-kb-sidebar-children {
+  display: none;
 }
 
 /* ================================================================

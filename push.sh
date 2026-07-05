@@ -17,12 +17,14 @@ node ./scripts/generateAiDocsSidebar.js
 # 检查是否传入了参数
 if [ $# -eq 0 ]; then
     git add .
+    echo "📊 生成 Markdown 字数统计 (docs/blog vs ai-docs)..."
     npx ts-node ./scripts/count-md-words.ts "Codeing..."
     echo "Please enter the submission information and call in the format of: ./push.sh 'commitMsg'"
 else
     commit_message="$1"
     echo "commit: $commit_message"
     git add .
+    echo "📊 生成 Markdown 字数统计 (docs/blog vs ai-docs)..."
     npx ts-node ./scripts/count-md-words.ts "$commit_message"
     git add .
     git commit -m "$commit_message"

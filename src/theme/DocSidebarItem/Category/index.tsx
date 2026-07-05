@@ -18,12 +18,19 @@ import useIsBrowser from '@docusaurus/useIsBrowser';
 import type { Props } from '@theme/DocSidebarItem/Category';
 import DocSidebarItems from '@theme/DocSidebarItems';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import React, {
     type ComponentProps,
     type ReactNode,
     useEffect,
     useMemo,
 } from 'react';
+
+import {
+    readSidebarCustomData,
+    resolveSidebarIconSrc,
+    sidebarRevealVariants,
+} from '../sidebarItemUtils';
 
 // If we navigate to a category and it becomes active, it should automatically
 // expand itself
@@ -157,26 +164,157 @@ export default function DocSidebarItemCategory ({
     }, [collapsible, expandedItem, index, setCollapsed, autoCollapseCategories]);
 
     const { siteConfig } = useDocusaurusContext();
-    // @ts-ignore
-    const rawIcon: string = customProps && customProps.icon;
-    // 图标路径不带 baseUrl 前缀，运行时拼接
-    const iconSrc = rawIcon ? `${siteConfig.baseUrl}${rawIcon}` : undefined;
-    // @ts-ignore
-    const tagsArr: [] = customProps && customProps.tags;
+    const { icon, tags } = readSidebarCustomData(customProps);
+    // 图标路径不带 baseUrl 前缀, 运行时拼接
+    const iconSrc = resolveSidebarIconSrc(siteConfig.baseUrl, icon);
+    const isAIDocsSidebar = activePath.includes('/knowledge-base') || href?.includes('/knowledge-base');
+
+    if (!isAIDocsSidebar) {
+        return (
+            <li
+                className={clsx(
+                    ThemeClassNames.docs.docSidebarItemCategory,
+                    ThemeClassNames.docs.docSidebarItemCategoryLevel(level),
+                    'menu__list-item',
+                    {
+                        'menu__list-item--collapsed': collapsed,
+                    },
+                    className,
+                )}>
+                <div
+                    className={clsx('menu__list-item-collapsible', {
+                        'menu__list-item-collapsible--active': isCurrentPage,
+                    })}>
+                    <Link
+                        className={clsx('menu__link', {
+                            'menu__link--sublist': collapsible,
+                            'menu__link--sublist-caret': !href && collapsible,
+                            'menu__link--active': isActive,
+                        })}
+                        onClick={
+                            collapsible
+                                ? (e) => {
+                                    onItemClick?.(item);
+                                    if (href) {
+                                        updateCollapsed(false);
+                                    } else {
+                                        e.preventDefault();
+                                        updateCollapsed();
+                                    }
+                                }
+                                : () => {
+                                    onItemClick?.(item);
+                                }
+                        }
+                        aria-current={isCurrentPage ? 'page' : undefined}
+                        role={collapsible && !href ? 'button' : undefined}
+                        aria-expanded={collapsible && !href ? !collapsed : undefined}
+                        href={collapsible ? hrefWithSSRFallback ?? '#' : hrefWithSSRFallback}
+                        style={{ fontSize: '14px' }}
+                        {...props}
+                    >
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    flex: '1',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    flexDirection: 'row',
+                                }}
+                            >
+                                <div>
+                                    {iconSrc && (
+                                        <img
+                                            src={iconSrc}
+                                            style={{
+                                                width: '24px',
+                                                height: '24px',
+                                                marginRight: '5px',
+                                                objectFit: 'contain',
+                                            }}
+                                            alt=""
+                                            aria-hidden="true"
+                                        />
+                                    )}
+                                </div>
+                                <div>
+                                    {label}
+                                </div>
+                            </div>
+                            {tags.length > 0 && (
+                                <div style={{ flex: '1' }}>
+                                    {tags.map((tag) => (
+                                        <span
+                                            key={tag}
+                                            style={{
+                                                marginRight: '8px',
+                                                paddingLeft: '5px',
+                                                paddingRight: '5px',
+                                                fontSize: '12px',
+                                                borderRadius: '6px',
+                                                color: '#ffffff',
+                                                backgroundColor: '#990099',
+                                                boxShadow: '2px 2px 4px 1px rgba(255, 255, 255, 0.5)',
+                                                whiteSpace: 'nowrap',
+                                            }}
+                                        >{tag}</span>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </Link>
+
+                    {href && collapsible && (
+                        <CollapseButton
+                            collapsed={collapsed}
+                            categoryLabel={label}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                updateCollapsed();
+                            }}
+                        />
+                    )}
+                </div>
+
+                <Collapsible lazy as="ul" className="menu__list" collapsed={collapsed}>
+                    <DocSidebarItems
+                        items={items}
+                        tabIndex={collapsed ? -1 : 0}
+                        onItemClick={onItemClick}
+                        activePath={activePath}
+                        level={level + 1}
+                    />
+                </Collapsible>
+            </li>
+        );
+    }
 
     return (
-        <li
+        <motion.li
+            custom={{ index, level }}
+            variants={sidebarRevealVariants}
+            initial="hidden"
+            animate="visible"
             className={clsx(
                 ThemeClassNames.docs.docSidebarItemCategory,
                 ThemeClassNames.docs.docSidebarItemCategoryLevel(level),
                 'menu__list-item',
+                'ai-kb-sidebar-item',
+                'ai-kb-sidebar-category',
+                `ai-kb-sidebar-level-${level}`,
                 {
                     'menu__list-item--collapsed': collapsed,
+                    'ai-kb-sidebar-category-leaf': items.length === 0,
                 },
                 className,
             )}>
             <div
-                className={clsx('menu__list-item-collapsible', {
+                className={clsx('menu__list-item-collapsible', 'ai-kb-sidebar-collapsible', {
                     'menu__list-item-collapsible--active': isCurrentPage,
                 })}>
                 <Link
@@ -204,52 +342,33 @@ export default function DocSidebarItemCategory ({
                     role={collapsible && !href ? 'button' : undefined}
                     aria-expanded={collapsible && !href ? !collapsed : undefined}
                     href={collapsible ? hrefWithSSRFallback ?? '#' : hrefWithSSRFallback}
-                    style={{fontSize: '14px'}}
                     {...props}
                 >
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column'
-                        }}
-                    >
-                        <div style={{
-                            flex: '1',
-                            display: 'flex',
-                            alignItems: 'center',
-                            flexDirection: 'row'
-                        }}>
-                            <div>
-                                {iconSrc && <img 
-                                    src={iconSrc} 
-                                    style={{ width: '24px', marginRight: '5px' }} 
-                                />}
-                            </div>
-                            <div>
-                                {label}
-                            </div>
-                        </div>
-                        {tagsArr && tagsArr.length > 0 && 
-                        <div style={{flex: '1'}}>
-                            {tagsArr.map((tag, index) => (
-                                <span
-                                    key={index}
-                                    style={{
-                                        marginRight: '8px',
-                                        paddingLeft: '5px',
-                                        paddingRight: '5px',
-                                        fontSize: '12px',
-                                        borderRadius: '6px',
-                                        color: '#ffffff',
-                                        backgroundColor: '#990099',
-                                        boxShadow: '2px 2px 4px 1px rgba(255, 255, 255, 0.5)',
-                                        whiteSpace: 'nowrap', // 防止文本拆分
-                                    }}
-                                >{tag}</span>
-                            ))}
-                        </div>
-                        }
-                    </div>
+                    <span className="ai-kb-sidebar-content">
+                        <span className="ai-kb-sidebar-main-row">
+                            {iconSrc && (
+                                <img
+                                    className="ai-kb-sidebar-icon"
+                                    src={iconSrc}
+                                    alt=""
+                                    aria-hidden="true"
+                                />
+                            )}
+                            <span className="ai-kb-sidebar-text">{label}</span>
+                        </span>
+                        {tags.length > 0 && (
+                            <span className="ai-kb-sidebar-tags">
+                                {tags.map((tag) => (
+                                    <span
+                                        key={tag}
+                                        className="ai-kb-sidebar-tag"
+                                    >
+                                        {tag}
+                                    </span>
+                                ))}
+                            </span>
+                        )}
+                    </span>
                 </Link>
 
                 {href && collapsible && (
@@ -264,7 +383,12 @@ export default function DocSidebarItemCategory ({
                 )}
             </div>
 
-            <Collapsible lazy as="ul" className="menu__list" collapsed={collapsed}>
+            <Collapsible
+                lazy
+                as="ul"
+                className="menu__list ai-kb-sidebar-children"
+                collapsed={collapsed}
+            >
                 <DocSidebarItems
                     items={items}
                     tabIndex={collapsed ? -1 : 0}
@@ -273,6 +397,6 @@ export default function DocSidebarItemCategory ({
                     level={level + 1}
                 />
             </Collapsible>
-        </li>
+        </motion.li>
     );
 }

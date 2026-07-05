@@ -4,7 +4,11 @@ import type { RecordItem } from "@site/data/wordStats";
 export interface ProcessedData {
   date: string;
   total: number;
+  docsBlogTotal: number;
+  aiDocsTotal: number;
   delta: number;
+  docsBlogDelta: number;
+  aiDocsDelta: number;
   commit: string;
   message: string;
   isIncrease: boolean;
@@ -16,7 +20,14 @@ export function processWordCountData(items: RecordItem[]): ProcessedData[] {
   );
 
   return sorted.map((item, index) => {
-    const prev = sorted[index - 1]?.wordCount || 0;
+    const docsBlogTotal = item.docsBlogWordCount ?? item.wordCount;
+    const aiDocsTotal = item.aiDocsWordCount ?? 0;
+    const total = item.wordCount ?? docsBlogTotal + aiDocsTotal;
+
+    const prevItem = sorted[index - 1];
+    const prevDocsBlogTotal = prevItem?.docsBlogWordCount ?? prevItem?.wordCount ?? 0;
+    const prevAiDocsTotal = prevItem?.aiDocsWordCount ?? 0;
+    const prevTotal = prevItem?.wordCount ?? prevDocsBlogTotal + prevAiDocsTotal;
 
     const localDate = new Date(item.date);
     const formattedDate = localDate.toLocaleString(undefined, {
@@ -31,11 +42,15 @@ export function processWordCountData(items: RecordItem[]): ProcessedData[] {
 
     return {
       date: formattedDate,
-      total: item.wordCount,
-      delta: item.wordCount - prev,
+      total,
+      docsBlogTotal,
+      aiDocsTotal,
+      delta: total - prevTotal,
+      docsBlogDelta: docsBlogTotal - prevDocsBlogTotal,
+      aiDocsDelta: aiDocsTotal - prevAiDocsTotal,
       commit: item.commit,
       message: item.message,
-      isIncrease: item.wordCount - prev >= 0,
+      isIncrease: total - prevTotal >= 0,
     };
   });
 }

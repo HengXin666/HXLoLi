@@ -1,0 +1,47 @@
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+.navbarDock {
+  margin: 0 0.25rem;
+}
+
+.navbarDockRight {
+  margin-right: 0.35rem;
+}
+
+.navbarDockCompact {
+  margin-left: 0;
+}
+
+.navbarDock :global(.navbar__item),
+.navbarDock :global(.navbar__link) {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.navbarDock :global(.navbar__link) {
+  padding: 0.25rem 0.58rem;
+}
+
+.navbarDock :global(.dropdown__menu) {
+  transform-origin: top center;
+}
+
+/*
+Hide color mode toggle and docked desktop items in small viewports.
+The mobile sidebar keeps the navigation items accessible there.
+ */
+@media (max-width: 996px) {
+  .navbarDock,
+  .colorModeToggle {
+    display: none;
+  }
+}

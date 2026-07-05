@@ -74,7 +74,11 @@ export default function WordCountChart ({
             brushRange.startIndex,
             brushRange.endIndex + 1
         );
-        const totals: number[] = slice.map(d => d.total);
+        const totals: number[] = slice.flatMap(d => [
+            d.total,
+            d.docsBlogTotal,
+            d.aiDocsTotal,
+        ]);
         const max: number = Math.max(...totals);
         const min: number = Math.min(...totals);
         return [min * 0.9, max * 1.1];
@@ -178,11 +182,15 @@ export default function WordCountChart ({
                     />
 
                     <Tooltip
-                        formatter={(value: number, name: string) => {
+                        formatter={(value: number | string, name: string) => {
                             if (name === '增量')
-                                return [`${value.toLocaleString()} 字`, name];
+                                return [`${Number(value).toLocaleString()} 字`, name];
                             if (name === '总量')
-                                return [`${value.toLocaleString()} 字`, name];
+                                return [`${Number(value).toLocaleString()} 字`, name];
+                            if (name === 'docs/blog')
+                                return [`${Number(value).toLocaleString()} 字`, name];
+                            if (name === 'ai-docs')
+                                return [`${Number(value).toLocaleString()} 字`, name];
                             if (name === '提交') {
                                 const msg = typeof value === 'string' ? value : String(value);
                                 // 最多显示 30 个字符
@@ -221,6 +229,30 @@ export default function WordCountChart ({
                         strokeWidth={2}
                         isAnimationActive={true}
                         dot={false}
+                    />
+
+                    {/* docs/blog 累计曲线 */}
+                    <Line
+                        yAxisId="right"
+                        type="monotone"
+                        dataKey="docsBlogTotal"
+                        name="docs/blog"
+                        stroke="#F7CE45"
+                        strokeWidth={2}
+                        dot={false}
+                        isAnimationActive={true}
+                    />
+
+                    {/* ai-docs 累计曲线 */}
+                    <Line
+                        yAxisId="right"
+                        type="monotone"
+                        dataKey="aiDocsTotal"
+                        name="ai-docs"
+                        stroke="#8CFF00"
+                        strokeWidth={2}
+                        dot={false}
+                        isAnimationActive={true}
                     />
 
                     {/* 平滑总量曲线 */}

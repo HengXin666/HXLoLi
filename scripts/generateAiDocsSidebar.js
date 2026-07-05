@@ -58,25 +58,45 @@ function scanDocs(dir, relativePath = '') {
             const { icon: tagIcon, tags = [] } = getJsonTagConfig(fullPath);
             const icon = tagIcon ?? (result.items.length > 0 ? defaultFolderIcon : defaultDocIcon);
 
-            const subCategory = {
-                type: 'category',
-                label: cleanLabel,
-                collapsible: true,
-                collapsed: false,
-                items: result.items,
-                customProps: { icon, tags },
-            };
-
             if (result.hasIndex) {
                 const id = path.posix.join(
                     ...folderRelative.split(path.sep).map(stripPrefix),
                     'index'
                 );
-                subCategory.link = { type: 'doc', id: id.replace(/\\/g, '/') };
+
+                if (result.items.length === 0) {
+                    items.push({
+                        type: 'doc',
+                        id: id.replace(/\\/g, '/'),
+                        label: cleanLabel,
+                        customProps: { icon: tagIcon ?? defaultDocIcon, tags },
+                    });
+                    continue;
+                }
+
+                const subCategory = {
+                    type: 'category',
+                    label: cleanLabel,
+                    collapsible: true,
+                    collapsed: true,
+                    items: result.items,
+                    customProps: { icon, tags },
+                    link: { type: 'doc', id: id.replace(/\\/g, '/') },
+                };
+
+                items.push(subCategory);
+                continue;
             }
 
             if (result.items.length > 0 || result.hasIndex) {
-                items.push(subCategory);
+                items.push({
+                    type: 'category',
+                    label: cleanLabel,
+                    collapsible: true,
+                    collapsed: true,
+                    items: result.items,
+                    customProps: { icon, tags },
+                });
             }
         } else if (entry === 'index.md' || entry === 'index.mdx') {
             hasIndex = true;
@@ -85,7 +105,11 @@ function scanDocs(dir, relativePath = '') {
                 ...relativePath.split(path.sep).map(stripPrefix),
                 stripPrefix(entry.replace(/\.mdx?$/, ''))
             );
-            items.push({ type: 'doc', id: id });
+            items.push({
+                type: 'doc',
+                id,
+                customProps: { icon: defaultDocIcon, tags: [] },
+            });
         }
     }
 
