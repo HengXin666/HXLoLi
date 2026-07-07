@@ -898,11 +898,27 @@ export const stats: RecordItem[] = [
     "message": "[blog] 新增cppcon和py爬虫库的调研"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-07-05T14:17:28.802Z",
+    "commit": "575c27121a505164486a84b8fa8c9b8629a2f3bc",
+    "date": "2026-07-05T22:17:28+08:00",
     "docsBlogWordCount": 3860408,
     "aiDocsWordCount": 124461,
     "wordCount": 3984869,
     "message": "[blog] 新增ai相关的工具使用笔记. 修改博客区分 ai-docs和人类提交的字数统计"
+  },
+  {
+    "commit": "5582c5c075c5e289117480b04f21cfe4d65134ed",
+    "date": "2026-07-06T00:40:49+08:00",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 124461,
+    "wordCount": 3984869,
+    "message": "LOLI-12: restore default navbar"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-07-07T17:10:02.788Z",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 128060,
+    "wordCount": 3988468,
+    "message": "[ai-docs] 新增 电脑包选购指标 (不过好像没有什么用...)"
   }
 ];

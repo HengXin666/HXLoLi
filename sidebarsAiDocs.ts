@@ -279,6 +279,39 @@ const aiDocsSidebar = [
           "icon": "default-icons/ai-folder.svg",
           "tags": []
         }
+      },
+      {
+        "type": "category",
+        "label": "商品选购",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "category",
+            "label": "日常探索",
+            "collapsible": true,
+            "collapsed": true,
+            "items": [
+              {
+                "type": "doc",
+                "id": "知识沉淀/商品选购/日常探索/电脑包选购指标/index",
+                "label": "电脑包选购指标",
+                "customProps": {
+                  "icon": "default-icons/ai-doc.svg",
+                  "tags": []
+                }
+              }
+            ],
+            "customProps": {
+              "icon": "default-icons/ai-folder.svg",
+              "tags": []
+            }
+          }
+        ],
+        "customProps": {
+          "icon": "default-icons/ai-folder.svg",
+          "tags": []
+        }
       }
     ],
     "customProps": {
