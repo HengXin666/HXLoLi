@@ -914,11 +914,19 @@ export const stats: RecordItem[] = [
     "message": "LOLI-12: restore default navbar"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-07-07T17:10:02.788Z",
+    "commit": "db4b1b866916a155350a06570d82b2cd08dc910f",
+    "date": "2026-07-08T01:10:02+08:00",
     "docsBlogWordCount": 3860408,
     "aiDocsWordCount": 128060,
     "wordCount": 3988468,
     "message": "[ai-docs] 新增 电脑包选购指标 (不过好像没有什么用...)"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-08-02T06:55:00.461Z",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 145374,
+    "wordCount": 4005782,
+    "message": "[ai-docs] 从打野到注册机：一条真实项目工具链的工程化学习"
   }
 ];

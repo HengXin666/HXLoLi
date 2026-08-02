@@ -240,6 +240,15 @@ const aiDocsSidebar = [
               "icon": "default-icons/ai-folder.svg",
               "tags": []
             }
+          },
+          {
+            "type": "doc",
+            "id": "知识沉淀/项目学习/从打野到注册机与AI工具链/index",
+            "label": "从打野到注册机与AI工具链",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
           }
         ],
         "customProps": {
