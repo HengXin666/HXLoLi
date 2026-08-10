@@ -922,11 +922,35 @@ export const stats: RecordItem[] = [
     "message": "[ai-docs] 新增 电脑包选购指标 (不过好像没有什么用...)"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-08-02T06:55:00.461Z",
+    "commit": "e22cbd5825e2cadd0688b2886ceb10914dcf7c8e",
+    "date": "2026-07-15T11:52:29-07:00",
     "docsBlogWordCount": 3860408,
-    "aiDocsWordCount": 145374,
-    "wordCount": 4005782,
+    "aiDocsWordCount": 135383,
+    "wordCount": 3995791,
+    "message": "docs: 沉淀Agent平台数据面解耦实践"
+  },
+  {
+    "commit": "dd5d59044ac49a2fc1406cdbd724804f2d34e204",
+    "date": "2026-07-16T10:49:12-07:00",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 130712,
+    "wordCount": 3991120,
+    "message": "docs: 调整Agent平台笔记内容与分类"
+  },
+  {
+    "commit": "b9a340f7b8520d24eb2ef06c159d6682328ecd49",
+    "date": "2026-08-02T14:55:00+08:00",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 150672,
+    "wordCount": 4011080,
     "message": "[ai-docs] 从打野到注册机：一条真实项目工具链的工程化学习"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-08-10T18:28:23.657Z",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 168378,
+    "wordCount": 4028786,
+    "message": "[ai-docs] agent / llm 学习"
   }
 ];

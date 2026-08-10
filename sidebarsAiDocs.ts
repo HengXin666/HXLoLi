@@ -242,6 +242,27 @@ const aiDocsSidebar = [
             }
           },
           {
+            "type": "category",
+            "label": "Agent平台",
+            "collapsible": true,
+            "collapsed": true,
+            "items": [
+              {
+                "type": "doc",
+                "id": "知识沉淀/项目学习/Agent平台/Agent平台数据面灵活解耦/index",
+                "label": "Agent平台数据面灵活解耦",
+                "customProps": {
+                  "icon": "default-icons/ai-doc.svg",
+                  "tags": []
+                }
+              }
+            ],
+            "customProps": {
+              "icon": "default-icons/ai-folder.svg",
+              "tags": []
+            }
+          },
+          {
             "type": "doc",
             "id": "知识沉淀/项目学习/从打野到注册机与AI工具链/index",
             "label": "从打野到注册机与AI工具链",
@@ -313,6 +334,36 @@ const aiDocsSidebar = [
             ],
             "customProps": {
               "icon": "default-icons/ai-folder.svg",
+              "tags": []
+            }
+          }
+        ],
+        "customProps": {
+          "icon": "default-icons/ai-folder.svg",
+          "tags": []
+        }
+      },
+      {
+        "type": "category",
+        "label": "LLM与Agent",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "doc",
+            "id": "知识沉淀/LLM与Agent/Agent要懂的LLM基础知识/index",
+            "label": "Agent要懂的LLM基础知识",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "知识沉淀/LLM与Agent/AI-Agent设计原理与工程实践/index",
+            "label": "AI-Agent设计原理与工程实践",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
               "tags": []
             }
           }
