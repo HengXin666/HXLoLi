@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-ai-docs docs-version-current docs-doc-page docs-doc-id-知识沉淀/LLM与Agent/Agent要懂的LLM基础知识/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">Agent要懂的LLM基础知识 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/Agent要懂的LLM基础知识"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-ai-docs-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-ai-docs-current"><meta data-rh="true" property="og:title" content="Agent要懂的LLM基础知识 | HXLoLi"><meta data-rh="true" name="description" content="[!NOTE]"><meta data-rh="true" property="og:description" content="[!NOTE]"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/Agent要懂的LLM基础知识"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/Agent要懂的LLM基础知识" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/Agent要懂的LLM基础知识" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed"><link rel="stylesheet" href="/HXLoLi/assets/css/styles.5d491c63.css">
+<script src="/HXLoLi/assets/js/runtime~main.8865c1e6.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.47c6a171.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"dark")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/ai-doc.svg"><link rel="preload" as="image" href="/HXLoLi/default-icons/ai-folder.svg"><link rel="preload" as="image" href="/HXLoLi/default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi/img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi/img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a class="navbar__item navbar__link" href="/HXLoLi/docs/关于">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/knowledge-base/关于">知识库</a><a class="navbar__item navbar__link" href="/HXLoLi/anime">アニメ</a></div><div class="navbar__items navbar__items--right"><div style="position:relative" class="navbar__item"><button class="navbar__link" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;font-size:13px;padding:4px 8px;color:var(--ifm-navbar-link-color)" title="CDN 节点选择"><span style="font-size:11px">⚡</span><span style="font-family:ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, monospace;font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:-0.3px;color:var(--ifm-navbar-link-color)">CDN</span></button></div><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li><li><a class="dropdown__link" href="/HXLoLi/docs-graph">笔记关系图</a></li><li><a class="dropdown__link" href="/HXLoLi/friends">友链</a></li><li><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="dropdown__link">GitHub<svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="ai-kb-page"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-1" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" href="/HXLoLi/knowledge-base/关于"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">关于</span></span></span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/HXLoLi/knowledge-base/知识沉淀/现代C++/日常探索/HXLibs编写串行协程调度器"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">知识沉淀</span></span></span></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list ai-kb-sidebar-children"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/现代C++/日常探索/HXLibs编写串行协程调度器"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">现代C++</span></span></span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/项目学习/obsidian-second-brain"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">项目学习</span></span></span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/Python/日常探索/Python爬虫库选型调研"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Python</span></span></span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/商品选购/日常探索/电脑包选购指标"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">商品选购</span></span></span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/Agent要懂的LLM基础知识"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">LLM与Agent</span></span></span></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list ai-kb-sidebar-children"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/Agent要懂的LLM基础知识"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Agent要懂的LLM基础知识</span></span></span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/AI-Agent设计原理与工程实践"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">AI-Agent设计原理与工程实践</span></span></span></a></li></ul></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row ai-kb-page"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><div class="aiDocHeader_kTZk" style="opacity:0;transform:translateY(-10px)"><div class="bgGrid_iCNM"></div><div class="metalShine_apht"></div><div class="headerContent_JtLs"><div class="titleRow_gyYW"><div class="aiIcon_uCRj" title="AI 辅助生成内容" style="opacity:0;transform:translateY(-4px) scale(0.9)"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z"></path></svg></div><span class="typewriter_Tkd9" style="display:inline"><span class="typewriterCursor_hJ0X" style="opacity:1;transition:opacity 0.08s">▌</span></span></div><div class="metaRow_SKoK"><span class="metaBadge_cx8r dateBadge_voC8" title="文档创建时间" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"></path></svg></span>2026-08-10</span><span class="metaBadge_cx8r modelBadge_tpoh" title="辅助编辑的 AI 模型: Codex" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z"></path></svg></span>Codex</span><a class="metaBadge_cx8r skillBadge_Kei0 clickableBadge_p2xi" title="查看 Skill 源码: hx-look-video + hx-make-ai-docs" href="https://github.com/HengXin666/HXLoLi/tree/main/.agents/skills/hx-look-video + hx-make-ai-docs" target="_blank" rel="noopener noreferrer" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"></path></svg></span>hx-look-video + hx-make-ai-docs<span class="skillExternalIcon_BIVD"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: LLM" href="/HXLoLi/knowledge-base/tags/LLM"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>LLM</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: AI Agent" href="/HXLoLi/knowledge-base/tags/AI Agent"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>AI Agent</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: Tokenization" href="/HXLoLi/knowledge-base/tags/Tokenization"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>Tokenization</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: KV Cache" href="/HXLoLi/knowledge-base/tags/KV Cache"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>KV Cache</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: 约束解码" href="/HXLoLi/knowledge-base/tags/约束解码"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>约束解码</span></a></div></div></div><div style="display:flex;justify-content:space-between;align-items:center"><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">知识沉淀</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">LLM与Agent</span><meta itemprop="position" content="2"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">Agent要懂的LLM基础知识</span><meta itemprop="position" content="3"></li></ul></nav></div><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>Agent要懂的LLM基础知识</h1></header>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><span class="octicon octicon-note" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-info mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Note</p>
+<p>本文由 AI 辅助沉淀, 需要用户 review 后再提交.</p>
+</div>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x00-一句话总结">0x00 一句话总结<a href="#0x00-一句话总结" class="hash-link" aria-label="0x00 一句话总结的直接链接" title="0x00 一句话总结的直接链接">​</a></h2>
+<p>Agent 的本质是反复调用 LLM 的循环. 循环里的&quot;玄学问题&quot;——聊到 20-30 轮突然不守规矩、第 101 次工具调用输出坏 JSON——不是框架 bug, 而是 LLM 的性质. 从<strong>输入(分词) → 上下文(怎么读) → 输出(怎么采样) → 成本延迟 → 能力边界</strong>五个角度都能给出明确解法.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x01-材料与可靠性">0x01 材料与可靠性<a href="#0x01-材料与可靠性" class="hash-link" aria-label="0x01 材料与可靠性的直接链接" title="0x01 材料与可靠性的直接链接">​</a></h2>
+<ul>
+<li>视频: 《Agent要懂的一些LLM基础知识》 by 假如今天可以躺平, <span class="tailwind"><a href="https://www.bilibili.com/video/BV1M73U6LEM3/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">BV1M73U6LEM3<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span>, 约 33.5 分钟.</li>
+<li>参考书: 《智能体AI漫游指南: 从基础到系统》(Haggai Roitman, 中文版 v1.3, <span class="tailwind"><a href="https://github.com/Chasing1020/agentic-ai-guide-zh/releases" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Chasing1020/agentic-ai-guide-zh<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span>), 视频只讲前 3 章. 另推荐 AK 老师 3 小时《听懂 LLM》.</li>
+<li>Transcript: funasr-asr (Bilibili 无公开字幕). 专有名词有 ASR 错字风险, 数值已与书中原文交叉核对; 结尾约 <code>00:33:21</code> 后段落时间戳被折叠, 内容完整但时间不可精确引用.</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x02-核心要点-五个角度">0x02 核心要点: 五个角度<a href="#0x02-核心要点-五个角度" class="hash-link" aria-label="0x02 核心要点: 五个角度的直接链接" title="0x02 核心要点: 五个角度的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="一输入-token-是怎么被切开的">一、输入: token 是怎么被切开的<a href="#一输入-token-是怎么被切开的" class="hash-link" aria-label="一、输入: token 是怎么被切开的的直接链接" title="一、输入: token 是怎么被切开的的直接链接">​</a></h3>
+<p><strong>Agent 循环与 LLM 流水线</strong> (后面全篇围绕它):</p>
+<div style="text-align:center"></div>
+<p><strong>为什么是子词</strong> (注意力成本是序列长度的平方, 所以&quot;切得越碎越烧钱&quot;):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>切法</th><th>词表大小</th><th>序列长度</th><th>问题</th></tr></thead><tbody><tr><td>按字符</td><td>~200</td><td>极长</td><td>注意力 O(n²), 算力爆炸</td></tr><tr><td>按单词</td><td>50 万+</td><td>短</td><td>新词/拼错词直接废掉</td></tr><tr><td><strong>子词</strong></td><td>32K-128K</td><td>适中</td><td><strong>主流平衡点</strong> (Llama 3 ≈ 128K)</td></tr></tbody></table>
+<p><strong>BPE (字节对编码)</strong> = 反复合并最高频相邻对:</p>
+<div style="text-align:center"></div>
+<p><strong>膨胀率 = 平均一个词被切成几个 token</strong>, 直接等于钱:</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>膨胀率</mtext><mo>=</mo><mfrac><mrow><mtext>总</mtext><mi>t</mi><mi>o</mi><mi>k</mi><mi>e</mi><mi>n</mi><mtext>数</mtext></mrow><mtext>总词数</mtext></mfrac></mrow><annotation encoding="application/x-tex">膨胀率 = \frac{总 token 数}{总词数}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord cjk_fallback">膨胀率</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em"><span style="top:-2.655em"><span class="pstrut" style="height:3em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">总词数</span></span></span></span><span style="top:-3.23em"><span class="pstrut" style="height:3em"></span><span class="frac-line" style="border-bottom-width:0.04em"></span></span><span style="top:-3.394em"><span class="pstrut" style="height:3em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">总</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight" style="margin-right:0.03148em">k</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">n</span><span class="mord cjk_fallback mtight">数</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<ul>
+<li>中文膨胀率 &gt; 英文; 代码缩进处理不好膨胀率也高.</li>
+<li>膨胀率高 30% → 账单高 30%. 同功能换模型成本差一截, 不一定是单价, 可能是它切得更碎.</li>
+</ul>
+<p><strong>特殊 token 是&quot;结构&quot;, 不是&quot;语义&quot;</strong> —— 它们是分割符, 不是词:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>token</th><th>作用</th></tr></thead><tbody><tr><td><code>&lt;BOS&gt;</code> / <code>&lt;EOS&gt;</code></td><td>序列开始/结束. 模型发不出 EOS 就不会停 → 无限生成撞 max tokens</td></tr><tr><td><code>&lt;用户轮&gt;</code> / <code>&lt;助理轮&gt;</code> / <code>&lt;tool_call&gt;</code></td><td>轮次边界. 原生工具调用 token 比自然语言&quot;我要调用工具了&quot;可靠得多 (训练时是硬边界)</td></tr></tbody></table>
+<p>两条硬经验:</p>
+<ul>
+<li><strong>chat template 必须用模型自己的</strong> (角色标记不同, 套错模板质量偷偷变差且不报错).</li>
+<li><strong>别自己发明工具调用格式</strong> (作者踩过坑: 自造格式在长上下文/多轮/受干扰时产生偏离).</li>
+</ul>
+<p><strong>数字分词</strong>: &quot;2026&quot; 可能切成 1 个或 2 个 token, 取决于语料频率, 分词器不理解数字位置. Agent 里凡是计算, <strong>交给工具不交给模型</strong>——不是模型笨, 是它没见过数字的结构.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="二上下文-是怎么被读的">二、上下文: 是怎么被读的<a href="#二上下文-是怎么被读的" class="hash-link" aria-label="二、上下文: 是怎么被读的的直接链接" title="二、上下文: 是怎么被读的的直接链接">​</a></h3>
+<p><strong>自注意力 = 每个 token 看所有 token</strong>:</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>t</mi><mi>t</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo stretchy="false">(</mo><mi>Q</mi><mo separator="true">,</mo><mi>K</mi><mo separator="true">,</mo><mi>V</mi><mo stretchy="false">)</mo><mo>=</mo><mi>s</mi><mi>o</mi><mi>f</mi><mi>t</mi><mi>m</mi><mi>a</mi><mi>x</mi><mrow><mo fence="true">(</mo><mfrac><mrow><mi>Q</mi><msup><mi>K</mi><mi>T</mi></msup></mrow><msqrt><msub><mi>d</mi><mi>k</mi></msub></msqrt></mfrac><mo fence="true">)</mo></mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">Attention(Q,K,V) = softmax\left(\frac{QK^T}{\sqrt{d_k}}\right)V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal">A</span><span class="mord mathnormal">tt</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mopen">(</span><span class="mord mathnormal">Q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em"></span><span class="mord mathnormal" style="margin-right:0.07153em">K</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em"></span><span class="mord mathnormal" style="margin-right:0.22222em">V</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:1.8em;vertical-align:-0.65em"></span><span class="mord mathnormal">so</span><span class="mord mathnormal" style="margin-right:0.10764em">f</span><span class="mord mathnormal">t</span><span class="mord mathnormal">ma</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.1667em"></span><span class="minner"><span class="mopen delimcenter" style="top:0em"><span class="delimsizing size2">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0895em"><span style="top:-2.5864em"><span class="pstrut" style="height:3em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord sqrt mtight"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8622em"><span class="svg-align" style="top:-3em"><span class="pstrut" style="height:3em"></span><span class="mord mtight" style="padding-left:0.833em"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em"><span style="top:-2.3488em;margin-left:0em;margin-right:0.0714em"><span class="pstrut" style="height:2.5em"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em"><span></span></span></span></span></span></span></span></span><span style="top:-2.8222em"><span class="pstrut" style="height:3em"></span><span class="hide-tail mtight" style="min-width:0.853em;height:1.08em"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1778em"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em"><span class="pstrut" style="height:3em"></span><span class="frac-line" style="border-bottom-width:0.04em"></span></span><span style="top:-3.4461em"><span class="pstrut" style="height:3em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">Q</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em">K</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9191em"><span style="top:-2.931em;margin-right:0.0714em"><span class="pstrut" style="height:2.5em"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em">T</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.538em"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em"><span class="delimsizing size2">)</span></span></span><span class="mspace" style="margin-right:0.1667em"></span><span class="mord mathnormal" style="margin-right:0.22222em">V</span></span></span></span></p>
+<p>成本 O(n²): 2K 上下文注意力矩阵约 16MB, 128K 时有 <strong>164 亿个数值</strong>, 超单卡显存——上下文贵是物理上贵. 工业解法: FlashAttention (分块计算, 从不写出完整矩阵) / 滑动窗口 / 稀疏模式.</p>
+<p><strong>Attention Sink (注意力病态)</strong>: 第一个 token 是模型的&quot;垃圾桶&quot;——softmax 必须输出合法概率分布, 当没有 token 特别相关时, 注意力就往第一个 token 倒 (各层可占 20-50%).</p>
+<div style="text-align:center"></div>
+<p>两个与 Agent 相关的后果:</p>
+<ul>
+<li><strong>滑动窗口截断不能截掉开头</strong> → 困惑度灾难性飙升. StreamingLM 解法: 永远保留前几个 token + 最近窗口.</li>
+<li><strong>注意力可视化有欺骗效应</strong>: 第一个 token 特别亮不代表重要, 只是数学伪影 (&quot;注意力不是解释&quot;类工作). 热力图只能生成假设, 不能做因果解释.</li>
+</ul>
+<p><strong>Lost in the Middle (中间迷失)</strong> = U 型曲线, 注意力稀释 (每个 token 平均注意力 1/n) + 位置衰减叠加的结果:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-text codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">开头 [██████████] 可靠检索</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">中间 [░░░░░░░░░░] 经常被忽略  ← 关键指令放这里大概率读不到</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">结尾 [██████████] 可靠检索</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">text</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<ul>
+<li>系统提示里&quot;绝对不要做什么&quot;的约束, <strong>放头部或尾部</strong>, 别埋在背景中间.</li>
+<li>这就解释了&quot;聊 20-30 轮突然不守规矩&quot;: 系统提示还在最前面, 但和当前生成之间隔了几万 token——结构没消失, <strong>注意力上被稀释了</strong>. 解法: 每轮/隔几轮把关键约束重新注入到最新位置.</li>
+<li>RAG 召回应<strong>宁少勿多</strong>: 召回越多稀释越严重, 宁可少召回、召回准.</li>
+</ul>
+<p><strong>RoPE 与&quot;宣称长度&quot;</strong>: Transformer 不知道顺序 (&quot;我坐在床上&quot; vs &quot;床坐在我身上&quot; 的 token 集合相同), 需要位置编码. RoPE 按位置旋转向量, 点积只依赖相对距离. 注意: <strong>训练长度 ≠ 宣称长度</strong>——Llama 3 训练 8K, 部署 128K (外推 + 少量长文本补训, 分阶段 8K→64K→128K), 越靠近上限越不可靠. 标 200K 不代表塞 300K 没事.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="三输出-是怎么被采样出来的">三、输出: 是怎么被采样出来的<a href="#三输出-是怎么被采样出来的" class="hash-link" aria-label="三、输出: 是怎么被采样出来的的直接链接" title="三、输出: 是怎么被采样出来的的直接链接">​</a></h3>
+<p>模型每一步输出的是<strong>整个词表上的概率分布</strong> (12.8 万候选), 解码策略决定挑哪个:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>策略</th><th>机制</th><th>特点</th></tr></thead><tbody><tr><td>贪心</td><td>每步取概率最高</td><td>快、确定, 但平庸重复</td></tr><tr><td>温度 T</td><td>先缩放 logits 再采样</td><td>T&lt;1 稳, T&gt;1 发散, T→0 退化成贪心</td></tr><tr><td>Top-K</td><td>只从最高 K 个里挑</td><td>K 固定: 确定时浪费, 不确定时太小</td></tr><tr><td>Top-P (核采样)</td><td>累积概率 &gt;p 的最小集合</td><td><strong>自适应, 默认选择</strong>, 一般 0.9-0.95</td></tr><tr><td>Min-P</td><td>相对下限 β×最高概率</td><td>尖峰分布下比 Top-P 更少退化</td></tr></tbody></table>
+<p><strong>实用建议</strong>: 代码/数学/精细工具参数 → temperature=0; 结构化输出 → 低温; 只有头脑风暴/候选方案才拉高温度. <strong>重复惩罚</strong>在生成 JSON 时要调小甚至关掉 (大括号、引号、逗号本该重复出现).</p>
+<p><strong>约束解码 (工具调用的核心技术)</strong>:</p>
+<div style="text-align:center"></div>
+<ul>
+<li>模型<strong>物理上不可能</strong>生成非法 JSON, 而不是&quot;请你输出 JSON&quot;.</li>
+<li>运行时查表每步 &lt;1ms, 编译 schema 0.5-5s 可缓存; vLLM 0.7+ 默认 XGrammar, 传 <code>guided_json</code> 即可.</li>
+<li><strong>结构化 ≠ 正确</strong>: 只保证语法有效, 不保证语义正确 (user ID 一定是整数, 但可能是错的). 它解决&quot;解析器崩了&quot;, 解决不了&quot;数据是错的&quot;——<strong>业务校验一步不能省</strong>.</li>
+<li>schema 尽量扁平 (嵌套对象/数组显著提高幻觉风险); 消费者是程序就上约束解码, 是人才用自由采样.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="四成本与延迟-这整套要花多少钱和时间">四、成本与延迟: 这整套要花多少钱和时间<a href="#四成本与延迟-这整套要花多少钱和时间" class="hash-link" aria-label="四、成本与延迟: 这整套要花多少钱和时间的直接链接" title="四、成本与延迟: 这整套要花多少钱和时间的直接链接">​</a></h3>
+<p><strong>KV cache</strong>: 自回归每生成一个 token 都要与前面所有 token 做注意力, 前面的 K/V 算一次存起来:</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mi>V</mi><mtext> </mtext><mi>c</mi><mi>a</mi><mi>c</mi><mi>h</mi><mi>e</mi><mo>=</mo><mn>2</mn><mo>×</mo><mi>L</mi><mo>×</mo><mi>H</mi><mo>×</mo><mi>d</mi><mo>×</mo><mi>n</mi><mo>×</mo><mi>b</mi><mi>y</mi><mi>t</mi><mi>e</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">KV\ cache = 2 \times L \times H \times d \times n \times bytes</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em"></span><span class="mord mathnormal" style="margin-right:0.07153em">K</span><span class="mord mathnormal" style="margin-right:0.22222em">V</span><span class="mspace"> </span><span class="mord mathnormal">c</span><span class="mord mathnormal">a</span><span class="mord mathnormal">c</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em"></span><span class="mord mathnormal" style="margin-right:0.08125em">H</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em"></span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em"></span><span class="mord mathnormal">b</span><span class="mord mathnormal" style="margin-right:0.03588em">y</span><span class="mord mathnormal">t</span><span class="mord mathnormal">es</span></span></span></span></p>
+<p>Llama-3 70B, n=4096 → <strong>每条序列约 1.3GB</strong>. 长系统提示 + 几十个工具定义 + few-shot + 对话历史 + 工具返回的 JSON 全部线性占 KV cache——<strong>Agent 越跑越慢越来越贵不是错觉</strong>.</p>
+<p><strong>两个反直觉结论</strong>:</p>
+<ul>
+<li>生成阶段是<strong>内存受限</strong> (每个 token 都要把整个 KV cache 读一遍, 算力等数据), 输入阶段是<strong>计算受限</strong> → 并发越高单位成本越低, 所以推理引擎拼命展批.</li>
+<li>朴素分配下 GPU 显存利用率只有 <strong>20-40%</strong> (内部碎片: 只生成 500 token 却占 4096 的块; 外部碎片: 总量够但没连续大块).</li>
+</ul>
+<p><strong>PagedAttention (vLLM)</strong> = 给 KV cache 上虚拟内存分页: 切成固定大小页 (默认 16 token/页), 块表映射逻辑位置→物理页. 内部碎片最多浪费最后一页 15 个 token.</p>
+<p><strong>前缀缓存</strong> = 多请求共享同一系统提示, 就共享同一批物理块:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>1000-token 系统提示, 128 并发用户</th><th>KV cache</th></tr></thead><tbody><tr><td>不共享前缀</td><td><strong>42GB</strong></td></tr><tr><td>共享前缀</td><td><strong>0.33GB</strong> (约 128×)</td></tr></tbody></table>
+<p>布局原则 (对前缀缓存友好):</p>
+<div style="text-align:center"></div>
+<p>前缀缓存从头逐块匹配, <strong>开头改一个字节后面全部作废</strong>——在系统提示开头加一行时间戳 = 前缀缓存 100% 失效, 每次重新预填整段.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="五边界-什么时候该换提示词-什么时候该微调换模型">五、边界: 什么时候该换提示词, 什么时候该微调/换模型<a href="#五边界-什么时候该换提示词-什么时候该微调换模型" class="hash-link" aria-label="五、边界: 什么时候该换提示词, 什么时候该微调/换模型的直接链接" title="五、边界: 什么时候该换提示词, 什么时候该微调/换模型的直接链接">​</a></h3>
+<p><strong>SFT 教不会四件事</strong> (完整流水线: Pretrain → SFT → RLHF/DPO):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>SFT 教不会</th><th>需要</th></tr></thead><tbody><tr><td>偏好 (哪个回答更好)</td><td>RLHF / DPO</td></tr><tr><td>拒绝 (何时不该回答)</td><td>安全训练</td></tr><tr><td>校准 (说&quot;我不知道&quot;)</td><td>带真实性奖励的 RL</td></tr><tr><td>复杂推理 (多步推理链)</td><td>带可验证奖励的 RL</td></tr></tbody></table>
+<p><strong>转微调的信号</strong>: 已经系统迭代过提示词 (版本管理 + A/B 测试 + 像样评测集) 仍不达标 → 才谈微调. 没系统迭代过, 先别谈.</p>
+<p><strong>五种提示失败模式与解法</strong> (书中表格):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>症状</th><th>解法</th></tr></thead><tbody><tr><td>指令遗忘 (长提示忽略约束)</td><td>约束放末尾/重复关键规则</td></tr><tr><td>格式漂移 (开头对后面崩)</td><td>约束解码/拆短链式 prompt</td></tr><tr><td>谄媚 (附和错误前提)</td><td>&quot;若前提不正确请质疑&quot;</td></tr><tr><td>过度拒答 (拒绝无害请求)</td><td>改写请求说明正当意图</td></tr><tr><td>细节幻觉 (编造不存在事实)</td><td>&quot;若未知请说不知道&quot;/带溯源 RAG</td></tr></tbody></table>
+<p><strong>幻觉检测的两层结构</strong>:</p>
+<div style="text-align:center"></div>
+<p><strong>奖励塑形与 reward hacking</strong> (书 3.11): 稀疏奖励学不动 → 加中间奖励; 但设计不好会诱发投机 (导航智能体绕检查点无限转圈刷奖励; 模型因&quot;听起来自信&quot;得奖励就开口先说). 正确做法是<strong>基于势函数的奖励塑形 (PBRS)</strong>:</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>s</mi><mo separator="true">,</mo><mi>a</mi><mo separator="true">,</mo><msup><mi>s</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">)</mo><mo>=</mo><mi>γ</mi><mi mathvariant="normal">Φ</mi><mo stretchy="false">(</mo><msup><mi>s</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">)</mo><mo>−</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(s,a,s&#x27;) = \gamma\Phi(s&#x27;) - \Phi(s)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em"></span><span class="mord mathnormal" style="margin-right:0.13889em">F</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em"></span><span class="mord mathnormal">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em"><span style="top:-3.063em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em"></span><span class="mord mathnormal" style="margin-right:0.05556em">γ</span><span class="mord">Φ</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em"><span style="top:-3.063em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord">Φ</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mclose">)</span></span></span></span></p>
+<p>数学保证: 任何绕回原点的循环净奖励恰好为零 (刷不了), 且塑形后最优策略不变.</p>
+<p><strong>给 Agent 设计指标 = 设计奖励函数</strong>:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>指标</th><th>Agent 学到的</th></tr></thead><tbody><tr><td>回复长度当质量</td><td>变啰嗦</td></tr><tr><td>工具调用次数当勤奋度</td><td>疯狂调用没用的工具</td></tr><tr><td>用户没追问当满意度</td><td>把话说得让人懒得追问</td></tr></tbody></table>
+<p>&quot;一个指标一旦成为目标, 就不再是一个好的指标&quot; (Goodhart 定律).</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x03-关键原话">0x03 关键原话<a href="#0x03-关键原话" class="hash-link" aria-label="0x03 关键原话的直接链接" title="0x03 关键原话的直接链接">​</a></h2>
+<ul>
+<li><code>00:01:14</code> &quot;前一百次都可以吐出比较干净的 JSON, 但是第一百零一次的时候, 他给你在前面加了三个反引号, 然后你的解释器崩了&quot; - 这不是框架问题, 是 LLM 的性质.</li>
+<li><code>00:05:07</code> &quot;中文的膨胀率会比英文的高... 膨胀率高个百分之三十, 你的账单就会高百分之三十&quot; - 分词直接决定成本.</li>
+<li><code>00:14:41</code> &quot;Transformer 会给序列里的第一个 token 分配一个异常高的注意力分数... 它相当于是一个空操作&quot; - Attention Sink 通俗解释.</li>
+<li><code>00:18:23</code> &quot;系统提示词还在最前面... 结构上没有消失, 但是在注意力上被稀释了&quot; - 长对话失稳的因果链.</li>
+<li><code>00:24:07</code> &quot;模型在物理上就不可能生成出非法的 JSON, 而不是请你输出 JSON, 是你只能输出 JSON&quot; - 约束解码的本质.</li>
+<li><code>00:25:44</code> &quot;结构化输出并不代表正确的输出... 它解决不了你的数据是错的这一类问题&quot; - 两个层次不要混淆.</li>
+<li><code>00:33:21</code> &quot;你给 Agent 设计的每一个评测的指标, 每一个自动化打分, 它都是一个奖励函数... 一个指标一旦成为目标, 它就不再是一个好的指标&quot; - 指标即奖励函数.</li>
+</ul>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x04-可继续追问">0x04 可继续追问<a href="#0x04-可继续追问" class="hash-link" aria-label="0x04 可继续追问的直接链接" title="0x04 可继续追问的直接链接">​</a></h2>
+<ul>
+<li>数字分词器具体怎么做, 哪些模型在用, 对工具参数解析的实际收益?</li>
+<li>FlashAttention 2/3/4 各解决什么问题?</li>
+<li>vLLM 前缀缓存 + XGrammar 在长对话 Agent 场景的实测吞吐?</li>
+<li>如何把业务评测指标落地为 PBRS 势函数, 避免 reward hacking?</li>
+<li>AK 老师 3 小时《听懂 LLM》与本书前三章的对应关系?</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-tags-row"><div class="col"><b>标签：</b><ul class="tags_jXut padding--none margin-left--sm"><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/llm">LLM</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/ai-agent">AI Agent</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/tokenization">Tokenization</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/kv-cache">KV Cache</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/约束解码">约束解码</a></li></ul></div></div><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin</b> <!-- -->于 <b><time datetime="2026-08-10T18:28:23.000Z" itemprop="dateModified">2026年8月10日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;align-items:center;margin-top:20px;opacity:0.85">给 AI 买点 Token:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi/default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi/img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi/default-icons/wechat.svg" alt="Wechat Icon" class="icon"><img src="/HXLoLi/img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi/default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/knowledge-base/知识沉淀/商品选购/日常探索/电脑包选购指标"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">电脑包选购指标</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/AI-Agent设计原理与工程实践"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">AI-Agent设计原理与工程实践</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#0x00-一句话总结" class="table-of-contents__link toc-highlight">0x00 一句话总结</a></li><li><a href="#0x01-材料与可靠性" class="table-of-contents__link toc-highlight">0x01 材料与可靠性</a></li><li><a href="#0x02-核心要点-五个角度" class="table-of-contents__link toc-highlight">0x02 核心要点: 五个角度</a><ul><li><a href="#一输入-token-是怎么被切开的" class="table-of-contents__link toc-highlight">一、输入: token 是怎么被切开的</a></li><li><a href="#二上下文-是怎么被读的" class="table-of-contents__link toc-highlight">二、上下文: 是怎么被读的</a></li><li><a href="#三输出-是怎么被采样出来的" class="table-of-contents__link toc-highlight">三、输出: 是怎么被采样出来的</a></li><li><a href="#四成本与延迟-这整套要花多少钱和时间" class="table-of-contents__link toc-highlight">四、成本与延迟: 这整套要花多少钱和时间</a></li><li><a href="#五边界-什么时候该换提示词-什么时候该微调换模型" class="table-of-contents__link toc-highlight">五、边界: 什么时候该换提示词, 什么时候该微调/换模型</a></li></ul></li><li><a href="#0x03-关键原话" class="table-of-contents__link toc-highlight">0x03 关键原话</a></li><li><a href="#0x04-可继续追问" class="table-of-contents__link toc-highlight">0x04 可继续追问</a></li></ul></div></div></div></div></main></div></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">友情链接</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://hengxin666.github.io/cppreference-zh-cn/" target="_blank" rel="noreferrer noopener" style="display: flex; align-items: center; gap: 3px; text-decoration: none; color: inherit; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                  <img src="/HXLoLi/icons/ISO_C++_Logo.svg" alt="cppreference" width="36" height="36" style="flex-shrink: 0;">
+                  <span style="font-size: 16px; font-weight: 600; position: relative; top: -1.75px;">cppreference</span>
+                </a>
+                <div style="height: 10px;"></div>
+              </li><li class="footer__item">
+                <a href="https://bgm.tv" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/img/BanGuMi_Logo.png" alt="BanGuMi" height="50">
+                </a>
+              </li><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2026 HXLoLi, Inc. 在 🇨🇳 用 ❤️ 制作.</div></div></div></footer></div>
+</body>
+</html>
