@@ -2,7 +2,7 @@
 title: "Python爬虫库选型调研"
 created_at: "2026-07-04"
 model: "GPT-5 Codex"
-skill: "hx-make-ai-docs"
+skill: ["hx-make-ai-docs"]
 authors: "Heng_Xin"
 tags: ["Python", "爬虫", "技术选型"]
 ---
