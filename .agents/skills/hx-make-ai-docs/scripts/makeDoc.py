@@ -151,12 +151,26 @@ def parse_tags(raw_tags: list[str]) -> list[str]:
     return tags
 
 
+def parse_skills(raw_skills: list[str]) -> list[str]:
+    skills: list[str] = []
+    seen: set[str] = set()
+
+    for raw in raw_skills:
+        for item in raw.split(","):
+            skill = clean_meta(item)
+            if skill and skill not in seen:
+                seen.add(skill)
+                skills.append(skill)
+
+    return skills or [DEFAULT_SKILL]
+
+
 def build_doc(
     *,
     title: str,
     created_at: str,
     model: str,
-    skill: str,
+    skills: list[str],
     author: str,
     tags: list[str],
 ) -> str:
@@ -164,7 +178,7 @@ def build_doc(
 title: {yaml_string(title)}
 created_at: {yaml_string(created_at)}
 model: {yaml_string(model)}
-skill: {yaml_string(skill)}
+skill: {yaml_list(skills)}
 authors: {yaml_string(author)}
 tags: {yaml_list(tags)}
 ---
@@ -228,8 +242,13 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     )
     parser.add_argument(
         "--skill",
-        default=DEFAULT_SKILL,
-        help="Skill or command name written to frontmatter.",
+        dest="skills",
+        action="append",
+        default=[],
+        help=(
+            "Skill or command name written to frontmatter. Repeatable or "
+            "comma-separated; emits a YAML list in the `skill` field."
+        ),
     )
     parser.add_argument(
         "--author",
@@ -258,7 +277,7 @@ def main(argv: list[str] | None = None) -> int:
         title=title,
         created_at=clean_meta(args.date),
         model=clean_meta(args.model),
-        skill=clean_meta(args.skill),
+        skills=parse_skills(args.skills),
         author=clean_meta(args.author),
         tags=parse_tags(args.tags),
     )

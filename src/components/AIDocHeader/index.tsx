@@ -31,23 +31,35 @@ export default function AIDocHeader({ className }: AIDocHeaderProps): ReactNode 
     return String(val);
   };
 
+  const toStrList = (val: unknown): string[] | undefined => {
+    if (val === null || val === undefined) return undefined;
+    const raw = Array.isArray(val) ? val : [val];
+    const list = raw
+      .flatMap((item) => (Array.isArray(item) ? item : [item]))
+      .map((item) => safeStr(item))
+      .filter((item): item is string => !!item);
+    return list.length > 0 ? list : undefined;
+  };
+
   const created = safeStr(fm.created_at);
   const model = safeStr(fm.model);
-  const skill = safeStr(fm.skill);
+  const skills = toStrList(fm.skill);
   const tags: string[] | undefined = Array.isArray(fm.tags)
     ? (fm.tags as unknown[]).map((t) => safeStr(t) ?? String(t))
     : undefined;
 
-  const skillUrl = useMemo(() => {
-    if (!skill) return undefined;
-    return `${GITHUB_REPO}/tree/main/.agents/skills/${skill}`;
-  }, [skill]);
+  const skillUrls = useMemo(() => {
+    if (!skills) return undefined;
+    return skills.map(
+      (skill) => `${GITHUB_REPO}/tree/main/.agents/skills/${skill}`,
+    );
+  }, [skills]);
 
-  if (!created && !model && !skill && !tags?.length) {
+  if (!created && !model && !skills?.length && !tags?.length) {
     return null;
   }
 
-  const hasMeta = !!(created || model || skill);
+  const hasMeta = !!(created || model || skills?.length);
 
   const containerVariants = {
     hidden: { opacity: 0, y: -10 },
@@ -187,14 +199,16 @@ export default function AIDocHeader({ className }: AIDocHeaderProps): ReactNode 
                 `辅助编辑的 AI 模型: ${model}`,
               )}
 
-            {skill &&
-              renderLinkBadge(
-                styles.skillBadge,
-                <FaMagic />,
-                skill,
-                `查看 Skill 源码: ${skill}`,
-                skillUrl!,
-                true,
+            {skills &&
+              skills.map((skill, idx) =>
+                renderLinkBadge(
+                  styles.skillBadge,
+                  <FaMagic />,
+                  skill,
+                  `查看 Skill 源码: ${skill}`,
+                  skillUrls![idx],
+                  true,
+                ),
               )}
 
             {tags?.map((tag) => renderTagBadge(tag))}

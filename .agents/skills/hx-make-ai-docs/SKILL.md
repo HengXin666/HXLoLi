@@ -73,9 +73,16 @@ uv run .agents/skills/hx-make-ai-docs/scripts/makeDoc.py \
 - `makeDoc.py` 会生成 frontmatter、一级标题、AI 生成信息和基础二级标题骨架.
 - `model` 字段无法由脚本可靠感知当前对话的真实模型. 能确定时必须显式传 `--model "模型名"` 或设置 `HX_AI_DOCS_MODEL`; 不能确定时允许生成 `Unknown`, 禁止从 `.agents/skills/hx-make-ai-docs/config.toml` 编造当前模型.
 - `.agents/skills/hx-make-ai-docs/config.toml` 只允许作为 `makeDoc.py` 的可选 fallback 示例, 不代表 Codex runtime 配置, 也不代表当前会话真实模型.
+- `skill` 字段是 **YAML 列表**, 用于标注生成/沉淀这篇笔记用到的所有技能. `makeDoc.py` 的 `--skill` 可重复传或逗号分隔, `makeDoc.py` 会去重并按列表写入:
+  ```bash
+  uv run .agents/skills/hx-make-ai-docs/scripts/makeDoc.py \
+    --title "..." --skill hx-look-video --skill hx-make-ai-docs \
+    --output "ai-docs/.../index.md"          # → skill: ["hx-look-video", "hx-make-ai-docs"]
+  ```
+  不传 `--skill` 时默认只写 `["hx-make-ai-docs"]`.
 - 如果目标 `index.md` 已存在, 不要覆盖. 应先读取现有文件并在其基础上编辑.
 - 只有当脚本不可执行、路径不存在或用户明确要求不用脚本时, 才允许手写初始化模板; 此时必须在回复中说明没有使用脚本的原因.
-- 生成模板后, AI 只能替换或扩展模板中的 TODO 和章节内容, 不应删除 `created_at`、`model`、`skill`、`tags` 等元数据字段.
+- 生成模板后, AI 只能替换或扩展模板中的 TODO 和章节内容, 不应删除 `created_at`、`model`、`skill`、`authors`、`tags` 等元数据字段.
 - 新建 `index.md` 的最终回复中, 必须写明实际执行过的 `makeDoc.py` 命令; 如果没有执行, 必须写明跳过原因.
 
 同时在对应目录下, 如 `001-HXLibs编写串行协程调度器` 创建反问用户时候, 用户使用的`答题卡`文件: `.hx-mitemite.md`
