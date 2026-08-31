@@ -2,7 +2,7 @@
 title: "从打野到注册机：一条真实项目工具链的工程化学习"
 created_at: "2026-08-02"
 model: "GPT-5 Codex"
-skill: "hx-make-ai-docs"
+skill: ["hx-make-ai-docs"]
 authors: "Heng_Xin"
 tags: ["项目学习", "AI Agent", "逆向工程", "Codex", "MCP"]
 ---

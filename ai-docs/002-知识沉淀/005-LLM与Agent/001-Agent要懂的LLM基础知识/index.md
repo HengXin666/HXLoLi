@@ -2,7 +2,7 @@
 title: "Agent要懂的LLM基础知识"
 created_at: "2026-08-10"
 model: "Codex"
-skill: "hx-look-video + hx-make-ai-docs"
+skill: ["hx-look-video", "hx-make-ai-docs"]
 authors: "Heng_Xin"
 tags: ["LLM", "AI Agent", "Tokenization", "KV Cache", "约束解码"]
 ---

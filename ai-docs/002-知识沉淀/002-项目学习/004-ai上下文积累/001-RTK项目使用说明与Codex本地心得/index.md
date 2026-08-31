@@ -2,7 +2,7 @@
 title: "RTK项目使用说明与Codex本地心得"
 created_at: "2026-07-05"
 model: "GPT-5 Codex"
-skill: "hx-make-ai-docs"
+skill: ["hx-make-ai-docs"]
 authors: "Heng_Xin"
 tags: ["AI工具", "RTK", "Codex", "CLI"]
 ---

@@ -2,7 +2,7 @@
 title: "电脑包选购指标"
 created_at: "2026-07-05"
 model: "GPT-5 Codex"
-skill: "hx-make-ai-docs"
+skill: ["hx-make-ai-docs"]
 authors: "Heng_Xin"
 tags: ["商品选购", "电脑包", "选购指标", "通勤"]
 ---

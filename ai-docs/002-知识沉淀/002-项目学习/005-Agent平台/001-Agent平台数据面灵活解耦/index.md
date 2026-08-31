@@ -2,7 +2,7 @@
 title: "Agent平台数据面灵活解耦"
 created_at: "2026-07-15"
 model: "GPT-5 Codex"
-skill: "hx-make-ai-docs + hx-look-video"
+skill: ["hx-make-ai-docs", "hx-look-video"]
 authors: "Heng_Xin"
 tags: ["Agent平台", "平台架构", "数据面", "基础设施"]
 ---

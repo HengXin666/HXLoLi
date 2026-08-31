@@ -2,7 +2,7 @@
 title: "AI Agent设计原理与工程实践"
 created_at: "2026-08-10"
 model: "Codex"
-skill: "hx-look-video + hx-make-ai-docs"
+skill: ["hx-look-video", "hx-make-ai-docs"]
 authors: "Heng_Xin"
 tags: ["AI Agent", "Harness", "上下文工程", "多智能体", "工程实践"]
 ---

@@ -2,7 +2,7 @@
 title: "Multica智能体模板与小队编排skills调研"
 created_at: "2026-07-05"
 model: "GPT-5 Codex"
-skill: "hx-make-ai-docs + mp-research"
+skill: ["hx-make-ai-docs", "mp-research"]
 authors: "Heng_Xin"
 tags: ["Multica", "AI Agent", "Skill", "工程协作"]
 ---
