@@ -946,11 +946,35 @@ export const stats: RecordItem[] = [
     "message": "[ai-docs] 从打野到注册机：一条真实项目工具链的工程化学习"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-08-10T18:28:23.657Z",
+    "commit": "0dccf8a635f8f6604571e54578bde2238bbcc12f",
+    "date": "2026-08-11T02:28:23+08:00",
     "docsBlogWordCount": 3860408,
     "aiDocsWordCount": 168378,
     "wordCount": 4028786,
     "message": "[ai-docs] agent / llm 学习"
+  },
+  {
+    "commit": "e09ad486cafe8ba1e92275659c8dedeb70dcf494",
+    "date": "2026-09-01T02:40:35+08:00",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 194178,
+    "wordCount": 4054586,
+    "message": "[ai-docs] 新增 对话记忆与知识库增量沉淀 笔记"
+  },
+  {
+    "commit": "2dcf8dde6fc44328267888b038c48d0765898871",
+    "date": "2026-09-01T02:40:45+08:00",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 194206,
+    "wordCount": 4054614,
+    "message": "[ai-docs] 文章 skill 字段统一为列表格式"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-08-31T18:41:41.830Z",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 194206,
+    "wordCount": 4054614,
+    "message": "[feat] sync"
   }
 ];

@@ -279,22 +279,52 @@ const aiDocsSidebar = [
       },
       {
         "type": "category",
-        "label": "Python",
+        "label": "编程语言",
         "collapsible": true,
         "collapsed": true,
         "items": [
           {
             "type": "category",
-            "label": "日常探索",
+            "label": "Python语言",
             "collapsible": true,
             "collapsed": true,
             "items": [
               {
-                "type": "doc",
-                "id": "知识沉淀/Python/日常探索/Python爬虫库选型调研/index",
-                "label": "Python爬虫库选型调研",
+                "type": "category",
+                "label": "日常探索",
+                "collapsible": true,
+                "collapsed": true,
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "知识沉淀/编程语言/Python语言/日常探索/Python爬虫库选型调研/index",
+                    "label": "Python爬虫库选型调研",
+                    "customProps": {
+                      "icon": "default-icons/ai-doc.svg",
+                      "tags": []
+                    }
+                  },
+                  {
+                    "type": "doc",
+                    "id": "知识沉淀/编程语言/Python语言/日常探索/AI驱动的视频调研与知识沉淀工作流/index",
+                    "label": "AI驱动的视频调研与知识沉淀工作流",
+                    "customProps": {
+                      "icon": "default-icons/ai-doc.svg",
+                      "tags": []
+                    }
+                  },
+                  {
+                    "type": "doc",
+                    "id": "知识沉淀/编程语言/Python语言/日常探索/Python 语言核心特性调研/index",
+                    "label": "Python 语言核心特性调研",
+                    "customProps": {
+                      "icon": "default-icons/ai-doc.svg",
+                      "tags": []
+                    }
+                  }
+                ],
                 "customProps": {
-                  "icon": "default-icons/ai-doc.svg",
+                  "icon": "default-icons/ai-folder.svg",
                   "tags": []
                 }
               }
@@ -362,6 +392,63 @@ const aiDocsSidebar = [
             "type": "doc",
             "id": "知识沉淀/LLM与Agent/AI-Agent设计原理与工程实践/index",
             "label": "AI-Agent设计原理与工程实践",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "知识沉淀/LLM与Agent/对话记忆与知识库增量沉淀/index",
+            "label": "对话记忆与知识库增量沉淀",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          }
+        ],
+        "customProps": {
+          "icon": "default-icons/ai-folder.svg",
+          "tags": []
+        }
+      },
+      {
+        "type": "category",
+        "label": "浏览器验证与AI逆向",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "doc",
+            "id": "知识沉淀/浏览器验证与AI逆向/CF过盾工程-从零实现Turnstile绕过/index",
+            "label": "CF过盾工程-从零实现Turnstile绕过",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "知识沉淀/浏览器验证与AI逆向/真实浏览器扩展的验证机制拆解/index",
+            "label": "真实浏览器扩展的验证机制拆解",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "知识沉淀/浏览器验证与AI逆向/多模态AI通用验证码求解服务/index",
+            "label": "多模态AI通用验证码求解服务",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "知识沉淀/浏览器验证与AI逆向/Turnstile防御面分析与误判权衡/index",
+            "label": "Turnstile防御面分析与误判权衡",
             "customProps": {
               "icon": "default-icons/ai-doc.svg",
               "tags": []
