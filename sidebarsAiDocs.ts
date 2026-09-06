@@ -399,8 +399,44 @@ const aiDocsSidebar = [
           },
           {
             "type": "doc",
+            "id": "知识沉淀/LLM与Agent/DSH-Agent-Loop源码剖析/index",
+            "label": "DSH-Agent-Loop源码剖析",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
             "id": "知识沉淀/LLM与Agent/对话记忆与知识库增量沉淀/index",
             "label": "对话记忆与知识库增量沉淀",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "知识沉淀/LLM与Agent/DeepSeek Harness Runtime设计思想插件树与事件日志/index",
+            "label": "DeepSeek Harness Runtime设计思想插件树与事件日志",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "知识沉淀/LLM与Agent/DSH预设提示词全解/index",
+            "label": "DSH预设提示词全解",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "知识沉淀/LLM与Agent/自维护可插拔记忆层设计/index",
+            "label": "自维护可插拔记忆层设计",
             "customProps": {
               "icon": "default-icons/ai-doc.svg",
               "tags": []
@@ -457,6 +493,27 @@ const aiDocsSidebar = [
         ],
         "customProps": {
           "icon": "default-icons/ai-folder.svg",
+          "tags": []
+        }
+      }
+    ],
+    "customProps": {
+      "icon": "default-icons/ai-folder.svg",
+      "tags": []
+    }
+  },
+  {
+    "type": "category",
+    "label": "想法探索",
+    "collapsible": true,
+    "collapsed": true,
+    "items": [
+      {
+        "type": "doc",
+        "id": "想法探索/短视频=精神鸦片用毛选解构注意力成瘾/index",
+        "label": "短视频=精神鸦片用毛选解构注意力成瘾",
+        "customProps": {
+          "icon": "default-icons/ai-doc.svg",
           "tags": []
         }
       }

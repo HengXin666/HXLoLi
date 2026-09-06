@@ -29,7 +29,10 @@ import React, {
 import {
     readSidebarCustomData,
     resolveSidebarIconSrc,
+    segmentFromHref,
     sidebarRevealVariants,
+    useSidebarPath,
+    SidebarPathContext,
 } from '../sidebarItemUtils';
 
 // If we navigate to a category and it becomes active, it should automatically
@@ -168,6 +171,12 @@ export default function DocSidebarItemCategory ({
     // 图标路径不带 baseUrl 前缀, 运行时拼接
     const iconSrc = resolveSidebarIconSrc(siteConfig.baseUrl, icon);
     const isAIDocsSidebar = activePath.includes('/knowledge-base') || href?.includes('/knowledge-base');
+    const parentPath = useSidebarPath();
+    // 条目自身的路径: category 用 label; 若 href 指向文档路由, 以路由段为准 (去掉 /index 场景由 href 天然处理)
+    const hrefSeg = segmentFromHref(href, siteConfig.baseUrl);
+    const mySegment = hrefSeg ?? label;
+    const myPath = parentPath ? parentPath + '/' + mySegment : mySegment;
+    const childPath = myPath;
 
     if (!isAIDocsSidebar) {
         return (
@@ -300,6 +309,7 @@ export default function DocSidebarItemCategory ({
             variants={sidebarRevealVariants}
             initial="hidden"
             animate="visible"
+            data-sidebar-path={myPath}
             className={clsx(
                 ThemeClassNames.docs.docSidebarItemCategory,
                 ThemeClassNames.docs.docSidebarItemCategoryLevel(level),
@@ -389,13 +399,15 @@ export default function DocSidebarItemCategory ({
                 className="menu__list ai-kb-sidebar-children"
                 collapsed={collapsed}
             >
-                <DocSidebarItems
-                    items={items}
-                    tabIndex={collapsed ? -1 : 0}
-                    onItemClick={onItemClick}
-                    activePath={activePath}
-                    level={level + 1}
-                />
+                <SidebarPathContext.Provider value={childPath}>
+                    <DocSidebarItems
+                        items={items}
+                        tabIndex={collapsed ? -1 : 0}
+                        onItemClick={onItemClick}
+                        activePath={activePath}
+                        level={level + 1}
+                    />
+                </SidebarPathContext.Provider>
             </Collapsible>
         </motion.li>
     );

@@ -636,3 +636,69 @@
    @see DocItem/Layout 中检测 ai-docs 插件,
    向 document.documentElement 注入 ai-kb-page class
    ================================================================ */
+
+
+/* ============================================================
+   侧边栏重建: 仅新增/变化条目的「插入式」动画
+   由 swizzled DocSidebar/Desktop/Content + sidebarAnimator 触发
+   ============================================================ */
+
+.ai-kb-page .hx-sidebar-insert,
+.ai-kb-page .hx-sidebar-change {
+  animation: hx-sidebar-insert 0.55s cubic-bezier(0.22, 0.9, 0.3, 1.2) both;
+  border-radius: 8px;
+}
+/* 新增: 更强烈的入场 (像插进列表) */
+.ai-kb-page .hx-sidebar-insert {
+  animation-name: hx-sidebar-insert;
+}
+/* 变化(父级因子孙变化): 淡闪提示 */
+.ai-kb-page .hx-sidebar-change {
+  animation-name: hx-sidebar-change;
+}
+
+@keyframes hx-sidebar-insert {
+  0% {
+    opacity: 0;
+    transform: translateX(-14px) scale(0.92);
+    filter: blur(4px);
+    background: rgba(0, 229, 255, 0.5);
+    box-shadow: 0 0 16px rgba(0, 229, 255, 0.45);
+  }
+  45% {
+    opacity: 1;
+    transform: translateX(2px) scale(1.02);
+    filter: blur(0);
+    background: rgba(0, 229, 255, 0.35);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    background: rgba(0, 229, 255, 0);
+    box-shadow: none;
+  }
+}
+
+@keyframes hx-sidebar-change {
+  0% {
+    background: rgba(255, 0, 255, 0.3);
+    box-shadow: 0 0 12px rgba(255, 0, 255, 0.3);
+  }
+  60% {
+    background: rgba(255, 0, 255, 0.12);
+  }
+  100% {
+    background: rgba(0, 229, 255, 0);
+    box-shadow: none;
+  }
+}
+
+/* 闪烁光标: 让「变化点」更明显 (插到哪个父级下方) */
+.ai-kb-page .hx-sidebar-insert .menu__link,
+.ai-kb-page .hx-sidebar-insert.ai-kb-sidebar-category > .menu__list-item-collapsible {
+  animation: hx-sidebar-text-pop 0.5s ease both;
+}
+@keyframes hx-sidebar-text-pop {
+  0% { color: #00e5ff; text-shadow: 0 0 8px rgba(0, 229, 255, 0.8); }
+  100% { color: inherit; text-shadow: none; }
+}

@@ -13,7 +13,9 @@ import styles from './styles.module.css';
 import {
     readSidebarCustomData,
     resolveSidebarIconSrc,
+    routePathFromHref,
     sidebarRevealVariants,
+    useSidebarPath,
 } from '../sidebarItemUtils';
 
 export default function DocSidebarItemLink ({
@@ -31,6 +33,10 @@ export default function DocSidebarItemLink ({
     const { icon, tags } = readSidebarCustomData(customProps);
     const iconSrc = resolveSidebarIconSrc(siteConfig.baseUrl, icon);
     const isAIDocsSidebar = activePath.includes('/knowledge-base') || href.includes('/knowledge-base');
+    const parentPath = useSidebarPath();
+    const route = routePathFromHref(href, siteConfig.baseUrl);
+    // 非 ai 分支不需要 path; ai 分支 doc 用路由路径 (已是干净段路径), 相对父链只保留末段
+    const myPath = route ?? (parentPath ? parentPath + '/' + label : label);
 
     if (!isAIDocsSidebar) {
         return (
@@ -70,6 +76,7 @@ export default function DocSidebarItemLink ({
             variants={sidebarRevealVariants}
             initial="hidden"
             animate="visible"
+            data-sidebar-path={myPath}
             className={clsx(
                 ThemeClassNames.docs.docSidebarItemLink,
                 ThemeClassNames.docs.docSidebarItemLinkLevel(level),
