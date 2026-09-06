@@ -1,0 +1,272 @@
+/* ============================================================
+   DevTools — 本地开发专属 UI (MitemitePanel + VS Code 跳转条)
+   仅在 dev-edit-server (localhost:3310) 可达时渲染.
+   构建产物不含任何痕迹 (组件不挂载, 样式不引用).
+   ============================================================ */
+
+/* ---- .hx-mitemite.md 答题卡 (可折叠, 默认折叠) ---- */
+.mitemiteWrap { margin: 0 0 1.25rem; }
+
+/* 标题栏: 整条可点击, 点击展开/收起 */
+.mitemiteBar {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgba(255, 200, 87, 0.45);
+  border-radius: 10px;
+  background: rgba(255, 200, 87, 0.08);
+  color: #f2c14e;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s;
+}
+.mitemiteBar:hover { background: rgba(255, 200, 87, 0.15); border-color: rgba(255, 200, 87, 0.75); }
+.mitemiteBarOpen {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background: rgba(255, 200, 87, 0.13);
+}
+.mitemiteChevron { flex-shrink: 0; transition: transform 0.15s; }
+.mitemiteBarMeta {
+  margin-left: auto;
+  font-weight: 400;
+  font-size: 0.7rem;
+  color: #8892a4;
+  white-space: nowrap;
+}
+.mitemiteCount {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #9fd8e8;
+  background: rgba(0, 229, 255, 0.12);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  padding: 1px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* 展开后的内容区 */
+.mitemiteBody {
+  border: 1px solid rgba(255, 200, 87, 0.45);
+  border-top: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: rgba(255, 200, 87, 0.03);
+  padding: 0.8rem 1rem 1rem;
+}
+.mitemiteBodyHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+  flex-wrap: wrap;
+}
+.mitemiteBodyTitle { font-size: 0.78rem; color: #8892a4; }
+.mitemiteActions { display: inline-flex; align-items: center; gap: 0.5rem; }
+.mitemiteSaved { color: #00ff41; font-size: 0.78rem; }
+.mitemiteErr { color: #ff5470; font-size: 0.78rem; }
+.mitemiteIconBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  background: rgba(0, 229, 255, 0.08);
+  color: #9fd8e8;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.mitemiteIconBtn:hover { background: rgba(0, 229, 255, 0.18); }
+.mitemiteIconBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+.mitemiteLoading { color: #8892a4; font-size: 0.82rem; padding: 0.5rem 0; }
+.mitemiteEmpty {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #8892a4;
+  font-size: 0.84rem;
+  padding: 0.4rem 0;
+}
+
+/* 编辑模式 */
+.mitemiteTextarea {
+  width: 100%;
+  min-height: 240px;
+  resize: vertical;
+  background: rgba(2, 6, 23, 0.9);
+  border: 1px solid rgba(255, 200, 87, 0.3);
+  border-radius: 8px;
+  color: #e6edf3;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  padding: 0.7rem 0.8rem;
+  outline: none;
+}
+.mitemiteTextarea:focus { border-color: rgba(255, 200, 87, 0.7); }
+/* ---- 展开后的逐题盒子: 每个问题一个独立边框 ---- */
+.mitemiteBlocks { display: flex; flex-direction: column; gap: 0.9rem; }
+.mitemiteBlock {
+  border: 1.5px solid rgba(255, 200, 87, 0.5);
+  border-radius: 10px;
+  background: rgba(10, 16, 32, 0.55);
+  padding: 0.7rem 0.85rem 0.85rem;
+  box-shadow: 0 1px 0 rgba(255, 200, 87, 0.08) inset;
+}
+.mitemiteBlockHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px dashed rgba(255, 200, 87, 0.25);
+}
+.mitemiteBlockTitle { display: inline-flex; align-items: center; gap: 0.5rem; }
+.mitemiteSeq {
+  font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1a1206;
+  background: #f2c14e;
+  padding: 1px 9px;
+  border-radius: 999px;
+}
+.mitemiteHash { font-size: 0.7rem; color: #8892a4; font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; }
+.mitemiteAnswered {
+  font-size: 0.7rem;
+  color: #00ff41;
+  border: 1px solid rgba(0, 255, 65, 0.4);
+  background: rgba(0, 255, 65, 0.08);
+  padding: 1px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.mitemitePendingTag {
+  font-size: 0.7rem;
+  color: #f2c14e;
+  border: 1px solid rgba(255, 200, 87, 0.45);
+  background: rgba(255, 200, 87, 0.08);
+  padding: 1px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.mitemiteQA { display: flex; flex-direction: column; gap: 0.25rem; }
+.mitemiteQLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #00e5ff;
+  text-transform: uppercase;
+  margin-top: 0.1rem;
+}
+.mitemiteQBody { font-size: 0.86rem; color: #e6edf3; line-height: 1.7; }
+.mitemiteQBody strong { color: #f2c14e; }
+.mitemiteQBody code { background: rgba(0, 229, 255, 0.12); color: #9fd8e8; padding: 0 4px; border-radius: 4px; font-size: 0.8em; }
+.mitemiteALabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #00ff41;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+.mitemiteABody { font-size: 0.86rem; color: #c9d1d9; line-height: 1.7; }
+.mitemiteABody code { background: rgba(0, 255, 65, 0.1); color: #7ee2a8; padding: 0 4px; border-radius: 4px; font-size: 0.8em; }
+.mitemiteAPending {
+  font-size: 0.82rem;
+  color: #8892a4;
+  font-style: italic;
+  background: rgba(255, 200, 87, 0.05);
+  border: 1px dashed rgba(255, 200, 87, 0.3);
+  border-radius: 6px;
+  padding: 0.45rem 0.6rem;
+}
+
+/* ---- VS Code 跳转工具条 ---- */
+.vscodeBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(0, 229, 255, 0.18);
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(0, 229, 255, 0.06), rgba(255, 0, 255, 0.05));
+}
+.wysiwygLabel {
+  font-size: 0.78rem;
+  color: #8892a4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+.wysiwygBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 7px;
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  background: rgba(0, 229, 255, 0.1);
+  color: #9fd8e8;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.wysiwygBtn:hover { background: rgba(0, 229, 255, 0.22); }
+.wysiwygBtn.vscode {
+  border-color: rgba(0, 130, 255, 0.5);
+  background: rgba(0, 122, 255, 0.12);
+  color: #6cb6ff;
+}
+.wysiwygBtn.vscode:hover { background: rgba(0, 122, 255, 0.25); }
+.wysiwygBtn:disabled { opacity: 0.55; cursor: not-allowed; }
+.wysiwygStatus { font-size: 0.76rem; color: #8892a4; }
+.wysiwygStatus.ok { color: #00ff41; }
+.wysiwygStatus.err { color: #ff5470; }
+
+/* ---- 选中文字右键 -> VS Code 跳转菜单 ---- */
+.vscodeHint { font-size: 0.74rem; color: #8892a4; }
+.vscMenu {
+  position: fixed;
+  z-index: 9999;
+  min-width: 170px;
+  background: rgba(4, 10, 26, 0.98);
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  border-radius: 9px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  padding: 4px;
+  font-size: 0.8rem;
+}
+.vscMenuItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: #e6edf3;
+  cursor: pointer;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.vscMenuItem:hover { background: rgba(0, 229, 255, 0.14); }
+.vscMenuLoc {
+  font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  font-size: 0.72rem;
+  color: #9fd8e8;
+  margin-left: 2px;
+}

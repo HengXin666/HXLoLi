@@ -18,6 +18,7 @@ import React, { type ReactNode } from 'react';
 import config from '@generated/docusaurus.config';
 import BlogWithCats from '@site/src/components/BlogWithCats';
 import HXGiscus from '@site/src/components/Giscus';
+import InlineEditor from '@site/src/components/DevTools/InlineEditor';
 import MDXA from '../MDXComponents/A';
 
 function BlogPostPageContent ({
@@ -49,6 +50,8 @@ function BlogPostPageContent ({
             <ContentVisibility metadata={metadata} />
 
             <BlogWithCats>
+                {/* 本地开发专属: VS Code 跳转 (选中右键) — 博客文章同样支持 (仅 dev-edit-server 可达时渲染) */}
+                <InlineEditor source={metadata.source} />
                 <BlogPostItem>
                     {children}
                 </BlogPostItem>

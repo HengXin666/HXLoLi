@@ -19,6 +19,8 @@ import { FaProjectDiagram } from 'react-icons/fa';
 import config from '@generated/docusaurus.config';
 import HXGiscus from '../../../components/Giscus';
 import AIDocHeader from '../../../components/AIDocHeader';
+import MitemitePanel from '../../../components/DevTools/MitemitePanel';
+import InlineEditor from '../../../components/DevTools/InlineEditor';
 import MDXA from '../../MDXComponents/A';
 import './hx.css';
 import styles from './styles.module.css';
@@ -72,6 +74,11 @@ export default function DocItemLayout ({ children }: Props): ReactNode {
                     <article>
                         {/* 🤖 AI 知识库: 显示 AI 元数据头部 */}
                         {isAIDocs && <AIDocHeader />}
+
+                        {/* 本地开发专属: VS Code 跳转 (选中右键) — 知识库与普通笔记(docs) 均可用 */}
+                        <InlineEditor source={metadata.source} />
+                        {/* 答题卡 .hx-mitemite.md — 仅知识库 (ai-docs 的文章目录才有此文件) */}
+                        {isAIDocs && <MitemitePanel source={metadata.source} />}
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <DocBreadcrumbs />
