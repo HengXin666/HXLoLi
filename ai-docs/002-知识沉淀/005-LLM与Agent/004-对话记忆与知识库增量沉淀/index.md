@@ -111,7 +111,7 @@ flowchart TB
 ```mermaid
 flowchart LR
     A[新对话片段] --> B{过滤/判重<br/>policy 决定值不值得写}
-    B -- 确定性事实 --> C[写 ledger 快照<br/>→ 更新 ②档案卡(覆盖)]
+    B -- 确定性事实 --> C[写 ledger 快照<br/>→ 更新 ②档案卡（覆盖）]
     B -- 话题脉络 --> D[写 ledger<br/>→ 增量merge ③摘要]
     B -- 成功轨迹 --> E[写 ledger<br/>→ 压缩成 ③skill]
     B -- 环境噪音/低价值 --> F[仅留 ledger<br/>不进长期视图]
