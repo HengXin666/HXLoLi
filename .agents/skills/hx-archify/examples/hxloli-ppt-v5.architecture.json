@@ -1,0 +1,276 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "HXLoLi #ppt 侧车渲染管线",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "write-side",
+        "label": "写作侧",
+        "focus": [
+          "writer",
+          "md",
+          "docusaurus",
+          "copy-assets",
+          "route-html"
+        ],
+        "note": "作者在同目录放自包含 html, md 里写 [标题 #ppt](xxx.html)."
+      },
+      {
+        "id": "render-side",
+        "label": "渲染侧",
+        "focus": [
+          "mdx-a",
+          "viewer",
+          "browser"
+        ],
+        "note": "MDX A 组件拦截 .html 链接, 交给 PptHtmlViewer 以 iframe 呈现."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "writer",
+      "type": "external",
+      "label": "作者/AI",
+      "sublabel": "笔记+HTML",
+      "pos": [
+        30,
+        90
+      ],
+      "size": [
+        140,
+        64
+      ],
+      "tag": "makeDoc"
+    },
+    {
+      "id": "md",
+      "type": "frontend",
+      "label": "index.md",
+      "sublabel": "[PPT #ppt] 链接",
+      "pos": [
+        250,
+        90
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "docusaurus",
+      "type": "backend",
+      "label": "Docusaurus",
+      "sublabel": "MDX 编译",
+      "pos": [
+        480,
+        90
+      ],
+      "size": [
+        140,
+        64
+      ]
+    },
+    {
+      "id": "mdx-a",
+      "type": "frontend",
+      "label": "MDX <A> 拦截",
+      "sublabel": "#ppt 检测",
+      "pos": [
+        700,
+        90
+      ],
+      "size": [
+        140,
+        64
+      ],
+      "tag": "stripPptSyntax"
+    },
+    {
+      "id": "viewer",
+      "type": "frontend",
+      "label": "PptHtmlViewer",
+      "sublabel": "iframe 弹层",
+      "pos": [
+        920,
+        90
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "sidecar",
+      "type": "cloud",
+      "label": "xxx.html",
+      "sublabel": "16:9 自包含",
+      "pos": [
+        250,
+        300
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "tag": "单文件"
+    },
+    {
+      "id": "copy-assets",
+      "type": "cloud",
+      "label": "ppt-html-assets",
+      "sublabel": "拷贝到路由",
+      "pos": [
+        480,
+        300
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "route-html",
+      "type": "cloud",
+      "label": "笔记路由",
+      "sublabel": "/knowledge-base/",
+      "pos": [
+        700,
+        300
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "browser",
+      "type": "external",
+      "label": "读者浏览器",
+      "sublabel": "播放/全屏",
+      "pos": [
+        920,
+        300
+      ],
+      "size": [
+        150,
+        64
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "HXLoLi 平台",
+      "wraps": [
+        "md",
+        "sidecar",
+        "docusaurus",
+        "copy-assets",
+        "route-html",
+        "mdx-a",
+        "viewer"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "writer-md",
+      "from": "writer",
+      "to": "md",
+      "label": "写正文",
+      "variant": "emphasis"
+    },
+    {
+      "id": "writer-sidecar",
+      "from": "writer",
+      "to": "sidecar",
+      "label": "生成自包含 HTML",
+      "variant": "dashed",
+      "labelDy": 24
+    },
+    {
+      "id": "md-ref",
+      "from": "md",
+      "to": "sidecar",
+      "label": "指向",
+      "variant": "dashed",
+      "labelDy": 30
+    },
+    {
+      "id": "md-docusaurus",
+      "from": "md",
+      "to": "docusaurus",
+      "label": "MDX 编译"
+    },
+    {
+      "id": "sidecar-copy",
+      "from": "sidecar",
+      "to": "copy-assets",
+      "label": "同目录"
+    },
+    {
+      "id": "copy-route",
+      "from": "copy-assets",
+      "to": "route-html",
+      "label": "发布"
+    },
+    {
+      "id": "docusaurus-mdxa",
+      "from": "docusaurus",
+      "to": "mdx-a",
+      "label": "生成 <a .html>"
+    },
+    {
+      "id": "mdx-a-viewer",
+      "from": "mdx-a",
+      "to": "viewer",
+      "label": "命中 #ppt",
+      "variant": "emphasis"
+    },
+    {
+      "id": "viewer-iframe",
+      "from": "viewer",
+      "to": "route-html",
+      "label": "加载 iframe",
+      "variant": "dashed"
+    },
+    {
+      "id": "viewer-browser",
+      "from": "viewer",
+      "to": "browser",
+      "label": "演示",
+      "variant": "emphasis",
+      "labelDy": 30
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "写作侧约定",
+      "items": [
+        "同目录自包含单文件 html (16:9)",
+        "md 写 [标题 #ppt](xxx.html)"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "构建侧",
+      "items": [
+        "ppt-html-assets 把 .html 拷贝到笔记路由",
+        "MDX <A> 拦截 .html 链接并去标记"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "查看器",
+      "items": [
+        "PptHtmlViewer iframe 弹层 + 全屏",
+        "不依赖页面 DOM, 独立播放"
+      ]
+    }
+  ]
+}

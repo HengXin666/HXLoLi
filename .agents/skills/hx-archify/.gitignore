@@ -1,0 +1,7 @@
+# vendored runtime dependencies — restore via: npm ci (see package-lock.json)
+node_modules/
+
+# local artifacts
+*.visual-check.*
+*.png
+.DS_Store

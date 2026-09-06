@@ -139,6 +139,15 @@ python .agents/skills/hx-look-video/scripts/hx_look_video_prepare.py \
 
 如果 transcript 没有时间戳, `时间线` 改为 `内容脉络`, 不要虚构时间.
 
+### 4b. 沉淀 / PPT / 架构图时的手续
+
+当用户要求把总结"沉淀成笔记 / 做成 PPT / 画架构图"时, 本 skill 只负责产出**证据链总结**, 后续落盘一律走 HXLoLi 平台格式, 不要另起炉灶丢独立 HTML:
+
+- **沉淀成 ai-docs 笔记**: 交给 `hx-make-ai-docs` skill (makeDoc.py 建 index.md), 总结正文直接作为笔记素材.
+- **PPT/演示页**: 按 `hx-make-ai-docs` 的 PPT 内嵌规范: 同目录放自包含单文件 `xxx.html` + 在 md 写 `[标题 #ppt](xxx.html)`, 16:9. 不要把 .html 丢在 `research-output/` 或当成品交付.
+- **架构图/流程图/时序图/数据流图/状态图**: 交给 `archify` skill (vendored 于 `.agents/skills/hx-archify`): 以 typed JSON(节点/关系/类型) 描述 -> `validate` -> `deliver` 出自包含 .html, 再按 PPT 侧车规范用 `[标题 #ppt](xxx.html)` 内嵌; 不要手绘零散 SVG 或只用 Mermaid 完事.
+- 正文与交付的 md/html 内文本, 按标点约定执行: 英文标点 + 保留 `、` `《》` `“”` `—`; 用 `format_cn_punct.py` 检查.
+
 ## 平台处理细节
 
 ### YouTube
