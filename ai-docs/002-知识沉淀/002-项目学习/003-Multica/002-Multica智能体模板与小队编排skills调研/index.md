@@ -2,7 +2,7 @@
 title: "Multica智能体模板与小队编排skills调研"
 created_at: "2026-07-05"
 model: "GPT-5 Codex"
-skill: ["hx-make-ai-docs", "mp-research"]
+skill: ["hx-make-ai-docs"]
 authors: "Heng_Xin"
 tags: ["Multica", "AI Agent", "Skill", "工程协作"]
 ---
@@ -349,7 +349,7 @@ sed -n '1,220p' ref/gpt-docs/AGENTS.md
 
 ### 3.2 本文初始化命令
 
-本文按 `hx-make-ai-docs` 约束先用模板脚本初始化:
+本文按 `hx-make-ai-docs` 约束先用模板脚本初始化. 调研阶段还调用了外部项目 `AI-Code/multica` 下的 `mp-research` 技能 (不属于 HXLoLi `.agents/skills/`, 因此 frontmatter 只登记自有技能):
 
 ```bash
 XDG_CACHE_HOME=/tmp/uv-cache uv run .agents/skills/hx-make-ai-docs/scripts/makeDoc.py \
