@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "用毛选赢下这场仗: 从认识到实操",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1260,
+      620
+    ]
+  },
+  "components": [
+    {
+      "id": "admit",
+      "type": "frontend",
+      "label": "① 承认被困住",
+      "sublabel": "不承认, 实操皆白听",
+      "pos": [
+        20,
+        240
+      ],
+      "size": [
+        180,
+        100
+      ]
+    },
+    {
+      "id": "contradiction",
+      "type": "backend",
+      "label": "② 抓主要矛盾",
+      "sublabel": "外部刺激 vs 内在理性",
+      "pos": [
+        250,
+        240
+      ],
+      "size": [
+        190,
+        100
+      ]
+    },
+    {
+      "id": "protracted",
+      "type": "backend",
+      "label": "③ 持久战心态",
+      "sublabel": "恢复速度越来越快",
+      "pos": [
+        490,
+        240
+      ],
+      "size": [
+        190,
+        100
+      ]
+    },
+    {
+      "id": "internal",
+      "type": "backend",
+      "label": "④ 内因决定论",
+      "sublabel": "强化理性系统",
+      "pos": [
+        730,
+        240
+      ],
+      "size": [
+        190,
+        100
+      ]
+    },
+    {
+      "id": "action",
+      "type": "cloud",
+      "label": "实操三层",
+      "sublabel": "行为重组 -> 拥抱无聊 -> 重建价值坐标",
+      "pos": [
+        990,
+        240
+      ],
+      "size": [
+        230,
+        100
+      ]
+    },
+    {
+      "id": "freedom",
+      "type": "external",
+      "label": "想停就能停",
+      "sublabel": "真正的自由",
+      "pos": [
+        560,
+        480
+      ],
+      "size": [
+        180,
+        70
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "admit",
+      "to": "contradiction",
+      "label": "认清敌我",
+      "labelDy": -75
+    },
+    {
+      "id": "c2",
+      "from": "contradiction",
+      "to": "protracted",
+      "label": "不幻想速胜",
+      "labelDy": -75
+    },
+    {
+      "id": "c3",
+      "from": "protracted",
+      "to": "internal",
+      "label": "外因靠内因",
+      "labelDy": -75
+    },
+    {
+      "id": "c4",
+      "from": "internal",
+      "to": "action",
+      "label": "落到行动",
+      "labelDy": -75
+    },
+    {
+      "id": "c5",
+      "from": "action",
+      "to": "freedom",
+      "label": "内化",
+      "variant": "emphasis",
+      "labelDy": 40
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "实操三层(由外到内)",
+      "items": [
+        "行为重组: 物理路障 + 三问刹车",
+        "拥抱无聊: 容忍枯燥, 创造力诞生于无聊",
+        "重建价值坐标: 换掉被算法校正的尺子"
+      ]
+    }
+  ]
+}

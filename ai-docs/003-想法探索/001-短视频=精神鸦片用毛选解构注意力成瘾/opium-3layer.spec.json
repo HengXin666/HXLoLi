@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "短视频成瘾的三层机制",
+    "locale": "zh-CN",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "algorithm",
+      "type": "external",
+      "label": "算法/设计者",
+      "sublabel": "十几年测试的组合拳",
+      "pos": [
+        30,
+        60
+      ],
+      "size": [
+        180,
+        70
+      ]
+    },
+    {
+      "id": "feed",
+      "type": "cloud",
+      "label": "信息流",
+      "sublabel": "高频·强情绪刺激",
+      "pos": [
+        290,
+        60
+      ],
+      "size": [
+        170,
+        70
+      ]
+    },
+    {
+      "id": "swipe",
+      "type": "frontend",
+      "label": "手指滑动",
+      "sublabel": "无意识自动回路",
+      "pos": [
+        550,
+        60
+      ],
+      "size": [
+        180,
+        70
+      ]
+    },
+    {
+      "id": "m1",
+      "type": "backend",
+      "label": "① 及时快感",
+      "sublabel": "多巴胺=渴望",
+      "pos": [
+        40,
+        330
+      ],
+      "size": [
+        210,
+        90
+      ]
+    },
+    {
+      "id": "m2",
+      "type": "backend",
+      "label": "② 断崖戒断",
+      "sublabel": "焦躁·前额叶耗尽",
+      "pos": [
+        310,
+        330
+      ],
+      "size": [
+        210,
+        90
+      ]
+    },
+    {
+      "id": "m3",
+      "type": "backend",
+      "label": "③ 麻醉现实",
+      "sublabel": "DMN 关机·被动接收",
+      "pos": [
+        580,
+        330
+      ],
+      "size": [
+        210,
+        90
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "大脑: 与鸦片同构的三层反应",
+      "wraps": [
+        "m1",
+        "m2",
+        "m3"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "a-f",
+      "from": "algorithm",
+      "to": "feed",
+      "label": "设计"
+    },
+    {
+      "id": "f-s",
+      "from": "feed",
+      "to": "swipe",
+      "label": "投喂"
+    },
+    {
+      "id": "s-m1",
+      "from": "swipe",
+      "to": "m1",
+      "label": "进入大脑",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "m1-m2",
+      "from": "m1",
+      "to": "m2",
+      "label": "抽走高台",
+      "labelDy": 40
+    },
+    {
+      "id": "m2-m3",
+      "from": "m2",
+      "to": "m3",
+      "label": "关机",
+      "labelDy": 40
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "三层反应",
+      "items": [
+        "及时快感: 多巴胺制造永远饥饿",
+        "断崖戒断: 前额叶累瘫, 情绪脑接管",
+        "麻醉现实: DMN 被掐死, 失去深度思考"
+      ]
+    }
+  ]
+}

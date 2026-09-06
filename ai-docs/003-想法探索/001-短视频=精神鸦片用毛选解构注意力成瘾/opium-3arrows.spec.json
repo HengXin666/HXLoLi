@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "三支暗箭: 从底层逻辑被重写到阶层固化",
+    "locale": "zh-CN",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "algorithm",
+      "type": "external",
+      "label": "资本与算法",
+      "sublabel": "情绪放大器",
+      "pos": [
+        20,
+        250
+      ],
+      "size": [
+        140,
+        90
+      ]
+    },
+    {
+      "id": "arrow1",
+      "type": "backend",
+      "label": "暗箭① 延迟满足失效",
+      "sublabel": "只信立刻有回报",
+      "pos": [
+        340,
+        40
+      ],
+      "size": [
+        230,
+        80
+      ]
+    },
+    {
+      "id": "arrow2",
+      "type": "backend",
+      "label": "暗箭② 消费主义",
+      "sublabel": "焦虑放大->下单闭环",
+      "pos": [
+        340,
+        250
+      ],
+      "size": [
+        230,
+        80
+      ]
+    },
+    {
+      "id": "arrow3",
+      "type": "backend",
+      "label": "暗箭③ 反智主义",
+      "sublabel": "排斥长内容·停止思考",
+      "pos": [
+        340,
+        460
+      ],
+      "size": [
+        230,
+        80
+      ]
+    },
+    {
+      "id": "outcome",
+      "type": "security",
+      "label": "阶层固化",
+      "sublabel": "没时间·没精力·没脑子",
+      "pos": [
+        700,
+        250
+      ],
+      "size": [
+        230,
+        110
+      ]
+    },
+    {
+      "id": "counter",
+      "type": "cloud",
+      "label": "撕开算法包围圈",
+      "sublabel": "看清三箭是反击第一步",
+      "pos": [
+        1010,
+        250
+      ],
+      "size": [
+        210,
+        90
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "algo-1",
+      "from": "algorithm",
+      "to": "arrow1",
+      "label": "改造耐心",
+      "labelDy": -12
+    },
+    {
+      "id": "algo-2",
+      "from": "algorithm",
+      "to": "arrow2"
+    },
+    {
+      "id": "algo-3",
+      "from": "algorithm",
+      "to": "arrow3",
+      "label": "压缩知识",
+      "labelDy": 12
+    },
+    {
+      "id": "a1-out",
+      "from": "arrow1",
+      "to": "outcome",
+      "label": "无法完成长期目标",
+      "labelDy": -14
+    },
+    {
+      "id": "a2-out",
+      "from": "arrow2",
+      "to": "outcome"
+    },
+    {
+      "id": "a3-out",
+      "from": "arrow3",
+      "to": "outcome",
+      "label": "无法独立思考",
+      "labelDy": 14
+    },
+    {
+      "id": "out-c",
+      "from": "outcome",
+      "to": "counter",
+      "label": "被看清后反击",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "三支暗箭的共同点",
+      "items": [
+        "都在重写你判断的底层逻辑",
+        "让你以为是自己没耐心/审美被唤醒/干货无用",
+        "结果: 没时间没精力也没脑子去想怎么走到这一步"
+      ]
+    }
+  ]
+}
