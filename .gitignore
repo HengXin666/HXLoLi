@@ -8,9 +8,9 @@ py/**/test
 # Dependencies
 /node_modules
 **/node_modules/
+package-lock.json
 # vendored skills: keep the lock so deps can be restored reproducibly (npm ci)
 !.agents/skills/hx-archify/package-lock.json
-package-lock.json
 
 # Production
 /build
