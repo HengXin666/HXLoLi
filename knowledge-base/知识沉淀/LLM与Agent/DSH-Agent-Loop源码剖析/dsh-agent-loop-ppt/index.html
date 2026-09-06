@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSH Agent Loop 主线 · PPT</title>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a30;--line:#223352;--ink:#e9effc;--muted:#92a3c8;--accent:#38d3f2;--accent2:#a78bfa}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#05070f;color:var(--ink);font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;height:100%}
+.deck{width:1600px;max-width:100%;height:100vh;margin:0 auto;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;width:1600px;height:900px;max-width:100%;max-height:100%;
+  background:radial-gradient(1100px 560px at 88% -12%,rgba(56,211,242,.07),transparent 60%),var(--bg);
+  padding:44px 60px 56px;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .35s}
+.slide.active{opacity:1;pointer-events:auto}
+.shead{display:flex;align-items:baseline;gap:16px;margin-bottom:12px;flex:none}
+.shead .snum{color:var(--accent);font-weight:700;font-size:20px;letter-spacing:.08em}
+.shead h2{font-size:30px;font-weight:600}
+.stage{flex:1;min-height:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel);position:relative}
+.stage iframe{width:100%;height:100%;border:0;display:block}
+.scap{flex:none;margin-top:12px;color:var(--muted);font-size:17px;line-height:1.6;text-align:center;padding:0 30px}
+.cover{justify-content:center;text-align:center;padding:0 90px}
+.kicker{color:var(--accent);font-size:20px;letter-spacing:.18em;font-weight:700}
+.cover h1{font-size:60px;line-height:1.2;margin:20px 0 16px}
+.cover .lead{color:var(--muted);font-size:23px;line-height:1.7;max-width:1000px;margin:0 auto}
+.chips{margin:30px auto 0;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:1100px}
+.chips span{border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:17px;color:#c3d2ef}
+.cover-nav{margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.navbtn{background:var(--accent);color:#051018;border:0;border-radius:12px;font-size:20px;font-weight:700;padding:13px 32px;cursor:pointer;font-family:inherit}
+.navbtn:hover{filter:brightness(1.12)}
+.hint{color:var(--muted);font-size:15px}
+.tablewrap{flex:1;min-height:0;overflow:auto;display:flex;align-items:center;justify-content:center}
+table{border-collapse:collapse;font-size:18px;width:100%;max-width:1260px}
+th,td{border:1px solid var(--line);padding:12px 15px;text-align:left;line-height:1.55}
+th{background:var(--panel);color:var(--accent);font-size:19px}
+td:first-child{color:var(--muted);font-weight:600;white-space:nowrap}
+ul.points{list-style:none;text-align:left;margin:0 auto;max-width:1000px;display:flex;flex-direction:column;gap:18px}
+ul.points li{font-size:21px;line-height:1.6;color:#c3d2ef;padding-left:22px;position:relative}
+ul.points li b{color:var(--ink)}
+ul.points li::before{content:"";position:absolute;left:0;top:.62em;width:10px;height:10px;border-radius:3px;background:var(--accent)}
+.stage.hastext{display:flex;align-items:center;justify-content:center;padding:34px 60px}
+.controls{position:absolute;bottom:18px;right:30px;display:flex;gap:10px;z-index:20}
+.controls button{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;width:46px;height:46px;font-size:20px;cursor:pointer}
+.controls button:hover{border-color:var(--accent);color:var(--accent)}
+.pager{position:absolute;bottom:22px;left:60px;color:var(--muted);font-size:16px;z-index:20;letter-spacing:.05em}
+@media print{.slide{position:static;opacity:1;pointer-events:auto;page-break-after:always}.controls,.pager{display:none}}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+<section class="slide cover" id="cover">
+  <div class="cover-inner">
+    <div class="kicker">SOURCE-CODE DEEP DIVE · DSH</div>
+    <h1>Agent Loop 主线</h1>
+    <p class="lead">DeepSeek Harness 的一次交互: 输入进日志, 循环体反复调模型与工具, 上下文在每步 pre-step 注入、压力过大时压缩, 最后输出回复.</p>
+    <div class="chips"><span>turn / step / pre-step</span><span>事件日志 + surface 投影</span><span>上下文注入点</span><span>Compaction 双触发</span><span>三引擎对照</span></div>
+    <div class="cover-nav"><button class="navbtn go" data-goto="s1">看主线 →</button><span class="hint">方向键 / 底部按钮翻页</span></div>
+  </div>
+</section>
+<section class="slide" id="s1">
+  <header class="shead"><span class="snum">S1</span><h2>输入 → 循环体 → 输出</h2></header>
+  <div class="stage"><iframe data-src="dsh-loop-main.html" title="DSH Agent Loop 主线" loading="lazy"></iframe></div>
+  <p class="scap">一条主线看完整个 Agent 循环: 用户提问进入日志, 每步 pre-step 注入上下文后调模型; 需要工具就执行并把结果回灌, 继续循环; 判定结束才输出最终回复.</p>
+</section>
+<section class="slide" id="s2">
+  <header class="shead"><span class="snum">S2</span><h2>关键机制 · 三件事</h2></header>
+  <div class="stage hastext"><ul class="points">
+    <li><b>输入是事件, 不是消息</b> — 用户提问/模型回复/工具结果全部追加进 Session 日志; 模型读到的是日志派生的 surface. 日志与投影分离, 压缩才安全.</li>
+    <li><b>注入点唯一</b> — 上下文只在每个 step 开始前的 pre-step 拼装 (systemPrompt.assemble); 运行时快照作为一条普通消息落进 surface, 可读可压缩.</li>
+    <li><b>压缩在循环边界</b> — pre-step 估算 token ≥ 0.8×窗口即触发; 溢出报错兜底重试; 也可 /compact 手动触发. 历史被摘要替换, 日志保留可追溯.</li>
+  </ul></div>
+  <p class="scap">记住这三件事, 主线图里的每个框就都说得通了.</p>
+</section>
+<section class="slide" id="s3">
+  <header class="shead"><span class="snum">S3</span><h2>三家对照</h2></header>
+  <div class="tablewrap"><table>
+    <tr><th></th><th>DSH</th><th>Codex</th><th>Claude Code</th></tr>
+    <tr><td>开源</td><td>MIT · TypeScript</td><td>Apache-2.0 · Rust</td><td>闭源二进制</td></tr>
+    <tr><td>压缩触发</td><td>pre-step 压力 ≥0.8 / 溢出兜底 / /compact</td><td>采样前检查 + mid-turn 内联</td><td>窗口预算 + 响应式 (遥测可观察)</td></tr>
+    <tr><td>压缩产物</td><td>摘要消息替换 surface 区间</td><td>摘要替换会话历史</td><td>摘要消息进会话 (compact_boundary)</td></tr>
+    <tr><td>可观察性</td><td>全开源, 逐行可读</td><td>全开源, 逐行可读</td><td>仅 hooks / 遥测观察边界</td></tr>
+  </table></div>
+  <p class="scap">三家都是「触发判定 → 选区 → 摘要 → 替换」, 差异在触发边界与可观察性. Claude Code 只列官方可观测事实.</p>
+</section>
+<section class="slide cover" id="end">
+  <div class="cover-inner">
+    <h1>一句话带走</h1>
+    <p class="lead" style="margin-top:26px">Agent 循环 = 事件日志 + 派生 surface + 每步边界的 pre-step 瀑布; 上下文在 pre-step 注入, 压力到了就压缩摘要, 日志永远完整.</p>
+    <div class="cover-nav"><button class="navbtn go" data-goto="s1">↻ 再看一遍</button></div>
+  </div>
+</section>
+</div>
+<div class="controls"><button id="prev" title="上一页">‹</button><button id="next" title="下一页">›</button></div>
+<div class="pager" id="pager">01 / 05</div>
+<script>
+(function(){var slides=[].slice.call(document.querySelectorAll('.slide'));var cur=0;var total=slides.length;
+var pager=document.getElementById('pager');
+function go(n){if(n<0)n=0;if(n>=total)n=total-1;slides[cur].classList.remove('active');cur=n;slides[cur].classList.add('active');
+pager.textContent=String(cur+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+var f=slides[cur].querySelector('iframe[data-src]');if(f&&!f.getAttribute('src'))f.setAttribute('src',f.getAttribute('data-src'));}
+function next(){go(cur+1)}function prev(){go(cur-1)}
+document.getElementById('next').addEventListener('click',next);document.getElementById('prev').addEventListener('click',prev);
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='PageDown')next();if(e.key==='ArrowLeft'||e.key==='PageUp')prev();});
+document.querySelectorAll('.go').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-goto');
+var idx=slides.findIndex(function(s){return s.id===t});if(idx>=0)go(idx);});});
+if(location.hash){var h=location.hash.slice(1);var i2=slides.findIndex(function(s){return s.id===h;});if(i2>=0)go(i2);}
+go(0);})();
+</script>
+</body>
+</html>

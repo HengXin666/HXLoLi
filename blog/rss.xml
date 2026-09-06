@@ -4,10 +4,84 @@
         <title>HXLoLi Blog</title>
         <link>https://HengXin666.github.io/HXLoLi/blog</link>
         <description>HXLoLi Blog</description>
-        <lastBuildDate>Sun, 17 May 2026 12:40:09 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 06 Sep 2026 17:20:28 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-Hans</language>
+        <item>
+            <title><![CDATA[接受审判: I]]></title>
+            <link>https://HengXin666.github.io/HXLoLi/blog/2026/09/06/01_部门答辩</link>
+            <guid>https://HengXin666.github.io/HXLoLi/blog/2026/09/06/01_部门答辩</guid>
+            <pubDate>Sun, 06 Sep 2026 17:20:28 GMT</pubDate>
+            <description><![CDATA[简单记录一下转正的面试问题]]></description>
+            <content:encoded><![CDATA[<p>简单记录一下转正的面试问题</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>内容已经去敏, 吧?</p>
+</div>
+<p>都是问业务上的, 没有任何的算法和八股.</p>
+<p><code>26.09.02</code>(周三, 那天又是周会又是uin升级测试方案讨论会, 太有压力了qwq, 我还刚刚休假回来, 状态还没有完全switch)</p>
+<p>时长: 59 min, 总体气氛愉快. 如同对技术方案探讨一样, 没有压力. 而且面试官其实人很好, 也会教导比如他对我做的这些的看法之类的.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="开场">开场<a href="https://hengxin666.github.io/HXLoLi/blog/2026/09/06/01_%E9%83%A8%E9%97%A8%E7%AD%94%E8%BE%A9#%E5%BC%80%E5%9C%BA" class="hash-link" aria-label="开场的直接链接" title="开场的直接链接">​</a></h2>
+<p>面试官表示, 看过我的实习自评了. 问我有什么要补充的吗? 如果没有就直接开始问问题了.</p>
+<blockquote>
+<p>我心想, 准备了怎么久的自我介绍. 也不能浪费. 就说介绍一下背景吧</p>
+</blockquote>
+<p>然后就自我介绍了.</p>
+<p>(不过看起来必要性有点不大? <del>可能有略微不想听?</del>)</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="问题">问题<a href="https://hengxin666.github.io/HXLoLi/blog/2026/09/06/01_%E9%83%A8%E9%97%A8%E7%AD%94%E8%BE%A9#%E9%97%AE%E9%A2%98" class="hash-link" aria-label="问题的直接链接" title="问题的直接链接">​</a></h2>
+<p>所有的内容, 没有完全深入到技术细节、原理实现上.</p>
+<p><strong>代码质量相关:</strong></p>
+<ol>
+<li>
+<p>如何衡量你们代码质量的<code>效果</code>? 指标是什么?</p>
+</li>
+<li>
+<p>你说你这里使用的 <code>五元组</code> 作为判断. 那我问你, <code>docs</code> 里面的内容是变化的吗?</p>
+<p>比如, 一个变量. 它爆出问题 <code>变量A is err: xxx</code>, 用户如果改了变量名, 变成 <code>变量B is err: xxx</code></p>
+<p>那还能追踪到这个问题吗? 是不是就被识别了新的问题了?</p>
+<p>你有没有看看市面上、业界的解决方案?</p>
+<p>--后续, 面试官说他去了解过, 说应该基于<code>上下文哈希</code>(指纹) (不过我反驳 按照我的理解, 那我变量名变了, 那哈希值不就变了? 依旧存在这个啊qwq)</p>
+</li>
+<li>
+<p>你的自评里面说后续没有使用这个AI CR的方案, 它为什么没有使用, 是什么问题吗?</p>
+</li>
+<li>
+<p>为什么用 AST 分组方案? 为什么 <code>diff = del</code> 时候不用上下文注入让 AI 查询呢? 你有对比过业界的解决方案吗?</p>
+</li>
+<li>
+<p>看看目前你们的clang-tidy的问题数量? (迁移了, 我查询不到 -- 佐证了量化的指标不足...)</p>
+</li>
+<li>
+<p>目前你们这个代码质量有推全使用吗?</p>
+</li>
+</ol>
+<p><strong>uin升级相关:</strong></p>
+<ol>
+<li>我看你们这个时间跨度很大, 为什么 3、4个月了还没有做来呢? 我感觉你们这的时间规划是不是还有优化空间?</li>
+<li><del>为什么现在升级进度才到了 59.1%, 都这么久了</del></li>
+<li>你认为你做的这些, 对业务最有用处、提效最大的是哪里呢?</li>
+<li>这个过程中, 遇到的最大的困难是什么?</li>
+</ol>
+<blockquote>
+<p>基本上都是在交流背景和什么的. 面试官似乎不太清楚uin升级这块排期</p>
+</blockquote>
+<p><strong>其他问题:</strong></p>
+<ol>
+<li>我看你在项目基本上都是一个人开发的, 有和产品或者说是有和其他人合作吗? 有: 部门的skill平台的前后端开发、调研(skill上报); 小微干预那边的需求</li>
+<li>对于 AI coding 平时你说怎么使用的? 你对 ai 有什么看法吗?</li>
+</ol>
+<p><strong>反问:</strong></p>
+<ol>
+<li><del>问了一下他们部门内代码质量有专门做什么吗? (这个没有问)</del> 就对之前，面试官说的我们这边的量化和指标之类的太少了, 有什么建议措施吗? 面试官的意见是 有总比没有好, 总要有这个意识. 特别是日后如果 述职 什么的要量化你的工作, 你也得拿出有数字的指标</li>
+<li>聊了一下, ai 在代码质量上面试官有什么看法? 这块有点前沿了. 因为如何稳定验收AI的产出, 也是业界难题 ... 总之就是聊天~</li>
+</ol>
+<blockquote>
+<p>有点忘记了. 应该早点记录一下面筋的qwq</p>
+</blockquote>]]></content:encoded>
+            <author>282000500@qq.com (Heng_Xin)</author>
+            <category>面试</category>
+        </item>
         <item>
             <title><![CDATA[Codex Free 号池搭建]]></title>
             <link>https://HengXin666.github.io/HXLoLi/blog/2026/05/17/01_codexFreePool</link>
@@ -1578,28 +1652,6 @@
 </blockquote>]]></content:encoded>
             <author>282000500@qq.com (Heng_Xin)</author>
             <category>C++</category>
-        </item>
-        <item>
-            <title><![CDATA[调教VSCode, 以代码提示C++]]></title>
-            <link>https://HengXin666.github.io/HXLoLi/blog/2025/06/30/01-调教VSCode</link>
-            <guid>https://HengXin666.github.io/HXLoLi/blog/2025/06/30/01-调教VSCode</guid>
-            <pubDate>Mon, 30 Jun 2025 21:36:28 GMT</pubDate>
-            <description><![CDATA[实习环境使用vscode, 然后我登录我的账号, 把我的插件和配置全量同步, 然后发现cpp没有代码提示了, 遂狠狠滴调教VsCode...]]></description>
-            <content:encoded><![CDATA[<p>实习环境使用vscode, 然后我登录我的账号, 把我的插件和配置全量同步, 然后发现cpp没有代码提示了, 遂狠狠滴调教VsCode...</p>
-<p>不知道为什么, clangd 在实习环境适配不好... (ubt系列linux发行版的锅, 比如麒麟os) 包管理能下载的东西太tm古老了!!!</p>
-<p>并且 clangd 实际上是依赖 cmake 的(<code>compile_commands.json</code>), 但是公司项目是 cmake 编译测试项目, 发行版却是通过 makefile 直接编译的 ...</p>
-<p>导致 clangd 根本不能用了 (我删除了 =-=)</p>
-<p>然后还是不行, 我百思不得其解...</p>
-<p>但是后面破案了, 我把默认的 vsc的c/c++插件禁用了, 怪不得没有提示 qwq...</p>
-<p>然后写 <code>.vscode/c_cpp_properties.json</code>:</p>
-<div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-json codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token punctuation" style="color:hsl(220, 14%, 71%)">{</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">  </span><span class="token property" style="color:hsl(355, 65%, 65%)">"configurations"</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">{</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">      </span><span class="token property" style="color:hsl(355, 65%, 65%)">"name"</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">"default"</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">      </span><span class="token property" style="color:hsl(355, 65%, 65%)">"includePath"</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">        </span><span class="token string" style="color:hsl(95, 38%, 62%)">"${workspaceFolder}/**"</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">      </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">      </span><span class="token property" style="color:hsl(355, 65%, 65%)">"defines"</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">      </span><span class="token property" style="color:hsl(355, 65%, 65%)">"compilerPath"</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">"/usr/bin/g++"</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">      </span><span class="token property" style="color:hsl(355, 65%, 65%)">"cStandard"</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">"c17"</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">      </span><span class="token property" style="color:hsl(355, 65%, 65%)">"cppStandard"</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">"c++20"</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">      </span><span class="token property" style="color:hsl(355, 65%, 65%)">"intelliSenseMode"</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">"linux-gcc-x64"</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">    </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">}</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">  </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">  </span><span class="token property" style="color:hsl(355, 65%, 65%)">"version"</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">4</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">}</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">json</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
-<div class="markdown-alert markdown-alert-tip">
-<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' class='octicon octicon-light-bulb mr-2' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z'%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
-<p><code>${workspaceFolder}/**</code>, 这表示把当前项目所有子目录都加入头文件搜索路径, 适合小型项目或不依赖太多三方库的项目!</p>
-</div>
-<p>如上配置, 基本上OK了吧...</p>]]></content:encoded>
-            <author>282000500@qq.com (Heng_Xin)</author>
-            <category>VsCode</category>
         </item>
     </channel>
 </rss>
