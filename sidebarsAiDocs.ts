@@ -441,6 +441,15 @@ const aiDocsSidebar = [
               "icon": "default-icons/ai-doc.svg",
               "tags": []
             }
+          },
+          {
+            "type": "doc",
+            "id": "知识沉淀/LLM与Agent/自建Agent检索栈与凭证治理/index",
+            "label": "自建Agent检索栈与凭证治理",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
           }
         ],
         "customProps": {

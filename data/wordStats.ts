@@ -970,11 +970,75 @@ export const stats: RecordItem[] = [
     "message": "[ai-docs] 文章 skill 字段统一为列表格式"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-08-31T18:41:53.963Z",
+    "commit": "500aa6776fda3544a5189aa6e54d2e22f180df69",
+    "date": "2026-09-07T00:54:02+08:00",
     "docsBlogWordCount": 3860408,
-    "aiDocsWordCount": 194206,
-    "wordCount": 4054614,
-    "message": "[feat] sync"
+    "aiDocsWordCount": 198101,
+    "wordCount": 4058509,
+    "message": "[ai-docs] 新增想法探索: 短视频=精神鸦片用毛选解构注意力成瘾"
+  },
+  {
+    "commit": "7807ece1f0ae54035f50e1e98076b4646ea7515a",
+    "date": "2026-09-07T00:54:02+08:00",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 204481,
+    "wordCount": 4064889,
+    "message": "[ai-docs] 新增 DSH Agent Loop 源码剖析: 驱动循环/事件日志/compaction"
+  },
+  {
+    "commit": "ba41a37119b231a3c2e25502da94332a786417fe",
+    "date": "2026-09-07T00:54:09+08:00",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 212433,
+    "wordCount": 4072841,
+    "message": "[ai-docs] 新增 DSH Runtime 设计思想: 插件树与事件日志"
+  },
+  {
+    "commit": "7e733d19a3a4cd7a1621bc77a09758d06fd83ab3",
+    "date": "2026-09-07T00:54:09+08:00",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 243940,
+    "wordCount": 4104348,
+    "message": "[ai-docs] 新增 DSH 预设提示词全解: 四预设与逐步投递 (含交互图)"
+  },
+  {
+    "commit": "004ffc84634ebdbf39bc62deee844bfaf1d310be",
+    "date": "2026-09-07T00:54:09+08:00",
+    "docsBlogWordCount": 3860408,
+    "aiDocsWordCount": 255479,
+    "wordCount": 4115887,
+    "message": "[ai-docs] 新增 自维护可插拔记忆层设计 (对比市面方案后收敛)"
+  },
+  {
+    "commit": "5647b765d977d2d5618b6bab1d3fc8c78fa6de8c",
+    "date": "2026-09-07T00:54:09+08:00",
+    "docsBlogWordCount": 3861735,
+    "aiDocsWordCount": 255479,
+    "wordCount": 4117214,
+    "message": "[blog] 新增 接受审判: I (部门答辩面经)"
+  },
+  {
+    "commit": "2802dddedaec08f761a9587a560184022f09a81e",
+    "date": "2026-09-07T00:54:18+08:00",
+    "docsBlogWordCount": 3861735,
+    "aiDocsWordCount": 255561,
+    "wordCount": 4117296,
+    "message": "[ai-docs] Multica调研: skill 字段仅登记自有技能并加注说明"
+  },
+  {
+    "commit": "56fc3e7359575f50ebac461176dde9a2d75e87f5",
+    "date": "2026-09-07T00:54:18+08:00",
+    "docsBlogWordCount": 3861735,
+    "aiDocsWordCount": 255561,
+    "wordCount": 4117296,
+    "message": "[ai-docs] 对话记忆笔记: 修正 mermaid 图中括号"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-09-10T17:25:18.543Z",
+    "docsBlogWordCount": 3861735,
+    "aiDocsWordCount": 268319,
+    "wordCount": 4130054,
+    "message": "[ai-docs] ai 搜索插件调研"
   }
 ];
