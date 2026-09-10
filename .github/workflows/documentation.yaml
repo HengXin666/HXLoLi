@@ -10,6 +10,11 @@ on:
     types: [closed]
     branches: [main]
 
+concurrency:
+  # 同一分支/PR 新构建到来时, 自动取消正在跑的旧构建
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 

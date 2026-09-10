@@ -7,3 +7,7 @@ static/katex/** linguist-vendored
 
 # 屏蔽 HTML 参与 GitHub 语言占比统计
 *.html linguist-vendored
+
+# 屏蔽 skills 参与 GitHub 语言占比统计
+.agents/skills/ linguist-vendored
+.agents/skills/** linguist-vendored
