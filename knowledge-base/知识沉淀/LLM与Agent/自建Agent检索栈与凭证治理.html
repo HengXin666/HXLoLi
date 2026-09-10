@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-ai-docs docs-version-current docs-doc-page docs-doc-id-知识沉淀/LLM与Agent/自建Agent检索栈与凭证治理/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">自建 Agent 检索栈: 本地化边界、凭证治理与可用性证明 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/自建Agent检索栈与凭证治理"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-ai-docs-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-ai-docs-current"><meta data-rh="true" property="og:title" content="自建 Agent 检索栈: 本地化边界、凭证治理与可用性证明 | HXLoLi"><meta data-rh="true" name="description" content="0x00 背景"><meta data-rh="true" property="og:description" content="0x00 背景"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/自建Agent检索栈与凭证治理"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/自建Agent检索栈与凭证治理" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/自建Agent检索栈与凭证治理" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed"><link rel="stylesheet" href="/HXLoLi/assets/css/styles.18236b22.css">
+<script src="/HXLoLi/assets/js/runtime~main.7bedfa24.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.769db8a3.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"dark")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/ai-doc.svg"><link rel="preload" as="image" href="/HXLoLi/default-icons/ai-folder.svg"><link rel="preload" as="image" href="/HXLoLi/default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi/img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi/img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a class="navbar__item navbar__link" href="/HXLoLi/docs/关于">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/knowledge-base/关于">知识库</a><a class="navbar__item navbar__link" href="/HXLoLi/anime">アニメ</a></div><div class="navbar__items navbar__items--right"><div style="position:relative" class="navbar__item"><button class="navbar__link" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;font-size:13px;padding:4px 8px;color:var(--ifm-navbar-link-color)" title="CDN 节点选择"><span style="font-size:11px">⚡</span><span style="font-family:ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, monospace;font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:-0.3px;color:var(--ifm-navbar-link-color)">CDN</span></button></div><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li><li><a class="dropdown__link" href="/HXLoLi/docs-graph">笔记关系图</a></li><li><a class="dropdown__link" href="/HXLoLi/friends">友链</a></li><li><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="dropdown__link">GitHub<svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="ai-kb-page"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><div class="root_l0J4"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li data-sidebar-path="关于" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-1" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" href="/HXLoLi/knowledge-base/关于"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">关于</span></span></span></a></li><li data-sidebar-path="知识沉淀" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/HXLoLi/knowledge-base/知识沉淀/现代C++/日常探索/HXLibs编写串行协程调度器"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">知识沉淀</span></span></span></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list ai-kb-sidebar-children"><li data-sidebar-path="知识沉淀/现代C++" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/现代C++/日常探索/HXLibs编写串行协程调度器"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">现代C++</span></span></span></a></div></li><li data-sidebar-path="知识沉淀/项目学习" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/项目学习/obsidian-second-brain"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">项目学习</span></span></span></a></div></li><li data-sidebar-path="知识沉淀/编程语言" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/编程语言/Python语言/日常探索/Python爬虫库选型调研"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">编程语言</span></span></span></a></div></li><li data-sidebar-path="知识沉淀/商品选购" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/商品选购/日常探索/电脑包选购指标"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">商品选购</span></span></span></a></div></li><li data-sidebar-path="知识沉淀/LLM与Agent" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/Agent要懂的LLM基础知识"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">LLM与Agent</span></span></span></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list ai-kb-sidebar-children"><li data-sidebar-path="知识沉淀/LLM与Agent/Agent要懂的LLM基础知识" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/Agent要懂的LLM基础知识"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Agent要懂的LLM基础知识</span></span></span></a></li><li data-sidebar-path="知识沉淀/LLM与Agent/AI-Agent设计原理与工程实践" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/AI-Agent设计原理与工程实践"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">AI-Agent设计原理与工程实践</span></span></span></a></li><li data-sidebar-path="知识沉淀/LLM与Agent/DSH-Agent-Loop源码剖析" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/DSH-Agent-Loop源码剖析"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">DSH-Agent-Loop源码剖析</span></span></span></a></li><li data-sidebar-path="知识沉淀/LLM与Agent/对话记忆与知识库增量沉淀" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/对话记忆与知识库增量沉淀"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">对话记忆与知识库增量沉淀</span></span></span></a></li><li data-sidebar-path="知识沉淀/LLM与Agent/DeepSeek Harness Runtime设计思想插件树与事件日志" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/DeepSeek Harness Runtime设计思想插件树与事件日志"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">DeepSeek Harness Runtime设计思想插件树与事件日志</span></span></span></a></li><li data-sidebar-path="知识沉淀/LLM与Agent/DSH预设提示词全解" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/DSH预设提示词全解"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">DSH预设提示词全解</span></span></span></a></li><li data-sidebar-path="知识沉淀/LLM与Agent/自维护可插拔记忆层设计" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/自维护可插拔记忆层设计"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">自维护可插拔记忆层设计</span></span></span></a></li><li data-sidebar-path="知识沉淀/LLM与Agent/自建Agent检索栈与凭证治理" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/自建Agent检索栈与凭证治理"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">自建Agent检索栈与凭证治理</span></span></span></a></li></ul></li><li data-sidebar-path="知识沉淀/浏览器验证与AI逆向" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/知识沉淀/浏览器验证与AI逆向/CF过盾工程-从零实现Turnstile绕过"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">浏览器验证与AI逆向</span></span></span></a></div></li></ul></li><li data-sidebar-path="想法探索" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/想法探索/短视频=精神鸦片用毛选解构注意力成瘾"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">想法探索</span></span></span></a></div></li></ul></nav></div></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row ai-kb-page"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><div class="aiDocHeader_kTZk" style="opacity:0;transform:translateY(-10px)"><div class="bgGrid_iCNM"></div><div class="metalShine_apht"></div><div class="headerContent_JtLs"><div class="titleRow_gyYW"><div class="aiIcon_uCRj" title="AI 辅助生成内容" style="opacity:0;transform:translateY(-4px) scale(0.9)"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z"></path></svg></div><span class="typewriter_Tkd9" style="display:inline"><span class="typewriterCursor_hJ0X" style="opacity:1;transition:opacity 0.08s">▌</span></span></div><div class="metaRow_SKoK"><span class="metaBadge_cx8r dateBadge_voC8" title="文档创建时间" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"></path></svg></span>2026-09-11</span><span class="metaBadge_cx8r modelBadge_tpoh" title="辅助编辑的 AI 模型: DeepSeek-V4.1-Flash" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z"></path></svg></span>DeepSeek-V4.1-Flash</span><a class="metaBadge_cx8r skillBadge_Kei0 clickableBadge_p2xi" title="查看 Skill 源码: hx-make-ai-docs" href="https://github.com/HengXin666/HXLoLi/tree/main/.agents/skills/hx-make-ai-docs" target="_blank" rel="noopener noreferrer" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"></path></svg></span>hx-make-ai-docs<span class="skillExternalIcon_BIVD"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: AI Agent" href="/HXLoLi/knowledge-base/tags/AI Agent"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>AI Agent</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: MCP" href="/HXLoLi/knowledge-base/tags/MCP"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>MCP</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: 检索" href="/HXLoLi/knowledge-base/tags/检索"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>检索</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: 自建部署" href="/HXLoLi/knowledge-base/tags/自建部署"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>自建部署</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: OAuth" href="/HXLoLi/knowledge-base/tags/OAuth"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>OAuth</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: 凭证管理" href="/HXLoLi/knowledge-base/tags/凭证管理"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>凭证管理</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: 评测" href="/HXLoLi/knowledge-base/tags/评测"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>评测</span></a></div></div></div><div style="display:flex;justify-content:space-between;align-items:center"><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">知识沉淀</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">LLM与Agent</span><meta itemprop="position" content="2"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">自建Agent检索栈与凭证治理</span><meta itemprop="position" content="3"></li></ul></nav></div><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>自建 Agent 检索栈: 本地化边界、凭证治理与可用性证明</h1></header>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x00-背景">0x00 背景<a href="#0x00-背景" class="hash-link" aria-label="0x00 背景的直接链接" title="0x00 背景的直接链接">​</a></h2>
+<p>给 Agent 接检索, 很多人默认的做法是&quot;买一个搜索 API 然后填 key&quot;. 但一旦把约束换成下面两条, 整个方案形态就变了:</p>
+<ol>
+<li><strong>尽量完全本地自建</strong> — 检索链路不依赖商业检索 API, 数据不出本机, 成本可预测, 不受第三方限流与条款变动摆布.</li>
+<li><strong>凭证配置必须体面</strong> — 社交平台终究要 token, 但如果接入指引只是&quot;去某某页面创建应用, 把 client_id 和 secret 填到配置文件&quot;, 那这套东西不会有人真的用起来.</li>
+</ol>
+<p>这两条约束放在一起会暴露一个被普遍忽视的事实: <strong>&quot;自建&quot;从来不是全有或全无, 而且真正决定这套栈能不能长期活下来的, 往往不是检索算法, 而是凭证的获取与续期体验.</strong></p>
+<p>本文回答三个问题: 自建的真实边界在哪、凭证配置怎么做才不劝退、以及如何证明这套自建栈比买 API 更值得.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x01-核心结论">0x01 核心结论<a href="#0x01-核心结论" class="hash-link" aria-label="0x01 核心结论的直接链接" title="0x01 核心结论的直接链接">​</a></h2>
+<ol>
+<li>
+<p><strong>先看已有的轮子: Argo 已经把本文大半需求做完了, 且以免密钥为主.</strong> <span class="tailwind"><a href="https://github.com/taxueseek/argo" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Argo<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 是一个开源的&quot;搜索 + 证据核验&quot;工具, 实测支持 <strong>157 个引擎, 其中 146 个不含密钥占位符 (keyless)</strong>, 覆盖知乎 / B站 / 微博 / 小红书 / 微信 / Reddit / HackerNews / V2EX / 豆瓣 / arXiv / Common Crawl / Wayback 等. 它的官方定位就是&quot;无 Key 自动走免费引擎 + 本地引擎&quot;, 并且<strong>缺密钥不阻断路由</strong>. 结论很直接: <strong>在动手自建之前, 应该先判断 Argo 是否已经覆盖你的需求</strong> — 本文第一节与第五节的结论, 它的取舍与本文结论高度一致.</p>
+</li>
+<li>
+<p><strong>&quot;免 token&quot;是有层次的, 不能一概而论.</strong> 我实测了 Argo 的 keyless 引擎, 真实存活情况差异很大: <strong>稳定可用</strong> (HackerNews、Bilibili、Bilibili 热搜、Crossref、PubMed、arXiv、Marginalia、世界银行、PubChem); <strong>返回空但不算故障</strong> (微博、小红书、搜狗微信、知乎热榜、豆瓣读书、Wayback — 多为需要登录态或被反爬拦截); <strong>直接超时失败</strong> (Reddit、V2EX、Gutenberg). Argo 官方 schema 自己也写明: <strong>hackernews / v2ex / zhihu / bilibili 零密钥可用; twitter / reddit / weibo / xiaohongshu 依赖登录态或第三方 API, 可能返回空.</strong> 所以&quot;不需要 token&quot;是<strong>逐平台</strong>成立的, 不是一个全局属性.</p>
+</li>
+<li>
+<p><strong>自建要分层看, 四层里只有两层的答案是&quot;必须自建&quot;.</strong> 元搜索、抓取、索引与向量库可以完全自建且值得; 官方文档与代码索引自建收益极高 (数据本来就在本地或公开); 而<strong>社交平台里确实有相当一部分无需 token 即可读</strong> (见上一条), 只有登录态绑定的部分才需要凭证. 因此&quot;社交平台必须配 token&quot;是<strong>过度假设</strong> — 先测免密钥路径, 再决定是否为剩下的平台引入凭证.</p>
+</li>
+<li>
+<p><strong>&quot;完全本地&quot;的正确形态是&quot;本地中枢 + 少量受控出口&quot;.</strong> 把 SearXNG、本地索引、代码检索、文档库都放在本机, 只对确实无法绕开的平台开一个受管出口, 并让出口的凭证集中在本地网关里. 追求&quot;零外部依赖&quot;的结果通常是这套栈两周后就不再更新.</p>
+</li>
+<li>
+<p><strong>MCP 授权规范只解决了协议层的自动化, 没解决本地场景的核心痛点.</strong> 它定义了 401 挑战、受保护资源元数据、动态客户端注册与 PKCE 这套机器对机器的发现与注册流程; 但规范明确说 <strong>STDIO 传输不应走这套流程, 而应从环境获取凭证</strong> — 这也正是本地 MCP 生态普遍靠环境变量传 key 的原因. 对你的场景而言, <strong>真正要自己设计的是&quot;凭证怎么拿到手&quot;这一步</strong>.</p>
+</li>
+<li>
+<p><strong>凭证获取有四个范式, 按用户操作成本从低到高是: 免凭证 -&gt; 浏览器回环回调 -&gt; 设备码 -&gt; 扫码 -&gt; 手动粘贴.</strong> 好的接入设计不是选一个, 而是<strong>按环境自动降级</strong>: 本机有浏览器就走回环回调, 无头服务器就退到设备码, 移动端平台就用扫码, 只有前面全不可行才允许手动粘贴, 并且粘贴路径也要给到&quot;点这里就跳转到正确页面、填好参数&quot;的程度.</p>
+</li>
+<li>
+<p><strong>凭证的&quot;配置体验&quot;分三段, 且第一段最劝退: 注册应用、获取令牌、续期.</strong></p>
+<ul>
+<li><strong>注册应用</strong> 是最容易劝退的一步, 缓解手段是优先申请无需 secret 的公共客户端、把回调地址固定成可复制的一段、以及提供&quot;带我建&quot;的引导;</li>
+<li><strong>获取令牌</strong> 应当收敛成一条命令;</li>
+<li><strong>续期</strong> 必须自动完成, 让用户永远不需要因为 token 过期再配一次.</li>
+</ul>
+</li>
+<li>
+<p><strong>凭证落盘优先用系统密钥环, 而不是明文文件.</strong> 有桌面环境时用 Secret Service / Keychain / Credential Manager; 无头环境才退化为 600 权限的文件, 并明确告知风险. 顺带一个现实提醒: Node 生态经典库 keytar 所属仓库已于 2022 年停更归档, 需要迁移到仍在维护的分支.</p>
+</li>
+<li>
+<p><strong>&quot;好用&quot;必须分层证明, 且样本量比直觉大得多.</strong> 检索层看 recall@k / nDCG, 证据层看引用正确率与忠实度, 任务层看端到端成功率, 工程层看 p95 延迟与单次成功任务成本. 配对设计下要检出 10 个百分点的真实差距需要约 775 条样本 — 这意味着<strong>自建栈的验证应该分两级做</strong>, 而不是一上来就追求统计严谨.</p>
+</li>
+</ol>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x02-关键细节">0x02 关键细节<a href="#0x02-关键细节" class="hash-link" aria-label="0x02 关键细节的直接链接" title="0x02 关键细节的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="一先评估-argo-已有轮子覆盖到哪里">一、先评估 Argo: 已有轮子覆盖到哪里<a href="#一先评估-argo-已有轮子覆盖到哪里" class="hash-link" aria-label="一、先评估 Argo: 已有轮子覆盖到哪里的直接链接" title="一、先评估 Argo: 已有轮子覆盖到哪里的直接链接">​</a></h3>
+<p>在动手自建之前, 有一个必须先回答的问题: <strong>这件事是否已经有人做完了?</strong> 对本文的两个约束 (本地化、少 token) 而言, <span class="tailwind"><a href="https://github.com/taxueseek/argo" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Argo<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 是一个绕不开的参照.</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="11-它是什么">1.1 它是什么<a href="#11-它是什么" class="hash-link" aria-label="1.1 它是什么的直接链接" title="1.1 它是什么的直接链接">​</a></h4>
+<p>Argo 是一个开源的&quot;搜索 + 证据核验&quot;命令行与 MCP 工具, 面向 AI Agent 使用, MIT 协议. 它把多语言路由、垂直源、深度研究与证据判定整合在一个 CLI / MCP 里. 可用三种形态接入: 命令行直接调用、挂 MCP, 以及作为 DSH 插件 (原生工具 + web seam + 可选 MCP 全量面).</p>
+<p>它的工具面里与本文直接相关的有: 搜索 (<code>argo_search</code>)、抓取 (<code>argo_fetch</code>)、爬取 (<code>argo_crawl</code>)、社交检索 (<code>argo_social_search</code>)、公众号全文 (<code>argo_article</code>)、招聘聚合 (<code>argo_job</code>)、PDF 与截图、本地文件检索与重算 (<code>argo_local_*</code> / <code>argo_recompute</code>), 以及证据核验与澄清 (<code>argo_evidence</code> / <code>argo_clarify</code>).</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="12-关键实测-keyless-引擎的真实存活情况">1.2 关键实测: keyless 引擎的真实存活情况<a href="#12-关键实测-keyless-引擎的真实存活情况" class="hash-link" aria-label="1.2 关键实测: keyless 引擎的真实存活情况的直接链接" title="1.2 关键实测: keyless 引擎的真实存活情况的直接链接">​</a></h4>
+<p>这是回答&quot;能不能不配 token&quot;的核心证据. 我从 Argo 的引擎配置中统计并<strong>逐一实跑验证</strong>:</p>
+<ul>
+<li>配置中共 <strong>157 个引擎</strong>, 其中 <strong>146 个不含密钥占位符</strong> (即设计上免密钥), 仅 11 个需要 key.</li>
+<li>免密钥引擎的真实表现<strong>差异极大</strong>, 必须分三类看:</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>类别</th><th>实测结果</th><th>代表引擎</th></tr></thead><tbody><tr><td>稳定可用</td><td>正常返回结果</td><td>HackerNews、Bilibili、Bilibili 热搜、Crossref、arXiv、PubMed、Marginalia、世界银行、PubChem</td></tr><tr><td>可调用但返回空</td><td>进程成功, 结果为空 (多因需登录态或被反爬)</td><td>微博、小红书、搜狗微信、知乎热榜、豆瓣读书、Wayback CDX</td></tr><tr><td>直接失败</td><td>超时或报错</td><td>Reddit、V2EX、Gutenberg</td></tr></tbody></table>
+<ul>
+<li>同时确认了一个<strong>配置与实际不一致的坑</strong>: 知乎的 <code>zhihu</code> 引擎在配置里标为免费, 但实跑返回 <code>20001: Authorization failed</code> —— <strong>配置的 cost 标签不等于免凭证</strong>, 只有实跑才算数.</li>
+</ul>
+<p>这里有一个<strong>文档与实测不一致</strong>的地方值得单独指出. Argo 的工具描述宣称 <code>hackernews / v2ex / zhihu / bilibili</code> 零密钥可用, 但我实测这四个里<strong>只有 HackerNews 与 Bilibili 正常返回</strong>: 知乎报授权失败, V2EX 直接超时. 这说明即使是同一个项目内部, &quot;声明的可用性&quot;与&quot;当前真实可用性&quot;也会漂移 —— 上游站点改版、反爬升级都会让某个引擎静默失效. <strong>结论是: 免密钥能力必须自己定期实跑验证, 不能采信任何清单 (包括本文这张表).</strong></p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="13-它验证了本文的核心判断">1.3 它验证了本文的核心判断<a href="#13-它验证了本文的核心判断" class="hash-link" aria-label="1.3 它验证了本文的核心判断的直接链接" title="1.3 它验证了本文的核心判断的直接链接">​</a></h4>
+<p>对照本文后面的结论, Argo 的工程取舍几乎逐条吻合:</p>
+<ul>
+<li><strong>&quot;缺密钥不阻断路由&quot;</strong> — 官方明确: 匿名可用引擎 keyless 免配置即用, 配置了密钥的引擎自动升级为认证请求, <strong>缺密钥不阻断路由</strong>. 这正是本文第 6 条结论 (免凭证优先) 的生产实现.</li>
+<li><strong>它承认免费路径有损</strong> — 官方&quot;能力边界&quot;里写明: 部分高质量源需 API Key, 无 Key 时自动走免费引擎加本地引擎, <strong>质量略有折损</strong>. 这是一句诚实的自我披露, 也说明&quot;完全免 token&quot;与&quot;质量最优&quot;之间存在真实取舍.</li>
+<li><strong>社交检索明确标注了各平台差异</strong> — 没有把&quot;社交平台&quot;当成一个均质的整体, 而是逐平台标注零密钥可用性.</li>
+<li><strong>把判断权留给 Agent</strong> — 官方定位是&quot;负责取证 + 给可判定门禁, 不替你下结论&quot;.</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="14-结论-先复用-再补齐">1.4 结论: 先复用, 再补齐<a href="#14-结论-先复用-再补齐" class="hash-link" aria-label="1.4 结论: 先复用, 再补齐的直接链接" title="1.4 结论: 先复用, 再补齐的直接链接">​</a></h4>
+<p><strong>如果 Argo 已经覆盖你的需求, 自建的正确起点是&quot;接入 + 定向补缺&quot;, 而不是从零造一套.</strong> 具体判断顺序:</p>
+<ol>
+<li>先挂上 Argo, 用本文第五节的评测方法跑一轮冒烟级测试, 看免密钥路径在你的实际查询上够不够用;</li>
+<li>把<strong>持续失败的引擎</strong>和<strong>确有必要但需要凭证的平台</strong>列成缺口清单;</li>
+<li>只对这份清单做定向补建 (本文第三节给出各层的自建选型), 其余交给 Argo.</li>
+</ol>
+<p>这样做的收益是显而易见的: 你<strong>跳过了 150+ 引擎的适配与维护</strong>, 而这恰恰是自建检索栈里最耗时、最容易腐烂的部分.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="二本地化边界-什么能自建-什么不能">二、本地化边界: 什么能自建, 什么不能<a href="#二本地化边界-什么能自建-什么不能" class="hash-link" aria-label="二、本地化边界: 什么能自建, 什么不能的直接链接" title="二、本地化边界: 什么能自建, 什么不能的直接链接">​</a></h3>
+<p>先把&quot;自建&quot;拆成四种不同程度的含义, 否则讨论会失焦:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>程度</th><th>含义</th><th>典型环节</th></tr></thead><tbody><tr><td>A 完全自建</td><td>数据与算力都在本机, 无外部依赖</td><td>本地文件/代码/笔记检索, 自建索引</td></tr><tr><td>B 自建外壳</td><td>抓公开网页, 自己解析与索引</td><td>元搜索, 网页正文抽取, 文档库</td></tr><tr><td>C 自建中枢</td><td>凭证与路由本地化, 但数据源在外部</td><td>需要 token 的社交平台, 部分学术源</td></tr><tr><td>D 无法自建</td><td>数据在被围墙保护的平台内</td><td>小红书/微信公众号等无开放接口的内容</td></tr></tbody></table>
+<p><strong>分界线是这样的</strong>: 凡是&quot;公开网页可达&quot;的, 都能做到 B 甚至 A; 凡是&quot;平台把持且没有开放接口&quot;的, 你只能做到 C (用凭证合规访问) 或彻底放弃. 这就推出一个务实的自建形态 — <strong>本地中枢 + 少量受控出口</strong>:</p>
+<div style="text-align:center"></div>
+<p>这样做的三个好处: 高频请求全部落在本地 (延迟与成本可控)、外部凭证只有一个收口 (更容易做权限与审计)、以及任一出口挂掉时主链路仍然可用.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="三自建检索栈的组件选型">三、自建检索栈的组件选型<a href="#三自建检索栈的组件选型" class="hash-link" aria-label="三、自建检索栈的组件选型的直接链接" title="三、自建检索栈的组件选型的直接链接">​</a></h3>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="31-元搜索层-searxng-是事实标准">3.1 元搜索层: SearXNG 是事实标准<a href="#31-元搜索层-searxng-是事实标准" class="hash-link" aria-label="3.1 元搜索层: SearXNG 是事实标准的直接链接" title="3.1 元搜索层: SearXNG 是事实标准的直接链接">​</a></h4>
+<p>SearXNG (约 36.7k star, AGPL-3.0) 支持 <strong>267 个搜索引擎, 其中 81 个默认启用</strong>, 可自托管、无追踪. 它是自建栈里性价比最高的一块.</p>
+<p>但必须知道它的两个边界:</p>
+<ul>
+<li><strong>中文引擎覆盖有限.</strong> 官方引擎清单里有百度、夸克、搜狗、360、搜狗微信、Bilibili 等, 但<strong>没有知乎、微博、小红书、抖音</strong> — 也就是说 SearXNG 解决的是&quot;中文网页级检索&quot;, 解决不了&quot;站内内容检索&quot;.</li>
+<li><strong>引擎会失效.</strong> 元搜索的维护成本主要来自上游引擎改版. 这是长期运营成本, 必须预期到, 不能假设部署完就一劳永逸.</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="32-抓取与正文抽取">3.2 抓取与正文抽取<a href="#32-抓取与正文抽取" class="hash-link" aria-label="3.2 抓取与正文抽取的直接链接" title="3.2 抓取与正文抽取的直接链接">​</a></h4>
+<ul>
+<li><strong>Crawl4AI</strong> (约 82.1k star, Apache-2.0) — 面向 LLM 的爬虫与抓取, 输出干净 markdown, 适合作为抓取层.</li>
+<li><strong>Trafilatura</strong> (约 6.8k star, Apache-2.0) — 正文与元数据抽取的经典选择, 比通用 HTML 清洗稳.</li>
+<li>两者组合即可覆盖&quot;抓取 -&gt; 正文 -&gt; 入索引&quot;的链路, 无需任何商业 API.</li>
+</ul>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="33-本地索引与向量检索">3.3 本地索引与向量检索<a href="#33-本地索引与向量检索" class="hash-link" aria-label="3.3 本地索引与向量检索的直接链接" title="3.3 本地索引与向量检索的直接链接">​</a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>检索引擎</th><th>定位</th><th>适用</th></tr></thead><tbody><tr><td>Meilisearch (约 59.2k star)</td><td>全文 + 混合搜索</td><td>文档、笔记、网页索引的主力</td></tr><tr><td>Qdrant (约 34.5k star, Apache-2.0)</td><td>向量库</td><td>语义检索、大规模 embedding</td></tr><tr><td>Chroma (约 29.3k star, Apache-2.0)</td><td>轻量向量库</td><td>小规模或原型</td></tr></tbody></table>
+<p>实践建议: <strong>全文检索与向量检索不要二选一</strong>, 而是混合召回后再重排. 纯向量在专有名词与代码标识符上表现很差, 纯全文在同义改写上表现很差, 这两类查询在 Agent 场景里都会高频出现.</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="34-代码检索">3.4 代码检索<a href="#34-代码检索" class="hash-link" aria-label="3.4 代码检索的直接链接" title="3.4 代码检索的直接链接">​</a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>方案</th><th>star</th><th>说明</th></tr></thead><tbody><tr><td>zoekt (sourcegraph/zoekt)</td><td>约 1.9k</td><td>基于三元组的快速代码搜索, 规模化上限最高</td></tr><tr><td>livegrep</td><td>约 2.2k</td><td>交互式 grep, 适合中型仓库</td></tr><tr><td>hound</td><td>约 5.9k</td><td>轻量, 部署简单</td></tr></tbody></table>
+<p><strong>分界建议</strong>: 单仓库或少量仓库用 ripgrep 加 ctags 就够了, 不要过度工程; 一旦需要在大量仓库里按符号/正则检索, 再上 zoekt.</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="35-学术源-哪些真正无需商业-key">3.5 学术源: 哪些真正无需商业 key<a href="#35-学术源-哪些真正无需商业-key" class="hash-link" aria-label="3.5 学术源: 哪些真正无需商业 key的直接链接" title="3.5 学术源: 哪些真正无需商业 key的直接链接">​</a></h4>
+<ul>
+<li><strong>arXiv</strong>: 提供 OAI-PMH 做元数据批量同步, 以及官方检索 API; 全文批量走 requester-pays 的对象存储通道. 完全无需商业 key.</li>
+<li><strong>Common Crawl</strong>: 数据与索引<strong>全部免费下载</strong>, 索引服务可直接按 URL 模式查询并支持程序化访问; 代价是数据量极大且需要自己建索引.</li>
+<li><strong>PubMed / OpenAlex / Semantic Scholar</strong> 的开放数据集同理.</li>
+</ul>
+<p>这里有一个重要的现实判断: <strong>&quot;用 Common Crawl 建个人搜索引擎&quot;在技术上可行, 但在经济上通常不划算</strong> — 你需要为海量数据付出存储与构建索引的成本, 而其中绝大多数内容与你的需求无关. 更务实的做法是<strong>只对你真正需要的站点做定向抓取与索引</strong>.</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="36-文档层-自建-context7-等价物">3.6 文档层: 自建 Context7 等价物<a href="#36-文档层-自建-context7-等价物" class="hash-link" aria-label="3.6 文档层: 自建 Context7 等价物的直接链接" title="3.6 文档层: 自建 Context7 等价物的直接链接">​</a></h4>
+<p>最省力的一条路是 <strong>llms.txt</strong>: 这是一个为 LLM 提供站点级索引的约定, 站点根目录放一个 markdown 文件即可. 按该提案 v2 的说法, 已有<strong>数千个站点</strong>发布了 llms.txt, 且主流浏览器工具链已把它纳入检查项, 若干 AI 厂商也为自家开发者文档提供了该文件.</p>
+<p>因此自建文档层的策略是分三步: <strong>优先取 llms.txt 或 llms-full.txt -&gt; 没有就定向抓取文档站 -&gt; 抽取正文后入本地索引</strong>. 这比&quot;每次向商业文档 API 查询&quot;更可控, 也天然支持离线.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="四凭证治理-让配置这件事不再是劝退点">四、凭证治理: 让配置这件事不再是劝退点<a href="#四凭证治理-让配置这件事不再是劝退点" class="hash-link" aria-label="四、凭证治理: 让配置这件事不再是劝退点的直接链接" title="四、凭证治理: 让配置这件事不再是劝退点的直接链接">​</a></h3>
+<p>这一节是本文的重点, 因为它是自建栈最容易失败的地方.</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="41-四种凭证获取范式">4.1 四种凭证获取范式<a href="#41-四种凭证获取范式" class="hash-link" aria-label="4.1 四种凭证获取范式的直接链接" title="4.1 四种凭证获取范式的直接链接">​</a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>范式</th><th>规范依据</th><th>用户操作</th><th>适用环境</th></tr></thead><tbody><tr><td>免凭证</td><td>—</td><td>无</td><td>公开源 (arXiv、HN 等)</td></tr><tr><td>回环回调</td><td>RFC 8252</td><td>浏览器里点一次&quot;授权&quot;</td><td>本机有桌面环境</td></tr><tr><td>设备码</td><td>RFC 8628</td><td>看终端给的码, 在任意设备输入</td><td>无头服务器、远程机器</td></tr><tr><td>扫码</td><td>平台自定义</td><td>手机扫一下</td><td>移动端平台 (如 Bilibili)</td></tr></tbody></table>
+<p>设计原则是 <strong>按环境自动降级</strong>: 探测到本机有浏览器就走回环回调 (体验最好, 一步完成); 无头环境自动退到设备码并打印逐字可复制的码与验证地址; 移动端平台直接用扫码. <strong>不要把这四种做成让用户选的配置项</strong> — 应该由工具自己判断.</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="42-mcp-授权规范给了什么-没给什么">4.2 MCP 授权规范给了什么, 没给什么<a href="#42-mcp-授权规范给了什么-没给什么" class="hash-link" aria-label="4.2 MCP 授权规范给了什么, 没给什么的直接链接" title="4.2 MCP 授权规范给了什么, 没给什么的直接链接">​</a></h4>
+<p>MCP 的授权机制是基于既有标准的一个子集: OAuth 2.1、授权服务器元数据、动态客户端注册、以及受保护资源元数据, 并在客户端侧要求使用资源指示符与 PKCE.</p>
+<p>它带来的实际好处是 <strong>免手工注册</strong>: 规范里明确提到, 客户端事先不可能知道所有服务器与其授权服务器, <strong>手工注册会给用户制造摩擦</strong>, 因此动态客户端注册的意义正是让客户端无需人工交互就能拿到客户端标识.</p>
+<p>但规范同时也划了一条对我们特别重要的界线:</p>
+<ul>
+<li>使用 <strong>HTTP 传输</strong> 的实现应当遵循这套授权规范;</li>
+<li>使用 <strong>STDIO 传输</strong> 的实现<strong>不应当</strong>遵循它, 而<strong>应从环境获取凭证</strong>.</li>
+</ul>
+<p>这句话直接解释了为什么本地 MCP 生态大量依赖环境变量传 key — <strong>它不是偷懒, 而是规范的建议做法</strong>. 同时也说明: <strong>在本地自建场景里, 凭证的&quot;获取与续期&quot;体验必须由你自己设计</strong>, 规范帮不上忙.</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="43-各平台的实际-auth-能力-已核实">4.3 各平台的实际 auth 能力 (已核实)<a href="#43-各平台的实际-auth-能力-已核实" class="hash-link" aria-label="4.3 各平台的实际 auth 能力 (已核实)的直接链接" title="4.3 各平台的实际 auth 能力 (已核实)的直接链接">​</a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>平台</th><th>授权方式</th><th>token 生命周期要点</th></tr></thead><tbody><tr><td>GitHub</td><td>授权码 + <strong>设备码</strong></td><td>可选过期令牌: 访问令牌 8 小时, 刷新令牌闲置 6 个月失效; 两种流程都支持</td></tr><tr><td>X / Twitter</td><td>OAuth 2.0 PKCE</td><td>访问令牌默认 <strong>2 小时</strong>, 配合刷新令牌续期</td></tr><tr><td>Reddit</td><td>授权码 (script / installed / web 三类应用)</td><td>script 型应用<strong>只能访问自己的账号</strong>, installed 型不持有 secret</td></tr><tr><td>Google / YouTube</td><td>本机应用回环回调; 亦提供受限输入设备流程</td><td>注意应用发布状态对刷新令牌有效期的影响</td></tr><tr><td>Bilibili</td><td>第三方普遍实现<strong>扫码登录</strong></td><td>无面向个人开发者的官方开放检索 API</td></tr><tr><td>知乎</td><td>官方开放平台签发</td><td>有正式合规通道, 商务条款需确认</td></tr></tbody></table>
+<p><strong>这张表决定了你的接入设计.</strong> 例如: GitHub 与 Google 可以直接走设备码, 无头服务器体验很好; Reddit 的 script 型应用意味着&quot;用你自己的账号读数据&quot;是官方支持的合规路径, 这恰好匹配个人自建场景; 而 Bilibili 这类平台你就得老老实实做扫码.</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="44-凭证落盘-密钥环优先">4.4 凭证落盘: 密钥环优先<a href="#44-凭证落盘-密钥环优先" class="hash-link" aria-label="4.4 凭证落盘: 密钥环优先的直接链接" title="4.4 凭证落盘: 密钥环优先的直接链接">​</a></h4>
+<p>优先级从高到低:</p>
+<ol>
+<li><strong>系统密钥环</strong> — Linux 的 Secret Service、macOS 的 Keychain、Windows 的 Credential Manager. Python 侧成熟方案是 keyring (约 1.5k star, 支持自定义后端); Node 侧需要特别注意, <strong>经典库 keytar 的原始仓库已于 2022 年停止维护并归档</strong>, 应改用仍在维护的分支 (例如 GitHub 维护的 @github/keytar).</li>
+<li><strong>600 权限文件</strong> — 仅在无头环境使用, 且要在文档里明说这是降级方案.</li>
+<li><strong>环境变量</strong> — 适合容器与临时会话, 但不适合长期持久化.</li>
+</ol>
+<p><strong>明确的反模式</strong>: 把 token 写进仓库里的配置、把长期 token 塞进 MCP server 的环境变量后随配置一起提交、以及多个 Agent 共享同一个明文长期凭证. 自建栈的安全边界应该收在<strong>本地网关</strong>这一层, 而不是散落在每个 Agent 的配置里.</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="45-一个不劝退的接入设计">4.5 一个不劝退的接入设计<a href="#45-一个不劝退的接入设计" class="hash-link" aria-label="4.5 一个不劝退的接入设计的直接链接" title="4.5 一个不劝退的接入设计的直接链接">​</a></h4>
+<p>把上面几条落成具体的设计约定:</p>
+<p><strong>原则一: 一条命令完成首次接入.</strong> 用户应该只需要跑:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-bash codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">hxret auth reddit      </span><span class="token comment" style="color:hsl(220, 10%, 40%)"># 自动选流程: 有浏览器走回环, 否则给设备码</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">hxret auth github      </span><span class="token comment" style="color:hsl(220, 10%, 40%)"># 设备码流程, 终端直接给码和地址</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">hxret auth bilibili    </span><span class="token comment" style="color:hsl(220, 10%, 40%)"># 打印二维码, 手机扫</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">hxret status           </span><span class="token comment" style="color:hsl(220, 10%, 40%)"># 列出所有源的凭证状态: 有效 / 将过期 / 失效 / 未配置</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">bash</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p><strong>原则二: 应用注册这一步也要半自动化.</strong> 这是最劝退的一步, 能做的有:</p>
+<ul>
+<li><strong>优先申请公共客户端</strong> (不持有 secret), 这样用户不需要保管第二个秘密;</li>
+<li><strong>把回调地址固定</strong>成一个稳定端口, 并在终端直接打印出可整段复制的回调 URL, 而不是让用户自己拼;</li>
+<li><strong>提供&quot;带我建&quot;路径</strong>: 打印直达该平台应用创建页的链接, 并列出要填的字段与推荐取值, 用户只需照着填;</li>
+<li><strong>预置 scope</strong>: 按最小权限给出一份推荐 scope 清单, 不让用户面对一长串权限做选择题.</li>
+</ul>
+<p><strong>原则三: 拿到凭证立刻自证可用.</strong> 授权成功后马上发一个最小请求 (例如读一条自己的公开信息), 失败就地报错. 这一步能挡掉绝大多数&quot;看起来配好了其实不能跑&quot;的情况.</p>
+<p><strong>原则四: 错误要能分类, 不要给一句&quot;认证失败&quot;.</strong> 至少要区分: 未配置 / 凭证过期 / 权限不足 / 被限流 / 网络不可达. 五类错误对应五种完全不同的处理动作.</p>
+<p><strong>原则五: 续期必须自动.</strong> 有刷新令牌就静默续期; 只能靠长期令牌的平台, 要在即将失效前主动提醒, 并在提醒里直接给出重新授权的那一条命令. <strong>让用户永远不需要因为&quot;token 过期了&quot;而重新阅读接入文档.</strong></p>
+<p><strong>原则六: 状态可观测.</strong> 一条 status 命令列出每个源的健康状况与上次成功调用的时间, 让问题在爆发前就被看到.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="五怎么证明这套自建栈是好的">五、怎么证明这套自建栈是好的<a href="#五怎么证明这套自建栈是好的" class="hash-link" aria-label="五、怎么证明这套自建栈是好的的直接链接" title="五、怎么证明这套自建栈是好的的直接链接">​</a></h3>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="51-五层指标">5.1 五层指标<a href="#51-五层指标" class="hash-link" aria-label="5.1 五层指标的直接链接" title="5.1 五层指标的直接链接">​</a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>层</th><th>测什么</th><th>推荐指标</th></tr></thead><tbody><tr><td>L1 检索</td><td>有没有取到正确证据</td><td>recall@k, nDCG@10, MRR</td></tr><tr><td>L2 证据</td><td>引用是否真的支撑结论</td><td>引用精确率, 忠实度</td></tr><tr><td>L3 任务</td><td>端到端能不能干成</td><td>任务成功率, 平均轮数</td></tr><tr><td>L4 工程</td><td>用不用得起</td><td>p50/p95 延迟, 单次成功任务成本, 限流失败率</td></tr><tr><td>L5 抗污染</td><td>是不是靠记忆蒙对</td><td>时间留出集上的成功率</td></tr></tbody></table>
+<p><strong>L3 是决策层, L1/L2 只是定位失败原因的诊断层.</strong> 对自建方案而言, L4 的权重还要再提高一档 — 因为自建的卖点本来就是可控成本与可控延迟, 如果这两项没有优势, 自建的理由就不成立.</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="52-自建方案的样本量现实">5.2 自建方案的样本量现实<a href="#52-自建方案的样本量现实" class="hash-link" aria-label="5.2 自建方案的样本量现实的直接链接" title="5.2 自建方案的样本量现实的直接链接">​</a></h4>
+<p>配对设计 (McNemar) 下, 要在 alpha=0.05、power=0.8 的条件下检出给定差距, 所需样本量如下:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>想检出的真实差距</th><th>所需样本量</th></tr></thead><tbody><tr><td>40pp</td><td>约 40 条</td></tr><tr><td>30pp</td><td>约 80 条</td></tr><tr><td>20pp</td><td>约 190 条</td></tr><tr><td>15pp</td><td>约 340 条</td></tr><tr><td>10pp</td><td>约 775 条</td></tr><tr><td>5pp</td><td>约 3,130 条</td></tr></tbody></table>
+<p><strong>自建栈与商业 API 的差距通常不会很小</strong>, 这让验证反而变简单了:</p>
+<ul>
+<li><strong>冒烟级 (30-50 条)</strong>: 能检出约 43pp 的差距, 足以回答&quot;自建这套到底能不能用&quot; — 自建方案常见的失败是灾难性的 (引擎失效、抓取被拦、索引没建全), 这类问题在 30 条上就会暴露;</li>
+<li><strong>决策级 (150-300 条)</strong>: 能检出 15-20pp, 足够回答&quot;自建 vs 买 API 该选哪个&quot;.</li>
+</ul>
+<p><strong>止损线</strong>: 如果两者在 300 条上分不出胜负, 说明在你的场景里它们等价, 此时应该按运维成本与合规风险决策 — 而这两项往往正是自建的优势所在.</p>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="53-自建栈特有的评测维度">5.3 自建栈特有的评测维度<a href="#53-自建栈特有的评测维度" class="hash-link" aria-label="5.3 自建栈特有的评测维度的直接链接" title="5.3 自建栈特有的评测维度的直接链接">​</a></h4>
+<p>除了上面通用的五层, 自建方案还必须额外测三件事:</p>
+<ol>
+<li><strong>引擎存活率</strong> — 元搜索的上游引擎会周期性失效. 需要定期跑一组固定查询, 统计有多少引擎还能返回结果, 把&quot;检索质量下降&quot;和&quot;引擎挂了&quot;区分开.</li>
+<li><strong>抓取成功率与内容完整度</strong> — 对定向抓取的站点, 统计成功抓取比例与正文抽取的完整度. 正文被抽取残缺时, 检索指标可能正常但答案质量会崩.</li>
+<li><strong>凭证健康度</strong> — 统计各源凭证的有效率与续期成功率. 这是自建栈最容易悄悄腐烂的地方.</li>
+</ol>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x03-参考来源">0x03 参考来源<a href="#0x03-参考来源" class="hash-link" aria-label="0x03 参考来源的直接链接" title="0x03 参考来源的直接链接">​</a></h2>
+<ul>
+<li>Argo (统一搜索与证据核验) — <span class="tailwind"><a href="https://github.com/taxueseek/argo" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/taxueseek/argo<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (开源仓库; 157 引擎 / 146 免密钥 / 缺密钥不阻断路由, 引擎存活率为本文实跑验证)</li>
+<li>MCP 授权规范 — <span class="tailwind"><a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方规范; 含 STDIO 与 HTTP 传输的凭证获取差异)</li>
+<li>OAuth 2.0 Device Authorization Grant (RFC 8628) — <span class="tailwind"><a href="https://www.rfc-editor.org/rfc/rfc8628" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://www.rfc-editor.org/rfc/rfc8628<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (设备码流程)</li>
+<li>OAuth 2.0 for Native Apps (RFC 8252) — <span class="tailwind"><a href="https://www.rfc-editor.org/rfc/rfc8252" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://www.rfc-editor.org/rfc/rfc8252<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (回环地址重定向与外部用户代理)</li>
+<li>GitHub OAuth 应用授权 — <span class="tailwind"><a href="https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方文档; 设备码与过期令牌生命周期)</li>
+<li>X API OAuth 2.0 PKCE — <span class="tailwind"><a href="https://docs.x.com/fundamentals/authentication/oauth-2-0/authorization-code" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://docs.x.com/fundamentals/authentication/oauth-2-0/authorization-code<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方文档; 访问令牌与刷新令牌)</li>
+<li>Reddit OAuth2 文档 — <span class="tailwind"><a href="https://github.com/reddit-archive/reddit/wiki/OAuth2" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/reddit-archive/reddit/wiki/OAuth2<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方 wiki; 应用类型与授权流程)</li>
+<li>Google OAuth 本机应用流程 — <span class="tailwind"><a href="https://developers.google.com/identity/protocols/oauth2/native-app" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://developers.google.com/identity/protocols/oauth2/native-app<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方文档; 回环重定向)</li>
+<li>Google 受限输入设备流程 — <span class="tailwind"><a href="https://developers.google.com/identity/protocols/oauth2/limited-input-device" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://developers.google.com/identity/protocols/oauth2/limited-input-device<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方文档)</li>
+<li>Microsoft 设备码流程 — <span class="tailwind"><a href="https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-device-code" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-device-code<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方文档; 设备码有效期)</li>
+<li>SearXNG 引擎清单 — <span class="tailwind"><a href="https://docs.searxng.org/user/configured_engines.html" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://docs.searxng.org/user/configured_engines.html<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方文档; 267 个引擎 / 默认启用 81 个)</li>
+<li>SearXNG — <span class="tailwind"><a href="https://github.com/searxng/searxng" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/searxng/searxng<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方仓库)</li>
+<li>llms.txt 提案 — <span class="tailwind"><a href="https://llmstxt.org/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://llmstxt.org/<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (规范与采纳情况)</li>
+<li>Common Crawl 入门 — <span class="tailwind"><a href="https://commoncrawl.org/get-started" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://commoncrawl.org/get-started<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (数据免费下载)</li>
+<li>Common Crawl 索引服务 — <span class="tailwind"><a href="https://index.commoncrawl.org/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://index.commoncrawl.org/<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (按 URL 模式查询索引)</li>
+<li>arXiv 批量数据访问 — <span class="tailwind"><a href="https://info.arxiv.org/help/bulk_data.html" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://info.arxiv.org/help/bulk_data.html<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (OAI-PMH 与全文通道)</li>
+<li>Crawl4AI — <span class="tailwind"><a href="https://github.com/unclecode/crawl4ai" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/unclecode/crawl4ai<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方仓库)</li>
+<li>Trafilatura — <span class="tailwind"><a href="https://github.com/adbar/trafilatura" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/adbar/trafilatura<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方仓库)</li>
+<li>Meilisearch — <span class="tailwind"><a href="https://github.com/meilisearch/meilisearch" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/meilisearch/meilisearch<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方仓库)</li>
+<li>Qdrant — <span class="tailwind"><a href="https://github.com/qdrant/qdrant" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/qdrant/qdrant<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方仓库)</li>
+<li>zoekt — <span class="tailwind"><a href="https://github.com/sourcegraph/zoekt" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/sourcegraph/zoekt<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方仓库)</li>
+<li>livegrep — <span class="tailwind"><a href="https://github.com/livegrep/livegrep" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/livegrep/livegrep<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方仓库)</li>
+<li>hound — <span class="tailwind"><a href="https://github.com/hound-search/hound" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/hound-search/hound<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方仓库)</li>
+<li>bilibili-api (扫码登录实现参考) — <span class="tailwind"><a href="https://github.com/Nemo2011/bilibili-api" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://github.com/Nemo2011/bilibili-api<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (社区库)</li>
+<li>Python keyring — <span class="tailwind"><a href="https://keyring.readthedocs.io/en/latest/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://keyring.readthedocs.io/en/latest/<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (官方文档; 后端与配置)</li>
+<li>@github/keytar — <span class="tailwind"><a href="https://www.npmjs.com/package/@github/keytar" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">https://www.npmjs.com/package/@github/keytar<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> (维护中的 keytar 分支)</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="附-相邻主题">附: 相邻主题<a href="#附-相邻主题" class="hash-link" aria-label="附: 相邻主题的直接链接" title="附: 相邻主题的直接链接">​</a></h3>
+<ul>
+<li><span class="tailwind"><a href="/HXLoLi/knowledge-base/%E7%9F%A5%E8%AF%86%E6%B2%89%E6%B7%80/LLM%E4%B8%8EAgent/%E5%AF%B9%E8%AF%9D%E8%AE%B0%E5%BF%86%E4%B8%8E%E7%9F%A5%E8%AF%86%E5%BA%93%E5%A2%9E%E9%87%8F%E6%B2%89%E6%B7%80/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">对话记忆与知识库增量沉淀<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> — 知识拿进来之后如何增量维护</li>
+<li><span class="tailwind"><a href="/HXLoLi/knowledge-base/%E7%9F%A5%E8%AF%86%E6%B2%89%E6%B7%80/LLM%E4%B8%8EAgent/%E8%87%AA%E7%BB%B4%E6%8A%A4%E5%8F%AF%E6%8F%92%E6%8B%94%E8%AE%B0%E5%BF%86%E5%B1%82%E8%AE%BE%E8%AE%A1/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">自维护可插拔记忆层设计<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> — 经验如何跨项目复用</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-tags-row"><div class="col"><b>标签：</b><ul class="tags_jXut padding--none margin-left--sm"><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/ai-agent">AI Agent</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/mcp">MCP</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/检索">检索</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/自建部署">自建部署</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/o-auth">OAuth</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/凭证管理">凭证管理</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/评测">评测</a></li></ul></div></div><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin</b> <!-- -->于 <b><time datetime="2026-09-10T17:25:18.000Z" itemprop="dateModified">2026年9月10日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;align-items:center;margin-top:20px;opacity:0.85">给 AI 买点 Token:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi/default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi/img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi/default-icons/wechat.svg" alt="Wechat Icon" class="icon"><img src="/HXLoLi/img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi/default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/knowledge-base/知识沉淀/LLM与Agent/自维护可插拔记忆层设计"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">自维护可插拔记忆层设计</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/knowledge-base/知识沉淀/浏览器验证与AI逆向/CF过盾工程-从零实现Turnstile绕过"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">CF过盾工程-从零实现Turnstile绕过</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#0x00-背景" class="table-of-contents__link toc-highlight">0x00 背景</a></li><li><a href="#0x01-核心结论" class="table-of-contents__link toc-highlight">0x01 核心结论</a></li><li><a href="#0x02-关键细节" class="table-of-contents__link toc-highlight">0x02 关键细节</a><ul><li><a href="#一先评估-argo-已有轮子覆盖到哪里" class="table-of-contents__link toc-highlight">一、先评估 Argo: 已有轮子覆盖到哪里</a><ul><li><a href="#11-它是什么" class="table-of-contents__link toc-highlight">1.1 它是什么</a></li><li><a href="#12-关键实测-keyless-引擎的真实存活情况" class="table-of-contents__link toc-highlight">1.2 关键实测: keyless 引擎的真实存活情况</a></li><li><a href="#13-它验证了本文的核心判断" class="table-of-contents__link toc-highlight">1.3 它验证了本文的核心判断</a></li><li><a href="#14-结论-先复用-再补齐" class="table-of-contents__link toc-highlight">1.4 结论: 先复用, 再补齐</a></li></ul></li><li><a href="#二本地化边界-什么能自建-什么不能" class="table-of-contents__link toc-highlight">二、本地化边界: 什么能自建, 什么不能</a></li><li><a href="#三自建检索栈的组件选型" class="table-of-contents__link toc-highlight">三、自建检索栈的组件选型</a><ul><li><a href="#31-元搜索层-searxng-是事实标准" class="table-of-contents__link toc-highlight">3.1 元搜索层: SearXNG 是事实标准</a></li><li><a href="#32-抓取与正文抽取" class="table-of-contents__link toc-highlight">3.2 抓取与正文抽取</a></li><li><a href="#33-本地索引与向量检索" class="table-of-contents__link toc-highlight">3.3 本地索引与向量检索</a></li><li><a href="#34-代码检索" class="table-of-contents__link toc-highlight">3.4 代码检索</a></li><li><a href="#35-学术源-哪些真正无需商业-key" class="table-of-contents__link toc-highlight">3.5 学术源: 哪些真正无需商业 key</a></li><li><a href="#36-文档层-自建-context7-等价物" class="table-of-contents__link toc-highlight">3.6 文档层: 自建 Context7 等价物</a></li></ul></li><li><a href="#四凭证治理-让配置这件事不再是劝退点" class="table-of-contents__link toc-highlight">四、凭证治理: 让配置这件事不再是劝退点</a><ul><li><a href="#41-四种凭证获取范式" class="table-of-contents__link toc-highlight">4.1 四种凭证获取范式</a></li><li><a href="#42-mcp-授权规范给了什么-没给什么" class="table-of-contents__link toc-highlight">4.2 MCP 授权规范给了什么, 没给什么</a></li><li><a href="#43-各平台的实际-auth-能力-已核实" class="table-of-contents__link toc-highlight">4.3 各平台的实际 auth 能力 (已核实)</a></li><li><a href="#44-凭证落盘-密钥环优先" class="table-of-contents__link toc-highlight">4.4 凭证落盘: 密钥环优先</a></li><li><a href="#45-一个不劝退的接入设计" class="table-of-contents__link toc-highlight">4.5 一个不劝退的接入设计</a></li></ul></li><li><a href="#五怎么证明这套自建栈是好的" class="table-of-contents__link toc-highlight">五、怎么证明这套自建栈是好的</a><ul><li><a href="#51-五层指标" class="table-of-contents__link toc-highlight">5.1 五层指标</a></li><li><a href="#52-自建方案的样本量现实" class="table-of-contents__link toc-highlight">5.2 自建方案的样本量现实</a></li><li><a href="#53-自建栈特有的评测维度" class="table-of-contents__link toc-highlight">5.3 自建栈特有的评测维度</a></li></ul></li></ul></li><li><a href="#0x03-参考来源" class="table-of-contents__link toc-highlight">0x03 参考来源</a><ul><li><a href="#附-相邻主题" class="table-of-contents__link toc-highlight">附: 相邻主题</a></li></ul></li></ul></div></div></div></div></main></div></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">友情链接</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://hengxin666.github.io/cppreference-zh-cn/" target="_blank" rel="noreferrer noopener" style="display: flex; align-items: center; gap: 3px; text-decoration: none; color: inherit; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                  <img src="/HXLoLi/icons/ISO_C++_Logo.svg" alt="cppreference" width="36" height="36" style="flex-shrink: 0;">
+                  <span style="font-size: 16px; font-weight: 600; position: relative; top: -1.75px;">cppreference</span>
+                </a>
+                <div style="height: 10px;"></div>
+              </li><li class="footer__item">
+                <a href="https://bgm.tv" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/img/BanGuMi_Logo.png" alt="BanGuMi" height="50">
+                </a>
+              </li><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2026 HXLoLi, Inc. 在 🇨🇳 用 ❤️ 制作.</div></div></div></footer></div>
+</body>
+</html>
