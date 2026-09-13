@@ -16,6 +16,24 @@
 
 const SEARCH_INDEX_PATTERN = /^\/search-index(-[a-zA-Z0-9]+)?\.json$/;
 
+/**
+ * 旧 GitHub Pages 的 baseUrl 前缀。
+ *
+ * 站点早期部署在 GitHub Pages, baseUrl = "/HXLoLi", 分享出去的链接都长这样:
+ *   https://HengXin666.github.io/HXLoLi/docs/...
+ * 迁移到 Cloudflare Workers 后 baseUrl 变成 "" (根路径), 但旧链接 / 书签 /
+ * 搜索引擎索引里仍然带着 /HXLoLi, 访问会落到 404 页面 —— 用户观感就是
+ * "这篇笔记找不到"。
+ *
+ * 构建产物根目录下不存在名为 HXLoLi 的条目, 所以可以安全地把 /HXLoLi/*
+ * 308 永久重定向到 /*。
+ */
+const LEGACY_BASE_PREFIX = '/HXLoLi';
+
+function isLegacyBasePath(pathname) {
+  return pathname === LEGACY_BASE_PREFIX || pathname.startsWith(LEGACY_BASE_PREFIX + '/');
+}
+
 function missingAssetsBinding() {
   return new Response(
     'ASSETS binding is not configured for this Worker. ' +
@@ -31,6 +49,13 @@ export default {
     if (!assets) return missingAssetsBinding();
 
     const url = new URL(request.url);
+
+    // 旧 GitHub Pages 链接 (/HXLoLi/xxx) → 去掉前缀, 308 永久重定向
+    if (isLegacyBasePath(url.pathname)) {
+      const target = new URL(url);
+      target.pathname = url.pathname.slice(LEGACY_BASE_PREFIX.length) || '/';
+      return Response.redirect(target.toString(), 308);
+    }
 
     // 拦截 search-index.json 请求, 从 chunk 文件流式合并返回
     // (CI 里 search-index.json 超过 25MiB 会被拆成 search-index-chunk-*.txt)

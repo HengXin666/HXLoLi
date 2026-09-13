@@ -148,6 +148,56 @@ npm ci --dry-run | grep '^add feed'
 
 验证: 修好后本地 `npm run build` 成功 `[SUCCESS] Generated static files in "build"`。
 
+## 跟进 2: 旧 GitHub Pages 链接 (/HXLoLi/...) 全部落到 404
+
+有用户反馈
+
+```
+https://km.woa.qzz.io/HXLoLi/docs/计佬常識/数据结构与算法/【数据结构】线性表/队列/
+→ 找不到页面
+```
+
+但同一篇文章去掉 `/HXLoLi` 段就是 200。
+
+### 原因
+
+站点早期部署在 GitHub Pages, 那时 `baseUrl = "/HXLoLi"`, 分享出去的链接都带这个前缀。
+迁到 Cloudflare Workers 后 `docusaurus.config.ts` 里 `isCloudflare` 为真 →
+`baseUrl = ""`, 路由变成根路径。于是所有历史链接 / 书签 / 搜索引擎索引里的
+`/HXLoLi/docs/...` 都指向一个不存在的路径, 被 404 兜底接住 —— 观感就是"这篇笔记没了"。
+
+实测 (修复前):
+
+| URL | 结果 |
+| --- | --- |
+| `km.woa.qzz.io/HXLoLi/docs/.../队列/` | 404 (找不到页面) |
+| `km.woa.qzz.io/docs/.../队列/` | 200 |
+| `HengXin666.github.io/HXLoLi/docs/.../队列` | 200 (GitHub Pages 那份仍然是好的) |
+
+也就是说**两边部署的 URL 结构不同**, 这是一个很容易踩的坑:
+同一个仓库同一个提交, GitHub Pages 的链接带 `/HXLoLi`, Cloudflare 的不带。
+
+### 修法
+
+在 `worker.js` 里对 `/HXLoLi` 前缀做 **308 永久重定向** 到去掉前缀的路径:
+
+```js
+if (pathname === '/HXLoLi' || pathname.startsWith('/HXLoLi/')) {
+  // 308 保留 method 与查询串, 对 SEO 也是"永久迁移"信号
+  return Response.redirect(target, 308);
+}
+```
+
+前置检查: 构建产物根目录下**没有**名为 `HXLoLi` 的条目 (已核实), 所以这个前缀不会和
+真实路由撞车, 可以无条件拦截整个子树。
+
+本地 fixture 实测: `/HXLoLi/` → 308 → `/`; `/HXLoLi/docs/` → 308 → `/docs/`;
+`/HXLoLi/queue/` 跟随后拿到 200; 查询串 `?page=2&x=1` 原样保留;
+`/`、`/docs/`、不存在的路径等正常行为不受影响。
+
+> 更彻底的方案是干脆让 GitHub Pages 退役 (或给它加 `/HXLoLi` → 根路径的重定向),
+> 避免"同一个仓库两套 URL"长期共存。本次先保证历史链接可用。
+
 ## Evidence
 
 - 线上实测 (2026-09-13): `/docs/关于` 200 / `/blog/` 200 / `/anime/` 200 / `/img/logo.png` 200;
