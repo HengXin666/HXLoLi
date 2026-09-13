@@ -144,4 +144,4 @@ Return the checked HTML path, diagram type, validation summary, specification/ar
 - 生成顺序: 先写 JSON spec -> `validate --quality showcase` -> `deliver` 出 .html -> 在同目录 md 里加 `#ppt` 链接 -> 可对 HTML 跑 `visual-check`.
 - 该 HTML 自带 主题切换/缩放/导览视图/演示/动效(meta.animation: trace 可按需开启), 因为是 iframe 内嵌, 这些交互与动效在 PptHtmlViewer 里**原样保留**, 无需二次开发.
 - 若要作为 PPT 演示页, 建议画布 16:9 (1600x900 量级), 并把重要结论放 summary cards.
-- 与 hx-make-ai-docs / hx-look-video 联动: 用户要"架构图/流程图/时序图/数据流图"时调用本 skill; 不要在 md 里手绘零散 SVG 或只用 Mermaid 完事.
+- 与 hx-docs-layout / hx-docs-sediment / hx-look-video 联动: 用户要"架构图/流程图/时序图/数据流图"时调用本 skill; 产物按 hx-docs-layout 的 `#ppt` 侧车规范与 md 同目录内嵌, 不要在 md 里手绘零散 SVG 或只用 Mermaid 完事.

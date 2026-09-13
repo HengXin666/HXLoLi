@@ -1,0 +1,1069 @@
+/* ==========================================================================
+   hxdeck 控件层样式 (v2)
+   原则: 所有取值来自主题 token, 控件内不出现字面色值/圆角/阴影
+   参考: Apple HIG 的层次与克制, Material 3 的 elevation 与 state layer
+   ========================================================================== */
+
+/* ---------- 页头 ---------- */
+.hxd-pageheader { display: flex; flex-direction: column; gap: var(--hxd-scale-sp2); }
+.hxd-pageheader__eyebrow {
+    font-size: var(--hxd-scale-label);
+    font-weight: 700;
+    letter-spacing: var(--hxd-scale-ls-wide);
+    color: var(--hxd-color-primary);
+    text-transform: uppercase;
+}
+.hxd-pageheader__title {
+    font-family: var(--hxd-font-heading);
+    font-size: var(--hxd-scale-h1);
+    font-weight: 700;
+    line-height: var(--hxd-scale-lh-tight);
+    margin: 0;
+    letter-spacing: -0.01em;
+    -webkit-text-stroke: calc(var(--hxd-scale-stroke-w7) * 0.6) currentColor;
+    paint-order: stroke fill;
+}
+.hxd-pageheader__desc {
+    margin: 0;
+    font-size: var(--hxd-scale-body);
+    line-height: var(--hxd-scale-lh-normal);
+    color: var(--hxd-color-text-muted);
+    max-width: 78ch;
+}
+
+/* ---------- 两栏 / 等分栏 ---------- */
+.hxd-split { display: grid; gap: var(--hxd-scale-sp5); min-width: 0; }
+.hxd-split__col { min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: var(--hxd-scale-sp3); }
+.hxd-columns { display: grid; gap: var(--hxd-scale-sp4); min-width: 0; }
+.hxd-columns__col { min-width: 0; display: flex; flex-direction: column; }
+
+/* ---------- 要点列表 ---------- */
+.hxd-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--hxd-scale-sp3); }
+.hxd-bullets__item {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 12px;
+    align-items: start;
+    font-size: var(--hxd-scale-body);
+    line-height: var(--hxd-scale-lh-normal);
+}
+.hxd-bullets__item[data-strong='true'] { font-weight: 700; }
+.hxd-bullets__marker {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    margin-top: 0.25em;
+    border-radius: 999px;
+    font-size: var(--hxd-scale-caption);
+    font-weight: 700;
+    color: var(--hxd-color-primary);
+    background: var(--hxd-color-primary-soft);
+}
+.hxd-bullets[data-marker='dot'] .hxd-bullets__marker::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+}
+.hxd-bullets[data-marker='num'] .hxd-bullets__marker { font-variant-numeric: tabular-nums; }
+
+/* ---------- 提示条 (语义色) ---------- */
+.hxd-callout {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 14px;
+    align-items: start;
+    padding: var(--hxd-scale-sp4) var(--hxd-scale-sp5);
+    border-radius: var(--hxd-shape-radius);
+    border: 1px solid var(--hxd-color-border);
+    background: var(--hxd-color-surface);
+    border-left-width: 3px;
+}
+.hxd-callout[data-kind='tip']    { border-left-color: var(--hxd-color-primary); }
+.hxd-callout[data-kind='info']   { border-left-color: var(--hxd-color-accent); }
+.hxd-callout[data-kind='warn']   { border-left-color: var(--hxd-color-warn); }
+.hxd-callout[data-kind='danger'] { border-left-color: var(--hxd-color-danger); }
+.hxd-callout__icon {
+    display: grid; place-items: center;
+    width: 26px; height: 26px;
+    border-radius: 999px;
+    font-size: var(--hxd-scale-label);
+    font-weight: 800;
+}
+.hxd-callout[data-kind='tip']    .hxd-callout__icon { color: var(--hxd-color-primary); background: var(--hxd-color-primary-soft); }
+.hxd-callout[data-kind='info']   .hxd-callout__icon { color: var(--hxd-color-accent);  background: color-mix(in srgb, var(--hxd-color-accent) 18%, transparent); }
+.hxd-callout[data-kind='warn']   .hxd-callout__icon { color: var(--hxd-color-warn);    background: color-mix(in srgb, var(--hxd-color-warn) 18%, transparent); }
+.hxd-callout[data-kind='danger'] .hxd-callout__icon { color: var(--hxd-color-danger);  background: color-mix(in srgb, var(--hxd-color-danger) 18%, transparent); }
+.hxd-callout__title { font-weight: 700; margin-bottom: 4px; font-size: var(--hxd-scale-body); }
+.hxd-callout__body { font-size: var(--hxd-scale-body); line-height: var(--hxd-scale-lh-normal); color: var(--hxd-color-text-muted); }
+
+/* ---------- 引用块 ---------- */
+.hxd-quoteblock {
+    margin: 0;
+    padding: var(--hxd-scale-sp5) var(--hxd-scale-sp5) var(--hxd-scale-sp5) calc(var(--hxd-scale-sp5) + 8px);
+    border-left: 3px solid var(--hxd-color-primary);
+    background: linear-gradient(90deg, var(--hxd-color-primary-soft), transparent 65%);
+    border-radius: 0 var(--hxd-shape-radius) var(--hxd-shape-radius) 0;
+}
+.hxd-quoteblock__text { margin: 0; font-size: var(--hxd-scale-h2); line-height: 1.5; font-style: italic; }
+.hxd-quoteblock__cite { margin-top: 10px; font-size: var(--hxd-scale-label); color: var(--hxd-color-text-muted); }
+
+/* ---------- 步骤条 ---------- */
+.hxd-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--hxd-scale-sp3); counter-reset: step; }
+.hxd-steps__item { position: relative; display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start; }
+.hxd-steps__item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 16px; top: 34px; bottom: -14px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--hxd-color-border), transparent);
+}
+.hxd-steps__num {
+    display: grid; place-items: center;
+    width: 34px; height: 34px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: var(--hxd-scale-label);
+    color: var(--hxd-color-primary);
+    background: var(--hxd-color-primary-soft);
+    border: 1px solid var(--hxd-color-border);
+}
+.hxd-steps__main { display: flex; flex-direction: column; gap: 2px; padding-top: 4px; }
+.hxd-steps__title { font-weight: 700; font-size: var(--hxd-scale-body); }
+.hxd-steps__desc { font-size: var(--hxd-scale-label); color: var(--hxd-color-text-muted); line-height: 1.55; }
+
+/* ---------- 徽章 ---------- */
+.hxd-badge {
+    display: inline-flex; align-items: center;
+    padding: 3px 11px;
+    border-radius: 999px;
+    font-size: var(--hxd-scale-caption);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    border: 1px solid var(--hxd-color-border);
+    color: var(--hxd-color-text-muted);
+    background: var(--hxd-color-surface);
+}
+.hxd-badge[data-tone='brand']   { color: var(--hxd-color-primary); background: var(--hxd-color-primary-soft); border-color: var(--hxd-color-primary); }
+.hxd-badge[data-tone='success'] { color: var(--hxd-color-success); background: color-mix(in srgb, var(--hxd-color-success) 16%, transparent); }
+.hxd-badge[data-tone='warn']    { color: var(--hxd-color-warn);    background: color-mix(in srgb, var(--hxd-color-warn) 16%, transparent); }
+.hxd-badge[data-tone='danger']  { color: var(--hxd-color-danger);  background: color-mix(in srgb, var(--hxd-color-danger) 16%, transparent); }
+
+/* ---------- 分隔线 ---------- */
+.hxd-divider { border: 0; height: 1px; margin: var(--hxd-scale-sp4) 0; background: linear-gradient(90deg, transparent, var(--hxd-color-border), transparent); }
+.hxd-divider--labeled { height: auto; background: none; display: flex; align-items: center; gap: 14px; font-size: var(--hxd-scale-label); color: var(--hxd-color-text-muted); }
+.hxd-divider--labeled::before, .hxd-divider--labeled::after { content: ''; flex: 1; height: 1px; background: var(--hxd-color-border); }
+
+/* ---------- 键值对 ---------- */
+.hxd-kv { margin: 0; display: flex; flex-direction: column; gap: 0; }
+.hxd-kv__row { display: grid; grid-template-columns: minmax(96px, 34%) 1fr; gap: 16px; padding: 10px 4px; border-bottom: 1px solid var(--hxd-color-border); }
+.hxd-kv__row:last-child { border-bottom: 0; }
+.hxd-kv__k { color: var(--hxd-color-text-muted); font-size: var(--hxd-scale-body); }
+.hxd-kv__v { margin: 0; font-size: var(--hxd-scale-body); font-family: var(--hxd-font-mono); }
+
+/* ==========================================================================
+   图片容器 —— 让任意图片都像版面的一部分
+   ========================================================================== */
+.hxd-figure { margin: 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.hxd-figure__frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--hxd-shape-radius);
+    background: var(--hxd-color-surface);
+    min-width: 0;
+}
+.hxd-figure[data-tone='card'] .hxd-figure__frame {
+    border: 1px solid var(--hxd-color-border);
+    box-shadow: var(--hxd-elev-e1);
+    padding: 10px;
+    /* 同心圆角: 内框圆角 = 外圆角 - 内边距 */
+    border-radius: var(--hxd-shape-radius);
+}
+.hxd-figure[data-tone='card'] .hxd-figure__img { border-radius: calc(var(--hxd-shape-radius) - 10px); }
+.hxd-figure[data-tone='glass'] .hxd-figure__frame {
+    border: 1px solid var(--hxd-color-border);
+    background: var(--hxd-color-surface);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+}
+.hxd-figure[data-tone='glass'] .hxd-figure__img { border-radius: calc(var(--hxd-shape-radius) - 10px); }
+.hxd-figure__img { display: block; width: 100%; height: 100%; }
+.hxd-figure__img[data-fit='cover'] { object-fit: cover; }
+.hxd-figure__img[data-fit='contain'] { object-fit: contain; }
+.hxd-figure__caption { font-size: var(--hxd-scale-label); color: var(--hxd-color-text-muted); line-height: 1.5; }
+
+/* ==========================================================================
+   state layer —— 统一交互反馈 (Material 3 思路)
+   同一套反馈作用于所有可交互元素, 避免各处各写一份 hover
+   ========================================================================== */
+.hxd-card, .hxd-figure[data-tone='card'] .hxd-figure__frame {
+    transition: box-shadow var(--hxd-motion-base) var(--hxd-motion-ease),
+                transform var(--hxd-motion-base) var(--hxd-motion-ease),
+                border-color var(--hxd-motion-base) var(--hxd-motion-ease);
+}
+.hxd-card:hover { box-shadow: var(--hxd-elev-e2); border-color: color-mix(in srgb, var(--hxd-color-primary) 40%, var(--hxd-color-border)); }
+
+/* 焦点可见性 —— 无障碍必需, 且不破坏视觉 */
+:where(.hxd-deck) :focus-visible {
+    outline: 2px solid var(--hxd-state-focus-ring);
+    outline-offset: 3px;
+    border-radius: var(--hxd-shape-radius-sm);
+}
+
+/* ==========================================================================
+   架构图 / 流程图容器族
+
+   设计约束 (都被踩过):
+     · 容器高度由 JS 按 viewBox 比例锁定, **与缩放无关** ——
+       否则放大时版面变高, deck 会以为要翻页
+     · 内部画布用 width/height 百分比参与布局 (不是 transform),
+       于是 scrollWidth/scrollHeight 是真实尺寸, 拖拽能摸到四边
+     · 放大是 absolute 浮层 (边界 = 演示页), 不是浏览器全屏
+   ========================================================================== */
+.hxd-diagram { margin: 0; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+
+.hxd-diagram__frame {
+    position: relative;
+    border-radius: var(--hxd-shape-radius);
+    min-width: 0;
+    background: var(--hxd-color-surface);
+    /*
+      溢出内容可滚: 这是拖拽/缩放的"视口".
+
+      注意 overscroll-behavior 必须是 auto:
+        contain 会**阻断滚动链** —— 即使图框自己滚到头, 滚轮也不会传给页面.
+        实测现象: 鼠标停在架构图上滚动, 页面纹丝不动.
+      只有在图处于放大查看状态时, 才需要 contain 防止穿透到背景页.
+    */
+    overflow: auto;
+    overscroll-behavior: auto;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--hxd-color-primary) 50%, transparent) transparent;
+    cursor: grab;
+    transition: border-color var(--hxd-motion-base) var(--hxd-motion-ease),
+                box-shadow var(--hxd-motion-base) var(--hxd-motion-ease);
+}
+.hxd-diagram__frame[data-panning='true'] { cursor: grabbing; }
+.hxd-diagram__frame::-webkit-scrollbar { width: 9px; height: 9px; }
+.hxd-diagram__frame::-webkit-scrollbar-track { background: transparent; }
+.hxd-diagram__frame::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--hxd-color-primary) 50%, transparent);
+    border-radius: 999px;
+}
+.hxd-diagram__frame::-webkit-scrollbar-thumb:hover { background: var(--hxd-color-primary); }
+
+.hxd-diagram[data-tone='card'] .hxd-diagram__frame {
+    border: 1px solid var(--hxd-color-border);
+    box-shadow: var(--hxd-elev-e1);
+}
+.hxd-diagram[data-tone='glass'] .hxd-diagram__frame {
+    border: 1px solid var(--hxd-color-border);
+    backdrop-filter: blur(10px);
+}
+.hxd-diagram[data-tone='plain'] .hxd-diagram__frame { border: 0; background: transparent; }
+
+/* 内边距档位 */
+.hxd-diagram[data-pad='md'] .hxd-diagram__frame { padding: 16px; }
+.hxd-diagram[data-pad='sm'] .hxd-diagram__frame { padding: 10px; }
+.hxd-diagram[data-pad='none'] .hxd-diagram__frame { padding: 0; }
+
+/*
+  内部画布: 用百分比宽高参与布局, 所以它撑开的正是"缩放后的真实尺寸".
+  min-width/height: 100% 保证缩小时也至少填满视口, 不会出现空白边.
+*/
+.hxd-diagram__svg {
+    min-width: 100%;
+    min-height: 100%;
+    flex: none;
+}
+.hxd-diagram__svg > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: transparent !important;
+    font-family: var(--hxd-font-body);
+}
+.hxd-diagram__svg svg text,
+.hxd-diagram__svg svg tspan {
+    font-family: var(--hxd-font-body);
+    paint-order: stroke fill;
+}
+
+/* 隐藏 archify 自带工具栏残留 */
+.hxd-diagram__svg .diagram-guide,
+.hxd-diagram__svg .guided-view-progress,
+.hxd-diagram__svg .diagram-toolbar { display: none !important; }
+
+.hxd-diagram__caption { font-size: var(--hxd-scale-caption); color: var(--hxd-color-text-muted); line-height: 1.5; }
+
+/*
+  舞台: 图框 + 悬浮工具条的共同定位上下文.
+
+  工具条是**浮在图右下角**的, 所以它必须是图框的兄弟而不是子节点 ——
+  图框 overflow: auto, 放里面会跟着画布一起滚走 (放大后按钮就"跑出屏幕"了).
+*/
+.hxd-diagram__stage { position: relative; min-width: 0; display: block; }
+
+/* 工具条: 悬停/放大时才浮在图的右下角 */
+.hxd-diagram__tools {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px;
+    border-radius: 12px;
+    border: 1px solid var(--hxd-color-border);
+    /* 半透明胶囊: 盖在图上也不至于挡死内容, 悬停时完全显形 */
+    background: color-mix(in srgb, var(--hxd-color-bg) 88%, transparent);
+    box-shadow: var(--hxd-elev-e2, 0 6px 18px rgba(0, 0, 0, 0.28));
+    backdrop-filter: blur(8px);
+    opacity: 0.72;
+    font-size: var(--hxd-scale-caption);
+    color: var(--hxd-color-text-muted);
+    transition: opacity var(--hxd-motion-base) var(--hxd-motion-ease);
+}
+.hxd-diagram__tools:hover,
+.hxd-diagram__tools:focus-within { opacity: 1; }
+/* 放大态: 工具条是唯一的退出入口, 不给它"半透明待发现"的机会 */
+.hxd-diagram__tools[data-full='true'] { opacity: 1; }
+.hxd-diagram__btn {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    border: 1px solid var(--hxd-color-border);
+    background: var(--hxd-color-surface);
+    color: var(--hxd-color-text-muted);
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color var(--hxd-motion-fast) var(--hxd-motion-ease),
+                border-color var(--hxd-motion-fast) var(--hxd-motion-ease),
+                background var(--hxd-motion-fast) var(--hxd-motion-ease);
+}
+.hxd-diagram__btn:hover {
+    color: var(--hxd-color-primary);
+    border-color: var(--hxd-color-primary);
+    background: var(--hxd-color-primary-soft);
+}
+.hxd-diagram__zoom { min-width: 46px; text-align: center; font-variant-numeric: tabular-nums; }
+/* 工具条里的按钮在胶囊内不必再叠边框 */
+.hxd-diagram__tools .hxd-diagram__btn { border-color: transparent; background: transparent; }
+
+/* 图 + 旁注 */
+.hxd-diagram-split { display: grid; gap: var(--hxd-scale-sp5); min-width: 0; align-items: start; }
+.hxd-diagram-split[data-side='left'] > .hxd-diagram__notes { order: 2; }
+.hxd-diagram__notes { min-width: 0; display: flex; flex-direction: column; gap: var(--hxd-scale-sp3); }
+
+/* 多图并排 */
+.hxd-diagram-grid { display: grid; gap: var(--hxd-scale-sp4); min-width: 0; align-items: start; }
+.hxd-diagram-grid > * { min-width: 0; }
+
+/* 占位 */
+.hxd-diagram--placeholder .hxd-diagram__frame {
+    min-height: 240px;
+    display: grid;
+    place-items: center;
+    border: 1px dashed var(--hxd-color-border);
+    color: var(--hxd-color-text-muted);
+    font-size: var(--hxd-scale-label);
+}
+
+/* ==========================================================================
+   页内全屏 (fixed 浮层, 不占用浏览器全屏)
+   ========================================================================== */
+
+/* ==========================================================================
+   控件补充集 (v3)
+   ========================================================================== */
+
+/* ---------- 时间轴 ---------- */
+.hxd-timeline { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--hxd-scale-sp4); }
+.hxd-timeline__item { position: relative; display: grid; grid-template-columns: 92px 20px 1fr; gap: 12px; align-items: start; }
+.hxd-timeline__item:not(:last-child)::after {
+    content: '';
+    position: absolute; left: 101px; top: 22px; bottom: calc(-1 * var(--hxd-scale-sp4));
+    width: 2px;
+    background: linear-gradient(180deg, var(--hxd-color-border), transparent);
+}
+.hxd-timeline__time { font-size: var(--hxd-scale-label); color: var(--hxd-color-text-muted); text-align: right; padding-top: 2px; font-variant-numeric: tabular-nums; }
+.hxd-timeline__dot {
+    width: 14px; height: 14px; border-radius: 50%; margin-top: 4px;
+    background: var(--hxd-color-primary);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--hxd-color-primary) 22%, transparent);
+}
+.hxd-timeline__item[data-tone='success'] .hxd-timeline__dot { background: var(--hxd-color-success); box-shadow: 0 0 0 4px color-mix(in srgb, var(--hxd-color-success) 22%, transparent); }
+.hxd-timeline__item[data-tone='warn'] .hxd-timeline__dot { background: var(--hxd-color-warn); box-shadow: 0 0 0 4px color-mix(in srgb, var(--hxd-color-warn) 22%, transparent); }
+.hxd-timeline__main { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.hxd-timeline__title { font-size: var(--hxd-scale-body); font-weight: 700; }
+.hxd-timeline__desc { font-size: var(--hxd-scale-label); color: var(--hxd-color-text-muted); line-height: 1.55; }
+
+/* 横向时间轴 */
+.hxd-timeline[data-orient='horizontal'] { flex-direction: row; gap: var(--hxd-scale-sp4); }
+.hxd-timeline[data-orient='horizontal'] .hxd-timeline__item { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; text-align: center; justify-items: center; }
+.hxd-timeline[data-orient='horizontal'] .hxd-timeline__item::after { display: none; }
+.hxd-timeline[data-orient='horizontal'] .hxd-timeline__time { text-align: center; }
+
+/* ---------- 进度条 ---------- */
+.hxd-meters { display: flex; flex-direction: column; gap: var(--hxd-scale-sp4); }
+.hxd-meter { display: flex; flex-direction: column; gap: 7px; }
+.hxd-meter__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.hxd-meter__label { font-size: var(--hxd-scale-body); }
+.hxd-meter__value { font-size: var(--hxd-scale-body); font-weight: 800; font-family: var(--hxd-font-numeric, var(--hxd-font-mono)); color: var(--hxd-color-primary); }
+.hxd-meter__value small { font-size: 0.68em; opacity: 0.55; font-weight: 400; }
+.hxd-meter__track { height: 10px; border-radius: 999px; overflow: hidden; background: var(--hxd-color-surface); border: 1px solid var(--hxd-color-border); }
+.hxd-meter__fill { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--hxd-color-primary), var(--hxd-color-accent)); transition: width var(--hxd-motion-slow) var(--hxd-motion-ease); }
+.hxd-meter[data-tone='success'] .hxd-meter__fill { background: linear-gradient(90deg, var(--hxd-color-success), var(--hxd-color-accent)); }
+.hxd-meter[data-tone='warn'] .hxd-meter__fill { background: linear-gradient(90deg, var(--hxd-color-warn), var(--hxd-color-danger)); }
+.hxd-meter[data-tone='danger'] .hxd-meter__fill { background: linear-gradient(90deg, var(--hxd-color-danger), var(--hxd-color-warn)); }
+.hxd-meter__hint { font-size: var(--hxd-scale-caption); color: var(--hxd-color-text-muted); }
+
+/* ---------- 环形指标 ---------- */
+.hxd-gauge { position: relative; display: grid; place-items: center; aspect-ratio: 1; }
+.hxd-gauge svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hxd-gauge__mid { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.hxd-gauge__num { font-family: var(--hxd-font-numeric, var(--hxd-font-mono)); font-size: var(--hxd-scale-num); font-weight: 800; line-height: 1; background: linear-gradient(120deg, var(--hxd-color-primary), var(--hxd-color-accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hxd-gauge__num small { font-size: 0.42em; margin-left: 2px; }
+.hxd-gauge__label { font-size: var(--hxd-scale-caption); color: var(--hxd-color-text-muted); }
+
+/* ---------- 对照表 ---------- */
+.hxd-ctable__wrap { overflow-x: auto; border-radius: var(--hxd-shape-radius); border: 1px solid var(--hxd-color-border); background: var(--hxd-color-surface); }
+.hxd-ctable { border-collapse: collapse; width: 100%; font-size: var(--hxd-scale-body); }
+.hxd-ctable th, .hxd-ctable td { padding: 12px 18px; text-align: left; border-bottom: 1px solid var(--hxd-color-border); }
+.hxd-ctable thead th { font-size: var(--hxd-scale-label); font-weight: 700; color: var(--hxd-color-text-muted); letter-spacing: 0.03em; }
+.hxd-ctable tbody tr:last-child th, .hxd-ctable tbody tr:last-child td { border-bottom: 0; }
+.hxd-ctable tbody th { font-weight: 400; color: var(--hxd-color-text-muted); }
+.hxd-ctable [data-hl='true'] { background: var(--hxd-color-primary-soft); }
+.hxd-ctable thead [data-hl='true'] { color: var(--hxd-color-primary); }
+
+.hxd-ctable td[data-tone='good'] { color: var(--hxd-color-success); font-weight: 700; }
+.hxd-ctable td[data-tone='bad'] { color: var(--hxd-color-danger); font-weight: 700; }
+
+/* ---------- 通栏大图 ---------- */
+.hxd-bleed { position: relative; border-radius: var(--hxd-shape-radius); overflow: hidden; min-height: 240px; display: grid; place-items: center; }
+.hxd-bleed__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hxd-bleed__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, transparent, var(--hxd-color-bg)); }
+.hxd-bleed__text { position: relative; z-index: 1; text-align: center; padding: var(--hxd-scale-sp7); display: flex; flex-direction: column; gap: var(--hxd-scale-sp2); }
+.hxd-bleed__headline { font-family: var(--hxd-font-heading); font-size: var(--hxd-scale-h1); font-weight: 800; -webkit-text-stroke: calc(var(--hxd-scale-stroke-w7) * 0.8) currentColor; paint-order: stroke fill; }
+.hxd-bleed__sub { font-size: var(--hxd-scale-body); color: var(--hxd-color-text-muted); }
+
+/* ---------- 代码 diff ---------- */
+.hxd-diff { border-radius: var(--hxd-shape-radius); border: 1px solid var(--hxd-color-border); overflow: hidden; background: var(--hxd-color-bg); box-shadow: var(--hxd-elev-e1); }
+.hxd-diff__bar { display: flex; align-items: center; gap: 10px; padding: 9px 14px; font-size: var(--hxd-scale-label); color: var(--hxd-color-text-muted); border-bottom: 1px solid var(--hxd-color-border); background: var(--hxd-color-surface); }
+.hxd-diff__dot { width: 10px; height: 10px; border-radius: 50%; }
+.hxd-diff__pre { margin: 0; padding: 12px 0; font-size: var(--hxd-scale-label); line-height: 1.62; overflow: auto; max-height: 340px; }
+.hxd-diff__line { display: flex; gap: 12px; padding: 0 14px; }
+.hxd-diff__sign { user-select: none; width: 10px; opacity: 0.7; }
+.hxd-diff__text { white-space: pre-wrap; word-break: break-word; }
+.hxd-diff__line[data-type='add'] { background: color-mix(in srgb, var(--hxd-color-success) 14%, transparent); }
+.hxd-diff__line[data-type='add'] .hxd-diff__sign { color: var(--hxd-color-success); }
+.hxd-diff__line[data-type='del'] { background: color-mix(in srgb, var(--hxd-color-danger) 14%, transparent); }
+.hxd-diff__line[data-type='del'] .hxd-diff__sign { color: var(--hxd-color-danger); }
+
+/* ==========================================================================
+   图内字号补偿
+   archify 在 1345x602 的 viewBox 里写死 font-size 8~12, 缩到容器宽度后只剩 5~7px.
+   这里对 SVG 内文字做下限保护: 通过 min-font-size 思路, 用 CSS 覆盖小字号文本.
+   ========================================================================== */
+.hxd-diagram__svg svg text[font-size='8'],
+.hxd-diagram__svg svg text[font-size='9'] { font-size: 13px; }
+.hxd-diagram__svg svg text[font-size='10'],
+.hxd-diagram__svg svg text[font-size='11'] { font-size: 14px; }
+.hxd-diagram__svg svg text[font-size='12'] { font-size: 15px; }
+/* 上面按属性选择器生效的前提是字号写在属性上; 保底再给一个整体下限 */
+.hxd-diagram__svg svg { font-size: 13px; }
+/* ==========================================================================
+   主题编辑器布局
+   ========================================================================== */
+/* 布局: 画布左 / 面板右 (点选式编辑, 不再分页) */
+.hxed { display: grid; grid-template-columns: 1fr 400px; height: 100vh; background: var(--ifm-background-color); color: var(--ifm-font-color-base); }
+.hxed__panel { overflow-y: auto; border-left: 1px solid #8883; padding: 18px 18px 48px; font-size: 15px; scrollbar-width: thin; }
+.hxed__section { margin-bottom: 26px; }
+.hxed__h { font-weight: 700; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.55; margin-bottom: 8px; }
+.hxed__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.hxed__row > span:first-child { flex: 0 0 96px; opacity: 0.8; }
+.hxed input, .hxed select, .hxed textarea { font: inherit; font-size: 14px; padding: 8px 10px; border-radius: 8px; border: 1px solid #8884; background: transparent; color: inherit; min-width: 0; }
+.hxed input[type="color"] { width: 44px; height: 34px; padding: 0; border-radius: 6px; cursor: pointer; }
+.hxed__colorwrap { display: flex; gap: 6px; align-items: center; flex: 1; min-width: 0; }
+.hxed__hex { flex: 1; min-width: 0; font-family: monospace; }
+.hxed button { font: inherit; font-size: 14px; padding: 8px 16px; border-radius: 9px; border: 1px solid #8884; background: transparent; color: inherit; cursor: pointer; }
+.hxed button:hover { border-color: #999; }
+.hxed button[data-on="true"] { background: #8883; font-weight: 700; }
+.hxed__danger { width: 100%; color: #ff6b81; border-color: #ff6b8155; margin-top: 6px; }
+/* 图片槽 */
+.hxed__slot { border: 1px solid #8883; border-radius: 9px; padding: 9px; margin-bottom: 9px; }
+.hxed__slothead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 7px; }
+.hxed__slothead small { opacity: 0.5; font-size: 11px; }
+.hxed__slotbody { display: flex; gap: 9px; }
+.hxed__thumb { width: 76px; height: 76px; flex: none; border-radius: 8px; border: 1px dashed #8885; background-size: cover; background-position: center; display: grid; place-items: center; font-size: 10px; opacity: 0.85; }
+.hxed__slotfields { flex: 1; min-width: 0; }
+.hxed__slotfields input[type="file"] { width: 100%; font-size: 13px; margin-bottom: 8px; }
+.hxed__mini { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.hxed__mini label { display: flex; align-items: center; gap: 6px; font-size: 13px; opacity: 0.85; }
+.hxed__mini input, .hxed__mini select { width: 100%; padding: 5px 7px; font-size: 13px; }
+.hxed__io { width: 100%; font-family: monospace; font-size: 11px; resize: vertical; margin-bottom: 7px; }
+.hxed__btns { display: flex; gap: 6px; margin-bottom: 9px; flex-wrap: wrap; }
+.hxed__msg { font-size: 14px; color: #5fd39a; }
+/* 预览区 */
+.hxed__stage { display: flex; flex-direction: column; padding: 14px 18px 18px; overflow: hidden; min-width: 0; }
+.hxed__pager { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.hxed__deck { flex: 1; min-height: 0; min-width: 0; }
+.hxed__stagefoot { font-size: 12px; opacity: 0.55; margin-top: 8px; }
+@media (max-width: 1100px) { .hxed { grid-template-columns: 1fr; height: auto; } .hxed__panel { max-height: 60vh; border-left: 0; border-top: 1px solid #8883; } .hxed__deck { height: 70vh; } }
+
+/* ==========================================================================
+   前端主题切换器
+   ========================================================================== */
+.hxd-deck__switcher { position: absolute; left: 50%; transform: translateX(-50%); top: 14px; z-index: 6; }
+.hxd-themeswitch { display: flex; align-items: center; gap: 6px; }
+.hxd-themeswitch button {
+    font-family: var(--hxd-font-body);
+    font-size: var(--hxd-scale-caption);
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--hxd-color-border);
+    background: var(--hxd-color-surface);
+    color: var(--hxd-color-text-muted);
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: color var(--hxd-motion-fast) var(--hxd-motion-ease),
+                border-color var(--hxd-motion-fast) var(--hxd-motion-ease),
+                background var(--hxd-motion-fast) var(--hxd-motion-ease);
+}
+.hxd-themeswitch button:hover { color: var(--hxd-color-primary); border-color: var(--hxd-color-primary); }
+.hxd-themeswitch button[data-on="true"] {
+    color: #fff;
+    background: linear-gradient(100deg, var(--hxd-color-primary), var(--hxd-color-accent));
+    border-color: transparent;
+}
+.hxd-themeswitch__up {
+    width: 26px; height: 26px;
+    display: grid; place-items: center;
+    border-radius: 999px;
+    border: 1px dashed var(--hxd-color-border);
+    color: var(--hxd-color-text-muted);
+    cursor: pointer;
+    font-size: 14px; line-height: 1;
+}
+.hxd-themeswitch__up input { display: none; }
+.hxd-themeswitch__busy { font-size: var(--hxd-scale-caption); color: var(--hxd-color-text-muted); }
+/* 切换器与顶部当前页标题错开 */
+.hxd-deck[data-switcher="true"] .hxd-deck__title-now { top: 46px; }
+
+/* 博客内嵌演示页 */
+.hxd-embed { position: relative; }
+.hxd-embed__frame { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 14px; display: block; }
+.hxd-embed__err { font-size: 13px; color: var(--hxd-color-danger, #ff6b81); margin-bottom: 6px; }
+
+/* 顶部状态条 */
+.hxed__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; font-size: 15px; }
+.hxed__picked b { color: var(--ifm-color-primary); }
+.hxed__picked small { opacity: 0.55; margin-left: 6px; }
+.hxed__tip { opacity: 0.55; font-size: 14px; }
+
+/* 可点击热区: 悬停时描边提示"这里能点" */
+.hxed__hot { position: relative; display: block; border-radius: 10px; cursor: pointer; transition: box-shadow 160ms ease; }
+.hxed__hot--fill { flex: 1 1 0; min-width: 0; }
+.hxed__hot:hover { box-shadow: 0 0 0 2px var(--ifm-color-primary); }
+.hxed__hot--mascot {
+    position: absolute;
+    right: 30px; bottom: 30px;
+    width: 122px; height: 122px;
+    border-radius: 50%;
+    z-index: 7;
+}
+
+.hxed__hint { font-size: 13px; opacity: 0.5; line-height: 1.5; margin-top: 6px; }
+.hxd-diagram__frame { scroll-behavior: auto; }
+/* 放大后允许拖拽, 光标提示可拖 */
+.hxd-diagram__frame[data-panning='false'] { cursor: grab; }
+
+/* ==========================================================================
+   外挂嵌入 (drawio / html / image)
+   ========================================================================== */
+.hxd-embed-fig { margin: 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.hxd-embed-fig__frame {
+    position: relative;
+    width: 100%;
+    border-radius: var(--hxd-shape-radius);
+    overflow: hidden;
+    border: 1px solid var(--hxd-color-border);
+    background: var(--hxd-color-surface);
+    box-shadow: var(--hxd-elev-e1);
+    display: grid;
+    place-items: center;
+}
+.hxd-embed-fig__img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.hxd-embed-fig[data-kind='drawio'] .hxd-embed-fig__frame { aspect-ratio: auto; }
+.hxd-embed-fig__iframe { width: 100%; height: 100%; border: 0; display: block; }
+.hxd-embed-fig__cap { font-size: var(--hxd-scale-caption); color: var(--hxd-color-text-muted); line-height: 1.5; }
+/* 主题下拉选择器 */
+.hxpk { position: relative; display: inline-block; }
+.hxpk__btn { display: inline-flex; align-items: center; gap: 8px; }
+.hxpk__label { opacity: 0.6; }
+.hxpk__caret { opacity: 0.6; }
+.hxpk__menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    min-width: 200px;
+    max-height: 320px;
+    overflow-y: auto;
+    z-index: 20;
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid var(--hxd-color-border);
+    background: var(--hxd-color-bg-alt, var(--hxd-color-bg));
+    box-shadow: var(--hxd-elev-e3, 0 10px 30px rgba(0,0,0,.4));
+    display: flex; flex-direction: column; gap: 2px;
+}
+.hxpk__group { font-size: var(--hxd-scale-caption); opacity: 0.5; padding: 6px 10px 3px; }
+.hxpk__item { text-align: left; width: 100%; }
+.hxpk__item[data-on="true"] { color: var(--hxd-color-primary); font-weight: 700; }
+.hxpk__sep { height: 1px; margin: 5px 4px; background: var(--hxd-color-border); }
+.hxpk__item--import { opacity: 0.85; }
+.hxpk__busy, .hxpk__err { font-size: var(--hxd-scale-caption); margin-left: 8px; opacity: 0.7; }
+.hxpk__err { color: var(--hxd-color-danger, #ff6b81); }
+
+.hxd-embed__loading {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+    border: 1px dashed var(--hxd-color-border, #8884);
+    border-radius: 14px;
+    color: var(--hxd-color-text-muted, #888);
+    font-size: 14px;
+}
+/* ==========================================================================
+   放大查看 (页内浮层) —— 边界是**演示页**, 不是整个网页
+
+   浮层通过 Portal 挂在演示页根节点里 (见 deck-layer.tsx), 用 inset:0 铺满它.
+   于是"全屏"的最大尺寸天然等于父布局, 内部布局不可能比父布局还大.
+
+   为什么会话里出现"内部布局大于父布局":
+     旧实现 Portal 到 document.body 且按 window.innerHeight 算高度.
+     卡片弹层里的演示页只有 782px 高, 浮层却按 900px 视口排版, 直接顶出父边界;
+     而且 body 没有 deck 的 CSS 变量, 背景色解析不出值 -> 透明 -> 后面的内容透出来;
+     宿主进入浏览器全屏后, 全屏元素在 top layer, body 上的浮层还会被压在它下面.
+   ========================================================================== */
+.hxd-diagram[data-full='true'] {
+    /*
+      position:absolute (不是 fixed) 是关键:
+        absolute 的包含块是最近的非 static 祖先 = 演示页根节点 (position:relative),
+        inset:0 因此严格等于"演示页有多大, 浮层就有多大".
+        fixed 则相对**视口**, 在卡片预览里就是整块网页 —— 那正是 bug 本身.
+    */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    /* 高于 deck 内所有装饰 (最高 z-index: 7) */
+    z-index: 60;
+    margin: 0;
+    padding: 16px 20px 18px;
+    background: var(--hxd-color-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: inherit;
+    /* 不透明底: 完全遮住后面的内容, 避免"看起来还能再放大一层" */
+    isolation: isolate;
+    will-change: transform, opacity;
+}
+
+/* 脱离 Deck 单独使用 (拿不到演示页宿主) 时, 退回视口级浮层 */
+.hxd-diagram[data-full='true'][data-layer='viewport'] {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+}
+
+/* 舞台撑满浮层剩余空间; 图框再撑满舞台.
+   高度完全交给 CSS, 不再让 JS 按 window.innerHeight 算 frameH ——
+   那正是"比父布局还大"的来源 */
+.hxd-diagram[data-full='true'] .hxd-diagram__stage {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+.hxd-diagram[data-full='true'] .hxd-diagram__frame {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto !important;
+    max-height: none;
+    padding: 16px;
+    border-radius: var(--hxd-shape-radius);
+    /* 放大时阻断滚动链: 不让滚轮/拖拽穿透到背后的演示页 */
+    overscroll-behavior: contain;
+}
+
+/*
+  放大时让 deck 自己的装饰让位.
+
+  旧版本用 body:has(.hxd-diagram[data-full]) 选 —— 现在浮层就是 deck 的子节点,
+  直接用 deck 上的占用标记即可, 不必依赖 :has() 支持, 也不会误伤同页的其它卡片.
+*/
+.hxd-deck[data-layer-full='true'] .hxd-nav,
+.hxd-deck[data-layer-full='true'] .hxd-dots,
+.hxd-deck[data-layer-full='true'] .hxd-pager,
+.hxd-deck[data-layer-full='true'] .hxd-brand,
+.hxd-deck[data-layer-full='true'] .hxd-deck__title-now,
+.hxd-deck[data-layer-full='true'] .hxd-deck__progress { opacity: 0; pointer-events: none; }
+
+/* 导出菜单 */
+.hxd-diagram__export { position: relative; display: inline-flex; }
+/*
+  下拉菜单 (分享 / 下载).
+
+  样式必须**完全自洽**: 这些按钮是原生 <button>, 不重置的话会继承站点
+  主题的按钮外观 (自带边框/底色/padding), 在本就紧凑的胶囊里显得又重又脏 ——
+  这正是"下拉菜单样式需要优化"的观感来源.
+*/
+.hxd-diagram__menu {
+    position: absolute;
+    /* 工具条在图的右下角, 菜单只能往上开, 否则会顶出图外 */
+    bottom: calc(100% + 8px);
+    top: auto;
+    right: 0;
+    z-index: 10;
+    min-width: 168px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 5px;
+    border-radius: 12px;
+    border: 1px solid var(--hxd-color-border);
+    /* 不透明底: 菜单常悬在复杂图面上, 半透明会看不清字 */
+    background: var(--hxd-color-bg);
+    box-shadow: var(--hxd-elev-e3, 0 14px 38px rgba(0, 0, 0, 0.46));
+    /* 与网站的卡片语言一致, 但保留自己的圆角节奏 */
+    transform-origin: bottom right;
+    animation: hxd-menu-in 140ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes hxd-menu-in {
+    from { opacity: 0; transform: translateY(6px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+}
+
+/* 统一所有条目的外观: 去掉继承来的按钮皮肤, 只留自己的 hover 反馈 */
+.hxd-diagram__menu button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--hxd-color-text);
+    font-family: var(--hxd-font-body);
+    font-size: var(--hxd-scale-caption);
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color var(--hxd-motion-fast) var(--hxd-motion-ease),
+                background var(--hxd-motion-fast) var(--hxd-motion-ease);
+}
+.hxd-diagram__menu button svg {
+    flex: none;
+    width: 12px;
+    height: 12px;
+    opacity: 0.7;
+}
+.hxd-diagram__menu button:hover:not(:disabled),
+.hxd-diagram__menu button:focus-visible:not(:disabled) {
+    color: var(--hxd-color-primary);
+    background: var(--hxd-color-primary-soft);
+    outline: none;
+}
+.hxd-diagram__menu button:hover:not(:disabled) svg { opacity: 1; }
+.hxd-diagram__menu button:disabled { opacity: 0.45; cursor: default; }
+
+/* 首项 (复制链接) 是主操作, 给它一点权重 */
+.hxd-diagram__menu button:first-child { font-weight: 600; }
+
+.hxd-diagram__menu-sep {
+    height: 1px;
+    margin: 4px 6px;
+    background: var(--hxd-color-border);
+}
+
+.hxd-diagram__menu-head {
+    padding: 5px 10px 3px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--hxd-color-text-muted);
+    opacity: 0.6;
+}
+
+/* 系统偏好"减少动态效果"时不做入场动画 */
+@media (prefers-reduced-motion: reduce) {
+    .hxd-diagram__menu { animation: none; }
+}
+/* ==========================================================================
+   PPT 外框 —— 与代码块同一套"外框"语言
+   顶栏放控件 (文件名 / 主题下拉), 内容区放演示页, 边界清晰
+   ========================================================================== */
+
+/* 外框内的 deck 不再自带圆角与边框 (外框已经有了) */
+
+/* 复制成功: 短暂变成对勾, 明确"已经复制过了" */
+.hxd-diagram__btn[data-variant='done'] {
+    color: var(--hxd-color-success, #22c55e);
+    border-color: var(--hxd-color-success, #22c55e);
+}
+
+/* ==========================================================================
+   语义护照 (节点信息浮卡) —— 对应 archify 的 Semantic Passport
+
+   为什么放在 __stage 而不是图框里: 节点本身在可滚动的画布里, 卡片跟着滚会永远错位;
+   stage 是静态定位上下文, 卡片的 left/top 由 JS 按节点的视口位置算好.
+   ========================================================================== */
+.hxd-passport {
+    position: absolute;
+    z-index: 3;
+    width: 268px;
+    max-height: calc(100% - 16px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 13px;
+    border-radius: 12px;
+    border: 1px solid var(--hxd-color-border);
+    background: color-mix(in srgb, var(--hxd-color-bg) 94%, transparent);
+    box-shadow: var(--hxd-elev-e3, 0 12px 34px rgba(0, 0, 0, 0.4));
+    backdrop-filter: blur(10px);
+    color: var(--hxd-color-text);
+    font-size: var(--hxd-scale-caption);
+    line-height: 1.5;
+    scrollbar-width: thin;
+}
+.hxd-passport__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.hxd-passport__eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--hxd-color-primary);
+    opacity: 0.9;
+}
+.hxd-passport__close {
+    width: 22px; height: 22px;
+    display: grid; place-items: center;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--hxd-color-text-muted);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+}
+.hxd-passport__close:hover { color: var(--hxd-color-danger, #ef4444); background: var(--hxd-color-surface); }
+.hxd-passport__title { font-size: var(--hxd-scale-body); font-weight: 700; line-height: 1.35; }
+.hxd-passport__sub { color: var(--hxd-color-text-muted); margin-top: -3px; }
+.hxd-passport__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
+.hxd-passport__meta code {
+    padding: 1px 6px;
+    border-radius: 5px;
+    background: var(--hxd-color-surface);
+    border: 1px solid var(--hxd-color-border);
+    font-family: var(--hxd-font-mono);
+    font-size: 0.85em;
+    color: var(--hxd-color-text-muted);
+}
+.hxd-passport__chip {
+    padding: 1px 6px;
+    border-radius: 5px;
+    background: var(--hxd-color-primary-soft);
+    color: var(--hxd-color-primary);
+    font-size: 0.85em;
+    font-weight: 600;
+}
+.hxd-passport__rel { display: flex; flex-direction: column; gap: 3px; margin-top: 2px; }
+.hxd-passport__rel-title {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--hxd-color-text-muted);
+    opacity: 0.75;
+}
+.hxd-passport__rel button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 5px 7px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--hxd-color-text);
+    font-family: var(--hxd-font-body);
+    font-size: 0.92em;
+    line-height: 1.35;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.hxd-passport__rel button:hover { background: var(--hxd-color-primary-soft); color: var(--hxd-color-primary); }
+/* 图上"退出放大"按钮要显眼 */
+.hxd-diagram__btn[data-variant='exit'] {
+    width: auto;
+    padding: 0 12px;
+    color: #fff;
+    background: var(--hxd-color-primary);
+    border-color: transparent;
+    font-weight: 700;
+}
+/* 独立播放页: 只有演示页本身, 没有站点装饰 */
+/* ==========================================================================
+   语义面板族 (透镜 / 路径 / 查找 / 指南 / 风格)
+
+   与工具条同属 __stage 的浮层. 都是原生 <button>/<input>,
+   必须**完整重置**继承来的站点控件皮肤, 否则又重又脏 (同分享菜单的教训).
+   ========================================================================== */
+.hxd-panel {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    z-index: 4;
+    width: 236px;
+    max-height: calc(100% - 24px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 13px;
+    border-radius: 12px;
+    border: 1px solid var(--hxd-color-border);
+    background: color-mix(in srgb, var(--hxd-color-bg) 95%, transparent);
+    box-shadow: var(--hxd-elev-e3, 0 12px 34px rgba(0, 0, 0, 0.4));
+    backdrop-filter: blur(10px);
+    color: var(--hxd-color-text);
+    font-size: var(--hxd-scale-caption);
+    line-height: 1.5;
+    scrollbar-width: thin;
+}
+/* 路径 / 指南等与透镜同时存在时, 依次往下错开, 避免完全重叠 */
+.hxd-panel--route { top: auto; bottom: 12px; }
+.hxd-panel--finder { left: auto; right: 12px; top: 12px; }
+.hxd-panel__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.hxd-panel__eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--hxd-color-primary);
+    opacity: 0.9;
+}
+.hxd-panel__hint { font-size: 0.85em; color: var(--hxd-color-text-muted); opacity: 0.7; }
+.hxd-panel__close {
+    width: 22px; height: 22px;
+    flex: none;
+    display: grid; place-items: center;
+    border: 0; border-radius: 6px;
+    background: transparent;
+    color: var(--hxd-color-text-muted);
+    font-size: 16px; line-height: 1; cursor: pointer;
+}
+.hxd-panel__close:hover { color: var(--hxd-color-danger, #ef4444); background: var(--hxd-color-surface); }
+
+/* 类型条 */
+.hxd-panel__kinds { display: flex; flex-direction: column; gap: 2px; }
+.hxd-kind {
+    display: flex; align-items: center; gap: 8px;
+    width: 100%; padding: 6px 8px;
+    border: 0; border-radius: 8px; background: transparent;
+    color: var(--hxd-color-text);
+    font-family: var(--hxd-font-body); font-size: 0.94em;
+    text-align: left; cursor: pointer;
+    transition: background var(--hxd-motion-fast) var(--hxd-motion-ease);
+}
+.hxd-kind:hover { background: var(--hxd-color-primary-soft); }
+.hxd-kind[data-on='true'] { background: var(--hxd-color-primary-soft); color: var(--hxd-color-primary); font-weight: 700; }
+.hxd-kind__dot { width: 8px; height: 8px; border-radius: 999px; flex: none; background: var(--color, var(--hxd-color-primary)); }
+.hxd-kind[data-kind='frontend'] .hxd-kind__dot { background: var(--frontend-stroke, var(--hxd-color-primary)); }
+.hxd-kind[data-kind='backend'] .hxd-kind__dot { background: var(--backend-stroke, var(--hxd-color-accent)); }
+.hxd-kind[data-kind='database'] .hxd-kind__dot { background: var(--database-stroke, var(--hxd-color-warn)); }
+.hxd-kind[data-kind='cloud'] .hxd-kind__dot { background: var(--cloud-stroke, var(--hxd-color-text-muted)); }
+.hxd-kind[data-kind='external'] .hxd-kind__dot { background: var(--external-stroke, var(--hxd-color-text-muted)); }
+.hxd-kind[data-kind='security'] .hxd-kind__dot { background: var(--security-stroke, var(--hxd-color-danger)); }
+.hxd-kind__name { flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hxd-kind__count { flex: none; opacity: 0.6; font-variant-numeric: tabular-nums; }
+
+/* 输入框 */
+.hxd-panel__input {
+    width: 100%; padding: 7px 9px;
+    border: 1px solid var(--hxd-color-border); border-radius: 8px;
+    background: var(--hxd-color-surface);
+    color: var(--hxd-color-text);
+    font-family: var(--hxd-font-body); font-size: 0.94em;
+}
+.hxd-panel__input:focus { outline: 2px solid var(--hxd-color-primary); outline-offset: 1px; }
+
+/* 结果 / 选项行 */
+.hxd-panel__results { display: flex; flex-direction: column; gap: 2px; }
+.hxd-panel__row {
+    display: flex; flex-direction: column; gap: 1px;
+    width: 100%; padding: 6px 8px;
+    border: 0; border-radius: 8px; background: transparent;
+    color: var(--hxd-color-text);
+    font-family: var(--hxd-font-body); font-size: 0.94em;
+    text-align: left; cursor: pointer;
+}
+.hxd-panel__row:hover { background: var(--hxd-color-primary-soft); }
+.hxd-panel__row[data-on='true'] { background: var(--hxd-color-primary-soft); color: var(--hxd-color-primary); }
+.hxd-panel__row strong { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hxd-panel__row small, .hxd-panel__row code { color: var(--hxd-color-text-muted); font-size: 0.86em; }
+.hxd-panel__row code { font-family: var(--hxd-font-mono); opacity: 0.75; }
+.hxd-panel__empty, .hxd-panel__msg { margin: 0; color: var(--hxd-color-text-muted); font-size: 0.92em; }
+.hxd-panel__msg--ok { color: var(--hxd-color-success, #22c55e); }
+
+/* 路径步骤 */
+.hxd-panel__steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.hxd-panel__steps button {
+    display: flex; align-items: center; gap: 7px;
+    width: 100%; padding: 5px 8px;
+    border: 0; border-radius: 7px; background: transparent;
+    color: var(--hxd-color-text);
+    font-family: var(--hxd-font-body); font-size: 0.92em;
+    text-align: left; cursor: pointer;
+}
+.hxd-panel__steps button:hover { background: var(--hxd-color-primary-soft); color: var(--hxd-color-primary); }
+.hxd-panel__stepNo {
+    flex: none; width: 18px; height: 18px;
+    display: grid; place-items: center;
+    border-radius: 999px;
+    background: var(--hxd-color-primary-soft);
+    color: var(--hxd-color-primary);
+    font-size: 10px; font-weight: 700;
+}
+
+
+/* 演示模式: 只留图 */
+.hxd-diagram[data-presenting='true'] .hxd-diagram__tools,
+.hxd-diagram[data-presenting='true'] .hxd-passport,
+.hxd-diagram[data-presenting='true'] .hxd-panel { display: none !important; }
+
+/* 工具条按钮的"已开启"态与宽按钮 */
+.hxd-diagram__btn[data-on='true'] {
+    color: var(--hxd-color-primary);
+    border-color: var(--hxd-color-primary);
+    background: var(--hxd-color-primary-soft);
+}

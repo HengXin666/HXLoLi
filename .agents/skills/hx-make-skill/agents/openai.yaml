@@ -1,0 +1,8 @@
+interface:
+  display_name: "HX Make Skill"
+  short_description: "按 Agent Skills 规范编写与校验 SKILL.md"
+  brand_color: "#7C3AED"
+  default_prompt: "Use $hx-make-skill to write or audit an Agent Skill that follows the public SKILL.md specification."
+
+policy:
+  allow_implicit_invocation: true

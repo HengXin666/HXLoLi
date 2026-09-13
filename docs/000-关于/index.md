@@ -23,17 +23,19 @@
 ### 2.1 招聘相关
 #### 2.1.1 前置任务
 
-- 简历编辑: [老鱼简历](https://www.laoyujianli.com/my_resume)
+- 简历编辑: ~~[老鱼简历](https://www.laoyujianli.com/my_resume)~~ 不如我的本地自建 [HX-Resume](https://github.com/HengXin666/HX-Resume)
 
-- 面试八股: [面试鸭](https://www.mianshiya.com/)
+- 面试八股: ~~[面试鸭](https://www.mianshiya.com/)~~ 一点也不与时俱进
 
 #### 2.1.2 招聘网站
 
-- [Boss直招](https://www.zhipin.com/)
+- ~~[Boss直招](https://www.zhipin.com/)~~
 
-- [智联招聘](https://xiaoyuan.zhaopin.com/)
+- ~~[智联招聘](https://xiaoyuan.zhaopin.com/)~~
 
 - [牛客](https://www.nowcoder.com/)
+
+> 不如官网招聘
 
 ### 2.2 C++
 #### 2.2.1 学习资源 & 优秀博客

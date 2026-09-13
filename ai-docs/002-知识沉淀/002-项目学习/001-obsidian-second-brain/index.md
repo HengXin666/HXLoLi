@@ -1,5 +1,6 @@
 ---
 title: obsidian-second-brain 中文译注
+tags: ["项目学习", "知识库", "Skill", "增量沉淀"]
 ---
 
 # obsidian-second-brain 中文译注

@@ -224,6 +224,16 @@ const plugins: PluginConfig[] = [
   // docs RSS/Atom feed + latest docs data 生成插件
   // 类似博客插件的 feed 生成，但是针对 docs (笔记)
   require('./plugins/docs-rss-plugin.mjs'),
+  // ai-docs 标签索引: 构建期把标签/笔记元数据落盘到 data/aiDocTags.ts
+  // 供 /knowledge-base/tags 的拼音索引与标签详情页使用 (中文分组见 src/utils/tags/pinyin.ts)
+  [
+    require('./plugins/tag-index-plugin.mjs').default,
+    {
+      contentDir: 'ai-docs',
+      routeBasePath: 'knowledge-base',
+      outputFile: 'data/aiDocTags.ts',
+    },
+  ],
   // AI 知识库: 第二个 @docusaurus/plugin-content-docs 实例
   // 独立于主文档 (docs/), 内容存储在 ai-docs/ 目录
   // 路由: /knowledge-base

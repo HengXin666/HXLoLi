@@ -11,6 +11,8 @@ import {
   FaTag,
 } from 'react-icons/fa';
 
+import { aiDocTagIndex } from '@site/data/aiDocTags';
+
 import TypewriterText from '../TypewriterText';
 import styles from './styles.module.css';
 
@@ -127,8 +129,11 @@ export default function AIDocHeader({ className }: AIDocHeaderProps): ReactNode 
   );
 
   // 渲染标签徽章 — 跳转到知识库标签页
+  // permalink 必须来自构建期索引: Docusaurus 用 lodash.kebabCase 生成标签路由
+  // ("现代C++" -> 现代c, "HXLibs" -> hx-libs), 直接 encodeURIComponent 会 404。
   const renderTagBadge = (tag: string) => {
-    const tagUrl = `/knowledge-base/tags/${encodeURIComponent(tag)}`;
+    const tagUrl = aiDocTagIndex.tags.find((entry) => entry.label === tag)?.permalink;
+    if (!tagUrl) return null;
     return (
       <Link
         key={tag}

@@ -1,0 +1,672 @@
+/* ==========================================================================
+   hxdeck 样式 —— 只引用 --hxd-* 变量, 不含字面配色
+   变量由 theme/types.ts 的 themeToVars() 生成 (kebab-case)
+   ========================================================================== */
+
+/* 布局常量: 左侧栏占位. 内容据此让位, 保证零重叠 */
+.hxd-deck {
+    /*
+      非交互态 (卡片预览) 必须放行滚动链:
+        之前在 .hxd-deck 上写死 overscroll-behavior: contain,
+        它会阻断滚轮向父级的传递 —— 即使 deck 自己不接管滚轮, 页面也不会滚,
+        表现为"在卡片上滚不动页面". 这是最难查的一个点: 事件没被 preventDefault,
+        也没被监听, 纯粹是 CSS 的滚动链规则在起作用.
+      放大态仍然 contain, 避免把滚动传给背后的页面.
+    */
+    overscroll-behavior: auto;
+    --hxd-nav-w: 178px;
+    --hxd-nav-gap: 28px;
+    --hxd-nav-reserve: calc(var(--hxd-nav-w) + var(--hxd-nav-gap) * 2);
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: var(--hxd-shape-radius-lg);
+    border: var(--hxd-shape-border-width) solid var(--hxd-color-border);
+    background: linear-gradient(140deg, var(--hxd-color-bg), var(--hxd-color-bg-alt));
+    color: var(--hxd-color-text);
+    font-family: var(--hxd-font-body);
+    isolation: isolate;
+    box-shadow: var(--hxd-shape-shadow);
+}
+.hxd-deck--fill { aspect-ratio: auto; height: 100%; width: 100%; }
+
+/* ==========================================================================
+   整屏长条 —— 真实纵向滚动
+   N 屏依次排开, 翻页 = 位移整条, 这样才有"向下移动"的观感
+   ========================================================================== */
+/* 长条: N 屏纵向均分, 每屏恰好一屏高.
+   用 flex column 均分而不是 calc(100% / n) —— 百分比高度在嵌套里解析不稳定,
+   之前就是这样退化成"每屏 = 整条高", 内容被顶到视口外 */
+.hxd-strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    will-change: transform;
+    transition: transform var(--hxd-motion-page) var(--hxd-motion-ease-page);
+}
+.hxd-strip.is-instant { transition: none; }
+
+/* 内容区: 左 padding 预留侧栏 —— 但**仅当侧栏真的显示时**.
+   之前无条件预留, 导致 showNav=false 的画布 (如编辑器) 白掉一块宽度, 图形被缩小. */
+.hxd-screen {
+    position: relative;
+    width: 100%;
+    padding-left: var(--hxd-screen-pad-left, 0px);
+    box-sizing: border-box;
+    /* 每屏 = 长条高的 1/N = 恰好一屏.
+       关键: --hxd-total 必须已注入, 否则退化成 calc(100%/1) = 整条高 —— 那正是之前
+       "内容全部被顶到视口外, 只在滚动瞬间掠过" 的原因 */
+    height: calc(100% / var(--hxd-total, 1));
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 每屏内部是固定 1600x900 画布, 用 scale 适配 —— 排版永不重排.
+   左侧 padding 预留侧栏宽度 (画布坐标下按 1/scale 放大由 JS 处理),
+   保证内容与侧栏**零重叠** */
+.hxd-screen__inner {
+    position: relative;
+    transform-origin: center center;
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--hxd-scale-sp5);
+    padding: 44px 56px 60px 56px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   进出场动画 —— 用 transition, **不是** @keyframes
+   关键: 过渡写在"基态"上, 屏非激活时自动回退到基态, 于是出场也有动画.
+   若用 animation + fill-mode, 移除时状态会瞬间跳回, 出场就"啪"地消失.
+   ========================================================================== */
+.hxd-screen .hxd-rise {
+    opacity: 0;
+    transform: translateY(34px);
+    will-change: opacity, transform;
+    transition:
+        opacity var(--hxd-motion-slow) var(--hxd-motion-ease),
+        transform var(--hxd-motion-slow) var(--hxd-motion-ease);
+    /* 出场: 不加延迟, 尽快让位给下一屏 */
+    transition-delay: 0ms;
+}
+
+/* 入场: 按 --hxd-i 级联, 形成层次递进 */
+.hxd-screen[data-entered='true'] .hxd-rise {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--hxd-i, 0) * var(--hxd-motion-stagger));
+}
+
+/* 方向变体 (对应参考包的 data-anim) */
+.hxd-screen .hxd-rise[data-anim='fade']  { transform: none; }
+.hxd-screen .hxd-rise[data-anim='up']    { transform: translateY(34px); }
+.hxd-screen .hxd-rise[data-anim='down']  { transform: translateY(-28px); }
+.hxd-screen .hxd-rise[data-anim='left']  { transform: translateX(-38px); }
+.hxd-screen .hxd-rise[data-anim='right'] { transform: translateX(38px); }
+.hxd-screen .hxd-rise[data-anim='scale'] { transform: scale(0.92); }
+.hxd-screen .hxd-rise[data-anim='rise']  { transform: translateY(46px) scale(0.97); }
+
+/* 通用微动效工具类 */
+.hxd-float { animation: hxd-float 4.5s ease-in-out infinite; }
+.hxd-pulse { animation: hxd-pulse 2.6s ease-in-out infinite; }
+@keyframes hxd-pulse {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50%      { opacity: 1;    transform: scale(1.06); }
+}
+/* 悬停抬升: 卡片统一交互反馈 */
+.hxd-lift {
+    transition: transform var(--hxd-motion-base) var(--hxd-motion-ease),
+                box-shadow var(--hxd-motion-base) var(--hxd-motion-ease),
+                border-color var(--hxd-motion-base) var(--hxd-motion-ease);
+}
+.hxd-lift:hover { transform: translateY(-4px); box-shadow: var(--hxd-shape-glow); }
+@keyframes hxd-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-9px); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hxd-strip { transition: none; }
+    .hxd-screen .hxd-rise,
+    .hxd-screen[data-entered='true'] .hxd-rise {
+        transition: none;
+        opacity: 1;
+        transform: none;
+    }
+    .hxd-mascot, .hxd-slot-mascot, .hxd-meme--float, .hxd-float, .hxd-pulse { animation: none; }
+}
+
+/* ==========================================================================
+   排版 —— 关键: 中文小字号要描边补粗, 否则 CJK 密集笔画发虚
+   ========================================================================== */
+.hxd-title {
+    font-family: var(--hxd-font-heading);
+    font-size: var(--hxd-scale-display);
+    line-height: var(--hxd-scale-lh-tight);
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.015em;
+    -webkit-text-stroke: var(--hxd-scale-stroke-w7) currentColor;
+    paint-order: stroke fill;
+}
+.hxd-subtitle {
+    font-size: var(--hxd-scale-h2);
+    color: var(--hxd-color-text-muted);
+    margin: 0;
+    line-height: var(--hxd-scale-lh-normal);
+    font-weight: 400;
+}
+.hxd-h2 {
+    font-family: var(--hxd-font-heading);
+    font-size: var(--hxd-scale-h1);
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--hxd-scale-sp3);
+    letter-spacing: -0.01em;
+    -webkit-text-stroke: calc(var(--hxd-scale-stroke-w7) * 0.6) currentColor;
+    paint-order: stroke fill;
+}
+.hxd-h2::before {
+    content: '';
+    width: 6px;
+    height: 0.86em;
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--hxd-color-primary), var(--hxd-color-accent));
+    box-shadow: var(--hxd-shape-glow);
+}
+.hxd-body { font-size: var(--hxd-scale-body); line-height: var(--hxd-scale-lh-normal); margin: 0; }
+.hxd-muted { color: var(--hxd-color-text-muted); }
+.hxd-mono { font-family: var(--hxd-font-mono); }
+.hxd-eyebrow {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: var(--hxd-scale-sm);
+    font-weight: 700;
+    letter-spacing: var(--hxd-scale-ls-wide);
+    color: var(--hxd-color-primary);
+    background: var(--hxd-color-primary-soft);
+    border: 1px solid var(--hxd-color-border);
+}
+
+/* ==========================================================================
+   容器
+   ========================================================================== */
+.hxd-card {
+    position: relative;
+    min-width: 0;
+    box-sizing: border-box;
+    background: var(--hxd-color-surface);
+    border: var(--hxd-shape-border-width) solid var(--hxd-color-border);
+    border-radius: var(--hxd-shape-radius);
+    padding: var(--hxd-scale-sp5);
+    backdrop-filter: blur(8px);
+    box-shadow: var(--hxd-shape-shadow);
+    overflow: hidden;
+}
+.hxd-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--hxd-color-accent), transparent);
+    opacity: 0.5;
+}
+.hxd-card > * { position: relative; z-index: 1; }
+
+/* 卡片皮肤纹样: 主题图片融进卡片右下角, 不作为独立展示 */
+.hxd-card[data-tex='true']::after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    width: 104px;
+    height: 104px;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--hxd-skin-pattern);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* 圆形裁切 + 低透明度: 只当角落水印, 不抢正文 */
+    border-radius: 50%;
+    -webkit-mask-image: radial-gradient(circle at 55% 55%, #000 42%, transparent 72%);
+    mask-image: radial-gradient(circle at 55% 55%, #000 42%, transparent 72%);
+    opacity: 0.22;
+    transform: rotate(-8deg);
+}
+
+.hxd-rise { min-width: 0; }
+.hxd-grid { display: grid; gap: var(--hxd-scale-sp4); }
+.hxd-grid > * { min-width: 0; }
+.hxd-row { display: flex; gap: var(--hxd-scale-sp4); align-items: stretch; }
+.hxd-row > * { min-width: 0; }
+.hxd-col { display: flex; flex-direction: column; gap: var(--hxd-scale-sp3); }
+.hxd-fill { flex: 1 1 0; min-width: 0; }
+.hxd-spacer { flex: 1 1 auto; }
+
+/* ==========================================================================
+   固定层: 品牌 / 当前屏标题 / 进度条
+   ========================================================================== */
+.hxd-brand {
+    position: absolute;
+    right: clamp(16px, 1.6vw, 28px);
+    top: 14px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+}
+.hxd-brand__logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    border-radius: 8px;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
+}
+.hxd-brand__name {
+    font-family: var(--hxd-font-heading);
+    font-weight: 700;
+    font-size: var(--hxd-scale-h2);
+    letter-spacing: 0.02em;
+    color: var(--hxd-color-text);
+    -webkit-text-stroke: calc(var(--hxd-scale-stroke-w7) * 1.2) currentColor;
+    paint-order: stroke fill;
+}
+.hxd-deck__title-now {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+    z-index: 3;
+    font-family: var(--hxd-font-heading);
+    font-size: var(--hxd-scale-xs);
+    font-weight: 700;
+    letter-spacing: var(--hxd-scale-ls-wide);
+    color: var(--hxd-color-text-muted);
+    pointer-events: none;
+    white-space: nowrap;
+    opacity: 0.85;
+}
+.hxd-deck__progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 3px;
+    z-index: 3;
+    background: linear-gradient(90deg, var(--hxd-color-primary), var(--hxd-color-accent));
+    box-shadow: var(--hxd-shape-glow);
+    transition: width var(--hxd-motion-base) var(--hxd-motion-ease);
+}
+
+/* ==========================================================================
+   左侧章节目录条 —— 独立滑块平滑位移 + 焦点透视
+   ========================================================================== */
+.hxd-nav {
+    position: absolute;
+    left: var(--hxd-nav-gap);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    gap: var(--hxd-scale-sp4);
+    width: var(--hxd-nav-w);
+    max-height: calc(100% - 72px);
+    user-select: none;
+    opacity: 0.5;
+    /* 目录过长时必须能滚 —— 之前是 overflow:hidden, 超出部分直接看不到 */
+    min-height: 0;
+    transition: opacity var(--hxd-motion-base) var(--hxd-motion-ease);
+}
+.hxd-nav:hover, .hxd-nav:focus-within { opacity: 1; }
+
+.hxd-nav__count {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    padding-left: 10px;
+    font-family: var(--hxd-font-heading);
+    font-style: italic;
+    line-height: 1;
+    color: var(--hxd-color-text-muted);
+}
+.hxd-nav__count b {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--hxd-color-primary);
+    -webkit-text-stroke: calc(var(--hxd-scale-stroke-w7) * 1.6) currentColor;
+    paint-order: stroke fill;
+}
+.hxd-nav__slash, .hxd-nav__total { font-size: var(--hxd-scale-xs); opacity: 0.75; }
+
+/* 目录列表: 独立滚动容器. 细滚动条 + 上下渐隐, 暗示"还有内容" */
+.hxd-nav__list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--hxd-scale-sp3);
+    width: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* padding-top 而非子元素 margin: margin 不计入 rect 差值, 会让滑块始终偏移 */
+    padding: 20px 6px 24px 0;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--hxd-color-primary) 55%, transparent) transparent;
+    mask-image: linear-gradient(180deg, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+}
+.hxd-nav__list::-webkit-scrollbar { width: 5px; }
+.hxd-nav__list::-webkit-scrollbar-track { background: transparent; }
+.hxd-nav__list::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--hxd-color-primary) 55%, transparent); border-radius: 999px; }
+.hxd-nav__list::-webkit-scrollbar-thumb:hover { background: var(--hxd-color-primary); }
+/* 首页项上方也留白, 免得起头被渐隐切掉 */
+
+/* 独立滑块: 在标题之间平移, 而不是切换条目背景 */
+.hxd-nav__thumb {
+    position: absolute;
+    /* 用 top 定位 (与 item 的 rect 同基准), 由 JS 写入具体像素值 */
+    top: 0;
+    left: 0;
+    /* 与 item 内容盒同宽 (列表右侧留了滚动条位, 用 right 抵消) */
+    right: 6px;
+    width: auto;
+    z-index: 0;
+    border-radius: 9px;
+    background: linear-gradient(100deg, var(--hxd-color-primary), var(--hxd-color-accent));
+    box-shadow: var(--hxd-shape-glow);
+    transition: top 300ms var(--hxd-motion-ease), height 300ms var(--hxd-motion-ease);
+}
+.hxd-nav__thumb[data-first='true'] { transition: none; }
+
+.hxd-nav__group {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    opacity: 0.4;
+    transition: opacity var(--hxd-motion-base) var(--hxd-motion-ease);
+}
+.hxd-nav__group.is-current { opacity: 1; }
+.hxd-nav:hover .hxd-nav__group, .hxd-nav:focus-within .hxd-nav__group { opacity: 1; }
+
+.hxd-nav__chapter {
+    padding: 0 10px 4px;
+    font-family: var(--hxd-font-heading);
+    font-weight: 700;
+    font-size: var(--hxd-scale-xs);
+    letter-spacing: var(--hxd-scale-ls-wide);
+    color: var(--hxd-color-text);
+    white-space: nowrap;
+    -webkit-text-stroke: calc(var(--hxd-scale-stroke-w7) * 0.7) currentColor;
+    paint-order: stroke fill;
+}
+.hxd-nav__items { display: flex; flex-direction: column; gap: 1px; }
+
+.hxd-nav__item {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px 10px;
+    border: 0;
+    border-radius: 9px;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    color: var(--hxd-color-text-muted);
+    transition: color var(--hxd-motion-base) var(--hxd-motion-ease);
+}
+.hxd-nav__label {
+    font-family: var(--hxd-font-body);
+    font-weight: 400;
+    font-size: var(--hxd-scale-sm);
+    line-height: 1.35;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-text-stroke: calc(var(--hxd-scale-stroke-w7) * 0.5) currentColor;
+    paint-order: stroke fill;
+    transition: font-size 280ms var(--hxd-motion-ease);
+}
+
+/* 激活态不再用 scale: 缩放会让项宽与滑块宽不一致 (168 vs 178), 视觉上就会"不齐".
+   改用字重 + 字色 + 滑块底色共同表达选中. */
+.hxd-nav__item.is-active { color: #fff; }
+.hxd-nav__item.is-active .hxd-nav__label { font-weight: 700; }
+
+.hxd-nav__arrow {
+    flex: none;
+    margin-left: auto;
+    font-size: 10px;
+    line-height: 1;
+    color: #fff;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 160ms var(--hxd-motion-ease), transform 160ms var(--hxd-motion-ease);
+}
+.hxd-nav__item.is-active .hxd-nav__arrow { opacity: 1; transform: none; transition-delay: 280ms; }
+
+.hxd-nav__item--sub .hxd-nav__label { padding-left: 10px; }
+.hxd-nav__item--chapter { padding: 6px 10px 7px; }
+.hxd-nav__item--chapter .hxd-nav__label {
+    font-family: var(--hxd-font-heading);
+    font-weight: 700;
+    font-size: var(--hxd-scale-sm);
+    letter-spacing: 0.05em;
+    padding-left: 0;
+    -webkit-text-stroke: 0;
+}
+.hxd-nav__item.is-passed { color: var(--hxd-color-text); }
+
+/* ==========================================================================
+   右侧进度点 + 右下翻页按钮
+   ========================================================================== */
+.hxd-dots {
+    position: absolute;
+    right: 18px; top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    display: flex; flex-direction: column; gap: 9px; align-items: center;
+}
+.hxd-dots__dot {
+    width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; cursor: pointer;
+    background: var(--hxd-color-border);
+    transition: transform var(--hxd-motion-fast) var(--hxd-motion-ease),
+                background var(--hxd-motion-fast) var(--hxd-motion-ease),
+                height var(--hxd-motion-fast) var(--hxd-motion-ease);
+}
+.hxd-dots__dot:hover { background: var(--hxd-color-accent); transform: scale(1.35); }
+.hxd-dots__dot.is-active { background: var(--hxd-color-primary); height: 22px; box-shadow: var(--hxd-shape-glow); }
+
+.hxd-pager { position: absolute; right: 14px; bottom: 42px; z-index: 4; display: flex; flex-direction: column; gap: 6px; }
+.hxd-pager__btn {
+    width: 32px; height: 32px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--hxd-color-border);
+    background: var(--hxd-color-surface);
+    color: var(--hxd-color-text-muted);
+    font-size: 14px; line-height: 1; cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: color var(--hxd-motion-fast) var(--hxd-motion-ease),
+                border-color var(--hxd-motion-fast) var(--hxd-motion-ease),
+                background var(--hxd-motion-fast) var(--hxd-motion-ease);
+}
+.hxd-pager__btn:hover:not(:disabled) {
+    color: var(--hxd-color-primary);
+    border-color: var(--hxd-color-primary);
+    background: var(--hxd-color-primary-soft);
+}
+.hxd-pager__btn:disabled { opacity: 0.3; cursor: default; }
+
+/* ==========================================================================
+   页脚署名 (CC 合规要求)
+   ========================================================================== */
+.hxd-deck__footer {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    z-index: 3;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+    padding: 8px 22px;
+    font-size: var(--hxd-scale-xs);
+    color: var(--hxd-color-text-muted);
+    pointer-events: none;
+}
+.hxd-meme--float { animation: hxd-float 5s ease-in-out infinite; }
+.hxd-meme--tilt { transform: rotate(-3deg); }
+
+
+
+.hxd-quote {
+    position: relative;
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: var(--hxd-shape-radius);
+    background: var(--hxd-color-surface);
+    border: 1px solid var(--hxd-color-border);
+    font-size: var(--hxd-scale-body);
+    line-height: var(--hxd-scale-lh-normal);
+    backdrop-filter: blur(6px);
+}
+.hxd-quote::after {
+    content: '';
+    position: absolute; left: 22px; bottom: -7px;
+    width: 12px; height: 12px;
+    background: var(--hxd-color-surface);
+    border-right: 1px solid var(--hxd-color-border);
+    border-bottom: 1px solid var(--hxd-color-border);
+    transform: rotate(45deg);
+}
+/* ==========================================================================
+   右上角品牌题头
+   ========================================================================== */
+.hxd-brand {
+    position: absolute;
+    right: clamp(16px, 1.6vw, 28px);
+    top: 14px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+}
+.hxd-brand__logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    border-radius: 8px;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
+}
+.hxd-brand__name {
+    font-family: var(--hxd-font-heading);
+    font-weight: 700;
+    font-size: var(--hxd-scale-h2);
+    letter-spacing: 0.02em;
+    color: var(--hxd-color-text);
+    -webkit-text-stroke: calc(var(--hxd-scale-stroke-w7) * 1.2) currentColor;
+    paint-order: stroke fill;
+}
+
+/* ==========================================================================
+   皮肤纹样 —— 主题图片'融进'控件背景, 而不是单独展示
+   ========================================================================== */
+
+/* 1) 页面底纹: 主题 pattern 平铺 + 强遮罩柔化, 只作氛围 */
+.hxd-deck[data-skin-pattern='true']::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--hxd-skin-pattern);
+    background-size: 340px auto;
+    background-repeat: repeat;
+    opacity: 0.05;
+    mix-blend-mode: luminosity;
+}
+
+/* 2) 卡片底纹: 同一张图, 更淡, 让卡片有材质感 */
+.hxd-card[data-tex='true']::after {
+    content: '';
+    position: absolute;
+    right: -18px;
+    bottom: -18px;
+    width: 128px;
+    height: 128px;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--hxd-skin-pattern);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    opacity: 0.14;
+    transform: rotate(-8deg);
+}
+.hxd-card > * { position: relative; z-index: 1; }
+
+/* 3) 吉祥物: 站姿 + 落地阴影, 与版面咬合而非浮在中间 */
+/* 吉祥物槽 —— 位置/尺寸/透明度/混合模式全部由主题变量驱动,
+   于是"加载图片 + 调位置"无需改控件代码 */
+.hxd-mascot {
+    position: absolute;
+    right: var(--hxd-skin-mascot-x, 34px);
+    bottom: var(--hxd-skin-mascot-y, 30px);
+    width: var(--hxd-skin-mascot-w, 118px);
+    height: var(--hxd-skin-mascot-h, 118px);
+    object-fit: var(--hxd-skin-mascot-fit, cover);
+    border-radius: var(--hxd-skin-mascot-radius, 50%);
+    opacity: var(--hxd-skin-mascot-opacity, 1);
+    mix-blend-mode: var(--hxd-skin-mascot-blend, normal);
+    transform: rotate(var(--hxd-skin-mascot-rotate, 0deg));
+    z-index: var(--hxd-skin-mascot-z, 3);
+    border: 3px solid var(--hxd-color-primary);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), var(--hxd-shape-glow);
+    pointer-events: none;
+    animation: hxd-float 6s ease-in-out infinite;
+}
+
+/* 卡片角落的吉祥物徽章: 小圆 + 与卡片边缘咬合 */
+.hxd-slot-mascot {
+    position: absolute;
+    right: var(--hxd-skin-peek-x, 12px);
+    bottom: var(--hxd-skin-peek-y, 10px);
+    width: var(--hxd-skin-peek-w, 46px);
+    height: var(--hxd-skin-peek-h, 46px);
+    object-fit: var(--hxd-skin-peek-fit, cover);
+    border-radius: var(--hxd-skin-peek-radius, 50%);
+    opacity: var(--hxd-skin-peek-opacity, 0.9);
+    mix-blend-mode: var(--hxd-skin-peek-blend, normal);
+    z-index: var(--hxd-skin-peek-z, 2);
+    border: 2px solid var(--hxd-color-border);
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    animation: hxd-float 7s ease-in-out infinite;
+}
+@keyframes hxd-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-9px); }
+}
+
+/* 放大/全屏时才阻断滚动链: 此时不希望滚轮穿透到页面 */
+.hxd-deck[data-interactive='true'] { overscroll-behavior: contain; }

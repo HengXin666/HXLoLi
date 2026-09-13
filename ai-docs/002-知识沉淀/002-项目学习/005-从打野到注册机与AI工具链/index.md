@@ -312,7 +312,7 @@ README 宣称 178 篇知识库文章和 100+ MCP 工具, GitHub API 的 descript
 
 ## 0x05 与 HXLoLi 的对应关系
 
-HXLoLi 已经有一部分相同的思想, 但组织方式还没有完全变成 ReverseLab 那样的 board/case/KB/tools 路由系统. 可对照已有的 [obsidian-second-brain 中文译注](../001-obsidian-second-brain/index.md), 以及当前的 [`hx-make-ai-docs`](../../../../.agents/skills/hx-make-ai-docs/SKILL.md).
+HXLoLi 已经有一部分相同的思想, 但组织方式还没有完全变成 ReverseLab 那样的 board/case/KB/tools 路由系统. 可对照已有的 [obsidian-second-brain 中文译注](../001-obsidian-second-brain/index.md), 以及当前的 [`hx-to-ai-docs`](../../../../.agents/skills/hx-to-ai-docs/SKILL.md) 与它的各个 `hx-docs-*` 子技能.
 
 | ReverseLab 的概念 | HXLoLi 当前对应物 | 当前状态 |
 | --- | --- | --- |

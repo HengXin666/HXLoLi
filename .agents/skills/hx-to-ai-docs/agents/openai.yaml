@@ -1,0 +1,8 @@
+interface:
+  display_name: "HX To AI Docs"
+  short_description: "HXLoLi ai-docs 沉淀路由入口 (仅人类调度)"
+  brand_color: "#2563EB"
+  default_prompt: "Use $hx-to-ai-docs to route a HXLoLi ai-docs sedimentation request to the right sub-skill."
+
+policy:
+  allow_implicit_invocation: false

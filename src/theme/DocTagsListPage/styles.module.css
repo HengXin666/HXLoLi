@@ -1,0 +1,480 @@
+/* ============================================================
+   ai-docs 标签总览页 (/knowledge-base/tags)
+   swizzle 自 @theme/DocTagsListPage —— 见 index.tsx 顶部的设计说明。
+   风格与知识库正文页保持一致: 暗底 + 青/洋红霓虹; 外层 Layout 由内容插件
+   (DocsRoot) 提供, 这里不能再包一层, 样式全部收敛在 *.module.css 里。
+   ============================================================ */
+
+.page {
+  position: relative;
+  /* 同 DocTagDocListPage: 外层已有 Layout, 不必用 100vh 撑满整屏 */
+  min-height: 62vh;
+  padding: 3rem 1.25rem 5rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* 背景: 极光 + 网格 (纯 CSS, 无持续 JS 开销) */
+.aurora {
+  position: absolute;
+  inset: -20% -10% auto;
+  height: 70vh;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(45% 55% at 18% 22%, rgba(0, 229, 255, 0.16), transparent 70%),
+    radial-gradient(40% 50% at 78% 12%, rgba(255, 0, 255, 0.13), transparent 72%),
+    radial-gradient(35% 45% at 55% 42%, rgba(0, 255, 65, 0.06), transparent 70%);
+  filter: blur(6px);
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.055) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: linear-gradient(180deg, #000 0%, transparent 62%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 62%);
+}
+
+.inner {
+  position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* ---------------- Hero ---------------- */
+.hero {
+  margin-bottom: 1.75rem;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.6rem;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid rgba(0, 229, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(0, 229, 255, 0.06);
+  color: #7fe6ff;
+  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(2rem, 5vw, 2.9rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, #00e5ff 0%, #7fe6ff 40%, #ff00ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  max-width: 62ch;
+  margin: 0;
+  color: #8f9aae;
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
+.subtitle strong {
+  color: #d7f5ff;
+  font-weight: 650;
+}
+
+.subtitle em {
+  color: #7fe6ff;
+  font-style: normal;
+}
+
+/* ---------------- 工具条 (搜索 + 字母索引) ---------------- */
+.toolbar {
+  position: sticky;
+  top: 0.6rem;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(0, 229, 255, 0.14);
+  border-radius: 14px;
+  background: rgba(8, 12, 22, 0.86);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid rgba(0, 229, 255, 0.18);
+  border-radius: 10px;
+  background: rgba(0, 229, 255, 0.04);
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.searchBox:focus-within {
+  border-color: rgba(0, 229, 255, 0.5);
+  background: rgba(0, 229, 255, 0.07);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
+}
+
+.searchIcon {
+  flex: 0 0 auto;
+  color: rgba(0, 229, 255, 0.7);
+  font-size: 0.88rem;
+}
+
+.searchInput {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #e6f7ff;
+  font-size: 0.92rem;
+  font-family: inherit;
+}
+
+.searchInput::placeholder {
+  color: rgba(143, 154, 174, 0.75);
+}
+
+.clearButton {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: #8f9aae;
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.clearButton:hover {
+  background: rgba(255, 0, 255, 0.18);
+  color: #ffd9ff;
+}
+
+.letterIndex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.32rem;
+}
+
+.letterChip {
+  position: relative;
+  min-width: 2rem;
+  padding: 0.24rem 0.5rem;
+  border: 1px solid rgba(0, 229, 255, 0.14);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #95a2b8;
+  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.letterChip:hover {
+  color: #e6f7ff;
+  border-color: rgba(0, 229, 255, 0.4);
+  background: rgba(0, 229, 255, 0.09);
+  transform: translateY(-1px);
+}
+
+.letterChipActive {
+  color: #001018;
+  border-color: rgba(0, 229, 255, 0.85);
+  background: linear-gradient(135deg, #00e5ff, #6ef0ff);
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.45);
+}
+
+.letterCount {
+  margin-left: 0.28rem;
+  font-size: 0.62rem;
+  opacity: 0.65;
+}
+
+/* ---------------- 分组浏览 ---------------- */
+.groupList {
+  display: flex;
+  flex-direction: column;
+  gap: 2.1rem;
+}
+
+.group {
+  scroll-margin-top: 6rem;
+}
+
+.groupTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin: 0 0 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+.groupLetter {
+  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, #00e5ff, #ff00ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.groupMeta {
+  color: #6f7a8c;
+  font-size: 0.74rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+.groupTags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.5rem 0.6rem;
+}
+
+/* ---------------- 标签云 ---------------- */
+.cloud {
+  padding: 0.25rem 0;
+}
+
+.resultHint {
+  margin: 0 0 1rem;
+  color: #8f9aae;
+  font-size: 0.85rem;
+}
+
+.resultHint strong {
+  color: #7fe6ff;
+}
+
+.resetLink {
+  border: none;
+  background: none;
+  padding: 0;
+  color: #ff86ff;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: underline dotted;
+}
+
+.resetLink:hover {
+  color: #ffd9ff;
+}
+
+.cloudItem {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  font-size: 0.92rem;
+}
+
+/* 分级: 字号/亮度随笔记数递增 */
+.cloudItem[data-tier='0'] {
+  font-size: 0.8rem;
+}
+
+.cloudItem[data-tier='1'] {
+  font-size: 0.9rem;
+}
+
+.cloudItem[data-tier='2'] {
+  font-size: 1.02rem;
+}
+
+.cloudItem[data-tier='3'] {
+  font-size: 1.14rem;
+}
+
+.cloudDesc {
+  max-width: 46ch;
+  color: #6f7a8c;
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+/* ---------------- 标签胶囊 ---------------- */
+.tagChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.28rem 0.4rem 0.28rem 0.7rem;
+  border: 1px solid hsl(var(--tag-hue, 190) 85% 62% / 0.28);
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      135deg,
+      hsl(var(--tag-hue, 190) 90% 60% / 0.13),
+      hsl(var(--tag-hue, 190) 90% 60% / 0.04)
+    );
+  color: hsl(var(--tag-hue, 190) 90% 82%);
+  font-size: 1em;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transform: translateZ(0);
+}
+
+.tagChip:hover {
+  color: #ffffff;
+  border-color: hsl(var(--tag-hue, 190) 95% 70% / 0.75);
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 18px hsl(var(--tag-hue, 190) 90% 55% / 0.22),
+    0 0 0 1px hsl(var(--tag-hue, 190) 95% 70% / 0.35);
+}
+
+.tagChipLabel {
+  overflow-wrap: anywhere;
+}
+
+.tagChipCount {
+  flex: 0 0 auto;
+  min-width: 1.35rem;
+  padding: 0.02rem 0.34rem;
+  border-radius: 999px;
+  background: hsl(var(--tag-hue, 190) 90% 60% / 0.2);
+  color: hsl(var(--tag-hue, 190) 95% 88%);
+  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 0.68em;
+  text-align: center;
+}
+
+.empty {
+  padding: 2.5rem 1rem;
+  color: #8f9aae;
+  text-align: center;
+}
+
+/* ---------------- 亮色主题兜底 ---------------- */
+:global([data-theme='light']) .title {
+  background: linear-gradient(120deg, #047d94 0%, #0a94b5 45%, #a300a3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme='light']) .kicker {
+  border-color: rgba(4, 125, 148, 0.3);
+  background: rgba(4, 125, 148, 0.08);
+  color: #056b82;
+}
+
+:global([data-theme='light']) .subtitle,
+:global([data-theme='light']) .groupMeta,
+:global([data-theme='light']) .resultHint,
+:global([data-theme='light']) .cloudDesc,
+:global([data-theme='light']) .empty {
+  color: #4a5568;
+}
+
+:global([data-theme='light']) .subtitle strong,
+:global([data-theme='light']) .resultHint strong {
+  color: #056b82;
+}
+
+:global([data-theme='light']) .toolbar {
+  border-color: rgba(4, 125, 148, 0.2);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 26px rgba(15, 40, 60, 0.08);
+}
+
+:global([data-theme='light']) .searchBox {
+  border-color: rgba(4, 125, 148, 0.24);
+  background: rgba(4, 125, 148, 0.05);
+}
+
+:global([data-theme='light']) .searchInput {
+  color: #12263a;
+}
+
+:global([data-theme='light']) .letterChip {
+  border-color: rgba(4, 125, 148, 0.2);
+  background: rgba(4, 125, 148, 0.05);
+  color: #46586f;
+}
+
+:global([data-theme='light']) .letterChipActive {
+  color: #ffffff;
+  background: linear-gradient(135deg, #0a94b5, #26b6d6);
+}
+
+:global([data-theme='light']) .tagChip {
+  border-color: hsl(var(--tag-hue, 190) 60% 45% / 0.32);
+  background: hsl(var(--tag-hue, 190) 80% 55% / 0.1);
+  color: hsl(var(--tag-hue, 190) 60% 32%);
+}
+
+:global([data-theme='light']) .tagChip:hover {
+  color: hsl(var(--tag-hue, 190) 70% 22%);
+}
+
+:global([data-theme='light']) .tagChipCount {
+  background: hsl(var(--tag-hue, 190) 70% 55% / 0.2);
+  color: hsl(var(--tag-hue, 190) 60% 30%);
+}
+
+:global([data-theme='light']) .aurora {
+  opacity: 0.5;
+}
+
+/* ---------------- 移动端 ---------------- */
+@media (max-width: 768px) {
+  .page {
+    padding: 2rem 0.9rem 3.5rem;
+  }
+
+  .toolbar {
+    position: static;
+    padding: 0.85rem;
+  }
+
+  .letterIndex {
+    gap: 0.28rem;
+  }
+
+  .letterChip {
+    min-width: 1.85rem;
+    padding: 0.22rem 0.42rem;
+    font-size: 0.74rem;
+  }
+
+  .groupTitle {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+}
+

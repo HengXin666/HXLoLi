@@ -5,7 +5,9 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "npm run themes && npm run decks && docusaurus build",
+    "themes": "node scripts/generate-theme-manifest.mjs",
+    "decks": "node scripts/generate-deck-registry.mjs",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",

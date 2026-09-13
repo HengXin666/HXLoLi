@@ -1,0 +1,462 @@
+# HXLoLi ai-docs tag 注册表
+#
+# 用途: 沉淀笔记时从这里**选** tag, 而不是每次现编近义词。
+# curated 层 (本区块) 由人类维护: desc 写这个 tag 管什么, aliases 写要合并进来的近义词。
+# generated 区块由 `uv run .agents/skills/hx-docs-layout/scripts/hxloli_tags.py generate` 重建, 不要手改。
+# 常用命令:
+#   scan                        看统计与待合并候选
+#   merge "记忆架构" --into "记忆系统"   固化一次合并
+#   suggest "新词"                新词该归到哪个已有 tag
+#   check                       校验全库 tag 是否规范
+schema_version = 1
+
+[settings]
+# 合理不需要 tag 的页面 (子串匹配, 相对仓库根或目录名)。
+ignore_notes = ["001-关于"]
+
+[tags."AI Agent"]  # 13 篇在用
+desc = ""
+aliases = []
+
+[tags."AI逆向"]  # 4 篇在用
+desc = ""
+aliases = []
+
+[tags."Harness"]  # 4 篇在用
+desc = ""
+aliases = []
+
+[tags."DSH"]  # 3 篇在用
+desc = ""
+aliases = []
+
+[tags."Skill"]  # 3 篇在用
+desc = ""
+aliases = []
+
+[tags."003-编程语言"]  # 2 篇在用
+desc = ""
+aliases = []
+
+[tags."Codex"]  # 2 篇在用
+desc = ""
+aliases = []
+
+[tags."MCP"]  # 2 篇在用
+desc = ""
+aliases = []
+
+[tags."Multica"]  # 2 篇在用
+desc = ""
+aliases = []
+
+[tags."Turnstile"]  # 2 篇在用
+desc = ""
+aliases = []
+
+[tags."上下文工程"]  # 2 篇在用
+desc = ""
+aliases = []
+
+[tags."工程协作"]  # 2 篇在用
+desc = ""
+aliases = []
+
+[tags."工程实践"]  # 2 篇在用
+desc = ""
+aliases = []
+
+[tags."知识库"]  # 2 篇在用
+desc = ""
+aliases = []
+
+[tags."记忆系统"]  # 2 篇在用
+desc = ""
+aliases = []
+
+[tags."评测"]  # 2 篇在用
+desc = ""
+aliases = []
+
+[tags."项目学习"]  # 2 篇在用
+desc = ""
+aliases = []
+
+[tags."Agent Runtime"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."Agent平台"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."AI工具"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."AI验证码求解"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."Bot Defense"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."C++"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."C++20"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."CF过盾"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."Chrome扩展"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."CLI"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."Compaction"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."HXLibs"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."KV Cache"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."LLM"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."OAuth"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."Port-Adapter"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."Prompt"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."Python"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."react"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."RTK"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."TLS指纹"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."Tokenization"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."Turnstile防御"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."事件可信度"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."事件日志"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."凭证管理"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."前端动画"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."协程"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."双时态"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."可复现性"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."可插拔"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."商品选购"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."基础设施"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."增量沉淀"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."多智能体"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."多模态大模型"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."平台架构"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."异步任务"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."想法探索"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."技术选型"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."接口设计"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."提示词优化"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."提示词工程"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."插件化"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."数据面"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."检测面建模"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."检索"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."毛选方法论"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."泛化"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."注意力"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."浏览器指纹"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."浏览器自动化"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."浏览器验证机制"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."源码"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."爬虫"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."现代C++"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."电脑包"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."短视频"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."程序性记忆"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."约束解码"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."组件库"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."编译期多态"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."自建部署"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."逆向工程"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."选购指标"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."通勤"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."预设"]  # 1 篇在用
+desc = ""
+aliases = []
+
+[tags."风控"]  # 1 篇在用
+desc = ""
+aliases = []
+
+# >>> hx-tags:generated begin (由 hxloli_tags.py generate 重建, 请勿手改) >>>
+[generated]
+schema_version = 1
+source_digest = "sha256:fe8c4dfeb3c0b47f"
+generated_at = "2026-09-11T16:41:12Z"
+notes_scanned = 28
+tags_in_use = 85
+
+[generated.usage]
+"AI Agent" = 13
+"AI逆向" = 4
+"Harness" = 4
+"Skill" = 4
+"DSH" = 3
+"知识库" = 3
+"项目学习" = 3
+"003-编程语言" = 2
+"Codex" = 2
+"MCP" = 2
+"Multica" = 2
+"Turnstile" = 2
+"上下文工程" = 2
+"增量沉淀" = 2
+"工程协作" = 2
+"工程实践" = 2
+"记忆系统" = 2
+"评测" = 2
+"Agent Runtime" = 1
+"Agent平台" = 1
+"AI工具" = 1
+"AI验证码求解" = 1
+"Bot Defense" = 1
+"C++" = 1
+"C++20" = 1
+"CF过盾" = 1
+"Chrome扩展" = 1
+"CLI" = 1
+"Compaction" = 1
+"HXLibs" = 1
+"KV Cache" = 1
+"LLM" = 1
+"OAuth" = 1
+"Port-Adapter" = 1
+"Prompt" = 1
+"Python" = 1
+"react" = 1
+"RTK" = 1
+"TLS指纹" = 1
+"Tokenization" = 1
+"Turnstile防御" = 1
+"事件可信度" = 1
+"事件日志" = 1
+"凭证管理" = 1
+"前端动画" = 1
+"协程" = 1
+"双时态" = 1
+"可复现性" = 1
+"可插拔" = 1
+"商品选购" = 1
+"基础设施" = 1
+"多智能体" = 1
+"多模态大模型" = 1
+"平台架构" = 1
+"异步任务" = 1
+"想法探索" = 1
+"技术选型" = 1
+"接口设计" = 1
+"提示词优化" = 1
+"提示词工程" = 1
+"插件化" = 1
+"数据面" = 1
+"检测面建模" = 1
+"检索" = 1
+"毛选方法论" = 1
+"泛化" = 1
+"注意力" = 1
+"浏览器指纹" = 1
+"浏览器自动化" = 1
+"浏览器验证机制" = 1
+"源码" = 1
+"爬虫" = 1
+"现代C++" = 1
+"电脑包" = 1
+"短视频" = 1
+"程序性记忆" = 1
+"约束解码" = 1
+"组件库" = 1
+"编译期多态" = 1
+"自建部署" = 1
+"逆向工程" = 1
+"选购指标" = 1
+"通勤" = 1
+"预设" = 1
+"风控" = 1
+
+# 待合并候选 (字符层面可证的近义; 语义近义需人工判定)
+candidates = [
+  ["TLS指纹", "浏览器指纹", "浏览器自动化", "浏览器验证机制"],  # 公共前后缀 '指纹'; 公共前后缀 '浏览器'
+  ["上下文工程", "提示词优化", "提示词工程", "逆向工程"],  # 公共前后缀 '工程'; 公共前后缀 '提示词'
+  ["Agent Runtime", "Agent平台", "AI Agent"],  # 公共前后缀 'agent'; 字级相似 0.67
+  ["C++", "C++20", "现代C++"],  # 公共前后缀 'c++'
+  ["Turnstile", "Turnstile防御"],  # 公共前后缀 'turnstile'
+  ["事件可信度", "事件日志"],  # 公共前后缀 '事件'
+  ["工程协作", "工程实践"],  # 公共前后缀 '工程'
+]
+# <<< hx-tags:generated end <<<

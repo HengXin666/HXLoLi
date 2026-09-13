@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>演示页标题 · PPT</title>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a30;--line:#223352;--ink:#e9effc;--muted:#92a3c8;--accent:#38d3f2;--accent2:#a78bfa}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#05070f;color:var(--ink);font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;height:100%}
+.deck{width:1600px;max-width:100%;height:100vh;margin:0 auto;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;width:1600px;height:900px;max-width:100%;max-height:100%;padding:44px 60px 56px;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .35s;
+  background:radial-gradient(1100px 560px at 88% -12%,rgba(56,211,242,.07),transparent 60%),var(--bg)}
+.slide.active{opacity:1;pointer-events:auto}
+.slide .shead,.slide .scap{opacity:0;transform:translateY(10px);transition:opacity .4s ease .1s,transform .4s ease .1s}
+.slide.active .shead,.slide.active .scap{opacity:1;transform:translateY(0)}
+.shead{display:flex;align-items:baseline;gap:16px;margin-bottom:12px;flex:none}
+.shead .snum{color:var(--accent);font-weight:700;font-size:20px;letter-spacing:.08em}
+.shead h2{font-size:30px;font-weight:600}
+.stage{flex:1;min-height:0;border:1px solid var(--line);border-radius:14px;background:var(--panel);display:flex;align-items:center;justify-content:center;padding:34px 52px;overflow:hidden}
+.scap{flex:none;margin-top:12px;color:var(--muted);font-size:17px;line-height:1.6;text-align:center;padding:0 30px}
+.cover{justify-content:center;text-align:center;padding:0 90px}
+.kicker{color:var(--accent);font-size:20px;letter-spacing:.18em;font-weight:700}
+.cover h1{font-size:60px;line-height:1.2;margin:20px 0 16px}
+.cover .lead{color:var(--muted);font-size:23px;line-height:1.7;max-width:1000px;margin:0 auto}
+.chips{margin:30px auto 0;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:1100px}
+.chips span{border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:17px;color:#c3d2ef}
+ul.points{list-style:none;text-align:left;margin:0 auto;max-width:1080px;display:flex;flex-direction:column;gap:18px}
+ul.points li{font-size:21px;line-height:1.6;color:#c3d2ef;padding-left:22px;position:relative}
+ul.points li b{color:var(--ink)}
+ul.points li::before{content:"";position:absolute;left:0;top:.62em;width:10px;height:10px;border-radius:3px;background:var(--accent)}
+table{border-collapse:collapse;font-size:18px;width:100%;max-width:1260px}
+th,td{border:1px solid var(--line);padding:12px 15px;text-align:left;line-height:1.55}
+th{background:rgba(255,255,255,.04);color:var(--accent);font-size:19px}
+td:first-child{color:var(--muted);font-weight:600;white-space:nowrap}
+.cols{display:flex;gap:22px;width:100%;max-width:1320px}
+.col{flex:1;border:1px solid var(--line);border-radius:12px;padding:22px 26px;background:rgba(255,255,255,.03)}
+.col h3{font-size:20px;margin-bottom:14px;color:var(--accent2)}
+.col h3.ok{color:var(--accent)}
+.col p,.col li{font-size:18px;line-height:1.65;color:#c3d2ef}
+pre{width:100%;max-width:1320px;background:#05070f;border:1px solid var(--line);border-radius:12px;padding:20px 24px;overflow:auto;font-family:"JetBrains Mono",Consolas,monospace;font-size:16px;line-height:1.6;color:#cfe3ff}
+blockquote{max-width:1100px;font-size:26px;line-height:1.6;color:var(--ink);border-left:4px solid var(--accent);padding-left:24px}
+blockquote cite{display:block;margin-top:16px;font-size:17px;color:var(--muted);font-style:normal}
+.controls{position:absolute;bottom:18px;right:30px;display:flex;gap:10px;z-index:20}
+.controls button{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;width:46px;height:46px;font-size:20px;cursor:pointer}
+.controls button:hover{border-color:var(--accent);color:var(--accent)}
+.pager{position:absolute;bottom:22px;left:60px;color:var(--muted);font-size:16px;z-index:20;letter-spacing:.05em}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <section class="slide cover active">
+    <div class="kicker">HXLOLI · AI-DOCS</div>
+    <h1>演示页标题</h1>
+    <p class="lead">一句话说明这份演示页要回答的问题.</p>
+    <div class="chips"><span>关键词一</span><span>关键词二</span><span>关键词三</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">00</span><h2>背景</h2></div>
+    <div class="stage">
+      <ul class="points">
+        <li><b>要点</b>: 每条不超过两行, 讲一个论点.</li>
+        <li><b>要点</b>: 与 md 里的 <code>## 0x00</code> 章节号对齐.</li>
+      </ul>
+    </div>
+    <div class="scap">这一页在说什么.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">01</span><h2>对照</h2></div>
+    <div class="stage">
+      <div class="cols">
+        <div class="col"><h3>方案 A</h3><p>代价与收益.</p></div>
+        <div class="col"><h3 class="ok">方案 B</h3><p>为什么选它.</p></div>
+      </div>
+    </div>
+    <div class="scap">二选一时把取舍摆在同一屏.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">02</span><h2>关键片段</h2></div>
+    <div class="stage">
+      <pre><code>// 只放能看懂论点的 5~15 行</code></pre>
+    </div>
+    <div class="scap">代码服务于论点, 不做完整实现展示.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">03</span><h2>结论</h2></div>
+    <div class="stage">
+      <blockquote>把这套机制放进更大的背景里, 它意味着什么.<cite>—— 个人判断, 非事实陈述</cite></blockquote>
+    </div>
+    <div class="scap">收尾给判断, 并标明这是判断.</div>
+  </section>
+
+  <div class="pager"><span id="cur">1</span> / <span id="total">1</span></div>
+  <div class="controls">
+    <button type="button" id="prev" aria-label="上一页">‹</button>
+    <button type="button" id="next" aria-label="下一页">›</button>
+  </div>
+</div>
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var cur = 0;
+  function render() {
+    slides.forEach(function (s, i) { s.classList.toggle('active', i === cur); });
+    document.getElementById('cur').textContent = String(cur + 1);
+    document.getElementById('total').textContent = String(slides.length);
+  }
+  function go(n) { cur = Math.max(0, Math.min(slides.length - 1, n)); render(); }
+  document.getElementById('prev').addEventListener('click', function () { go(cur - 1); });
+  document.getElementById('next').addEventListener('click', function () { go(cur + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+    else if (e.key === 'Home') { go(0); }
+    else if (e.key === 'End') { go(slides.length - 1); }
+  });
+  document.getElementById('deck').addEventListener('click', function (e) {
+    if (e.target.closest('button') || e.target.closest('a')) return;
+    var half = window.innerWidth / 2;
+    go(e.clientX < half ? cur - 1 : cur + 1);
+  });
+  render();
+})();
+</script>
+</body>
+</html>

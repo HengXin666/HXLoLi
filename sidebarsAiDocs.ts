@@ -450,6 +450,24 @@ const aiDocsSidebar = [
               "icon": "default-icons/ai-doc.svg",
               "tags": []
             }
+          },
+          {
+            "type": "doc",
+            "id": "知识沉淀/LLM与Agent/SkillOpt把skill当参数训练/index",
+            "label": "SkillOpt把skill当参数训练",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "知识沉淀/LLM与Agent/Agent-Skill编写最佳实践/index",
+            "label": "Agent-Skill编写最佳实践",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
           }
         ],
         "customProps": {
@@ -529,6 +547,14 @@ const aiDocsSidebar = [
     ],
     "customProps": {
       "icon": "default-icons/ai-folder.svg",
+      "tags": []
+    }
+  },
+  {
+    "type": "doc",
+    "id": "deck-embed-test",
+    "customProps": {
+      "icon": "default-icons/ai-doc.svg",
       "tags": []
     }
   }

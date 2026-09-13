@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "CF-Gateway-Pro 过盾链路",
+    "subtitle": "从环境伪装到凭证复用, 再到自适应降级",
+    "locale": "zh-CN",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "inject",
+      "type": "frontend",
+      "label": "反检测注入",
+      "sublabel": "document_start 修特征",
+      "pos": [
+        30,
+        90
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "fingerprint",
+      "type": "frontend",
+      "label": "指纹随机化",
+      "sublabel": "只改采集出口",
+      "pos": [
+        230,
+        90
+      ],
+      "size": [
+        160,
+        64
+      ]
+    },
+    {
+      "id": "click",
+      "type": "frontend",
+      "label": "Shadow DOM 点击",
+      "sublabel": "逐层穿透",
+      "pos": [
+        440,
+        90
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "cred",
+      "type": "database",
+      "label": "凭证库",
+      "sublabel": "cookie + UA · 30min",
+      "pos": [
+        660,
+        90
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "cookieFetcher",
+      "type": "backend",
+      "label": "CookieFetcher",
+      "sublabel": "curl_cffi chrome136",
+      "pos": [
+        860,
+        90
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "target",
+      "type": "external",
+      "label": "目标站点",
+      "sublabel": "受 Cloudflare 保护",
+      "pos": [
+        1080,
+        90
+      ],
+      "size": [
+        160,
+        64
+      ]
+    },
+    {
+      "id": "learn",
+      "type": "backend",
+      "label": "域名学习",
+      "sublabel": "失败率 >50% 切换",
+      "pos": [
+        860,
+        330
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "browserFetcher",
+      "type": "backend",
+      "label": "BrowserFetcher",
+      "sublabel": "5-15s · 几乎不被拦",
+      "pos": [
+        860,
+        470
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "pool",
+      "type": "cloud",
+      "label": "浏览器池",
+      "sublabel": "真实 Chrome · 进程检测",
+      "pos": [
+        600,
+        470
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "watchdog",
+      "type": "backend",
+      "label": "看门狗",
+      "sublabel": "5min 刷新 · 内存监控",
+      "pos": [
+        340,
+        470
+      ],
+      "size": [
+        170,
+        64
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "security-group",
+      "label": "Turnstile 交叉验证 (webdriver / TLS / Canvas / 行为)",
+      "wraps": [
+        "target"
+      ],
+      "pad": 30
+    }
+  ],
+  "connections": [
+    {
+      "from": "inject",
+      "to": "fingerprint"
+    },
+    {
+      "from": "fingerprint",
+      "to": "click"
+    },
+    {
+      "from": "click",
+      "to": "cred",
+      "variant": "emphasis"
+    },
+    {
+      "from": "cred",
+      "to": "cookieFetcher"
+    },
+    {
+      "from": "cookieFetcher",
+      "to": "target",
+      "variant": "emphasis"
+    },
+    {
+      "from": "cookieFetcher",
+      "to": "learn",
+      "label": "被拦截",
+      "variant": "dashed",
+      "labelDy": 26
+    },
+    {
+      "from": "learn",
+      "to": "browserFetcher",
+      "label": "降级",
+      "variant": "emphasis",
+      "labelDy": 26
+    },
+    {
+      "from": "browserFetcher",
+      "to": "target"
+    },
+    {
+      "from": "pool",
+      "to": "browserFetcher"
+    },
+    {
+      "from": "watchdog",
+      "to": "pool",
+      "label": "回收/重启",
+      "variant": "dashed"
+    }
+  ],
+  "cards": []
+}
