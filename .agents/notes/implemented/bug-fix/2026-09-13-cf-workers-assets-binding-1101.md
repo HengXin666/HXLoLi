@@ -102,6 +102,52 @@ curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:8793/search-index.json
 - **不再拆 chunk, 改用压缩后的搜索索引**: 治本方向但属于另一个议题 (涉及搜索插件配置),
   本次先保证线上恢复。
 
+## 跟进: 推送后 CI 挂在更前面的一步 (package.json 漏声明依赖)
+
+推上去之后 workflow 确实跑起来了, 但**没走到 CF 那几步**就失败了:
+
+```
+[ERROR] Error: Docusaurus could not load module at path ".../docusaurus.config.ts"
+Cause: Cannot find module 'feed'
+Require stack: .../plugins/docs-rss-plugin.mjs
+```
+
+这是**另一个独立问题**, 跟本次 CF 修复无关, 但同样卡住了部署。
+
+### 原因
+
+`docusaurus.config.ts` 加载 `plugins/docs-rss-plugin.mjs`, 该插件
+`import { Feed } from 'feed'`; `tag-index-plugin.mjs` / `src/utils/tags/pinyin.ts` 又分别用到
+`gray-matter` / `pinyin-pro`, 但 **这三个包都没写进 `package.json`**:
+
+```
+lock-only (在 lockfile 里有, package.json 里没有): feed, gray-matter, pinyin-pro
+```
+
+历史上它们能装上, 是因为它们曾经是 root 依赖且 lockfile 里留着记录;
+但 `package.json` 里没有 → CI 走 `npm ci` 时会按 `package.json` 重建依赖树,
+把这三个从 node_modules 顶层剔掉, 只剩 `@docusaurus/plugin-content-blog` 自带的
+`feed@4.2.2` (嵌套在子目录里, 根级 `require('feed')` 解析不到) → 构建报
+`Cannot find module 'feed'`。
+
+> 注: 本机一直没暴露这个问题, 是因为本地 `node_modules` 是增量长出来的,
+> 里面还留着当年的 `feed@6.0.0` / `gray-matter@4.0.3` / `pinyin-pro@3.29.4` ——
+> `npm ls` 里 `feed@6.0.0` 甚至被标成了 `extraneous`。典型的"本地能跑, CI 炸"。
+
+### 修法
+
+把三个包补进 `package.json` 的 `dependencies` (`feed ^6.0.0` / `gray-matter ^4.0.3` /
+`pinyin-pro ^3.29.4`), 与 lockfile 的 root entry 对齐。对齐后
+`pkg-only` 与 `lock-only` **双双为空**, `npm ci` 不需要改 lockfile 也能装齐:
+
+```bash
+npm ci --dry-run | grep '^add feed'
+#   add feed 6.0.0     ← 根级 feed@6 回来了 (旧计划只有嵌套的 feed 4.2.2)
+#   add feed 4.2.2
+```
+
+验证: 修好后本地 `npm run build` 成功 `[SUCCESS] Generated static files in "build"`。
+
 ## Evidence
 
 - 线上实测 (2026-09-13): `/docs/关于` 200 / `/blog/` 200 / `/anime/` 200 / `/img/logo.png` 200;
