@@ -52,11 +52,17 @@ uv run .agents/skills/hx-docs-organize/scripts/hx_docs_id.py assign
 uv run .agents/skills/hx-docs-organize/scripts/hx_docs_id.py check
 uv run .agents/skills/hx-docs-organize/scripts/hx_docs_id.py resolve
 
+# 本地引用体检: 逐条去磁盘上走一遍 (普通相对路径 + 图片 + ppt 侧车)
+uv run .agents/skills/hx-docs-organize/scripts/hx_docs_id.py links
+uv run .agents/skills/hx-docs-organize/scripts/hx_docs_id.py links --show-orphans
+
 # tag: 别只看 PASS, 要看健康度
 uv run .agents/skills/hx-docs-layout/scripts/hxloli_tags.py check --health
 ```
 
 `check` 在一个还没有 hxid 的库上会报满"缺 hxid", 这是正常的 —— 先 `assign` 看计划, 确认无误再 `assign --write`.
+
+**`check` 与 `links` 管的不是一件事, 两个都要跑.** `check` 校验 hxid 链接的**身份** (ID 唯一 / 没被改写 / 目标笔记还在); `links` 校验所有本地引用**真的存在** (普通相对路径 / 图片 / `#ppt` 侧车). hxid 机制只保护"跨文章引用", 同目录侧车与普通相对路径它完全看不见 —— 搬完目录后 `../005-旧名/index.md` 会静默失效, 站点照样构建、页面照样打开, 只有读者点那一下才发现 404.
 
 口径 (与侧边栏生成脚本一致): `index.md` 与**没有同级 index.md 的孤立 .md** 才是"笔记页面", 需要 hxid; 与 `index.md` 同目录的其它 md 是内容分片, `.hx-mitemite.md` 是答题卡, 都不给 ID. 非笔记页面 (如 `001-关于`) 通过 `ai-docs/.hx-id-ignore` 或环境变量 `HX_DOCS_ID_EXEMPT` 豁免.
 

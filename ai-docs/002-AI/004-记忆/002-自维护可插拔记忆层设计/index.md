@@ -255,4 +255,4 @@ export function apply(ctx: Context, cfg: Config) {
 - 极客公园: https://www.geekpark.net/news/365698 (Hy-Memory 机制与行业分析)
 - chooseai: https://www.chooseai.net/news/4102/ (三层架构对标 mem0/Graphiti)
 - GitHub: agentmemory (rohitg00/agentmemory), StrataGate (diqierjia/StrataGate-AgentMemory), ReMe (agentscope-ai/ReMe), VCP (lioensky/VCPToolBox), OpenViking (volcengine/OpenViking), Basic Memory (basicmachines-co/basic-memory)
-- 本笔记姊妹篇: [004-对话记忆与知识库增量沉淀](../001-对话记忆与知识库增量沉淀/index.md "hxid:hx-462ef6c0") (ledger/views/policy + 双时态), [005-DSH Runtime设计思想](../005-DeepSeek Harness Runtime设计思想插件树与事件日志/index.md) (插件树/事件日志)
+- 本笔记姊妹篇: [004-对话记忆与知识库增量沉淀](../001-对话记忆与知识库增量沉淀/index.md "hxid:hx-462ef6c0") (ledger/views/policy + 双时态), [005-DSH Runtime设计思想](../../003-Agent-Harness/DSH/002-DSH-Runtime设计思想插件树与事件日志/index.md "hxid:hx-3acd866f") (插件树/事件日志)

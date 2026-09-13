@@ -14,7 +14,7 @@ tags: ["AI Agent", "Harness", "DSH", "提示词工程"]
 
 > [四预设步骤链与逐节点提示词浏览器 #ppt ##w100%##](preset-explorer.html) — 顶部切换 标准 / Code / 极简 / 创造, 每个预设是一条纵向步骤链, 点节点下钻该步实际投递给模型的提示词原文, 点"下一步 / 下一个预设"继续前进.
 
-> 姊妹篇: [DSH Agent Loop 源码剖析](../001-DSH-Agent-Loop源码剖析/index.md "hxid:hx-9eda4e5a") 讲事件循环怎么驱动每一步; [DeepSeek Harness 设计思想: 插件树与事件日志](../005-DeepSeek Harness Runtime设计思想插件树与事件日志/index.md) 讲插件树与事件日志两大支柱. 本文聚焦一个更窄的问题: 每一步的**请求头里到底有什么文字**.
+> 姊妹篇: [DSH Agent Loop 源码剖析](../001-DSH-Agent-Loop源码剖析/index.md "hxid:hx-9eda4e5a") 讲事件循环怎么驱动每一步; [DeepSeek Harness 设计思想: 插件树与事件日志](../002-DSH-Runtime设计思想插件树与事件日志/index.md) 讲插件树与事件日志两大支柱. 本文聚焦一个更窄的问题: 每一步的**请求头里到底有什么文字**.
 
 ## 0x00 结论先行
 

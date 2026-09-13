@@ -76,10 +76,24 @@ PPT 侧车是否合规 (禁外部 CDN / 必须与 index.md 同目录 / 是否自
 ```bash
 cd HXLoLi
 node scripts/generateAiDocsSidebar.js                                       # 1. 侧边栏重建, 且能搜到改名后的 id
-uv run .agents/skills/hx-docs-organize/scripts/hx_docs_id.py check          # 2. hxid 唯一 + 链接最新
-uv run .agents/skills/hx-docs-layout/scripts/hxloli_tags.py check --health  # 3. tag 规范 + 健康度
-uv run .agents/skills/hx-docs-layout/scripts/format_cn_punct.py --check <md>  # 4. 标点
-grep -rn <旧路径片段> ai-docs src scripts plugins                          # 5. 无写死引用残留
+uv run .agents/skills/hx-docs-organize/scripts/hx_docs_id.py check          # 2. hxid 唯一 + hxid 链接最新
+uv run .agents/skills/hx-docs-organize/scripts/hx_docs_id.py links          # 3. 本地引用逐条可达 (含图片/侧车)
+uv run .agents/skills/hx-docs-layout/scripts/hxloli_tags.py check --health  # 4. tag 规范 + 健康度
+uv run .agents/skills/hx-docs-layout/scripts/format_cn_punct.py --check <md>  # 5. 标点
+node scripts/generateAiDocsSidebar.js && node scripts/generate-deck-registry.mjs
+node scripts/generate-docs-graph.mjs                                        # 6. 三个派生索引重建
+npx docusaurus build                                                        # 7. 整站构建真的过
+grep -rn <旧路径片段> ai-docs src scripts plugins                           # 8. 无写死引用残留
 ```
+
+**为什么 2 和 3 都要跑**: `check` 校验的是 hxid 链接的**身份**(ID 唯一、没被改写、指向的笔记还在), 它**看不见普通相对路径**. 搬完目录后, 一条 `../005-旧名/index.md` 会静默失效 —— 站点照样构建、页面照样打开, 只有读者点那一下才发现 404. `links` 把所有本地引用真去磁盘上 walk 一遍, 并区分"引用"和"图片".
+
+### 派生索引必须重建, 且容易漏
+
+`sidebars.ts` / `sidebarsAiDocs.ts` / `data/aiDocTags.ts` / `src/hxdeck/decks.generated.ts` 都是**生成物且入库**. 改了目录或 tag 却忘记重建, 站点就会拿旧索引渲染: 侧边栏指向已经不存在的 id, 标签页显示的还是旧词表.
+
+`static/docs-links-graph.json` 是 `.gitignore` 里的生成物, 由 `generate-docs-graph.mjs` 产出, 不进 git.
+
+**踩过的坑**: tag 治理时只跑了 `hxloli_tags.py generate` 而没重建 `data/aiDocTags.ts`, 于是读衍生数据做判断时拿到的是**上一轮的 tag 集合**, 差点据此得出错误结论. 改完任何被索引的东西, 先重建再读.
 
 最后交出**迁移映射表** (旧路径 -> 新路径, 一行一条, 含被改名的 URL) 与**跳过的项及原因**.
