@@ -5,7 +5,7 @@ created_at: "2026-08-30"
 model: "Unknown"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["Python", "技术选型", "爬虫"]
+tags: ["Python", "语言特性", "技术选型"]
 ---
 
 # Python 语言核心特性调研

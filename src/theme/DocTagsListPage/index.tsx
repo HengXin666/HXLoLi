@@ -85,6 +85,41 @@ export default function DocTagsListPage(props: Props): ReactNode {
 
   const allTags = props.tags;
 
+  /**
+   * 按大类的浏览视图。标签注册表 (.hx-tags.toml) 用 parent 声明了层级
+   * (AI Agent -> Harness -> DSH), 构建期索引把它压成了 root (L1 名)。
+   *
+   * 为什么需要它: 拼音索引能回答"这个标签在哪一屏", 但回答不了"这个概念属于哪里"。
+   * 84 个平级标签对新读者是一片没有结构的词云 —— 大类分组才是倒排索引的入口。
+   */
+  const topicGroups = useMemo(() => {
+    const rootOf = new Map(aiDocTagIndex.tags.map((tag) => [tag.label, tag.root ?? '']));
+    const buckets = new Map<string, typeof allTags>();
+    for (const tag of allTags) {
+      const key = rootOf.get(tag.label) || '';
+      const bucket = buckets.get(key);
+      if (bucket) bucket.push(tag);
+      else buckets.set(key, [tag]);
+    }
+    return [...buckets.entries()]
+      .map(([key, tags]) => ({
+        key,
+        label: key === '' ? '未归类' : key,
+        desc: key === '' ? '' : (metaByLabel.get(key)?.description ?? ''),
+        tags: [...tags].sort(
+          (a, b) => (b.count ?? 0) - (a.count ?? 0) || compareTagLabels(a.label, b.label),
+        ),
+      }))
+      .sort((a, b) => {
+        // 大类按笔记数排, "未归类" 永远垫底
+        if (a.key === '') return 1;
+        if (b.key === '') return -1;
+        const sum = (g: { tags: { count?: number }[] }) =>
+          g.tags.reduce((acc, t) => acc + (t.count ?? 0), 0);
+        return sum(b) - sum(a) || compareTagLabels(a.label, b.label);
+      });
+  }, [allTags, metaByLabel]);
+
   const maxCount = useMemo(
     () => Math.max(1, ...allTags.map((tag) => tag.count ?? 0)),
     [allTags],
@@ -139,8 +174,8 @@ export default function DocTagsListPage(props: Props): ReactNode {
             </Heading>
             <p className={styles.subtitle}>
               <strong>{allTags.length}</strong> 个标签 ·{' '}
-              <strong>{aiDocTagIndex.docs.length}</strong> 篇笔记。中文标签按
-              <em>拼音首字母</em>归组, 字号越大说明这个方向沉淀得越多。
+              <strong>{aiDocTagIndex.docs.length}</strong> 篇笔记。按
+              <em>大类</em>分组浏览, 或按<em>拼音首字母</em>检索; 字号越大说明这个方向沉淀得越多。
             </p>
           </header>
 
@@ -166,6 +201,33 @@ export default function DocTagsListPage(props: Props): ReactNode {
                 </button>
               )}
             </label>
+
+            <nav className={styles.letterIndex} aria-label="大类导航">
+              <button
+                type="button"
+                className={styles.letterChipActive}
+                onClick={() => {
+                  setQuery('');
+                  setActiveLetter(null);
+                }}
+              >
+                全部
+              </button>
+              {topicGroups
+                .filter((group) => group.key !== '')
+                .map((group) => (
+                  <button
+                    key={group.key}
+                    type="button"
+                    className={styles.letterChip}
+                    onClick={() => setQuery(group.key)}
+                    title={group.desc}
+                  >
+                    {group.label}
+                    <span className={styles.letterCount}>{group.tags.length}</span>
+                  </button>
+                ))}
+            </nav>
 
             <nav className={styles.letterIndex} aria-label="拼音首字母索引">
               <button

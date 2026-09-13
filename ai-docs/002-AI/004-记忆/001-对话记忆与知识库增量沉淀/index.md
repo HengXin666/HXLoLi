@@ -5,7 +5,7 @@ created_at: "2026-08-31"
 model: "DeepSeek-V4-Flash"
 skill: ["hx-look-video", "hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["AI Agent", "记忆系统", "知识库", "增量沉淀", "双时态", "程序性记忆"]
+tags: ["AI Agent", "记忆系统", "知识库", "增量沉淀"]
 ---
 
 # AI Agent 对话记忆与知识库增量沉淀设计

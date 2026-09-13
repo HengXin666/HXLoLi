@@ -5,7 +5,7 @@ created_at: "2026-07-04"
 model: "GPT-5"
 skill: ["hx-look-video"]
 authors: "Heng_Xin"
-tags: ["现代C++", "C++20", "编译期多态", "接口设计"]
+tags: ["C++", "编译期多态", "工程实践"]
 ---
 
 # 现代C++编译期多态审视

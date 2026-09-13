@@ -5,7 +5,7 @@ created_at: "2026-09-05"
 model: "Unknown"
 skill: ["hx-docs-sediment", "hx-archify"]
 authors: "Heng_Xin"
-tags: ["AI Agent", "DSH", "Harness", "源码", "Compaction"]
+tags: ["AI Agent", "Harness", "DSH"]
 ---
 
 # DSH Agent Loop 源码剖析

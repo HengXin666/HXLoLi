@@ -5,7 +5,7 @@ created_at: "2026-08-26"
 model: "deepseek-v4-pro"
 skill: ["hx-to-ai-docs", "hx-docs-layout", "hx-docs-ppt", "hx-archify"]
 authors: "Heng_Xin"
-tags: ["CF过盾", "AI逆向", "Turnstile", "浏览器指纹", "TLS指纹"]
+tags: ["逆向与风控", "Turnstile", "浏览器指纹"]
 ---
 
 # 深入理解Cloudflare过盾原理:无需AI从零实现CFTurnstile绕过

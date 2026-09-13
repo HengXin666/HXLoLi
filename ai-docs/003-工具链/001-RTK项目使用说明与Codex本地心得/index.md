@@ -5,7 +5,7 @@ created_at: "2026-07-05"
 model: "GPT-5 Codex"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["AI工具", "RTK", "Codex", "CLI"]
+tags: ["AI工具", "Codex", "Harness"]
 ---
 
 # RTK项目使用说明与Codex本地心得

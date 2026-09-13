@@ -5,7 +5,7 @@ created_at: "2026-07-05"
 model: "GPT-5 Codex"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["Multica", "AI Agent", "工程协作"]
+tags: ["多智能体", "Multica", "AI Agent"]
 ---
 
 # Multica agent协作与上下文机制

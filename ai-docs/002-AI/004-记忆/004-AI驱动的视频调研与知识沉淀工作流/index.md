@@ -5,7 +5,7 @@ created_at: "2026-08-30"
 model: "Unknown"
 skill: ["hx-look-video", "hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["Python", "爬虫", "技术选型"]
+tags: ["AI Agent", "知识库", "增量沉淀"]
 ---
 
 # AI驱动的视频调研与知识沉淀工作流

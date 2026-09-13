@@ -5,7 +5,7 @@ created_at: "2026-09-11"
 model: "DeepSeek-V4-Flash"
 skill: ["hx-docs-sediment", "hx-make-skill"]
 authors: "Heng_Xin"
-tags: ["AI Agent", "Skill", "提示词优化", "可复现性", "评测"]
+tags: ["AI Agent", "Skill", "提示词工程", "可复现性", "评测"]
 ---
 
 # SkillOpt: 把 skill 文档当参数来训练, 以及它在规范与可复现性上的边界

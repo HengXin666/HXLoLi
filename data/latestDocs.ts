@@ -9,6 +9,13 @@ export interface LatestDoc {
 
 export const latestDocs: LatestDoc[] = [
   {
+    "title": "关于",
+    "to": "/docs/关于",
+    "date": "2026-09-13",
+    "category": "关于",
+    "description": "一、项目描述 本项目基于 HXLoLiHub C++ HX LoLi Heng_Xin's Loli Optimizes Loli Iteratively // static_cast<void / "
+  },
+  {
     "title": "剖析 std::ranges / std::views 库的胖次",
     "to": "/docs/程序语言/C++/现代C++/现代C++元模版/范围视图",
     "date": "2026-05-17",
@@ -35,12 +42,5 @@ export const latestDocs: LatestDoc[] = [
     "date": "2026-03-06",
     "category": "面试",
     "description": "一、后端知识体系总览 mermaid mindmap root 后端开发 语言基础 现代C++ C++11/14/17/20/23 内存管理 RAII 智能指针 并发编程 模板与泛型编程 Web框架 "
-  },
-  {
-    "title": "操作系统大厂面试高频知识点图解",
-    "to": "/docs/面试/操作系统面试知识点图解",
-    "date": "2026-03-06",
-    "category": "面试",
-    "description": "一、操作系统整体架构 mermaid mindmap root 操作系统 进程管理 进程与线程 进程调度 进程同步与互斥 死锁 内存管理 虚拟内存 页面置换算法 内存分配 文件系统 文件组织 磁盘调度"
   }
 ];

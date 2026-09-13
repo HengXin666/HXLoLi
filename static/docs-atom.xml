@@ -2,12 +2,20 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://HengXin666.github.io/HXLoLi/docs</id>
     <title>HXLoLi 笔记</title>
-    <updated>2026-05-17T05:05:42.000Z</updated>
+    <updated>2026-09-13T07:38:09.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://hengxin666.github.io/HXLoLi/docs"/>
     <subtitle>HXLoLi 最新笔记更新</subtitle>
     <icon>https://HengXin666.github.io/HXLoLi/img/favicon.ico</icon>
     <rights>© 2026 HXLoLi</rights>
+    <entry>
+        <title type="html"><![CDATA[关于]]></title>
+        <id>https://hengxin666.github.io/HXLoLi/docs/%E5%85%B3%E4%BA%8E</id>
+        <link href="https://hengxin666.github.io/HXLoLi/docs/%E5%85%B3%E4%BA%8E"/>
+        <updated>2026-09-13T07:38:09.000Z</updated>
+        <summary type="html"><![CDATA[一、项目描述 本项目基于 HXLoLiHub C++ HX LoLi Heng_Xin's Loli Optimizes Loli Iteratively // static_cast<void / \ // "Heng_Xinのロリがロリを繰り返しオプティマイズする"sv Loli Optimizes Loli Optimizes // ; /\ Loli Iteratively /\ Loli...]]></summary>
+        <category label="关于"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[剖析 std::ranges / std::views 库的胖次]]></title>
         <id>https://hengxin666.github.io/HXLoLi/docs/%E7%A8%8B%E5%BA%8F%E8%AF%AD%E8%A8%80/C++/%E7%8E%B0%E4%BB%A3C++/%E7%8E%B0%E4%BB%A3C++%E5%85%83%E6%A8%A1%E7%89%88/%E8%8C%83%E5%9B%B4%E8%A7%86%E5%9B%BE</id>
@@ -79,14 +87,6 @@
         <updated>2025-11-02T15:35:49.000Z</updated>
         <summary type="html"><![CDATA[一、简介 HXLibs 是一个现代C++基础工具库, 目前包括以下模块 container 容器库 编译期容器 编译期 vector / 编译期完美哈希表 void 类型擦除类型 / 未初始化容器 / 未初始化且擦除void的 Variant 容器 线程安全容器 SafeQueue 擦除void的 Try 容器 可存放数据或异常指针 线程池 / 未来体 FutureResult 适配 线程池 & ...]]></summary>
         <category label="开源项目"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[关于]]></title>
-        <id>https://hengxin666.github.io/HXLoLi/docs/%E5%85%B3%E4%BA%8E</id>
-        <link href="https://hengxin666.github.io/HXLoLi/docs/%E5%85%B3%E4%BA%8E"/>
-        <updated>2025-08-05T06:37:24.000Z</updated>
-        <summary type="html"><![CDATA[一、项目描述 本项目基于 HXLoLiHub C++ HX LoLi Heng_Xin's Loli Optimizes Loli Iteratively // static_cast<void / \ // "Heng_Xinのロリがロリを繰り返しオプティマイズする"sv Loli Optimizes Loli Optimizes // ; /\ Loli Iteratively /\ Loli...]]></summary>
-        <category label="关于"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[三维模型的加载与相机控制]]></title>

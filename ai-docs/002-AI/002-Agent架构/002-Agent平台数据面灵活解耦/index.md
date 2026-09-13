@@ -5,7 +5,7 @@ created_at: "2026-07-15"
 model: "GPT-5 Codex"
 skill: ["hx-docs-sediment", "hx-look-video"]
 authors: "Heng_Xin"
-tags: ["Agent平台", "平台架构", "数据面", "基础设施"]
+tags: ["AI Agent", "Agent架构", "数据面"]
 ---
 
 # Agent平台数据面灵活解耦

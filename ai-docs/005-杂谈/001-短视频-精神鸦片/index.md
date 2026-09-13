@@ -5,7 +5,7 @@ created_at: "2026-09-04"
 model: "deepseek-v4-flash"
 skill: ["hx-look-video", "hx-docs-sediment", "hx-archify"]
 authors: "Heng_Xin"
-tags: ["想法探索", "短视频", "注意力", "毛选方法论"]
+tags: ["短视频", "注意力", "毛选方法论"]
 ---
 
 # 短视频=精神鸦片: 用毛选方法论解构注意力成瘾

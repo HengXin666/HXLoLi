@@ -5,7 +5,7 @@ created_at: "2026-09-06"
 model: "deepseek-v4-flash"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["AI Agent", "DSH", "Harness", "Prompt", "预设"]
+tags: ["AI Agent", "Harness", "DSH", "提示词工程"]
 ---
 
 # DeepSeek Harness 提示词全解: 四个预设与每一步投递

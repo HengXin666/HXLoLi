@@ -5,7 +5,7 @@ created_at: "2026-09-06"
 model: "DeepSeek-V4-Flash"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["AI Agent", "记忆系统", "知识库", "可插拔", "Port-Adapter", "泛化"]
+tags: ["AI Agent", "记忆系统", "知识库"]
 ---
 
 # 自维护可插拔记忆层设计: 一次对比市面方案后的收敛

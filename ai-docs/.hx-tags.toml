@@ -3,457 +3,429 @@
 # 用途: 沉淀笔记时从这里**选** tag, 而不是每次现编近义词。
 # curated 层 (本区块) 由人类维护: desc 写这个 tag 管什么, aliases 写要合并进来的近义词。
 # generated 区块由 `uv run .agents/skills/hx-docs-layout/scripts/hxloli_tags.py generate` 重建, 不要手改。
+#
+# 层级: L1 大类 (AI Agent / 逆向与风控 / 编程语言 / 工程与工具 / 生活杂谈)
+#       -> L2 领域 -> L3 机制。parent 写上级, L1 的 parent 留空。
 # 常用命令:
 #   scan                        看统计与待合并候选
 #   merge "记忆架构" --into "记忆系统"   固化一次合并
 #   suggest "新词"                新词该归到哪个已有 tag
 #   check                       校验全库 tag 是否规范
+#   check --health              看健康度 (desc 覆盖率 / 孤儿 / 粒度过细)
 schema_version = 1
 
 [settings]
 # 合理不需要 tag 的页面 (子串匹配, 相对仓库根或目录名)。
 ignore_notes = ["001-关于"]
 
-[tags."AI Agent"]  # 13 篇在用
-desc = ""
+[tags."AI Agent"]  # 14 篇在用
+desc = "Agent 系统的设计、架构与工程实践, 不含模型原理本身"
 aliases = []
 
-[tags."AI逆向"]  # 4 篇在用
-desc = ""
+[tags."编程语言"]  # 结构层, 不直接挂笔记
+desc = "语言本身的特性、范式与技术选型"
 aliases = []
+
+[tags."工程与工具"]  # 结构层, 不直接挂笔记
+desc = "开发工具链、部署、协作与可复现性"
+aliases = []
+
+[tags."生活杂谈"]  # 结构层, 不直接挂笔记
+desc = "个人生活、选购与读书杂谈"
+aliases = []
+
+[tags."逆向与风控"]  # 4 篇在用
+desc = "对抗视角下的浏览器验证、指纹识别与风控机制"
+aliases = ["AI逆向"]
 
 [tags."Harness"]  # 4 篇在用
-desc = ""
+desc = "Agent 运行时/循环/工具调用的实现机制"
+parent = "AI Agent"
 aliases = []
 
-[tags."DSH"]  # 3 篇在用
-desc = ""
-aliases = []
+[tags."Agent架构"]  # 2 篇在用
+desc = "Agent 系统的分层与模块解耦设计"
+parent = "AI Agent"
+aliases = ["Agent平台", "基础设施"]
 
-[tags."Skill"]  # 3 篇在用
-desc = ""
-aliases = []
+[tags."记忆系统"]  # 3 篇在用
+desc = "长期记忆的存储、召回与演化机制, 不含提示词技巧"
+parent = "AI Agent"
+aliases = ["可插拔", "泛化"]
 
-[tags."Codex"]  # 2 篇在用
-desc = ""
-aliases = []
+[tags."Skill"]  # 4 篇在用
+desc = "Agent 技能的编写、打包、训练与评测"
+parent = "AI Agent"
+aliases = ["项目学习"]
 
-[tags."MCP"]  # 2 篇在用
-desc = ""
-aliases = []
-
-[tags."Multica"]  # 2 篇在用
-desc = ""
-aliases = []
-
-[tags."Turnstile"]  # 2 篇在用
-desc = ""
+[tags."多智能体"]  # 3 篇在用
+desc = "多个 Agent 之间的协作与编排"
+parent = "AI Agent"
 aliases = []
 
 [tags."上下文工程"]  # 2 篇在用
-desc = ""
-aliases = []
-
-[tags."工程协作"]  # 2 篇在用
-desc = ""
-aliases = []
-
-[tags."工程实践"]  # 2 篇在用
-desc = ""
-aliases = []
-
-[tags."知识库"]  # 2 篇在用
-desc = ""
-aliases = []
-
-[tags."记忆系统"]  # 2 篇在用
-desc = ""
-aliases = []
-
-[tags."评测"]  # 2 篇在用
-desc = ""
-aliases = []
-
-[tags."项目学习"]  # 2 篇在用
-desc = ""
-aliases = []
-
-[tags."Agent Runtime"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."Agent平台"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."AI工具"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."AI验证码求解"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."Bot Defense"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."C++"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."C++20"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."CF过盾"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."Chrome扩展"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."CLI"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."Compaction"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."HXLibs"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."KV Cache"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."LLM"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."OAuth"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."Port-Adapter"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."Prompt"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."Python"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."react"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."RTK"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."TLS指纹"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."Tokenization"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."Turnstile防御"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."事件可信度"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."事件日志"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."凭证管理"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."前端动画"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."协程"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."双时态"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."可复现性"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."可插拔"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."商品选购"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."基础设施"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."增量沉淀"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."多智能体"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."多模态大模型"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."平台架构"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."异步任务"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."想法探索"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."技术选型"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."接口设计"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."提示词优化"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."提示词工程"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."插件化"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."数据面"]  # 1 篇在用
-desc = ""
-aliases = []
-
-[tags."检测面建模"]  # 1 篇在用
-desc = ""
+desc = "上下文窗口的构造、压缩与组织"
+parent = "AI Agent"
 aliases = []
 
 [tags."检索"]  # 1 篇在用
-desc = ""
+desc = "Agent 的外部检索与 RAG 链路"
+parent = "AI Agent"
 aliases = []
 
-[tags."毛选方法论"]  # 1 篇在用
-desc = ""
+[tags."提示词工程"]  # 3 篇在用
+desc = "提示词的设计、优化与预设"
+parent = "AI Agent"
+aliases = ["提示词优化", "预设"]
+
+[tags."工程实践"]  # 3 篇在用
+desc = "可直接复用的工程做法与取舍"
+parent = "AI Agent"
+aliases = ["接口设计"]
+
+[tags."工程协作"]  # 1 篇在用
+desc = "人与人、人与 Agent 的协作流程"
+parent = "AI Agent"
 aliases = []
 
-[tags."泛化"]  # 1 篇在用
-desc = ""
+[tags."多模态大模型"]  # 1 篇在用
+desc = "多模态模型的能力与工程应用"
+parent = "AI Agent"
 aliases = []
 
-[tags."注意力"]  # 1 篇在用
-desc = ""
+[tags."DSH"]  # 3 篇在用
+desc = "DeepSeek Harness 的具体实现"
+parent = "Harness"
 aliases = []
 
-[tags."浏览器指纹"]  # 1 篇在用
-desc = ""
+[tags."Codex"]  # 2 篇在用
+desc = "OpenAI Codex CLI 的使用与观察"
+parent = "Harness"
 aliases = []
 
-[tags."浏览器自动化"]  # 1 篇在用
-desc = ""
+[tags."Agent Runtime"]  # 1 篇在用
+desc = "Agent 运行时的插件树与事件模型"
+parent = "Harness"
 aliases = []
 
-[tags."浏览器验证机制"]  # 1 篇在用
-desc = ""
+[tags."Compaction"]  # 1 篇在用
+desc = "上下文压缩机制"
+parent = "上下文工程"
 aliases = []
 
-[tags."源码"]  # 1 篇在用
-desc = ""
+[tags."插件化"]  # 1 篇在用
+desc = "以插件扩展系统的设计"
+parent = "Agent架构"
 aliases = []
 
-[tags."爬虫"]  # 1 篇在用
-desc = ""
+[tags."事件日志"]  # 1 篇在用
+desc = "运行时事件流的记录与消费"
+parent = "Agent Runtime"
 aliases = []
 
-[tags."现代C++"]  # 1 篇在用
-desc = ""
+[tags."Port-Adapter"]  # 2 篇在用
+desc = "端口-适配器解耦模式"
+parent = "Agent架构"
 aliases = []
 
-[tags."电脑包"]  # 1 篇在用
-desc = ""
+[tags."数据面"]  # 1 篇在用
+desc = "数据面与控制面的职责切分"
+parent = "Agent架构"
 aliases = []
 
-[tags."短视频"]  # 1 篇在用
-desc = ""
+[tags."Prompt"]  # 1 篇在用
+desc = "提示词文本本身与其结构"
+parent = "提示词工程"
+aliases = []
+
+[tags."知识库"]  # 4 篇在用
+desc = "知识库的组织与存取"
+parent = "记忆系统"
+aliases = []
+
+[tags."增量沉淀"]  # 3 篇在用
+desc = "只追加不重写的沉淀方式"
+parent = "记忆系统"
+aliases = []
+
+[tags."双时态"]  # 1 篇在用
+desc = "同时记录有效时间与事务时间"
+parent = "记忆系统"
 aliases = []
 
 [tags."程序性记忆"]  # 1 篇在用
-desc = ""
+desc = "记住怎么做而非记住什么"
+parent = "记忆系统"
 aliases = []
 
-[tags."约束解码"]  # 1 篇在用
-desc = ""
+[tags."Multica"]  # 2 篇在用
+desc = "Multica 多智能体协作平台"
+parent = "多智能体"
 aliases = []
 
-[tags."组件库"]  # 1 篇在用
-desc = ""
+[tags."C++"]  # 2 篇在用
+desc = "C++ 语言、范式与标准演进"
+parent = "编程语言"
+aliases = ["现代C++", "C++20"]
+
+[tags."协程"]  # 1 篇在用
+desc = "协程模型与异步调度"
+parent = "C++"
+aliases = []
+
+[tags."异步任务"]  # 1 篇在用
+desc = "异步任务的组织与调度"
+parent = "协程"
 aliases = []
 
 [tags."编译期多态"]  # 1 篇在用
-desc = ""
+desc = "模板元编程与编译期计算"
+parent = "C++"
 aliases = []
 
-[tags."自建部署"]  # 1 篇在用
-desc = ""
+[tags."Python"]  # 2 篇在用
+desc = "Python 语言与生态"
+parent = "编程语言"
+aliases = []
+
+[tags."爬虫"]  # 1 篇在用
+desc = "网络数据采集与解析"
+parent = "Python"
+aliases = []
+
+[tags."语言特性"]  # 1 篇在用
+desc = "语言层面的特性与设计取舍"
+parent = "编程语言"
+aliases = []
+
+[tags."前端"]  # 1 篇在用
+desc = "Web 前端框架与交互实现"
+parent = "编程语言"
+aliases = []
+
+[tags."react"]  # 1 篇在用
+desc = "React 及其生态组件"
+parent = "前端"
+aliases = []
+
+[tags."前端动画"]  # 1 篇在用
+desc = "交互动效与动画实现"
+parent = "前端"
+aliases = []
+
+[tags."组件库"]  # 1 篇在用
+desc = "可复用 UI 组件与其设计"
+parent = "前端"
+aliases = []
+
+[tags."技术选型"]  # 2 篇在用
+desc = "在多个方案之间做选择"
+parent = "工程与工具"
+aliases = []
+
+[tags."Turnstile"]  # 3 篇在用
+desc = "Cloudflare Turnstile 的攻防两侧"
+parent = "逆向与风控"
+aliases = ["Turnstile防御"]
+
+[tags."CF过盾"]  # 1 篇在用
+desc = "绕过 Cloudflare 人机校验的工程实现"
+parent = "逆向与风控"
+aliases = []
+
+[tags."浏览器指纹"]  # 1 篇在用
+desc = "浏览器与 TLS 指纹的构成和识别"
+parent = "逆向与风控"
+aliases = ["TLS指纹"]
+
+[tags."Chrome扩展"]  # 1 篇在用
+desc = "浏览器扩展暴露的环境特征"
+parent = "逆向与风控"
+aliases = []
+
+[tags."检测面建模"]  # 2 篇在用
+desc = "攻击者与防御者视角的信号建模"
+parent = "逆向与风控"
+aliases = ["事件可信度", "风控"]
+
+[tags."验证码求解"]  # 1 篇在用
+desc = "验证码识别与自动化求解"
+parent = "逆向与风控"
+aliases = ["AI验证码求解"]
+
+[tags."浏览器自动化"]  # 1 篇在用
+desc = "Playwright 等浏览器自动化手段"
+parent = "逆向与风控"
+aliases = []
+
+[tags."Bot Defense"]  # 1 篇在用
+desc = "产品侧的反爬与人机策略"
+parent = "逆向与风控"
 aliases = []
 
 [tags."逆向工程"]  # 1 篇在用
-desc = ""
+desc = "逆向分析的方法与经验"
+parent = "逆向与风控"
+aliases = []
+
+[tags."AI工具"]  # 2 篇在用
+desc = "AI 辅助开发的工具链"
+parent = "工程与工具"
+aliases = []
+
+[tags."CLI"]  # 1 篇在用
+desc = "命令行工具的使用心得"
+parent = "工程与工具"
+aliases = []
+
+[tags."MCP"]  # 2 篇在用
+desc = "Model Context Protocol 与其生态"
+parent = "工程与工具"
+aliases = []
+
+[tags."自建部署"]  # 1 篇在用
+desc = "自托管服务与网络配置"
+parent = "工程与工具"
+aliases = []
+
+[tags."OAuth"]  # 1 篇在用
+desc = "OAuth 授权流程与令牌"
+parent = "工程与工具"
+aliases = []
+
+[tags."凭证管理"]  # 1 篇在用
+desc = "密钥与凭据的存放和轮换"
+parent = "工程与工具"
+aliases = []
+
+[tags."可复现性"]  # 1 篇在用
+desc = "结果可被稳定复现"
+parent = "工程与工具"
+aliases = []
+
+[tags."评测"]  # 1 篇在用
+desc = "能力与效果的量化评估"
+parent = "工程与工具"
 aliases = []
 
 [tags."选购指标"]  # 1 篇在用
-desc = ""
+desc = "买东西时真正该看的指标"
+parent = "生活杂谈"
+aliases = ["商品选购"]
+
+[tags."电脑包"]  # 1 篇在用
+desc = "电脑包的容量与结构"
+parent = "选购指标"
 aliases = []
 
 [tags."通勤"]  # 1 篇在用
-desc = ""
+desc = "通勤场景下的取舍"
+parent = "选购指标"
 aliases = []
 
-[tags."预设"]  # 1 篇在用
-desc = ""
+[tags."短视频"]  # 1 篇在用
+desc = "短视频的内容形态与影响"
+parent = "生活杂谈"
+aliases = ["想法探索"]
+
+[tags."注意力"]  # 1 篇在用
+desc = "注意力被如何捕获与消耗"
+parent = "生活杂谈"
 aliases = []
 
-[tags."风控"]  # 1 篇在用
-desc = ""
+[tags."毛选方法论"]  # 1 篇在用
+desc = "用毛选的方法分析现实问题"
+parent = "生活杂谈"
+aliases = []
+
+[tags."LLM"]  # 1 篇在用
+desc = "大语言模型的能力边界与基本原理"
+parent = "AI Agent"
+aliases = []
+
+[tags."Tokenization"]  # 1 篇在用
+desc = "分词与 token 化对模型行为的影响"
+parent = "LLM"
+aliases = []
+
+[tags."KV Cache"]  # 1 篇在用
+desc = "注意力键值缓存与推理优化"
+parent = "LLM"
+aliases = []
+
+[tags."约束解码"]  # 1 篇在用
+desc = "用语法/结构约束模型输出格式"
+parent = "LLM"
 aliases = []
 
 # >>> hx-tags:generated begin (由 hxloli_tags.py generate 重建, 请勿手改) >>>
 [generated]
 schema_version = 1
-source_digest = "sha256:586f16cfb58d86fc"
-generated_at = "2026-09-13T07:43:29Z"
+source_digest = "sha256:9dd5b0b29888f960"
+generated_at = "2026-09-13T08:15:03Z"
 notes_scanned = 28
-tags_in_use = 84
+tags_in_use = 53
 
 [generated.usage]
-"AI Agent" = 13
-"AI逆向" = 4
+"AI Agent" = 14
 "Harness" = 4
 "Skill" = 4
+"知识库" = 4
+"逆向与风控" = 4
 "DSH" = 3
-"Python" = 3
-"技术选型" = 3
-"爬虫" = 3
-"知识库" = 3
-"项目学习" = 3
+"Turnstile" = 3
+"增量沉淀" = 3
+"多智能体" = 3
+"工程实践" = 3
+"提示词工程" = 3
+"记忆系统" = 3
+"Agent架构" = 2
+"AI工具" = 2
+"C++" = 2
 "Codex" = 2
 "MCP" = 2
 "Multica" = 2
-"Turnstile" = 2
+"Python" = 2
 "上下文工程" = 2
-"增量沉淀" = 2
-"工程协作" = 2
-"工程实践" = 2
-"记忆系统" = 2
-"评测" = 2
-"Agent Runtime" = 1
-"Agent平台" = 1
-"AI工具" = 1
-"AI验证码求解" = 1
+"技术选型" = 2
+"检测面建模" = 2
 "Bot Defense" = 1
-"C++" = 1
-"C++20" = 1
-"CF过盾" = 1
-"Chrome扩展" = 1
-"CLI" = 1
-"Compaction" = 1
-"HXLibs" = 1
 "KV Cache" = 1
 "LLM" = 1
 "OAuth" = 1
-"Port-Adapter" = 1
-"Prompt" = 1
 "react" = 1
-"RTK" = 1
-"TLS指纹" = 1
 "Tokenization" = 1
-"Turnstile防御" = 1
-"事件可信度" = 1
-"事件日志" = 1
 "凭证管理" = 1
+"前端" = 1
 "前端动画" = 1
 "协程" = 1
-"双时态" = 1
 "可复现性" = 1
-"可插拔" = 1
-"商品选购" = 1
-"基础设施" = 1
-"多智能体" = 1
-"多模态大模型" = 1
-"平台架构" = 1
 "异步任务" = 1
-"想法探索" = 1
-"接口设计" = 1
-"提示词优化" = 1
-"提示词工程" = 1
-"插件化" = 1
 "数据面" = 1
-"检测面建模" = 1
 "检索" = 1
 "毛选方法论" = 1
-"泛化" = 1
 "注意力" = 1
 "浏览器指纹" = 1
 "浏览器自动化" = 1
-"浏览器验证机制" = 1
-"源码" = 1
-"现代C++" = 1
+"爬虫" = 1
 "电脑包" = 1
 "短视频" = 1
-"程序性记忆" = 1
 "约束解码" = 1
 "组件库" = 1
 "编译期多态" = 1
 "自建部署" = 1
+"评测" = 1
+"语言特性" = 1
 "逆向工程" = 1
 "选购指标" = 1
 "通勤" = 1
-"预设" = 1
-"风控" = 1
+"验证码求解" = 1
 
 # 待合并候选 (字符层面可证的近义; 语义近义需人工判定)
 candidates = [
-  ["TLS指纹", "浏览器指纹", "浏览器自动化", "浏览器验证机制"],  # 公共前后缀 '指纹'; 公共前后缀 '浏览器'
-  ["上下文工程", "提示词优化", "提示词工程", "逆向工程"],  # 公共前后缀 '工程'; 公共前后缀 '提示词'
-  ["Agent Runtime", "Agent平台", "AI Agent"],  # 公共前后缀 'agent'; 字级相似 0.67
-  ["C++", "C++20", "现代C++"],  # 公共前后缀 'c++'
-  ["Turnstile", "Turnstile防御"],  # 公共前后缀 'turnstile'
-  ["事件可信度", "事件日志"],  # 公共前后缀 '事件'
-  ["工程协作", "工程实践"],  # 公共前后缀 '工程'
+  ["上下文工程", "提示词工程", "逆向与风控", "逆向工程"],  # 公共前后缀 '工程'; 公共前后缀 '逆向'
+  ["Agent架构", "AI Agent"],  # 字级相似 0.67
+  ["前端", "前端动画"],  # 公共前后缀 '前端'
+  ["浏览器指纹", "浏览器自动化"],  # 公共前后缀 '浏览器'
 ]
 # <<< hx-tags:generated end <<<
-
-aliases = ["003-编程语言"]

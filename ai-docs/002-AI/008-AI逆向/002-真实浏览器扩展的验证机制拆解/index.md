@@ -5,7 +5,7 @@ created_at: "2026-08-26"
 model: "deepseek-v4-pro"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["浏览器验证机制", "AI逆向", "Turnstile", "Chrome扩展", "事件可信度"]
+tags: ["逆向与风控", "Turnstile", "检测面建模"]
 ---
 
 # Infinitoai与Turnstile:一次浏览器验证机制的技术拆解

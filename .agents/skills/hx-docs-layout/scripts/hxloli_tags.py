@@ -523,9 +523,13 @@ def tag_health(registry: Registry, notes: list[Note]) -> list[str]:
     if total == 0:
         return ["tag 总数为 0"]
 
+    # usage_counts 的键是 normalize_tag 后的小写形式, 而 descriptions/parents 用原始大小写,
+    # 直接 get 会把 "C++"/"LLM" 这类英文 tag 全部误判成"没有 desc"。
+    described_keys = {normalize_tag(t) for t in registry.descriptions}
+    parented_keys = {normalize_tag(t) for t in registry.parents}
     singletons = [tag for tag, n in counts.items() if n == 1]
-    described = [tag for tag in counts if registry.descriptions.get(tag)]
-    parented = [tag for tag in counts if registry.parents.get(tag)]
+    described = [tag for tag in counts if tag in described_keys]
+    parented = [tag for tag in counts if tag in parented_keys]
     lines = [
         f"tag 总数 {total}; 只出现 1 次的 {len(singletons)} 个 ({len(singletons) * 100 // total}%)",
         f"curated desc 覆盖率 {len(described)}/{total}; 声明 parent 的 {len(parented)}/{total}",
@@ -539,12 +543,26 @@ def tag_health(registry: Registry, notes: list[Note]) -> list[str]:
     if sparse:
         lines.append(f"tag 过少 (<3) 的笔记: " + ", ".join(f"{path}({n})" for n, path in sparse[:5]))
 
-    too_small = [tag for tag, n in counts.items() if n == 1 and len(tag) <= 2]
+    # 单字符 tag 才有歧义 ("前" 无法区分 前端/前进)。中文里两字词是最常见的词长
+    # (前端/协程/检索/爬虫/评测/通勤), 用 len<=2 会把正常词全判成"过细"。
+    too_small = [tag for tag, n in counts.items() if n == 1 and len(tag) <= 1]
     if too_small:
         lines.append("粒度过细/无检索价值的候选: " + ", ".join(sorted(too_small)))
 
-    if len(singletons) * 2 > total:
-        lines.append("判定: 过半 tag 只出现一次 -> tag 体系未收敛, 应按 taxonomy 重做归并")
+    # 单次 tag 的占比有一个由语料规模决定的下限: 若每个 tag 至少出现 2 次,
+    # 槽位数 S 必须 >= 2T, 所以至少 max(0, 2T-S) 个 tag 只能出现一次。
+    # 拿绝对值 50% 当阈值, 会让语料越小越必然报警 —— 那种"永远响的警报"
+    # 只会训练人忽略它。要判的是"超出下限多少"。
+    slots = sum(counts.values())
+    floor = max(0, 2 * total - slots)
+    excess = len(singletons) - floor
+    lines.append(f"单次 tag 的理论下限 {floor}/{total} ({floor * 100 // max(total, 1)}%); 实际 {len(singletons)} 个, 超出 {excess} 个")
+    if floor * 2 > total:
+        lines.append("判定: 语料规模决定下限已过半次, 此项不作为未收敛的证据")
+    elif len(singletons) * 2 > total and excess > total // 5:
+        lines.append("判定: 单次 tag 显著多于语料下限 -> tag 体系未收敛, 应按 taxonomy 重做归并")
+    elif excess > 0:
+        lines.append("判定: 单次 tag 接近语料下限, 属正常 (多为待成长的 L2 领域)")
     if len(described) * 2 < total:
         lines.append("判定: 过半 tag 没有 desc -> curated 层未维护, 站点标签页没有解释")
     return lines

@@ -5,7 +5,7 @@ created_at: "2026-08-26"
 model: "deepseek-v4-pro"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["Turnstile防御", "AI逆向", "检测面建模", "风控", "Bot Defense"]
+tags: ["逆向与风控", "Turnstile", "检测面建模", "Bot Defense"]
 ---
 
 # CloudflareTurnstile防御分析:浏览器信号检测面与误判权衡

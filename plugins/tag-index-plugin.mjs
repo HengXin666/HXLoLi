@@ -85,7 +85,7 @@ function deriveDescription(content) {
 }
 
 /**
- * 极简 TOML 读取: 只认 `[tags."名"]` 段落里的 `desc` 与 `aliases`。
+ * 极简 TOML 读取: 只认 `[tags."名"]` 段落里的 `desc` / `parent` / `aliases`。
  * 注册表是人手维护的固定格式, 不值得为此引入 TOML 依赖。
  */
 function readTagRegistry(tagsFile) {
@@ -100,7 +100,7 @@ function readTagRegistry(tagsFile) {
     const header = line.match(/^\[tags\."(.+?)"\]\s*(?:#.*)?$/);
     if (header) {
       current = header[1];
-      if (!registry.has(current)) registry.set(current, { desc: '', aliases: [] });
+      if (!registry.has(current)) registry.set(current, { desc: '', parent: '', aliases: [] });
       continue;
     }
     if (line.startsWith('[')) {
@@ -112,6 +112,11 @@ function readTagRegistry(tagsFile) {
     const desc = line.match(/^desc\s*=\s*"(.*)"$/);
     if (desc) {
       registry.get(current).desc = desc[1].trim();
+      continue;
+    }
+    const parent = line.match(/^parent\s*=\s*"(.*)"$/);
+    if (parent) {
+      registry.get(current).parent = parent[1].trim();
       continue;
     }
     const aliases = line.match(/^aliases\s*=\s*\[(.*)\]$/);
@@ -226,9 +231,52 @@ export default function tagIndexPlugin(_context, options) {
           permalink: `/${routeBasePath}/tags/${kebabCase(label)}`,
           count,
           description: meta?.desc ?? '',
+          parent: meta?.parent ?? '',
           aliases: meta?.aliases ?? [],
         };
       });
+
+      // 把 parent 链压成 L1 根, 供标签页按"大类 -> 细分"分组渲染。
+      //
+      // 注意: 有些大类 (编程语言 / 工程与工具 / 生活杂谈) 只作为 parent 存在,
+      // 自己并不直接挂在任何笔记上, 因此不在上面的 counter 里。它们必须补进来,
+      // 否则子 tag 的 root 会解析不到, 分组时集体掉进"未归类"。
+      const byLabel = new Map(tags.map((tag) => [tag.label, tag]));
+      const structural = new Map();
+      for (const tag of tags) {
+        let parentLabel = tag.parent;
+        const guard = new Set([tag.label]);
+        while (parentLabel && !guard.has(parentLabel)) {
+          guard.add(parentLabel);
+          if (!byLabel.has(parentLabel)) {
+            const meta = registry.get(parentLabel);
+            structural.set(parentLabel, {
+              label: parentLabel,
+              slug: kebabCase(parentLabel),
+              permalink: `/${routeBasePath}/tags/${kebabCase(parentLabel)}`,
+              count: 0,
+              description: meta?.desc ?? '',
+              parent: meta?.parent ?? '',
+              aliases: meta?.aliases ?? [],
+            });
+            parentLabel = meta?.parent ?? '';
+          } else {
+            parentLabel = byLabel.get(parentLabel).parent;
+          }
+        }
+      }
+      tags.push(...structural.values());
+      const byLabel2 = new Map(tags.map((tag) => [tag.label, tag]));
+
+      for (const tag of tags) {
+        let node = tag;
+        const guard = new Set([tag.label]);
+        while (node.parent && byLabel2.has(node.parent) && !guard.has(node.parent)) {
+          guard.add(node.parent);
+          node = byLabel2.get(node.parent);
+        }
+        tag.root = node === tag ? '' : node.label;
+      }
 
       docs.sort((a, b) => (a.date === b.date ? a.id.localeCompare(b.id) : a.date < b.date ? 1 : -1));
       tags.sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
@@ -262,6 +310,10 @@ export interface AiDocTagInfo {
   count: number;
   /** 注册表 ai-docs/.hx-tags.toml 里的人工描述, 可为空 */
   description: string;
+  /** 注册表里声明的直接上级 tag, 顶层为空 */
+  parent: string;
+  /** 沿 parent 链上溯到的 L1 大类名, 本身就是大类时为空 */
+  root: string;
   /** 注册表里登记的同义写法 */
   aliases: string[];
 }

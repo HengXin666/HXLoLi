@@ -5,7 +5,7 @@ created_at: "2026-08-02"
 model: "GPT-5 Codex"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["项目学习", "AI Agent", "逆向工程", "Codex", "MCP"]
+tags: ["AI工具", "逆向工程", "Codex", "MCP"]
 ---
 
 # 从打野到注册机: 一条真实项目工具链的工程化学习

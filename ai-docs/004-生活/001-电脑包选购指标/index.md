@@ -5,7 +5,7 @@ created_at: "2026-07-05"
 model: "GPT-5 Codex"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["商品选购", "电脑包", "选购指标", "通勤"]
+tags: ["选购指标", "电脑包", "通勤"]
 ---
 
 # 电脑包选购指标

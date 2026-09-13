@@ -9,12 +9,12 @@ import type React from 'react';
 
 export type DeckComponent = React.ComponentType<{ page?: number }>;
 
-import deck0, { slides as slides0 } from '../../ai-docs/002-知识沉淀/006-浏览器验证与AI逆向/001-CF过盾工程-从零实现Turnstile绕过/cf-gateway-deck';
+import deck0, { slides as slides0 } from '../../ai-docs/002-AI/008-AI逆向/001-CF过盾工程-从零实现Turnstile绕过/cf-gateway-deck';
 
 export type DeckSlides = () => React.ReactNode;
 
 export const deckModules: Record<string, { view: DeckComponent; slides?: DeckSlides }> = {
-    '002-知识沉淀/006-浏览器验证与AI逆向/001-CF过盾工程-从零实现Turnstile绕过/cf-gateway-deck.tsx': { view: deck0, slides: slides0 },
+    '002-AI/008-AI逆向/001-CF过盾工程-从零实现Turnstile绕过/cf-gateway-deck.tsx': { view: deck0, slides: slides0 },
 };
 
 /** 规范化为"相对 ai-docs 的路径" */

@@ -5,7 +5,7 @@ created_at: "2026-09-05"
 model: "DeepSeek-V4-Flash"
 skill: ["hx-look-video", "hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["AI Agent", "DSH", "Harness", "Agent Runtime", "插件化", "事件日志"]
+tags: ["AI Agent", "Harness", "DSH"]
 ---
 
 # DeepSeek Harness设计思想: 插件树与事件日志

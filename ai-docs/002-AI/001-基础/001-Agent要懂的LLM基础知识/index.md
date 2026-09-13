@@ -5,7 +5,7 @@ created_at: "2026-08-10"
 model: "Codex"
 skill: ["hx-look-video", "hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["LLM", "AI Agent", "Tokenization", "KV Cache", "约束解码"]
+tags: ["AI Agent", "LLM", "Tokenization", "KV Cache", "约束解码"]
 ---
 
 # Agent要懂的LLM基础知识

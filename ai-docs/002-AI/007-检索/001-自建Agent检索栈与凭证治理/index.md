@@ -5,7 +5,7 @@ created_at: "2026-09-11"
 model: "DeepSeek-V4.1-Flash"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["AI Agent", "MCP", "检索", "自建部署", "OAuth", "凭证管理", "评测"]
+tags: ["AI Agent", "检索", "MCP", "自建部署", "OAuth", "凭证管理"]
 ---
 
 # 自建 Agent 检索栈: 本地化边界、凭证治理与可用性证明

@@ -3,10 +3,7 @@ hxid: "hx-5d296b49"
 authors: Heng_Xin
 title: HXLibs 协程串行调度器探索
 date: 2026-06-04 00:22:00
-tags:
-    - C++
-    - 协程
-    - HXLibs
+tags: ["C++", "协程", "异步任务"]
 ---
 
 # HXLibs 协程串行调度器探索

@@ -5,7 +5,7 @@ created_at: "2026-08-26"
 model: "deepseek-v4-pro"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["AI验证码求解", "AI逆向", "多模态大模型", "浏览器自动化", "异步任务"]
+tags: ["逆向与风控", "验证码求解", "浏览器自动化"]
 ---
 
 # 用AI从零实现通用验证码求解服务:OhMyCaptcha原理剖析

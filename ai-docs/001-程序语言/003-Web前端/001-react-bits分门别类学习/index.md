@@ -5,7 +5,7 @@ created_at: "2026-07-04"
 model: "gpt-5.5-xhigh"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
-tags: ["项目学习", "react", "前端动画", "组件库"]
+tags: ["react", "前端", "前端动画", "组件库"]
 ---
 
 # react-bits 分门别类学习
