@@ -11,8 +11,9 @@ tags: ["多智能体", "Multica", "AI Agent"]
 # Multica agent协作与上下文机制
 
 > [!NOTE]
->
-> 这是一篇来自 Multica issue 讨论的阶段性沉淀, 不是 Multica 官方文档. 结论以当前 workspace 运行时注入信息、`multica` CLI 读到的 issue/comment 内容和 agent 实际约束为依据.
+> 在一个工作区里让一个 agent 去唤起另一个 agent 继续干活, 听起来只需要一句 `@`; 但它最容易长成的却是停不下来的成本循环 —— 谁该被叫醒, 被叫醒时它究竟带着哪些上下文?
+> 更反直觉的是: 决定一次运行的并不是上一条评论, 而是 runtime 为这次触发临时注入的任务 brief. agent 一旦凭"上次聊到哪"继续发挥, 就会和协作系统的真实状态悄悄错位.
+> 那么, 如果 skill 本身不是调度器, 一次可靠的委派究竟该由谁、依据什么来触发?
 
 ## 0x00 背景
 
@@ -21,7 +22,7 @@ tags: ["多智能体", "Multica", "AI Agent"]
 - 是否存在一个能让 agent 互相反复 `@` 的 skill.
 - 每次 issue 评论触发 agent 时, 上下文究竟是如何确定的, 是否只是 `codex --continue <conversation_id>`.
 
-这些问题背后真正需要沉淀的是一套可维护的 agent 协作模型. 如果把 agent 协作理解成“互相 @ 接力”, 很容易形成成本循环、重复触发和上下文误判. 如果把它理解成“issue 任务、runtime brief、skills、资源指针和平台触发规则共同决定的一次任务运行”, 就能设计出更稳定的编排方式.
+这些问题背后真正需要沉淀的是一套可维护的 agent 协作模型. 如果把 agent 协作理解成"互相 @ 接力", 很容易形成成本循环、重复触发和上下文误判. 如果把它理解成"issue 任务、runtime brief、skills、资源指针和平台触发规则共同决定的一次任务运行", 就能设计出更稳定的编排方式.
 
 本文沉淀的是当前讨论得到的阶段性结论: Multica 里的 agent 协作不应依赖无边界互相 mention, 而应以父 issue 规划、staged 子 issue、明确验收标准和一次性委派为主.
 
@@ -39,7 +40,7 @@ tags: ["多智能体", "Multica", "AI Agent"]
 | 定时或 webhook 工作 | autopilot | 不应靠 agent 互相 @ 实现定时循环 |
 | 可复用工作流规则 | 编写安全委派 skill | skill 规定行为, 不直接触发平台任务 |
 
-不建议设计“agent 反复相互 @”的 skill. 更合理的是设计“单次委派/编排 skill”, 例如:
+不建议设计"agent 反复相互 @"的 skill. 更合理的是设计"单次委派/编排 skill", 例如:
 
 ```text
 delegate-once
@@ -102,7 +103,7 @@ delegate-once
 5. runtime 注入任务 brief, 明确本次触发评论、必须读取的 issue/thread、回复 parent comment、可用 CLI 和平台规则.
 6. agent 再主动调用 `multica issue get`、`multica issue comment list`、`multica issue metadata list` 等命令获取事实.
 
-因此每次 agent 运行都应该以“本次触发评论”为主, 而不是凭上一轮聊天记忆继续发挥. 这也是为什么 Multica runtime 会反复强调: 先读 issue, 再读触发线程, 最终回复必须发回指定 parent comment.
+因此每次 agent 运行都应该以"本次触发评论"为主, 而不是凭上一轮聊天记忆继续发挥. 这也是为什么 Multica runtime 会反复强调: 先读 issue, 再读触发线程, 最终回复必须发回指定 parent comment.
 
 ### 2.4 agent 能力来自多层约束
 
@@ -128,48 +129,15 @@ agent 知道自己能做什么, 不是来自单一 prompt. 至少有以下层:
 - 写入其他工作区时, agent 的文件权限必须允许对应路径; 否则需要用户授权或在目标 workspace 直接触发.
 - 讨论沉淀应先形成阶段性成果, 不应在信息不足时直接写成确定性手册. 对不确定方向, 应一次只追问一个关键问题.
 
-## 0x03 验证与引用
+## 0x03 拓展升华展望
 
-### 3.1 本次可见范围
+Multica 这套机制的价值不在"多智能体"这个名号, 而在于它把协作的责任分给了三层不同的东西: **平台负责触发与调度, 契约负责可见性与权限, 文档负责让下一次委派有据可依**.
 
-本次 agent 已通过 `multica` CLI 读取:
+**事实层面** … 本文描述的机制全部来自平台当前的运行时行为: skill 不是调度器, 真正产生任务的是 mention、assignee/status/stage 与 autopilot; 每次触发的上下文由 runtime brief 注入, agent 需要靠 CLI 主动读取 issue 与触发线程; 而 agent 的能力边界由 instructions、skills、仓库工程约束、project resources 与 runtime permissions 共同决定. 这些层次目前都已存在, 且可以用一条 CLI 命令观察到.
 
-```bash
-multica issue get a16b459b-0cec-4f2f-8d0a-355c8e0df1cb --output json
-multica issue metadata list a16b459b-0cec-4f2f-8d0a-355c8e0df1cb --output json
-multica issue comment list a16b459b-0cec-4f2f-8d0a-355c8e0df1cb --thread 203100dd-dd77-4e36-a571-dd8a6a331e27 --tail 30 --output json
-multica issue comment list a16b459b-0cec-4f2f-8d0a-355c8e0df1cb --recent 10 --output json
-```
+**个人判断** … agent 协作接下来最稀缺的能力不是"能互相叫醒", 而是**可审计的委派**: 一次触发留下了什么输入、按什么验收、由谁验收. 一旦缺少这层留痕, 编排规模越大, 系统反而越难解释自己为什么花了这些成本. 另一个正在成形的方向是**能力发现** —— 当 agent 数量变多, "我现在有哪些 agent、各自能干什么、该找谁"会先于"怎么写循环"成为瓶颈; 这也是下一步最值得投入的地方.
 
-可见讨论包括:
+## 0x04 参考来源
 
-- Multica agent 的三类触发方式: agent mention、squad mention、子 issue/status/stage.
-- 不建议做反复相互 @ 的循环 skill.
-- runtime brief 如何为每次 comment task 注入上下文.
-- agent 能力如何由 instructions、skills、repo 规则、project resources 和 runtime permissions 共同决定.
-
-### 3.2 本文初始化命令
-
-本文按 `hx-make-ai-docs` 约束先用模板脚本初始化:
-
-```bash
-XDG_CACHE_HOME=/tmp/uv-cache uv run .agents/skills/hx-make-ai-docs/scripts/makeDoc.py \
-  --title "Multica agent协作与上下文机制" \
-  --tag "Multica" \
-  --tag "AI Agent" \
-  --tag "工程协作" \
-  --model "GPT-5 Codex" \
-  --skill "hx-docs-sediment" \
-  --author "Heng_Xin" \
-  --output "ai-docs/002-AI/006-多智能体/001-Multica-agent协作与上下文机制/index.md"
-```
-
-`XDG_CACHE_HOME=/tmp/uv-cache` 是本次 sandbox 环境需要的缓存重定向, 不属于文章内容依赖.
-
-### 3.3 后续可扩展方向
-
-如果这篇笔记后续要扩展成正式操作手册, 推荐补三类材料:
-
-- 一份可复制的 staged 子 issue 编排模板.
-- 一份安全 `delegate-once` skill 设计草案.
-- 一份 Multica agent runtime 上下文生命周期图.
+- [multica-ai/multica](https://github.com/multica-ai/multica) —— 开源托管 agent 平台主仓; agent、squad、autopilot 与 runtime/daemon 的平台契约出处.
+- [Multica Docs](https://multica.ai/docs) —— 官方文档入口; 触发方式、mention 语义与平台规则的核对依据.

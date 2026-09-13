@@ -11,12 +11,15 @@ tags: ["多智能体", "Multica", "Skill", "AI Agent"]
 # Multica智能体模板与小队编排skills调研
 
 > [!NOTE]
+> 用户说"这些技术栈都可以用", 一个 agent 会怎么理解? 大概率是把它们全部装进方案 —— 因为它把"可用"读成了"必用".
+> 同一个问题在编排上还会再出现一次: 当"组一个小队"被理解成"把成员都 @ 一遍", 平台实际只唤醒了一个 leader, 其余人从未收到任务.
+> 那么, 一套真正可交付的智能体编排 skill, 该把哪些判断留给平台契约, 又把哪些留给当前项目?
 
 ## 0x00 背景
 
 这次调研的直接目标是: 为 Multica 工作区设计一组可复用的 skill, 用来创建智能体、选择和绑定能力、组建小队、编排 issue/stage/autopilot, 并让这些能力真正做到可定制、可快速集成、持续可靠可维护.
 
-现有参考是 `/home/hx/Loli/code/HXLoLis/ref/HX-AiKaNaRaZu`. 它已经有两个核心 skill:
+现有的参考对象是 `HX-AiKaNaRaZu` 项目, 它已经有两个核心 skill:
 
 - `hx-init`: 给目标项目安装 AI Coding 强约束, 包含 hooks、规则文档、Python/React 校验模板.
 - `hx-libs-sentaku`: 按 Python 后端、React 前端、数据库三类读取选型参考.
@@ -315,91 +318,26 @@ templates/
 5. 任一命令涉及 secrets, 必须推荐 stdin/file, 不允许 inline.
 6. 最终评论或报告不包含真实 `mention://agent/<uuid>`, 除非明确要触发 agent.
 
-## 0x03 验证与引用
+### 2.12 下一步建议
 
-### 3.1 本次执行过的关键命令
+要让这次调研进入实现, 推荐的下一步是先做 **Phase 0: 只在 `HX-AiKaNaRaZu` 增加 3 个 skill (`hx-agent-architect`, `hx-squad-orchestrator`, `hx-skill-curator`), 暂不改 Multica 产品代码**.
 
-Multica issue 与上下文:
+推荐理由: 这是验证"可定制创建 agent + squad 编排"是否解决真实问题的最短路径, 且不会碰 Multica 主仓产品功能. 等 skill 工作流稳定后, 再考虑把 template/skill finder 做进 Multica 产品.
 
-```bash
-multica issue get 0b9b97d6-9c23-4531-833b-959584455767 --output json
-multica issue metadata list 0b9b97d6-9c23-4531-833b-959584455767 --output json
-multica issue comment list 0b9b97d6-9c23-4531-833b-959584455767 --recent 10 --output json
-```
+## 0x03 拓展升华展望
 
-公开仓库与 skill 搜索:
+这次调研表面上是在为 Multica 设计 skill, 实际上回答的是一个更一般的问题: **当一个平台已经把调度做完, agent 那边还缺什么?**
 
-```bash
-gh search repos multica --limit 20 --json fullName,description,url,stargazersCount,updatedAt,language,isArchived
-gh repo view multica-ai/multica --json description,homepageUrl,licenseInfo,stargazerCount,updatedAt,url
-gh api repos/multica-ai/multica/contents/README.md --jq '.content' | base64 -d
-multica skill search multica --output json
-multica skill search agent --output json
-multica skill search review --output json
-```
+**事实层面** … Multica 已经把调度做完了: issue 承载任务与状态, stage 表达阶段屏障, squad 成员的角色只作为 leader 的 briefing 上下文而不产生自动调度, autopilot 负责周期与 webhook. 需要补的只有两件事 —— 把平台契约写成 agent 能读懂、能安全执行的规则, 以及让"用户给的技术栈"先经过一次显式分类再进入方案. 这也是本次给出的五个 skill 共同的落点.
 
-本地参考:
+**个人判断** … 这类"给已有平台补一层 agent 用法"的工作会越来越常见, 而它长期停在一个尴尬的位置: 平台的契约在变, skill 却要求稳定. 因此下一步真正值得投入的也许不是再加 skill, 而是让**契约本身可被机器校验** —— 把"这条边界是否还成立"变成一次可重复的运行, 而不是一段需要人工重新阅读的说明. 至于把 template 与 skill finder 做进产品, 在流程被验证稳定之前都不宜前移.
 
-```bash
-sed -n '1,260p' ref/HX-AiKaNaRaZu/skills/hx-init/SKILL.md
-sed -n '1,260p' ref/HX-AiKaNaRaZu/skills/hx-libs-sentaku/SKILL.md
-sed -n '1,220p' ref/obsidian-second-brain/architecture.md
-sed -n '1,220p' ref/gpt-docs/AGENTS.md
-```
+## 0x04 参考来源
 
-### 3.2 本文初始化命令
-
-本文按 `hx-make-ai-docs` 约束先用模板脚本初始化. 调研阶段还调用了外部项目 `AI-Code/multica` 下的 `mp-research` 技能 (不属于 HXLoLi `.agents/skills/`, 因此 frontmatter 只登记自有技能):
-
-```bash
-XDG_CACHE_HOME=/tmp/uv-cache uv run .agents/skills/hx-make-ai-docs/scripts/makeDoc.py \
-  --title "Multica智能体模板与小队编排skills调研" \
-  --tag "Multica" \
-  --tag "AI Agent" \
-  --tag "Skill" \
-  --tag "工程协作" \
-  --model "GPT-5 Codex" \
-  --skill "hx-make-ai-docs + mp-research" \
-  --author "Heng_Xin" \
-  --output "ai-docs/002-AI/006-多智能体/002-Multica智能体模板与小队编排skills调研/index.md"
-```
-
-### 3.3 主要引用
-
-Multica 官方/公开资料:
-
-- [`multica-ai/multica` README](https://github.com/multica-ai/multica/blob/main/README.md)
-- [Multica Docs](https://multica.ai/docs)
-- [Multica Docs: Skills](https://multica.ai/docs/skills)
-- [Multica Docs: Squads](https://multica.ai/docs/squads)
-- [Multica Docs: Mentioning Agents](https://multica.ai/docs/mentioning-agents)
-- [Multica Docs: Autopilots](https://multica.ai/docs/autopilots)
-- [`docs/product-overview.md`](https://github.com/multica-ai/multica/blob/main/docs/product-overview.md)
-- [`docs/agent-quick-create-plan.md`](https://github.com/multica-ai/multica/blob/main/docs/agent-quick-create-plan.md)
-- [`CLI_AND_DAEMON.md`](https://github.com/multica-ai/multica/blob/main/CLI_AND_DAEMON.md)
-
-同类模式参考:
-
-- [Agent Skills](https://agentskills.io/)
-- [Anthropic Claude Code Skills](https://docs.anthropic.com/en/docs/claude-code/skills)
-- [Anthropic Claude Code Subagents](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
-- [OpenAI Codex AGENTS.md](https://developers.openai.com/codex/guides/agents-md)
-- [OpenAI Codex Subagents](https://developers.openai.com/codex/subagents)
-- [CrewAI Crews](https://docs.crewai.com/concepts/crews)
-- [CrewAI Flows](https://docs.crewai.com/concepts/flows)
-- [LangGraph Overview](https://docs.langchain.com/oss/python/langgraph/overview)
-
-本地资料:
-
-- `/home/hx/Loli/code/HXLoLis/ref/HX-AiKaNaRaZu/README.md`
-- `/home/hx/Loli/code/HXLoLis/ref/HX-AiKaNaRaZu/skills/hx-init/SKILL.md`
-- `/home/hx/Loli/code/HXLoLis/ref/HX-AiKaNaRaZu/skills/hx-libs-sentaku/SKILL.md`
-- `/home/hx/Loli/code/HXLoLis/ref/obsidian-second-brain/architecture.md`
-- `/home/hx/Loli/code/HXLoLis/ref/gpt-docs/AGENTS.md`
-- `multica-creating-agents`, `multica-squads`, `multica-mentioning`, `multica-autopilots` 内置 skill 文档.
-
-### 3.4 仍需用户确认的一个问题
-
-下一步如果要从调研进入实现, 我推荐先做 **Phase 0: 只在 `HX-AiKaNaRaZu` 增加 3 个 skill (`hx-agent-architect`, `hx-squad-orchestrator`, `hx-skill-curator`), 暂不改 Multica 产品代码**.
-
-推荐理由: 这能最快验证"可定制创建 agent + squad 编排"是否解决真实问题, 并且不会碰 Multica 主仓产品功能. 等 skill 工作流稳定后, 再考虑把 template/skill finder 做进 Multica 产品.
+- [multica-ai/multica](https://github.com/multica-ai/multica) —— 开源托管 agent 平台主仓; agent、squad、autopilot、reusable skills 与 runtime/daemon 的一手契约来源.
+- [Multica Docs](https://multica.ai/docs) —— 官方文档入口; skills、squads、mentioning agents 与 autopilots 的规则核对依据.
+- [Agent Skills](https://agentskills.io/) —— 渐进披露与三级内容分工的标准出处, 决定每个 skill 只承担一个工作流.
+- [Anthropic Claude Code Skills](https://docs.anthropic.com/en/docs/claude-code/skills) 与 [Subagents](https://docs.anthropic.com/en/docs/claude-code/sub-agents) —— skill 触发机制与 agent 职责边界写法的参照.
+- [OpenAI Codex AGENTS.md](https://developers.openai.com/codex/guides/agents-md) —— 仓库级工程约束与 agent instructions 的分层参照.
+- [CrewAI Crews](https://docs.crewai.com/concepts/crews) 与 [Flows](https://docs.crewai.com/concepts/flows) —— 协作角色与确定性状态机的职责划分参照.
+- [LangGraph Overview](https://docs.langchain.com/oss/python/langgraph/overview) —— 长流程里状态、checkpoint 与 human-in-loop 的可观测性参照.

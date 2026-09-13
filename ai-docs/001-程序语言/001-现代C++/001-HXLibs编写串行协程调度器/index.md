@@ -1,19 +1,20 @@
 ---
 hxid: "hx-5d296b49"
-authors: Heng_Xin
-title: HXLibs 协程串行调度器探索
-date: 2026-06-04 00:22:00
+title: "HXLibs 协程串行调度器探索"
+created_at: "2026-06-04"
+model: "Unknown"
+skill: ["hx-docs-sediment"]
+authors: "Heng_Xin"
 tags: ["C++", "协程", "异步任务"]
 ---
 
 # HXLibs 协程串行调度器探索
 
-> 记录 `SerialExecutor` 三轮迭代的探索过程与踩坑经验. 当前版本仍非最终方案, 调度策略尚有优化空间.
->
-> 相关提交:
-> - [`50c931c`](https://github.com/HengXin666/HXLibs/commit/50c931ce0324501c5de0df668cfd7e028282e850) — [feat] 实现了串行调度器 (生命周期敏感)
-> - [`ac74126`](https://github.com/HengXin666/HXLibs/commit/ac741268248b8430117a883d6e7b884f0e245989) — [fix] 修复 constexpr 编译报错
-> - [测试用例](https://github.com/HengXin666/HXLibs/blob/50c931c/tests/coroutine/04_SerialExecutor.cpp)
+> [!NOTE]
+> 一个协程被恢复的那一刻, 它究竟"站在"哪里?
+> 无栈协程本身只是一段可暂停的状态机, 真正决定行为的是**恢复它的那一瞬间, 控制流从哪条线上继续**.
+> 把这条线收拢成一条, 串行调度就成立了; 一旦想不清它, 析构顺序、悬空引用与玄学段错误便会一起找上门.
+> 下面这三轮迭代, 其实一直在反复回答同一个问题: **谁持有运行中的那个调度点?**
 
 ## 0x00 调度点: 核心思想
 
@@ -344,3 +345,17 @@ v1 的 `BackgroundPromise::final_suspend()` 中有一行被注释掉的代码:
 3. **状态如何安全共享?** → v2 用 `shared_ptr<State>` 解耦生命周期
 
 核心思想「调度点」—— 串行化就是调度点收归, 任务完成后调度点分裂 —— 贯穿了整个设计过程.
+
+## 0x08 调度点视角还能走多远
+
+把三轮迭代放在一起看, 会发现真正被解决的从来不是"怎么排队", 而是**生命周期的归属**: 队列持有外部任务的引用, 调度器自己创建的链式任务又必须有主, 而协程帧的析构时机由 promise 决定. 调度点这个概念之所以好用, 是因为它把"控制流在哪里"与"对象活到什么时候"绑成了同一个问题.
+
+**事实层面**, 当前实现仍是严格 FIFO、无取消机制的版本: `clear()` 能清空队列, 却无法撤销已经进入异步 I/O 的 `co_await`; `whenAny` 提前退出时内部仍持有引用这条路径依然危险. 这些在源码注释与测试用例里都有对应痕迹, 不是推测.
+
+**个人判断**, 这类调度器的下一个坎不在调度算法, 而在**取消语义**: 一旦引入协作式取消, 调度点就不止"分裂"这一个去向, 而是多出"被撤销"这第二种, 整套生命周期契约都要重写一遍. 更长远地看, 如果标准库的 sender/receiver 模型在编译器端足够成熟, 手写 executor 的价值会从"实现调度"退回到"适配调度"——到那时, 今天这套调度点心智模型反而更容易迁移, 因为它描述的本来就不是具体 API, 而是控制流与所有权的关系.
+
+## 0x09 参考来源
+
+- HXLibs 提交 [`50c931c`](https://github.com/HengXin666/HXLibs/commit/50c931ce0324501c5de0df668cfd7e028282e850) —— [feat] 串行调度器的首个实现, 生命周期处理最敏感的一版.
+- HXLibs 提交 [`ac74126`](https://github.com/HengXin666/HXLibs/commit/ac741268248b8430117a883d6e7b884f0e245989) —— [fix] 修复 constexpr 编译报错, 对应 v3 的模板化尝试.
+- [测试用例 04_SerialExecutor.cpp](https://github.com/HengXin666/HXLibs/blob/50c931c/tests/coroutine/04_SerialExecutor.cpp) —— 三个版本的串行语义在这里被逐条断言.

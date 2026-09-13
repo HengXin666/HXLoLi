@@ -12,7 +12,8 @@ tags: ["Python", "爬虫", "技术选型"]
 
 > [!NOTE]
 >
-> 当准备写一个 Python 爬虫时, 真正需要先回答的问题不是「哪个库最强」, 而是: 目标页面是否静态? 是否需要登录和浏览器交互? 采集规模是否需要调度、重试和持久化? 最终要的是结构化字段, 还是网页正文?
+> 当准备写一个 Python 爬虫时, 真正需要先回答的问题不是「哪个库最强」, 而是: 目标页面是否静态? 是否需要登录和浏览器交互?
+> 采集规模是否需要调度、重试和持久化? 最终要的是结构化字段, 还是网页正文?
 
 ## 0x00 背景
 
@@ -134,28 +135,30 @@ Python 爬虫生态里常见库很多, 但它们并不在同一个层级竞争:
 
 版本新不等于一定好, 版本旧也不等于不能用. 但对新项目而言, 维护状态会直接影响 Python 版本兼容、安全修复和未来迁移成本.
 
-## 0x03 验证与引用
+## 0x03 拓展升华展望
 
-### 3.1 本地验证方式
+这篇笔记表面上在排一张库的座次表, 真正的方法论其实只有一句: 先判断任务形态, 再让库去匹配它. 往下推一层, 这其实是所有技术选型的通用问题 —— 你究竟是在选一个工具, 还是在选一条未来几年都要替它还债的依赖链.
 
-PyPI 版本快照通过 `https://pypi.org/pypi/{package}/json` 和 `https://pypi.org/pypi/{package}/{version}/json` 查询得到. 查询时间为 `2026-07-04`.
+**事实层面** … Python 爬虫生态已经稳定分层: HTTP 下载、HTML 解析、调度框架、浏览器自动化、正文抽取各占一层, 彼此不构成直接替代关系. 维护状态的差距是真实的: `requests-html` 的最新版本停在 2019 年, `pyppeteer` 官方仓库已提示长期无人维护, `newspaper3k` 已被 `newspaper4k` 接续; 而 `Scrapy`、`httpx`、`Playwright`、`Crawlee for Python` 仍在持续发版. 同时, 浏览器层在任何技术栈里都是成本最高的一层: 它引入真实的渲染进程、等待策略和资源占用.
 
-### 3.2 官方资料
+**个人判断** … 未来爬虫工程的分化不会发生在"用哪个库"上, 而会发生在"要不要复现接口"这个判断上. 只要页面的真实数据走 XHR/Fetch, 复现接口请求就是成本最低、也最稳定的路径, 浏览器自动化应该被当成最后手段而不是默认起点. 与之相对, 真正的长期成本会转移到依赖的寿命上: 一个停更三年的解析库可能在下一个 Python 大版本上直接失效, 而迁移成本往往远高于当初省下的那点学习时间. 因此对新项目而言, "活跃度快照"值得和"功能对比表"放在同等重要的位置 —— 选型选的是未来三年的维护负担, 而不是今天跑得最快的那一次 benchmark.
 
-- [Requests documentation](https://requests.readthedocs.io/)
-- [HTTPX documentation](https://www.python-httpx.org/)
-- [aiohttp documentation](https://docs.aiohttp.org/)
-- [Beautiful Soup documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
-- [lxml documentation](https://lxml.de/)
-- [Parsel documentation](https://parsel.readthedocs.io/)
-- [selectolax documentation](https://selectolax.readthedocs.io/)
-- [Scrapy documentation](https://docs.scrapy.org/en/latest/)
-- [Playwright for Python](https://playwright.dev/python/)
-- [Selenium documentation](https://www.selenium.dev/documentation/)
-- [Crawlee for Python](https://crawlee.dev/python/docs/introduction)
-- [DrissionPage 官网](https://www.drissionpage.cn/)
-- [MechanicalSoup documentation](https://mechanicalsoup.readthedocs.io/)
-- [Trafilatura documentation](https://trafilatura.readthedocs.io/)
-- [Newspaper4k documentation](https://newspaper4k.readthedocs.io/)
-- [pyppeteer GitHub](https://github.com/pyppeteer/pyppeteer)
-- [requests-html PyPI](https://pypi.org/project/requests-html/)
+## 0x04 参考来源
+
+- [Requests documentation](https://requests.readthedocs.io/) —— 同步下载层的基准 API, 也是"简单脚本应该长什么样"的参照.
+- [HTTPX documentation](https://www.python-httpx.org/) —— 核对同步/异步双 API 与 HTTP/2 支持, 判断它是否值得作为下一代默认客户端.
+- [aiohttp documentation](https://docs.aiohttp.org/) —— asyncio 生态里 client/server 一体的成熟实现, 用于判断 async-first 项目该不该选它.
+- [Beautiful Soup documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) —— 宽容解析与 parser 搭配方式, 对应脏 HTML 与快速脚本场景.
+- [lxml documentation](https://lxml.de/) —— XPath/XML 能力与性能定位, 对应复杂规则和性能敏感解析.
+- [Parsel documentation](https://parsel.readthedocs.io/) —— CSS、XPath、JMESPath、正则四合一 selector, 用于评估"要 Scrapy 体验但不要 Scrapy 项目"的路线.
+- [selectolax documentation](https://selectolax.readthedocs.io/) —— Cython 实现的 HTML5 parser 与 Lexbor/Modest 后端, 大解析量下的 benchmark 候选.
+- [Scrapy documentation](https://docs.scrapy.org/en/latest/) —— Spider、Downloader、Middleware、Pipeline 的组件边界, 工程化爬虫的成熟基准线.
+- [Playwright for Python](https://playwright.dev/python/) —— Chromium/Firefox/WebKit 三引擎与 sync/async 双 API, 判断浏览器层是否必须上真实渲染的依据.
+- [Selenium documentation](https://www.selenium.dev/documentation/) —— WebDriver 标准与企业测试生态, 决定已有测试体系的项目该不该迁移.
+- [Crawlee for Python](https://crawlee.dev/python/docs/introduction) —— HTTP-only 与 browser-based 一体化 crawler 的官方说明, 用于评估它能否替代 Scrapy.
+- [DrissionPage 官网](https://www.drissionpage.cn/) —— 控制浏览器与收发数据包结合的定位, 中文圈效率型脚本的代表方案.
+- [MechanicalSoup documentation](https://mechanicalsoup.readthedocs.io/) —— 轻量表单交互库, 用于判断小规模登录场景是否需要动用完整浏览器自动化.
+- [Trafilatura documentation](https://trafilatura.readthedocs.io/) —— 正文、元数据与评论抽取能力, 对应"拿到 URL 后稳定取正文"的任务.
+- [Newspaper4k documentation](https://newspaper4k.readthedocs.io/) —— 新闻文章的标题、作者、日期、正文抽取, 以及它与通用爬虫框架的边界.
+- [pyppeteer GitHub](https://github.com/pyppeteer/pyppeteer) —— 官方仓库的维护状态提示, 是否决它作为新项目选项的直接依据.
+- [requests-html PyPI](https://pypi.org/project/requests-html/) —— 停更时间与渲染能力依赖链, 用于说明它为什么不再适合新项目.

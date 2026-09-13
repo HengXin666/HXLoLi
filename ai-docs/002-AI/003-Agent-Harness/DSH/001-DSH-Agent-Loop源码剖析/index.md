@@ -10,7 +10,10 @@ tags: ["AI Agent", "Harness", "DSH"]
 
 # DSH Agent Loop 源码剖析
 
-> 直接读 DeepSeek Harness 源码 (packages/core/agent-loop, 版本 0.1.x, monorepo: github.com/deepseek-ai/dsh), 把 ReactLoopAgent 的驱动循环、事件日志、工具回灌与上下文压缩讲清楚. 图中每个节点都是真实代码里的方法名/事件名, 一一可查.
+> [!NOTE]
+> 用户说一句"用 echo 回显 ping", 会话里到底发生了什么? 没有聊天记录, 只有一条 turn/start -> step/start -> tool/call -> tool/result -> step/end 的事件串, 模型每次看到的历史都是现场推导出来的.
+> 更反常识的是: 一次 step/start 到 step/end 之间, 模型可能被请求了两次; 而"谁拥有哪些能力、崩溃后还能相信什么", 全部落在同一份只追加的日志里.
+> 这里不讲设计思想, 只把 ReactLoopAgent 的驱动循环、工具回灌与压缩钩子按真实方法名和事件名拆开看 —— 图中每个节点都是真实代码里的名字, 一一可查.
 
 ## 0x00 一条真实的事件链
 
@@ -80,4 +83,14 @@ send() 带 wakeup 时 wakeDriver(): phase 变 running, kick() 里 while(await tu
 - packages/core/agent-loop/src/tool-calls.ts — 工具调度与 tool/call、tool/result
 - packages/compaction/compaction-basic/src/ — 监听器 index.ts + 选段 region.ts + 摘要 summarizer.ts + 配置 config.ts
 
-> 本文节点行号以本机 monorepo (deepseek-ai/dsh) 为准; 上游小版本间可能有行号漂移, 但方法名与事件名稳定.
+## 0x05 拓展升华展望
+
+把这条事件链放大来看, 它回答的是一个更普遍的问题: 当执行者是模型而不是函数时, "发生了什么"该由谁来记账.
+
+**事实层面** … 这套实现把会话简化成一条只追加的事件流: turn/step 是边界, assistant/chunk 是流式证据, tool/call 与 tool/result 成对出现, 模型每次看到的历史由 deriveMessages 从同一份日志推导而来; 压缩则挂在 agent/pre-step 与 agent/request-error 两个钩子上, 用摘要替换 surface 投影里的一段旧内容, 原始节点不删. 工具结果的回灌也走同一条路: 结果先落成工具结果, 上下文的补充 splice 回 inbox 的 next-step, 下一次 buildRequest 就能看见它.
+
+**个人判断** … 我倾向于认为, "事件日志 + 投影"会成为 agent 会话的默认形态, 因为一旦模型能改真实文件、发真实请求, 事后重建"它到底看见过什么、做过什么"就比任何优化都重要. 反过来, 把消息数组当作唯一真相的系统会越来越难维护: 压缩、回放、分叉、崩溃恢复每多一个入口, 就多一份需要各自解释历史的方式. 判断一套 agent 是否可靠, 其实可以先问一句: 它的"模型所见"能不能只从日志重算出来?
+
+## 0x06 参考来源
+
+- 项目: [deepseek-ai/dsh](https://github.com/deepseek-ai/dsh) — 本文逐节点对照的源码仓库 (packages/core/agent-loop 等), 事件链断言取自其测试 loop.spec.ts. 行号以 0.1.x 为准, 上游小版本间可能有行号漂移, 但方法名与事件名稳定.

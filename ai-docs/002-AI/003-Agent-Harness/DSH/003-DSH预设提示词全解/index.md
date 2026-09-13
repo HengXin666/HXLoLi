@@ -10,11 +10,16 @@ tags: ["AI Agent", "Harness", "DSH", "提示词工程"]
 
 # DeepSeek Harness 提示词全解: 四个预设与每一步投递
 
+> [!NOTE]
+> 同一句"你好", 为什么在标准模式和极简模式里会被送出完全不同的请求头? 提示词在那台运行时里不是一段文字, 而是一组按 order 拼装、按预设挂载、按步骤重建的资产.
+> 更反常识的是: 压缩指令不是另写的摘要 system prompt, 而是**追加在回放会话最后的一条 user 消息** —— 只为让这次旁路调用命中 KV 缓存.
+> 那么, 每一步到底把哪些字面量投递给了模型? 本文逐字抄录四套预设的拼装结果、运行时快照、工具引导与旁路调用.
+
 > DeepSeek Harness 不是一个聊天机器人, 而是一台把"提示词"当作可插拔资产来组装的运行时. 本文逐字抄录这台运行时在每一步**实际投递给模型**的提示词: 系统提示词由哪些段 (section) 按什么顺序拼成, 每次用户消息后追加的运行时上下文快照长什么样, 每个工具的引导文本与描述原文, 以及 plan / goal / compaction / 子代理 / 会话标题这些"旁路"调用的专用提示词. 引文逐字取自源码并标注包内相对路径与行号; 行号以上游 master (0.1.2-alpha.1) 为准, 与正在运行的 rc.2 安装逐字一致, 两者主要差异 (预设目录 code↔ptc 命名) 在文中另注. 想先直观看到"四个预设各自把哪几步串起来、每步塞了什么提示词", 直接打开下面的交互图, 任意切换预设并逐节点下钻原文.
 
 > [四预设步骤链与逐节点提示词浏览器 #ppt ##w100%##](preset-explorer.html) — 顶部切换 标准 / Code / 极简 / 创造, 每个预设是一条纵向步骤链, 点节点下钻该步实际投递给模型的提示词原文, 点"下一步 / 下一个预设"继续前进.
 
-> 姊妹篇: [DSH Agent Loop 源码剖析](../001-DSH-Agent-Loop源码剖析/index.md "hxid:hx-9eda4e5a") 讲事件循环怎么驱动每一步; [DeepSeek Harness 设计思想: 插件树与事件日志](../002-DSH-Runtime设计思想插件树与事件日志/index.md) 讲插件树与事件日志两大支柱. 本文聚焦一个更窄的问题: 每一步的**请求头里到底有什么文字**.
+> 姊妹篇: [DSH Agent Loop 源码剖析](../001-DSH-Agent-Loop源码剖析/index.md "hxid:hx-9eda4e5a") 讲事件循环怎么驱动每一步; [DeepSeek Harness 设计思想: 插件树与事件日志](../002-DSH-Runtime设计思想插件树与事件日志/index.md "hxid:hx-3acd866f") 讲插件树与事件日志两大支柱. 本文聚焦一个更窄的问题: 每一步的**请求头里到底有什么文字**.
 
 ## 0x00 结论先行
 
@@ -100,7 +105,7 @@ cordis:  standard 全部 + tool-cordis + editing-cordis-compositions skill
 You are a coding agent powered by the {{model}} model. Your working directory is {{cwd}}.
 ```
 
-真实请求里展开为 (以本会话为例): `You are a coding agent powered by the deepseek/deepseek-v4-flash model. Your working directory is /home/hx/...`
+真实请求里展开为 (以某个真实会话为例): `You are a coding agent powered by the deepseek/deepseek-v4-flash model. Your working directory is <cwd>.`
 
 极简模式: `complete: true` (assemblage 结束后本段成为唯一 section) + `includeRuntimeContext: false` (抑制运行时快照), 于是模型只看到:
 
@@ -478,15 +483,23 @@ Generate the session title from this JSON array of human messages:
 - `README.i18n.yaml` 是**文档双语一致性记录** (存 git blob 哈希, 仅 CI `scripts/verify-translation-pairing.ts` 消费), 不是运行时 i18n 机制.
 - 模型**会自己用中文回复** (标题生成规则明确 `Use the language of the messages.`; 本文所有对话都是中文就是证据) — 这与"提示词字面量是英文"不冲突: 输出语言由模型按用户语言决定, 输入提示词由源码决定. 想给中文用户看中文工具描述, 需要改的是各工具的 description 字面量与 `systemPrompt.section` 文本, 而不是 README.i18n.yaml.
 
-## 0x0A 参考来源
-
-- 项目: [deepseek-ai/dsh](https://github.com/deepseek-ai/dsh) — DeepSeek Harness monorepo (MIT). 证据基线: 上游 master 0.1.2-alpha.1 与运行中的 0.1.1-rc.2 安装; 两者在 persona / plan-mode / compaction / 工具引导文本上逐字一致.
-- 行号指引 (相对仓库根): packages/core/system-prompt/src/index.ts · packages/core/agent-loop/src/{agent,runtime-context}.ts · packages/core/session/src/surface.ts · packages/context/time-context/src/index.ts · packages/compaction/compaction-basic/src/summarizer.ts · packages/preset/agent-presets/presets/{standard,ptc,minimal,cordis}/agent.cordis.yml · packages/fs/tool-fs/src/{read,write,edit}.ts · packages/shell/tool-bash/src/index.ts · packages/web/tool-web/src/{search,fetch}.ts · packages/goal/tool-goal/src/index.ts · packages/plan/plan-mode/src/index.ts · packages/session/session-title-llm/src/index.ts · packages/core/tools/src/index.ts · packages/subagent/subagent/src/child-agent.ts · packages/sandbox/sandbox-policy/src/index.ts · packages/interaction/user-approval/src/index.ts.
-
-## 0x0B 回顾与自查
+## 0x0A 回顾与自查
 
 - 你能说出: 模型每次请求里的 `Current runtime context.` 段是哪来的、为什么不是 system prompt 的一部分?
 - 极简模式为什么能只用一句 persona? `complete: true` 与 `includeRuntimeContext: false` 分别关掉了什么?
 - 压缩时模型看到的是"压缩专用 system prompt"吗? 如果不是, 设计意图是什么?
 - 想让中文用户看到中文工具描述, 需要改哪些文件? (提示: 不是 README.i18n.yaml.)
 - Code/PTC 模式的 `tools:sdk` 段是现场生成的 — 这给提示词缓存和 KV cache 带来了什么?
+
+## 0x0B 拓展升华展望
+
+一份提示词从"某个人写下的字符串"变成"运行时每一步实际投递的请求头", 中间隔着的正是本文拆开的那条流水线: section 带 order、快照带 dedupe、工具描述分两个通道、压缩复用会话前缀. 把这条流水线放到更大的一层看, 它回答的是: **当提示词成为工程资产, 谁来决定此刻投递哪一份?**
+
+**事实层面** … 这台运行时的组织方式是: 系统提示词由带 order 的 section 拼装, 预设决定挂哪些 section、哪些工具、要不要追加运行时快照; 模型可见历史由事件日志派生; 运行期状态 (沙箱、审批、子代理授权) 走带来源的 user 角色快照追加在历史尾部, 而不是去动 system 头; 压缩指令作为最后一条 user 消息复用会话前缀; goal 续轮、收尾与会话标题各自有模板化的旁路调用. 投递给模型的字面量全部来自源码, 中文只出现在展示名、UI 词典与面向人的文档里.
+
+**个人判断** … 我倾向于认为, 接下来提示词的竞争点不在"写得更好", 而在**可组合与可缓存**: 谁把提示词切成稳定的、可替换的、能被日志复现的段, 谁就能既换 persona 又不打碎 KV 缓存, 既改策略又留下审计线索. 反过来说, 把提示词当成一大段手写字符串的系统, 每次改动都会同时踩到缓存、可解释性和一致性三件事. 一个可以拿来自检的问题是: 你能说清当前这一次请求里的每一段文字, 是哪一层、在什么条件下投递进去的吗?
+
+## 0x0C 参考来源
+
+- 项目: [deepseek-ai/dsh](https://github.com/deepseek-ai/dsh) — DeepSeek Harness monorepo (MIT). 证据基线: 上游 master 0.1.2-alpha.1 与运行中的 0.1.1-rc.2 安装; 两者在 persona / plan-mode / compaction / 工具引导文本上逐字一致.
+- 行号指引 (相对仓库根): packages/core/system-prompt/src/index.ts · packages/core/agent-loop/src/{agent,runtime-context}.ts · packages/core/session/src/surface.ts · packages/context/time-context/src/index.ts · packages/compaction/compaction-basic/src/summarizer.ts · packages/preset/agent-presets/presets/{standard,ptc,minimal,cordis}/agent.cordis.yml · packages/fs/tool-fs/src/{read,write,edit}.ts · packages/shell/tool-bash/src/index.ts · packages/web/tool-web/src/{search,fetch}.ts · packages/goal/tool-goal/src/index.ts · packages/plan/plan-mode/src/index.ts · packages/session/session-title-llm/src/index.ts · packages/core/tools/src/index.ts · packages/subagent/subagent/src/child-agent.ts · packages/sandbox/sandbox-policy/src/index.ts · packages/interaction/user-approval/src/index.ts.

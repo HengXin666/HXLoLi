@@ -11,6 +11,9 @@ tags: ["AI工具", "Codex", "Harness"]
 # RTK项目使用说明与Codex本地心得
 
 > [!NOTE]
+> 你喂给 AI 编程助手的每一条 shell 输出, 有多少是它真正需要看见的? 一次全量测试就能刷掉几千 token, 其中大半只是"通过了".
+> RTK (Rust Token Killer) 的答案不是让模型少跑命令, 而是在命令输出进入上下文之前先过滤一层; 但压缩过的输出**不再等于原始事实全集**.
+> 于是真正的问题变成了: 什么时候可以放心看压缩结果, 什么时候必须拿回原文? 本文既有这个项目的用法, 也有把它挂进 Codex 之后的实测边界.
 
 ## 0x00 背景
 
@@ -158,14 +161,7 @@ rtk --version
 rtk gain
 ```
 
-本机这次核对到的结果是:
-
-```text
-/home/hx/.local/bin/rtk
-rtk 0.43.0
-```
-
-这只能证明 RTK 已安装并在 `PATH` 中, 不能证明 Codex 已经读取了 RTK 规则.
+命令能回传一个 `rtk` 可执行文件路径和一个版本号, 例如 `rtk 0.43.0` (版本随 release 变化). 这只能证明 RTK 已安装并在 `PATH` 中, 不能证明 Codex 已经读取了 RTK 规则.
 
 第二层是证明 Codex 的规则文件已经落盘:
 
@@ -194,7 +190,7 @@ rtk init --show --codex
 [--] Local AGENTS.md: exists but rtk not configured
 ```
 
-那就说明当前项目的 Codex 还没有安装 RTK 规则. 这次在当前工作区实际看到的就是这个状态: RTK 二进制已安装, 但 Codex local/global 配置都没有完成. 要把项目级规则装上, 才运行:
+那就说明当前项目的 Codex 还没有安装 RTK 规则. 要把项目级规则装上, 才运行:
 
 ```bash
 rtk init --codex
@@ -234,7 +230,7 @@ rtk hook check "git status"
 rtk git status
 ```
 
-这只能证明 RTK 的 rewrite engine 知道如何把 `git status` 改写成 `rtk git status`, 不能证明 Codex 有运行时 hook. 本机 `rtk hook --help` 列出的 hook processor 包括 `claude`、`cursor`、`gemini`、`copilot`、`check`, 没有 `codex`. 上游 `hooks/codex/README.md` 也明确写的是 “Prompt-level guidance via awareness document -- no programmatic hook”.
+这只能证明 RTK 的 rewrite engine 知道如何把 `git status` 改写成 `rtk git status`, 不能证明 Codex 有运行时 hook. `rtk hook --help` 列出的 hook processor 包括 `claude`、`cursor`、`gemini`、`copilot`、`check`, 没有 `codex`. 上游 `hooks/codex/README.md` 也明确写的是 “Prompt-level guidance via awareness document -- no programmatic hook”.
 
 所以如果要证明“Codex 通过 hook 透明改写了命令”, 反而要做反证实验: 让 Codex 原样发起 `git status`, 再观察最终执行行是否被宿主改成了 `rtk git status`. 只要执行行仍是 `git status`, 那就不是透明 hook. 按 `rtk-ai/rtk` 当前实现, Codex 集成是 `AGENTS.md` + `RTK.md` 的项目/全局规则文件, 由模型按规则显式写 `rtk <cmd>`.
 
@@ -344,11 +340,18 @@ export RTK_TELEMETRY_DISABLED=1
 
 一句话总结: RTK 对 Codex 的最大价值是减少“看目录、搜代码、跑测试、读失败日志”这些高频动作的上下文成本; 它不应该介入需要完整证据链或机器精确输出的路径.
 
-## 0x03 引用与本地核对
+## 0x03 拓展升华展望
 
-- 上游项目: [`rtk-ai/rtk`](https://github.com/rtk-ai/rtk).
-- 本次核对的上游 commit: [`31f9d43d81f90d29e89142f3306473e786e59f6c`](https://github.com/rtk-ai/rtk/tree/31f9d43d81f90d29e89142f3306473e786e59f6c).
-- Codex 集成说明: [`hooks/codex/README.md`](https://github.com/rtk-ai/rtk/blob/31f9d43d81f90d29e89142f3306473e786e59f6c/hooks/codex/README.md).
-- Codex 注入规则正文: [`hooks/codex/rtk-awareness.md`](https://github.com/rtk-ai/rtk/blob/31f9d43d81f90d29e89142f3306473e786e59f6c/hooks/codex/rtk-awareness.md).
-- Codex 初始化实现: [`src/hooks/init.rs`](https://github.com/rtk-ai/rtk/blob/31f9d43d81f90d29e89142f3306473e786e59f6c/src/hooks/init.rs).
-- 本机核对命令: `command -v rtk`, `rtk --version`, `rtk init --show --codex`, `rtk hook --help`, `rtk hook check "git status"`.
+把 RTK 放回"AI 助手到底需要看多少输出"这个更长的尺度上, 它做的其实是把**上下文预算**当成一份需要精打细算的资源来管理.
+
+**事实层面** … 它按命令类型过滤后再交给模型: Git 类聚合状态与 diff 统计, 测试类隐藏通过项、保留失败与断言, lint/typecheck 类按文件、规则、错误码分组, 日志类去重计数, `ls`/`find` 转成紧凑树或分组; 命令失败且输出被压缩时, 完整原始输出会落到 tee 文件并在结果里给出路径; 自定义 filter 需要显式 trust, 且 trust 绑定文件内容 hash; 对 Codex 这种没有运行时 hook 的宿主, 集成方式是 `AGENTS.md` + `RTK.md` 的规则文件, 由模型按规则显式写 `rtk <cmd>`, 而不是由宿主透明改写.
+
+**个人判断** … 我认为"输出层"和"执行层"会继续分离: 前者把噪声压成模型能消费的形状, 后者负责权限、沙箱与审计; 把这两件事混在一个工具里的人, 迟早会因为"输出很短"而低估风险. 同样会继续的是**多 agent 适配的不对称**: 有 hook 的宿主能透明改写, 没有 hook 的只能靠规则文件加模型自觉, 这条差距本身就是选型时的判断依据. 所以要不要引入这类工具, 标准不是"能省多少 token", 而是: 需要原文的时候, 它能不能让你拿回原文.
+
+## 0x04 参考来源
+
+- 项目: [`rtk-ai/rtk`](https://github.com/rtk-ai/rtk) — RTK 本体; 安装方式、过滤策略与配置项的权威出处.
+- 版本快照: [`rtk-ai/rtk` commit 31f9d43](https://github.com/rtk-ai/rtk/tree/31f9d43d81f90d29e89142f3306473e786e59f6c) — 本文所有源码级结论 (命令生命周期、`src/hooks/` 目录) 对应的那次核对.
+- [Codex 集成说明](https://github.com/rtk-ai/rtk/blob/31f9d43d81f90d29e89142f3306473e786e59f6c/hooks/codex/README.md) — 明确 "Prompt-level guidance via awareness document -- no programmatic hook" 这一边界.
+- [Codex 注入规则正文](https://github.com/rtk-ai/rtk/blob/31f9d43d81f90d29e89142f3306473e786e59f6c/hooks/codex/rtk-awareness.md) — 简化策略 "Always prefix shell commands with `rtk`" 的原文出处.
+- [Codex 初始化实现](https://github.com/rtk-ai/rtk/blob/31f9d43d81f90d29e89142f3306473e786e59f6c/src/hooks/init.rs) — `rtk init --codex` 如何写 `RTK.md` 并 patch `AGENTS.md`.

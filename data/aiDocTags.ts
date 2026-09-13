@@ -661,7 +661,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/检索/自建Agent检索栈与凭证治理",
       "title": "自建 Agent 检索栈: 本地化边界、凭证治理与可用性证明",
-      "description": "0x00 背景 给 Agent 接检索, 很多人默认的做法是\"买一个搜索 API 然后填 key\". 但一旦把约束换成下面两条, 整个方案形态就变了: 1. 尽量完全本地自建 — 检索链路不依赖商业检索 API, 数据不出本机, 成本可预测, 不受第三方限流与条款变动摆布. 2. 凭证配置必须体面 — 社交平台终究要 ",
+      "description": "NOTE 给 Agent 接检索, 最省事的做法永远是\"买一个搜索 API 然后填 key\". 可一旦把约束换成\"尽量完全本地自建\"和\"凭证配置必须体面\", 整个方案的形态就变了 —— 而且变的不只是选型. 更反直觉的是: 决定这套栈能不能长期活下来的, 往往不是检索算法, 而是 token 过期那一刻用户要面对多少摩",
       "permalink": "/knowledge-base/AI/检索/自建Agent检索栈与凭证治理",
       "date": "2026-09-11",
       "tags": [
@@ -676,7 +676,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Skill/Agent-Skill编写最佳实践",
       "title": "Agent Skill 编写最佳实践: 上下文预算、触发工程与可证伪的验证",
-      "description": "0x00 背景 大多数人写 skill 的方式是这样的: 把知道的都写进去, 写长了就删一点, 看起来完整就交差. 于是最常见的结果是两种 —— 要么这个 skill 永远不会被触发, 要么它把上下文窗口占满而收益极低 . 这两种失败有一个共同的、隐蔽的特征: 它们都不会报错 . 名字写错、触发条件写在正文里、正文长到",
+      "description": "NOTE 为什么一个精心写好的 skill 会从来不被触发, 而一个写得普通的 skill 却总被误触发? 决定这件事的, 甚至不是它的正文. 更反直觉的是: 命名不合法、描述缺失、正文超预算 —— 这些失败 没有一个会报错 . skill 只是安静地从目录里消失, 而模型既看不到错误, 也分不清\"不存在\"与\"写错了\"",
       "permalink": "/knowledge-base/AI/Skill/Agent-Skill编写最佳实践",
       "date": "2026-09-11",
       "tags": [
@@ -690,7 +690,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Skill/SkillOpt把skill当参数训练",
       "title": "SkillOpt: 把 skill 文档当参数来训练, 以及它在规范与可复现性上的边界",
-      "description": "0x00 背景 给 agent 加能力, 主流做法是写一份 skill —— 一个目录, 里面有 SKILL.md 和可选的脚本与参考文件. 但写好一份 skill 很难, 于是出现了一类很自然的想法: 既然改提示词有效, 那能不能像训练神经网络一样\"训练\"这份 markdown? SkillOpt 是这类想法里工程化",
+      "description": "NOTE 如果一份 skill 文档写得不好, 为什么不能像调参一样把它\"训\"好? SKILL.md 是纯文本, 模型权重可以冻结, 任务分数就是现成的损失函数 —— 这条路听起来几乎无懈可击. 但真正的问题在另一头: 一个只会看任务分数的优化器, 知不知道 skill 该长成什么形状? 它怎么判断\"变得更长\"是进步还",
       "permalink": "/knowledge-base/AI/Skill/SkillOpt把skill当参数训练",
       "date": "2026-09-11",
       "tags": [
@@ -704,7 +704,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/记忆/自维护可插拔记忆层设计",
       "title": "自维护可插拔记忆层设计: 一次对比市面方案后的收敛",
-      "description": "0x00 背景 要给 HXLoLi 的 AI 生态 DSH 为主, 未来可能还有 Codex/其他 CLI 配一套长期记忆层. 两个硬需求: 1. 所有 AI 都能读我的知识库 从任何工作区, 只要我允许 ; 2. 知识是关联/渐进/可推广的 —— 不只是 top k 相似度, 而是能从一个具体事故 例如\"后端队列并发",
+      "description": "NOTE 一个 AI 在 A 项目里踩过的坑, 为什么到了 B 项目还要再踩一遍? 多数\"记忆\"系统只做到了同一工作区内的召回 —— 出了这个会话, 经验就归零. 真正想要的是另一件事: 让一次具体事故自动上升成一条对 所有 项目都成立的规则. 那么, 一个既能被任何 harness 读写、又能自己把经验拔高的记忆层,",
       "permalink": "/knowledge-base/AI/记忆/自维护可插拔记忆层设计",
       "date": "2026-09-06",
       "tags": [
@@ -716,7 +716,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Agent-Harness/DSH/DSH预设提示词全解",
       "title": "DeepSeek Harness 提示词全解: 四个预设与每一步投递",
-      "description": "DeepSeek Harness 不是一个聊天机器人, 而是一台把\"提示词\"当作可插拔资产来组装的运行时. 本文逐字抄录这台运行时在每一步 实际投递给模型 的提示词: 系统提示词由哪些段 section 按什么顺序拼成, 每次用户消息后追加的运行时上下文快照长什么样, 每个工具的引导文本与描述原文, 以及 plan /",
+      "description": "NOTE 同一句\"你好\", 为什么在标准模式和极简模式里会被送出完全不同的请求头? 提示词在那台运行时里不是一段文字, 而是一组按 order 拼装、按预设挂载、按步骤重建的资产. 更反常识的是: 压缩指令不是另写的摘要 system prompt, 而是 追加在回放会话最后的一条 user 消息 —— 只为让这次旁路",
       "permalink": "/knowledge-base/AI/Agent-Harness/DSH/DSH预设提示词全解",
       "date": "2026-09-06",
       "tags": [
@@ -729,7 +729,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Agent-Harness/DSH/DSH-Agent-Loop源码剖析",
       "title": "DSH Agent Loop 源码剖析",
-      "description": "直接读 DeepSeek Harness 源码 packages/core/agent loop, 版本 0.1.x, monorepo: github.com/deepseek ai/dsh , 把 ReactLoopAgent 的驱动循环、事件日志、工具回灌与上下文压缩讲清楚. 图中每个节点都是真实代码里的方法名/",
+      "description": "NOTE 用户说一句\"用 echo 回显 ping\", 会话里到底发生了什么? 没有聊天记录, 只有一条 turn/start step/start tool/call tool/result step/end 的事件串, 模型每次看到的历史都是现场推导出来的. 更反常识的是: 一次 step/start 到 step",
       "permalink": "/knowledge-base/AI/Agent-Harness/DSH/DSH-Agent-Loop源码剖析",
       "date": "2026-09-05",
       "tags": [
@@ -741,7 +741,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Agent-Harness/DSH/DSH-Runtime设计思想插件树与事件日志",
       "title": "DeepSeek Harness设计思想: 插件树与事件日志",
-      "description": "0x00 这篇文章要回答什么? 几十行代码就能写一个能跑的 agent: 收一条用户消息, 拼好提示词请求模型, 模型要调用工具就执行工具, 再把结果放回上下文. 可一旦这个 agent 要 连续工作、修改真实文件、崩溃之后接着完成 , 问题就不再是\"调用模型\"了: 模型调用到一半进程崩了怎么办? 工具已经改了文件, ",
+      "description": "NOTE 一个 agent 最贵的时刻, 不是模型答错, 而是它在崩溃重启后 把已经改过的文件又改了一遍 . 要避免这件事, 光有\"聊天记录\"远远不够: 系统必须能回答三个问题 —— 这个能力是谁给的、这次副作用到底发生了没有、模型究竟看见过什么. DeepSeek Harness 把这些归属全部收进两根支柱: 插件树",
       "permalink": "/knowledge-base/AI/Agent-Harness/DSH/DSH-Runtime设计思想插件树与事件日志",
       "date": "2026-09-05",
       "tags": [
@@ -753,7 +753,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "杂谈/短视频-精神鸦片",
       "title": "短视频=精神鸦片: 用毛选方法论解构注意力成瘾",
-      "description": "NOTE 本文提炼自 B 站视频《毛选实战局》一期节目 BV1Xv8x6uEqa , 拆解短视频成瘾的机制, 并借用毛选的方法论给出应对思路. 适合正在和短视频反复拉扯、想找回专注力的人阅读. 0x00 背景 你是否有过这样的经历: 反复卸载短视频 App, 又反复装回来; 越想早点睡, 越是刷到凌晨三点; 遇到一点困",
+      "description": "NOTE 卸载了又装回来, 明明想早点睡却刷到凌晨三点 — 这真的只是意志力不够吗? 如果让你停不下来的不是手机, 而是一套被反复测试过的刺激设计, 那你该戒的对象又是谁? 0x00 背景 你是否有过这样的经历: 反复卸载短视频 App, 又反复装回来; 越想早点睡, 越是刷到凌晨三点; 遇到一点困难就想放弃, 然后不",
       "permalink": "/knowledge-base/杂谈/短视频-精神鸦片",
       "date": "2026-09-04",
       "tags": [
@@ -765,7 +765,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/记忆/对话记忆与知识库增量沉淀",
       "title": "AI Agent 对话记忆与知识库增量沉淀设计",
-      "description": "NOTE 0x00 背景 要解决的问题 : 一个 Agent 如 AI 助手 / coding copilot 与用户长期交互, 会产生海量对话日志. 日志本身不是知识. 我们真正想要的, 是把日志里 对当前决策/复用有长期价值的信息 , 增量地固化成一个\"项目知识库\", 并且: 1. 实时处于最新状态 —— 知识库要",
+      "description": "NOTE 你的 Agent 记住的应该是什么? 是一堆日志, 还是一条 能从过去通向当下决策的链子 ? 如果一个用户今天改了偏好、明天打断纠正了你, 你的系统是\"秒更新又能回答昨天\", 还是两者顾此失彼? 日志该追加、知识该分视图、现状该覆盖、历史该双时态、错误该变成 skill —— 而这一切不始于某张精美的架构图,",
       "permalink": "/knowledge-base/AI/记忆/对话记忆与知识库增量沉淀",
       "date": "2026-08-31",
       "tags": [
@@ -778,7 +778,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "程序语言/Python/Python语言核心特性调研",
       "title": "Python 语言核心特性调研",
-      "description": "NOTE 0x00 一句话总结 Python is an easy to learn, powerful programming language. It has efficient high level data structures and a simple but effective approach to 0x",
+      "description": "NOTE 一门语言\"容易上手\"究竟是优点还是陷阱? Python 用缩进代替花括号、用动态类型代替类型声明, 换来的是更短的脚本和更快的原型. 但如果一门语言的入门成本降低了, 它把复杂度推到了哪里? 0x00 一句话总结 Python is an easy to learn, powerful programming",
       "permalink": "/knowledge-base/程序语言/Python/Python语言核心特性调研",
       "date": "2026-08-30",
       "tags": [
@@ -790,7 +790,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/AI逆向/多模态AI通用验证码求解服务",
       "title": "用AI从零实现通用验证码求解服务:OhMyCaptcha原理剖析",
-      "description": "NOTE 当\"看懂图片\"这件事从传统 CV 的模板匹配/图像处理, 变成\"直接问多模态大模型\", 验证码求解的架构会简化多少? 代价又是什么? 0x00 背景 本笔记沉淀 nax 的博客 文章《用 AI 从零实现通用验证码求解服务: OhMyCaptcha 原理剖析》 2026 06 02 . 原文剖析开源项目 OhM",
+      "description": "NOTE 当\"看懂图片\"这件事从传统 CV 的模板匹配/图像处理, 变成\"直接问多模态大模型\", 验证码求解的架构会简化多少? 代价又是什么? 0x00 背景 原文剖析开源项目 OhMyCaptcha: 用 Playwright + 多模态大模型构建覆盖 19 种验证码类型的自托管求解服务. 它值得被单独拆解的三个理由",
       "permalink": "/knowledge-base/AI/AI逆向/多模态AI通用验证码求解服务",
       "date": "2026-08-26",
       "tags": [
@@ -802,7 +802,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/AI逆向/真实浏览器扩展的验证机制拆解",
       "title": "Infinitoai与Turnstile:一次浏览器验证机制的技术拆解",
-      "description": "NOTE 一个\"会点复选框\"的脚本和一个\"看起来像真人\"的脚本, 差距究竟在哪一层? 是注入时机, 是事件来源, 还是页面状态感知? 0x00 背景 本笔记沉淀 nax 的博客 文章《Infinitoai 与 Turnstile: 一次浏览器验证机制的技术拆解》 2026 04 18 . 原文以开源项目 Infinit",
+      "description": "NOTE 一个\"会点复选框\"的脚本和一个\"看起来像真人\"的脚本, 差距究竟在哪一层? 是注入时机, 是事件来源, 还是页面状态感知? 0x00 背景 原文以开源项目 Infinitoai 一个 Chrome 扩展 为切入点, 不讲\"怎么一把梭\", 而是拆解 真实浏览器里的扩展为什么比普通脚本更接近真人环境 . 它值得被",
       "permalink": "/knowledge-base/AI/AI逆向/真实浏览器扩展的验证机制拆解",
       "date": "2026-08-26",
       "tags": [
@@ -826,7 +826,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/AI逆向/Turnstile防御面分析与误判权衡",
       "title": "CloudflareTurnstile防御分析:浏览器信号检测面与误判权衡",
-      "description": "NOTE 如果一个验证组件注定无法 100% 拦截自动化, 那它存在的意义是什么? 是\"绝对正确\", 还是\"把攻击成本抬到不值得\"? 0x00 背景 本笔记沉淀 nax 的博客 文章《Cloudflare Turnstile 防御分析: 浏览器信号、检测面与误判权衡》 2026 06 03 . 原文站在防御者视角, 分",
+      "description": "NOTE 如果一个验证组件注定无法 100% 拦截自动化, 那它存在的意义是什么? 是\"绝对正确\", 还是\"把攻击成本抬到不值得\"? 0x00 背景 原文站在防御者视角, 分析 Turnstile 为什么有效、依赖哪些信号、网站在安全与误判之间怎么取舍. 它值得被单独拆解的三个理由: 它是四篇中唯一\"站在对手 防御方 ",
       "permalink": "/knowledge-base/AI/AI逆向/Turnstile防御面分析与误判权衡",
       "date": "2026-08-26",
       "tags": [
@@ -839,7 +839,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/基础/Agent要懂的LLM基础知识",
       "title": "Agent要懂的LLM基础知识",
-      "description": "NOTE 0x00 一句话总结 Agent 的本质是反复调用 LLM 的循环. 循环里的\"玄学问题\"——聊到 20 30 轮突然不守规矩、第 101 次工具调用输出坏 JSON——不是框架 bug, 而是 LLM 的性质. 从 输入 分词 → 上下文 怎么读 → 输出 怎么采样 → 成本延迟 → 能力边界 五个角度都能",
+      "description": "NOTE 一个 Agent 聊到第二十轮突然不守规矩, 第一百零一次工具调用吐出坏 JSON —— 第一反应通常是\"框架有 bug\", 可如果问题根本不在框架里呢? 温度、分词、注意力这些看起来离业务很远的东西, 决定了 Agent 的成本、延迟与稳定边界; 把它们当成玄学调参, 就只会在同一个坑里反复摔. 0x00 ",
       "permalink": "/knowledge-base/AI/基础/Agent要懂的LLM基础知识",
       "date": "2026-08-10",
       "tags": [
@@ -853,7 +853,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Agent架构/AI-Agent设计原理与工程实践",
       "title": "AI Agent设计原理与工程实践",
-      "description": "NOTE 0x00 一句话总结 生产可用的 Agent 不是\"模型很强\", 而是 Agent = LLM + 上下文 + 工具 + 约束 + 验证 + 纠正 : 模型能力差距在收窄, 竞争优势转移到模型之外的 harness 外壳/脚手架 上. 全书 10 章围绕上下文工程、记忆、工具防护、代码、评估、数据、持续优化、",
+      "description": "NOTE 同一个模型, 换一套外壳, 有的 Agent 能可靠跑完一单退款, 有的却在第三步就编出一句\"已经帮你处理好了\"——差距究竟在模型里, 还是在模型之外? 上下文、工具、约束、验证、纠正, 每一环都决定它落地时是助手还是负担; 这篇文章要问的是, 把这些环节拼成生产可用的 Agent, 工程上到底要付出什么. ",
       "permalink": "/knowledge-base/AI/Agent架构/AI-Agent设计原理与工程实践",
       "date": "2026-08-10",
       "tags": [
@@ -866,8 +866,8 @@ export const aiDocTagIndex: AiDocTagIndex = {
     },
     {
       "id": "工具链/从打野到注册机与AI工具链",
-      "title": "从打野到注册机：一条真实项目工具链的工程化学习",
-      "description": "NOTE 0x00 背景 本文沉淀 Discord 论坛帖子《个人常用项目推荐 打野到注册机一条龙, 简易教程 》. 帖子发表于 2026 07 01, 作者为 𝑏𝑎𝑖𝑞𝑖_𝑞𝑎𝑞 , 所在服务器为 KYL , 论坛频道为 🌐 各类教程 chatgpt🚀 . 原帖的主题不是“推荐几个 GitHub ",
+      "title": "从打野到注册机: 一条真实项目工具链的工程化学习",
+      "description": "NOTE 一次注册流程的练习, 为什么会走到浏览器自动化、邮箱池、代理网关、FastAPI 封装, 最后停在 Codex 与 Skills 上? 因为真正被复用的从来不是\"注册机\"这个目标, 而是逐层补齐契约的方法: 谁给输入、谁持有状态、失败由谁负责、证据留在哪里. 这条帖子把资源搜集、协议探查、账号与网络出口、服务",
       "permalink": "/knowledge-base/工具链/从打野到注册机与AI工具链",
       "date": "2026-08-02",
       "tags": [
@@ -880,7 +880,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Agent架构/Agent平台数据面灵活解耦",
       "title": "Agent平台数据面灵活解耦",
-      "description": "NOTE 0x00 背景 Agent 平台通常由控制面和数据面组成. 控制面面向用户, 管理 workspace 的元数据与配置; 数据面承载 Agent 的实际运行环境, 包括文件系统、命令执行和工具调用. 随着 workspace 数量增加、运行环境分化以及企业网络隔离需求出现, 单一数据面会逐渐成为扩展和安全上的",
+      "description": "NOTE 如果所有 Agent 都跑在同一套基础设施上, 那么当某个业务要求更高隔离、另一套集群容量见底、某个客户坚持私有网络部署时, 平台还剩多少选择? \"一个控制面管理多个数据面\"听起来只是多了一层抽象, 可它决定的其实是平台能不能跨机器、跨集群、跨云落地. 0x00 背景 Agent 平台通常由控制面和数据面组成",
       "permalink": "/knowledge-base/AI/Agent架构/Agent平台数据面灵活解耦",
       "date": "2026-07-15",
       "tags": [
@@ -892,7 +892,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "工具链/RTK项目使用说明与Codex本地心得",
       "title": "RTK项目使用说明与Codex本地心得",
-      "description": "NOTE 0x00 背景 本文沉淀的是 rtk ai/rtk 项目, 即 RTK / Rust Token Killer . 它不是 Redux Toolkit, 也不是别的同名 Rust Type Kit. 这个项目的核心定位是: 在 AI 编程助手执行 shell 命令时, 先把命令输出过滤、压缩、分组、截断或去重",
+      "description": "NOTE 你喂给 AI 编程助手的每一条 shell 输出, 有多少是它真正需要看见的? 一次全量测试就能刷掉几千 token, 其中大半只是\"通过了\". RTK Rust Token Killer 的答案不是让模型少跑命令, 而是在命令输出进入上下文之前先过滤一层; 但压缩过的输出 不再等于原始事实全集 . 于是真正",
       "permalink": "/knowledge-base/工具链/RTK项目使用说明与Codex本地心得",
       "date": "2026-07-05",
       "tags": [
@@ -904,7 +904,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "生活/电脑包选购指标",
       "title": "电脑包选购指标",
-      "description": "NOTE 这篇笔记来自一段电脑包选购视频的转写整理, 已按「不讨论具体品牌/型号, 只沉淀可复用指标」处理. 0x00 背景 电脑包很容易被商品标题误导: 「大容量」「商务」「旅行」「多功能」「轻便」这些词看起来都对, 但实际到手后可能容量虚、电脑塞不下、背着勒肩、功能多但太重. 所以选电脑包时真正需要先问的不是「哪款",
+      "description": "NOTE 为什么商品页上「大容量」「商务」「多功能」「轻便」每一条都挑不出错, 到手却可能塞不进电脑、勒着肩膀、功能多到空包就沉? 如果我根本不知道自己每天要装什么、电脑实际多宽, 那我看的到底是包, 还是一串没人能验证的形容词? 0x00 背景 电脑包很容易被商品标题误导: 「大容量」「商务」「旅行」「多功能」「轻便",
       "permalink": "/knowledge-base/生活/电脑包选购指标",
       "date": "2026-07-05",
       "tags": [
@@ -916,7 +916,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/多智能体/Multica-agent协作与上下文机制",
       "title": "Multica agent协作与上下文机制",
-      "description": "NOTE 这是一篇来自 Multica issue 讨论的阶段性沉淀, 不是 Multica 官方文档. 结论以当前 workspace 运行时注入信息、 multica CLI 读到的 issue/comment 内容和 agent 实际约束为依据. 0x00 背景 这次讨论从一个实践问题开始: 在 Multica ",
+      "description": "NOTE 在一个工作区里让一个 agent 去唤起另一个 agent 继续干活, 听起来只需要一句 @ ; 但它最容易长成的却是停不下来的成本循环 —— 谁该被叫醒, 被叫醒时它究竟带着哪些上下文? 更反直觉的是: 决定一次运行的并不是上一条评论, 而是 runtime 为这次触发临时注入的任务 brief. agen",
       "permalink": "/knowledge-base/AI/多智能体/Multica-agent协作与上下文机制",
       "date": "2026-07-05",
       "tags": [
@@ -928,7 +928,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/多智能体/Multica智能体模板与小队编排skills调研",
       "title": "Multica智能体模板与小队编排skills调研",
-      "description": "NOTE 0x00 背景 这次调研的直接目标是: 为 Multica 工作区设计一组可复用的 skill, 用来创建智能体、选择和绑定能力、组建小队、编排 issue/stage/autopilot, 并让这些能力真正做到可定制、可快速集成、持续可靠可维护. 现有参考是 /home/hx/Loli/code/HXLoL",
+      "description": "NOTE 用户说\"这些技术栈都可以用\", 一个 agent 会怎么理解? 大概率是把它们全部装进方案 —— 因为它把\"可用\"读成了\"必用\". 同一个问题在编排上还会再出现一次: 当\"组一个小队\"被理解成\"把成员都 @ 一遍\", 平台实际只唤醒了一个 leader, 其余人从未收到任务. 那么, 一套真正可交付的智能体编",
       "permalink": "/knowledge-base/AI/多智能体/Multica智能体模板与小队编排skills调研",
       "date": "2026-07-05",
       "tags": [
@@ -941,7 +941,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "程序语言/现代C++/现代C++编译期多态审视",
       "title": "现代C++编译期多态审视",
-      "description": "NOTE 0x00 这篇视频真正要回答什么? 视频讨论的不是一句粗暴的「以后别写 virtual 」, 而是一个更有工程价值的问题: 当程序的类型集合、接口约束和调度路径能够在编译期表达时, 是否还需要把多态性推迟到运行期? 来源信息: 视频: C++虚函数可以彻底抛弃了? 现代C++编译期多态实战 CppCon UP",
+      "description": "NOTE 如果编译器已经知道你程序里只会出现哪几种类型, 那么每一次调用都穿过一层运行期间接, 究竟是在为谁保留可能性? 「C++20 之后可以彻底抛弃 virtual 」更像一句口号 —— 它成立的前提 类型集合封闭、二进制与源码一起构建 比结论本身重要得多. 这篇文章要问的是: 编译期多态把哪些成本挪走了, 又把哪",
       "permalink": "/knowledge-base/程序语言/现代C++/现代C++编译期多态审视",
       "date": "2026-07-04",
       "tags": [
@@ -965,7 +965,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "程序语言/Web前端/react-bits分门别类学习",
       "title": "react-bits 分门别类学习",
-      "description": "NOTE PPT ppt 0x00 背景 react bits 是一个面向 React 的动效组件源码库, 不是传统意义上 npm install 后直接 import 的运行时组件库. 它的核心价值是把一批视觉表达强、可复制、可按技术栈选择的组件组织成注册表, 再通过文档站、预览、代码面板、shadcn/jsrepo",
+      "description": "NOTE 一个动效组件库值得学的地方, 通常不在于它提供了哪些效果, 而在于它怎么让 134 个组件各自被找得到、装得上、换得掉. 如果换成你来组织一份「可复制源码」的组件集合, 会用一份元数据表同时驱动文档、registry 和 AI 索引, 还是给四种技术栈各维护一套? PPT ppt — react bits 分",
       "permalink": "/knowledge-base/程序语言/Web前端/react-bits分门别类学习",
       "date": "2026-07-04",
       "tags": [
@@ -978,7 +978,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "程序语言/现代C++/HXLibs编写串行协程调度器",
       "title": "HXLibs 协程串行调度器探索",
-      "description": "记录 SerialExecutor 三轮迭代的探索过程与踩坑经验. 当前版本仍非最终方案, 调度策略尚有优化空间. 相关提交: 50c931c — feat 实现了串行调度器 生命周期敏感 ac74126 — fix 修复 constexpr 编译报错 测试用例 0x00 调度点: 核心思想 在 C++20 无栈协程中",
+      "description": "NOTE 一个协程被恢复的那一刻, 它究竟\"站在\"哪里? 无栈协程本身只是一段可暂停的状态机, 真正决定行为的是 恢复它的那一瞬间, 控制流从哪条线上继续 . 把这条线收拢成一条, 串行调度就成立了; 一旦想不清它, 析构顺序、悬空引用与玄学段错误便会一起找上门. 下面这三轮迭代, 其实一直在反复回答同一个问题: 谁持",
       "permalink": "/knowledge-base/程序语言/现代C++/HXLibs编写串行协程调度器",
       "date": "2026-06-04",
       "tags": [
@@ -990,11 +990,11 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "关于",
       "title": "关于",
-      "description": "TIP 这里是 HXLoLi 的 AI 沉淀知识库. 当作者懒得写笔记的时候. 则会在此处沉淀. 以防止污染笔记. 此处的笔记应该是使用 skill 按照一定规范和工作流生成. 需要用户 review 修改后再提交. 目标: 减少编写笔记的时间 非期望: 使用ai瞎jb产出",
+      "description": "TIP 这里是 HXLoLi 的 AI 沉淀知识库. 作者懒得写笔记的时候, 内容会先沉淀在这里, 以免污染正式笔记. 站内笔记按统一的写作规范与工作流起草, 每一篇都经作者复核后才提交 —— 你能读到的内容都经过人工确认, 而非模型的一次性输出. 目标: 减少编写笔记的时间. 非期望: 使用 AI 瞎jb产出.",
       "permalink": "/knowledge-base/关于",
       "date": "2026-06-04",
       "tags": []
     }
   ],
-  "generatedAt": "2026-09-13T14:48:56.777Z"
+  "generatedAt": "2026-09-13T15:45:19.462Z"
 };

@@ -10,6 +10,12 @@ tags: ["AI Agent", "记忆系统", "知识库"]
 
 # 自维护可插拔记忆层设计: 一次对比市面方案后的收敛
 
+> [!NOTE]
+> 一个 AI 在 A 项目里踩过的坑, 为什么到了 B 项目还要再踩一遍?
+> 多数"记忆"系统只做到了同一工作区内的召回 —— 出了这个会话, 经验就归零.
+> 真正想要的是另一件事: 让一次具体事故自动上升成一条对**所有**项目都成立的规则.
+> 那么, 一个既能被任何 harness 读写、又能自己把经验拔高的记忆层, 该由哪些部件拼出来?
+
 ## 0x00 背景
 
 要给 HXLoLi 的 AI 生态 (DSH 为主, 未来可能还有 Codex/其他 CLI) 配一套长期记忆层. 两个硬需求:
@@ -20,7 +26,7 @@ tags: ["AI Agent", "记忆系统", "知识库"]
 调研了市面方案 (VCP / OpenViking / agentmemory / StrataGate / ReMe / Basic Memory / Mem0 / Graphiti / cognee / obsidian-second-brain / 腾讯 Hy-Memory), 得到的判断是:
 
 - 单个开源项目都能覆盖一部分需求, 但没有一个满足"我要自己维护 + 可插拔 + 带我要的那种跨项目推广能力"这三件事;
-- **跨项目推广**: 经代码核查, OpenViking/agentmemory/ReMe 确有"具体→摘要抽象"机制 (见 0x02 五.1), 但它们都缺两环: (a) 抽象结果不自动跨项目生效 (agentmemory 按项目隔离, ReMe/OpenViking 的 digest/experience 绑单工作区); (b) 无用户级"经验门" (promote 成跨域规则的确认环节). 这正是自建层要补的核心差异点;
+- **跨项目推广**: OpenViking/agentmemory/ReMe 确有"具体→摘要抽象"机制 (见 0x02 五.1), 但它们都缺两环: (a) 抽象结果不自动跨项目生效 (agentmemory 按项目隔离, ReMe/OpenViking 的 digest/experience 绑单工作区); (b) 无用户级"经验门" (promote 成跨域规则的确认环节). 这正是自建层要补的核心差异点;
 - 结论: 与其选型, 不如设计一层薄的、自维护的、端口-适配器 (Port-Adapter) 式的记忆层. 市面方案不是照搬对象, 而是**可插拔的 adapter 和存储后端, 以及设计思想来源**.
 
 ## 0x01 核心结论
@@ -97,7 +103,7 @@ interface Generalizer {
 7. [生效] 规则进入"常驻轻量提示" (跨项目提醒), 或作为检索时的高权重证据
 ```
 
-关键设计: **抽象后台做, 闸门用户开** (已确认方案 a). 机器可以批量聚类+提议, 但"把经验上升为对我所有项目都成立的规则"必须经用户统一 review 队列确认 — 呼应 HXLoLi 一贯的"AI 辅助沉淀需 review"纪律, 防幻觉式过度推广. review 队列本身也是一层记忆: 每条候选带置信度、覆盖实例数、建议动作 (确认/改写/驳回), 让用户的确认成本尽量低.
+关键设计: **抽象后台做, 闸门用户开**. 机器可以批量聚类+提议, 但"把经验上升为对我所有项目都成立的规则"必须经用户统一 review 队列确认 —— 这是防"幻觉式过度推广"的必要闸门. review 队列本身也是一层记忆: 每条候选带置信度、覆盖实例数、建议动作 (确认/改写/驳回), 让用户的确认成本尽量低.
 
 为什么它能"稳定阐述业务目标 + 编码坑": rule 有两种来源, 但共享同一 schema 与召回通道 —— 业务规则 (客户项目规范) 和工程规则 (并发/幂等/可观测性) 都作为 scope:global 的 rule 存在, 检索时按当前会话语境 (项目/角色) 加权.
 
@@ -155,11 +161,11 @@ DSH adapter 内部:
 | Graphiti | 时序 KG + episode 溯源 | 重, 自建图库 |
 | obsidian-second-brain | typed edges; index 前门; 44 命令编译到多 CLI | 以 Obsidian vault 为锚, 与你 ai-docs 结构不完全一致 |
 
-### 五.1 代码核查: 市面"具体→一般"机制的真实分布
+### 五.1 市面"具体→一般"机制的真实分布
 
-对本地克隆做了 grep + 源码核查, "把具体实例抽象成可复用原则"的机制并不为零, 但分布如下:
+"把具体实例抽象成可复用原则"的机制在市面方案里并不为零, 但分布得很不均匀:
 
-| 系统 | 机制 | 核查结论 |
+| 系统 | 机制 | 结论 |
 |---|---|---|
 | OpenViking | experiences 记忆类型 + experiences.yaml 明确**抽象强制**: "剥离实体/ID/人名/原始文本, 用泛化抽象描述使规则普遍适用"; Situation/Approach/Reflect 三段式; supersedes 字段 (替换旧经验并继承轨迹史); experience_lineage 链 | **同类中最强 R1** — 但绑单工作区, AGPL |
 | agentmemory | 四层 consolidation (working→episodic→semantic→procedural) + mem::reflect ("综合跨越 2+ 条记忆的横切洞见") + 置信度 lesson + supersession 版本链 | **真 R1**, 但 lesson 按项目隔离, 不跨项目 |
@@ -168,11 +174,11 @@ DSH adapter 内部:
 | StrataGate | 核心无 generalize 机制 (0 hits); 只记录"发生了什么/什么是真" | R1 缺 |
 | Hy-Memory | supersedes 演化链 (同一认知对象版本演化) | 是版本史不是跨域推广 |
 
-**自建层的差异化落点**: 前人有"摘要抽象", 无人做"**跨项目 + 用户确认门 + 双向链接(规则⇄实例) + 跨域生效**"——四条都补上才是用户要的"队列并发踩坑 → 我所有容器都有并发控制问题"的推广.
+**自建层的差异化落点**: 前人有"摘要抽象", 无人做"**跨项目 + 用户确认门 + 双向链接(规则⇄实例) + 跨域生效**"——四条都补上才能实现"队列并发踩坑 → 我所有容器都有并发控制问题"的推广.
 
-### 六、腾讯 Hy-Memory 的玩具点 (实测源码核查结论)
+### 六、腾讯 Hy-Memory: 好思想与坏交付同时存在
 
-用户想了解 Hy-Memory, 并希望看到"它哪里 toy". 本调研对 pypi/npm 制品做了**解包读码**核查 (hy-memory 1.2.21 / hermes 0.2.8 / openclaw 1.2.4 / opencode 0.1.14):
+Hy-Memory 值得单独拆一节, 因为它同时是**最好的思想来源**和**最典型的营销错位**. 对 pypi/npm 制品逐包**解包读码**后 (hy-memory 1.2.21 / hermes 0.2.8 / openclaw 1.2.4 / opencode 0.1.14), 结论如下:
 
 **值得抄进自建层的真创新 (源码证实)**:
 1. **supersedes 演化链是真实现**: 写入时 LLM reconciler 产出 ADD/SUPERSEDE/UPDATE op, SUPERSEDE 写双向指针 (新→supersedes=[旧], 旧→superseded_by=[新]+status=SUPERSEDED), 召回命中任意节点双向展开整条链, 删链有修复逻辑. 语义上"覆盖不丢史, 并列不碎片".
@@ -220,7 +226,7 @@ MemoryStore (接口)
 
 ### 八、DSH Adapter 完整事件接线 (当前版本即可实现)
 
-已核实安装的 DSH 0.1.1-rc.2 的 dsh-agent-loop 就暴露 agent/session-start 与 turn/end 事件 (源码 lib/index.js 中均存在), 所以下列接线在当前版本即可实现, 无需升级:
+DSH 0.1.1-rc.2 的 dsh-agent-loop 已经暴露 agent/session-start 与 turn/end 事件, 下列接线在当前版本即可实现:
 
 ```ts
 export function apply(ctx: Context, cfg: Config) {
@@ -248,11 +254,19 @@ export function apply(ctx: Context, cfg: Config) {
 
 这一节的价值: 把"可插拔"落到实处 — 内核 HarnessAdapter 接口对应 DSH 的 ctx.on 接线; 未来加 Codex/CLI 就是写第二个 adapter, 内核与存储零改动. 接入方式参考 StrataGate (inject: tools/systemPrompt/llm) 与 ReMe (inject: agents/sessions/tools + cordis patch isolate).
 
-## 0x03 参考来源
+## 0x03 这套设计接下来会面对什么
+
+把前面的部件拼起来, 得到的其实不是一个"记忆库", 而是一条**从事故到规则的流水线**: 接入层负责捕获, 内核负责抽象, 存储层负责可重建的真相, 推广引擎负责把具体拔高成一般. 真正困难的从来不是存, 而是**判断哪些经验值得上升**——这一步的准确性直接决定记忆层是资产还是噪声.
+
+**事实层面**, 市面方案的现状已经很清楚: 自动捕获、分层召回、演化链都有成熟实现, 而"跨项目生效 + 用户确认门 + 规则与实例双向链接"这一组仍无人补齐; 测试与可导出性也普遍欠账, 这与它们多数由个人或单团队维护有关.
+
+**个人判断**, 我认为这类系统接下来的分水岭不在检索精度, 而在**治理**: 记忆一旦能自动改写自己, 就必须同时具备三个能力——可解释的写入理由、可回滚的版本链、可审计的确认记录. 缺任何一条, 自动化程度越高反而越危险. 对自建方案来说, 还有一个额外的好处: 因为一切都在自己手里, 上面这三条可以按需生长, 而不必等上游把它排进路线图.
+
+## 0x04 参考来源
 
 - 腾讯 Hy-Memory 官网: https://memory.hunyuan.tencent.com/ (六层框架/演化链/评测声明)
 - Hy-Memory OpenClaw/Hermes/Opencode 接入页: https://memory.hunyuan.tencent.com/openclaw 等 (安装/配置/模式细节)
 - 极客公园: https://www.geekpark.net/news/365698 (Hy-Memory 机制与行业分析)
 - chooseai: https://www.chooseai.net/news/4102/ (三层架构对标 mem0/Graphiti)
 - GitHub: agentmemory (rohitg00/agentmemory), StrataGate (diqierjia/StrataGate-AgentMemory), ReMe (agentscope-ai/ReMe), VCP (lioensky/VCPToolBox), OpenViking (volcengine/OpenViking), Basic Memory (basicmachines-co/basic-memory)
-- 本笔记姊妹篇: [004-对话记忆与知识库增量沉淀](../001-对话记忆与知识库增量沉淀/index.md "hxid:hx-462ef6c0") (ledger/views/policy + 双时态), [005-DSH Runtime设计思想](../../003-Agent-Harness/DSH/002-DSH-Runtime设计思想插件树与事件日志/index.md "hxid:hx-3acd866f") (插件树/事件日志)
+- 姊妹篇: [对话记忆与知识库增量沉淀](../001-对话记忆与知识库增量沉淀/index.md "hxid:hx-462ef6c0") 讲了记忆写入的三种策略分野 (追加/覆盖/快照) 与双时态建模; [DSH Runtime 设计思想](../../003-Agent-Harness/DSH/002-DSH-Runtime设计思想插件树与事件日志/index.md "hxid:hx-3acd866f") 讲本文接入层所依赖的插件树与事件日志机制.
