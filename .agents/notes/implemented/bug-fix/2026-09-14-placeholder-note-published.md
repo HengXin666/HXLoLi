@@ -47,6 +47,13 @@ Status: implemented
 校验: `hx_docs_id.py check` -> 「28 篇笔记的 hxid 唯一且合法, hxid 链接全部可达且路径最新」;
 dev 站点原 URL 落到"找不到页面", 侧边栏「记忆」分类只剩 4 篇真实笔记。
 
+## Consequences
+
+- 空壳目录连同 `.hx-mitemite.md` 答题卡整体删除, 其 `hx-84191bf0` 从 `.hx-id-snapshot.json` 摘除, 不再占用 hxid。
+- 侧边栏、`data/aiDocTags.ts`、tag 注册表三层生成物按既有治理流程重建, 原 URL 变为"找不到页面"。
+- 该 hxid 从此不在册 —— 若将来要复用这个身份, 需要重新分配而不是恢复快照。
+- 同类"低价值素材沉淀出的空壳"仍可能在下次沉淀时出现, 本次没有加自动护栏。
+
 ## Alternatives considered
 
 - **补完正文**: transcript 只有 40 秒演示字幕, 补出来仍是低价值内容, 不如等真实素材重跑一次沉淀。

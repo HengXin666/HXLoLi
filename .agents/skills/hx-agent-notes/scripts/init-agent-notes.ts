@@ -4,8 +4,9 @@
  * scripts. Idempotent: existing files are never overwritten unless --force.
  * Usage: npx tsx scripts/init-agent-notes.ts [--repo <dir>] [--force] [--with-board]
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, realpathSync, writeFileSync } from 'node:fs'
 import { dirname, join, relative, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { DEFAULT_CONFIG, describe, loadNotes, parseArgv } from './notes-lib.ts'
 
 const parsed = parseArgv(process.argv.slice(2), ['--repo'])
@@ -16,6 +17,7 @@ const loaded = loadNotes(cwd)
 const { config, notesRoot, repoRoot } = loaded
 const written: string[] = []
 const skipped: string[] = []
+const DEFAULT_SCRIPTS_DIR = '.agents/skills/hx-agent-notes/scripts'
 
 function ensure(rel: string, content: string, header: string): void {
   const full = join(repoRoot, rel)
@@ -109,6 +111,32 @@ const implementedAgents = [
 ].join('\n')
 ensure(join(notesPrefix, 'implemented', 'AGENTS.md'), implementedAgents, 'implemented AGENTS.md')
 
+// 4. The gates themselves. A repo that cannot reach the skill over a relative path — a sibling
+// clone or a submodule — gets its own copy. A command in the contract that resolves to nothing is
+// worse than a duplicate: it stays silent until someone finally trusts it.
+function sourceScriptsDir(): string {
+  try { return dirname(fileURLToPath(import.meta.url)) } catch { return '' }
+}
+function vendorScripts(): void {
+  const explicit = process.env.AGENT_NOTES_SCRIPTS_DIR
+  if (explicit !== undefined && explicit !== '') return
+  const src = sourceScriptsDir()
+  const dest = join(repoRoot, DEFAULT_SCRIPTS_DIR)
+  if (src === '' || !existsSync(src)) { skipped.push('gate scripts (source not found)'); return }
+  try { if (realpathSync(src) === realpathSync(dest)) { skipped.push('gate scripts (running in place)'); return } }
+  catch { /* dest does not exist yet */ }
+  if (existsSync(join(dest, 'verify-all.ts'))) { skipped.push('gate scripts'); return }
+  mkdirSync(dest, { recursive: true })
+  let copied = 0
+  for (const entry of readdirSync(src)) {
+    if (!entry.endsWith('.ts')) continue
+    copyFileSync(join(src, entry), join(dest, entry))
+    copied += 1
+  }
+  written.push('gate scripts (' + copied + ' files, vendored)')
+}
+vendorScripts()
+
 // 5. Package scripts, so the gates are one command in the target project.
 const pkgPath = join(repoRoot, 'package.json')
 if (existsSync(pkgPath)) {
@@ -154,7 +182,7 @@ function runner(): string {
  * command that points at nothing.
  */
 function scriptsDir(): string {
-  const DEFAULT = '.agents/skills/hx-agent-notes/scripts'
+  const DEFAULT = DEFAULT_SCRIPTS_DIR
   const hasEntryPoints = (dir: string): boolean => existsSync(join(resolve(repoRoot, dir), 'verify-all.ts'))
   const candidate = (dir: string): string => {
     const rel = relative(repoRoot, resolve(repoRoot, dir)).split('\\').join('/')

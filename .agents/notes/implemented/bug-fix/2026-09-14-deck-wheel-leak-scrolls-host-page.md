@@ -70,6 +70,18 @@ if (/(auto|scroll)/.test(cs.overflowY) && n.scrollHeight > n.clientHeight + 2) r
 另: 弹层在本 bug 下"看起来正常", 只是因为 `PptCard` 把 `body.overflow` 设成了 `hidden`
 兜住了 —— 这解释了为什么它在笔记页里偶发、而不是必现.
 
+## Decision
+
+1. `Deck.tsx`: 把 `e.preventDefault()` **提到** `lockedRef` 判断之前 —— 走到这里这次滚轮就归 deck 所有,
+   先无条件吃掉默认行为, 再决定要不要翻页。
+2. `Deck.tsx`: `inScrollable` → `scrollableUnder(target, deltaY)`, 用 `canScrollFurther` 做方向判断,
+   返回真正还能滚的那个元素; 滚到边界就把控制权交回 deck。
+3. `Deck.tsx`: `visibleEnough()` 里的 `getBoundingClientRect()` 改为**缓存**(400ms 过期) ——
+   wheel 是最热的事件, 每事件一次强制同步布局会把主线程拖住。
+4. `custom.css`: 补上缺失的 `.hxppt*` 样式, 播放页改 `position: fixed; inset: 0`,
+   彻底不产生页面级滚动条; `ppt.tsx` 的 `<Deck>` 加 `fill`。
+5. `charts.tsx`: 图表轴标签 12px → 13px, 与全局文字下限一致。
+
 ## Fix
 
 1. `Deck.tsx`: 把 `e.preventDefault()` **提到** `lockedRef` 判断之前.

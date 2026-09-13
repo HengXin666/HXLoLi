@@ -158,6 +158,16 @@ export function loadNotes(cwd: string = process.cwd()): LoadedNotes {
     Object.assign(config, raw)
     config.coverage = { ...DEFAULT_CONFIG.coverage, ...(raw.coverage ?? {}) }
     config.backlinks = { ...DEFAULT_CONFIG.backlinks, ...(raw.backlinks ?? {}) }
+    // The default exemptions assume markdown and .agents are documentation rather than guarded
+    // source. A project that guards them says the opposite, and inheriting the assumption would
+    // silently exempt every path the project just asked to guard — a gate that never fires.
+    if (raw.coverage?.guarded !== undefined) {
+      const defeated = config.coverage.exempt.filter((pattern) =>
+        config.coverage.guarded.some((guard) => globToRegExp(pattern).test(samplePath(guard))))
+      if (defeated.length > 0) {
+        config.coverage.exempt = config.coverage.exempt.filter((p) => !defeated.includes(p))
+      }
+    }
   }
   const envRoot = process.env.AGENT_NOTES_ROOT
   const repoRoot = configPath !== null ? resolve(dirname(configPath), '..') : (gitRoot ?? resolve(cwd))
@@ -279,6 +289,11 @@ export function isExternalLink(target: string): boolean {
     || target.startsWith('mailto:')
     || target.includes('…')
     || target.includes('<')
+}
+
+/** A concrete path a glob would match, used to test whether another pattern defeats it. */
+function samplePath(glob: string): string {
+  return glob.replace(/\*\*/g, 'x').replace(/\*/g, 'x').replace(/\?/g, 'x')
 }
 
 export function globToRegExp(glob: string): RegExp {

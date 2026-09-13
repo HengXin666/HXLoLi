@@ -107,6 +107,16 @@ prod   serve (build 产物)                 -> 200 and 712699 bytes (真实侧�
 但 `CodeBlockProps` 没有 `i` 字段(`i` 是 `PageHeader`/`Callout` 的错峰序号)。`tsc` 报 TS2322,
 已删除。这正是基线机制的价值: 该错误先前混在 9 条历史错误里被忽略。
 
+## Consequences
+
+- 站点第一次有了"一条命令锁住既有功能"的红线 (`scripts/quality-gate.mjs` + `quality-baseline.json`);
+  代价是新增一条基线文件, 历史错误要通过基线豁免而不是一次修完。
+- 9 条历史 `tsc` 错误被基线豁免而非修复 (涉及 CommonJS/ESM 互操作与历史组件), 属于独立议题 ——
+  红线**从现在开始**有效, 但不代表存量是干净的。
+- `onBrokenLinks` 没有改成 `"throw"`: 那会让存量断链一次性阻断所有人的构建, 覆盖面对比下不如在门禁里抓构建输出。
+- dev 侧车 404 的根因未修, 只让它可见并提示重启 dev server; 绕过办法是 `npm run build && npm run serve`。
+- 门禁尚未接进 `.github/workflows/` —— CI 接线涉及构建时长与失败策略, 需要单独拍板。
+
 ## Alternatives considered
 
 - **只加 CI, 不做本地脚本**: CI 只覆盖 push/PR, 本地改完到推送之间仍有盲区; 且 CI 反馈慢,
