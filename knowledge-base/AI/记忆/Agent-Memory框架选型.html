@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-ai-docs docs-version-current docs-doc-page docs-doc-id-AI/记忆/Agent-Memory框架选型/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">Agent Memory 选型指南: 五大范式、评测水分与四个必补动作 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/knowledge-base/AI/记忆/Agent-Memory框架选型"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-ai-docs-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-ai-docs-current"><meta data-rh="true" property="og:title" content="Agent Memory 选型指南: 五大范式、评测水分与四个必补动作 | HXLoLi"><meta data-rh="true" name="description" content="[!NOTE]"><meta data-rh="true" property="og:description" content="[!NOTE]"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/knowledge-base/AI/记忆/Agent-Memory框架选型"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/knowledge-base/AI/记忆/Agent-Memory框架选型" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/knowledge-base/AI/记忆/Agent-Memory框架选型" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed"><link rel="stylesheet" href="/HXLoLi/assets/css/styles.94767be3.css">
+<script src="/HXLoLi/assets/js/runtime~main.6fae8730.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.4927e6c8.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"dark")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/ai-doc.svg"><link rel="preload" as="image" href="/HXLoLi/default-icons/ai-folder.svg"><link rel="preload" as="image" href="/HXLoLi/default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi/img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi/img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a class="navbar__item navbar__link" href="/HXLoLi/docs/关于">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/knowledge-base/关于">知识库</a><a class="navbar__item navbar__link" href="/HXLoLi/anime">アニメ</a></div><div class="navbar__items navbar__items--right"><div style="position:relative" class="navbar__item"><button class="navbar__link" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;font-size:13px;padding:4px 8px;color:var(--ifm-navbar-link-color)" title="CDN 节点选择"><span style="font-size:11px">⚡</span><span style="font-family:ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, monospace;font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:-0.3px;color:var(--ifm-navbar-link-color)">CDN</span></button></div><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li><li><a class="dropdown__link" href="/HXLoLi/docs-graph">笔记关系图</a></li><li><a class="dropdown__link" href="/HXLoLi/friends">友链</a></li><li><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="dropdown__link">GitHub<svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="ai-kb-page"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><div class="root_l0J4"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li data-sidebar-path="关于" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-1" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" href="/HXLoLi/knowledge-base/关于"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">关于</span></span></span></a></li><li data-sidebar-path="程序语言" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/程序语言/现代C++/HXLibs编写串行协程调度器"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">程序语言</span></span></span></a></div></li><li data-sidebar-path="AI" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/HXLoLi/knowledge-base/AI/基础/Agent要懂的LLM基础知识"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">AI</span></span></span></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list ai-kb-sidebar-children"><li data-sidebar-path="AI/基础" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/基础/Agent要懂的LLM基础知识"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">基础</span></span></span></a></div></li><li data-sidebar-path="AI/Agent架构" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/Agent架构/AI-Agent设计原理与工程实践"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Agent架构</span></span></span></a></div></li><li data-sidebar-path="AI/Agent-Harness" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/Agent-Harness/DSH/DSH-Agent-Loop源码剖析"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Agent-Harness</span></span></span></a></div></li><li data-sidebar-path="AI/记忆" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" tabindex="0" href="/HXLoLi/knowledge-base/AI/记忆/对话记忆与知识库增量沉淀"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">记忆</span></span></span></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list ai-kb-sidebar-children"><li data-sidebar-path="AI/记忆/对话记忆与知识库增量沉淀" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" tabindex="0" href="/HXLoLi/knowledge-base/AI/记忆/对话记忆与知识库增量沉淀"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">对话记忆与知识库增量沉淀</span></span></span></a></li><li data-sidebar-path="AI/记忆/自维护可插拔记忆层设计" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" tabindex="0" href="/HXLoLi/knowledge-base/AI/记忆/自维护可插拔记忆层设计"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">自维护可插拔记忆层设计</span></span></span></a></li><li data-sidebar-path="AI/记忆/obsidian-second-brain" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" tabindex="0" href="/HXLoLi/knowledge-base/AI/记忆/obsidian-second-brain"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">obsidian-second-brain</span></span></span></a></li><li data-sidebar-path="AI/记忆/Agent-Memory框架选型" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-3" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/knowledge-base/AI/记忆/Agent-Memory框架选型"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Agent-Memory框架选型</span></span></span></a></li></ul></li><li data-sidebar-path="AI/Skill" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/Skill/SkillOpt把skill当参数训练"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Skill</span></span></span></a></div></li><li data-sidebar-path="AI/多智能体" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/多智能体/Multica-agent协作与上下文机制"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">多智能体</span></span></span></a></div></li><li data-sidebar-path="AI/检索" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/检索/自建Agent检索栈与凭证治理"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">检索</span></span></span></a></div></li><li data-sidebar-path="AI/AI逆向" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/AI逆向/CF过盾工程-从零实现Turnstile绕过"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">AI逆向</span></span></span></a></div></li></ul></li><li data-sidebar-path="工具链" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/工具链/RTK项目使用说明与Codex本地心得"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">工具链</span></span></span></a></div></li><li data-sidebar-path="生活" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/生活/电脑包选购指标"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">生活</span></span></span></a></div></li><li data-sidebar-path="杂谈" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/杂谈/短视频-精神鸦片"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">杂谈</span></span></span></a></div></li></ul></nav></div></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row ai-kb-page"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><div class="aiDocHeader_kTZk" style="opacity:0;transform:translateY(-10px)"><div class="bgGrid_iCNM"></div><div class="metalShine_apht"></div><div class="headerContent_JtLs"><div class="titleRow_gyYW"><div class="aiIcon_uCRj" title="AI 辅助生成内容" style="opacity:0;transform:translateY(-4px) scale(0.9)"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z"></path></svg></div><span class="typewriter_Tkd9" style="display:inline"><span class="typewriterCursor_hJ0X" style="opacity:1;transition:opacity 0.08s">▌</span></span></div><div class="metaRow_SKoK"><span class="metaBadge_cx8r dateBadge_voC8" title="文档创建时间" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"></path></svg></span>2026-09-13</span><span class="metaBadge_cx8r modelBadge_tpoh" title="辅助编辑的 AI 模型: DeepSeek-V4-Flash" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z"></path></svg></span>DeepSeek-V4-Flash</span><a class="metaBadge_cx8r skillBadge_Kei0 clickableBadge_p2xi" title="查看 Skill 源码: hx-to-ai-docs" href="https://github.com/HengXin666/HXLoLi/tree/main/.agents/skills/hx-to-ai-docs" target="_blank" rel="noopener noreferrer" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"></path></svg></span>hx-to-ai-docs<span class="skillExternalIcon_BIVD"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></span></a><a class="metaBadge_cx8r skillBadge_Kei0 clickableBadge_p2xi" title="查看 Skill 源码: hx-docs-grill" href="https://github.com/HengXin666/HXLoLi/tree/main/.agents/skills/hx-docs-grill" target="_blank" rel="noopener noreferrer" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"></path></svg></span>hx-docs-grill<span class="skillExternalIcon_BIVD"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></span></a><a class="metaBadge_cx8r skillBadge_Kei0 clickableBadge_p2xi" title="查看 Skill 源码: hx-docs-sediment" href="https://github.com/HengXin666/HXLoLi/tree/main/.agents/skills/hx-docs-sediment" target="_blank" rel="noopener noreferrer" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"></path></svg></span>hx-docs-sediment<span class="skillExternalIcon_BIVD"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></span></a><a class="metaBadge_cx8r skillBadge_Kei0 clickableBadge_p2xi" title="查看 Skill 源码: hx-look-video" href="https://github.com/HengXin666/HXLoLi/tree/main/.agents/skills/hx-look-video" target="_blank" rel="noopener noreferrer" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"></path></svg></span>hx-look-video<span class="skillExternalIcon_BIVD"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></span></a><a class="metaBadge_cx8r skillBadge_Kei0 clickableBadge_p2xi" title="查看 Skill 源码: hx-docs-layout" href="https://github.com/HengXin666/HXLoLi/tree/main/.agents/skills/hx-docs-layout" target="_blank" rel="noopener noreferrer" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"></path></svg></span>hx-docs-layout<span class="skillExternalIcon_BIVD"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></span></a><a class="metaBadge_cx8r skillBadge_Kei0 clickableBadge_p2xi" title="查看 Skill 源码: hx-docs-ppt" href="https://github.com/HengXin666/HXLoLi/tree/main/.agents/skills/hx-docs-ppt" target="_blank" rel="noopener noreferrer" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"></path></svg></span>hx-docs-ppt<span class="skillExternalIcon_BIVD"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></span></a><a class="metaBadge_cx8r skillBadge_Kei0 clickableBadge_p2xi" title="查看 Skill 源码: hx-archify" href="https://github.com/HengXin666/HXLoLi/tree/main/.agents/skills/hx-archify" target="_blank" rel="noopener noreferrer" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"></path></svg></span>hx-archify<span class="skillExternalIcon_BIVD"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: AI Agent" href="/HXLoLi/knowledge-base/tags/ai-agent"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>AI Agent</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: 记忆系统" href="/HXLoLi/knowledge-base/tags/记忆系统"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>记忆系统</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: 技术选型" href="/HXLoLi/knowledge-base/tags/技术选型"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>技术选型</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: 评测" href="/HXLoLi/knowledge-base/tags/评测"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>评测</span></a></div></div></div><div style="display:flex;justify-content:space-between;align-items:center"><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">AI</span><meta itemprop="position" content="1"></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">记忆</span><meta itemprop="position" content="2"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">Agent-Memory框架选型</span><meta itemprop="position" content="3"></li></ul></nav></div><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>Agent Memory 选型指南: 五大范式、评测水分与四个必补动作</h1></header>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><span class="octicon octicon-note" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-info mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Note</p>
+<p>同一个记忆框架, 在自家 benchmark 上可以报到 94.4 分 —— 而这个数字来自厂商托管平台的自测.
+更麻烦的是: 同一类系统换一套测试脚手架, 分数能相差几十个百分点, 变量既不是模型也不是产品, 而是<strong>谁写的评测代码</strong>.
+那么问题就不是&quot;该买哪个&quot;, 而是: 在一个连分数都不可比的领域里, 选型到底应该依据什么?</p>
+</div>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x00-三个概念-三种失效">0x00 三个概念, 三种失效<a href="#0x00-三个概念-三种失效" class="hash-link" aria-label="0x00 三个概念, 三种失效的直接链接" title="0x00 三个概念, 三种失效的直接链接">​</a></h2>
+<p>选型失误大多始于概念混淆. <strong>长上下文、RAG、Agent Memory 是三件不同的事</strong>, 它们的失效方式也完全不同:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>长上下文</th><th>RAG</th><th>Agent Memory</th></tr></thead><tbody><tr><td>内容来源</td><td>本次请求的输入</td><td>预先置入的静态语料</td><td>运行期双向产生</td></tr><tr><td>生命周期</td><td>单次请求, 用完即销毁</td><td>与语料同寿, 只读</td><td>跨会话、跨任务持久</td></tr><tr><td>读写路径</td><td>只写不读 (写进 prompt)</td><td>只读不写</td><td>读-写双向</td></tr><tr><td>解决什么</td><td>容量 (装得下)</td><td>事实召回 (查得到)</td><td>连续性 (记得住)</td></tr><tr><td>典型失效</td><td>上下文腐化</td><td>语料过期、切分噪声</td><td>幽灵记忆、遗忘失败</td></tr></tbody></table>
+<p>一个判据胜过一堆定义: <strong>同一个客户第五次来访, RAG 每次都命中同一份产品文档, 而 Agent Memory 记得他上次问过什么.</strong></p>
+<p>&quot;窗口解决容量, 记忆解决连续性&quot;, 这两件事是正交的 —— 这解释了为什么把窗口从 200K 推到 1M 并不能让 Agent 记住你上周说过什么.</p>
+<p>而且<strong>买来的窗口本身也在打折</strong>. 独立评测 (RULER) 显示, 有效上下文往往只有标称窗口的 50%~65%; Context Rot 测试里 18 个前沿模型全部随输入增长而退化, 200K 窗口的模型可能在 50K 处就已失稳; &quot;Lost in the Middle&quot; 现象则让放在中段的关键事实准确率下降超过 30%. 所以记忆评测与长上下文评测测的根本不是同一件事: 记忆评测要先写入、再跨轮检索, <strong>写入质量本身就是被评测对象</strong>.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="agent-记忆的四种类型">Agent 记忆的四种类型<a href="#agent-记忆的四种类型" class="hash-link" aria-label="Agent 记忆的四种类型的直接链接" title="Agent 记忆的四种类型的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>类型</th><th>记什么</th><th>典型载体</th></tr></thead><tbody><tr><td>语义记忆</td><td>事实: X 是 Y</td><td>事实库、知识图谱</td></tr><tr><td>情景记忆</td><td>经历: 遇到 X 时发生了什么</td><td>轨迹、事件流</td></tr><tr><td>程序记忆</td><td>怎么做: 遇到 X 先做 Y、别做 Z</td><td>技能包、系统提示词改写</td></tr><tr><td>参数记忆</td><td>学进权重里的偏好</td><td>微调、蒸馏</td></tr></tbody></table>
+<p>其中<strong>情景记忆有不可替代的价值</strong>: 事实没有褒贬, 语义记忆永远表达不出&quot;不要先做 X&quot;这句话. 保留失败与试错的<strong>分支</strong>, 而不是只留下成功路径的摘要, 才是情景记忆真正的用处.</p>
+<p>还有个反直觉的现象叫 <strong>Zep 悖论</strong>: 记忆系统的失败模式往往不是&quot;忘了&quot;, 而是&quot;同时记住了太多版本&quot;—— 直到其中一个错误版本被召回.</p>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><span class="octicon octicon-warning" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-alert mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Warning</p>
+<p>把记忆层当成&quot;更强的 RAG&quot;是最常见的一步错棋. RAG 的语料是你控制的, 记忆的语料是用户和 Agent 自己写进去的 —— 后者的写入侧才是风险主战场 (见 <span class="tailwind"><a href="#0x05-%E8%AE%B0%E5%BF%86%E6%8A%95%E6%AF%92-%E4%BB%8E%E6%8F%90%E7%A4%BA%E6%B3%A8%E5%85%A5%E5%8D%87%E7%BA%A7%E4%B8%BA%E7%8B%AC%E7%AB%8B%E6%94%BB%E5%87%BB%E9%9D%A2" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">0x05 记忆投毒<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span>).</p>
+</div>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x01-选型第一步-选范式-不是选产品">0x01 选型第一步: 选范式, 不是选产品<a href="#0x01-选型第一步-选范式-不是选产品" class="hash-link" aria-label="0x01 选型第一步: 选范式, 不是选产品的直接链接" title="0x01 选型第一步: 选范式, 不是选产品的直接链接">​</a></h2>
+<p>范式边界由三个问题划定:</p>
+<ol>
+<li><strong>我要记住什么?</strong> —— 事实 / 经历 / 技能</li>
+<li><strong>谁来管理记忆?</strong> —— 框架自动 / Agent 自编辑 / 操作系统调度</li>
+<li><strong>如何验证与审计?</strong> —— 人类可读可 diff, 还是只有一份不透明的向量索引</li>
+</ol>
+<p>按这三问, 主流实现可以收敛成五种范式:</p>
+<div style="text-align:center"></div>
+<p>值得先泼一盆冷水的是: <strong>五个范式在实践中并不互斥</strong>. 工程侧的存储已经收敛为混合形态 ——</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>存储基质</th><th>擅长</th></tr></thead><tbody><tr><td>向量库</td><td>语义相似匹配</td></tr><tr><td>图数据库</td><td>关系、时间与多跳推理</td></tr><tr><td>KV / SQL</td><td>精确查询、版本与状态</td></tr><tr><td>文件</td><td>可审计、可 diff、事件溯源</td></tr></tbody></table>
+<p>差别只在<strong>谁是主基质、谁是增强层</strong>. 所以&quot;选范式&quot;的真实含义是: 先确定主基质, 再决定增强层挂什么.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="写入不是一次调用-而是一条分层管线">写入不是一次调用, 而是一条分层管线<a href="#写入不是一次调用-而是一条分层管线" class="hash-link" aria-label="写入不是一次调用, 而是一条分层管线的直接链接" title="写入不是一次调用, 而是一条分层管线的直接链接">​</a></h3>
+<p>写入侧同样已经收敛为四层: <strong>事实抽取 → 实体识别与消解 → 持久化与索引构建 → 版本/时效/归档/清理</strong>.</p>
+<p>写入动作本身只有三个: <strong>ADD / UPDATE / NO-OP</strong>, 加上版本回滚与状态标记, <strong>没有 DELETE</strong>. 这条设计约束非常关键 —— 它意味着&quot;删除&quot;在记忆系统里通常是<strong>标记失效</strong>, 而不是物理抹除.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="失效语义比删除复杂得多">失效语义比&quot;删除&quot;复杂得多<a href="#失效语义比删除复杂得多" class="hash-link" aria-label="失效语义比&quot;删除&quot;复杂得多的直接链接" title="失效语义比&quot;删除&quot;复杂得多的直接链接">​</a></h3>
+<p>失效至少有五种语义:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>失效语义</th><th>含义</th></tr></thead><tbody><tr><td>就地覆盖</td><td>用新值替换旧值, 旧值消失</td></tr><tr><td>版本化</td><td>保留多个版本, 标记当前有效</td></tr><tr><td>失效不删除</td><td>打 INVALID 标记, 保留历史</td></tr><tr><td>时间衰减</td><td>按半衰期降权, 医疗/法律场景可能完全不衰减</td></tr><tr><td>Agent 自主淘汰策略</td><td>由模型判断保留或丢弃</td></tr></tbody></table>
+<p>这里有一个几乎被所有评测忽略的事实: <strong>召回与删除是两套不同的器官</strong>. 知识图谱式的抽象会把一次具体的经历&quot;合成&quot;成一条事实, 丢弃掉表层形式; 而用户的删除请求恰恰是针对那个表层形式的 —— &quot;把我说过的那句话删掉&quot;, 指的是原句, 不是它的抽象. 图谱越擅长抽象, 这类删除就越容易失效. 这就是后面遗忘评测集体翻车的结构性根因.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="两条铁律">两条铁律<a href="#两条铁律" class="hash-link" aria-label="两条铁律的直接链接" title="两条铁律的直接链接">​</a></h3>
+<ul>
+<li><strong>读取同步阻塞, 直接决定首 token 延迟</strong> (p50 约 300~800 ms), 因此<strong>不能读图</strong>, 图遍历要挪到写入或后台.</li>
+<li><strong>写入必须异步</strong>, 典型做法是会话结束时异步持久化, 不阻塞实时对话路径.</li>
+</ul>
+<p>为什么这两条不是实现细节而是铁律? 因为读写两条路径面对的是完全不同的约束: 读要<strong>快</strong>, 写要<strong>稳</strong>. 把它们耦合在一起, 就等于让实时对话去承担索引构建和实体消解的延迟. 下图是这两条路径的完整分工:</p>
+<p><span class="viewer_MCf6"><span class="toolbar_w6JX"><span class="title_Tktm" title="Agent Memory 读写双路径: 为什么必须分离">Agent Memory 读写双路径: 为什么必须分离</span><span class="actions_BKaX"><button type="button" class="actionButton_ubOG" title="打开" aria-label="打开 Agent Memory 读写双路径: 为什么必须分离"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg></button><a class="actionButton_ubOG" href="/HXLoLi/knowledge-base/AI/记忆/Agent-Memory框架选型/memory-pipeline.html" target="_blank" rel="noopener noreferrer" title="新标签页打开" aria-label="新标签页打开 Agent Memory 读写双路径: 为什么必须分离"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></a></span></span><span class="preview_FBhq" role="button" tabindex="0" aria-label="打开 Agent Memory 读写双路径: 为什么必须分离"><iframe class="iframe_VM80" src="/HXLoLi/knowledge-base/AI/记忆/Agent-Memory框架选型/memory-pipeline.html" title="Agent Memory 读写双路径: 为什么必须分离" loading="lazy" allow="fullscreen" allowfullscreen=""></iframe><span class="previewOverlay_Ci6M"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg><span>打开</span></span></span></span></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x02-代表实现-差异点在哪里">0x02 代表实现: 差异点在哪里<a href="#0x02-代表实现-差异点在哪里" class="hash-link" aria-label="0x02 代表实现: 差异点在哪里的直接链接" title="0x02 代表实现: 差异点在哪里的直接链接">​</a></h2>
+<p>先给一张总表 (价格随版本变动频繁, 仅用于建立量级直觉):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>框架</th><th>范式</th><th>许可证 / 形态</th><th>差异点</th><th>主要短板</th></tr></thead><tbody><tr><td>Mem0</td><td>向量抽取型</td><td>Apache-2.0, Python/TS 双 SDK</td><td>社区规模最大, 官方集成 21+ 框架; 四层作用域 (会话→会话期→用户→组织)</td><td>图记忆被高价档锁定; 数据落差最大</td></tr><tr><td>Zep / Graphiti</td><td>时序知识图谱型</td><td>托管平台 / Graphiti 内核 Apache-2.0</td><td><strong>双时间轴</strong>: 每条事实同时携带 valid time (何时为真) 与 transaction time (系统何时学到)</td><td>图数据库运维成本; 写延迟最高</td></tr><tr><td>Letta</td><td>Agent 自编辑型</td><td>Apache-2.0</td><td>源自 MemGPT 的 OS 分页类比; memory blocks / archival memory / 可 git 追踪的 MemFS</td><td>无事实级时序; 重建循环约 2~6 周; 每次记忆操作都耗推理</td></tr><tr><td>MemOS</td><td>OS 调度型</td><td>学术项目</td><td>唯一把参数记忆纳入统一调度, 明文/激活/参数三种形态可互转</td><td>偏架构参考, 不是当下首选</td></tr><tr><td>LangMem</td><td>向量抽取型</td><td>MIT (LangChain 系)</td><td>语义 / 情景 / 程序三件套; hot path 与 background 双写入路径</td><td>与 LangGraph 生态绑定</td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="双时间轴为什么重要">双时间轴为什么重要<a href="#双时间轴为什么重要" class="hash-link" aria-label="双时间轴为什么重要的直接链接" title="双时间轴为什么重要的直接链接">​</a></h3>
+<p>Zep / Graphiti 的核心差异是&quot;两个时间戳同时写&quot;: 一条事实在真实世界里<strong>何时开始为真</strong> (valid time), 以及系统<strong>何时学到它</strong> (transaction time). 当旧事实被推翻时, 旧边不是被删掉, 而是被打上失效标记.</p>
+<p>于是它能在一次查询里同时回答两个不同的问题: &quot;现在什么是真的&quot; 和 &quot;当时什么是真的&quot;. 这是<strong>审计与追责</strong>场景的分水岭, 但也是它的代价来源: 图数据库、最高写延迟、以及比向量方案重得多的运维.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="一个常被误读的概念">一个常被误读的概念<a href="#一个常被误读的概念" class="hash-link" aria-label="一个常被误读的概念的直接链接" title="一个常被误读的概念的直接链接">​</a></h3>
+<p>&quot;会话内状态持续&quot;不等于&quot;跨会话记忆&quot;. LangGraph 的 checkpoint 是<strong>会话内状态持久化</strong>, 它解决的是单次运行的恢复与续跑, 不是&quot;上次用户说过什么&quot;. 选型时把 checkpoint 当记忆层, 会得到一个能续跑但完全没有记性的 Agent.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x03-评测-分数的可信度危机">0x03 评测: 分数的可信度危机<a href="#0x03-评测-分数的可信度危机" class="hash-link" aria-label="0x03 评测: 分数的可信度危机的直接链接" title="0x03 评测: 分数的可信度危机的直接链接">​</a></h2>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="三大主基准">三大主基准<a href="#三大主基准" class="hash-link" aria-label="三大主基准的直接链接" title="三大主基准的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>基准</th><th>规模</th><th>特点</th><th>现状</th></tr></thead><tbody><tr><td>LoCoMo</td><td>开放域长对话记忆 (ACL 2024)</td><td>单条/多条开放域、时间回忆</td><td>头部接近饱和, 生产区分度下降</td></tr><tr><td>LongMemEval</td><td>500 题, 每题约 11.5 万 token</td><td>六维度: 偏好、指令遵循、信息抽取、知识更新、多会话推理、时间推理</td><td>当前事实标准, 时间维度区分度最好</td></tr><tr><td>BEAM</td><td>100 场对话 / 2,000 题, 128K~10M token 四档</td><td>摘要、时间推理、事件排序、弃答、矛盾消解</td><td>当前最难, 10M 档最高报告分仍不到七成</td></tr></tbody></table>
+<p>BEAM 的难点恰恰在于它<strong>无法靠扩大窗口解决</strong>: 10M 量级把全部历史塞进 prompt 在经济上不可行, 因此它最贴近生产规模.</p>
+<p>另有一条从认知能力出发的路线 (MemoryAgentBench) 把记忆拆成四种正交能力: 准确检索、测试时学习、长程理解、<strong>选择性遗忘</strong>. 前三项都有赢家, 唯独选择性遗忘是所有方法共同表现最差的一项.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="分数不可比的三个硬证据">分数不可比的三个硬证据<a href="#分数不可比的三个硬证据" class="hash-link" aria-label="分数不可比的三个硬证据的直接链接" title="分数不可比的三个硬证据的直接链接">​</a></h3>
+<ol>
+<li>同一系统在同一基准上可以从 <strong>38% 跑到 92%</strong>, 差别只取决于 harness (测试脚手架);</li>
+<li>独立审计中, 奖励向量存储的 judge 接受了约 <strong>63% 的刻意错误答案</strong>, 奖励图的 judge 则拒绝得很干脆 —— 名次随基准形态反转;</li>
+<li>换一套口径 (排除不可回答题 vs 计入不可回答题), LoCoMo 上的结论直接翻转.</li>
+</ol>
+<p>由此得到五条读数规则:</p>
+<ul>
+<li><strong>成对读数字</strong>: 准确率必须与 token 成本一起给出, 单看准确率没有意义;</li>
+<li><strong>要求三件套</strong>: harness 版本、judge 模型、产品档位, 缺一项就不能作为选型依据;</li>
+<li><strong>区分 [厂] 与 [独]</strong>: 厂商报告与独立评测不可混用;</li>
+<li><strong>小规模测试不下结论</strong>: 当模型差异小于方法论差异时, 结论属于噪声;</li>
+<li><strong>接受&quot;模型差异 &gt; 方法差异&quot;</strong>: 有时换个底层模型比换个记忆框架收益更大.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="遗忘-行业最大的盲区">遗忘: 行业最大的盲区<a href="#遗忘-行业最大的盲区" class="hash-link" aria-label="遗忘: 行业最大的盲区的直接链接" title="遗忘: 行业最大的盲区的直接链接">​</a></h3>
+<p>ForgetEval (含对抗层) 测的是记忆的<strong>控制平面</strong> —— 衰减、清除、漂移. 结果数字差距极大: 同一组对抗性遗忘用例里, 有的方案 (LLM Hook 形态) 能到九成以上, 而 Graphiti 只有 <strong>4.4%~7.0%</strong>.</p>
+<p>根因不是实现粗糙, 而是结构性的: <strong>知识图谱的抽象会合成事实、丢弃表层形式, 而清除请求恰恰针对表层形式</strong>. 行业把&quot;召回&quot;这一套评测做透了, 然后在&quot;删除&quot;这一套上集体翻车.</p>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><span class="octicon octicon-warning" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-alert mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Warning</p>
+<p>如果你在受监管场景 (医疗、金融、法务) 里准备上线记忆层, &quot;能不能删干净&quot;是比&quot;能不能想起来&quot;更硬的合规问题. 现有榜单几乎不覆盖它.</p>
+</div>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="最干净的一组对照实验">最干净的一组对照实验<a href="#最干净的一组对照实验" class="hash-link" aria-label="最干净的一组对照实验的直接链接" title="最干净的一组对照实验的直接链接">​</a></h3>
+<p>2026 年 8 月一项受控实验 (&quot;The Shapes of Agent Memory&quot;) 把变量压到只剩一个: <strong>完全相同的 Agent 循环、相同的开源权重答案模型、相同的 judge, 只换记忆层</strong>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>形态</th><th>LongMemEval 准确率</th><th>token 消耗</th></tr></thead><tbody><tr><td>策展文件 (Markdown)</td><td>44.9%</td><td>约 665,000</td></tr><tr><td>结构化存储</td><td><strong>73.6%</strong></td><td>约 27,000</td></tr><tr><td>训练式记忆</td><td>研究系统, 非同等条件</td><td>——</td></tr></tbody></table>
+<p>准确率差 <strong>28.7 分</strong>, token 成本差约 <strong>24.6 倍</strong>.</p>
+<p>根因很清晰: 策展 Markdown 迫使模型<strong>在写入时做推理</strong>, 而嵌入不需要. 但有一个漂亮的<strong>反例</strong>: 在七维度的弃答指标上, 策展文件反而赢了 <strong>11.1 分</strong> (88.9% vs 77.8%). 机制解释是: 检索受限时索引材料更少, 模型更容易承认&quot;历史里没说&quot;, 而不是猜.</p>
+<p>这条反例的工程含义很直接: <strong>如果场景更怕幻觉而不是更怕答不出来, 文件式记忆反而更值得考虑.</strong></p>
+<p>至于训练式记忆, 结论是: 弱模型有真实提升, 前沿模型已接近天花板、无可检测提升. 它在当下是<strong>研究手段, 不是生产手段</strong>.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="数据口径说明-本文数字哪些查得到-哪些只是转述">数据口径说明: 本文数字哪些查得到, 哪些只是转述<a href="#数据口径说明-本文数字哪些查得到-哪些只是转述" class="hash-link" aria-label="数据口径说明: 本文数字哪些查得到, 哪些只是转述的直接链接" title="数据口径说明: 本文数字哪些查得到, 哪些只是转述的直接链接">​</a></h3>
+<p>这一节是本文对自己的一次&quot;读物检查&quot;. 表中每一行都标明了可核验性, 而不是把所有数字并列摆放:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>数字 / 结论</th><th>口径</th><th>可核验性</th></tr></thead><tbody><tr><td>Mem0 官方集成 20+ 框架、Apache-2.0</td><td>官方仓库与文档</td><td>已核</td></tr><tr><td>Mem0 94.4 分</td><td><strong>厂商对托管平台的自测</strong>, 官方自述&quot;开源用户不要期待同样数字&quot;</td><td>已核 (性质是自测)</td></tr><tr><td>独立评测 49.0 分、harness 区间 38%~92%</td><td>汇报口径</td><td><strong>未找到公开出处</strong></td></tr><tr><td>策展文件 44.9% vs 结构化 73.6%、665K vs 27K token</td><td>第三方受控实验原文</td><td>已核</td></tr><tr><td>InjecMEM 对 MemoryOS 76.6%、GhostWriter 注入率约 98%</td><td>公开论文</td><td>已核</td></tr><tr><td>OWASP 把记忆与上下文投毒单列为 ASI06</td><td>官方条目</td><td>已核</td></tr><tr><td>CVE-2026-41713 (Spring AI 记忆投毒型提示注入)</td><td>NVD 与厂商公告</td><td>已核</td></tr><tr><td>LoCoMo 题量、BEAM 10M 档 68.0%、Graphiti 遗忘 4.4%~7.0%</td><td>汇报口径</td><td><strong>未找到公开出处, 仅作方向性参考</strong></td></tr></tbody></table>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><span class="octicon octicon-tip" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-light-bulb mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Tip</p>
+<p>这张表本身就是本文主张的最小实践: 引用任何记忆系统的分数时, 先说清它是<strong>谁测的、怎么测的、测的是哪个档位</strong>. 缺任何一项, 那个数字就不该进入选型依据.</p>
+</div>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x04-决策树与四个必补动作">0x04 决策树与四个必补动作<a href="#0x04-决策树与四个必补动作" class="hash-link" aria-label="0x04 决策树与四个必补动作的直接链接" title="0x04 决策树与四个必补动作的直接链接">​</a></h2>
+<p>选型的第一步其实不是&quot;选哪个框架&quot;, 而是回答两个问题:</p>
+<div style="text-align:center"></div>
+<p>无论最终选谁, 有四件事<strong>必须补做</strong> —— 它们不在任何框架的开箱能力里:</p>
+<ol>
+<li><strong>元数据隔离</strong> —— 防跨租户合并. 元数据不同的事件永远不应被合并, 哪怕语义高度相似;</li>
+<li><strong>状态过滤层</strong> —— 防幽灵记忆, 即同一实体的多个有效版本被同时召回;</li>
+<li><strong>独立跑遗忘测试</strong> —— 不要用召回榜单代替遗忘验证;</li>
+<li><strong>写入侧内容安全校验</strong> —— 记忆写入是特权操作 (见下一节).</li>
+</ol>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="三种集成模式">三种集成模式<a href="#三种集成模式" class="hash-link" aria-label="三种集成模式的直接链接" title="三种集成模式的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>模式</th><th>做法</th><th>评价</th></tr></thead><tbody><tr><td>两端挂钩</td><td>调用开始 <code>memory_load</code> 注入, 调用结束 <code>memory_save</code> 异步持久化</td><td><strong>最推荐</strong>: 业务逻辑不接触记忆基础设施, 记忆层可替换、可独立单测</td></tr><tr><td>Hook 驱动</td><td>宿主 Agent 零侵入, 叠两层记忆 (本地 Markdown + 云端跨设备)</td><td>适合不想改 Agent 循环的场景; 本地那层图快, 云端那层记得久、跨得开</td></tr><tr><td>Agent 自主工具调用</td><td>把记忆暴露成 <code>memory_store</code> / <code>memory_search</code> 工具</td><td><strong>必须与上两种并存</strong>: 模型不会主动记住所有值得记的东西</td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="一个反常识的结论">一个反常识的结论<a href="#一个反常识的结论" class="hash-link" aria-label="一个反常识的结论的直接链接" title="一个反常识的结论的直接链接">​</a></h3>
+<p><strong>记忆层不总是省钱.</strong> 当压缩丢掉了关键细节时, 完整上下文可能反而更准. 把&quot;上记忆层&quot;默认等同于&quot;降本增效&quot;是一种想当然 —— 前面的对照实验里, 文件式记忆的 token 消耗是结构化存储的 24.6 倍, 但在弃答维度上更准. <strong>成本与准确率在记忆这一层并不是同向的.</strong></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x05-记忆投毒-从提示注入升级为独立攻击面">0x05 记忆投毒: 从提示注入升级为独立攻击面<a href="#0x05-记忆投毒-从提示注入升级为独立攻击面" class="hash-link" aria-label="0x05 记忆投毒: 从提示注入升级为独立攻击面的直接链接" title="0x05 记忆投毒: 从提示注入升级为独立攻击面的直接链接">​</a></h2>
+<p>传统提示注入是<strong>一次性</strong>的: 会话结束就失效. 而一旦恶意内容被写进长期记忆, 攻击就变成<strong>持久化驻留</strong> —— 它跨会话生效, 且在之后的检索里被 Agent 当成可信的内部状态采信.</p>
+<p>攻击分两个阶段:</p>
+<ol>
+<li><strong>注入阶段</strong>: 单次普通交互携带隐藏载荷, 或通过被投毒的文档/网页间接投递. 载荷伪装成&quot;事实/偏好/规则&quot;, 经由常规抽取管线落库;</li>
+<li><strong>激活阶段</strong>: 后续某次检索召回该条目, Agent 把它当作可信内部状态, 输出被悄然改写.</li>
+</ol>
+<p>四个放大因素让它比普通注入危险得多: <strong>长期影响、高信任度、低可见性、静默漂移</strong>. 在多 Agent 场景里还会通过共享检索层形成<strong>数字传染</strong> —— 一个 Agent 写入的低质量记忆会损害所有采信它的 Agent.</p>
+<p>公开研究给出的成功率相当可观: InjecMEM 对 MemoryOS 的攻击成功率约 76.6%, GhostWriter 的注入率约 98%. 行业响应也已经跟上: OWASP 2026 把 <strong>Memory &amp; Context Poisoning 单列为 ASI06</strong>.</p>
+<p>这也不是纸面威胁. <strong>CVE-2026-41713</strong> 就是一个已经进入 NVD 的实例: Spring AI 的 <code>PromptChatMemoryAdvisor</code> 把用户输入存进会话记忆后被模型以非预期方式重新解释, 形成&quot;经记忆投毒实现的提示注入&quot;, CVSS 8.2. 它的形态正是上面那条攻击链的最小样本 —— <strong>写入时一切正常, 出事发生在下一次召回.</strong></p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="十条防护里最有效的四条">十条防护里最有效的四条<a href="#十条防护里最有效的四条" class="hash-link" aria-label="十条防护里最有效的四条的直接链接" title="十条防护里最有效的四条的直接链接">​</a></h3>
+<ol>
+<li><strong>Schema 绑定记忆</strong> —— 不允许自由文本, 用结构化 Schema 约束所有写入与修改, 杜绝自然语言绕过;</li>
+<li><strong>写入即特权操作</strong> —— 任何写入/修改都必须经过权限校验与上下文审核;</li>
+<li><strong>读取以&quot;数据&quot;角色注入</strong> —— 检索结果只作数据, 不作指令; 并按来源可信度、时效性、一致性综合评分;</li>
+<li><strong>记忆来源与置信度分级</strong> —— 给每条记忆标注来源与信任值.</li>
+</ol>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="可观测性-盯幽灵率-不是盯命中率">可观测性: 盯&quot;幽灵率&quot;, 不是盯&quot;命中率&quot;<a href="#可观测性-盯幽灵率-不是盯命中率" class="hash-link" aria-label="可观测性: 盯&quot;幽灵率&quot;, 不是盯&quot;命中率&quot;的直接链接" title="可观测性: 盯&quot;幽灵率&quot;, 不是盯&quot;命中率&quot;的直接链接">​</a></h3>
+<p>核心健康指标是<strong>幽灵率 = 同一实体同时存在多个有效版本的比率</strong>. 它比命中率、利用率更能提前预警失败 —— 命中率告诉你&quot;想起来了&quot;, 幽灵率告诉你&quot;想起来的可能是错的版本&quot;.</p>
+<p>配套需要采集的还有: 记忆命中率、利用率、写入成功率、冲突率、TTL 命中率、写入与检索延迟 (p50/p95). 多 Agent 系统还要额外追踪记忆的跨 Agent 传播路径, 构建可追溯的记忆图.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x06-趋势-记忆正在变成一层可治理的服务">0x06 趋势: 记忆正在变成一层可治理的服务<a href="#0x06-趋势-记忆正在变成一层可治理的服务" class="hash-link" aria-label="0x06 趋势: 记忆正在变成一层可治理的服务的直接链接" title="0x06 趋势: 记忆正在变成一层可治理的服务的直接链接">​</a></h2>
+<p><strong>事实层面的三个方向</strong>:</p>
+<ul>
+<li>记忆从&quot;功能&quot;变成<strong>独立可治理的服务层</strong> (AWS 的 Episodic Memory Strategy、OWASP 把它列为独立攻击面、按操作或按条计费, 三个信号同时出现);</li>
+<li>从&quot;记住更多&quot;转向**&quot;控制得更好&quot;** —— 核心难点不在存储, 而在选择;</li>
+<li><strong>程序记忆从研究概念走向产品</strong>: Azure Foundry 是第一个把程序记忆产品化的托管服务, 让 Agent 学习&quot;它自己是如何完成某个任务的&quot;并复用流程; 记忆形态也可转换 (明文可蒸馏进权重, 权重也能降级回明文).</li>
+</ul>
+<p><strong>评测侧</strong>: 从单一榜单走向<strong>透明聚合</strong>, 到 2027 年标准问题会变成&quot;请给出 harness 版本、judge 模型、产品档位与独立复现结果&quot;.</p>
+<p><strong>五个尚未解决的真问题</strong> (按难度排序): 会话身份、规模化时间抽象、陈旧性遗忘的语义化、多 Agent 记忆一致性、跨规划身份. 其中<strong>遗忘的语义化</strong>是当前最被低估的工程缺口.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="我的判断-个人观点-非事实">我的判断 (个人观点, 非事实)<a href="#我的判断-个人观点-非事实" class="hash-link" aria-label="我的判断 (个人观点, 非事实)的直接链接" title="我的判断 (个人观点, 非事实)的直接链接">​</a></h3>
+<p>这篇素材来自一份 2026-09 的行业汇报, 数据截至发布日. 抛开具体数字, 我认为它最有价值的迁移是三句话:</p>
+<ol>
+<li><strong>&quot;选型 = 按记忆类型与失效语义做判断, 而不是按榜单分数排序.&quot;</strong> 这条对任何有状态系统都成立 —— 一旦系统的状态会跨会话存活, 你就不再是在选一个库, 而是在设计一套治理策略;</li>
+<li><strong>&quot;召回与删除是两套器官.&quot;</strong> 这条通用性最强. 任何&quot;只优化召回、把删除当兜底&quot;的系统, 都会在合规和长期正确性上付出代价, 而这件事在榜单上完全看不见;</li>
+<li><strong>分数不可比的本质是&quot;评测即设计&quot;.</strong> harness 换了结论就换了, 说明我们比的往往不是产品, 而是实验设计. 同一条经验可以直接搬到任何 LLM 评测场景里: 报数字时必须带上脚手架版本.</li>
+</ol>
+<p>我更倾向于把这次选型收敛为一条最小路径: <strong>先用&quot;知识来自文档还是对话&quot;把范式定下来, 再用&quot;要不要知道当时什么是真的&quot;决定是否上双时间轴, 然后无论选谁, 先把那四件必补动作做完.</strong> 这四件事的成本远低于换框架, 收益却更确定.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x07-拓展升华展望">0x07 拓展升华展望<a href="#0x07-拓展升华展望" class="hash-link" aria-label="0x07 拓展升华展望的直接链接" title="0x07 拓展升华展望的直接链接">​</a></h2>
+<p>把视线从&quot;选哪个框架&quot;抬高一层, 会发现本文真正的对象并不是记忆, 而是<strong>任何一个状态跨会话存活下来的系统</strong>. 只要系统的状态会比一次请求活得久, 它就必须同时面对写入质量、失效语义、审计与删除这四件事 —— 记忆框架只是最早把这些问题暴露出来的那一类系统.</p>
+<p><strong>事实层面</strong> … 记忆正在从&quot;一个功能&quot;变成&quot;一层可独立治理的服务&quot;: 托管平台按操作或按条计费, OWASP 把记忆与上下文投毒单列为 ASI06, 程序记忆也已经开始被产品化. 与此同时, 评测侧正从单一榜单走向透明聚合 —— 同一个系统换一套 harness 就能从 38% 跑到 92%, 这说明被比较的往往不是产品而是实验设计. 而&quot;召回与删除是两套不同的器官&quot;这一条, 在遗忘评测上有可复现的数字支撑.</p>
+<p><strong>个人判断</strong> … 我认为接下来最值得投入的不是更强的召回, 而是<strong>可解释的写入与可验证的删除</strong>: 一条记忆为什么被写进来、依据什么被标记失效、删除请求是否真的落到了原句上. 这三件事目前几乎没有榜单覆盖, 却恰好是任何受监管场景上线前的硬门槛. 另一个判断是, 记忆层会逐渐向&quot;策略层&quot;演化 —— 选型的终点不是挑一个库, 而是定下一套治理规则, 库只是规则的执行者. 在这个意义上, 本文列的四个必补动作比框架本身更长寿.</p>
+<hr>
+<p><span class="viewer_MCf6"><span class="toolbar_w6JX"><span class="title_Tktm" title="Agent Memory 选型速览">Agent Memory 选型速览</span><span class="actions_BKaX"><button type="button" class="actionButton_ubOG" title="打开" aria-label="打开 Agent Memory 选型速览"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg></button><a class="actionButton_ubOG" href="#" target="_blank" rel="noopener noreferrer" title="新标签页打开" aria-label="新标签页打开 Agent Memory 选型速览"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></a></span></span><span class="preview_FBhq" role="button" tabindex="0" aria-label="打开 Agent Memory 选型速览" style="cursor:default"><div style="aspect-ratio:16 / 9;display:grid;place-items:center">主题加载中…</div><span class="previewOverlay_Ci6M"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg><span>打开</span></span></span></span></p>
+<blockquote>
+<p>内联演示页由站点主题渲染 (可换主题、可跟随明暗). 想改回默认主题, 把链接里的主题名去掉即可.</p>
+</blockquote>
+<p><span class="viewer_MCf6"><span class="toolbar_w6JX"><span class="title_Tktm" title="静态 HTML 版演示页">静态 HTML 版演示页</span><span class="actions_BKaX"><button type="button" class="actionButton_ubOG" title="打开" aria-label="打开 静态 HTML 版演示页"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg></button><a class="actionButton_ubOG" href="/HXLoLi/knowledge-base/AI/记忆/Agent-Memory框架选型/overview-ppt.html" target="_blank" rel="noopener noreferrer" title="新标签页打开" aria-label="新标签页打开 静态 HTML 版演示页"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></a></span></span><span class="preview_FBhq" role="button" tabindex="0" aria-label="打开 静态 HTML 版演示页"><iframe class="iframe_VM80" src="/HXLoLi/knowledge-base/AI/记忆/Agent-Memory框架选型/overview-ppt.html" title="静态 HTML 版演示页" loading="lazy" allow="fullscreen" allowfullscreen=""></iframe><span class="previewOverlay_Ci6M"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg><span>打开</span></span></span></span></p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x08-参考来源">0x08 参考来源<a href="#0x08-参考来源" class="hash-link" aria-label="0x08 参考来源的直接链接" title="0x08 参考来源的直接链接">​</a></h2>
+<ul>
+<li><span class="tailwind"><a href="https://www.bilibili.com/video/BV12UYY6sEmb/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">【Agent Memory 主流框架选型与对比 —— 窗口解决容量, 记忆解决连续性】<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 本文主线素材来源, 覆盖四类记忆、五大范式、评测可信度、安全与落地清单.</li>
+<li><span class="tailwind"><a href="https://github.com/mem0ai/mem0" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Mem0<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 社区规模最大的独立记忆层实现, 本文对照的向量抽取型代表.</li>
+<li><span class="tailwind"><a href="https://github.com/getzep/graphiti" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Graphiti<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— Zep 的时序知识图谱内核, 双时间轴设计的实现参考.</li>
+<li><span class="tailwind"><a href="https://github.com/letta-ai/letta" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Letta<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 有状态 Agent 运行时, memory blocks / MemFS 与程序记忆的参考实现.</li>
+<li><span class="tailwind"><a href="https://github.com/langchain-ai/langmem" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">LangMem<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 语义/情景/程序三件套与双写入路径的参考实现.</li>
+<li><span class="tailwind"><a href="https://docs.aws.amazon.com/bedrock-agentcore/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">AWS Bedrock AgentCore Memory<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 全托管记忆服务的三阶段异步管线与命名空间设计.</li>
+<li><span class="tailwind"><a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">OWASP Top 10 for Agentic Applications<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 与 <span class="tailwind"><a href="https://genai.owasp.org/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">ASI06 条目解读<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 记忆与上下文投毒被单列为独立风险条目的出处.</li>
+<li><span class="tailwind"><a href="https://arxiv.org/abs/2608.23471" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">InjecMEM: 记忆投毒攻击论文<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 对 MemoryOS 攻击成功率 76.6% 的原始出处.</li>
+<li><span class="tailwind"><a href="https://arxiv.org/abs/2607.06595" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">When Agents Remember Too Much: Memory Poisoning Attacks on LLM Agents<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— GhostWriter 注入率约 98% 的原始出处.</li>
+<li><span class="tailwind"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41713" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CVE-2026-41713 (NVD)<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 与 <span class="tailwind"><a href="https://spring.io/security/cve-2026-41713" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Spring AI 公告<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 记忆投毒型提示注入进入生产系统的真实案例.</li>
+<li><span class="tailwind"><a href="https://arxiv.org/abs/2501.13956" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Zep: A Temporal Knowledge Graph Architecture for Agent Memory<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 双时间轴设计的论文依据.</li>
+<li><span class="tailwind"><a href="https://arxiv.org/abs/2310.08560" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">MemGPT: Towards LLMs as Operating Systems<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— Letta 的 OS 分页类比与自编辑记忆的论文依据.</li>
+<li><span class="tailwind"><a href="https://arxiv.org/abs/2507.03724" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">MemOS: A Memory OS for AI System<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 把参数记忆纳入统一调度的论文依据.</li>
+<li><span class="tailwind"><a href="https://www.pinglin.tw/blog/the-shapes-of-agent-memory/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">The Shapes of Agent Memory<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 文件式与结构化记忆受控对照实验的原文 (含 token 账本).</li>
+<li><span class="tailwind"><a href="https://arxiv.org/abs/2510.27246" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">BEAM: Beyond a Million Tokens<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 十亿级 token 记忆基准的设计与分档.</li>
+<li><span class="tailwind"><a href="https://arxiv.org/abs/2507.05257" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">MemoryAgentBench<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 从认知能力出发的四维记忆评测.</li>
+<li><span class="tailwind"><a href="https://arxiv.org/abs/2606.15903" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">ForgetEval: 遗忘控制平面评测<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 遗忘作为独立评测维度的出处.</li>
+<li><span class="tailwind"><a href="https://arxiv.org/abs/2404.06654" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">RULER: What&#x27;s the Real Context Size of Your Long-Context Language Models?<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 有效上下文远低于标称窗口的评测依据.</li>
+<li><span class="tailwind"><a href="https://arxiv.org/abs/2307.03172" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">Lost in the Middle: How Language Models Use Long Contexts<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 关键信息位于中段时准确率下降的证据.</li>
+<li><span class="tailwind"><a href="https://github.com/xiaowu0162/LongMemEval" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">LongMemEval<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 当前记忆评测事实标准的六维度设计与 500 题数据集.</li>
+<li><span class="tailwind"><a href="https://arxiv.org/abs/2402.17753" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">LoCoMo<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 开放域长对话记忆基准的原始论文.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="关联阅读">关联阅读<a href="#关联阅读" class="hash-link" aria-label="关联阅读的直接链接" title="关联阅读的直接链接">​</a></h3>
+<ul>
+<li><span class="tailwind"><a href="/HXLoLi/knowledge-base/AI/%E8%AE%B0%E5%BF%86/%E8%87%AA%E7%BB%B4%E6%8A%A4%E5%8F%AF%E6%8F%92%E6%8B%94%E8%AE%B0%E5%BF%86%E5%B1%82%E8%AE%BE%E8%AE%A1/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">自维护可插拔记忆层设计: 一次对比市面方案后的收敛<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 如果本文解决&quot;选哪个&quot;, 这篇解决&quot;自己造一层&quot;时端口与存储怎么分.</li>
+<li><span class="tailwind"><a href="/HXLoLi/knowledge-base/AI/%E8%AE%B0%E5%BF%86/%E5%AF%B9%E8%AF%9D%E8%AE%B0%E5%BF%86%E4%B8%8E%E7%9F%A5%E8%AF%86%E5%BA%93%E5%A2%9E%E9%87%8F%E6%B2%89%E6%B7%80/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">对话记忆与知识库增量沉淀<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 把记忆落到知识库增量上的做法.</li>
+<li><span class="tailwind"><a href="/HXLoLi/knowledge-base/AI/%E6%A3%80%E7%B4%A2/%E8%87%AA%E5%BB%BAAgent%E6%A3%80%E7%B4%A2%E6%A0%88%E4%B8%8E%E5%87%AD%E8%AF%81%E6%B2%BB%E7%90%86/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">自建 Agent 检索栈与凭证治理<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 检索、融合与重排这一层自建时的工程细节.</li>
+<li><span class="tailwind"><a href="/HXLoLi/knowledge-base/AI/Agent%E6%9E%B6%E6%9E%84/AI-Agent%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">AI Agent 设计原理与工程实践<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> —— 记忆在 Agent 整体架构里的位置.</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-tags-row"><div class="col"><b>标签：</b><ul class="tags_jXut padding--none margin-left--sm"><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/ai-agent">AI Agent</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/记忆系统">记忆系统</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/技术选型">技术选型</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/评测">评测</a></li></ul></div></div><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin</b> <!-- -->于 <b><time datetime="2026-09-13T15:47:35.000Z" itemprop="dateModified">2026年9月13日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;align-items:center;margin-top:20px;opacity:0.85">给 AI 买点 Token:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi/default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi/img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi/default-icons/wechat.svg" alt="Wechat Icon" class="icon"><img src="/HXLoLi/img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi/default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/knowledge-base/AI/记忆/obsidian-second-brain"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">obsidian-second-brain</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/knowledge-base/AI/Skill/SkillOpt把skill当参数训练"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">SkillOpt把skill当参数训练</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#0x00-三个概念-三种失效" class="table-of-contents__link toc-highlight">0x00 三个概念, 三种失效</a><ul><li><a href="#agent-记忆的四种类型" class="table-of-contents__link toc-highlight">Agent 记忆的四种类型</a></li></ul></li><li><a href="#0x01-选型第一步-选范式-不是选产品" class="table-of-contents__link toc-highlight">0x01 选型第一步: 选范式, 不是选产品</a><ul><li><a href="#写入不是一次调用-而是一条分层管线" class="table-of-contents__link toc-highlight">写入不是一次调用, 而是一条分层管线</a></li><li><a href="#失效语义比删除复杂得多" class="table-of-contents__link toc-highlight">失效语义比&quot;删除&quot;复杂得多</a></li><li><a href="#两条铁律" class="table-of-contents__link toc-highlight">两条铁律</a></li></ul></li><li><a href="#0x02-代表实现-差异点在哪里" class="table-of-contents__link toc-highlight">0x02 代表实现: 差异点在哪里</a><ul><li><a href="#双时间轴为什么重要" class="table-of-contents__link toc-highlight">双时间轴为什么重要</a></li><li><a href="#一个常被误读的概念" class="table-of-contents__link toc-highlight">一个常被误读的概念</a></li></ul></li><li><a href="#0x03-评测-分数的可信度危机" class="table-of-contents__link toc-highlight">0x03 评测: 分数的可信度危机</a><ul><li><a href="#三大主基准" class="table-of-contents__link toc-highlight">三大主基准</a></li><li><a href="#分数不可比的三个硬证据" class="table-of-contents__link toc-highlight">分数不可比的三个硬证据</a></li><li><a href="#遗忘-行业最大的盲区" class="table-of-contents__link toc-highlight">遗忘: 行业最大的盲区</a></li><li><a href="#最干净的一组对照实验" class="table-of-contents__link toc-highlight">最干净的一组对照实验</a></li><li><a href="#数据口径说明-本文数字哪些查得到-哪些只是转述" class="table-of-contents__link toc-highlight">数据口径说明: 本文数字哪些查得到, 哪些只是转述</a></li></ul></li><li><a href="#0x04-决策树与四个必补动作" class="table-of-contents__link toc-highlight">0x04 决策树与四个必补动作</a><ul><li><a href="#三种集成模式" class="table-of-contents__link toc-highlight">三种集成模式</a></li><li><a href="#一个反常识的结论" class="table-of-contents__link toc-highlight">一个反常识的结论</a></li></ul></li><li><a href="#0x05-记忆投毒-从提示注入升级为独立攻击面" class="table-of-contents__link toc-highlight">0x05 记忆投毒: 从提示注入升级为独立攻击面</a><ul><li><a href="#十条防护里最有效的四条" class="table-of-contents__link toc-highlight">十条防护里最有效的四条</a></li><li><a href="#可观测性-盯幽灵率-不是盯命中率" class="table-of-contents__link toc-highlight">可观测性: 盯&quot;幽灵率&quot;, 不是盯&quot;命中率&quot;</a></li></ul></li><li><a href="#0x06-趋势-记忆正在变成一层可治理的服务" class="table-of-contents__link toc-highlight">0x06 趋势: 记忆正在变成一层可治理的服务</a><ul><li><a href="#我的判断-个人观点-非事实" class="table-of-contents__link toc-highlight">我的判断 (个人观点, 非事实)</a></li></ul></li><li><a href="#0x07-拓展升华展望" class="table-of-contents__link toc-highlight">0x07 拓展升华展望</a></li><li><a href="#0x08-参考来源" class="table-of-contents__link toc-highlight">0x08 参考来源</a><ul><li><a href="#关联阅读" class="table-of-contents__link toc-highlight">关联阅读</a></li></ul></li></ul></div></div></div></div></main></div></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">友情链接</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://hengxin666.github.io/cppreference-zh-cn/" target="_blank" rel="noreferrer noopener" style="display: flex; align-items: center; gap: 3px; text-decoration: none; color: inherit; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                  <img src="/HXLoLi/icons/ISO_C++_Logo.svg" alt="cppreference" width="36" height="36" style="flex-shrink: 0;">
+                  <span style="font-size: 16px; font-weight: 600; position: relative; top: -1.75px;">cppreference</span>
+                </a>
+                <div style="height: 10px;"></div>
+              </li><li class="footer__item">
+                <a href="https://bgm.tv" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/img/BanGuMi_Logo.png" alt="BanGuMi" height="50">
+                </a>
+              </li><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2026 HXLoLi, Inc. 在 🇨🇳 用 ❤️ 制作.</div></div></div></footer></div>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Memory 选型速览 · PPT</title>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a30;--line:#223352;--ink:#e9effc;--muted:#92a3c8;--accent:#38d3f2;--accent2:#a78bfa}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#05070f;color:var(--ink);font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;height:100%}
+.deck{width:1600px;max-width:100%;height:100vh;margin:0 auto;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;width:1600px;height:900px;max-width:100%;max-height:100%;padding:44px 60px 56px;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .35s;
+  background:radial-gradient(1100px 560px at 88% -12%,rgba(56,211,242,.07),transparent 60%),var(--bg)}
+.slide.active{opacity:1;pointer-events:auto}
+.slide .shead,.slide .scap{opacity:0;transform:translateY(10px);transition:opacity .4s ease .1s,transform .4s ease .1s}
+.slide.active .shead,.slide.active .scap{opacity:1;transform:translateY(0)}
+.shead{display:flex;align-items:baseline;gap:16px;margin-bottom:12px;flex:none}
+.shead .snum{color:var(--accent);font-weight:700;font-size:20px;letter-spacing:.08em}
+.shead h2{font-size:30px;font-weight:600}
+.stage{flex:1;min-height:0;border:1px solid var(--line);border-radius:14px;background:var(--panel);display:flex;align-items:center;justify-content:center;padding:34px 52px;overflow:hidden}
+.scap{flex:none;margin-top:12px;color:var(--muted);font-size:17px;line-height:1.6;text-align:center;padding:0 30px}
+.cover{justify-content:center;text-align:center;padding:0 90px}
+.kicker{color:var(--accent);font-size:20px;letter-spacing:.18em;font-weight:700}
+.cover h1{font-size:58px;line-height:1.2;margin:20px 0 16px}
+.cover .lead{color:var(--muted);font-size:23px;line-height:1.7;max-width:1080px;margin:0 auto}
+.chips{margin:30px auto 0;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:1180px}
+.chips span{border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:17px;color:#c3d2ef}
+ul.points{list-style:none;text-align:left;margin:0 auto;max-width:1180px;display:flex;flex-direction:column;gap:18px}
+ul.points li{font-size:21px;line-height:1.6;color:#c3d2ef;padding-left:22px;position:relative}
+ul.points li b{color:var(--ink)}
+ul.points li::before{content:"";position:absolute;left:0;top:.62em;width:10px;height:10px;border-radius:3px;background:var(--accent)}
+table{border-collapse:collapse;font-size:18px;width:100%;max-width:1320px}
+th,td{border:1px solid var(--line);padding:12px 15px;text-align:left;line-height:1.55}
+th{background:rgba(255,255,255,.04);color:var(--accent);font-size:19px}
+td:first-child{color:var(--muted);font-weight:600;white-space:nowrap}
+.cols{display:flex;gap:22px;width:100%;max-width:1360px}
+.col{flex:1;border:1px solid var(--line);border-radius:12px;padding:22px 26px;background:rgba(255,255,255,.03)}
+.col h3{font-size:20px;margin-bottom:14px;color:var(--accent2)}
+.col h3.ok{color:var(--accent)}
+.col p,.col li{font-size:18px;line-height:1.65;color:#c3d2ef}
+.col ul{margin-left:18px}
+pre{width:100%;max-width:1320px;background:#05070f;border:1px solid var(--line);border-radius:12px;padding:20px 24px;overflow:auto;font-family:"JetBrains Mono",Consolas,monospace;font-size:16px;line-height:1.6;color:#cfe3ff}
+blockquote{max-width:1150px;font-size:26px;line-height:1.6;color:var(--ink);border-left:4px solid var(--accent);padding-left:24px}
+blockquote cite{display:block;margin-top:16px;font-size:17px;color:var(--muted);font-style:normal}
+.tree{display:flex;flex-direction:column;gap:14px;max-width:1200px}
+.tree .q{border:1px solid var(--accent);border-radius:10px;padding:12px 20px;font-size:20px;color:var(--ink)}
+.tree .a{display:flex;gap:14px;flex-wrap:wrap;margin-left:26px}
+.tree .a span{border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-size:17px;color:#c3d2ef}
+.tree .a span.hi{border-color:var(--accent2);color:#e7ddff}
+.controls{position:absolute;bottom:18px;right:30px;display:flex;gap:10px;z-index:20}
+.controls button{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;width:46px;height:46px;font-size:20px;cursor:pointer}
+.controls button:hover{border-color:var(--accent);color:var(--accent)}
+.pager{position:absolute;bottom:22px;left:60px;color:var(--muted);font-size:16px;z-index:20;letter-spacing:.05em}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <section class="slide cover active">
+    <div class="kicker">HXLOLI · AI-DOCS</div>
+    <h1>Agent Memory 选型速览</h1>
+    <p class="lead">窗口解决容量, 记忆解决连续性 —— 但连分数都不可比的领域里, 选型该依据什么?</p>
+    <div class="chips"><span>五大架构范式</span><span>评测可信度危机</span><span>遗忘盲区</span><span>记忆投毒</span><span>四个必补动作</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">00</span><h2>三概念边界</h2></div>
+    <div class="stage">
+      <table>
+        <tr><th></th><th>长上下文</th><th>RAG</th><th>Agent Memory</th></tr>
+        <tr><td>内容来源</td><td>本次请求输入</td><td>预置静态语料</td><td>运行期双向产生</td></tr>
+        <tr><td>生命周期</td><td>单次, 用完即销毁</td><td>与语料同寿</td><td>跨会话跨任务持久</td></tr>
+        <tr><td>解决什么</td><td>容量</td><td>事实召回</td><td>连续性</td></tr>
+        <tr><td>典型失效</td><td>上下文腐化</td><td>语料过期</td><td>幽灵记忆 / 遗忘失败</td></tr>
+      </table>
+    </div>
+    <div class="scap">判据: 同一客户第五次来访, RAG 命中同一份文档, Memory 记得他上次问过什么.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">01</span><h2>窗口的账要重新算</h2></div>
+    <div class="stage">
+      <ul class="points">
+        <li><b>有效上下文只有标称窗口的 50%~65%</b> —— 买来的窗口有一半拿不到手.</li>
+        <li><b>Context Rot</b>: 18 个前沿模型全部随输入增长退化, 200K 窗口的模型可能在 50K 处就已失稳.</li>
+        <li><b>Lost in the Middle</b>: 关键事实落在中段时, 准确率下降超过 30%.</li>
+        <li><b>结论</b>: 窗口与记忆是两个正交问题, 记忆评测要先写入再跨轮检索, 写入质量本身就是评测对象.</li>
+      </ul>
+    </div>
+    <div class="scap">把窗口从 200K 推到 1M, 并不会让 Agent 记住你上周说过什么.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">02</span><h2>四类记忆与它们的失效</h2></div>
+    <div class="stage">
+      <div class="cols">
+        <div class="col"><h3>语义 / 情景</h3><p>语义记事实: X 是 Y. 情景记经历: 遇到 X 时发生了什么.</p><p>情景的独有价值是保留<b>失败与试错的分支</b> —— 事实没有褒贬, 语义记忆说不出"不要先做 X".</p></div>
+        <div class="col"><h3>程序 / 参数</h3><p>程序记怎么做: 遇到 X 先做 Y、别做 Z. 参数是学进权重的偏好.</p><p>程序记忆正在从研究概念走向产品, 记忆形态也可在明文与权重之间转换.</p></div>
+      </div>
+    </div>
+    <div class="scap">Zep 悖论: 失败模式往往不是"忘了", 而是"同时记住了太多版本".</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">03</span><h2>五大架构范式</h2></div>
+    <div class="stage">
+      <table>
+        <tr><th>范式</th><th>代表</th><th>换取什么</th><th>代价</th></tr>
+        <tr><td>向量抽取型</td><td>Mem0 / LangMem</td><td>接入成本最低</td><td>关系推理弱</td></tr>
+        <tr><td>时序知识图谱型</td><td>Zep / Graphiti</td><td>双时间轴, 可回答"当时什么是真的"</td><td>图数据库运维, 写延迟最高</td></tr>
+        <tr><td>Agent 自编辑型</td><td>Letta</td><td>共享记忆块是一等原语</td><td>可审计性差, 每次操作耗推理</td></tr>
+        <tr><td>OS 调度型</td><td>MemOS</td><td>明文/激活/参数三形态可互转</td><td>偏架构参考</td></tr>
+        <tr><td>文件即真相型</td><td>Claude Code / Cline / Cursor</td><td>零基础设施, 可 diff 可审计</td><td>检索能力弱</td></tr>
+      </table>
+    </div>
+    <div class="scap">选型第一步是选范式, 不是选产品.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">04</span><h2>失效语义比"删除"复杂</h2></div>
+    <div class="stage">
+      <div class="cols">
+        <div class="col"><h3>写入只有三个动作</h3><p><b>ADD / UPDATE / NO-OP</b>, 加上版本回滚与状态标记 —— <b>没有 DELETE</b>.</p><p>"删除"在记忆系统里通常是<b>标记失效</b>, 不是物理抹除.</p></div>
+        <div class="col"><h3 class="ok">召回与删除是两套器官</h3><p>图谱抽象把具体经历合成事实、丢弃表层形式; 而删除请求恰恰针对表层形式.</p><p>图谱越擅长抽象, 这类删除就越容易失效 —— 这是遗忘评测集体翻车的结构性根因.</p></div>
+      </div>
+    </div>
+    <div class="scap">五种失效语义: 就地覆盖 / 版本化 / 失效不删除 / 时间衰减 / Agent 自主淘汰.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">05</span><h2>评测的可信度危机</h2></div>
+    <div class="stage">
+      <table>
+        <tr><th>现象</th><th>证据</th></tr>
+        <tr><td>同一系统分数区间极大</td><td>38% ~ 92%, 变量是 harness (测试脚手架)</td></tr>
+        <tr><td>名次随基准形态反转</td><td>奖励向量存储的 judge 接受了约 63% 的刻意错误答案</td></tr>
+        <tr><td>换口径结论翻转</td><td>排除还是计入"不可回答题", 直接改写排名</td></tr>
+        <tr><td>头部基准饱和</td><td>LoCoMo 区分度下降, BEAM 最贴近生产规模</td></tr>
+      </table>
+    </div>
+    <div class="scap">读数三件套: harness 版本 + judge 模型 + 产品档位, 缺一项就不能作为选型依据.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">06</span><h2>遗忘: 行业最大的盲区</h2></div>
+    <div class="stage">
+      <ul class="points">
+        <li><b>召回被做透了, 删除集体翻车.</b> 控制平面评测 (衰减/清除/漂移) 的数字差距极大.</li>
+        <li>公开对标中, 图结构方案在对抗性遗忘上只有 <b>4.4%~7.0%</b>, 而某些 LLM Hook 方案约 93%.</li>
+        <li>根因是结构性的, 不是实现粗糙: 抽象丢掉了删除请求真正指向的表层形式.</li>
+        <li><b>受监管场景里, "能不能删干净"比"能不能想起来"更硬.</b></li>
+      </ul>
+    </div>
+    <div class="scap">现有榜单几乎不覆盖遗忘 —— 这意味着公开分数无法替你回答合规问题.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">07</span><h2>最干净的对照实验</h2></div>
+    <div class="stage">
+      <table>
+        <tr><th>形态</th><th>LongMemEval 准确率</th><th>每答对一题 token</th></tr>
+        <tr><td>策展文件 (Markdown)</td><td>44.9%</td><td>约 665,000</td></tr>
+        <tr><td>结构化存储</td><td><b>73.6%</b></td><td>约 27,000</td></tr>
+      </table>
+      <p style="margin-top:22px;font-size:19px;color:#c3d2ef;max-width:1200px;text-align:center">
+        准确率差 <b>28.7 分</b>, token 成本差约 <b>24.6 倍</b>. 根因: 策展 Markdown 迫使模型<b>在写入时做推理</b>, 而嵌入不需要.<br>
+        反例更值得记住: 在弃答指标上, 策展文件反而赢了 <b>11.1 分</b> —— 材料更少时, 模型更容易承认"历史里没说".
+      </p>
+    </div>
+    <div class="scap">如果场景更怕幻觉而不是更怕答不出来, 文件式记忆反而更值得考虑.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">08</span><h2>选型决策树</h2></div>
+    <div class="stage">
+      <div class="tree">
+        <div class="q">Q1 知识主要来自用户对话, 还是文档?</div>
+        <div class="a"><span>文档 / 业务数据 → 知识图谱 · GraphRAG 路线</span><span class="hi">用户对话 → 看 Q2</span></div>
+        <div class="q">Q2 事实会随时间改变, 且需要知道"当时什么是真的"吗?</div>
+        <div class="a"><span class="hi">是 → Zep / Graphiti (接受图数据库成本)</span><span>只需知道现在什么是对的 → 看 Q3</span></div>
+        <div class="q">Q3 技术栈绑定与合规要求?</div>
+        <div class="a"><span>云原生优先 → AgentCore Memory</span><span>要长时程自主状态 → Letta</span><span>要可读可审计 → 文件即真相型</span></div>
+      </div>
+    </div>
+    <div class="scap">先选范式, 再选产品; 顺序反了, 后面全是补丁.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">09</span><h2>四个必补动作</h2></div>
+    <div class="stage">
+      <ul class="points">
+        <li><b>元数据隔离</b> —— 防跨租户合并: 元数据不同的事件永不被合并, 哪怕语义高度相似.</li>
+        <li><b>状态过滤层</b> —— 防幽灵记忆: 同一实体的多个有效版本不应被同时召回.</li>
+        <li><b>独立跑遗忘测试</b> —— 不要用召回榜单代替遗忘验证.</li>
+        <li><b>写入侧内容安全校验</b> —— 记忆写入是特权操作, 不是普通的一次函数调用.</li>
+      </ul>
+    </div>
+    <div class="scap">这四件事不在任何框架的开箱能力里, 成本却远低于换框架.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">10</span><h2>记忆投毒</h2></div>
+    <div class="stage">
+      <div class="cols">
+        <div class="col"><h3>攻击链两阶段</h3><p><b>注入</b>: 单次交互携带隐藏载荷, 或经被投毒文档间接投递, 伪装成事实/偏好/规则, 走常规抽取管线落库.</p><p><b>激活</b>: 后续检索召回该条目, Agent 把它当可信内部状态采信.</p></div>
+        <div class="col"><h3 class="ok">四个放大因素</h3><ul><li>长期影响</li><li>高信任度</li><li>低可见性</li><li>静默漂移</li></ul><p>多 Agent 场景还会通过共享检索层形成<b>数字传染</b>.</p></div>
+      </div>
+    </div>
+    <div class="scap">公开研究: InjecMEM 对 MemoryOS 成功率 76.6%, GhostWriter 注入率约 98%; OWASP 已把记忆与上下文投毒单列为 ASI06.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">11</span><h2>防护与可观测性</h2></div>
+    <div class="stage">
+      <table>
+        <tr><th>最有效的四条防护</th><th>要做成什么</th></tr>
+        <tr><td>Schema 绑定记忆</td><td>不允许自由文本, 用结构化 Schema 约束一切写入与修改</td></tr>
+        <tr><td>写入即特权操作</td><td>写入/修改必须经过权限校验与上下文审核</td></tr>
+        <tr><td>读取以"数据"角色注入</td><td>检索结果只作数据, 不作指令; 按可信度、时效性、一致性评分</td></tr>
+        <tr><td>来源与置信度分级</td><td>每条记忆标注来源与信任值</td></tr>
+      </table>
+    </div>
+    <div class="scap">核心健康指标是"幽灵率" —— 同一实体同时存在多个有效版本的比率. 它比命中率更能提前预警失败.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">12</span><h2>趋势与结论</h2></div>
+    <div class="stage">
+      <ul class="points">
+        <li><b>记忆正在变成一层可治理的服务</b>: 从"功能"到独立服务层, 从"记住更多"到"控制得更好".</li>
+        <li><b>评测从单一榜单走向透明聚合</b>: 2027 年的标准问题会变成"请给出 harness 版本、judge 模型、产品档位与独立复现结果".</li>
+        <li><b>记忆层不总是省钱</b>: 当压缩丢掉关键细节时, 完整上下文可能反而更准.</li>
+        <li><b>遗忘的语义化</b>是当前最被低估的工程缺口.</li>
+      </ul>
+    </div>
+    <div class="scap">选型的本质是按记忆类型与失效语义做判断, 而不是按榜单分数排序.</div>
+  </section>
+
+  <section class="slide">
+    <div class="shead"><span class="snum">13</span><h2>一句话带走</h2></div>
+    <div class="stage">
+      <blockquote>先用"知识来自文档还是对话"把范式定下来, 再用"要不要知道当时什么是真的"决定是否上双时间轴; 然后无论选谁, 先把那四件必补动作做完.<cite>—— 个人判断, 非事实陈述</cite></blockquote>
+    </div>
+    <div class="scap">完整推导与数据口径说明见配套笔记 (含"哪些数字查得到、哪些只是转述"一节).</div>
+  </section>
+
+  <div class="pager"><span id="cur">1</span> / <span id="total">1</span></div>
+  <div class="controls">
+    <button type="button" id="prev" aria-label="上一页">‹</button>
+    <button type="button" id="next" aria-label="下一页">›</button>
+  </div>
+</div>
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var cur = 0;
+  function render() {
+    slides.forEach(function (s, i) { s.classList.toggle('active', i === cur); });
+    document.getElementById('cur').textContent = String(cur + 1);
+    document.getElementById('total').textContent = String(slides.length);
+  }
+  function go(n) { cur = Math.max(0, Math.min(slides.length - 1, n)); render(); }
+  document.getElementById('prev').addEventListener('click', function () { go(cur - 1); });
+  document.getElementById('next').addEventListener('click', function () { go(cur + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+    else if (e.key === 'Home') { go(0); }
+    else if (e.key === 'End') { go(slides.length - 1); }
+  });
+  document.getElementById('deck').addEventListener('click', function (e) {
+    if (e.target.closest('button') || e.target.closest('a')) return;
+    var half = window.innerWidth / 2;
+    go(e.clientX < half ? cur - 1 : cur + 1);
+  });
+  render();
+})();
+</script>
+</body>
+</html>
