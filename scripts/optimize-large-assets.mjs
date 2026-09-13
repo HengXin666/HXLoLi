@@ -133,8 +133,11 @@ function convertGif(filePath) {
       '-loop',
       '0',
       '-an',
-      '-vsync',
-      '0',
+      // 旧写法是 '-vsync 0', 该别名在新版 ffmpeg 里已被移除 (会直接报
+      // "Unrecognized option 'vsync'"), 导致所有超大 GIF 都转失败并被删除。
+      // -fps_mode passthrough 是它的正式替代, ffmpeg 5.1+ 均可用。
+      '-fps_mode',
+      'passthrough',
       outputPath,
       '-y',
     ],

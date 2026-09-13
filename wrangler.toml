@@ -1,0 +1,10 @@
+name = "hxloli"
+main = "./worker.js"
+compatibility_date = "2024-09-23"
+
+# Cloudflare Workers 静态资源
+# binding = "ASSETS" 是必须的: worker.js 里通过 env.ASSETS.fetch() 取本地文件
+# (目录页 / 404 兜底 / search-index 合并), 缺了它线上会直接 Error 1101
+[assets]
+directory = "./build"
+binding = "ASSETS"

@@ -179,87 +179,23 @@ jobs:
           DEPLOY_TARGET: cloudflare
 
       - name: 拆分搜索索引 (Cloudflare Workers 单文件 ≤25MB)
-        run: node scripts/split-search-index.mjs --max-size 20 --build-dir ./build
+        run: node scripts/split-search-index.mjs --max-size 20 --build-dir ./build --delete-source
 
       - name: 🗜️ 优化 Cloudflare Workers 超大静态资源
         timeout-minutes: 10
         run: node scripts/optimize-large-assets.mjs --build-dir ./build --max-size 25 --rewrite-references --remove-unsupported --remove-remaining --gif-timeout 180 --image-timeout 120
 
-      - name: 生成 wrangler.toml 和 worker.js
+      # wrangler.toml / worker.js 改为仓库内维护 (项目根目录), 不再用 heredoc 生成。
+      # 原因: workflow 里 heredoc 的收尾标记带缩进时, shell 会把缩进原样写进文件,
+      # 破坏脚本结构; 且旧配置的 [assets] 缺少 binding = "ASSETS", 导致
+      # env.ASSETS 为 undefined → 线上表现为 Cloudflare Error 1101。
+      - name: 校验 Cloudflare Workers 部署配置
         run: |
-          cat > wrangler.toml << 'EOF'
-          name = "hxloli"
-          main = "./worker.js"
-          compatibility_date = "2024-09-23"
-
-          [assets]
-          directory = "./build"
-          EOF
-
-          cat > worker.js << 'WORKEREOF'
-          export default {
-            async fetch(request, env) {
-              const url = new URL(request.url);
-
-              // 拦截 search-index.json 请求, 从 chunk 文件流式合并返回
-              if (url.pathname === '/search-index.json' || url.pathname.match(/^\/search-index(-[a-zA-Z0-9]+)?\.json$/)) {
-                const manifestUrl = new URL('/search-index-manifest.json', url.origin);
-                const manifestResp = await env.ASSETS.fetch(manifestUrl);
-                if (!manifestResp.ok) {
-                  return env.ASSETS.fetch(request);
-                }
-                const manifest = await manifestResp.json();
-
-                // 预先获取所有 chunk 的 Response 对象
-                const chunkResponses = [];
-                for (const chunk of manifest.chunks) {
-                  const chunkUrl = new URL('/' + chunk, url.origin);
-                  const chunkResp = await env.ASSETS.fetch(chunkUrl);
-                  if (!chunkResp.ok) {
-                    return new Response('Search index chunk not found: ' + chunk, { status: 500 });
-                  }
-                  chunkResponses.push(chunkResp);
-                }
-
-                // 使用 ReadableStream 流式拼接, 避免在内存中合并大字符串
-                const { readable, writable } = new TransformStream();
-                (async () => {
-                  const writer = writable.getWriter();
-                  try {
-                    for (const resp of chunkResponses) {
-                      const reader = resp.body.getReader();
-                      while (true) {
-                        const { done, value } = await reader.read();
-                        if (done) break;
-                        await writer.write(value);
-                      }
-                    }
-                  } finally {
-                    await writer.close();
-                  }
-                })();
-
-                return new Response(readable, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'Cache-Control': 'public, max-age=604800, immutable',
-                  },
-                });
-              }
-
-              // GIF → WebP 回退: 超大 GIF 在构建时被转为 WebP
-              const resp = await env.ASSETS.fetch(request);
-              if (resp.status === 404 && url.pathname.endsWith('.gif')) {
-                const webpUrl = new URL(url.pathname.replace(/\.gif$/i, '.webp'), url.origin);
-                const webpResp = await env.ASSETS.fetch(new Request(webpUrl, request));
-                if (webpResp.ok) return webpResp;
-              }
-              return resp;
-            },
-          };
-          WORKEREOF
-
-          echo "✅ wrangler.toml 和 worker.js 已生成"
+          echo "===== wrangler.toml ====="
+          cat wrangler.toml
+          echo "===== worker.js 语法检查 ====="
+          node --check worker.js
+          node scripts/check-cf-worker-config.mjs
 
       - name: 部署到 Cloudflare Workers
         uses: cloudflare/wrangler-action@v3

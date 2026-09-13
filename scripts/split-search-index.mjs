@@ -17,9 +17,15 @@ function getArg(name, defaultValue) {
   const idx = args.indexOf(name);
   return idx !== -1 && args[idx + 1] ? args[idx + 1] : defaultValue;
 }
+function hasFlag(name) {
+  return args.includes(name);
+}
 
 const MAX_CHUNK_SIZE = parseInt(getArg('--max-size', '20'), 10) * 1024 * 1024; // 默认 20MB
 const BUILD_DIR = getArg('--build-dir', './build');
+// 默认不删除源文件, 便于本地查看; CI 传 --delete-source —— 源文件超过 25MiB 时
+// wrangler 会直接拒绝整个 assets 目录 (Asset too large)。
+const DELETE_SOURCE = hasFlag('--delete-source');
 const INDEX_FILE = path.join(BUILD_DIR, 'search-index.json');
 
 if (!fs.existsSync(INDEX_FILE)) {
@@ -33,6 +39,12 @@ const fileSizeMB = (stat.size / (1024 * 1024)).toFixed(2);
 if (stat.size <= MAX_CHUNK_SIZE) {
   console.log(`✅ search-index.json (${fileSizeMB} MB) 未超过限制, 无需拆分`);
   process.exit(0);
+}
+
+if (stat.size > 25 * 1024 * 1024) {
+  console.log(
+    `⚠️  原始文件 (${fileSizeMB} MB) 超过 Workers 单文件 25MiB 上限, 必须删除或拆分`,
+  );
 }
 
 console.log(`📦 search-index.json 大小: ${fileSizeMB} MB, 开始拆分...`);
@@ -84,7 +96,10 @@ fs.writeFileSync(
   'utf-8'
 );
 
-// 删除原始大文件
-fs.unlinkSync(INDEX_FILE);
-console.log(`🗑️  已删除原始 search-index.json`);
+if (DELETE_SOURCE) {
+  fs.unlinkSync(INDEX_FILE);
+  console.log(`🗑️  已删除原始 search-index.json`);
+} else {
+  console.log(`ℹ️  保留原始 search-index.json (如需删除请加 --delete-source)`);
+}
 console.log(`✅ 拆分完成! manifest: search-index-manifest.json`);
