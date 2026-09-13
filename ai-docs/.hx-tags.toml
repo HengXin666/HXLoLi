@@ -34,10 +34,6 @@ aliases = []
 desc = ""
 aliases = []
 
-[tags."003-编程语言"]  # 2 篇在用
-desc = ""
-aliases = []
-
 [tags."Codex"]  # 2 篇在用
 desc = ""
 aliases = []
@@ -357,10 +353,10 @@ aliases = []
 # >>> hx-tags:generated begin (由 hxloli_tags.py generate 重建, 请勿手改) >>>
 [generated]
 schema_version = 1
-source_digest = "sha256:fe8c4dfeb3c0b47f"
-generated_at = "2026-09-11T16:41:12Z"
+source_digest = "sha256:586f16cfb58d86fc"
+generated_at = "2026-09-13T07:43:29Z"
 notes_scanned = 28
-tags_in_use = 85
+tags_in_use = 84
 
 [generated.usage]
 "AI Agent" = 13
@@ -368,9 +364,11 @@ tags_in_use = 85
 "Harness" = 4
 "Skill" = 4
 "DSH" = 3
+"Python" = 3
+"技术选型" = 3
+"爬虫" = 3
 "知识库" = 3
 "项目学习" = 3
-"003-编程语言" = 2
 "Codex" = 2
 "MCP" = 2
 "Multica" = 2
@@ -398,7 +396,6 @@ tags_in_use = 85
 "OAuth" = 1
 "Port-Adapter" = 1
 "Prompt" = 1
-"Python" = 1
 "react" = 1
 "RTK" = 1
 "TLS指纹" = 1
@@ -419,7 +416,6 @@ tags_in_use = 85
 "平台架构" = 1
 "异步任务" = 1
 "想法探索" = 1
-"技术选型" = 1
 "接口设计" = 1
 "提示词优化" = 1
 "提示词工程" = 1
@@ -434,7 +430,6 @@ tags_in_use = 85
 "浏览器自动化" = 1
 "浏览器验证机制" = 1
 "源码" = 1
-"爬虫" = 1
 "现代C++" = 1
 "电脑包" = 1
 "短视频" = 1
@@ -460,3 +455,5 @@ candidates = [
   ["工程协作", "工程实践"],  # 公共前后缀 '工程'
 ]
 # <<< hx-tags:generated end <<<
+
+aliases = ["003-编程语言"]

@@ -458,11 +458,28 @@ def cmd_merge(args) -> int:
     if normalize_tag(alias) == target_key:
         print(f"提示: {alias!r} 与 {canonical!r} 归一化后相同, 无需合并")
         return 0
+    drop_source = getattr(args, "drop_source", False)
     if normalize_tag(alias) in registry.canonical:
         existing = registry.canonical[normalize_tag(alias)]
-        print(f"错误: {alias!r} 自己是一个规范 tag ({existing!r}); 请先合并它 (hxloli_tags.py merge \"{existing}\" --into \"{canonical}\") 或用 --drop-source 删掉它的表",
-              file=sys.stderr)
-        return 1
+        if not drop_source:
+            print(f"错误: {alias!r} 自己是一个规范 tag ({existing!r}); 请先合并它 (hxloli_tags.py merge \"{existing}\" --into \"{canonical}\") 或用 --drop-source 删掉它的表",
+                  file=sys.stderr)
+            return 1
+        # --drop-source: 把源 tag 的表整段删除, 它的用法由 aliases 承接。
+        # 只允许在 generated 区块**之前**操作, 且到下一个 [tags. 或区块标记为止,
+        # 否则会吃掉后续表 (曾把 85 个表削到 5 个)。
+        gen_at = registry.text.find(GEN_BEGIN)
+        head = registry.text if gen_at < 0 else registry.text[:gen_at]
+        tail = "" if gen_at < 0 else registry.text[gen_at:]
+        drop_pattern = re.compile(
+            r'^\[tags\."' + re.escape(existing) + r'"\][ \t]*(?:#.*)?\n'
+            r'(?:(?!^\[tags\.|^# >>>).*\n)*',
+            re.MULTILINE)
+        stripped, count = drop_pattern.subn("", head)
+        if count:
+            registry.path.write_text(stripped + tail, encoding="utf-8")
+            registry = Registry(registry.path)
+            print(f"已删除源 tag 表 [tags.\"{existing}\"]")
 
     text = registry.text
     header = f'[tags."{canonical}"]'
