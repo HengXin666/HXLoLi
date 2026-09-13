@@ -9,12 +9,16 @@ import type React from 'react';
 
 export type DeckComponent = React.ComponentType<{ page?: number }>;
 
-import deck0, { slides as slides0 } from '../../ai-docs/002-AI/008-AI逆向/001-CF过盾工程-从零实现Turnstile绕过/cf-gateway-deck';
+import deck0, { slides as slides0 } from '../../ai-docs/002-AI/004-记忆/003-obsidian-second-brain/obsidian-second-brain-deck';
+import deck1, { slides as slides1 } from '../../ai-docs/002-AI/004-记忆/005-Agent-Memory框架选型/agent-memory-deck';
+import deck2, { slides as slides2 } from '../../ai-docs/002-AI/008-AI逆向/001-CF过盾工程-从零实现Turnstile绕过/cf-gateway-deck';
 
 export type DeckSlides = () => React.ReactNode;
 
 export const deckModules: Record<string, { view: DeckComponent; slides?: DeckSlides }> = {
-    '002-AI/008-AI逆向/001-CF过盾工程-从零实现Turnstile绕过/cf-gateway-deck.tsx': { view: deck0, slides: slides0 },
+    '002-AI/004-记忆/003-obsidian-second-brain/obsidian-second-brain-deck.tsx': { view: deck0, slides: slides0 },
+    '002-AI/004-记忆/005-Agent-Memory框架选型/agent-memory-deck.tsx': { view: deck1, slides: slides1 },
+    '002-AI/008-AI逆向/001-CF过盾工程-从零实现Turnstile绕过/cf-gateway-deck.tsx': { view: deck2, slides: slides2 },
 };
 
 /** 规范化为"相对 ai-docs 的路径" */

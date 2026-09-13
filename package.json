@@ -15,9 +15,20 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
+    "gate": "node scripts/quality-gate.mjs",
+    "gate:fast": "node scripts/quality-gate.mjs --fast",
     "postinstall": "node scripts/patch-image-size-svg.cjs",
     "dev:private": "node scripts/setup-private.mjs && docusaurus start",
-    "clean:private": "node scripts/clean-private.mjs"
+    "clean:private": "node scripts/clean-private.mjs",
+    "verify-notes": "node .agents/skills/hx-agent-notes/verify-all.ts",
+    "verify-notes:staged": "node .agents/skills/hx-agent-notes/verify-all.ts --staged",
+    "verify-notes:tree": "node .agents/skills/hx-agent-notes/verify-tree.ts",
+    "verify-notes:format": "node .agents/skills/hx-agent-notes/verify-format.ts",
+    "verify-notes:coverage": "node .agents/skills/hx-agent-notes/verify-coverage.ts",
+    "verify-notes:backlinks": "node .agents/skills/hx-agent-notes/verify-backlinks.ts",
+    "notes:new": "node .agents/skills/hx-agent-notes/new-note.ts",
+    "notes:archive": "node .agents/skills/hx-agent-notes/archive-note.ts",
+    "notes:board": "node .agents/skills/hx-agent-notes/build-board.ts --init board.html"
   },
   "dependencies": {
     "@docusaurus/core": "3.7.0",

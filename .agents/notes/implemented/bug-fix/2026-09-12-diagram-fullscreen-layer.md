@@ -1,8 +1,7 @@
-# 架构图放大: 边界错成"整个网页", 内部布局大于父布局
+# Agent Note: 架构图放大: 边界错成"整个网页", 内部布局大于父布局
 
-- 日期: 2026-09-12
-- 状态: implemented
-- 类别: bug-fix
+Status: implemented
+
 - 影响: `src/hxdeck/{diagram,Deck,PptCard}.tsx` / `src/hxdeck/{deck-layer.tsx,ui.css}`
 
 ## Problem
@@ -69,7 +68,14 @@
   否决. 那只是把症状盖住 —— 修复前实测 frameH=708 已经大于可用高度,
   真正的病根是"拿视口当演示页".
 
-## Evidence
+## Consequences
+
+- 放大的边界由浏览器按包含块算, 不再有"算错视口"的时序可错; 代价是放大浮层必须挂在演示页根节点下,
+  独立使用时退回 `fixed` + `100vw/100vh` 这条退化路径。
+- `deck-layer.tsx` 成为一个新的层端口: `Deck` 之外的宿主若要支持放大, 必须自己提供这个端口。
+- 放大期间键盘改为捕获阶段模态, 一次 `Esc` 只退一层 —— 代价是 Deck 的翻页监听在放大态被完全压制,
+  放大态下不能用方向键翻页。
+- 节点卡片不再放动作按钮 (分享菜单已提供同一能力), 卡片只剩关闭与上下游跳转。
 
 Playwright (chromium, 1440x900) 实测:
 

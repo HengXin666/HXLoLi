@@ -105,13 +105,20 @@ export default function DocTagDocListPage({ tag }: Props): ReactNode {
       .filter((entry) => entry.permalink);
   }, [cards]);
 
-  /** 同一拼音字母下的兄弟标签, 用于"同字母还有哪些" */
+  /**
+   * 同一拼音字母下的兄弟标签, 用于"同字母还有哪些".
+   *
+   * 必须排除 count === 0 的纯结构 tag (编程语言 / 工程与工具 / 生活杂谈):
+   * 它们只在注册表里当 parent 用, 没有笔记挂在自己名下, Docusaurus 不会为
+   * count 为 0 的 tag 生成路由 —— 链接过去就是 404。
+   */
   const siblingTags = useMemo(
     () =>
       aiDocTagIndex.tags
         .filter(
           (entry) =>
             entry.label !== label &&
+            entry.count > 0 &&
             getTagPinyinKeys(entry.label).groupKey === pinyinKeys.groupKey,
         )
         .slice(0, 14),

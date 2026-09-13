@@ -82,7 +82,7 @@ export default function PptPage(): React.ReactElement {
 
             <div className="hxppt__body">
                 {content ? (
-                    <Deck theme={t} index={initialPage} syncUrl showBrand={false}>
+                    <Deck theme={t} index={initialPage} syncUrl showBrand={false} fill>
                         {content}
                     </Deck>
                 ) : null}

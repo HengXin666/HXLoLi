@@ -174,19 +174,17 @@ python .agents/skills/hx-look-video/scripts/hx_look_video_prepare.py \
 - ASR 结果可能错字, 对专有名词保持谨慎; 不要自行纠正成看似合理但 transcript 不支持的内容.
 - 当用户要求"全文转写"时, 给出 transcript 文件路径和必要片段, 不要把超长全文直接刷到对话里.
 
-## 依赖
+## 依赖与运行方式
 
-基础依赖:
+基础依赖: `python` / `ffmpeg` / `yt-dlp`; ASR 依赖: `funasr` / `modelscope` / `torch` / `torchaudio`.
 
-- `python`
-- `ffmpeg`
-- `yt-dlp` 或 `uvx yt-dlp`
+**别用裸 `python` 跑** —— 系统 Python 里没有 FunASR, 裸跑必然在 ASR 阶段失败, 白等一次下载 + 转码. 需要 ASR 时**一开始就用**:
 
-ASR 依赖:
+```bash
+uv run --python 3.11 --with funasr --with modelscope --with torch --with torchaudio \
+  python .agents/skills/hx-look-video/scripts/hx_look_video_prepare.py "<INPUT>"
+```
 
-- `funasr`
-- `modelscope`
-- `torch`
-- `torchaudio`
+这条命令幂等, 首次拉依赖较慢, 之后走缓存 (模型缓存在 `~/.cache/modelscope`, 约 2.5 GB, 已存在时不必重下). **只有**当平台字幕确实可用 (`--no-asr`) 时, 才可以用裸 `python`.
 
-如果依赖缺失, 先给出可执行的安装/运行命令, 再停止当前步骤.
+失败时先看 provenance 里的 `transcript_source`: 空值 = 既没拿到字幕也没做成 ASR.

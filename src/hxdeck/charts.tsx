@@ -48,8 +48,9 @@ function TooltipStyle() {
                 font-size: 13px;
             }
             .hxd-chart .recharts-tooltip-label { color: ${t.colors.textMuted} !important; }
-            .hxd-chart .recharts-cartesian-axis-tick text { fill: ${t.colors.textMuted}; font-size: 12px; }
-            .hxd-chart .recharts-legend-item-text { color: ${t.colors.text} !important; font-size: 12px; }
+            /* 13px 是全局文字下限: 预览态缩放后 (约 0.44x) 12px 只剩 5px, 不可读 */
+            .hxd-chart .recharts-cartesian-axis-tick text { fill: ${t.colors.textMuted}; font-size: 13px; }
+            .hxd-chart .recharts-legend-item-text { color: ${t.colors.text} !important; font-size: 13px; }
         `}</style>
     );
 }
@@ -244,7 +245,11 @@ export function Stat({
     const theme = useDeckTheme();
     return (
         <div className="hxd-card" style={{ minWidth: 160 }}>
-            <div style={{ fontSize: 13, color: theme.colors.textMuted, marginBottom: 6 }}>{label}</div>
+            {/*
+              字号取主题字阶而不是写死值: Stat 常与 PageHeader 并排,
+              13/12px 的标签缩到 0.6 倍投屏后只剩 7px, 与旁边正文形成断层.
+            */}
+            <div style={{ fontSize: 'var(--hxd-scale-label)', color: theme.colors.textMuted, marginBottom: 6 }}>{label}</div>
             <div
                 style={{
                     fontFamily: theme.fonts.numeric ?? theme.fonts.mono,
@@ -260,7 +265,7 @@ export function Stat({
                 {value}
                 {unit ? <span style={{ fontSize: 18, marginLeft: 4 }}>{unit}</span> : null}
             </div>
-            {hint ? <div style={{ fontSize: 12, color: theme.colors.textMuted, marginTop: 6 }}>{hint}</div> : null}
+            {hint ? <div style={{ fontSize: 'var(--hxd-scale-caption)', color: theme.colors.textMuted, marginTop: 6 }}>{hint}</div> : null}
         </div>
     );
 }

@@ -80,6 +80,54 @@
   justify-content: center;
 }
 
+/* ===== 独立演示页 (/ppt) ===== */
+/*
+  之前这里**一条规则都没有**, 但 ppt.tsx 一直在用 .hxppt/.hxppt__bar/.hxppt__body.
+  后果是页面按 Docusaurus 默认文档流排版: deck 保持 16:9 并被导航栏顶下去,
+  documentElement 因此永远比视口高 (实测 926 vs 757),
+  即使演示页本该是一个"整屏固定"的播放器.
+
+  这条多余的滚动条就是滚轮 bug 的放大器: 演示页内部在动画锁的瞬间放行了滚轮,
+  默认行为落到这个**本不该存在**的页面滚动上, 整块内容就往上滑走了.
+  对外层 leak 已经做了收口, 这里把根因里的环境因素一并去掉:
+  演示页固定占满视口, 不再产生页面级滚动条.
+*/
+.hxppt {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--hxd-color-bg, #0b1020);
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.hxppt__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: var(--hxd-color-text-dim, #94a3b8);
+  border-bottom: 1px solid var(--hxd-color-border, #1e293b);
+}
+
+.hxppt__spacer { flex: 1 1 auto; }
+
+.hxppt__err {
+  flex: 0 0 auto;
+  padding: 12px 16px;
+  color: #f87171;
+}
+
+/* min-height:0 是关键: flex 子项默认不肯收缩, 缺了它 deck 会被内容顶高并溢出 */
+.hxppt__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+}
+
 /* === github h1 h2 h3 下划线样式 === */
 /* 设置 h1, h2, h3 的样式 */
 .markdown h1, .markdown h2 {

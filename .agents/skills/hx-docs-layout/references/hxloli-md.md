@@ -20,18 +20,24 @@ BV1Js411o76u (代码块需填写内容)
 
 - **架构图/流程图/时序图/数据流图/状态图** —— 调用 `archify` skill (vendored 于 `.agents/skills/hx-archify`): typed JSON spec -> validate -> deliver 出自包含 .html, 再按下方 `#ppt` 侧车规范内嵌. 自带主题切换/缩放/导览/动效, iframe 内嵌后保留; 不要手绘零散 SVG.
 
-## PPT / HTML 侧车内嵌
+## 演示页内嵌 (两种形态)
 
-平台支持把**与 Markdown 同目录的独立 .html** 作为演示页内嵌到笔记中:
+**形态一: `.tsx` 内联演示页 (默认)** —— 与笔记同目录、导出 `slides()` 的 React 组件:
+
+- 正文写 `[标题 ##PPT##](x-deck.tsx)`; 可带页码与主题: `[标题 ##PPT 3 whale##](x-deck.tsx)`.
+- React 内联渲染, **跟随站点主题、支持实时换主题**, 观感与正文一致.
+- 新增/改名后跑 `npm run decks` (build 前会自动执行); 未注册会渲染成"未注册的演示页"且不报错.
+- 产出流程见 `hx-docs-ppt` skill 的 [references/tsx-deck.md](../../hx-docs-ppt/references/tsx-deck.md).
+
+**形态二: `.html` 侧车** —— 与 Markdown 同目录的独立 .html, 需要完全自包含单文件时用:
 
 - 正文写 `[标题 #ppt](xxx.html)`; **链接文字必须含 `#ppt` 标记**, 链接指向同目录 .html 侧车文件.
 - 可加宽度: `[标题 #ppt ##w100%##](xxx.html)` (不写默认 80%).
 - 侧车文件会被自动发布到该笔记页面路由下, 因此必须是**自包含单文件** (内联 CSS/JS, 无外部相对资源, 不依赖宿主页面 DOM), 建议 16:9 画布 (如 1600x900).
 - 构建插件 `ppt-html-assets` 会把 `docs/ ai-docs/ blog/` 下所有 .html 拷到对应路由 (与 md 是否引用无关); 但**只有用 `#ppt` 链接才会渲染成 PPT 查看器**.
+- 注意: 插件在**开发服务器启动时**才枚举文件. 先写 md 后补侧车时, dev server 会 404 —— 重启即可 (构建不受影响).
 
-侧车文件的主题模板与产出流程见 `hx-docs-ppt` skill.
-
-真实范例: `ai-docs/002-知识沉淀/002-项目学习/002-react-bits-classified-study/` 下的 `index.md` + `overview-ppt.html`.
+真实范例: `ai-docs/002-AI/004-记忆/005-Agent-Memory框架选型/` 下同时含 `agent-memory-deck.tsx` (内联) 与 `overview-ppt.html` (侧车), 可对照两种形态.
 
 ## 标点习惯 (HXLoLi 用户约定, 依据现有手写 ai-docs 观察)
 

@@ -1,8 +1,7 @@
-# 演示页(PPT)卡片: 滚动 / 侧栏不同步 / 预览放大隐患
+# Agent Note: 演示页(PPT)卡片: 滚动 / 侧栏不同步 / 预览放大隐患
 
-- 日期: 2026-09-12
-- 状态: implemented
-- 类别: bug-fix
+Status: implemented
+
 - 影响: `src/hxdeck/{Deck,PptCard,PptEmbed,diagram,slide-state}.*`
 
 ## Problem
@@ -60,7 +59,14 @@
 - **保留 `index` 受控语义、要求调用方回传 `onIndexChange`**: 否决, MDX 链接没法回传状态,
   等于把 bug 转嫁给笔记作者。
 
-## Evidence
+## Consequences
+
+- `PptCard.module.css` 自带一份完整外观, 与 `PptHtmlViewer` 的 module 互不依赖 —— 两处样式
+  从此需要一起维护, 这是换取 Portal 不被裁切的代价。
+- 预览态显式降级: 卡片里不再渲染缩放/全屏工具条, "在预览里进全屏"这条隐患从结构上消失。
+- 全屏状态机变为两段式 (第一次 `Esc` 退浏览器全屏, 第二次关弹层), 需要 `selfExitRef` 标记来避免
+  `fullscreenchange` 二次处理。
+- Deck 页码以内部 state 为准, `index` 退化为初始定位 + 外部改值信号。
 
 Playwright (chromium) 实测, 见会话记录:
 - 预览态每张卡片 `.hxd-diagram__tools` 数量 = 0; 弹层内 = 2。

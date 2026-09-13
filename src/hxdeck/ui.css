@@ -7,7 +7,11 @@
 /* ---------- 页头 ---------- */
 .hxd-pageheader { display: flex; flex-direction: column; gap: var(--hxd-scale-sp2); }
 .hxd-pageheader__eyebrow {
-    font-size: var(--hxd-scale-label);
+    /*
+      eyebrow 是**每屏开场的标识**, 不是页脚注释 —— 用最小字阶会让整页第一节就"轻飘飘".
+      投屏 (1600x900 画布再整体 scale) 下 label (15px) 缩完只剩 ~10px, 这里统一抬到正文级.
+    */
+    font-size: var(--hxd-scale-body);
     font-weight: 700;
     letter-spacing: var(--hxd-scale-ls-wide);
     color: var(--hxd-color-primary);
@@ -266,7 +270,8 @@
 
 /* 内边距档位 */
 .hxd-diagram[data-pad='md'] .hxd-diagram__frame { padding: 16px; }
-.hxd-diagram[data-pad='sm'] .hxd-diagram__frame { padding: 10px; }
+/* 内边距每 10px 都会从图上扣掉一圈可用宽度, 图内文字随之等比缩小 —— 演示场景下"图大"比"留白"重要 */
+.hxd-diagram[data-pad='sm'] .hxd-diagram__frame { padding: 4px; }
 .hxd-diagram[data-pad='none'] .hxd-diagram__frame { padding: 0; }
 
 /*
@@ -430,15 +435,17 @@
 .hxd-gauge__mid { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .hxd-gauge__num { font-family: var(--hxd-font-numeric, var(--hxd-font-mono)); font-size: var(--hxd-scale-num); font-weight: 800; line-height: 1; background: linear-gradient(120deg, var(--hxd-color-primary), var(--hxd-color-accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hxd-gauge__num small { font-size: 0.42em; margin-left: 2px; }
-.hxd-gauge__label { font-size: var(--hxd-scale-caption); color: var(--hxd-color-text-muted); }
+.hxd-gauge__label { font-size: var(--hxd-scale-body); color: var(--hxd-color-text-muted); }
 
 /* ---------- 对照表 ---------- */
 .hxd-ctable__wrap { overflow-x: auto; border-radius: var(--hxd-shape-radius); border: 1px solid var(--hxd-color-border); background: var(--hxd-color-surface); }
 .hxd-ctable { border-collapse: collapse; width: 100%; font-size: var(--hxd-scale-body); }
 .hxd-ctable th, .hxd-ctable td { padding: 12px 18px; text-align: left; border-bottom: 1px solid var(--hxd-color-border); }
-.hxd-ctable thead th { font-size: var(--hxd-scale-label); font-weight: 700; color: var(--hxd-color-text-muted); letter-spacing: 0.03em; }
+/* 表头与首列是"索引", 在投屏上要被一眼扫到 —— 各抬一档字阶并加粗, 靠层级而不是靠颜色区分 */
+.hxd-ctable thead th { font-size: calc(var(--hxd-scale-body) + 1px); font-weight: 800; color: var(--hxd-color-text); letter-spacing: 0.03em; }
+.hxd-ctable tbody th { font-size: calc(var(--hxd-scale-body) + 1px); font-weight: 700; }
 .hxd-ctable tbody tr:last-child th, .hxd-ctable tbody tr:last-child td { border-bottom: 0; }
-.hxd-ctable tbody th { font-weight: 400; color: var(--hxd-color-text-muted); }
+.hxd-ctable tbody th { color: var(--hxd-color-text-muted); }
 .hxd-ctable [data-hl='true'] { background: var(--hxd-color-primary-soft); }
 .hxd-ctable thead [data-hl='true'] { color: var(--hxd-color-primary); }
 
@@ -467,17 +474,23 @@
 .hxd-diff__line[data-type='del'] .hxd-diff__sign { color: var(--hxd-color-danger); }
 
 /* ==========================================================================
-   图内字号补偿
-   archify 在 1345x602 的 viewBox 里写死 font-size 8~12, 缩到容器宽度后只剩 5~7px.
-   这里对 SVG 内文字做下限保护: 通过 min-font-size 思路, 用 CSS 覆盖小字号文本.
+   图内字号下限
+   archify 按 viewBox 尺度写死 font-size 7~12 —— 那是"网页里一张大图"的尺度,
+   缩进卡片后只剩 3~5px, 完全读不了.
+   这里按**字号所在位置**统一给下限: 属性与行内 style 两条来源都覆盖到.
+   注意不要用 zoom 放大整图: 那会把节点推出可视区, 点不中 (见 Diagram 里
+   "初始缩放固定 100%" 那段取舍记录).
    ========================================================================== */
+.hxd-diagram__svg svg text,
+.hxd-diagram__svg svg tspan { font-size: 13px; }
+.hxd-diagram__svg svg text[font-size='7'],
 .hxd-diagram__svg svg text[font-size='8'],
-.hxd-diagram__svg svg text[font-size='9'] { font-size: 13px; }
+.hxd-diagram__svg svg text[font-size='9'],
+.hxd-diagram__svg svg text[font-size='9.1'],
+.hxd-diagram__svg svg text[font-size='9.6'] { font-size: 13px; }
 .hxd-diagram__svg svg text[font-size='10'],
 .hxd-diagram__svg svg text[font-size='11'] { font-size: 14px; }
 .hxd-diagram__svg svg text[font-size='12'] { font-size: 15px; }
-/* 上面按属性选择器生效的前提是字号写在属性上; 保底再给一个整体下限 */
-.hxd-diagram__svg svg { font-size: 13px; }
 /* ==========================================================================
    主题编辑器布局
    ========================================================================== */

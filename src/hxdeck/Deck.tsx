@@ -7,7 +7,7 @@ import { Nav } from './Nav';
 import { ThemePicker } from './ThemePicker';
 import { loadTheme } from './theme/registry';
 import { usePageParam, readThemeParam, writeThemeParam } from './usePageParam';
-import { isWheelConsumed } from './wheel-lock';
+import { isWheelConsumed, canScrollFurther } from './wheel-lock';
 import { Brand } from './brand';
 import './fonts.css';
 import './deck.css';
@@ -141,10 +141,19 @@ export function Deck({
       index 恒为 2; 点侧栏/圆点/翻页按钮时 applyGo 改了内部 state,
       current 却仍等于 props —— 长条滚走了, 侧栏高亮/圆点/进度条纹丝不动.
     */
-    const [innerIndex, setInnerIndex] = useState(() => (index ?? (syncUrl ? urlIndex : 0)));
+    /*
+      预览态 (interactive=false) 永远冻结在第 1 屏.
+
+      为什么: 卡片预览是**缩略图**, 语义是"封面". 它此前会跟着 index 与 ?page= 一起跳 ——
+      分享 ?ppt=xxx&page=8 给别人时, 对方正文里那张缩略图也停在第八屏, 而设计意图
+      是"看一眼这是什么, 点开再看细节". 弹层是另一个 Deck 实例 (interactive=true),
+      不受这里影响, 因此 `##PPT 3##` 的指定页码仍然生效.
+    */
+    const [innerIndex, setInnerIndex] = useState(() => (interactive ? (index ?? (syncUrl ? urlIndex : 0)) : 0));
     useEffect(() => {
+        if (!interactive) { setInnerIndex(0); return; }
         if (index !== undefined) setInnerIndex(index);
-    }, [index]);
+    }, [index, interactive]);
     const current = Math.max(0, Math.min(total - 1, innerIndex));
 
     // 运行时主题: 初始用传入的 theme; 允许前端切换后覆盖
@@ -271,37 +280,88 @@ export function Deck({
         let accum = 0;
         let resetTimer = 0;
 
-        const inScrollable = (target: EventTarget | null): boolean => {
+        /*
+          找到光标下"还真的能滚"的那个内部容器.
+
+          注意这里返回的是**元素**而不是布尔值, 而且必须带上方向判断.
+          之前写的是 "只要祖先里有 overflow:auto 且内容超长就 return true" ——
+          于是内层滚到边界之后, 这次滚轮依然被让给浏览器, 滚动链一路传到宿主页面:
+          读者看到的就是"滑到某一格之后, 整个 PPT 开始整体上滑".
+          这正是报告的 bug: 判定不是"消失"了, 而是"该轮到 deck 接管"的那一刻漏给了页面.
+
+          边界交接 (inner 滚到头 → 由 deck 吃掉/翻页) 才是正确语义.
+        */
+        const scrollableUnder = (target: EventTarget | null, deltaY: number): HTMLElement | null => {
             let n = target as HTMLElement | null;
             while (n && n !== host) {
                 const cs = getComputedStyle(n);
-                if (/(auto|scroll)/.test(cs.overflowY) && n.scrollHeight > n.clientHeight + 2) return true;
+                if (/(auto|scroll)/.test(cs.overflowY) && n.scrollHeight > n.clientHeight + 2) {
+                    if (canScrollFurther(n, deltaY)) return n;
+                }
                 n = n.parentElement;
             }
-            return false;
+            return null;
         };
 
-        /** deck 是否还有足够面积留在视口内 —— 滚出视野后就不该再接管滚轮 */
+        /*
+          "deck 是否还有足够面积留在视口内" —— 滚出视野后就不该再接管滚轮,
+          否则会与页面滚动互相打架, 出现"元素整体上移且回不来".
+
+          这里必须用**缓存的**几何, 不能在每次 wheel 里现读:
+          getBoundingClientRect() 会强制同步布局 (forced reflow). 滚轮是最热的事件
+          (触控板一次滑动可达上百事件/秒), 而每屏有几十个绝对定位节点 + backdropFilter,
+          每事件一次 reflow 能拖到 10ms 级; 更糟的是宿主页面刚被滚动过, 布局本就是脏的.
+          表现就是滚动掉帧, 以及"某一个触发状态下判定失效".
+
+          ref 是显示列表 (compositor) 侧的帧快照, 不触发 reflow, 代价可忽略.
+        */
+        let rect: DOMRect | null = null;
+        let geomAt = 0;
+        const sample = (): void => {
+            rect = host.getBoundingClientRect();
+            geomAt = Date.now();
+        };
+        sample();
+
         const visibleEnough = (): boolean => {
-            const r = host.getBoundingClientRect();
+            // 超过 400ms 或窗口变化就重新采样, 其余时候吃缓存
+            if (!rect || Date.now() - geomAt > 400) sample();
+            const r = rect;
+            if (!r) return false;
             const vh = window.innerHeight || 0;
             const shown = Math.min(r.bottom, vh) - Math.max(r.top, 0);
             return shown > Math.min(r.height, vh) * 0.5;
         };
 
         const onWheel = (e: WheelEvent) => {
-            // 预览态不接管滚轮: 让页面正常滚动
+            /*
+              前置的这几个 return 都是"这一下确实不归 deck 管", 必须放行默认滚动:
+                · 预览态 —— 卡片就该让页面正常滚;
+                · 内层已消费 —— 架构图缩放等已在原生监听里 preventDefault;
+                · 内层还能滚 —— 交给内层滚它自己的内容;
+                · deck 已滚出视野 —— 交还给页面.
+            */
             if (!interactiveRef.current) return;
-            // 内层控件 (如图) 已在原生监听里消费掉这次滚轮 —— 不再翻页.
-            // 这是"缩放到极限后滚轮变成翻页"那个 bug 的修法.
             if (isWheelConsumed(e)) return;
-            // 内部可滚动区 (代码块等) 优先
-            if (inScrollable(e.target)) return;
-            // 滚出视野时不再接管: 否则会与页面滚动互相打架, 出现"元素整体上移且回不来"
+            if (scrollableUnder(e.target, e.deltaY)) return;
             if (!visibleEnough()) return;
-            // 动画锁期间别急着 preventDefault: 抢了默认行为又不翻页, 页面会"被吃掉一格"
-            if (lockedRef.current) return;
+
+            /*
+            关键: 走到这里, 这次滚轮**归 deck 所有**, 因此必须先无条件吃掉默认行为.
+
+            之前的写法把 preventDefault() 放在动画锁判断**之后**, 于是
+            "翻页动画进行中"这一瞬间成了漏网之口: 既不翻页, 也不拦截,
+            浏览器就把这一次滚动交给了宿主页面 ——
+            读者看到的就是"滑着滑着忽然整个 PPT 往下滑".
+
+            这就是"某个触发状态下判定消失"的真相:
+            判定没消失, 是它在这一支上根本没写.
+            动画期间本来就该只吸收惯性 (LOCK_TAIL 的注释写的就是这个意思),
+            吸收的正确做法是 preventDefault, 而不是放行.
+          */
             e.preventDefault();
+            if (lockedRef.current) return;
+
             accum += e.deltaY;
             window.clearTimeout(resetTimer);
             resetTimer = window.setTimeout(() => { accum = 0; }, 140);

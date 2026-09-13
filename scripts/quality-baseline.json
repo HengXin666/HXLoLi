@@ -1,0 +1,13 @@
+{
+  "knownErrors": [
+    "docusaurus.config.ts|TS1479",
+    "docusaurus.config.ts|TS1479",
+    "src/components/DevTools/InlineEditor.tsx|TS18047",
+    "src/components/Giscus/index.tsx|TS1479",
+    "src/components/ProjectCarousel/index.tsx|TS1479",
+    "src/components/ProjectCarousel/index.tsx|TS1479",
+    "src/components/anime/AnimeGraphPage/index.tsx|TS1479",
+    "src/pages/docs-graph.tsx|TS1479",
+    "src/theme/MDXContent/index.tsx|TS1479"
+  ]
+}

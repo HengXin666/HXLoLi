@@ -1,11 +1,8 @@
-# CF 部署线上大面积 Error 1101: [assets] 缺少 ASSETS 绑定
+# Agent Note: CF 部署线上大面积 Error 1101: [assets] 缺少 ASSETS 绑定
 
-- 日期: 2026-09-13
-- 状态: implemented
-- 类别: bug-fix
+Status: implemented
+
 - 影响: `wrangler.toml`(新增) / `worker.js`(从 workflow 内联挪出) /
-  `.github/workflows/documentation.yaml` / `scripts/check-cf-worker-config.mjs`(新增) /
-  `scripts/split-search-index.mjs` / `scripts/optimize-large-assets.mjs`
 
 ## Problem
 
@@ -198,7 +195,16 @@ if (pathname === '/HXLoLi' || pathname.startsWith('/HXLoLi/')) {
 > 更彻底的方案是干脆让 GitHub Pages 退役 (或给它加 `/HXLoLi` → 根路径的重定向),
 > 避免"同一个仓库两套 URL"长期共存。本次先保证历史链接可用。
 
-## Evidence
+## Consequences
+
+- 配置从 heredoc 移回 `wrangler.toml` / `worker.js` 提交进仓库, 从此可 review、可 lint、可版本管理。
+- 新增 `scripts/check-cf-worker-config.mjs` 让同类配置错误在构建阶段失败, 而不是等到线上 1101;
+  代价是新增/调整 CF 配置项时要同步改这个校验器。
+- `[assets]` 的 `binding = "ASSETS"` 成为硬要求, 文件里用注释锁住原因。
+- `split-search-index.mjs` 默认不再删源文件, 删除改为显式 `--delete-source` (CI 显式传) ——
+  本地误跑不会再删掉自己的 `build/search-index.json`。
+- 404 兜底与 GIF→WebP 回退由脚本自己处理, 因此没有改用 `not_found_handling = "404-page"`;
+  两套兜底并存的问题被避免, 但脚本这条逻辑链需要自己维护。
 
 - 线上实测 (2026-09-13): `/docs/关于` 200 / `/blog/` 200 / `/anime/` 200 / `/img/logo.png` 200;
   `/docs/` `/docs` `/search-index.json` `/favicon.ico` `/nonexistent-abc/` 全部 500 + 1101。

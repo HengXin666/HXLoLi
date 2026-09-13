@@ -237,113 +237,18 @@ const aiDocsSidebar = [
             }
           },
           {
-            "type": "category",
+            "type": "doc",
+            "id": "AI/记忆/obsidian-second-brain/index",
             "label": "obsidian-second-brain",
-            "collapsible": true,
-            "collapsed": true,
-            "items": [
-              {
-                "type": "doc",
-                "id": "AI/记忆/obsidian-second-brain/ai-first-rules",
-                "customProps": {
-                  "icon": "default-icons/ai-doc.svg",
-                  "tags": []
-                }
-              },
-              {
-                "type": "doc",
-                "id": "AI/记忆/obsidian-second-brain/claude-md-template",
-                "customProps": {
-                  "icon": "default-icons/ai-doc.svg",
-                  "tags": []
-                }
-              },
-              {
-                "type": "doc",
-                "id": "AI/记忆/obsidian-second-brain/commands-index",
-                "customProps": {
-                  "icon": "default-icons/ai-doc.svg",
-                  "tags": []
-                }
-              },
-              {
-                "type": "doc",
-                "id": "AI/记忆/obsidian-second-brain/ecosystem",
-                "customProps": {
-                  "icon": "default-icons/ai-doc.svg",
-                  "tags": []
-                }
-              },
-              {
-                "type": "doc",
-                "id": "AI/记忆/obsidian-second-brain/fork-insights",
-                "customProps": {
-                  "icon": "default-icons/ai-doc.svg",
-                  "tags": []
-                }
-              },
-              {
-                "type": "doc",
-                "id": "AI/记忆/obsidian-second-brain/hx-loli-adoption-plan",
-                "customProps": {
-                  "icon": "default-icons/ai-doc.svg",
-                  "tags": []
-                }
-              },
-              {
-                "type": "doc",
-                "id": "AI/记忆/obsidian-second-brain/hx-loli-borrow-list",
-                "customProps": {
-                  "icon": "default-icons/ai-doc.svg",
-                  "tags": []
-                }
-              },
-              {
-                "type": "doc",
-                "id": "AI/记忆/obsidian-second-brain/readme-public",
-                "customProps": {
-                  "icon": "default-icons/ai-doc.svg",
-                  "tags": []
-                }
-              },
-              {
-                "type": "doc",
-                "id": "AI/记忆/obsidian-second-brain/skill-manual",
-                "customProps": {
-                  "icon": "default-icons/ai-doc.svg",
-                  "tags": []
-                }
-              },
-              {
-                "type": "doc",
-                "id": "AI/记忆/obsidian-second-brain/vault-schema",
-                "customProps": {
-                  "icon": "default-icons/ai-doc.svg",
-                  "tags": []
-                }
-              },
-              {
-                "type": "doc",
-                "id": "AI/记忆/obsidian-second-brain/write-rules",
-                "customProps": {
-                  "icon": "default-icons/ai-doc.svg",
-                  "tags": []
-                }
-              }
-            ],
             "customProps": {
-              "icon": "default-icons/ai-folder.svg",
+              "icon": "default-icons/ai-doc.svg",
               "tags": []
-            },
-            "link": {
-              "type": "doc",
-              "id": "AI/记忆/obsidian-second-brain/index"
             }
           },
           {
             "type": "doc",
-            "id": "AI/记忆/AI驱动的视频调研与知识沉淀工作流/index",
-            "label": "AI驱动的视频调研与知识沉淀工作流",
+            "id": "AI/记忆/Agent-Memory框架选型/index",
+            "label": "Agent-Memory框架选型",
             "customProps": {
               "icon": "default-icons/ai-doc.svg",
               "tags": []

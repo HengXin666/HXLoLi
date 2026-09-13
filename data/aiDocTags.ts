@@ -43,11 +43,24 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "label": "AI Agent",
       "slug": "ai-agent",
       "permalink": "/knowledge-base/tags/ai-agent",
-      "count": 14,
+      "count": 15,
       "description": "Agent 系统的设计、架构与工程实践, 不含模型原理本身",
       "parent": "",
       "aliases": [],
       "root": ""
+    },
+    {
+      "label": "记忆系统",
+      "slug": "记忆系统",
+      "permalink": "/knowledge-base/tags/记忆系统",
+      "count": 4,
+      "description": "长期记忆的存储、召回与演化机制, 不含提示词技巧",
+      "parent": "AI Agent",
+      "aliases": [
+        "可插拔",
+        "泛化"
+      ],
+      "root": "AI Agent"
     },
     {
       "label": "逆向与风控",
@@ -60,16 +73,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
         "AI逆向"
       ],
       "root": ""
-    },
-    {
-      "label": "知识库",
-      "slug": "知识库",
-      "permalink": "/knowledge-base/tags/知识库",
-      "count": 4,
-      "description": "知识库的组织与存取",
-      "parent": "记忆系统",
-      "aliases": [],
-      "root": "AI Agent"
     },
     {
       "label": "Harness",
@@ -116,17 +119,14 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "AI Agent"
     },
     {
-      "label": "记忆系统",
-      "slug": "记忆系统",
-      "permalink": "/knowledge-base/tags/记忆系统",
+      "label": "技术选型",
+      "slug": "技术选型",
+      "permalink": "/knowledge-base/tags/技术选型",
       "count": 3,
-      "description": "长期记忆的存储、召回与演化机制, 不含提示词技巧",
-      "parent": "AI Agent",
-      "aliases": [
-        "可插拔",
-        "泛化"
-      ],
-      "root": "AI Agent"
+      "description": "在多个方案之间做选择",
+      "parent": "工程与工具",
+      "aliases": [],
+      "root": "工程与工具"
     },
     {
       "label": "提示词工程",
@@ -142,11 +142,11 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "AI Agent"
     },
     {
-      "label": "增量沉淀",
-      "slug": "增量沉淀",
-      "permalink": "/knowledge-base/tags/增量沉淀",
+      "label": "知识库",
+      "slug": "知识库",
+      "permalink": "/knowledge-base/tags/知识库",
       "count": 3,
-      "description": "只追加不重写的沉淀方式",
+      "description": "知识库的组织与存取",
       "parent": "记忆系统",
       "aliases": [],
       "root": "AI Agent"
@@ -174,16 +174,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "逆向与风控"
     },
     {
-      "label": "技术选型",
-      "slug": "技术选型",
-      "permalink": "/knowledge-base/tags/技术选型",
-      "count": 2,
-      "description": "在多个方案之间做选择",
-      "parent": "工程与工具",
-      "aliases": [],
-      "root": "工程与工具"
-    },
-    {
       "label": "检测面建模",
       "slug": "检测面建模",
       "permalink": "/knowledge-base/tags/检测面建模",
@@ -195,6 +185,16 @@ export const aiDocTagIndex: AiDocTagIndex = {
         "风控"
       ],
       "root": "逆向与风控"
+    },
+    {
+      "label": "评测",
+      "slug": "评测",
+      "permalink": "/knowledge-base/tags/评测",
+      "count": 2,
+      "description": "能力与效果的量化评估",
+      "parent": "工程与工具",
+      "aliases": [],
+      "root": "工程与工具"
     },
     {
       "label": "上下文工程",
@@ -387,16 +387,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "编程语言"
     },
     {
-      "label": "评测",
-      "slug": "评测",
-      "permalink": "/knowledge-base/tags/评测",
-      "count": 1,
-      "description": "能力与效果的量化评估",
-      "parent": "工程与工具",
-      "aliases": [],
-      "root": "工程与工具"
-    },
-    {
       "label": "凭证管理",
       "slug": "凭证管理",
       "permalink": "/knowledge-base/tags/凭证管理",
@@ -507,6 +497,16 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "count": 1,
       "description": "用语法/结构约束模型输出格式",
       "parent": "LLM",
+      "aliases": [],
+      "root": "AI Agent"
+    },
+    {
+      "label": "增量沉淀",
+      "slug": "增量沉淀",
+      "permalink": "/knowledge-base/tags/增量沉淀",
+      "count": 1,
+      "description": "只追加不重写的沉淀方式",
+      "parent": "记忆系统",
       "aliases": [],
       "root": "AI Agent"
     },
@@ -633,16 +633,29 @@ export const aiDocTagIndex: AiDocTagIndex = {
   ],
   "docs": [
     {
+      "id": "AI/记忆/Agent-Memory框架选型",
+      "title": "Agent Memory 选型指南: 五大范式、评测水分与四个必补动作",
+      "description": "NOTE 同一个记忆框架, 在自家 benchmark 上可以报到 94.4 分 —— 而这个数字来自厂商托管平台的自测. 更麻烦的是: 同一类系统换一套测试脚手架, 分数能相差几十个百分点, 变量既不是模型也不是产品, 而是 谁写的评测代码 . 那么问题就不是\"该买哪个\", 而是: 在一个连分数都不可比的领域里, 选",
+      "permalink": "/knowledge-base/AI/记忆/Agent-Memory框架选型",
+      "date": "2026-09-13",
+      "tags": [
+        "AI Agent",
+        "记忆系统",
+        "技术选型",
+        "评测"
+      ]
+    },
+    {
       "id": "AI/记忆/obsidian-second-brain",
-      "title": "obsidian-second-brain 中文译注",
-      "description": "来源项目: ref/obsidian second brain 来源版本: bf63932 译注目的: 为后续评估 HXLoLi 可以学习哪些知识库/AI 工作流设计做准备. TIP 这里不是覆盖原项目的“本地化发行版”, 而是给 HXLoLi 知识库使用的中文译注. 译注保留命令名、路径、frontmatter 字段",
+      "title": "obsidian-second-brain 全解: 一个会自我重写的 AI 知识库",
+      "description": "NOTE 你的笔记库在半年后会比今天更聪明吗? 大多数\"第二大脑\"的答案是不会 —— 它们只是一个更整齐的文件柜: 放进去的东西原样躺着, 三个月前的决策和昨天的决策互相矛盾, 而没有任何人知道. obsidian second brain 想换掉这个前提: 知识库不是往里面加东西, 而是围绕新信息重写自己 . 那么,",
       "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain",
       "date": "2026-09-13",
       "tags": [
-        "知识库",
         "记忆系统",
+        "知识库",
         "Skill",
-        "增量沉淀"
+        "AI Agent"
       ]
     },
     {
@@ -772,18 +785,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
         "Python",
         "语言特性",
         "技术选型"
-      ]
-    },
-    {
-      "id": "AI/记忆/AI驱动的视频调研与知识沉淀工作流",
-      "title": "AI驱动的视频调研与知识沉淀工作流",
-      "description": "NOTE 0x00 一句话总结 待补充: 请基于采集材料凝练核心结论. 0x01 材料与可靠性 视频/音源: /tmp/brtest/e2e video sample.srt transcript: /home/hx/.dsh/dsh blog research/artifacts/rs_1788076239468/2",
-      "permalink": "/knowledge-base/AI/记忆/AI驱动的视频调研与知识沉淀工作流",
-      "date": "2026-08-30",
-      "tags": [
-        "AI Agent",
-        "知识库",
-        "增量沉淀"
       ]
     },
     {
@@ -975,94 +976,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "AI/记忆/obsidian-second-brain/ai-first-rules",
-      "title": "AI-first 笔记规则",
-      "description": "对应原文: ref/obsidian second brain/references/ai first rules.md 总原则 vault 是为未来的 Claude 读取和推理而设计，不是优先给人类逐页阅读。用户很少直接打开笔记，而是调用 Claude 在多年积累的知识中检索、综合和连接线索。因此，所有会写入 vau",
-      "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain/ai-first-rules",
-      "date": "2026-07-04",
-      "tags": []
-    },
-    {
-      "id": "AI/记忆/obsidian-second-brain/claude-md-template",
-      "title": "_CLAUDE.md 模板",
-      "description": "对应原文: ref/obsidian second brain/references/claude md template.md 概念 _CLAUDE.md 是一个放在 vault 根目录的文件。它是 Claude 在 vault 中工作前第一个要读的东西。它给所有 Claude surface 提供同一份操作上下文，",
-      "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain/claude-md-template",
-      "date": "2026-07-04",
-      "tags": []
-    },
-    {
-      "id": "AI/记忆/obsidian-second-brain/commands-index",
-      "title": "命令索引",
-      "description": "对应原文: ref/obsidian second brain/commands/ .md TIP 命令名不翻译， category 和 triggers_en 保留原样。中文说明是语义译注，便于后续迁移到 HXLoLi 的 AI 工作流。 分类总览 分类 含义 命令数 : vault 日常写入、捕获、查找、任务板、项",
-      "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain/commands-index",
-      "date": "2026-07-04",
-      "tags": []
-    },
-    {
-      "id": "AI/记忆/obsidian-second-brain/ecosystem",
-      "title": "生态边界",
-      "description": "对应原文: ref/obsidian second brain/ECOSYSTEM.md 核心观点 obsidian second brain 是 core。特定领域 fork 扩展这个模式。 这个页面列出已知 fork: 它们继承 vault rewrite architecture，包括 AI first rule",
-      "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain/ecosystem",
-      "date": "2026-07-04",
-      "tags": []
-    },
-    {
-      "id": "AI/记忆/obsidian-second-brain/fork-insights",
-      "title": "Fork 洞察",
-      "description": "对应原文: ref/obsidian second brain/FORK_INSIGHTS.md 文档性质 这是 roadmap 文档，不是规范。它分析了 166 个 fork 实际构建了什么，并把可回流上游的内容整理成 50 个具体 additions。优先级标记: P0 : 最高 ROI 的快速收益。 P1 : 很",
-      "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain/fork-insights",
-      "date": "2026-07-04",
-      "tags": []
-    },
-    {
-      "id": "AI/记忆/obsidian-second-brain/hx-loli-adoption-plan",
-      "title": "HXLoLi 采纳方案",
-      "description": "本文不是翻译，而是把 obsidian second brain 的机制映射到 HXLoLi 当前项目结构中。 当前项目已经有的好基础 独立 AI 知识库 docusaurus.config.ts 里已经把 ai docs/ 配成第二个 @docusaurus/plugin content docs 实例，路由是 /k",
-      "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain/hx-loli-adoption-plan",
-      "date": "2026-07-04",
-      "tags": []
-    },
-    {
-      "id": "AI/记忆/obsidian-second-brain/hx-loli-borrow-list",
-      "title": "HXLoLi 可借鉴点",
-      "description": "本页基于 ref/obsidian second brain 的中文译注，以及对 HXLoLi 当前结构的快速阅读。它不是最终改造方案，而是下一步可以落地的学习清单。 当前 HXLoLi 已具备的基础 HXLoLi 已经不是单纯博客，项目里有这些可承接点: blog/ : 时间序列文章，适合作为公开输出。 docs/ ",
-      "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain/hx-loli-borrow-list",
-      "date": "2026-07-04",
-      "tags": []
-    },
-    {
-      "id": "AI/记忆/obsidian-second-brain/readme-public",
-      "title": "README 公开说明",
-      "description": "对应原文: ref/obsidian second brain/README.md 对外定位 obsidian second brain 的对外标语可以译为: 一个代码库，六个 CLI，同一个大脑。 它把自己描述为 Karpathy 的 LLM Wiki 模式的演进: 每个来源会更新已有页面，而不是只追加新页面。 矛盾",
-      "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain/readme-public",
-      "date": "2026-07-04",
-      "tags": []
-    },
-    {
-      "id": "AI/记忆/obsidian-second-brain/skill-manual",
-      "title": "Skill 操作手册",
-      "description": "对应原文: ref/obsidian second brain/SKILL.md Skill 描述译文 obsidian second brain 用来把任意 Obsidian vault 当作一个活的、会自我重写的第二大脑来操作。它是 Karpathy 的 LLM Wiki 模式的演进版: 新来源会重写已有页面，矛盾",
-      "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain/skill-manual",
-      "date": "2026-07-04",
-      "tags": []
-    },
-    {
-      "id": "AI/记忆/obsidian-second-brain/vault-schema",
-      "title": "Vault 结构规范",
-      "description": "对应原文: ref/obsidian second brain/references/vault schema.md 默认结构: Wiki style / LLM first 这个结构适用于 Claude 承担大部分或全部写作的 vault。主要读者是 LLM，不是人类。Obsidian 是存储引擎，Claude 是交",
-      "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain/vault-schema",
-      "date": "2026-07-04",
-      "tags": []
-    },
-    {
-      "id": "AI/记忆/obsidian-second-brain/write-rules",
-      "title": "写入规则",
-      "description": "对应原文: ref/obsidian second brain/references/write rules.md 前置规则 写任何 Obsidian vault 笔记前，都要先读 references/ai first rules.md 。每条 Claude 写入的笔记都必须遵守 AI first 规则: 前言、丰富",
-      "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain/write-rules",
-      "date": "2026-07-04",
-      "tags": []
-    },
-    {
       "id": "程序语言/现代C++/HXLibs编写串行协程调度器",
       "title": "HXLibs 协程串行调度器探索",
       "description": "记录 SerialExecutor 三轮迭代的探索过程与踩坑经验. 当前版本仍非最终方案, 调度策略尚有优化空间. 相关提交: 50c931c — feat 实现了串行调度器 生命周期敏感 ac74126 — fix 修复 constexpr 编译报错 测试用例 0x00 调度点: 核心思想 在 C++20 无栈协程中",
@@ -1083,5 +996,5 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "tags": []
     }
   ],
-  "generatedAt": "2026-09-13T08:48:24.812Z"
+  "generatedAt": "2026-09-13T14:48:56.777Z"
 };
