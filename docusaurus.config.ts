@@ -5,6 +5,11 @@ import rehypeKatex from 'rehype-katex'; // katex渲染
 import remarkGithubAlerts from 'remark-github-alerts'; // Github tip标签渲染
 import remarkMath from 'remark-math'; // 数学渲染
 
+// 引用关系: default 是构建期插件 (扫正文 + 问 Docusaurus 要权威 permalink),
+// noteReferencesRemark 是 remark 侧 (把每篇自己那份注入成方框的 props)。
+// 必须走同一条 import —— require 与 import 同一个 .mjs 会各自实例化一份模块状态。
+import noteReferencesPlugin, { noteReferencesRemark } from './plugins/note-references-plugin.mjs';
+
 // 基础路径, 末尾不带 '/'
 // 通过环境变量 DEPLOY_TARGET 来区分部署目标:
 //   DEPLOY_TARGET=cloudflare => baseUrl = "", url = "https://km.woa.qzz.io"
@@ -13,6 +18,31 @@ const isCloudflare = process.env.DEPLOY_TARGET === 'cloudflare';
 const BaseUrl = isCloudflare ? "" : "/HXLoLi";
 // Workers 部署: 使用 wrangler deploy (Static Assets 模式)
 // 自定义域名: km.woa.qzz.io
+
+// ── markdown 图片禁用内联的护栏 ──
+//
+// 内联阈值 0 由 scripts/run-docusaurus.mjs 在加载 @docusaurus/utils **之前**注入;
+// 一旦有人绕过它 (直接 `npx docusaurus build`), 小于 10KB 的 .drawio.svg 又会被内联成
+// data URI, 图静默退化成裸 <img>。这里主动拦住, 让它当场失败而不是悄悄产出坏页面。
+//
+// 为什么不在本文件里设置 process.env: constants.js 在模块加载时就把该值求值成常量
+// (constants.js:79), 而 @docusaurus/utils 早在 config 被加载前就 import 完了 ——
+// 在这个文件里改 process.env 对本次构建无效。
+//
+// 原理与取舍见 .agents/notes/implemented/bug-fix/2026-09-27-drawio-svg-inlined-loses-editor-shell.md
+// 只拦会重新打包的命令。serve 只是静态文件服务, 不经过 webpack, 拦它只会制造无谓摩擦。
+const BUILD_COMMANDS = new Set(['build', 'start', 'deploy']);
+const docusaurusCommand = process.argv.slice(2).find((arg) => !arg.startsWith('-'));
+if (BUILD_COMMANDS.has(docusaurusCommand ?? '') && process.env.WEBPACK_URL_LOADER_LIMIT !== '0') {
+  throw new Error(
+    'WEBPACK_URL_LOADER_LIMIT 必须是 "0", 当前为 ' +
+      JSON.stringify(process.env.WEBPACK_URL_LOADER_LIMIT) +
+      '。\n' +
+      'markdown 图片一旦被内联成 data URI, .drawio.svg 就会丢掉 draw.io 编辑外壳 (src 不再以 .svg 结尾)。\n' +
+      '请用 npm run start / npm run build (它们经由 scripts/run-docusaurus.mjs 注入该变量), ' +
+      '或手动 WEBPACK_URL_LOADER_LIMIT=0 npx docusaurus ' + docusaurusCommand + '。',
+  );
+}
 
 type PptHtmlCopyPattern = {
   from: string;
@@ -120,46 +150,74 @@ function getPptHtmlCopyPatterns(siteDir: string): PptHtmlCopyPattern[] {
     return files;
   }
 
+  // 一条通配 glob 覆盖整个内容根, 路由由 to() 现场反查。**不要改回逐目录/逐文件列举。**
+  //
+  // 为什么必须是 glob (踩过): 固定文件列表是**启动期快照** —— dev server 起完之后新增的 .html
+  // 不在列表里, 访问就是 404, 而文件明明在磁盘上。实测: 一次会话里先起了 dev server, 57 分钟后
+  // 才生成侧车; 同一份文件在之后重启的 server 上 200, 在原来那个上 404。
+  //
+  // CopyPlugin 对 glob 形式的 from 会把 globParent 注册成 webpack 的 contextDependency
+  // (copy-webpack-plugin/dist/index.js: contextDependencies.add(globParent(from))), 并在
+  // **每次 compilation** 的 processAssets 阶段重新展开 —— 所以新增侧车会被自动发现。
+  //
+  // 为什么不是逐目录下 pattern**: 那样每个含 md 的目录都要 2 条, 实测 docs 一个根就产出 1870 条
+  // (935 个目录 x 2), 而其中只有 9 个目录真含 html。用一个根的 glob 是 2 条, 且 watch 覆盖全根。
   const patterns = new Map<string, PptHtmlCopyPattern>();
 
   for (const section of sections) {
     const rootDir = path.join(siteDir, section.contentDir);
-    const markdownFiles = listFiles(rootDir, file => /\.mdx?$/i.test(file));
-    const htmlFiles = listFiles(rootDir, file => /\.html?$/i.test(file));
-    const markdownFilesByDir = new Map<string, string[]>();
+    if (!fs.existsSync(rootDir)) continue;
 
-    for (const markdownFile of markdownFiles) {
+    // 目录 -> 该目录下第一个 md 推导出的路由。侧车落到**它同目录笔记**的路由下。
+    const routeByDir = new Map<string, string>();
+    for (const markdownFile of listFiles(rootDir, file => /\.mdx?$/i.test(file))) {
       const dir = path.dirname(markdownFile);
-      const dirFiles = markdownFilesByDir.get(dir) ?? [];
-      dirFiles.push(markdownFile);
-      markdownFilesByDir.set(dir, dirFiles);
-    }
-
-    for (const htmlFile of htmlFiles) {
-      const markdownSiblings = markdownFilesByDir.get(path.dirname(htmlFile));
-      if (!markdownSiblings) continue;
-
-      for (const markdownFile of markdownSiblings) {
-        const route = section.kind === 'docs'
+      if (routeByDir.has(dir)) continue; // 同目录多篇取第一篇: 与旧行为一致 (旧实现每篇各出一条, 结果相同 to)
+      routeByDir.set(
+        dir,
+        section.kind === 'docs'
           ? getDocsMarkdownRoute(rootDir, markdownFile, section.routeBasePath)
-          : getBlogMarkdownRoute(rootDir, markdownFile, section.routeBasePath);
-        const htmlBaseName = path.basename(htmlFile);
-        const to = joinUrlPath([route, htmlBaseName]);
-        patterns.set(`${htmlFile}->${to}`, {
-          from: htmlFile,
-          to,
-          noErrorOnMissing: true,
-        });
-
-        const cleanRouteName = htmlBaseName.replace(/\.html?$/i, '');
-        const cleanUrlTo = joinUrlPath([route, cleanRouteName, 'index.html']);
-        patterns.set(`${htmlFile}->${cleanUrlTo}`, {
-          from: htmlFile,
-          to: cleanUrlTo,
-          noErrorOnMissing: true,
-        });
-      }
+          : getBlogMarkdownRoute(rootDir, markdownFile, section.routeBasePath),
+      );
     }
+    if (routeByDir.size === 0) continue;
+
+    const from = '**/*.html';
+    // **注意 to 的入参**: CopyPlugin 传的是 { context, absoluteFilename }, 不是 filename。
+    // 写成 info.filename 会永远拿到 undefined, 表现为 path.basename(undefined) 抛
+    // 「The "paths[1]" argument must be of type string」—— 整个 client bundle 编译失败。
+    // 见 copy-webpack-plugin/dist/index.js: await pattern.to({context, absoluteFilename})。
+    const routeOf = (absoluteFilename: string): string | null =>
+      routeByDir.get(path.dirname(absoluteFilename)) ?? null;
+
+    // 落点一: <route>/<name>.html
+    patterns.set(`${section.contentDir}->named`, {
+      from,
+      context: rootDir,
+      to: (info: { absoluteFilename: string }): string => {
+        const route = routeOf(info.absoluteFilename);
+        const base = path.basename(info.absoluteFilename);
+        return route ? joinUrlPath([route, base]) : base;
+      },
+      // 只处理能对上笔记目录的 html; 其余(如根下散装 html)不参与
+      filter: (resourcePath: string) =>
+        /\.html?$/i.test(resourcePath) && routeOf(resourcePath) !== null,
+      noErrorOnMissing: true,
+    });
+
+    // 落点二: <route>/<name>/index.html (干净 URL, 与原实现一致)
+    patterns.set(`${section.contentDir}->clean`, {
+      from,
+      context: rootDir,
+      to: (info: { absoluteFilename: string }): string => {
+        const route = routeOf(info.absoluteFilename);
+        const cleanName = path.basename(info.absoluteFilename).replace(/\.html?$/i, '');
+        return route ? joinUrlPath([route, cleanName, 'index.html']) : cleanName + '/index.html';
+      },
+      filter: (resourcePath: string) =>
+        /\.html?$/i.test(resourcePath) && routeOf(resourcePath) !== null,
+      noErrorOnMissing: true,
+    });
   }
 
   return [...patterns.values()];
@@ -234,11 +292,12 @@ const plugins: PluginConfig[] = [
       outputFile: 'data/aiDocTags.ts',
     },
   ],
-  // 笔记引用关系: 构建期从 ai-docs 正文抽出引用图, 落盘到 data/noteReferences.ts
-  // 供笔记底部的「引用关系」方框使用 (src/components/NoteReferences)
+  // 引用关系: 构建期从正文抽出「引用 / 被引用 / 站外来源」三类边, 落盘到
+  // data/noteReferences.json; remark 侧再把每篇自己那份注入成方框的 props
+  // (见 plugins/note-references-plugin.mjs 里为什么不用组件 import)
   [
-    require('./plugins/note-references-plugin.mjs').default,
-    { contentDir: 'ai-docs' },
+    noteReferencesPlugin,
+    { sections: ['ai-docs', 'docs', 'blog'] },
   ],
   // AI 知识库: 第二个 @docusaurus/plugin-content-docs 实例
   // 独立于主文档 (docs/), 内容存储在 ai-docs/ 目录
@@ -251,7 +310,7 @@ const plugins: PluginConfig[] = [
       routeBasePath: 'knowledge-base',
       include: ['**/*.{md,mdx}'],
       sidebarPath: './sidebarsAiDocs.ts',
-      remarkPlugins: [remarkGithubAlerts, remarkMath],
+      remarkPlugins: [remarkGithubAlerts, remarkMath, noteReferencesRemark],
       rehypePlugins: [
         [
           rehypeKatex,
@@ -302,7 +361,7 @@ const config: Config = {
         docs: {
           include: ["**/*.{md,mdx}"],
           sidebarPath: "./sidebars.ts", // 引入自定义的侧边栏配置文件
-          remarkPlugins: [remarkGithubAlerts, remarkMath],
+          remarkPlugins: [remarkGithubAlerts, remarkMath, noteReferencesRemark],
           rehypePlugins: [
             [
               rehypeKatex,
@@ -319,7 +378,7 @@ const config: Config = {
         blog: {
           blogSidebarTitle: '所有文章', // 侧边栏标题
           blogSidebarCount: 'ALL',     // 显示所有的文章
-          remarkPlugins: [remarkGithubAlerts, remarkMath],
+          remarkPlugins: [remarkGithubAlerts, remarkMath, noteReferencesRemark],
           rehypePlugins: [
             [
               rehypeKatex,
