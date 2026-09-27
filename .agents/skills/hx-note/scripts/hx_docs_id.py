@@ -5,7 +5,7 @@
 # ///
 """ai-docs 全局唯一 ID (hxid) 工具: 分配 / 校验 / 索引 / 相对链接解析.
 
-设计约束 (与 hx-docs-organize/references/migration.md 一致):
+设计约束 (与 entries/organize/impl/migration.md 一致):
   - hxid 写在 frontmatter, 形如 hxid: "hx-3f9a2c71", 创建时分配一次, 之后**永不变更**.
   - 正文跨文章引用统一写成 [标题](hxid:hx-3f9a2c71) —— 目录被移动/改名后,
     跑 resolve 即可把所有 hxid 链接重算成当前正确的相对路径.

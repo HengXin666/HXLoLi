@@ -27,7 +27,7 @@ BV1Js411o76u (代码块需填写内容)
 - 正文写 `[标题 ##PPT##](x-deck.tsx)`; 可带页码与主题: `[标题 ##PPT 3 whale##](x-deck.tsx)`.
 - React 内联渲染, **跟随站点主题、支持实时换主题**, 观感与正文一致.
 - 新增/改名后跑 `npm run decks` (build 前会自动执行); 未注册会渲染成"未注册的演示页"且不报错.
-- 产出流程见 `hx-docs-ppt` skill 的 [references/tsx-deck.md](../../hx-docs-ppt/references/tsx-deck.md).
+- 产出流程见 `steps/6-derive/impl/tsx-deck.md` (本 skill 内).
 
 **形态二: `.html` 侧车** —— 与 Markdown 同目录的独立 .html, 需要完全自包含单文件时用:
 
@@ -37,7 +37,7 @@ BV1Js411o76u (代码块需填写内容)
 - 构建插件 `ppt-html-assets` 会把 `docs/ ai-docs/ blog/` 下所有 .html 拷到对应路由 (与 md 是否引用无关); 但**只有用 `#ppt` 链接才会渲染成 PPT 查看器**.
 - 注意: 插件在**开发服务器启动时**才枚举文件. 先写 md 后补侧车时, dev server 会 404 —— 重启即可 (构建不受影响).
 
-真实范例: `ai-docs/002-AI/004-记忆/005-Agent-Memory框架选型/` 下同时含 `agent-memory-deck.tsx` (内联) 与 `overview-ppt.html` (侧车), 可对照两种形态.
+真实范例: `ai-docs/003-AI/004-记忆/005-Agent-Memory框架选型/` 下同时含 `agent-memory-deck.tsx` (内联) 与 `overview-ppt.html` (侧车), 可对照两种形态.
 
 ## 标点习惯 (HXLoLi 用户约定, 依据现有手写 ai-docs 观察)
 

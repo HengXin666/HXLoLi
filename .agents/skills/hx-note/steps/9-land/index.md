@@ -13,7 +13,8 @@ uv run .agents/skills/hx-note/scripts/hx_flow.py doctor --slug "<slug>"
 
 ## 实现
 
-13 项闸门清单、产物落点约定、跨文章引用、知识库索引现状: `impl/gates.md`。
+闸门清单 (以 doctor 实跑项数为准, 不要在这里写死数字)、产物落点约定、
+跨文章引用、知识库索引现状: `impl/gates.md`。
 
 ## 过关条件
 

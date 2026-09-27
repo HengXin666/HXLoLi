@@ -9,19 +9,28 @@
 
 ## 产物
 
-`index.md`, 结构按模板 (默认「兴趣&展望」)。
+`index.md`, 结构按模板 (默认「兴趣&展望」); 它引用的图与侧车**与它同目录**。
+素材是一套可照做的做法时, 额外产出 `impl/reusable-spec.md` 的第五层那几件
+(骨架 / 令牌 / 门禁脚本 / 复现件 / 演示页) —— 这些是侧车, 不是第三份知识产物。
 
 ## 实现
 
 | 要解决的问题 | 读 |
 |---|---|
+| 平台支持哪些语法、演示页两种形态怎么选 | `../../shared/hxloli-md.md` (**动笔前先读这一份**, 它决定后面用哪几个 impl) |
 | 文章该分几层、主线与支线怎么放 | `impl/layering.md` |
 | 配什么图、生图后端怎么降级 | `impl/media.md` |
-| 演示页的版式与配色 | `impl/theme-spec.md` |
 | `.tsx` 内联演示页怎么写 | `impl/tsx-deck.md` |
+| `.html` 侧车的版式与配色 | `impl/theme-spec.md` |
+| **素材是可照做的做法时, 怎么让它能被照着用** | `impl/reusable-spec.md`; 填好的样子见 `impl/reusable-spec-example-frontend.md` |
 
-文章结构模板在 `templates/`: `templates/interest-outlook.md` (默认) 与
-`templates/problem-solution.md` (踩坑复盘)。模板索引 `templates/_registry.md`。
+文章结构模板在 `templates/`: `templates/interest-outlook.md` (默认) /
+`templates/problem-solution.md` (踩坑复盘) / `templates/reusable-spec.md` (照做型规格)。
+模板索引与怎么选见 `templates/_registry.md`。
+
+**规格类素材优先走 `reusable-spec.md`**: 素材是"别人怎么搭出来的"或"自己刚定下的一套约定"时,
+光写原理等于白写 —— 读者能懂但拿不到东西。选模板前先问一句:
+**读者读完是要"哦原来如此", 还是要"我也去搭一个"?** 后者用 `reusable-spec.md`。
 
 动笔前要拿到**三样**输入:
 

@@ -18,10 +18,11 @@
 | `--kind` | 素材 | 实现 |
 |---|---|---|
 | `article` | 公开文章 / 网页 | `impl/article.md` |
-| `video` | 视频 / 音频 / 字幕 | `impl/video.md` (先过 `shared/transcribe` 拿 transcript) |
+| `video` | 视频 / 音频 / 字幕 | `impl/video.md` (先走 `entries/transcribe/index.md` 拿 transcript) |
 | `local` | 本地代码变更 / git 历史 | `impl/local.md` |
 | `research` | 多源调研 / 对比 | `impl/research.md` |
 | `custom` | 登录墙后 / 需特殊解析 | `impl/custom.md` |
+| `repo` | 外部源码项目 (前端/UI 实现、组件库、单文件 HTML/TSX) | `impl/repo.md` |
 
 画像的数据源清单与扩展方式见 `impl/providers.md`。
 

@@ -10,7 +10,7 @@
 
 ## 实现
 
-协议与 prompt: `../shared/voice/impl/blind-audit.md` 与 `assets/fidelity-audit-prompt.md`。
+协议与 prompt: `../../shared/voice/impl/blind-audit.md` 与 `assets/fidelity-audit-prompt.md`。
 
 ## 与步骤 7 的关系
 

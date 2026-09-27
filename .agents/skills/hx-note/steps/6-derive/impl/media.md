@@ -8,7 +8,7 @@
 | 需要动效、导览、主题切换的机制图 | `archify` skill | 自包含 `xxx.html` |
 | 概念示意 / 封面 / 类比图 | 生图后端 (见下) | `xxx.png` |
 | 真实界面 / 实测结果 / 视频关键帧 | 截图 | `xxx.png` |
-| 多步演示 | `hx-docs-ppt` skill | `xxx-deck.tsx` 或 `xxx.html` |
+| 多步演示 | `steps/6-derive/impl/tsx-deck.md` | `xxx-deck.tsx` 或 `xxx.html` |
 
 **能用 `.drawio.svg` 的场合优先用它**: 矢量、体积小、人类后续能双击改, 而生成的位图
 改不动, 错一个字就得重生成。
@@ -98,15 +98,21 @@ spec 只支持**分层左右布局**, 这是刻意的限制 —— 自由布局�
 ## 演示页
 
 `[标题 ##PPT##](x-deck.tsx)` (React 内联, 跟随站点主题) 或
-`[标题 #ppt](xxx.html)` (自包含单文件)。两者的产出规范以 `hx-docs-ppt` 为准,
-本文件不重复。
+`[标题 #ppt](xxx.html)` (自包含单文件, 版式规范见 `impl/theme-spec.md`)。
+
+**默认选 `.tsx`**, 理由是渲染方式而不是风格:
+它跟随站点主题与明暗切换, 而 `.html` 在 iframe 里自带一套样式, 在浅色站上会显得割裂。
+**但 `.tsx` 有一个静默失败点**: 忘记 `npm run decks` 时页面渲染成"未注册的演示页"且不报错。
+选 `.html` 的场景只有两个: 已存在的外部 HTML, 或必须交付**完全自包含单文件**时。
 
 侧车产物与 `index.md` 同目录; `.tsx` 形态新增后要跑 `npm run decks`。
+**新增侧车后必须确认它被正文引用** —— 没人引用的侧车会被构建插件照常发布, 变成谁也到不了的
+死文件, 而 `doctor` 会拦这一条。
 
 ## 数学与图表的其它语法
 
 Mermaid (` ```mermaid `)、KaTeX (`$...$` / `$$...$$`)、GitHub Alerts、B 站视频嵌入等
-平台语法以 `hx-note 的步骤 5` 的 `references/hxloli-md.md` 为准。
+平台语法以 `shared/hxloli-md.md` 为准 —— 动笔前先读那一份, 它决定本文件里哪几种形态用得上。
 
 **Mermaid 谨慎用**: 它在页面上是自动布局, 结构一复杂就变丑, 而且人类改不动。
 需要人类后续维护的图一律用 `.drawio.svg`。

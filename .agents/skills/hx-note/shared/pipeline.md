@@ -7,9 +7,11 @@
 | 产出 | 必需 | 说明 |
 |---|---|---|
 | `index.md` | ✅ | 由 `makeDoc.py` 初始化, 再填充正文 |
-| `.hx-mitemite.md` | 视情况 | 有待人类回答/拍板的问题时存在 (见 hx-note 的步骤 4) |
+| `.hx-info.md` | ✅ | 事实源, 与 `index.md` 同 hxid |
+| `.hx-mitemite.md` | ✅ | 答题卡。**里面每一题的 `**A**:` 都必须有人类填过的答案** —— 推荐答案不算, 未答会被 `done align` 拒绝 |
+| 可带走的东西 | ✅ | 至少一件: **带分组名的代码块** (```lang [组名-标题]`) 或**被正文引用的侧车** (`.tsx` 演示页 / `.html` / 复现件). 由 `doctor` 检查 |
 | `tag.json` | 可选 | 自定义侧边栏标签与图标: `{ "tags": ["高性能"], "icon": "ISO_C++_Logo.svg" }`; 图标文件放 `static/icons/` |
-| `xxx-ppt.html` | 可选 | `#ppt` 演示页侧车, 必须与 `index.md` 同目录 (见 hx-docs-ppt) |
+| `xxx-ppt.html` | 可选 | `#ppt` 演示页侧车, 必须与 `index.md` 同目录 (见 `steps/6-derive/impl/tsx-deck.md`) |
 | `xxx.html` (archify) | 可选 | 图表产物, 同样与 `index.md` 同目录 |
 | 图片 (截图等) | 可选 | 与 `index.md` 同目录, 正文用 `![alt ##w80%##](x.jpg)` |
 
@@ -18,12 +20,15 @@
 ## 收尾验证闸门 (逐条确认过再交付)
 
 1. `makeDoc.py` 真的执行过; 若没执行, 回复里写明跳过原因.
-2. frontmatter 的 `hxid`/`title`/`created_at`/`model`/`skill`/`authors`/`tags` 齐备, `skill` 是 YAML 列表, 且**如实**记录了本次用到的技能. `hxid` 由 `makeDoc.py` 创建时生成; 存量笔记缺 ID 时跑 `hx_docs_id.py assign --write` (见 `hx-docs-organize`).
+2. frontmatter 的 `hxid`/`title`/`created_at`/`model`/`skill`/`authors`/`tags` 齐备, `skill` 是 YAML 列表, 且**如实**记录了本次用到的技能. `hxid` 由 `makeDoc.py` 创建时生成; 存量笔记缺 ID 时跑 `hx_docs_id.py assign --write` (见 `entries/organize/index.md`).
 3. `format_cn_punct.py --check <index.md>` 通过 (先 `--diff` 看改动是否符合预期再原地归一化).
 4. 正文不含过程痕迹: grep 一遍本地路径、脚本命令、`TODO`、`AI 辅助`、`review` 之类字样, 有则移走.
 5. 新增/改名/移动目录后跑过 `node scripts/generateAiDocsSidebar.js`, 且 `sidebarsAiDocs.ts` 里能搜到新笔记的 id (如 `知识沉淀/现代C++/日常探索/<标题>/index`).
 6. 跨文章引用用 `hxid:` 形式, 移动过目录后跑 `hx_docs_id.py resolve --write`, 再 `hx_docs_id.py check` 确认无陈旧路径; 同目录相对链接指向真实存在的文件.
 7. 若加了 `#ppt` 链接: 侧车与 md 同目录、无外部 CDN、构建或起站后渲染正常.
+8. **可复用物与侧车** (`doctor` 已机械检查, 这里只写"没通过时怎么办"):
+   - 没有任何可拿走的东西 -> 补一个带分组名的代码块, 或按 `steps/6-derive/impl/reusable-spec.md` 派生侧车;
+   - 有侧车但正文没引用 -> 删掉它, 或在正文里用一句话把它接进论点 (没人引用的侧车照样会被构建发布).
 
 回复里要写明: 执行过哪些命令、跳过了哪些、为什么.
 

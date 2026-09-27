@@ -7,7 +7,7 @@
 | 1 | **结构一致性** | 每篇是独立目录 + `index.md`; 目录名带 `NNN-` 前缀且与标题对应 | 补前缀 / 重命名目录 (同时跑 sidebar 脚本 + 修相对链接) |
 | 2 | **文风** | 开头有引入段; 正文有图/表/代码而非纯文字; 结尾有展望 | 重写开头引入段; 给机制段补 archify 图 |
 | 3 | **标点** | `format_cn_punct.py --check` 通过 | 先 `--diff` 确认改动符合预期, 再原地归一化 |
-| 4 | **PPT 侧车** | 引用了 .html 的笔记, 侧车必须与 md **同目录**且自包含 (无外部相对资源) | 挪回同目录 / 内联外部资源 / 用 hx-docs-ppt 重新生成 |
+| 4 | **PPT 侧车** | 引用了 .html 的笔记, 侧车必须与 md **同目录**且自包含 (无外部相对资源) | 挪回同目录 / 内联外部资源 / 用 `steps/6-derive/impl/tsx-deck.md` 重新生成 |
 | 5 | **死链** | 正文相对链接目标存在; 外链可达 | 修路径; 失效外链换 archive 或删除 |
 | 6 | **tag 复用** | `hxloli_tags.py check` 通过; `scan` 的候选簇已逐个判定 | 用 `merge "<别名>" --into "<规范名>"` 固化合并, 再 `apply --write` 批量改写; 最后 `generate` 重建 |
 | 7 | **frontmatter 完整性** | `hxid` `title` `created_at` `model` `skill` `authors` `tags` 齐备; `skill` 为 YAML 列表 | 按 `makeDoc.py` 的字段语义补齐缺失项, 不整篇重写 |

@@ -82,7 +82,7 @@ uv run .agents/skills/hx-note/scripts/hxloli_tags.py check --health  # 4. tag �
 uv run .agents/skills/hx-note/scripts/format_cn_punct.py --check <md>  # 5. 标点
 node scripts/generateAiDocsSidebar.js && node scripts/generate-deck-registry.mjs
 node scripts/generate-docs-graph.mjs                                        # 6. 三个派生索引重建
-npx docusaurus build                                                        # 7. 整站构建真的过
+npm run build                                                               # 7. 整站构建真的过
 grep -rn <旧路径片段> ai-docs src scripts plugins                           # 8. 无写死引用残留
 ```
 

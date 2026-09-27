@@ -22,8 +22,8 @@
 
 | 审 | 时机 | 给什么 | 拦什么 | prompt |
 |---|---|---|---|---|
-| AI 味盲审 | 人类评审阶段, 与人类意见并行 | 只给 `index.md` | 不说人话 | [../assets/voice-audit-prompt.md](../assets/voice-audit-prompt.md) |
-| 保真盲审 | 定稿前最后一关 | `.hx-info.md` + `index.md` | 重点偏离事实源 | [../assets/fidelity-audit-prompt.md](../assets/fidelity-audit-prompt.md) |
+| AI 味盲审 | 人类评审阶段, 与人类意见并行 | 只给 `index.md` | 不说人话 | `../../../assets/voice-audit-prompt.md` |
+| 保真盲审 | 定稿前最后一关 | `.hx-info.md` + `index.md` | 重点偏离事实源 | `../../../assets/fidelity-audit-prompt.md` |
 
 顺序固定为"先味道、后保真": 改文风会动句子, 动句子就可能带偏事实, 所以保真必须在最后。
 反过来做等于白做一遍。

@@ -7,6 +7,7 @@ ai-docs/.hx-staging/<slug>/          过程产物, 永久留在暂存区, 站点
 ├── flow.json                        状态机
 ├── source/material.md               素材要点 (带定位)
 ├── source/provenance.md             来源、获取方式、可信度
+├── source/divergence.md             发散记录 (四个算子的产出; 阶段 3 硬闸门)
 ├── review/voice-audit.md            AI 味盲审报告
 └── review/fidelity-audit.md         保真盲审报告
 
@@ -16,13 +17,18 @@ ai-docs/<NNN-一级>/<NNN-二级>/<NNN-标题>/     笔记产物
 ├── .hx-mitemite.md                  视情况, 待人类拍板的问题
 ├── tag.json                         可选, 侧边栏标签与图标
 ├── *.drawio.svg / *.png             可选, 配图, 必须同目录
-├── *.html (archify)                 可选, 机制图侧车
-└── *-deck.tsx / *-ppt.html          可选, 演示页侧车
+├── *.html (archify / 复现件)        可选, 侧车. **必须被正文引用**
+└── *-deck.tsx / *-ppt.html          可选, 演示页侧车. **必须被正文引用**
 ```
 
 **过程产物一律不进笔记目录。** 盲审报告、素材转写、provenance 都是过程 —— 读者看不到,
 也不该出现在笔记目录里增加噪声。唯一的例外是 `.hx-mitemite.md`: 它有本地开发 UI 支持
 (见下), 所以跟着笔记走。
+
+**侧车与本目录的边界**: "只允许两个知识产物"管的是**数量上限** (不许再加第三份要维护的
+markdown 知识文件), 不是"这个目录只能有两个文件"。配图、演示页、复现件、契约件都是侧车,
+照常产出 —— 少了这些, 笔记就退化成纯散文, 读者读完懂了原理却拿不到东西。
+两种违规各有一条闸门: **没人引用的侧车**与**没有任何可拿走的东西**。
 
 暂存区是点开头目录, `generateAiDocsSidebar.js` / `quality-gate.mjs` 用
 `entry.startsWith('.')` 跳过, `tag-index-plugin.mjs` 跳过 `.` 与 `_` 开头 —— 所以
@@ -52,6 +58,14 @@ uv run .agents/skills/hx-note/scripts/hx_flow.py doctor --slug "<slug>"
 | 两份文件 `hxid` 一致 | 以 `index.md` 为准改 `.hx-info.md` |
 | 已注册进 `sidebarsAiDocs.ts` | 跑 `node scripts/generateAiDocsSidebar.js` |
 | 两份盲审报告存在 | 回阶段 7 / 8, 不许跳 |
+| **答题卡无未答项** | 回阶段 4: 跑 `hx_flow.py brief` 端给人类, 等人类填 `**A**:` |
+| 发散记录 (>= 4 条带判据的产出) | 回阶段 3 跑算子; `done atom` 已硬拦过, 这里是复核 |
+| 笔记里有可复用物 (被引用的侧车, 或带分组名的代码块) | 见 `steps/6-derive/impl/reusable-spec.md`; 纯讲解笔记可在回复里说明后跳过 |
+| 侧车全部被正文引用 | 删掉死侧车, 或在正文里引用它。没人引用的侧车会被构建照常发布 |
+| 技能文档里的路径全部可达 (绝对式与相对式都查) | 按报出的行号改成真实路径 |
+
+**闸门数量不要在这里写死** —— 加一项就改一处文档是最容易漂移的写法。以 `doctor` 实跑输出的
+项数为准, 上面列的是判据而不是计数。
 
 `doctor` 有任何一项不通过时, **回复里必须写明**是哪一项、为什么跳过。
 不允许悄悄交付一个 FAIL 的流程。
