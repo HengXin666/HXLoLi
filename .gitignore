@@ -19,6 +19,8 @@ package-lock.json
 .docusaurus
 .cache-loader
 static/docs-links-graph.json
+# 引用关系载荷: 由 note-references-plugin 在 allContentLoaded 重建, 构建产物不进版本库
+data/noteReferences.json
 
 # ── 私有内容 (由 HXLoLi-imouto 映射进来, 不进公开仓) ──
 #

@@ -9,8 +9,10 @@
     font-size: 13px;
 }
 
+/* 三个页签在窄屏放不下时换行, 而不是被压到文字折行 */
 .tabs {
     display: flex;
+    flex-wrap: wrap;
     gap: 2px;
     background: var(--ifm-color-emphasis-100);
     border-bottom: 1px solid var(--ifm-color-emphasis-300);
@@ -81,30 +83,16 @@
     opacity: 0.7;
 }
 
-.plain {
-    color: var(--ifm-color-emphasis-700);
-    cursor: help;
-}
-
-.url {
-    display: block;
-    margin-left: 16px;
-    font-size: 11px;
-    color: var(--ifm-color-emphasis-600);
-    word-break: break-all;
-}
-
-.divider {
-    margin: 10px 0 6px;
-    padding-top: 8px;
-    border-top: 1px dashed var(--ifm-color-emphasis-300);
-    font-size: 11.5px;
-    font-weight: 600;
-    color: var(--ifm-color-emphasis-600);
-    letter-spacing: 0.02em;
+/* 站外来源显示 "域名@标题", 可能很长 (尤其标题是中文整句) —— 允许收缩但别溢出 */
+.extText {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .empty {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin: 2px 0;
     color: var(--ifm-color-emphasis-600);
     font-size: 12.5px;
