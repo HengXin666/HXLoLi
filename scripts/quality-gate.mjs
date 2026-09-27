@@ -43,6 +43,7 @@ const BASELINE_FILE = path.join(SITE, 'scripts', 'quality-baseline.json');
 const C = { reset: '[0m', dim: '[2m', bold: '[1m', red: '[31m', green: '[32m', yellow: '[33m', cyan: '[36m' };
 const results = [];
 
+/* (see .agents/notes/implemented/bug-fix/2026-09-14-quality-gate-redline.md — 本函数产出的每条结论都受该红线约束) */
 function record(name, status, detail = '') {
   results.push({ name, status, detail });
   if (JSON_OUT) return;
@@ -53,6 +54,7 @@ function record(name, status, detail = '') {
   if (detail) process.stdout.write('       ' + C.dim + detail + C.reset + '\n');
 }
 
+/* (see .agents/notes/implemented/architecture/2026-09-13-coverage-exempt-cannot-defeat-guarded.md — 门禁对 config 合并结果的依赖) */
 function section(title) {
   if (!JSON_OUT) process.stdout.write('\n' + C.bold + C.cyan + '== ' + title + ' ==' + C.reset + '\n');
 }
@@ -106,12 +108,12 @@ const MD_FILES = collectMarkdown(path.join(SITE, 'ai-docs'));
 /* ---------- 1. hxid: 唯一性 / 合法性 / 链接可达 ---------- */
 section('hxid 身份与跨文章链接');
 {
-  const r = run('uv', ['run', '.agents/skills/hx-docs-organize/scripts/hx_docs_id.py', 'check']);
+  const r = run('uv', ['run', '.agents/skills/hx-note/scripts/hx_docs_id.py', 'check']);
   const tail = r.out.trim().split('\n').slice(-1)[0] ?? '';
   record('hxid check (唯一 / 合法 / 链接最新)', r.code === 0 ? 'pass' : 'fail', tail);
 }
 {
-  const r = run('uv', ['run', '.agents/skills/hx-docs-organize/scripts/hx_docs_id.py', 'links']);
+  const r = run('uv', ['run', '.agents/skills/hx-note/scripts/hx_docs_id.py', 'links']);
   const lines = r.out.trim().split('\n');
   const summary = (lines.find((l) => l.includes('笔记')) ?? '').trim();
   const tail = (lines.slice(-1)[0] ?? '').trim();
@@ -121,7 +123,7 @@ section('hxid 身份与跨文章链接');
 /* ---------- 2. tag 词表与注册表 ---------- */
 section('tag 规范与注册表');
 {
-  const r = run('uv', ['run', '.agents/skills/hx-docs-layout/scripts/hxloli_tags.py', 'check']);
+  const r = run('uv', ['run', '.agents/skills/hx-note/scripts/hxloli_tags.py', 'check']);
   const tail = r.out.trim().split('\n').slice(-1)[0] ?? '';
   record('tag 词表合规', r.code === 0 ? 'pass' : 'fail', tail);
 }
@@ -141,19 +143,19 @@ section('tag 规范与注册表');
   record('hxid 链接已 resolve 为可跳转形态', bare.length === 0 ? 'pass' : 'fail',
     bare.length === 0 ? '无裸 hxid: 链接'
       : bare.length + ' 条裸链接渲染后无法跳转: ' + bare.slice(0, 3).join(', ')
-        + '  ==> 运行: uv run .agents/skills/hx-docs-organize/scripts/hx_docs_id.py resolve --write');
+        + '  ==> 运行: uv run .agents/skills/hx-note/scripts/hx_docs_id.py resolve --write');
 }
 
 {
   const rel = 'ai-docs/.hx-tags.toml';
   const before = read(rel);
-  const r = run('uv', ['run', '.agents/skills/hx-docs-layout/scripts/hxloli_tags.py', 'generate']);
+  const r = run('uv', ['run', '.agents/skills/hx-note/scripts/hxloli_tags.py', 'generate']);
   const after = read(rel);
   write(rel, before); // 保持检查只读
   // generated_at 是时间戳, 不参与新鲜度比较
   const strip = (s) => s.replace(/^generated_at = ".*"$/m, 'generated_at = "<ts>"');
   if (r.code !== 0) record('tag 注册表 generated 层新鲜', 'fail', 'generate 执行失败');
-  else if (strip(before) !== strip(after)) record('tag 注册表 generated 层新鲜', 'fail', '已过期, 运行: uv run .agents/skills/hx-docs-layout/scripts/hxloli_tags.py generate');
+  else if (strip(before) !== strip(after)) record('tag 注册表 generated 层新鲜', 'fail', '已过期, 运行: uv run .agents/skills/hx-note/scripts/hxloli_tags.py generate');
   else record('tag 注册表 generated 层新鲜', 'pass', 'generate 无差异');
 }
 
@@ -161,7 +163,7 @@ section('tag 规范与注册表');
 section('中文标点归一化');
 {
   const files = MD_FILES.map((f) => path.relative(SITE, f));
-  const r = run('uv', ['run', '.agents/skills/hx-docs-layout/scripts/format_cn_punct.py', '--check', ...files]);
+  const r = run('uv', ['run', '.agents/skills/hx-note/scripts/format_cn_punct.py', '--check', ...files]);
   const needs = r.out.split('\n').filter((l) => l.includes('needs format'))
     .map((l) => l.trim().replace(/^.*needs format:\s*/, ''));
   record('中文标点归一化 (' + files.length + ' 篇)', r.code === 0 ? 'pass' : 'fail',

@@ -2,6 +2,9 @@
 
 Status: implemented
 
+- **引入于**: `cc0c3a34ae`
+- **引用落点**: 无源码引用 (本文约束的是 ai-docs 内容组织, 不落到某个代码声明)
+
 - 影响: `ai-docs/002-AI/004-记忆/003-obsidian-second-brain/index.md` / `ai-docs/002-AI/004-记忆/005-Agent-Memory框架选型/index.md` / `scripts/quality-gate.mjs`
 - 现象: 正文里形如 `[标题](hxid:hx-3ac6bdbe)` 的跨文章链接**在前端点不动**
 

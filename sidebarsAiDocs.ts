@@ -40,6 +40,24 @@ const aiDocsSidebar = [
               "icon": "default-icons/ai-doc.svg",
               "tags": []
             }
+          },
+          {
+            "type": "doc",
+            "id": "程序语言/现代C++/C++20协程原理与应用/index",
+            "label": "C++20协程原理与应用",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "程序语言/现代C++/C++20协程原理-Zhihu/index",
+            "label": "C++20协程原理-Zhihu",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
           }
         ],
         "customProps": {
@@ -414,6 +432,15 @@ const aiDocsSidebar = [
         "type": "doc",
         "id": "工具链/从打野到注册机与AI工具链/index",
         "label": "从打野到注册机与AI工具链",
+        "customProps": {
+          "icon": "default-icons/ai-doc.svg",
+          "tags": []
+        }
+      },
+      {
+        "type": "doc",
+        "id": "工具链/怎么判断自己写的东西有没有AI味/index",
+        "label": "怎么判断自己写的东西有没有AI味",
         "customProps": {
           "icon": "default-icons/ai-doc.svg",
           "tags": []

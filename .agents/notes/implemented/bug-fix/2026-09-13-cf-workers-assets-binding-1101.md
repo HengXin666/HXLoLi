@@ -2,6 +2,8 @@
 
 Status: implemented
 
+- **引入于**: `5c51bf11e5`
+
 - 影响: `wrangler.toml`(新增) / `worker.js`(从 workflow 内联挪出) /
 
 ## Problem

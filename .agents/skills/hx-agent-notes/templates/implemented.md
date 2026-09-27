@@ -2,6 +2,12 @@
 
 Status: implemented
 
+- **引入于**: `<short-sha>` — <这一条 note 是哪次提交引入的; 首次落地时填, 之后不再改>
+- 影响: <受这条决策约束的路径 / 模块, 写得能让人一次找到>
+
+> `<short-sha>` 由 `new-note.ts` 在创建时自动填当前 HEAD; 若这条 note 是与代码
+> **同一次提交**落地的, 提交后回头补成那次提交的 sha (见 SKILL.md「首次更新」一节)。
+
 ## Problem
 
 <What broke or had to change and why, stated so it stands without the solution.>

@@ -2,6 +2,8 @@
 
 Status: implemented
 
+- **引入于**: `cc0c3a34ae`
+
 - 影响: `scripts/quality-gate.mjs` (新增) / `scripts/regenerate-tag-index.mjs` (新增) / `scripts/quality-baseline.json` (新增) / `package.json` (新增 `gate` / `gate:fast`)
 - 现象: 改 A 弄坏 B 却没人发现; 侧车 `.html` 在 dev 上"加载不出来"
 

@@ -37,6 +37,7 @@ function getJsonTagConfig(folderPath) {
     return { icon: undefined, tags: [] };
 }
 
+/* (see .agents/notes/implemented/architecture/2026-09-13-ai-docs-taxonomy.md — 目录维度的分类决策决定本函数的遍历结果) */
 function scanDocs(dir, relativePath = '') {
     if (!fs.existsSync(dir)) return { items: [], hasIndex: false };
 

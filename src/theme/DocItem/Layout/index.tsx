@@ -21,6 +21,7 @@ import HXGiscus from '../../../components/Giscus';
 import AIDocHeader from '../../../components/AIDocHeader';
 import MitemitePanel from '../../../components/DevTools/MitemitePanel';
 import InlineEditor from '../../../components/DevTools/InlineEditor';
+import NoteReferences from '../../../components/NoteReferences';
 import MDXA from '../../MDXComponents/A';
 import './hx.css';
 import styles from './styles.module.css';
@@ -113,6 +114,8 @@ export default function DocItemLayout ({ children }: Props): ReactNode {
                             <DocVersionBadge />
                             {docTOC.mobile}
                             <DocItemContent>{children}</DocItemContent>
+                        {/* 引用关系方框: 仅知识库 (数据来自 note-references-plugin) */}
+                        {isAIDocs && <NoteReferences />}
                         <DocItemFooter />
                     </article>
                     {/* 赞助 + CC 协议: AI知识库 和 普通笔记 均显示 */}

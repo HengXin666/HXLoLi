@@ -55,6 +55,24 @@ function* implementationFiles(): Generator<string> {
   }
 }
 
+/** 读取某文件的第 n 行 (1-based); 越界返回空串。 */
+function lineAt(file: string, n: number): string {
+  if (n < 1) return ''
+  const lines = readFileSync(file, 'utf8').split('\n')
+  return lines[n - 1] ?? ''
+}
+
+/** 取某行往上的若干行, 用于判断引用点上方 (或同行) 有没有真实声明。 */
+function linesAbove(file: string, n: number, count: number): string {
+  const lines = readFileSync(file, 'utf8').split('\n')
+  return lines.slice(Math.max(0, n - 1 - count), n).join('\n')
+}
+
+/** 相对 repoRoot 的路径, 用于报错信息。 */
+function relFileOf(abs: string, root: string): string {
+  return relative(root, abs).split('\\').join('/')
+}
+
 const rootPattern = config.root.replace(/[.*+?^$()|[\]\\]/g, '\\$&')
 const lifecycleAlt = [...config.lifecycles, config.archive].join('|')
 const BTN = '`'
@@ -67,6 +85,8 @@ const refPatterns = [
 ]
 
 const anchored = new Set<string>()
+/** 每个引用点的位置: 绝对路径 -> 行号列表。用于"引用要落到具体声明旁"的校验。 */
+const citationSites = new Map<string, number[]>()
 let referenceCount = 0
 
 for (const file of implementationFiles()) {
@@ -86,6 +106,9 @@ for (const file of implementationFiles()) {
           continue
         }
         anchored.add(resolve(target))
+        const sites = citationSites.get(file) ?? []
+        sites.push(index + 1)
+        citationSites.set(file, sites)
       }
     }
   })
@@ -95,8 +118,50 @@ if (config.backlinks.required) {
   const { notes } = walkNotes(loaded)
   for (const note of notes) {
     if (note.lifecycle !== 'implemented') continue
-    if (!anchored.has(resolve(notesRoot, note.rel))) {
-      errors.push('backlink: ' + note.rel + ' — no source file cites this shipped decision')
+    const noteAbs = resolve(notesRoot, note.rel)
+    const noteText = readFileSync(noteAbs, 'utf8')
+    // 内容类 note (约束的是 ai-docs 内容组织而非代码声明) 可以显式声明没有源码落点。
+    // 这不是绕过门禁: 它要求作者**写下一个断言**, 而不是让引用悄悄缺席。
+    const contentOnly = /^- .*\*\*引用落点\*\*:\s*无源码引用/m.test(noteText)
+    if (!anchored.has(noteAbs)) {
+      if (contentOnly) continue
+      errors.push(
+        'backlink: ' + note.rel + ' — no source file cites this shipped decision. ' +
+          '在**声明旁边**引它, 不要写在文件头: ' +
+          "在函数/JSDoc/类定义的正上方或同行, 用 (see <note 路径>); " +
+          '若这条 note 确实不约束任何代码声明 (如只约束 ai-docs 内容组织), ' +
+          '在 note 里加一行 "- **引用落点**: 无源码引用 (<理由>)"',
+      )
+      continue
+    }
+    // 已落地 note 必须记录它由哪次提交引入 —— 否则读者无法把决策与代码版本对上
+    const text = noteText
+    // 接受三种写法: "- **引入于**: <sha>" / "- 引入于: <sha>" / "Commit: <sha>"
+    const INTRO_RE = /^\s*-?\s*(?:\*\*)?引入于(?:\*\*)?\s*[:：]\s*(?:\*\*)?[@`]?([0-9a-f]{7,40})`?/m
+    const COMMIT_RE = /^\s*(?:\*\*)?Commit(?:\*\*)?\s*[:：]\s*[@`]?([0-9a-f]{7,40})`?/m
+    if (!INTRO_RE.test(text) && !COMMIT_RE.test(text)) {
+      errors.push(
+        'backlink: ' + note.rel + ' — 缺少「引入于: <short-sha>」. ' +
+          '首次落地时记下这次提交的 sha, 之后不再改',
+      )
+    }
+  }
+
+  // 位置检查: 引用点必须在**具体的声明旁**, 不允许出现在文件头部注释块
+  for (const [abs, lines] of citationSites) {
+    const noteRel = relative(notesRoot, abs).split('\\').join('/')
+    for (const ln of lines) {
+      const ctx = lineAt(abs, ln)
+      const above = linesAbove(abs, ln, 4)
+      // 头部: 前 12 行以内, 且上方没有任何声明 (function/class/const/接口/导出)
+      const isTop = ln <= 12
+      const hasDeclaration = /\b(function|class|interface|const|let|var|def|export|impl|struct)\b|=>/.test(above + ctx)
+      if (isTop && !hasDeclaration) {
+        errors.push(
+          'backlink: ' + relFileOf(abs, repoRoot) + ':' + ln + ' — 引用落在文件头部, 没有指向具体位置. ' +
+            '把它移到它约束的那个声明旁边 (函数/类/JSDoc 的正上方或同行)',
+        )
+      }
     }
   }
 }

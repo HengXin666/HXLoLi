@@ -32,6 +32,7 @@ import { PptCardIdProvider } from './deck-layer';
  * 在渲染里改这个 Set 会让"第一次渲染认领成功、提交的那次却看到已被认领"
  * 从而判定为不打开 (实测: 直接带 ?ppt= 刷新, 一张都打不开).
  */
+/* (see .agents/notes/implemented/bug-fix/2026-09-12-ppt-embed-card-fixes.md — 卡片滚动与侧栏同步的修复处) */
 const claimedPptIds = new Set<string>();
 
 export interface PptCardProps {

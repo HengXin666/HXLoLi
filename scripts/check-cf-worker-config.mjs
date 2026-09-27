@@ -28,6 +28,7 @@ if (!fs.existsSync(configPath)) {
 const content = fs.readFileSync(configPath, 'utf8');
 
 /** 取 [assets] 段里的 key = value (忽略注释与前后空白) */
+/* (see .agents/notes/implemented/bug-fix/2026-09-13-cf-workers-assets-binding-1101.md — 为什么必须显式写 [assets] binding) */
 function readAssetsSection(text) {
   const result = {};
   let inAssets = false;

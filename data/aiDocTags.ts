@@ -50,6 +50,18 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": ""
     },
     {
+      "label": "工程实践",
+      "slug": "工程实践",
+      "permalink": "/knowledge-base/tags/工程实践",
+      "count": 4,
+      "description": "可直接复用的工程做法与取舍",
+      "parent": "AI Agent",
+      "aliases": [
+        "接口设计"
+      ],
+      "root": "AI Agent"
+    },
+    {
       "label": "记忆系统",
       "slug": "记忆系统",
       "permalink": "/knowledge-base/tags/记忆系统",
@@ -73,6 +85,19 @@ export const aiDocTagIndex: AiDocTagIndex = {
         "AI逆向"
       ],
       "root": ""
+    },
+    {
+      "label": "C++",
+      "slug": "c",
+      "permalink": "/knowledge-base/tags/c",
+      "count": 4,
+      "description": "C++ 语言、范式与标准演进",
+      "parent": "编程语言",
+      "aliases": [
+        "现代C++",
+        "C++20"
+      ],
+      "root": "编程语言"
     },
     {
       "label": "Harness",
@@ -107,18 +132,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "AI Agent"
     },
     {
-      "label": "工程实践",
-      "slug": "工程实践",
-      "permalink": "/knowledge-base/tags/工程实践",
-      "count": 3,
-      "description": "可直接复用的工程做法与取舍",
-      "parent": "AI Agent",
-      "aliases": [
-        "接口设计"
-      ],
-      "root": "AI Agent"
-    },
-    {
       "label": "技术选型",
       "slug": "技术选型",
       "permalink": "/knowledge-base/tags/技术选型",
@@ -140,6 +153,26 @@ export const aiDocTagIndex: AiDocTagIndex = {
         "预设"
       ],
       "root": "AI Agent"
+    },
+    {
+      "label": "协程",
+      "slug": "协程",
+      "permalink": "/knowledge-base/tags/协程",
+      "count": 3,
+      "description": "协程模型与异步调度",
+      "parent": "C++",
+      "aliases": [],
+      "root": "编程语言"
+    },
+    {
+      "label": "异步任务",
+      "slug": "异步任务",
+      "permalink": "/knowledge-base/tags/异步任务",
+      "count": 3,
+      "description": "异步任务的组织与调度",
+      "parent": "协程",
+      "aliases": [],
+      "root": "编程语言"
     },
     {
       "label": "知识库",
@@ -187,6 +220,16 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "逆向与风控"
     },
     {
+      "label": "可复现性",
+      "slug": "可复现性",
+      "permalink": "/knowledge-base/tags/可复现性",
+      "count": 2,
+      "description": "结果可被稳定复现",
+      "parent": "工程与工具",
+      "aliases": [],
+      "root": "工程与工具"
+    },
+    {
       "label": "评测",
       "slug": "评测",
       "permalink": "/knowledge-base/tags/评测",
@@ -228,19 +271,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "parent": "工程与工具",
       "aliases": [],
       "root": "工程与工具"
-    },
-    {
-      "label": "C++",
-      "slug": "c",
-      "permalink": "/knowledge-base/tags/c",
-      "count": 2,
-      "description": "C++ 语言、范式与标准演进",
-      "parent": "编程语言",
-      "aliases": [
-        "现代C++",
-        "C++20"
-      ],
-      "root": "编程语言"
     },
     {
       "label": "Codex",
@@ -323,16 +353,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "parent": "AI Agent",
       "aliases": [],
       "root": "AI Agent"
-    },
-    {
-      "label": "可复现性",
-      "slug": "可复现性",
-      "permalink": "/knowledge-base/tags/可复现性",
-      "count": 1,
-      "description": "结果可被稳定复现",
-      "parent": "工程与工具",
-      "aliases": [],
-      "root": "工程与工具"
     },
     {
       "label": "浏览器指纹",
@@ -437,16 +457,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "生活杂谈"
     },
     {
-      "label": "协程",
-      "slug": "协程",
-      "permalink": "/knowledge-base/tags/协程",
-      "count": 1,
-      "description": "协程模型与异步调度",
-      "parent": "C++",
-      "aliases": [],
-      "root": "编程语言"
-    },
-    {
       "label": "选购指标",
       "slug": "选购指标",
       "permalink": "/knowledge-base/tags/选购指标",
@@ -469,16 +479,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
         "AI验证码求解"
       ],
       "root": "逆向与风控"
-    },
-    {
-      "label": "异步任务",
-      "slug": "异步任务",
-      "permalink": "/knowledge-base/tags/异步任务",
-      "count": 1,
-      "description": "异步任务的组织与调度",
-      "parent": "协程",
-      "aliases": [],
-      "root": "编程语言"
     },
     {
       "label": "语言特性",
@@ -632,6 +632,41 @@ export const aiDocTagIndex: AiDocTagIndex = {
     }
   ],
   "docs": [
+    {
+      "id": "工具链/怎么判断自己写的东西有没有AI味",
+      "title": "怎么判断自己写的东西有没有 AI 味",
+      "description": "调教 AI 写笔记有一阵了, 就是不说人话. 已经没有人类了, 到底有没有在说人话? 0x00 先查这句话里有没有人在说话 量之前我以为差在词上. 我以为机器稿爱堆那种很官方的大词. 量完发现, 差的是句子里有没有一个在说话的人. 真人那 215 句里, 「啊」136 次, 「吧」88 次, 「我们」81 次. 再往下",
+      "permalink": "/knowledge-base/工具链/怎么判断自己写的东西有没有AI味",
+      "date": "2026-09-26",
+      "tags": [
+        "工程实践",
+        "可复现性"
+      ]
+    },
+    {
+      "id": "程序语言/现代C++/C++20协程原理-Zhihu",
+      "title": "C++20 协程: 谁来恢复, 谁来销毁",
+      "description": "写 HXLibs 那个串行调度器时, 我卡在一个问题上: 协程挂起之后, 帧到底归谁管. 0x00 挂起的是这次执行, 不是整个线程 < source: K01,K02,K03,K04,K05,K06,K07,K18 先把两个容易混的东西分开. 无栈协程是一个可以挂起、之后恢复的函数; 有栈协程相当于用户态线程,自己带",
+      "permalink": "/knowledge-base/程序语言/现代C++/C++20协程原理-Zhihu",
+      "date": "2026-09-25",
+      "tags": [
+        "C++",
+        "协程",
+        "异步任务"
+      ]
+    },
+    {
+      "id": "程序语言/现代C++/C++20协程原理与应用",
+      "title": "C++20协程原理与应用",
+      "description": "给 HXLibs 的 iocp 那套东西对接协程时, 我卡在一个问题上: 标准为什么不给有栈协程. 0x00 标准替我做了选择, 而且理由很直白 先把两个词分清楚. 无栈协程就是一个可以挂起、之后再恢复的函数; 有栈协程相当于用户态线程, 自己带一段栈. 切换成本差在这里: 无栈协程切换一次约等于一次函数调用, 有栈协",
+      "permalink": "/knowledge-base/程序语言/现代C++/C++20协程原理与应用",
+      "date": "2026-09-24",
+      "tags": [
+        "C++",
+        "协程",
+        "异步任务"
+      ]
+    },
     {
       "id": "AI/记忆/Agent-Memory框架选型",
       "title": "Agent Memory 选型指南: 五大范式、评测水分与四个必补动作",
@@ -996,5 +1031,5 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "tags": []
     }
   ],
-  "generatedAt": "2026-09-13T15:45:19.462Z"
+  "generatedAt": "2026-09-27T08:26:49.758Z"
 };

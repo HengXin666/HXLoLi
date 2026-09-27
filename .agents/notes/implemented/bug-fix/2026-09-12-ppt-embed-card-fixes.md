@@ -2,6 +2,8 @@
 
 Status: implemented
 
+- **引入于**: `d2355db647`
+
 - 影响: `src/hxdeck/{Deck,PptCard,PptEmbed,diagram,slide-state}.*`
 
 ## Problem

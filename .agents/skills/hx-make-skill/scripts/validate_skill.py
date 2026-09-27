@@ -94,6 +94,26 @@ def _mini_yaml(raw: str) -> dict:
     return out
 
 
+# ── 硬约束 vs 软约定 ─────────────────────────────────────────────
+#
+# DSH 的 skill 加载器 (dsh-skill-filesystem) 真正强制的只有三件事:
+#   1. 一级目录下有 SKILL.md, 且首行是 ---;
+#   2. frontmatter 能解析出 name 与 description;
+#   3. name 匹配 /^[a-z0-9]+(?:-[a-z0-9]+)*$/。
+# 违反任一条 = 该 skill 被**静默跳过** (只打一行 logger.warn)。
+#
+# 其余检查 (行数预算、引用完整性、禁用文件、索引写法……) 全是社区规范的软约定,
+# DSH **一条都不查** —— 实测确认。所以默认降级成 WARN: 自定义目录结构
+# (如 steps/ entries/ shared/) 不该被自己的工具挡住。
+# 需要按完整规范校验时加 --strict, 它们会重新变成 ERROR。
+STRICT = False
+
+
+def _soft(errors: list[str], warns: list[str], message: str) -> None:
+    """按 STRICT 决定一条软约定算 ERROR 还是 WARN。"""
+    (errors if STRICT else warns).append(message)
+
+
 def validate(skill_dir: Path) -> tuple[list[str], list[str]]:
     errors: list[str] = []
     warns: list[str] = []
@@ -113,18 +133,18 @@ def validate(skill_dir: Path) -> tuple[list[str], list[str]]:
         errors.append("frontmatter: `name` is required")
     else:
         if len(name) > MAX_NAME:
-            errors.append(f"name is {len(name)} chars; max is {MAX_NAME}")
+            _soft(errors, warns, f"name is {len(name)} chars; 规范建议 <= {MAX_NAME}")
         if not NAME_RE.match(name):
             errors.append(
                 "name must be lowercase alphanumeric words joined by single "
                 f"hyphens (got {name!r}); no uppercase, no leading/trailing "
                 "hyphen, no consecutive hyphens"
             )
+        # DSH 不要求 name == 目录名 (它只读 frontmatter 的 name)。不一致会让
+        # 「按目录找 skill」的人困惑, 所以只在 strict 下算错。
         if name != skill_dir.name:
-            errors.append(
-                f"name {name!r} must match the parent directory name "
-                f"{skill_dir.name!r}"
-            )
+            _soft(errors, warns,
+                  f"name {name!r} 与目录名 {skill_dir.name!r} 不一致; 规范建议一致")
 
     # --- description ---
     desc = fm.get("description")
@@ -132,7 +152,7 @@ def validate(skill_dir: Path) -> tuple[list[str], list[str]]:
         errors.append("frontmatter: `description` is required")
     else:
         if len(desc) > MAX_DESC:
-            errors.append(f"description is {len(desc)} chars; max is {MAX_DESC}")
+            _soft(errors, warns, f"description is {len(desc)} chars; 规范建议 <= {MAX_DESC}")
         has_trigger = bool(re.search(r"\buse when\b|\buse this\b|Use when|用于|当用户", desc, re.I))
         if not has_trigger:
             warns.append(
@@ -144,43 +164,66 @@ def validate(skill_dir: Path) -> tuple[list[str], list[str]]:
 
     # --- optional fields ---
     compat = fm.get("compatibility")
+    # DSH 只读 name 与 description; compatibility/metadata 它不解析。
     if compat is not None and (not isinstance(compat, str) or len(compat) > MAX_COMPAT):
-        errors.append(f"compatibility must be a string of at most {MAX_COMPAT} chars")
+        _soft(errors, warns, f"compatibility must be a string of at most {MAX_COMPAT} chars")
     md = fm.get("metadata")
     if md is not None and not isinstance(md, dict):
-        errors.append("metadata must be a YAML mapping")
+        _soft(errors, warns, "metadata must be a YAML mapping")
 
     # --- L2 budget ---
     body_lines = body.splitlines()
+    # DSH 不查行数。超长不会报错, 但每次触发整篇读入, 这份上下文是物理成本。
     if len(body_lines) > MAX_BODY_LINES:
-        errors.append(
-            f"SKILL.md body is {len(body_lines)} lines; keep it under "
-            f"{MAX_BODY_LINES} and split detail into references/"
-        )
+        _soft(errors, warns,
+              f"SKILL.md body is {len(body_lines)} lines; 建议 < {MAX_BODY_LINES} "
+              "(超了能跑, 但每次触发都要付这份上下文)")
 
     # --- information architecture ---
     if WHEN_TO_USE_RE.search(body):
-        errors.append(
-            "body contains a \"When to use\" heading; that information is "
-            "never read before triggering -- move it into `description`"
-        )
+        _soft(errors, warns,
+              "body 里有 When to use 段; 触发信息写在 description 里才有效 "
+              "(body 触发前不可见) —— 这样写等于白写")
 
     for child in sorted(skill_dir.iterdir()):
+        # DSH 不查。这属于「给模型的目录里别放给人看的东西」的纪律。
         if child.name in BANNED_FILES:
-            errors.append(
-                f"{child.name} must not live inside a skill; skills are for the "
-                "agent, not a human-facing project"
-            )
+            _soft(errors, warns,
+                  f"{child.name} inside a skill; skills 是给 agent 的, 一般不放给人看的 README")
 
     # --- reference integrity ---
+    #
+    # 规则 (2026-09 放宽, 支持"步骤文件夹"式扩展):
+    #   · 顶层文件 (references/foo.md) 必须被 SKILL.md 直接引用;
+    #   · 子目录 (references/collect/) 必须有一个以目录名命名的入口页
+    #     (references/collect.md 或 references/collect/index.md) 被 SKILL.md 引用,
+    #     入口页再负责指引该目录下的细节 —— 深链发生在 reference 之间, 不发生在 SKILL.md。
+    #   这样既允许按步骤分组建子目录, 又保住"模型知道它存在"这条规范意图。
     ref_dirs = [d for d in ("references", "scripts", "assets") if (skill_dir / d).is_dir()]
     for d in ref_dirs:
-        for f in sorted((skill_dir / d).rglob("*")):
+        for f in sorted((skill_dir / d).iterdir()):
+            rel = f.relative_to(skill_dir).as_posix()
+            if f.is_dir():
+                if _is_noise(f, skill_dir):
+                    continue
+                # 子目录: 满足以下任一即可 ——
+                #   (a) 目录里有文件被 SKILL.md 直接引用 (如 assets/ci/github-actions.yml), 或
+                #   (b) 有入口页被引用 (references/collect.md 或 references/collect/index.md)。
+                # 两者缺一才报错。只查入口页会误伤"直接引用子目录文件"这种更精确的写法。
+                has_direct = any(
+                    g.relative_to(skill_dir).as_posix() in text
+                    for g in f.rglob("*") if g.is_file() and not _is_noise(g, skill_dir)
+                )
+                entry_names = [f"{rel}.md", f"{rel}/index.md"]
+                has_entry = any(e in text for e in entry_names)
+                if not (has_direct or has_entry):
+                    _soft(errors, warns,
+                          f"{rel}/ 既没被直接引用、也没有入口页; 模型不知道它存在")
+                continue
             if not f.is_file() or _is_noise(f, skill_dir):
                 continue
-            rel = f.relative_to(skill_dir).as_posix()
             if rel not in text:
-                errors.append(f"{rel} exists but is never referenced from SKILL.md")
+                _soft(errors, warns, f"{rel} exists but is never referenced from SKILL.md")
 
     for d in ("references",):
         ref_dir = skill_dir / d
@@ -197,6 +240,41 @@ def validate(skill_dir: Path) -> tuple[list[str], list[str]]:
                     "the agent can locate the right part"
                 )
 
+    # --- 索引写法 (两条硬约定) ---
+    # 跳过代码块: 规范文档里会用反例演示错误写法, 那些不该被当成违规.
+    prose_lines: list[str] = []
+    _in_fence = False
+    for _line in body.splitlines():
+        if _line.lstrip().startswith("```"):
+            _in_fence = not _in_fence
+            continue
+        if not _in_fence:
+            # 剥掉行内 code: 规范文档会用它示范错误写法, 那些不该算违规
+            prose_lines.append(re.sub(r'`[^`]*`', '', _line))
+    prose = chr(10).join(prose_lines)
+
+    md_links = [
+        m.group(0)
+        for m in re.finditer(r'\[([^\]]+)\]\(([^)]+)\)', prose)
+        if not m.group(2).startswith(('http://', 'https://', '#'))
+    ]
+    if md_links:
+        warns.append(
+            '索引里有 ' + str(len(md_links)) + ' 个 markdown 链接; 给 AI 读的索引用裸路径即可,'
+            ' 写成 [a](a) 只是把路径重复两遍、多付一份 token. 例: ' + md_links[0]
+        )
+
+    for _line in prose_lines:
+        _s = _line.strip()
+        _paths = re.findall(r'\b(references|scripts|assets|templates|steps|entries|shared)/[\w./-]+', _s)
+        if len(_paths) >= 3:
+            _has_desc = any(ch in _s for ch in ('——', ':', '：', '什么时候读', '用于'))
+            if not _has_desc:
+                warns.append(
+                    '有一行平铺了 ' + str(len(_paths)) + ' 个路径却没有描述: '
+                    + _s[:60] + ' ...; 每个路径后面补一句 这是什么/什么时候读'
+                )
+
     # --- reference depth ---
     for m in re.finditer(r"\]\(([^)]+)\)", body):
         target = m.group(1).strip()
@@ -204,10 +282,8 @@ def validate(skill_dir: Path) -> tuple[list[str], list[str]]:
             continue
         depth = len([p for p in Path(target).parts if p not in (".", "..")])
         if depth > 2:
-            errors.append(
-                f"reference {target!r} is nested deeper than one level below "
-                "SKILL.md; flatten it"
-            )
+            _soft(errors, warns,
+                  f"reference {target!r} 嵌套超过一层; 规范建议拍平")
 
     return errors, warns
 
@@ -216,7 +292,11 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(description="Validate an Agent Skill directory.")
     p.add_argument("skill_dir", help="Path to the skill directory containing SKILL.md")
     p.add_argument("--json", action="store_true", help="emit a JSON report")
+    p.add_argument("--strict", action="store_true",
+                   help="把社区规范的软约定也当 ERROR (默认只报 DSH 真正强制的)")
     args = p.parse_args(argv)
+    global STRICT
+    STRICT = bool(args.strict)
 
     skill_dir = Path(args.skill_dir).resolve()
     if not skill_dir.is_dir():

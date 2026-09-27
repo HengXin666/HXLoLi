@@ -20,6 +20,18 @@ package-lock.json
 .cache-loader
 static/docs-links-graph.json
 
+# ── 私有内容 (由 HXLoLi-imouto 映射进来, 不进公开仓) ──
+#
+# 这些是符号链接 (scripts/setup-private.mjs 建的), 指向 ../HXLoLi-imouto。
+# 之所以在 .gitignore 里也写一遍 (而不是只靠 .git/info/exclude):
+#   · .git/info/exclude 是**本机专属**的, 别的机器 clone 后不生效;
+#   · 一旦有人误提交, 私有内容就进了公开仓的历史, 删不干净。
+# 两边都写才是安全的。
+ai-docs/.hx-persona.md
+ai-docs/.hx-persona.extra.md
+docs/015-私密笔记
+blog/2026/04/30
+
 # Misc
 .DS_Store
 .env.local

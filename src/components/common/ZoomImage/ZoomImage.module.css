@@ -1,0 +1,153 @@
+/*
+ * 图查看器 (ZoomImage) 的样式.
+ *
+ * 全部样式都留在本 module 内 —— 查看器经 Portal 挂到 document.body,
+ * 宿主组件的 CSS Module 类名在 Portal 子节点里解析成 undefined (PptCard 踩过这个坑).
+ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(8, 8, 10, 0.92);
+  -webkit-backdrop-filter: blur(8px) saturate(0.85);
+  backdrop-filter: blur(8px) saturate(0.85);
+  overscroll-behavior: contain;
+  touch-action: none;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.overlayOpen {
+  opacity: 1;
+}
+
+/* 舞台: 全屏的坐标基准. 图片以它的中心为锚, 见 index.tsx 顶部的坐标系说明 */
+.stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /*
+   * 居中靠 JS 写的负 margin (见 index.tsx 顶部坐标系第 4 条), 不是 transform: translate(-50%, -50%).
+   * 后者按**未缩放**的元素尺寸取百分比, scale() 之后它不再正好把中心放回舞台中心,
+   * 表现为"滚轮放大时光标锚点越放越偏" (实测 u 从 0.25 漂到 0.37).
+   */
+  transform-origin: center center;
+  will-change: transform;
+  border-radius: 6px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  backface-visibility: hidden;
+  -webkit-user-drag: none;
+}
+
+.toolbar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button {
+  display: grid;
+  place-items: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.button:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* "复位" 这类带文字的按钮: 字号回到正文尺度 */
+.text {
+  font-size: 13.5px;
+  padding: 0 12px;
+}
+
+.scale {
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.hint {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  padding: 7px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12.5px;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: zoomImageHint 5s ease forwards;
+}
+
+/* 图片打不开时的兜底提示. 查看器不该把读者困在全屏黑幕里 */
+.broken {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 13.5px;
+  max-width: 80vw;
+  text-align: center;
+}
+
+@keyframes zoomImageHint {
+  0%,
+  72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay {
+    transition: none;
+  }
+  .hint {
+    animation: none;
+  }
+}

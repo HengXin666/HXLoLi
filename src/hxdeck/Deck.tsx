@@ -13,6 +13,7 @@ import './fonts.css';
 import './deck.css';
 import './ui.css';
 
+/* (see .agents/notes/implemented/bug-fix/2026-09-14-deck-wheel-leak-scrolls-host-page.md — 滚轮不漏给宿主页面的实现处) */
 const STAGE_W = 1600;
 const STAGE_H = 900;
 const PAGE_DURATION = 860;   // 与 --hxd-motion-page 对齐
@@ -69,6 +70,7 @@ export interface DeckProps {
  *
  * 这样"向下移动"的观感才成立; 单纯切 opacity 是没有位移的, 谈不上滚动.
  */
+/* (see .agents/notes/implemented/bug-fix/2026-09-14-hxid-bare-links-not-navigable.md — hxid 裸链接跳转处) */
 export function Deck({
     theme,
     children,

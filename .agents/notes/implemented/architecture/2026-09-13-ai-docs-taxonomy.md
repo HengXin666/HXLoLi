@@ -2,6 +2,9 @@
 
 Status: implemented
 
+- **引入于**: `f28d9cfd13`
+- **引用落点**: 无源码引用 (本文约束的是 ai-docs 内容组织, 不落到某个代码声明)
+
 - 影响: `ai-docs/` 全库目录结构 (28 篇笔记) + `sidebarsAiDocs.ts` + 跨文章链接
 
 ## Problem

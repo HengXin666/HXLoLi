@@ -2,6 +2,8 @@
 
 Status: implemented
 
+- **引入于**: `d2355db647`
+
 - 影响: `src/hxdeck/{diagram,Deck,PptCard}.tsx` / `src/hxdeck/{deck-layer.tsx,ui.css}`
 
 ## Problem

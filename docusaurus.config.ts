@@ -234,6 +234,12 @@ const plugins: PluginConfig[] = [
       outputFile: 'data/aiDocTags.ts',
     },
   ],
+  // 笔记引用关系: 构建期从 ai-docs 正文抽出引用图, 落盘到 data/noteReferences.ts
+  // 供笔记底部的「引用关系」方框使用 (src/components/NoteReferences)
+  [
+    require('./plugins/note-references-plugin.mjs').default,
+    { contentDir: 'ai-docs' },
+  ],
   // AI 知识库: 第二个 @docusaurus/plugin-content-docs 实例
   // 独立于主文档 (docs/), 内容存储在 ai-docs/ 目录
   // 路由: /knowledge-base

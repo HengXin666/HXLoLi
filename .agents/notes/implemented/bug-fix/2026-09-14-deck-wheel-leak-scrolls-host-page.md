@@ -2,6 +2,8 @@
 
 Status: implemented
 
+- **引入于**: `cc0c3a34ae`
+
 - 影响: `src/hxdeck/Deck.tsx` / `src/css/custom.css` / `src/pages/ppt.tsx` / `src/hxdeck/charts.tsx`
 - 现象: 约 10 屏以上的演示页, 用滚轮从第 1 屏往下翻, **偶尔**整块 PPT 内容一起向下滚, 显示不全
 

@@ -13,9 +13,50 @@ metadata:
 
 ## 三条不可违反的原则
 
-1. **规范优先, 不要即兴发挥.** 字段与约束见 [references/spec-checklist.md](references/spec-checklist.md). 拿不准就查, 不要猜.
+1. **规范优先, 不要即兴发挥.** 字段与约束见 `references/spec-checklist.md`. 拿不准就查, 不要猜.
 2. **超长不是压缩问题, 是拆分问题.** 有文件系统时, skill 能携带的上下文总量基本无上限 —— 前提是按"是否总是需要"把内容分到 L2 (SKILL.md) 和 L3 (references/scripts/assets). 把 15 万 token 压到 1.5 万 token 仍是错的, 因为它没回答"这些字该不该在 L2".
 3. **触发信息只能写一处.** `when to use` 全部写在 frontmatter 的 `description` 里. 正文**禁止**出现 "When to Use" 之类的段 —— 那段永远不会被读到, 因为 body 只在触发之后才加载.
+
+## 两条硬约定 (写任何 skill 都要遵守)
+
+### 一、索引写**裸路径 + 一句描述**, 不要写链接
+
+给 AI 读的索引不是给人点的。写成 `[references/x.md](references/x.md)` 除了把路径重复两遍,
+**不产生任何信息**, 却要付两份 token。
+
+```
+坏: - [references/spec.md](references/spec.md) —— 字段约束. 写 frontmatter 前读它.
+坏: - 见 references/spec.md / references/patterns.md / references/anti.md
+好: - `references/spec.md` —— 什么时候读: 写 frontmatter 前, 查字段约束与预算表.
+     `references/patterns.md` —— 什么时候读: 想让 skill 真的被触发时.
+```
+
+第二行「坏」是另一种病: **平铺一串路径没有描述**。模型看不出哪个该读, 等于没写。
+**每个路径后面必须跟一句「这是什么 / 什么时候读」** —— 这是索引的唯一价值。
+
+### 二、一个步骤 = 一个文件夹 = `index.md` + `impl/`
+
+流程型 skill 用**模板方法模式**组织, 不要把所有步骤平铺在 `references/` 里:
+
+```
+steps/
+├── 1-intake/
+│   └── index.md          契约: 只做这一件事 / 产物 / 过关条件
+├── 2-collect/
+│   ├── index.md          契约
+│   └── impl/             可插拔实现: 这一步的多种做法各一个文件
+│       ├── article.md
+│       └── video.md
+└── ...
+shared/                  跨步骤能力 (不属于任何单步的)
+entries/                 独立入口 (不重叠于主流程的)
+```
+
+- `index.md` 是**契约**, 写清「这一步只做什么、产物是什么、什么条件算过」。
+- `impl/` 是**实现**, 按场景/类型分文件。加一种新做法 = 加一个文件, **契约不用改**。
+- SKILL.md 只列**步骤表** (谁 / 关心什么 / 契约在哪), 不写具体做法。
+
+这样扩展时改动面永远是「加一个文件」, 而不是「改索引 + 改正文 + 改引用」。
 
 ## 预算表 (必须记住的三个数字)
 
@@ -58,7 +99,7 @@ metadata:               # 可选
 ---
 ```
 
-`description` 是**唯一**的触发机制. 长度上限 1024 字符, 用它把"做什么"和"什么时候用"都讲清楚. 写法和反例见 [references/patterns.md](references/patterns.md) 第一节.
+`description` 是**唯一**的触发机制. 长度上限 1024 字符, 用它把"做什么"和"什么时候用"都讲清楚. 写法和反例见 `references/patterns.md` 第一节.
 
 ### 第四步: 写 body
 
@@ -73,7 +114,7 @@ metadata:               # 可选
 uv run scripts/validate_skill.py <skill-dir>
 ```
 
-退出码 0 表示通过. 有 ERROR 必须修; WARN 建议修. 每一条检查的规范依据见 [references/spec-checklist.md](references/spec-checklist.md).
+退出码 0 表示通过. 有 ERROR 必须修; WARN 建议修. 每一条检查的规范依据见 `references/spec-checklist.md`.
 
 脚本覆盖: 命名规则、description 长度与触发词、500 行预算、正文里的 "When to Use" 段、禁止的杂项文档文件、L3 文件是否被引用、引用深度是否超过一层.
 
@@ -86,7 +127,7 @@ uv run scripts/validate_skill.py <skill-dir>
 错误: 请审查 <path> 这个 skill, 假装有用户来问你...
 ```
 
-如果只有在被测 agent 看到泄漏上下文时才能成功, 那这个 skill 或这个测试设置就还不成立. 完整清单见 [references/patterns.md](references/patterns.md) 第六节.
+如果只有在被测 agent 看到泄漏上下文时才能成功, 那这个 skill 或这个测试设置就还不成立. 完整清单见 `references/patterns.md` 第六节.
 
 ## 常见失败: skill 不触发
 
@@ -95,7 +136,7 @@ uv run scripts/validate_skill.py <skill-dir>
 1. `description` 只写了"做什么", 没写"什么时候用". 模型没有任何依据判断该不该加载.
 2. 触发信息写在 body 的 `## When to Use` 段里. body 在触发前不可见, 等于没写.
 
-两种都是**静默失效** —— 不会报错, skill 只是从不出现. 所以必须用校验器兜住, 不能靠肉眼. 其它反模式见 [references/patterns.md](references/patterns.md).
+两种都是**静默失效** —— 不会报错, skill 只是从不出现. 所以必须用校验器兜住, 不能靠肉眼. 其它反模式见 `references/patterns.md`.
 
 ## 落地位置
 
@@ -109,6 +150,6 @@ uv run scripts/validate_skill.py <skill-dir>
 
 ## 参考文件
 
-- [references/spec-checklist.md](references/spec-checklist.md) —— 字段约束、预算表、每条校验规则的标准依据. **写 frontmatter 前先读它.**
-- [references/patterns.md](references/patterns.md) —— description 构造公式、反模式、自由度匹配、forward-testing 协议. **想让 skill 真的被触发时读它.**
-- [scripts/validate_skill.py](scripts/validate_skill.py) —— 规范校验器, 无第三方依赖.
+- `references/spec-checklist.md` —— 什么时候读: 写 frontmatter 前, 查字段约束、预算表与每条校验规则的规范依据.
+- `references/patterns.md` —— 什么时候读: 想让 skill 真的被触发时; 或要挑一个流程型/知识型结构时.
+- `scripts/validate_skill.py` —— 规范校验器, 无第三方依赖. 退出码 0 为通过.

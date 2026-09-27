@@ -37,14 +37,16 @@
   },
   "backlinks": {
     "enabled": true,
-    "required": false,
+    "required": true,
     "roots": [
       "scripts",
-      "src"
+      "src",
+      "plugins",
+      ".agents/skills"
     ],
     "exclude": [
-      ".agents/**",
-      "**/.agents/**",
+      "**/hx-agent-notes/**",
+      "**/__pycache__/**",
       "**/*.spec.*",
       "**/*.test.*"
     ],

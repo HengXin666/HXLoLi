@@ -2,7 +2,11 @@
 
 Status: implemented
 
+- **引入于**: `668a5d4a63`
+- **引用落点**: 无源码引用 (本文约束的是 ai-docs 内容组织, 不落到某个代码声明)
+
 - 影响: `ai-docs/` 全库 29 篇笔记正文 + `data/aiDocTags.ts` / `sidebarsAiDocs.ts` / `src/hxdeck/decks.generated.ts` 三个派生索引
+- **部分被取代**: 下面 Decision 第 3、5 条 (开头设问式引入 / 结尾升华展望 + 事实与个人判断分野) 已由 [2026-09-24-sediment-two-artifacts-nine-stages.md](2026-09-24-sediment-two-artifacts-nine-stages.md) 废除 —— 全库照此执行的结果是这两件套本身成了最明显的 AI 指纹。其余各条 (frontmatter 七字段、H1 与 title 一致、`## 0xNN` 不重排、末章参考来源、hxid 引用、零过程痕迹、标点归一化) **仍然有效**
 
 ## Problem
 

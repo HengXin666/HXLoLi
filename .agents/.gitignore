@@ -1,0 +1,3 @@
+# 本地环境变量 (不入库)。模板 .env.example 会入库, 实际值不会。
+env/.env
+env/*.local

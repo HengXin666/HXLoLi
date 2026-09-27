@@ -2,6 +2,8 @@
 
 Status: implemented
 
+- **引入于**: `f28d9cfd13`
+
 - 影响: `.agents/skills/hx-agent-notes/scripts/notes-lib.ts` 的 config 合并, 以及每个仓库的 `.agents/notes.config.json`
 
 ## Problem

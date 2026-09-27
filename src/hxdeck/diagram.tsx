@@ -50,6 +50,7 @@ export interface DiagramAsset {
  * 拿到的可能是 Module 命名空间对象 (带 default 字段), 直接读 a.viewBox 会是 undefined,
  * 于是自动缩放静默失效 (表现为永远 100%).
  */
+/* (see .agents/notes/implemented/bug-fix/2026-09-12-diagram-fullscreen-layer.md — 全屏层边界计算处) */
 export function resolveAsset(input: DiagramAsset | string): DiagramAsset {
     if (typeof input === 'string') return { svg: input, css: '' };
     const anyIn = input as unknown as { default?: DiagramAsset };

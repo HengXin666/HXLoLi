@@ -40,6 +40,25 @@ const privateSections = ['docs', 'blog', 'ai-docs'];
 const excludeBegin = '# BEGIN HXLoLi-imouto private mappings';
 const excludeEnd = '# END HXLoLi-imouto private mappings';
 
+/**
+ * 需要映射的隐藏文件 (相对私有仓库根)。
+ *
+ * 默认规则会跳过 "." 开头的条目 —— 那是为了避开 .git / .DS_Store 这类噪声。
+ * 但有些**真正的私有内容本身就是点开头** (如写作画像 **ai-docs/.hx-persona.md**,
+ * 它含项目方向与商业数字, 不能进公开仓)。这些在这里显式列出。
+ *
+ * 加新条目时只需往这个数组加一行 —— 不要放宽全局的 "." 过滤, 那会把噪声一起带进来。
+ */
+/* (see .agents/notes/implemented/architecture/2026-09-26-persona-moved-to-private-repo.md — 画像为什么必须留在私有仓) */
+const privateDotFiles = [
+  'ai-docs/.hx-persona.md',
+  'ai-docs/.hx-persona.extra.md',
+];
+
+function isMappedDotFile(section, entry) {
+  return privateDotFiles.includes(section + '/' + entry);
+}
+
 function run(cmd, opts = {}) {
   console.log(`  $ ${cmd}`);
   try {
@@ -62,7 +81,8 @@ function linkEntry(sourcePath, targetPath, displayPath, linkedPaths) {
     } else if (targetStat.isDirectory() && sourceStat.isDirectory()) {
       let linked = 0;
       for (const entry of readdirSync(sourcePath)) {
-        if (entry.startsWith('.')) continue;
+        // 递归进已有目录时同样只放行显式声明的隐藏文件 (内层路径 = displayPath + / + entry)
+        if (entry.startsWith('.') && !privateDotFiles.some((p) => p.endsWith('/' + entry))) continue;
         linked += linkEntry(
           join(sourcePath, entry),
           join(targetPath, entry),
@@ -90,9 +110,8 @@ function getTopLevelPrivatePaths() {
     const sourceDir = join(localPath, section);
     if (!existsSync(sourceDir)) continue;
     for (const entry of readdirSync(sourceDir)) {
-      if (!entry.startsWith('.')) {
-        paths.push(`${section}/${entry}`);
-      }
+      if (entry.startsWith('.') && !isMappedDotFile(section, entry)) continue;
+      paths.push(`${section}/${entry}`);
     }
   }
   return paths;
@@ -149,7 +168,8 @@ function linkPrivateSection(section, linkedPaths) {
 
   let linked = 0;
   for (const entry of readdirSync(sourceDir)) {
-    if (entry.startsWith('.')) continue;
+    // 默认跳过 "." 开头的噪声; 但 privateDotFiles 里显式声明的要放行。
+    if (entry.startsWith('.') && !isMappedDotFile(section, entry)) continue;
 
     const sourcePath = join(sourceDir, entry);
     const targetPath = join(targetDir, entry);
