@@ -18,3 +18,7 @@
 推送前跑 `npm run verify-notes`。受保护的源码改动若同一次改动里没有 note, 门禁会失败;
 要刻意豁免, 写 `.agents/notes/NOTE-EXEMPT.md`, 内容为 `note-exempt: <为什么这次不需要 note>`。
 规则细节见 `.agents/notes/AGENTS.md`。
+
+# 严禁
+
+禁止主动启动博客程序, 永远只能用户启动
