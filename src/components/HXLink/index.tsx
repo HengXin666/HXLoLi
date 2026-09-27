@@ -49,6 +49,12 @@ const HXLink = ({
     return (
         <a
             href={isSameUrl ? (onSameUrl === "disable" ? undefined : url) : url}
+            /*
+              inline-block 是这个悬停下划线动画的定位基准, 不要改成 inline.
+              它同时让 <a> 成为 atomic inline —— 祖先 <del> 的删除线不会传播进来,
+              所以 ~~[文字](url)~~ 的补线规则单独写在 src/css/custom.css 里
+              (见 .agents/notes/implemented/bug-fix/2026-09-27-del-inside-link-loses-strikethrough.md).
+            */
             className={classNames({
                 "relative inline-block transition-all duration-300 ": true,
                 [color.main]: true,
