@@ -86,7 +86,7 @@ LSM模块 可作用函数
 - [LSM模块动态Hook实现](https://just4coding.com/2023/12/01/lsm-hook/) (CentOS7/8的示例)
 
 LSM模块 hook点
-- [LSM 安全模块开发 —— 文件打开 2FA ](https://www.neko.ooo/lsm-mod/)
+- [LSM 安全模块开发  文件打开 2FA ](https://www.neko.ooo/lsm-mod/)
 
 eBPF Hook 拦截读写
 - [收藏！使用eBPF技术审计和拦截文件读写操作](https://www.eet-china.com/mp/a357540.html)

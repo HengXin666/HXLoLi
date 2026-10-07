@@ -47,3 +47,13 @@ C++:
   label: '面试'
   permalink: '/面试'
   description: 'Heng_Xinの面識経験'
+
+AI:
+  label: 'AI'
+  permalink: '/AI'
+  description: '哥们真有AI'
+
+Agent:
+  label: 'Agent'
+  permalink: '/Agent'
+  description: 'Agent开发, AI调教'
