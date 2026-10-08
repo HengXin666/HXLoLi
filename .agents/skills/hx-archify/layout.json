@@ -1,0 +1,4 @@
+{
+  "vendored": true,
+  "reason": "上游 tt-a1i/archify (见 skill-release.json); 本仓不改它的源码布局与模块形态, 否则每次上游同步都会变成带人工漂移的三方合并, 且 check-update.mjs 的哈希校验会失败. 全部 .mjs 是上游发布形态."
+}

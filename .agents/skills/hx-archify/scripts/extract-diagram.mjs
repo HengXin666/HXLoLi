@@ -5,8 +5,8 @@
  * 为什么要转:
  *   archify 出的是**整页 HTML** (含工具栏/主题切换/186KB 样式), 直接内联会把
  *   演示页污染成一个'外来窗口'. 我们只要两样东西:
- *     1. <svg>...</svg>          —— 图形本体
- *     2. 语义 class 那段 CSS      —— .c-frontend / .t-muted 等, 配色全走变量
+ *     1. <svg>...</svg>           图形本体
+ *     2. 语义 class 那段 CSS       .c-frontend / .t-muted 等, 配色全走变量
  *   其余 (工具栏、主题变量默认值) 由主题层接管, 这样图才真正跟随主题.
  *
  * 用法: node scripts/extract-diagram.mjs <in.html> <out.ts>

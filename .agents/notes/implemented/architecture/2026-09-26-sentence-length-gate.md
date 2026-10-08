@@ -2,14 +2,19 @@
 
 Status: implemented
 
+Decision-ID: sentence-length-gate
+
 - **引入于**: `f28d9cfd13`
-- 影响: `hx_voice.py` 新增 `long-sentence` 规则与 `check_long_sentence`; `ai-docs/.hx-voice.toml` 新增 5 条真人表达
-- **引用落点**: 无源码引用 (约束的是 hx_voice.py 里 check_long_sentence 的**阈值取值原则**; 生效处已就地标注本 note 路径, 但回链扫描的扩展名表不含 .py 之外的形式 —— 具体见 note 正文的 Testing)
+- **引用落点**: 无源码引用 (约束的是 hx_voice.py 里 check_long_sentence 的**阈值取值原则**; 生效处已就地标注本 note 路径, 但回链扫描的扩展名表不含 .py 之外的形式  具体见 note 正文的 Testing)
+
+## Code
+
+- `.agents/skills/hx-note/scripts/cli/voice/hx_voice.py`
 
 ## Problem
 
 AI 生成的笔记被判断为「读不下去」, 但「AI 味」此前只有词面判据 (套话词、破折号、排比),
-**没有可量的文体判据**。凭感觉改没用 —— 改完还是那个味道, 因为问题不在词, 在句子的形状。
+**没有可量的文体判据**。凭感觉改没用  改完还是那个味道, 因为问题不在词, 在句子的形状。
 
 ## Decision
 
@@ -25,9 +30,11 @@ AI 生成的笔记被判断为「读不下去」, 但「AI 味」此前只有词
 
 实测区分度: 手写 blog 42 篇 **0 命中**; 手写 docs 40 篇 **0 命中**; ai-docs 15 篇 **15/15 全中**。
 
-报 W 不报 E —— 长句本身不是错, 只是提示「这句读起来要喘一口气」。
+报 W 不报 E  长句本身不是错, 只是提示「这句读起来要喘一口气」。
 
 ## Alternatives considered
+
+**什么都不做 / 复用现有。** 最强理由是无需新增实现和维护成本. 现有状态仍存在 Problem 中的具体缺口, 因此采用本记录的选择
 
 - **不加判据, 靠 sub-agent 盲审** — 最强理由: 盲审已经在工作, 而且它能抓段落与论点的关系, 比句长更全面。
   否决: 盲审是抽样且代价高; 句长是零成本、每条都能跑、结果可复现的底线。两者不冲突, 句长先跑可以
@@ -48,6 +55,6 @@ AI 生成的笔记被判断为「读不下去」, 但「AI 味」此前只有词
 
 ```
 # 区分度验证: 手写应 0 命中, AI 生成应大量命中
-uv run .agents/skills/hx-note/scripts/hx_voice.py lint blog/2026/05/07/01_最近的项目.md --profile blog
-uv run .agents/skills/hx-note/scripts/hx_voice.py lint ai-docs/002-AI/002-Agent架构/003-MCP架构概述/index.md --profile article
+uv run .agents/skills/hx-note/scripts/cli/voice/hx_voice.py lint blog/2026/05/07/01_最近的项目.md --profile blog
+uv run .agents/skills/hx-note/scripts/cli/voice/hx_voice.py lint ai-docs/003-AI/002-Agent架构/003-MCP架构概述/index.md --profile article
 ```

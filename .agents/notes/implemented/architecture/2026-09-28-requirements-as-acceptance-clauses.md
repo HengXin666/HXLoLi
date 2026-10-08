@@ -2,12 +2,16 @@
 
 Status: implemented
 
+Decision-ID: requirements-as-acceptance-clauses
+
 - **引入于**: <short-sha>
 - **引用落点**: 无源码引用 (约束的是 `.agents/skills/hx-note/steps/1-intake/`、`steps/4-align/` 与 `hx_flow.py`)
-- 影响: 新增 `assets/goal-template.md`、`steps/4-align/impl/grill.md`; `Stage(1).artifacts` 从
-  **空** 变为 `source/goal.md`; 新增 `cover` 子命令; `done intake` 加验收条款闸门
 - 取代: [2026-09-24-sediment-two-artifacts-nine-stages.md](../process/2026-09-24-sediment-two-artifacts-nine-stages.md)
   里"阶段 1 的产物是 `intake.md`"这条判据 (intake.md 保留, 但它不再是需求的事实源)
+
+## Code
+
+- `.agents/skills/hx-note/scripts/cli/flow/hx_flow.py`
 
 ## Problem
 
@@ -16,20 +20,20 @@ Status: implemented
 
 **需求没有唯一座位, 而且在 schema 里完全缺席。**
 
-- `Stage(1).artifacts` 当时是 **`()`** —— intake 阶段不产出任何被检查的文件。需求写不写、
+- `Stage(1).artifacts` 当时是 **`()`**  intake 阶段不产出任何被检查的文件。需求写不写、
   写得对不对, 流程完全不管。
 - 同一个任务在 5 小时内长出**四份**各不相同的"用户要什么":
   `intake.md` (18:27)、答题卡 (19:25)、`source/intent-ir.md` (20:36)、`STATE.md` (22:27)。
   全部手工维护, 无任何一致性检查。
 - 四份都"对", 但没有一条**可被判定为已满足**。真正的需求 (「让 AI 做出跟本地同级、且预先
-  落在固定安全区内的特效」) 在文档里被拆成了技法清单、IR schema、状态表 —— 每份各讲一半。
+  落在固定安全区内的特效」) 在文档里被拆成了技法清单、IR schema、状态表  每份各讲一半。
 - `STATE.md` 自己写着"我此前两次理解偏移(把主线定成裁剪归一化、把缘之空当参考素材)"。
 
 漂移机制因此是必然的: 需求只在对话历史与随手记的文件里 -> 上下文一压缩只剩摘要 ->
 下一个 agent 按手头那份摘要干活 -> **没人拿最终产物回对过最初那句话**。
 
 第二个问题是问法。原来的做法是把当前 frontier 的**全部**问题一次性抛给人类。实测后果是
-使用者原话「他就让我在那里乱说」—— 人类扫读、挑着答、或照抄推荐。而模糊词 (「要绚烂」
+使用者原话「他就让我在那里乱说」 人类扫读、挑着答、或照抄推荐。而模糊词 (「要绚烂」
 「要有含义」) 被原样从 `intake.md` 抄进知识点, **没有任何一步强迫把它变成可判定的东西**。
 
 ## Decision
@@ -37,7 +41,7 @@ Status: implemented
 ### 一、需求落成带 ID 的验收条款 (`source/goal.md`)
 
 每条一个稳定编号 (`G1`/`G2`…), 三列: 条款 / **怎么算满足** / 状态。
-"怎么算满足"必须出现可执行动作 (查/跑/测/数/看, 或具体文件名与命令) ——
+"怎么算满足"必须出现可执行动作 (查/跑/测/数/看, 或具体文件名与命令) 
 **写不出检查动作的是愿望, 不是条款**, `done intake` 直接拒绝推进。
 愿望可以写进 goal 的「背景」一节, 那里不验收。
 
@@ -66,7 +70,7 @@ Status: implemented
 ## Alternatives considered
 
 - **什么都不做, 在 `intake.md` 的规范里加一节"需求清单"** — 最强理由: 零成本, 且四份文档
-  已经包含了信息, 只是分散。否决: 分散本身就是病因 —— 再加一节会变成第五份。
+  已经包含了信息, 只是分散。否决: 分散本身就是病因  再加一节会变成第五份。
   而且 `Stage(1).artifacts` 是空的这件事说明: **不挂到 schema 上的东西不会被维护**。
 - **保留"一次抛整个 frontier"的问法, 只在文档里强调"要认真答"** — 理由: 轮次少, 人类一次
   看完所有问题, 对时间紧的人更友好。否决: 这正是实测失败的形态 (「让我在那里乱说」)。
@@ -77,7 +81,7 @@ Status: implemented
   改为独立命令 + FAIL 退出码, 由执行者决定何时跑、结果写进回复。
 - **把需求做成结构化 YAML 而不是 markdown 表格** — 理由: 可以机械校验得更严, 也能被程序直接读。
   否决: 本仓已有一轮 yaml 方案的失败经验 (见 `research-output/_yaml-era-archive/`),
-  且需求文档必须**方便手写手改** —— 人类要能直接在编辑器里改条款, 表格满足了这一点。
+  且需求文档必须**方便手写手改**  人类要能直接在编辑器里改条款, 表格满足了这一点。
 
 ## Consequences
 
@@ -85,7 +89,7 @@ Status: implemented
   因为它落在磁盘上且被别的文件引用。
 - 代价一: 阶段 1 变重了。素材是纯资讯类、没有明确交付目标时, 需要 `--force` 才能过。
   刻意的摩擦。
-- 代价二: 验收栏的判据是**文本启发式** (查有没有动作词), 写"查一下"就能过 ——
+- 代价二: 验收栏的判据是**文本启发式** (查有没有动作词), 写"查一下"就能过 
   与发散闸门同一类限度的下限, 不是防线。
 - 代价三: `cover` 依赖知识点里的 `- 满足: Gx` 回溯标记, 而那是**额外的手工维护负担**。
   没标就等于没支撑, 会误报为"零支撑"。这是刻意的方向选择: 宁可误报 (逼人补标记),
@@ -99,13 +103,13 @@ Status: implemented
 
 ```
 uv run .agents/skills/hx-make-skill/scripts/validate_skill.py .agents/skills/hx-note  -> PASS (0 errors, 0 warnings)
-uv run .agents/skills/hx-note/scripts/hx_flow.py doctor --slug open-vetta-ui         -> PASS 17/17
+uv run .agents/skills/hx-note/scripts/cli/flow/hx_flow.py doctor --slug open-vetta-ui         -> PASS 17/17
 ```
 
 验收条款闸门 (5 组 fixture, 全部实跑):
 
 ```
-缺 goal.md                -> 缺 source/goal.md —— 阶段 1 必须先把用户要什么落成可判定的条款
+缺 goal.md                -> 缺 source/goal.md  阶段 1 必须先把用户要什么落成可判定的条款
 无 G 条款                 -> 里没有任何 G 编号的验收条款
 全是愿望 (做好一点/用心做) -> 2 条条款的验收栏写不出可执行动作: G1, G2
 一条真一条假              -> 1 条条款的验收栏写不出可执行动作: G2

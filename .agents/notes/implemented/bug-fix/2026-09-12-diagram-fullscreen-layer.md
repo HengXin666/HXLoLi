@@ -2,21 +2,26 @@
 
 Status: implemented
 
+Decision-ID: diagram-fullscreen-layer
+
 - **引入于**: `d2355db647`
 
-- 影响: `src/hxdeck/{diagram,Deck,PptCard}.tsx` / `src/hxdeck/{deck-layer.tsx,ui.css}`
+
+## Code
+
+- `src/hxdeck/diagram.tsx`
 
 ## Problem
 
 在笔记里打开 PPT 卡片自带的放大弹层, 再点架构图的"放大"按钮:
 
-1. **它铺满的是整个网页, 不是当前演示页** —— 站点导航栏、正文、其它卡片全被盖住,
+1. **它铺满的是整个网页, 不是当前演示页**  站点导航栏、正文、其它卡片全被盖住,
    看起来像"整页变成了演示页".
-2. **退出路径不明显** —— 浮层盖在弹层工具栏之上, 连"关闭/退出"按钮都点不到;
+2. **退出路径不明显**  浮层盖在弹层工具栏之上, 连"关闭/退出"按钮都点不到;
    底下的演示页侧栏/进度点还透过浮层边缘露出来.
-3. **内部布局比父布局还大** —— 弹层里的演示页只有 782px 高, 放大后的浮层却按
+3. **内部布局比父布局还大**  弹层里的演示页只有 782px 高, 放大后的浮层却按
    900px 视口排版, 内容被顶出父边界 (用户原话: "内部的布局怎么能放大, 还大于父布局呢?").
-4. **宿主在浏览器全屏里时, 点"放大"什么都看不见** —— 全屏元素处于 top layer,
+4. **宿主在浏览器全屏里时, 点"放大"什么都看不见**  全屏元素处于 top layer,
    `document.body` 上的浮层被压在它下面.
 
 ## Root cause
@@ -24,11 +29,11 @@ Status: implemented
 `Diagram` 的放大浮层用 `createPortal(inner, document.body)` + `position: fixed; inset: 0`,
 再叠加 "全屏高度完全交给 CSS" / 早期版本按 `window.innerHeight` 算 `frameH`:
 
-- `fixed` 的包含块是**视口**, 不是演示页 —— 所以它天然就是"整个网页".
+- `fixed` 的包含块是**视口**, 不是演示页  所以它天然就是"整个网页".
   而卡片预览里演示页被固定在 16:9 (含舞台 `scale()`), 尺寸远小于视口.
 - 浮层脱离 `.hxd-deck` 子树后, `--hxd-color-bg` 等 CSS 变量解析不出值,
   `background: var(--hxd-color-bg)` 失效 -> 透明 -> 后面的正文透出来.
-- 全屏元素在 top layer, 与 `document.body` 的子节点没有可比性 —— 浮层必然被压住.
+- 全屏元素在 top layer, 与 `document.body` 的子节点没有可比性  浮层必然被压住.
 - `ui.css` 里的 `body:has(.hxd-diagram[data-full])` 隐藏规则同时失效 (浮层不在 deck 里).
 
 另外还有一个被这次暴露出来的兄弟 bug: `PptCard` 的 `fullscreenchange` 用
@@ -47,7 +52,7 @@ Status: implemented
 4. **`z-index: 60`** 高于 deck 内所有装饰 (最高 7); deck 装饰的隐藏改由
    `.hxd-deck[data-layer-full='true']` 选择, 不依赖 `:has()`, 也不会误伤同页其它卡片.
 5. **键盘升级为模态**: 放大期间用**捕获阶段** `keydown` + `stopPropagation`
-   抢在 Deck 的翻页监听与 `PptCard` 的 Esc 处理之前 —— 一次 Esc 只退放大, 不连退两层.
+   抢在 Deck 的翻页监听与 `PptCard` 的 Esc 处理之前  一次 Esc 只退放大, 不连退两层.
 6. **指针事件隔离**: 放大态在 `<figure>` 与 `__frame` 上拦 `mousedown/click`,
    避免冒泡到 `modalOverlay` 的"点遮罩关闭"把整个弹层关掉.
 7. **FLIP 补间修正两处**: 平移量除以父节点自身的 scale (父节点带 `scale()` 时
@@ -56,6 +61,8 @@ Status: implemented
    全屏"才算撤销; 内层元素 (iframe/演示页自己) 请求全屏不再误关弹层.
 
 ## Alternatives considered
+
+**什么都不做 / 复用现有。** 最强理由是无需新增实现和维护成本. 现有状态仍存在 Problem 中的具体缺口, 因此采用本记录的选择
 
 - **继续 Portal 到 `document.body`, 只把 `fixed` 定位改成"手动算成演示页矩形"**:
   否决. 要在 resize / 翻页 / 弹层缩放时持续跟踪, 任一时刻算错就是又一次"错的全屏";
@@ -67,7 +74,7 @@ Status: implemented
   否决 (旧注释已记录). `.hxd-strip` 带 0.86s transform 过渡, 强制置 none 会触发一次
   "回到第 1 页"的动画; 而且 `:has()` 在旧浏览器支持面窄.
 - **保留 `window.innerHeight` 计算, 只是夹到父容器高度**:
-  否决. 那只是把症状盖住 —— 修复前实测 frameH=708 已经大于可用高度,
+  否决. 那只是把症状盖住  修复前实测 frameH=708 已经大于可用高度,
   真正的病根是"拿视口当演示页".
 
 ## Consequences
@@ -75,7 +82,7 @@ Status: implemented
 - 放大的边界由浏览器按包含块算, 不再有"算错视口"的时序可错; 代价是放大浮层必须挂在演示页根节点下,
   独立使用时退回 `fixed` + `100vw/100vh` 这条退化路径。
 - `deck-layer.tsx` 成为一个新的层端口: `Deck` 之外的宿主若要支持放大, 必须自己提供这个端口。
-- 放大期间键盘改为捕获阶段模态, 一次 `Esc` 只退一层 —— 代价是 Deck 的翻页监听在放大态被完全压制,
+- 放大期间键盘改为捕获阶段模态, 一次 `Esc` 只退一层  代价是 Deck 的翻页监听在放大态被完全压制,
   放大态下不能用方向键翻页。
 - 节点卡片不再放动作按钮 (分享菜单已提供同一能力), 卡片只剩关闭与上下游跳转。
 
@@ -101,7 +108,7 @@ Playwright (chromium, 1440x900) 实测:
 **工具条 (缩放/复位/放大/导出) 从图上方的独立一行, 改为浮在图表内部的右下角.**
 
 - 结构: 新增 `.hxd-diagram__stage` (position: relative) 作为共同定位上下文,
-  图框与工具条成为**兄弟节点**. 工具条不能再放进 `__frame` 里 ——
+  图框与工具条成为**兄弟节点**. 工具条不能再放进 `__frame` 里 
   图框是 `overflow: auto` 的滚动画布, 放里面会跟着缩放后的画布一起滚走
   (放大后按钮"跑出屏幕", 正是"退出路径不明显"的复现).
 - 样式: 半透明胶囊 (`color-mix` + `backdrop-filter`), 默认 `opacity: .72`,
@@ -118,7 +125,7 @@ Playwright (chromium, 1440x900) 实测:
 
 ### 1. 删掉 "滚轮缩放 · 拖拽平移" 文案
 
-`.hxd-diagram__hint` 元素与规则一并移除 —— 操作提示属于"说明书", 不该常驻占用图面.
+`.hxd-diagram__hint` 元素与规则一并移除  操作提示属于"说明书", 不该常驻占用图面.
 
 ### 2. 导出图标换成分享图标, 并支持复制"这张图在本站的链接"
 
@@ -139,14 +146,14 @@ archify 产物里每个节点/边都带稳定语义钩子, 交互全部建立在
 - **点节点 = 聚焦**: 高亮它 + 直接相连的边 + 邻居, 其余降到 `opacity: .13`.
   **再点同一节点 / 点空白 = 取消**. 与 archify `set()` 的 toggle 语义一致.
 - **高亮不走 JS**: 只输出 archify 自己的 `data-focus-active` / `data-focus-match` /
-  `data-focus-selected` 协议, 视觉规则由 SVG 里那段语义 CSS 负责 —— 与原始产物同一套语言.
+  `data-focus-selected` 协议, 视觉规则由 SVG 里那段语义 CSS 负责  与原始产物同一套语言.
 - **语义护照**: 卡片贴着被点节点显示, 列 label / sublabel / kind / context / 稳定 ID /
   上游 / 下游; 点上下游条目可直接跳到那个节点; 有 `复制链接` 与关闭按钮.
 - **键盘**: 节点本来就带 `tabindex="0" role="button"`, Enter/Space 可聚焦 (并 `stopPropagation`,
-  免得被 Deck 当成翻页); `Esc` **分层退出** —— 先收卡片, 再退放大, 与 archify 一致.
+  免得被 Deck 当成翻页); `Esc` **分层退出**  先收卡片, 再退放大, 与 archify 一致.
 - **深链**: 聚焦状态写进 URL `#focus=<id>` (用 `replaceState`, 不塞满回退键), 打开即复原.
 - **只在可交互的图上启用** (`canZoom`): 预览卡片是静态缩略图且整卡是"点击打开"热区,
-  在那里抢点击会让读者点不开卡片 —— 与缩放/放大的降级规则一致.
+  在那里抢点击会让读者点不开卡片  与缩放/放大的降级规则一致.
 
 ### 踩到的两个真坑
 
@@ -185,7 +192,7 @@ archify 产物里每个节点/边都带稳定语义钩子, 交互全部建立在
 
 **修法** (两层):
 
-- `PptCard` 新增 `cardId` prop, `PptEmbed` 传"演示页路径 / iframe src" —— 指向具体内容,
+- `PptCard` 新增 `cardId` prop, `PptEmbed` 传"演示页路径 / iframe src"  指向具体内容,
   标题只作最后兜底.
 - 即便兜底到同一个标识, 模块级 `claimedPptIds` 也只让**第一张**认领, 其余保持关闭.
 
@@ -210,10 +217,10 @@ archify 产物里每个节点/边都带稳定语义钩子, 交互全部建立在
 
 实测放大态菜单: `168x222`, 向上弹出且不出图, 条目 `复制链接 / 下载图片 / PNG / JPEG / WEBP / SVG`.
 
-### 3. 架构图交互动效 —— 之前**没有**, 现在补上
+### 3. 架构图交互动效  之前**没有**, 现在补上
 
 **现状核查**: 动效属于"图带不带"的属性, 由 archify 的 `meta.animation = "trace"` 决定.
-原来的 `cf-gateway.ts` 是从**没开 trace** 的 HTML 里抽出来的 ——
+原来的 `cf-gateway.ts` 是从**没开 trace** 的 HTML 里抽出来的 
 SVG 里 `data-animation` / `data-animate` / `--step` 全是 0 个, 所以确实没有动效.
 (注意: 抽出来的 CSS **一直**包含 `@keyframes archify-edge-flow / node-pulse` 等规则,
 因为它们在 `SVG SEMANTIC CLASSES` 标记之后; 缺的是 SVG 上的钩子.)
@@ -232,7 +239,7 @@ SVG 里 `data-animation` / `data-animate` / `--step` 全是 0 个, 所以确实�
 
 实测: 预览态 `ambient=null`; 放大态 `running` -> 一轮后 `settled` -> 点重播回到 `running`;
 采样动画属性随时间变化: 边 `strokeDashoffset 24.6 -> 9.7 -> 0`、`opacity 0.74 -> 0.90 -> 1`,
-节点 `stroke-width 2.4 -> 2.19 -> 1.55` —— 确实在跑, 且跑完停在设计的静态形态.
+节点 `stroke-width 2.4 -> 2.19 -> 1.55`  确实在跑, 且跑完停在设计的静态形态.
 
 ### 4. 演示页更新
 
@@ -242,7 +249,7 @@ SVG 里 `data-animation` / `data-animate` / `--step` 全是 0 个, 所以确实�
 ## 第四轮 (同日): 复制链接要"打开即同一个视角"
 
 用户反馈: 复制出来的链接**没有带上第几页**, 而且希望它能**直接打开那个架构图**.
-原来只复制 `location.href`, 而卡片打开时地址栏里只有 `?ppt=` ——
+原来只复制 `location.href`, 而卡片打开时地址栏里只有 `?ppt=` 
 页码由 deck 内部维护 (`syncUrl=false`, 不往地址栏写), 放大态也完全没进 URL.
 
 ### 链接现在带三样东西
@@ -278,7 +285,7 @@ SVG 里 `data-animation` / `data-animate` / `--step` 全是 0 个, 所以确实�
 2. **同一次重排里 hook 用到了 TDZ 变量.** 把 context 读取上移后, 依赖它们的 useCallback
    仍在前面 -> `used before its declaration`. 顺序必须是: context 读取 -> 派生值 -> 回调.
 3. **`?zoom=1` 会让每一屏的图都自动放大.** deck 会把所有屏都挂载 (只是隐藏),
-   只判 `canZoom` 不够 —— 实测同时出现 2 张铺满的浮层. 必须再加 `slideActive`,
+   只判 `canZoom` 不够  实测同时出现 2 张铺满的浮层. 必须再加 `slideActive`,
    而且隐藏屏量出来是 0, FLIP 动画也会算错.
 
 ## 第五轮: `#ppt` 通用 HTML 侧车在规范 URL 下"整个不显示"
@@ -348,7 +355,7 @@ iframe 与"新标签页打开"都改用解析后的地址.
 ## 第六轮: 把 archify viewer 的完整交互搬进 .tsx 架构图
 
 用户要求: "我点击之后能有这种详细的说明特效, 以及下面那些选项, 也可以选,
-就是所有的交互它都是全面的" —— 即 `.tsx` 里的 `Diagram` 要和 `.html` 侧车
+就是所有的交互它都是全面的"  即 `.tsx` 里的 `Diagram` 要和 `.html` 侧车
 (archify 原生产物) 一样能动.
 
 ### 盘点: archify viewer 到底有哪些交互
@@ -424,7 +431,7 @@ archify 的 SVG 根节点**自带** `data-preset="classic"`. 第一版只在末�
 ### 1 + 3 是**同一个根因**: SVG 被反复重建
 
 用户报: "动画根本没按箭头顺序, 有时候甚至是倒着来的" 和 "路径选择点击根本没用".
-实测两者同源 —— `dangerouslySetInnerHTML` 让 React 每次重渲染都重建整棵 SVG 子树:
+实测两者同源  `dangerouslySetInnerHTML` 让 React 每次重渲染都重建整棵 SVG 子树:
 
 | 症状 | 机制 |
 | --- | --- |
@@ -435,12 +442,12 @@ archify 的 SVG 根节点**自带** `data-preset="classic"`. 第一版只在末�
 **修法 (两处, 缺一不可)**:
 
 1. **SVG 由 effect 一次性写入**, React 不再管理这棵子树 (以 `a.svg` 为身份, 变了才重写).
-   视图属性改走新的 `applyViewToDom()` **命令式**设置 —— 只改属性, 不动节点.
+   视图属性改走新的 `applyViewToDom()` **命令式**设置  只改属性, 不动节点.
 2. **拖拽等指针真的移动了才开始**: `mousedown` 只记起点, 超过 3px 阈值才 `setPanning(true)`.
    单纯点击因此不产生任何状态变更, click 正常派发.
 
 顺带把默认缩放**固定为 100%**: 之前自动放大到 187%, 实测 10 个节点里 9 个落在
-可视区外 —— 点谁都点不到, 这是"路径点了没用"的第二重原因.
+可视区外  点谁都点不到, 这是"路径点了没用"的第二重原因.
 
 ### 2 + 4: 删掉"视觉风格"和"图表指南"
 
@@ -490,7 +497,7 @@ a.svg 没变  ->  守卫判定"不用重写"
 
 同一个"重新挂载"导致的: 事件监听 effect 的 deps 里**没有 full**, 所以
 监听还绑在**已卸载的旧 stage** 上; 新 stage 上没有任何监听.
-(滚轮那条 effect 早就带了 full, 所以滚轮一直好使, 只有点击/键盘受影响 ——
+(滚轮那条 effect 早就带了 full, 所以滚轮一直好使, 只有点击/键盘受影响 
 这个不对称正是排查的突破口.)
 
 **修法**: deps 加 `full`.
@@ -529,7 +536,7 @@ a.svg 没变  ->  守卫判定"不用重写"
 
 | 项 | 结果 |
 | --- | --- |
-| 卡片内按钮 | `["×", "→ 指纹随机化"]` —— 只剩关闭与上游跳转 |
+| 卡片内按钮 | `["×", "→ 指纹随机化"]`  只剩关闭与上游跳转 |
 | 卡片是否还有动作区 | `hasActions: false` |
 | 分享菜单 | 仍为 `["复制链接"]`, 复制出带 `#focus=` 的完整链接 |
 | 节点聚焦 / 取消 / 键盘 / Esc | 全部正常 |

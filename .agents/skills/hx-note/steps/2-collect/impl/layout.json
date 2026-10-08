@@ -1,0 +1,4 @@
+{
+  "maxFiles": 8,
+  "reason": "一种素材来源一份实现文档 (article/video/repo/local/research/custom/providers), 来源之间没有共享步骤; 合并会让模型读到与本次素材无关的分支"
+}

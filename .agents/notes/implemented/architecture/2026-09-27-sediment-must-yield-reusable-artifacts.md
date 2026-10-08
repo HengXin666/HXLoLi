@@ -2,30 +2,44 @@
 
 Status: implemented
 
+Decision-ID: sediment-must-yield-reusable-artifacts
+
 - **引入于**: <short-sha>
 - **引用落点**: 无源码引用 (约束的是 `.agents/skills/hx-note/` 的规范与 `hx_flow.py doctor` 的闸门)
-- 影响: `hx-note` 新增 `steps/6-derive/impl/reusable-spec.md` 与 `templates/reusable-spec.md`;
-  `hx_flow.py` 的 doctor 新增两条检查并把技能文档路径检查扩到相对式; `SKILL.md` 的红线改写
 - 取代: [2026-09-24-sediment-two-artifacts-nine-stages.md](../process/2026-09-24-sediment-two-artifacts-nine-stages.md)
   里"产出只有两个文件"那条**读法** (两个知识产物的原则保留, 但不再被读成"目录里只能有两个文件")
+
+## Code
+
+- `.agents/skills/hx-note/scripts/cli/authoring/makeDoc.py`
+- `.agents/skills/hx-note/scripts/cli/flow/hx_flow.py`
+- `.agents/skills/hx-note/scripts/cli/identity/hxid_core.py`
+- `.agents/skills/hx-note/scripts/cli/illustration/hx_drawio.py`
+- `.agents/skills/hx-note/scripts/cli/mitemite/mitemite_add.py`
+- `.agents/skills/hx-note/scripts/cli/persona/hx_persona.py`
+- `.agents/skills/hx-note/scripts/cli/taxonomy/tag_apply.py`
+- `.agents/skills/hx-note/scripts/cli/textfmt/punct_core.py`
+- `.agents/skills/hx-note/scripts/cli/transcribe/transcribe_cli.py`
+- `.agents/skills/hx-note/scripts/cli/voice/hx_voice.py`
+- `.agents/skills/hx-note/scripts/lib/textpaths.py`
 
 ## Problem
 
 按九阶段流程产出的一篇笔记, 跑完 `doctor` 全绿, 读者读完却**拿不到任何能用的东西**。
 实测到的四个独立症状:
 
-1. `index.md` 里写满了"为什么好看"的规范, 却没有"用什么搭的"清单 —— 读者知道好在哪, 搭不出来。
+1. `index.md` 里写满了"为什么好看"的规范, 却没有"用什么搭的"清单  读者知道好在哪, 搭不出来。
 2. 四份 `.hx-info.md` 的围栏代码块计数全为 **0**: 事实源里一行代码都没有。
    模板 `assets/info-template.md` 只列 bullet 事实, 没有容纳可运行片段的位置。
-3. 唯一做成可复用包的笔记 (`components/HX-VettaUI/`), 靠的是执行者自觉 ——
+3. 唯一做成可复用包的笔记 (`components/HX-VettaUI/`), 靠的是执行者自觉 
    规范与闸门里没有任何位置要求它, 所以那次成功不可复现。
 4. 演示页与侧车 (`##PPT` 内联 / `#ppt` 侧车) 的信息只存在于 `impl/` 参考文档里,
-   而**决定产物的两层 —— `templates/` 的槽位表与 `hx_flow.py` 的 `Stage.artifacts` —— 都没提它**。
+   而**决定产物的两层  `templates/` 的槽位表与 `hx_flow.py` 的 `Stage.artifacts`  都没提它**。
    是否产出演示页完全取决于执行者有没有顺手翻那份参考文档。
 
 第 4 点有一个自相矛盾的根源: `SKILL.md` 的红线写"产出只有两个文件, 不许留第三个",
 而 `steps/9-land/impl/gates.md` 的产物树里自己列了 `*-deck.tsx` / `*-ppt.html`。
-两处互斥时, 绝对的那句会赢 —— 于是侧车被当成违规而不做。
+两处互斥时, 绝对的那句会赢  于是侧车被当成违规而不做。
 
 ## Decision
 
@@ -79,13 +93,13 @@ skill 根 / 仓库根), 并豁免"行内 code 里的 markdown 链接" (那是规
 ## Alternatives considered
 
 - **什么都不做, 靠 SKILL.md 里加一句"请务必产出演示页"** — 最强理由: 零成本, 且不改任何脚本,
-  而现状的产物本身是可用的。否决: 这正是第 4 点的病因 —— 演示页的信息已经写在 `impl/tsx-deck.md` 里
+  而现状的产物本身是可用的。否决: 这正是第 4 点的病因  演示页的信息已经写在 `impl/tsx-deck.md` 里
   了, 问题从来不是"没写", 而是"写的位置不在决定产物的那一层"。再加一句同层的话, 结果一样。
   本仓已有实证: `impl/` 里那份演示页规范写得很完整, 而实测 `##PPT` 用量 2 处对 `#ppt` 14 处。
 - **把"必须产出演示页"也写成 doctor 闸门** — 理由: 强制力最强, 且能立刻改变产出率。
   否决: 演示页只在"有值得分屏讲的结构"时才成立, 强制会让每篇都硬塞一个。改为闸门只要求
   "有一件可拿走的东西", 把"用哪一种"留给 `reusable-spec.md` 的选择指引。
-- **给 HX-UI 补一个 `check-ui-rules.mjs`, 让组件包自己带上门禁** — 理由: 那是个真缺陷 ——
+- **给 HX-UI 补一个 `check-ui-rules.mjs`, 让组件包自己带上门禁** — 理由: 那是个真缺陷 
   `components/HX-UI/package.json` 引用的 `scripts/check-ui-rules.mjs` 不存在,
   `npm run build` 一直是失败的。否决(本次): 那属于组件包自己的修复, 与本条决策 (笔记规范)
   不同类; 本次只把它的**教训**写进 `reusable-spec-example-frontend.md` 当作反例
@@ -97,7 +111,7 @@ skill 根 / 仓库根), 并豁免"行内 code 里的 markdown 链接" (那是规
 ## Consequences
 
 - 笔记的"参考价值"从**人品**变成**闸门**: 现在有两条机械检查兜住, 且实测会失败。
-- 代价一: 纯讲解型笔记需要显式说明才能跳过可复用物闸门。这是刻意的摩擦 ——
+- 代价一: 纯讲解型笔记需要显式说明才能跳过可复用物闸门。这是刻意的摩擦 
   默认值必须是"产出东西", 跳过要留痕。
 - 代价二: 相对式路径检查会有误报风险 (skill 文档里的路径写法本就混杂三种基准)。
   已通过三重豁免压制: 围栏内不管、行内 markdown 链接不管、`node_modules`/产物目录不管。
@@ -111,8 +125,8 @@ skill 根 / 仓库根), 并豁免"行内 code 里的 markdown 链接" (那是规
 
 ```
 uv run .agents/skills/hx-make-skill/scripts/validate_skill.py .agents/skills/hx-note   -> PASS (0 errors, 0 warnings)
-uv run .agents/skills/hx-note/scripts/hx_flow.py doctor --slug open-vetta-ui          -> PASS 16/16
-uv run .agents/skills/hx-note/scripts/hx_flow.py doctor --slug spoken-style-corpus    -> PASS
+uv run .agents/skills/hx-note/scripts/cli/flow/hx_flow.py doctor --slug open-vetta-ui          -> PASS 16/16
+uv run .agents/skills/hx-note/scripts/cli/flow/hx_flow.py doctor --slug spoken-style-corpus    -> PASS
 ```
 
 闸门"真的会失败"的实证 (三条都用 fixture 实跑过):

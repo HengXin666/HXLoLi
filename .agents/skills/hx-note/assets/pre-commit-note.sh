@@ -1,24 +1,7 @@
 #!/bin/sh
-# HXLoLi 笔记门禁 (pre-commit)
-#
-# ## 设计前提: **不许挡住人类的提交**
-#
-# YG 的 push.sh 是 `git add . && git commit && git push` 一条龙, 而且他明确说过:
-# 「有些东西计算好了之后, 我们希望它必定能提交成功」。所以这个钩子的立场是
-# **替他把该做的做掉**, 而不是拦着他。
-#
-# ## 三段式
-#
-#   1. 自动修 (能被机器修的一律修掉, 不打扰人)
-#   2. 只读校验 (修不掉的才报)
-#   3. 报了就给出口 (不会让人卡在死路上)
-#
-# ## 出口
-#
-#   HX_SKIP=1 git commit ...        跳过本钩子
-#   git commit --no-verify ...      跳过全部钩子
-#
-# 那句 BYPASS 提示只在**真的失败时**才打印 —— 平时不出现, 免得变成噪音。
+# HXLoLi 笔记门禁 (pre-commit): 三段式  自动修 / 只读校验 / 报了就给出口。
+# 立场是替人把该做的做掉而不是拦住提交 (BYPASS 提示只在真失败时打印)。
+# 出口: HX_SKIP=1 git commit ... 或 git commit --no-verify ...
 
 set -u
 
@@ -46,15 +29,15 @@ if [ "${HX_SKIP:-0}" = "1" ]; then
 fi
 
 # 只看这次真的改到的 md, 没改就不跑 (省时间, 也避免无关失败)。
-# 另外: `git add .` 会 stage 全库, 所以这里对**未改动的文件**也要跳过 ——
+# 另外: `git add .` 会 stage 全库, 所以这里对**未改动的文件**也要跳过 
 # 否则每次提交都把全库 lint 一遍 (实测 3.4s, 而且会报一堆历史遗留)。
 # **必须 -z**: 默认输出会把中文路径转成八进制转义并加引号 (core.quotepath),
-# 于是 'grep \.md$' 匹配不到 —— 实测踩过, 表现为钩子"静默不工作"。
+# 于是 'grep \.md$' 匹配不到  实测踩过, 表现为钩子"静默不工作"。
 CHANGED=$(git -c core.quotepath=false diff --cached --name-only --diff-filter=ACMR -z \
           | tr '\0' '\n' | grep '\.md$' || true)
 [ -z "$CHANGED" ] && exit 0
 
-# 只保留**内容真的变了**的 (git add . 会把全库塞进来) —— 用 diff 的 -M 与 --diff-filter 都挡不住,
+# 只保留**内容真的变了**的 (git add . 会把全库塞进来)  用 diff 的 -M 与 --diff-filter 都挡不住,
 # 得逐个问 git: 这个路径在暂存区与 HEAD 之间有没有内容差异。
 REAL=""
 for f in $CHANGED; do
@@ -65,7 +48,7 @@ done
 CHANGED=$REAL
 [ -z "$CHANGED" ] && exit 0
 
-PY=".agents/skills/hx-note/scripts"
+PY=".agents/skills/hx-note/scripts/cli"
 fail=0
 
 # ---- 第 1 段: 自动修 ----
@@ -79,21 +62,21 @@ for f in $CHANGED; do
     # 路径可能是 HXLoLi/ 前缀或裸 ai-docs/, 统一成相对 SITE
     rel=$(echo "$f" | sed 's|^HXLoLi/||')
     [ -f "$rel" ] || continue
-    if ! uv run "$PY/format_cn_punct.py" --check "$rel" >/dev/null 2>&1; then
-        uv run "$PY/format_cn_punct.py" "$rel" >/dev/null 2>&1 && {
+    if ! uv run "$PY/textfmt/format_cn_punct.py" --check "$rel" >/dev/null 2>&1; then
+        uv run "$PY/textfmt/format_cn_punct.py" "$rel" >/dev/null 2>&1 && {
             git add "$f" 2>/dev/null || true
             FIXED="$FIXED $rel"
         }
     fi
     # 折行合并 (fix 会跳过 frontmatter 与代码块, 见 hx_voice.py 的注释)
-    uv run "$PY/hx_voice.py" fix "$rel" --write >/dev/null 2>&1 && {
+    uv run "$PY/voice/hx_voice.py" fix "$rel" --write >/dev/null 2>&1 && {
         git add "$f" 2>/dev/null || true
     }
 done
 [ -n "$FIXED" ] && echo "[note-gate] 已自动修标点:$FIXED"
 
 # ---- 第 2 段: 只读校验 ----
-# 2a. 语料红线 (只对 article/atom, 且只报 E 级 —— W 是提示不是错)
+# 2a. 语料红线 (只对 article/atom, 且只报 E 级  W 是提示不是错)
 for f in $CHANGED; do
     rel=$(echo "$f" | sed 's|^HXLoLi/||')
     case "$rel" in
@@ -114,7 +97,7 @@ for f in $CHANGED; do
         .hx-staging/*|*/.hx-staging/*) continue ;;
         */.*) continue ;;
     esac
-    if ! uv run "$PY/hx_voice.py" lint "$rel" --profile "$prof" >/tmp/hx_lint.txt 2>&1; then
+    if ! uv run "$PY/voice/hx_voice.py" lint "$rel" --profile "$prof" >/tmp/hx_lint.txt 2>&1; then
         echo "[note-gate] 语料检查未过: $rel"
         grep -E '^  E' /tmp/hx_lint.txt | head -6
         fail=1
@@ -123,13 +106,13 @@ done
 
 # 2b. notes 门禁 (快, ~260ms)
 for s in verify-format verify-backlinks verify-tree; do
-    if ! node ".agents/skills/hx-agent-notes/scripts/$s.ts" >/tmp/hx_gate.txt 2>&1; then
+    if ! node ".agents/skills/hx-agent-notes/scripts/cli/$s.ts" >/tmp/hx_gate.txt 2>&1; then
         echo "[note-gate] $s 未过"
         grep -v 'Reparsing\|Warning\|eliminate\|trace\|MODULE_TYPELESS' /tmp/hx_gate.txt | tail -4
         fail=1
     fi
 done
-if ! node .agents/skills/hx-agent-notes/scripts/verify-coverage.ts --staged >/tmp/hx_cov.txt 2>&1; then
+if ! node .agents/skills/hx-agent-notes/scripts/cli/verify-coverage.ts --staged >/tmp/hx_cov.txt 2>&1; then
     echo "[note-gate] verify-coverage 未过"
     grep -v 'Reparsing\|Warning\|eliminate\|trace\|MODULE_TYPELESS' /tmp/hx_cov.txt | tail -4
     fail=1

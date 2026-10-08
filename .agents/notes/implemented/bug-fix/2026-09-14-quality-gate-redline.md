@@ -2,10 +2,15 @@
 
 Status: implemented
 
+Decision-ID: quality-gate-redline
+
 - **引入于**: `cc0c3a34ae`
 
-- 影响: `scripts/quality-gate.mjs` (新增) / `scripts/regenerate-tag-index.mjs` (新增) / `scripts/quality-baseline.json` (新增) / `package.json` (新增 `gate` / `gate:fast`)
 - 现象: 改 A 弄坏 B 却没人发现; 侧车 `.html` 在 dev 上"加载不出来"
+
+## Code
+
+- `scripts/quality-gate.mjs`
 
 ## Problem
 
@@ -38,11 +43,11 @@ configureWebpack(_config, isServer) {
 |---|---|
 | `docusaurus build` | 每次构建重新枚举, **总是正确** |
 | `docusaurus start` 启动**前**已存在的侧车 | 正确 (webpack copy 覆盖) |
-| `docusaurus start` 启动**后**新增的侧车 | **404** —— 没有对应 asset |
+| `docusaurus start` 启动**后**新增的侧车 | **404**  没有对应 asset |
 
 dev server 上这个 404 被 `historyApiFallback` 兜成**应用外壳**: HTTP 200 + `content-type: text/html` +
 约 2092 字节。iframe 里显示站点的"找不到页面", 但网络面板看不到 404, 所以表现成"加载不出来"而不是
-"链接坏了" —— 这正是它难以定位的原因。
+"链接坏了"  这正是它难以定位的原因。
 
 决定性证据(同一个 `.html`, 两种 dev server):
 
@@ -52,7 +57,7 @@ FRESH  dev (:3555, 侧车已存在后启动)      -> 200 and 712699 bytes (真�
 prod   serve (build 产物)                 -> 200 and 712699 bytes (真实侧车)
 ```
 
-同批 12 个侧车里, 恰好**只有新增的 2 个**失败, 旧的 10 个全部正常 —— 与"枚举发生在启动时"完全吻合。
+同批 12 个侧车里, 恰好**只有新增的 2 个**失败, 旧的 10 个全部正常  与"枚举发生在启动时"完全吻合。
 
 ### B. 断链不会让构建失败
 
@@ -68,8 +73,8 @@ prod   serve (build 产物)                 -> 200 and 712699 bytes (真实侧�
 
 新增 `scripts/quality-gate.mjs`, 收敛为 **一条命令 `npm run gate`**, 覆盖 8 类静默失效:
 
-1. `hxid check` —— 唯一 / 合法 / 链接路径最新
-2. `hxid links` —— 跨文章本地引用可达
+1. `hxid check`  唯一 / 合法 / 链接路径最新
+2. `hxid links`  跨文章本地引用可达
 3. tag 词表合规 + tag 注册表 generated 层新鲜
 4. 中文标点归一化 (全 `ai-docs` markdown)
 5. **生成物新鲜度**: 跑生成器 → 比对 → 回滚写入, 检查本身保持只读
@@ -101,7 +106,7 @@ prod   serve (build 产物)                 -> 200 and 712699 bytes (真实侧�
 只报 2 个新增侧车, 不误伤 10 个旧侧车。
 
 基线本身也验证过一轮: 第一版解析 TS 报错时取错了正则捕获组(`m[3]` 是列号, 实际的码是 `m[2]`),
-于是基线里 9 条全被记成 `undefined` —— 那样的基线**任何**新错误都会被当成"已知", 红线形同虚设。
+于是基线里 9 条全被记成 `undefined`  那样的基线**任何**新错误都会被当成"已知", 红线形同虚设。
 修正后重放同一个 TS2322, 门禁准确报出
 `新增 1 条: .../obsidian-second-brain-deck.tsx|TS2322`。
 
@@ -113,11 +118,11 @@ prod   serve (build 产物)                 -> 200 and 712699 bytes (真实侧�
 
 - 站点第一次有了"一条命令锁住既有功能"的红线 (`scripts/quality-gate.mjs` + `quality-baseline.json`);
   代价是新增一条基线文件, 历史错误要通过基线豁免而不是一次修完。
-- 9 条历史 `tsc` 错误被基线豁免而非修复 (涉及 CommonJS/ESM 互操作与历史组件), 属于独立议题 ——
+- 9 条历史 `tsc` 错误被基线豁免而非修复 (涉及 CommonJS/ESM 互操作与历史组件), 属于独立议题 
   红线**从现在开始**有效, 但不代表存量是干净的。
 - `onBrokenLinks` 没有改成 `"throw"`: 那会让存量断链一次性阻断所有人的构建, 覆盖面对比下不如在门禁里抓构建输出。
 - dev 侧车 404 的根因未修, 只让它可见并提示重启 dev server; 绕过办法是 `npm run build && npm run serve`。
-- 门禁尚未接进 `.github/workflows/` —— CI 接线涉及构建时长与失败策略, 需要单独拍板。
+- 门禁尚未接进 `.github/workflows/`  CI 接线涉及构建时长与失败策略, 需要单独拍板。
 
 ## Alternatives considered
 
@@ -130,7 +135,7 @@ prod   serve (build 产物)                 -> 200 and 712699 bytes (真实侧�
 - **让 tsc 直接全绿**: 9 条历史错误涉及 CommonJS/ESM 互操作与若干历史组件, 属于独立议题;
   基线机制让红线**从现在开始**有效, 不阻塞在当前任务上。
 - **顺手修 dev 侧车 404 的根因**(把 webpack copy 换成 dev 期中间件): Docusaurus 3.7 没有暴露
-  `configureDevServer` 钩子, 唯一注入点是 `configureWebpack` 返回的 `devServer` 字段 —— 可行但侵入较大。
+  `configureDevServer` 钩子, 唯一注入点是 `configureWebpack` 返回的 `devServer` 字段  可行但侵入较大。
   本次先让它**可见**(门禁 `--dev` 探测 + 提示重启), 修根因留待单独决策。
 
 ## 未做

@@ -2,9 +2,14 @@
 
 Status: implemented
 
+Decision-ID: cf-workers-assets-binding-1101
+
 - **引入于**: `5c51bf11e5`
 
-- 影响: `wrangler.toml`(新增) / `worker.js`(从 workflow 内联挪出) /
+
+## Code
+
+- `worker.js`
 
 ## Problem
 
@@ -40,7 +45,7 @@ TypeError: Cannot read properties of undefined (reading 'fetch')
 
 **为什么本地正常**: 本地跑的是 `docusaurus start` (dev server), 根本不经过 Worker;
 就算起 `wrangler dev`, 只要请求命中了 `build/` 里的真实文件, 静态资源路由会**直接返回文件、
-完全不执行脚本**, 所以也看不到异常。只有"没有对应静态文件、必须由脚本兜底"的请求才会踩雷 ——
+完全不执行脚本**, 所以也看不到异常。只有"没有对应静态文件、必须由脚本兜底"的请求才会踩雷 
 这正是上表里的目录页 / 404 / search-index。
 
 `deploy` 本身不会因为缺 binding 报错, 所以这个坑一直静默存在。
@@ -57,7 +62,7 @@ curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:8793/search-index.json
 ```
 
 线上 `/search-index.json` 的 500 响应体也印证了这点: 响应 `content-length: 17`,
-正好是 `error code: 1101` (Cloudflare 的通用异常文案), 而不是 Worker 自己返回的报错 —— 
+正好是 `error code: 1101` (Cloudflare 的通用异常文案), 而不是 Worker 自己返回的报错  
 说明异常是在脚本里抛的。
 
 ### 顺带发现的两个隐患
@@ -65,7 +70,7 @@ curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:8793/search-index.json
 1. **heredoc 缩进污染**: workflow 里 `cat > worker.js << 'WORKEREOF'` 的收尾标记带缩进,
    shell 会把缩进原样写进文件 (实测每行多 10 个空格)。这份 worker.js 恰好语法上仍然合法,
    所以没炸; 但这是典型 "哪天改一下就突然挂" 的地雷。
-   (对比之下 `[assets]` 段反而没被污染 —— 因为 `cat` 是同一个还原函数, 但
+   (对比之下 `[assets]` 段反而没被污染  因为 `cat` 是同一个还原函数, 但
    `[assets]` 段在 YAML 里本来就是零缩进写的。)
 2. **ffmpeg `-vsync` 已被移除**: `optimize-large-assets.mjs` 里 GIF→WebP 用的是
    `-vsync 0`, 新版 ffmpeg (本机 n9.0.1) 直接报 `Unrecognized option 'vsync'`。
@@ -82,7 +87,7 @@ curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:8793/search-index.json
    三项, 缺任一项直接 `exit 1`。CI 在部署前跑, 让同类问题**在构建阶段就失败**,
    而不是等到线上 1101。
 4. **worker.js 启动时显式取一次 `env.ASSETS`**, 缺失时返回可读的 500 文案
-   而不是抛 `TypeError` —— 下次万一再配错, 一眼就能看出问题。
+   而不是抛 `TypeError`  下次万一再配错, 一眼就能看出问题。
 5. **worker.js 补 404 兜底**: 资源未命中时回落 `/404.html` (用同一份响应体改回 404 状态码),
    避免 Cloudflare 默认那个裸 404。
 6. **修正 ffmpeg 参数**: `-vsync 0` → `-fps_mode passthrough` (ffmpeg 5.1+ 的正式替代)。
@@ -91,10 +96,12 @@ curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:8793/search-index.json
 
 ## Alternatives considered
 
+**什么都不做 / 复用现有。** 最强理由是无需新增实现和维护成本. 现有状态仍存在 Problem 中的具体缺口, 因此采用本记录的选择
+
 - **只在 workflow 里给 `[assets]` 补一行 binding**: 最小改动, 但 heredoc 生成配置、
   缩进污染、无法 lint 这些结构性问题一个都没解决, 下次还会以别的形式炸。否决。
 - **干脆不要 Worker 脚本, 纯静态资源部署**: 那 `/search-index.json` (28MB, 超过 25MiB
-  单文件上限) 就没法服务, 站内搜索直接废掉 —— 而拆 chunk 合并本来就依赖脚本。否决。
+  单文件上限) 就没法服务, 站内搜索直接废掉  而拆 chunk 合并本来就依赖脚本。否决。
 - **用 `not_found_handling = "404-page"` 代替自己写 404 兜底**: 这个选项是有效的,
   但它只在**没有 `main` 脚本**时才接管; 有脚本时它不会替我们处理 GIF→WebP 回退那条逻辑链,
   两套兜底混着用更容易搞混。当前保留脚本兜底, 只在注释里说明。
@@ -130,7 +137,7 @@ lock-only (在 lockfile 里有, package.json 里没有): feed, gray-matter, piny
 `Cannot find module 'feed'`。
 
 > 注: 本机一直没暴露这个问题, 是因为本地 `node_modules` 是增量长出来的,
-> 里面还留着当年的 `feed@6.0.0` / `gray-matter@4.0.3` / `pinyin-pro@3.29.4` ——
+> 里面还留着当年的 `feed@6.0.0` / `gray-matter@4.0.3` / `pinyin-pro@3.29.4` 
 > `npm ls` 里 `feed@6.0.0` 甚至被标成了 `extraneous`。典型的"本地能跑, CI 炸"。
 
 ### 修法
@@ -163,7 +170,7 @@ https://km.woa.qzz.io/HXLoLi/docs/计佬常識/数据结构与算法/【数据�
 站点早期部署在 GitHub Pages, 那时 `baseUrl = "/HXLoLi"`, 分享出去的链接都带这个前缀。
 迁到 Cloudflare Workers 后 `docusaurus.config.ts` 里 `isCloudflare` 为真 →
 `baseUrl = ""`, 路由变成根路径。于是所有历史链接 / 书签 / 搜索引擎索引里的
-`/HXLoLi/docs/...` 都指向一个不存在的路径, 被 404 兜底接住 —— 观感就是"这篇笔记没了"。
+`/HXLoLi/docs/...` 都指向一个不存在的路径, 被 404 兜底接住  观感就是"这篇笔记没了"。
 
 实测 (修复前):
 
@@ -203,7 +210,7 @@ if (pathname === '/HXLoLi' || pathname.startsWith('/HXLoLi/')) {
 - 新增 `scripts/check-cf-worker-config.mjs` 让同类配置错误在构建阶段失败, 而不是等到线上 1101;
   代价是新增/调整 CF 配置项时要同步改这个校验器。
 - `[assets]` 的 `binding = "ASSETS"` 成为硬要求, 文件里用注释锁住原因。
-- `split-search-index.mjs` 默认不再删源文件, 删除改为显式 `--delete-source` (CI 显式传) ——
+- `split-search-index.mjs` 默认不再删源文件, 删除改为显式 `--delete-source` (CI 显式传) 
   本地误跑不会再删掉自己的 `build/search-index.json`。
 - 404 兜底与 GIF→WebP 回退由脚本自己处理, 因此没有改用 `not_found_handling = "404-page"`;
   两套兜底并存的问题被避免, 但脚本这条逻辑链需要自己维护。

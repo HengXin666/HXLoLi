@@ -2,46 +2,46 @@
 
 ## 通用语法
 
-除标准 Markdown 外, 平台还支持:
+除标准 Markdown 外, 平台还支持
 
-- **Mermaid 图表** —— 代码块标注 `mermaid`
-- **KaTeX 数学公式** —— `$...$` 行内, `$$...$$` 块级
-- **GitHub Alerts** —— `> [!NOTE]` `> [!WARNING]` 等
-- **任务列表** —— `- [ ]` / `- [x]`
-- **组合代码块** —— 围栏标注写成 `cpp [组名A-title1]` 与 `cpp [组名A-title2]`, 生成可 tab 切换的两个代码块
-- **vscode 编辑器代码块** —— 围栏标注 `cpp vscode`
-- **图片宽度与圆角** —— `![text ##w200##r50##](xxx.jpg)`
-- **可在线编辑的 drawio** —— 文件后缀必须是 `.drawio.svg`, 写作 `![](xxx.drawio.svg)`
-- **B 站视频**:
+- **Mermaid 图表**  代码块标注 `mermaid`
+- **KaTeX 数学公式**  `$...$` 行内, `$$...$$` 块级
+- **GitHub Alerts**  `> [!NOTE]` `> [!WARNING]` 等
+- **任务列表**  `- [ ]` / `- [x]`
+- **组合代码块**  围栏标注写成 `cpp [组名A-title1]` 与 `cpp [组名A-title2]`, 生成可 tab 切换的两个代码块
+- **vscode 编辑器代码块**  围栏标注 `cpp vscode`
+- **图片宽度与圆角**  `![text ##w200##r50##](xxx.jpg)`
+- **可在线编辑的 drawio**  文件后缀必须是 `.drawio.svg`, 写作 `![](xxx.drawio.svg)`
+- **B 站视频**
 
 ```bilibili ##BV1Js411o76u##w90%##h600##danmaku=false##p=2##
 BV1Js411o76u (代码块需填写内容)
 ```
 
-- **架构图/流程图/时序图/数据流图/状态图** —— 调用 `archify` skill (vendored 于 `.agents/skills/hx-archify`): typed JSON spec -> validate -> deliver 出自包含 .html, 再按下方 `#ppt` 侧车规范内嵌. 自带主题切换/缩放/导览/动效, iframe 内嵌后保留; 不要手绘零散 SVG.
+- **架构图/流程图/时序图/数据流图/状态图**  调用 `archify` skill (vendored 于 `.agents/skills/hx-archify`): typed JSON spec -> validate -> deliver 出自包含 . html, 再按下方 `#ppt` 侧车规范内嵌. 自带主题切换/缩放/导览/动效, iframe 内嵌后保留; 不要手绘零散 SVG
 
 ## 演示页内嵌 (两种形态)
 
-**形态一: `.tsx` 内联演示页 (默认)** —— 与笔记同目录、导出 `slides()` 的 React 组件:
+**形态一: `.tsx` 内联演示页 (默认)**  与笔记同目录、导出 `slides()` 的 React 组件
 
-- 正文写 `[标题 ##PPT##](x-deck.tsx)`; 可带页码与主题: `[标题 ##PPT 3 whale##](x-deck.tsx)`.
-- React 内联渲染, **跟随站点主题、支持实时换主题**, 观感与正文一致.
-- 新增/改名后跑 `npm run decks` (build 前会自动执行); 未注册会渲染成"未注册的演示页"且不报错.
-- 产出流程见 `steps/6-derive/impl/tsx-deck.md` (本 skill 内).
+- 正文写 `[标题 ##PPT##](x-deck.tsx)`; 可带页码与主题: `[标题 ##PPT 3 whale##](x-deck.tsx)`
+- React 内联渲染, **跟随站点主题、支持实时换主题**, 观感与正文一致
+- 新增/改名后跑 `npm run decks` (build 前会自动执行); 未注册会渲染成"未注册的演示页"且不报错
+- 产出流程见 `steps/6-derive/impl/tsx-deck.md` (本 skill 内)
 
-**形态二: `.html` 侧车** —— 与 Markdown 同目录的独立 .html, 需要完全自包含单文件时用:
+**形态二: `.html` 侧车**  与 Markdown 同目录的独立 . html, 需要完全自包含单文件时用
 
-- 正文写 `[标题 #ppt](xxx.html)`; **链接文字必须含 `#ppt` 标记**, 链接指向同目录 .html 侧车文件.
-- 可加宽度: `[标题 #ppt ##w100%##](xxx.html)` (不写默认 80%).
-- 侧车文件会被自动发布到该笔记页面路由下, 因此必须是**自包含单文件** (内联 CSS/JS, 无外部相对资源, 不依赖宿主页面 DOM), 建议 16:9 画布 (如 1600x900).
-- 构建插件 `ppt-html-assets` 会把 `docs/ ai-docs/ blog/` 下所有 .html 拷到对应路由 (与 md 是否引用无关); 但**只有用 `#ppt` 链接才会渲染成 PPT 查看器**.
-- 注意: 插件在**开发服务器启动时**才枚举文件. 先写 md 后补侧车时, dev server 会 404 —— 重启即可 (构建不受影响).
+- 正文写 `[标题 #ppt](xxx.html)`; **链接文字必须含 `#ppt` 标记**, 链接指向同目录 . html 侧车文件
+- 可加宽度: `[标题 #ppt ##w100%##](xxx.html)` (不写默认 80%)
+- 侧车文件会被自动发布到该笔记页面路由下, 因此必须是**自包含单文件** (内联 CSS/JS, 无外部相对资源, 不依赖宿主页面 DOM), 建议 16:9 画布 (如 1600x900)
+- 构建插件 `ppt-html-assets` 会把 `docs/ ai-docs/ blog/` 下所有 . html 拷到对应路由 (与 md 是否引用无关); 但**只有用 `#ppt` 链接才会渲染成 PPT 查看器**
+- 注意: 插件在**开发服务器启动时**才枚举文件. 先写 md 后补侧车时, dev server 会 404  重启即可 (构建不受影响)
 
-真实范例: `ai-docs/003-AI/004-记忆/005-Agent-Memory框架选型/` 下同时含 `agent-memory-deck.tsx` (内联) 与 `overview-ppt.html` (侧车), 可对照两种形态.
+真实范例: `ai-docs/003-AI/004-记忆/005-Agent-Memory框架选型/` 下同时含 `agent-memory-deck.tsx` (内联) 与 `overview-ppt.html` (侧车), 可对照两种形态
 
 ## 标点习惯 (HXLoLi 用户约定, 依据现有手写 ai-docs 观察)
 
-- 正文统一用**英文标点**: `,` `.` `:` `;` `?` `!` 和半角括号 `()`, 后接中文时保持一个空格: `工具, 建议` `注意: 这里`.
-- 顿号 `、` 与书名号/引号 `《》` `“”`、破折号 `—` 按原文保留.
-- 行内代码、围栏代码块、URL、frontmatter 内一律不做转换.
-- 归一化脚本: `scripts/format_cn_punct.py` (用法见 hx-note 的步骤 5 的 SKILL.md).
+- 正文统一用**英文标点**: `,` `.` `:` `;` `?` `!` 和半角括号 `()`, 后接中文时保持一个空格: `工具, 建议` `注意: 这里`
+- 顿号 `、` 与书名号/引号 `《》` `“”`、破折号 `—` 按原文保留
+- 行内代码、围栏代码块、URL、frontmatter 内一律不做转换
+- 归一化脚本: `scripts/cli/textfmt/format_cn_punct.py` (用法见 hx-note 的步骤 5 的 SKILL.md)

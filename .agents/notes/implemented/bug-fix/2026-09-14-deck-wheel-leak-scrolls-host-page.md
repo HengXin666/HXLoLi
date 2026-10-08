@@ -2,16 +2,22 @@
 
 Status: implemented
 
+Decision-ID: deck-wheel-leak-scrolls-host-page
+
 - **引入于**: `cc0c3a34ae`
 
-- 影响: `src/hxdeck/Deck.tsx` / `src/css/custom.css` / `src/pages/ppt.tsx` / `src/hxdeck/charts.tsx`
 - 现象: 约 10 屏以上的演示页, 用滚轮从第 1 屏往下翻, **偶尔**整块 PPT 内容一起向下滚, 显示不全
+
+## Code
+
+- `src/hxdeck/Deck.tsx`
+- `src/pages/ppt.tsx`
 
 ## Problem
 
 用户报告: "感觉是在某一个触发状态的时候, 它那个判定消失了, 就变成了真正的那种滚动条的滚动模式导致其下滑".
 
-关键词是**偶尔**与**某一个触发状态** —— 不是几何算错(那样每次都错), 而是某条分支上少了东西.
+关键词是**偶尔**与**某一个触发状态**  不是几何算错(那样每次都错), 而是某条分支上少了东西.
 
 ## Root cause
 
@@ -31,7 +37,7 @@ e.preventDefault();              // ← 到不了这里
 ```
 
 翻页动画要跑 `PAGE_DURATION + LOCK_TAIL = 950ms`, 这期间 `lockedRef.current === true`.
-于是这 950ms 里每一次滚轮都**既不翻页、也不 `preventDefault`** —— 默认行为原样落到宿主页面上.
+于是这 950ms 里每一次滚轮都**既不翻页、也不 `preventDefault`**  默认行为原样落到宿主页面上.
 连续滚动时 (触控板惯性一次几十个事件) 命中这个窗口的概率很高, 所以表现为"偶尔".
 
 判定并没有消失, 是这一支上根本没写 `preventDefault`. `LOCK_TAIL` 的注释本就写着这是
@@ -51,7 +57,7 @@ if (/(auto|scroll)/.test(cs.overflowY) && n.scrollHeight > n.clientHeight + 2) r
 
 `ppt.tsx` 一直在用 `.hxppt` / `.hxppt__bar` / `.hxppt__body`, 但 `src/` 下**一条 `.hxppt` 规则都不存在**.
 后果是页面按 Docusaurus 文档流排版: deck 保持 16:9 + 被导航栏顶下去,
-`documentElement.scrollHeight` 实测 926 而视口 757 —— 存在一条**本不该有**的页面滚动条.
+`documentElement.scrollHeight` 实测 926 而视口 757  存在一条**本不该有**的页面滚动条.
 上面两个缺陷漏出来的滚轮, 正是落在这条滚动上.
 
 ## Evidence
@@ -66,19 +72,19 @@ if (/(auto|scroll)/.test(cs.overflowY) && n.scrollHeight > n.clientHeight + 2) r
 隔离验证 (证明"漏出来 → 真的会滚走页面"): 手动把 `.hxd-deck` 的
 `overscroll-behavior` 从 `contain` 改成 `auto` 以拆掉兜底, 再滚 14 次:
 
-- 修复前: `scrollY 0 → 169`, `deckTop 26 → -143` —— 内容整体上移, 与用户描述一致.
-- 修复后: `scrollY 0`, `deckTop 26` —— 兜底拆掉也不再漏.
+- 修复前: `scrollY 0 → 169`, `deckTop 26 → -143`  内容整体上移, 与用户描述一致.
+- 修复后: `scrollY 0`, `deckTop 26`  兜底拆掉也不再漏.
 
 另: 弹层在本 bug 下"看起来正常", 只是因为 `PptCard` 把 `body.overflow` 设成了 `hidden`
-兜住了 —— 这解释了为什么它在笔记页里偶发、而不是必现.
+兜住了  这解释了为什么它在笔记页里偶发、而不是必现.
 
 ## Decision
 
-1. `Deck.tsx`: 把 `e.preventDefault()` **提到** `lockedRef` 判断之前 —— 走到这里这次滚轮就归 deck 所有,
+1. `Deck.tsx`: 把 `e.preventDefault()` **提到** `lockedRef` 判断之前  走到这里这次滚轮就归 deck 所有,
    先无条件吃掉默认行为, 再决定要不要翻页。
 2. `Deck.tsx`: `inScrollable` → `scrollableUnder(target, deltaY)`, 用 `canScrollFurther` 做方向判断,
    返回真正还能滚的那个元素; 滚到边界就把控制权交回 deck。
-3. `Deck.tsx`: `visibleEnough()` 里的 `getBoundingClientRect()` 改为**缓存**(400ms 过期) ——
+3. `Deck.tsx`: `visibleEnough()` 里的 `getBoundingClientRect()` 改为**缓存**(400ms 过期) 
    wheel 是最热的事件, 每事件一次强制同步布局会把主线程拖住。
 4. `custom.css`: 补上缺失的 `.hxppt*` 样式, 播放页改 `position: fixed; inset: 0`,
    彻底不产生页面级滚动条; `ppt.tsx` 的 `<Deck>` 加 `fill`。
@@ -99,7 +105,7 @@ if (/(auto|scroll)/.test(cs.overflowY) && n.scrollHeight > n.clientHeight + 2) r
 ## Consequences
 
 - `preventDefault()` 提到锁判断之前: 滚轮事件一旦进入 deck 就归它所有, 再决定是否翻页。
-  代价是 deck 区域内必须自己把"该滚谁"判全, 判漏就会吃掉页面滚动 —— 这正是本条曾经的症状。
+  代价是 deck 区域内必须自己把"该滚谁"判全, 判漏就会吃掉页面滚动  这正是本条曾经的症状。
 - `visibleEnough()` 的 `getBoundingClientRect()` 改为 400ms 缓存。wheel 是最热的事件,
   代价是判定有一个最多 400ms 的陈旧窗口, 换来主线程不被强制同步布局拖住。
 - 播放页改 `position: fixed; inset: 0`, 不再产生页面级滚动条; 预览卡片保持"在卡片上滚, 页面正常滚"。
@@ -116,7 +122,9 @@ if (/(auto|scroll)/.test(cs.overflowY) && n.scrollHeight > n.clientHeight + 2) r
 
 ## Alternatives considered
 
-- **只加重试/防抖**: 治不了根 —— 漏的是默认行为, 不是频率问题.
+**什么都不做 / 复用现有。** 最强理由是无需新增实现和维护成本. 现有状态仍存在 Problem 中的具体缺口, 因此采用本记录的选择
+
+- **只加重试/防抖**: 治不了根  漏的是默认行为, 不是频率问题.
 - **干脆全程 `preventDefault`**: 会让预览态也无法滚动页面, 破坏"卡片就该让页面滚"的既有约定
   (deck.css 顶部那段注释专门讲过这个坑).
 - **只在动画锁期间加 CSS `overscroll-behavior: contain`**: CSS 挡不住已经被浏览器接管的滚动,

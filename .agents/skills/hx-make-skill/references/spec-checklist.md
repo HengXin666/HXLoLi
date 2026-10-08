@@ -1,10 +1,10 @@
 # Agent Skills 规范速查 (validation source)
 
-本文是 `scripts/validate_skill.py` 每一条检查的规范依据. 规范来自公开的 Agent Skills 标准与 Anthropic 官方说明, 二者互相一致.
+本文是 `scripts/validate_skill.py` 每一条检查的规范依据. 规范来自公开的 Agent Skills 标准与 Anthropic 官方说明, 二者互相一致
 
 ## 1. 目录形态
 
-A skill 是一个目录, 至少含一个 `SKILL.md`:
+A skill 是一个目录, 至少含一个 `SKILL.md`
 
 ```
 skill-name/
@@ -43,7 +43,7 @@ name: pdf-processing   # 有效
 | L2 | `SKILL.md` body | 触发时整篇读入 | 少于 5000 token, 少于 500 行 | ERROR (>500 行) |
 | L3+ | `scripts/` `references/` `assets/` | 按需读取 | 基本无上限 | WARN (>10k 词的 reference) |
 
-关键点: **"内容太多"的正确解法是拆分, 不是压缩.** 有文件系统时, 一个 skill 能携带的上下文总量实际上没有上限 —— 前提是按"是否总是需要"把内容分到 L2 和 L3.
+关键点: **"内容太多"的正确解法是拆分, 不是压缩.** 有文件系统时, 一个 skill 能携带的上下文总量实际上没有上限  前提是按"是否总是需要"把内容分到 L2 和 L3
 
 ## 4. 信息架构规则
 
@@ -63,6 +63,6 @@ uv run scripts/validate_skill.py <skill-dir>
 uv run scripts/validate_skill.py <skill-dir> --json
 ```
 
-退出码: `0` = 通过 (可能有 WARN), `1` = 有 ERROR, `2` = 参数错误.
+退出码: `0` = 通过 (可能有 WARN), `1` = 有 ERROR, `2` = 参数错误
 
-实现要点: 优先用 PyYAML; 若无 PyYAML 则退化为内置的顶层 `key: value` 解析器, 因此脚本无第三方依赖.
+实现要点: 优先用 PyYAML; 若无 PyYAML 则退化为内置的顶层 `key: value` 解析器, 因此脚本无第三方依赖. 该回落解析器**显式拒绝**裸标量里含 `": "` 的值 (给整个值加引号, 或用折叠标量 `>-`). 理由: 那种写法在 DSH 侧会让整个 skill 被静默丢弃, 而回落解析器若宽松吃掉它, 校验器就会为"加载不了的 skill"发出 PASS  这个洞在本仓真实发生过 (see ../../../HXLoLi/. agents/notes/implemented/process/2026-09-29-validator-fallback-must-not-pass-invalid-frontmatter.md)

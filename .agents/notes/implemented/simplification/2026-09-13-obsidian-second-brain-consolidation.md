@@ -2,10 +2,15 @@
 
 Status: implemented
 
+Decision-ID: obsidian-second-brain-consolidation
+
 - **引入于**: `unknown`
 - **引用落点**: 无源码引用 (本文约束的是 ai-docs 内容组织, 不落到某个代码声明)
 
-- 影响: `ai-docs/002-AI/004-记忆/003-obsidian-second-brain/` + 跨文章链接 + 侧边栏 + 演示页注册表
+
+## Code
+
+- `ai-docs/003-AI/004-记忆/003-obsidian-second-brain/obsidian-second-brain-deck.tsx`
 
 ## Problem
 
@@ -39,13 +44,13 @@ claude-md-template.md  hx-loli-borrow-list.md  hx-loli-adoption-plan.md
 
 下面每条都是 Problem 里已记录的理由所否掉的选项, 不是事后补的:
 
-- **保持上游的一对一分片 (11 篇)** —— 就是本次改动的起点. 后果见 Problem 四条: 同一机制被拆到 3~4 篇
+- **保持上游的一对一分片 (11 篇)**  就是本次改动的起点. 后果见 Problem 四条: 同一机制被拆到 3~4 篇
   重复讲、单篇达到产品文档体量、事实与作者判断混排、全库无一张图.
-- **保留 11 篇分片, 另加一篇总览做索引** —— 不解决问题本身: 读者仍要在 3~4 篇之间自己拼一条机制,
+- **保留 11 篇分片, 另加一篇总览做索引**  不解决问题本身: 读者仍要在 3~4 篇之间自己拼一条机制,
   重复叙述与 605 行产品文档体量都原样留下, 只是多了一个入口.
-- **只删重复段落, 保持文件边界不动** —— 会让每篇都变成半截内容: 一条机制的部分事实留在原文件、
+- **只删重复段落, 保持文件边界不动**  会让每篇都变成半截内容: 一条机制的部分事实留在原文件、
   部分被抽走, 读者失去"读到一段就是完整一条机制"的保证.
-- **什么都不做** —— 这 11 篇是本仓库唯一一处按上游目录结构组织、而非按读者理解组织的知识区,
+- **什么都不做**  这 11 篇是本仓库唯一一处按上游目录结构组织、而非按读者理解组织的知识区,
   不重排就会一直作为反例存在, 后续每次整理都要重新判断一次.
 
 ## Consequences
@@ -57,7 +62,7 @@ claude-md-template.md  hx-loli-borrow-list.md  hx-loli-adoption-plan.md
 
 ## 顺带修掉的一个存量缺陷
 
-`DocTagDocListPage` 的「同字母兄弟标签」会链接到 `count === 0` 的**纯结构 tag** (`编程语言` / `工程与工具` / `生活杂谈`). 这类 tag 只在注册表里当 parent 用、没有笔记挂在自己名下, Docusaurus 不为它生成路由 —— 构建报 6 条 broken link. 已在 `siblingTags` 里加 `entry.count > 0` 过滤.
+`DocTagDocListPage` 的「同字母兄弟标签」会链接到 `count === 0` 的**纯结构 tag** (`编程语言` / `工程与工具` / `生活杂谈`). 这类 tag 只在注册表里当 parent 用、没有笔记挂在自己名下, Docusaurus 不为它生成路由  构建报 6 条 broken link. 已在 `siblingTags` 里加 `entry.count > 0` 过滤.
 
 ## 未做
 

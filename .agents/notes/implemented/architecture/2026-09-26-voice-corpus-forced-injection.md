@@ -2,8 +2,13 @@
 
 Status: implemented
 
+Decision-ID: voice-corpus-forced-injection
+
 - **引入于**: `f28d9cfd13`
-- 影响: hx_flow.py 新增 voice_corpus_lines() 并在 print_status() 最开头调用; 语料库新增 meme 类别 (修 load_voice_db / cmd_learn / cmd_samples 三处只认 good|bad 的硬编码)
+
+## Code
+
+- `.agents/skills/hx-note/scripts/cli/flow/flow_read.py`
 
 ## Problem
 
@@ -27,11 +32,13 @@ Status: implemented
 
 两个实现细节是有意的:
 
-- 注入点放在 print_status() **最开头**。后面有提前 return 的分支 (流程走完时), 放末尾会被跳过 ——
+- 注入点放在 print_status() **最开头**。后面有提前 return 的分支 (流程走完时), 放末尾会被跳过 
   而语料必须在每一个阶段都出现。
 - 逐行解析 toml 而不用正则。第一版用正则拼字符串, 转义连续出错; 这个格式简单到不需要正则。
 
 ## Alternatives considered
+
+**什么都不做 / 复用现有。** 最强理由是无需新增实现和维护成本. 现有状态仍存在 Problem 中的具体缺口, 因此采用本记录的选择
 
 - **写进 AGENTS.md 之类的常驻配置** — 最强理由: 那是真正的 每轮都注入, 不依赖任何命令被调用。
   否决: 那份配置属于整个仓库, 而语料只对写作流程有意义; 放进去会污染其它任务的上下文。
@@ -44,7 +51,7 @@ Status: implemented
 ## Consequences
 
 - 成本: 每次 status 多约 1000 token (37 条正文合计 1017 字符)。相对一次写作的整体上下文可忽略。
-- 顺带修了一个真 bug: load_voice_db 的返回值硬编码了 bad|good 两个键, cmd_samples 的循环同样只列两组 ——
+- 顺带修了一个真 bug: load_voice_db 的返回值硬编码了 bad|good 两个键, cmd_samples 的循环同样只列两组 
   加 meme 类别时两处都漏改, 表现为 学进去了但看不见。
 - 局限: 语料仍只覆盖**措辞层**。第三层 (来路: 情绪是输入还是装饰) 与手法层 (读者在不在场)
   测不出来也注入不了, 只能靠读。这一点写在 research-output/spoken-style-corpus.md 里。

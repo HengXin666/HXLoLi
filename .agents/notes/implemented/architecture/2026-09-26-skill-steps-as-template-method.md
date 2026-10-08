@@ -2,18 +2,33 @@
 
 Status: implemented
 
+Decision-ID: skill-steps-as-template-method
+
 - **引入于**: `f28d9cfd13`
 - **引用落点**: 无源码引用 (约束的是 .agents/skills/ 的**目录组织方式**, 落在各 skill 的 markdown 结构里; 无对应代码声明)
-- 影响: .agents/skills/hx-note/ 全量重组 (steps/ + entries/ + shared/); validate_skill.py 新增两条检查; hx-make-skill 的规范补两节
+
+## Code
+
+- `.agents/skills/hx-note/scripts/cli/authoring/makeDoc.py`
+- `.agents/skills/hx-note/scripts/cli/flow/hx_flow.py`
+- `.agents/skills/hx-note/scripts/cli/identity/hxid_core.py`
+- `.agents/skills/hx-note/scripts/cli/illustration/hx_drawio.py`
+- `.agents/skills/hx-note/scripts/cli/mitemite/mitemite_add.py`
+- `.agents/skills/hx-note/scripts/cli/persona/hx_persona.py`
+- `.agents/skills/hx-note/scripts/cli/taxonomy/tag_apply.py`
+- `.agents/skills/hx-note/scripts/cli/textfmt/punct_core.py`
+- `.agents/skills/hx-note/scripts/cli/transcribe/transcribe_cli.py`
+- `.agents/skills/hx-note/scripts/cli/voice/hx_voice.py`
+- `.agents/skills/hx-note/scripts/lib/textpaths.py`
 
 ## Problem
 
 hx-note 合并九个 skill 之后, 资源全部平铺, 出现两个问题:
 
-1. **索引写法浪费.** SKILL.md 里 32 个引用全写成 `[references/x.md](references/x.md)` —— 给 AI 读的索引用不着可点击,
+1. **索引写法浪费.** SKILL.md 里 32 个引用全写成 `[references/x.md](references/x.md)`  给 AI 读的索引用不着可点击,
    括号里的路径把同一串字符重复一遍, 净多付 870 字符 (约 290 token), 零信息量。
 2. **没有结构性扩展点.** collect / derive / organize 有子目录, 但 stages.md / gates.md / pipeline.md
-   等散在顶层。**没有统一规则, 每加一样东西都要重新判断放哪** —— 这才是扩展性差的来源, 不是文件多。
+   等散在顶层。**没有统一规则, 每加一样东西都要重新判断放哪**  这才是扩展性差的来源, 不是文件多。
 
 ## Decision
 
@@ -28,7 +43,7 @@ entries/<名>/    独立入口 (不重叠于主流程的)
 shared/          跨步骤能力 (不属于任何单步的)
 ```
 
-- `index.md` 只写**契约** (步骤边界与过关条件), 不写具体做法 —— 换实现不用动它。
+- `index.md` 只写**契约** (步骤边界与过关条件), 不写具体做法  换实现不用动它。
 - `impl/` 按场景分文件。加一种新做法 = 加一个文件, **契约与 SKILL.md 都不用改**。
 - SKILL.md 退回**步骤表**: 每步一行, 说清「关心什么 / 契约在哪」。120 行、0 个 markdown 链接。
 
@@ -39,7 +54,7 @@ shared/          跨步骤能力 (不属于任何单步的)
 | 索引写裸路径, 不写「方括号路径 + 圆括号路径」那种写法 | WARN |
 | 每个路径后必须跟一句描述, 不许平铺 | WARN |
 
-校验时**跳过代码块与行内 code** —— 规范文档需要用它们示范错误写法, 那些不算违规。
+校验时**跳过代码块与行内 code**  规范文档需要用它们示范错误写法, 那些不算违规。
 
 ## Alternatives considered
 
@@ -56,7 +71,7 @@ shared/          跨步骤能力 (不属于任何单步的)
 
 - SKILL.md 165 -> 120 行; markdown 链接 32 -> 0; 引用字符 1612 -> 约 742。
 - 扩展面从「改索引 + 改正文 + 改引用」收敛成「加一个文件」。
-- 代价: 目录变深, 从 skill 根看一个 reference 要经过 steps/2-collect/impl/ 三段。这是刻意的 ——
+- 代价: 目录变深, 从 skill 根看一个 reference 要经过 steps/2-collect/impl/ 三段。这是刻意的 
   三段正好回答「哪一步 / 什么类型」, 比平铺时的文件名前缀更稳定。
 - 校验器新增两条 WARN 后, 现有的 hx-agent-notes 与 hx-note 都被检出问题并已修;
   说明这两条规则此前**从未被遵守过**, 不是新增负担。

@@ -1,12 +1,12 @@
 # organize — 整理存量笔记
 
-**第二条入口。不重叠于九步沉淀流水线。**
+**第二条入口. 不重叠于九步沉淀流水线. **
 
 ## 只做这一件事
 
-改**已有**笔记的归类与身份: 重新分类 / 改名 / 搬家 / 整理 tag / 修断链。
+改**已有**笔记的归类与身份: 重新分类 / 改名 / 搬家 / 整理 tag / 修断链
 
-**不要用沉淀流水线去改已有笔记的归属。**
+**不要用沉淀流水线去改已有笔记的归属. **
 
 ## 三档自主权 (先定档再动手)
 
@@ -29,10 +29,10 @@
 
 ## 脚本
 
-- `scripts/hx_docs_id.py` —— hxid 分配与校验 (`assign` / `check` / `resolve` / `links`)
-- `scripts/hxloli_tags.py` —— tag 注册表 (`suggest` / `scan` / `generate` / `check`)
-- `scripts/format_cn_punct.py` —— 标点归一化
+- `scripts/cli/identity/hx_docs_id.py`  hxid 分配与校验 (`assign` / `check` / `resolve` / `links`)
+- `scripts/cli/taxonomy/hxloli_tags.py`  tag 注册表 (`suggest` / `scan` / `generate` / `check`)
+- `scripts/cli/textfmt/format_cn_punct.py`  标点归一化
 
 ## 收尾
 
-与步骤 9 相同: 重建侧边栏 -> 跑 `doctor` 或等价的库级体检。
+与步骤 9 相同: 重建侧边栏 -> 跑 `doctor` 或等价的库级体检

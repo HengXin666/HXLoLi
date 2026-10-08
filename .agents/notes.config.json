@@ -1,73 +1,20 @@
 {
-  "root": ".agents/notes",
-  "archive": "archived",
-  "lifecycles": [
-    "proposed",
-    "implemented",
-    "rejected"
-  ],
-  "classes": [
-    "feature",
-    "bug-fix",
-    "simplification",
-    "architecture",
-    "process",
-    "testing"
-  ],
-  "formatAdopted": "2026-07-05",
-  "coverage": {
-    "enabled": true,
-    "guarded": [
-      "src/**",
-      "scripts/**",
-      "*.ts",
-      "*.mjs",
-      "*.js",
-      "*.json"
-    ],
-    "exempt": [
-      "**/*.md",
-      "**/*.test.*",
-      "**/*.spec.*",
-      "**/__snapshots__/**",
-      ".agents/**",
-      "**/.agents/**"
-    ],
-    "label": "note-exempt"
-  },
-  "backlinks": {
-    "enabled": true,
-    "required": true,
-    "roots": [
-      "scripts",
-      "src",
-      "plugins",
-      ".agents/skills"
-    ],
-    "exclude": [
-      "**/hx-agent-notes/**",
-      "**/__pycache__/**",
-      "**/*.spec.*",
-      "**/*.test.*"
-    ],
-    "extensions": [
-      ".ts",
-      ".tsx",
-      ".js",
-      ".mjs",
-      ".py",
-      ".go",
-      ".rs",
-      ".java",
-      ".kt",
-      ".rb",
-      ".php",
-      ".cs",
-      ".c",
-      ".cc",
-      ".cpp",
-      ".h",
-      ".hpp"
-    ]
-  }
+  "version": 2,
+  "guarded": [
+    ".agents/skills/hx-agent-notes",
+    ".agents/skills/hx-make-skill",
+    ".agents/skills/hx-note",
+    "ai-docs/003-AI/004-\u8bb0\u5fc6/003-obsidian-second-brain/obsidian-second-brain-deck.tsx",
+    "docusaurus.config.ts",
+    "package-lock.json",
+    "package.json",
+    "plugins",
+    "scripts",
+    "sidebars.ts",
+    "sidebarsAiDocs.ts",
+    "src",
+    "tailwind.config.js",
+    "tsconfig.json",
+    "worker.js"
+  ]
 }

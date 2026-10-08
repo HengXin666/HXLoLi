@@ -1,0 +1,4 @@
+{
+  "maxFiles": 10,
+  "reason": "产出模板库: 每个交付形态一份可拷贝骨架 (info/goal/divergence/voice-audit/fidelity-audit/deck) 加 pre-commit 钩子片段; 合并成单文件会让作者拷贝时必须手工裁剪, 反而更容易出错"
+}
