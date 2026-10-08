@@ -59,7 +59,7 @@ blockquote cite{display:block;margin-top:16px;font-size:17px;color:var(--muted);
   <section class="slide cover active">
     <div class="kicker">HXLOLI · AI-DOCS</div>
     <h1>Agent Memory 选型速览</h1>
-    <p class="lead">窗口解决容量, 记忆解决连续性 —— 但连分数都不可比的领域里, 选型该依据什么?</p>
+    <p class="lead">窗口解决容量, 记忆解决连续性  但连分数都不可比的领域里, 选型该依据什么?</p>
     <div class="chips"><span>五大架构范式</span><span>评测可信度危机</span><span>遗忘盲区</span><span>记忆投毒</span><span>四个必补动作</span></div>
   </section>
 
@@ -81,7 +81,7 @@ blockquote cite{display:block;margin-top:16px;font-size:17px;color:var(--muted);
     <div class="shead"><span class="snum">01</span><h2>窗口的账要重新算</h2></div>
     <div class="stage">
       <ul class="points">
-        <li><b>有效上下文只有标称窗口的 50%~65%</b> —— 买来的窗口有一半拿不到手.</li>
+        <li><b>有效上下文只有标称窗口的 50%~65%</b>  买来的窗口有一半拿不到手.</li>
         <li><b>Context Rot</b>: 18 个前沿模型全部随输入增长退化, 200K 窗口的模型可能在 50K 处就已失稳.</li>
         <li><b>Lost in the Middle</b>: 关键事实落在中段时, 准确率下降超过 30%.</li>
         <li><b>结论</b>: 窗口与记忆是两个正交问题, 记忆评测要先写入再跨轮检索, 写入质量本身就是评测对象.</li>
@@ -94,7 +94,7 @@ blockquote cite{display:block;margin-top:16px;font-size:17px;color:var(--muted);
     <div class="shead"><span class="snum">02</span><h2>四类记忆与它们的失效</h2></div>
     <div class="stage">
       <div class="cols">
-        <div class="col"><h3>语义 / 情景</h3><p>语义记事实: X 是 Y. 情景记经历: 遇到 X 时发生了什么.</p><p>情景的独有价值是保留<b>失败与试错的分支</b> —— 事实没有褒贬, 语义记忆说不出"不要先做 X".</p></div>
+        <div class="col"><h3>语义 / 情景</h3><p>语义记事实: X 是 Y. 情景记经历: 遇到 X 时发生了什么.</p><p>情景的独有价值是保留<b>失败与试错的分支</b>  事实没有褒贬, 语义记忆说不出"不要先做 X".</p></div>
         <div class="col"><h3>程序 / 参数</h3><p>程序记怎么做: 遇到 X 先做 Y、别做 Z. 参数是学进权重的偏好.</p><p>程序记忆正在从研究概念走向产品, 记忆形态也可在明文与权重之间转换.</p></div>
       </div>
     </div>
@@ -120,8 +120,8 @@ blockquote cite{display:block;margin-top:16px;font-size:17px;color:var(--muted);
     <div class="shead"><span class="snum">04</span><h2>失效语义比"删除"复杂</h2></div>
     <div class="stage">
       <div class="cols">
-        <div class="col"><h3>写入只有三个动作</h3><p><b>ADD / UPDATE / NO-OP</b>, 加上版本回滚与状态标记 —— <b>没有 DELETE</b>.</p><p>"删除"在记忆系统里通常是<b>标记失效</b>, 不是物理抹除.</p></div>
-        <div class="col"><h3 class="ok">召回与删除是两套器官</h3><p>图谱抽象把具体经历合成事实、丢弃表层形式; 而删除请求恰恰针对表层形式.</p><p>图谱越擅长抽象, 这类删除就越容易失效 —— 这是遗忘评测集体翻车的结构性根因.</p></div>
+        <div class="col"><h3>写入只有三个动作</h3><p><b>ADD / UPDATE / NO-OP</b>, 加上版本回滚与状态标记  <b>没有 DELETE</b>.</p><p>"删除"在记忆系统里通常是<b>标记失效</b>, 不是物理抹除.</p></div>
+        <div class="col"><h3 class="ok">召回与删除是两套器官</h3><p>图谱抽象把具体经历合成事实、丢弃表层形式; 而删除请求恰恰针对表层形式.</p><p>图谱越擅长抽象, 这类删除就越容易失效  这是遗忘评测集体翻车的结构性根因.</p></div>
       </div>
     </div>
     <div class="scap">五种失效语义: 就地覆盖 / 版本化 / 失效不删除 / 时间衰减 / Agent 自主淘汰.</div>
@@ -151,7 +151,7 @@ blockquote cite{display:block;margin-top:16px;font-size:17px;color:var(--muted);
         <li><b>受监管场景里, "能不能删干净"比"能不能想起来"更硬.</b></li>
       </ul>
     </div>
-    <div class="scap">现有榜单几乎不覆盖遗忘 —— 这意味着公开分数无法替你回答合规问题.</div>
+    <div class="scap">现有榜单几乎不覆盖遗忘  这意味着公开分数无法替你回答合规问题.</div>
   </section>
 
   <section class="slide">
@@ -164,7 +164,7 @@ blockquote cite{display:block;margin-top:16px;font-size:17px;color:var(--muted);
       </table>
       <p style="margin-top:22px;font-size:19px;color:#c3d2ef;max-width:1200px;text-align:center">
         准确率差 <b>28.7 分</b>, token 成本差约 <b>24.6 倍</b>. 根因: 策展 Markdown 迫使模型<b>在写入时做推理</b>, 而嵌入不需要.<br>
-        反例更值得记住: 在弃答指标上, 策展文件反而赢了 <b>11.1 分</b> —— 材料更少时, 模型更容易承认"历史里没说".
+        反例更值得记住: 在弃答指标上, 策展文件反而赢了 <b>11.1 分</b>  材料更少时, 模型更容易承认"历史里没说".
       </p>
     </div>
     <div class="scap">如果场景更怕幻觉而不是更怕答不出来, 文件式记忆反而更值得考虑.</div>
@@ -189,10 +189,10 @@ blockquote cite{display:block;margin-top:16px;font-size:17px;color:var(--muted);
     <div class="shead"><span class="snum">09</span><h2>四个必补动作</h2></div>
     <div class="stage">
       <ul class="points">
-        <li><b>元数据隔离</b> —— 防跨租户合并: 元数据不同的事件永不被合并, 哪怕语义高度相似.</li>
-        <li><b>状态过滤层</b> —— 防幽灵记忆: 同一实体的多个有效版本不应被同时召回.</li>
-        <li><b>独立跑遗忘测试</b> —— 不要用召回榜单代替遗忘验证.</li>
-        <li><b>写入侧内容安全校验</b> —— 记忆写入是特权操作, 不是普通的一次函数调用.</li>
+        <li><b>元数据隔离</b>  防跨租户合并: 元数据不同的事件永不被合并, 哪怕语义高度相似.</li>
+        <li><b>状态过滤层</b>  防幽灵记忆: 同一实体的多个有效版本不应被同时召回.</li>
+        <li><b>独立跑遗忘测试</b>  不要用召回榜单代替遗忘验证.</li>
+        <li><b>写入侧内容安全校验</b>  记忆写入是特权操作, 不是普通的一次函数调用.</li>
       </ul>
     </div>
     <div class="scap">这四件事不在任何框架的开箱能力里, 成本却远低于换框架.</div>
@@ -220,7 +220,7 @@ blockquote cite{display:block;margin-top:16px;font-size:17px;color:var(--muted);
         <tr><td>来源与置信度分级</td><td>每条记忆标注来源与信任值</td></tr>
       </table>
     </div>
-    <div class="scap">核心健康指标是"幽灵率" —— 同一实体同时存在多个有效版本的比率. 它比命中率更能提前预警失败.</div>
+    <div class="scap">核心健康指标是"幽灵率"  同一实体同时存在多个有效版本的比率. 它比命中率更能提前预警失败.</div>
   </section>
 
   <section class="slide">
@@ -239,7 +239,7 @@ blockquote cite{display:block;margin-top:16px;font-size:17px;color:var(--muted);
   <section class="slide">
     <div class="shead"><span class="snum">13</span><h2>一句话带走</h2></div>
     <div class="stage">
-      <blockquote>先用"知识来自文档还是对话"把范式定下来, 再用"要不要知道当时什么是真的"决定是否上双时间轴; 然后无论选谁, 先把那四件必补动作做完.<cite>—— 个人判断, 非事实陈述</cite></blockquote>
+      <blockquote>先用"知识来自文档还是对话"把范式定下来, 再用"要不要知道当时什么是真的"决定是否上双时间轴; 然后无论选谁, 先把那四件必补动作做完.<cite> 个人判断, 非事实陈述</cite></blockquote>
     </div>
     <div class="scap">完整推导与数据口径说明见配套笔记 (含"哪些数字查得到、哪些只是转述"一节).</div>
   </section>

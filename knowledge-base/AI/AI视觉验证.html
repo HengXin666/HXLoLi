@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-ai-docs docs-version-current docs-doc-page docs-doc-id-AI/AI视觉验证/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">AI 做视觉任务时怎么自证结果正确 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/knowledge-base/AI/AI视觉验证"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-ai-docs-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-ai-docs-current"><meta data-rh="true" property="og:title" content="AI 做视觉任务时怎么自证结果正确 | HXLoLi"><meta data-rh="true" name="description" content="[!NOTE]"><meta data-rh="true" property="og:description" content="[!NOTE]"><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/knowledge-base/AI/AI视觉验证"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/knowledge-base/AI/AI视觉验证" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/knowledge-base/AI/AI视觉验证" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed"><link rel="stylesheet" href="/HXLoLi/assets/css/styles.4b8d5374.css">
+<script src="/HXLoLi/assets/js/runtime~main.c537a2a1.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.91ffe373.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"dark")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/ai-doc.svg"><link rel="preload" as="image" href="/HXLoLi/default-icons/ai-folder.svg"><link rel="preload" as="image" href="/HXLoLi/default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi/img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi/img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a class="navbar__item navbar__link" href="/HXLoLi/docs/关于">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/knowledge-base/关于">知识库</a><a class="navbar__item navbar__link" href="/HXLoLi/anime">アニメ</a></div><div class="navbar__items navbar__items--right"><div style="position:relative" class="navbar__item"><button class="navbar__link" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;font-size:13px;padding:4px 8px;color:var(--ifm-navbar-link-color)" title="CDN 节点选择"><span style="font-size:11px">⚡</span><span style="font-family:ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, monospace;font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:-0.3px;color:var(--ifm-navbar-link-color)">CDN</span></button></div><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li><li><a class="dropdown__link" href="/HXLoLi/docs-graph">笔记关系图</a></li><li><a class="dropdown__link" href="/HXLoLi/friends">友链</a></li><li><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="dropdown__link">GitHub<svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="ai-kb-page"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><div class="root_l0J4"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li data-sidebar-path="关于" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-1" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" href="/HXLoLi/knowledge-base/关于"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">关于</span></span></span></a></li><li data-sidebar-path="程序语言" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/程序语言/现代C++/HXLibs编写串行协程调度器"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">程序语言</span></span></span></a></div></li><li data-sidebar-path="AI" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/HXLoLi/knowledge-base/AI/基础/Agent要懂的LLM基础知识"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">AI</span></span></span></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list ai-kb-sidebar-children"><li data-sidebar-path="AI/基础" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/基础/Agent要懂的LLM基础知识"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">基础</span></span></span></a></div></li><li data-sidebar-path="AI/Agent架构" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/Agent架构/AI-Agent设计原理与工程实践"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Agent架构</span></span></span></a></div></li><li data-sidebar-path="AI/Agent-Harness" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/Agent-Harness/DSH/DSH-Agent-Loop源码剖析"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Agent-Harness</span></span></span></a></div></li><li data-sidebar-path="AI/记忆" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/记忆/对话记忆与知识库增量沉淀"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">记忆</span></span></span></a></div></li><li data-sidebar-path="AI/Skill" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/Skill/SkillOpt把skill当参数训练"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Skill</span></span></span></a></div></li><li data-sidebar-path="AI/多智能体" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/多智能体/Multica-agent协作与上下文机制"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">多智能体</span></span></span></a></div></li><li data-sidebar-path="AI/检索" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/检索/自建Agent检索栈与凭证治理"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">检索</span></span></span></a></div></li><li data-sidebar-path="AI/AI逆向" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/AI逆向/CF过盾工程-从零实现Turnstile绕过"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">AI逆向</span></span></span></a></div></li><li data-sidebar-path="AI/AI视觉验证" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-2" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/knowledge-base/AI/AI视觉验证"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">AI视觉验证</span></span></span></a></li></ul></li><li data-sidebar-path="工具链" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/工具链/RTK项目使用说明与Codex本地心得"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">工具链</span></span></span></a></div></li><li data-sidebar-path="生活" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/生活/电脑包选购指标"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">生活</span></span></span></a></div></li><li data-sidebar-path="杂谈" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/杂谈/短视频-精神鸦片"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">杂谈</span></span></span></a></div></li><li data-sidebar-path="音视频特效" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/音视频特效/ASS特效字幕/用AI写ASS特效字幕"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">音视频特效</span></span></span></a></div></li></ul></nav></div></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row ai-kb-page"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><div class="aiDocHeader_kTZk" style="opacity:0;transform:translateY(-10px)"><div class="bgGrid_iCNM"></div><div class="metalShine_apht"></div><div class="headerContent_JtLs"><div class="titleRow_gyYW"><div class="aiIcon_uCRj" title="AI 辅助生成内容" style="opacity:0;transform:translateY(-4px) scale(0.9)"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z"></path></svg></div><span class="typewriter_Tkd9" style="display:inline"><span class="typewriterCursor_hJ0X" style="opacity:1;transition:opacity 0.08s">▌</span></span></div><div class="metaRow_SKoK"><span class="metaBadge_cx8r dateBadge_voC8" title="文档创建时间" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"></path></svg></span>2026-09-30</span><span class="metaBadge_cx8r modelBadge_tpoh" title="辅助编辑的 AI 模型: Unknown" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z"></path></svg></span>Unknown</span><a class="metaBadge_cx8r skillBadge_Kei0 clickableBadge_p2xi" title="查看 Skill 源码: hx-note" href="https://github.com/HengXin666/HXLoLi/tree/main/.agents/skills/hx-note" target="_blank" rel="noopener noreferrer" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"></path></svg></span>hx-note<span class="skillExternalIcon_BIVD"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: AI Agent" href="/HXLoLi/knowledge-base/tags/ai-agent"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>AI Agent</span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: 工程实践" href="/HXLoLi/knowledge-base/tags/工程实践"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>工程实践</span></a></div></div></div><div style="display:flex;justify-content:space-between;align-items:center"><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">AI</span><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">AI视觉验证</span><meta itemprop="position" content="2"></li></ul></nav></div><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>AI 做视觉任务时怎么自证结果正确</h1></header>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><span class="octicon octicon-note" style="--oct-icon:url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; class=&#x27;octicon octicon-info mr-2&#x27; viewBox=&#x27;0 0 16 16&#x27; version=&#x27;1.1&#x27; width=&#x27;16&#x27; height=&#x27;16&#x27; aria-hidden=&#x27;true&#x27;%3E%3Cpath d=&#x27;M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z&#x27;%3E%3C/path%3E%3C/svg%3E&quot;)"></span>Note</p>
+<p>AI 做完视觉任务后说&quot;渲染成功了&quot;, 这句话里有多少是它真看见的?
+我调试一个字幕预览时连续误判六次: 其中四次用了一个在正负样本上区分不开的指标, 一次是参数用错, 一次是从有效判据推出了越界结论.
+这篇写那个指标的失效机制, 在它失效时该怎么办, 以及阈值具体取多少.</p>
+</div>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x00-方框的像素比真字还少">0x00 方框的像素比真字还少<a href="#0x00-方框的像素比真字还少" class="hash-link" aria-label="0x00 方框的像素比真字还少的直接链接" title="0x00 方框的像素比真字还少的直接链接">​</a></h2>
+<p>我用非背景像素数判断渲染成功没有. 隔离字体目录后做了对照, 同一段文字:</p>
+<ul>
+<li>真字形: 8994 像素</li>
+<li>中文走 DejaVu (渲染成空方框): 7984 像素</li>
+<li>无任何字形: 0 像素</li>
+</ul>
+<p>阈值怎么调都没用: 真字 8994、方框 7984, 两个数落在同一个区间.</p>
+<p>缺字时每个字符变成一个等宽空心方块, 笔画反而比真字细, 所以方框像素更少.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x01-指标是一次有损投影">0x01 指标是一次有损投影<a href="#0x01-指标是一次有损投影" class="hash-link" aria-label="0x01 指标是一次有损投影的直接链接" title="0x01 指标是一次有损投影的直接链接">​</a></h2>
+<p>把画面压成一个标量, 等于把二维分布投影到一维. 投影必然丢信息, 丢掉什么由公式决定.</p>
+<p>像素数的公式是灰度超过阈值的格子数. 它只反映覆盖面积, 与笔画长什么样无关. 一个实心方块和一个笔画复杂的字, 只要覆盖面积接近, 它就给出同一个值.</p>
+<p>我实测了五个指标在三种变换下的表现. 条件是同一段 CJK 文本, 8 字与 16 字, 字号 60/90/120, 共 18 组 (3 字体 × 2 文本 × 3 字号):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>指标</th><th>对字号</th><th>对字符数</th><th>对字体族</th></tr></thead><tbody><tr><td>像素数</td><td>+261%</td><td>+100%</td><td>-22%</td></tr><tr><td>包围盒长宽比</td><td>+0.9%</td><td>+101%</td><td>-0.6%</td></tr><tr><td>归一化墨量</td><td>+10.8%</td><td>+0.1%</td><td>-22%</td></tr><tr><td>归一化宽度</td><td>+0.1%</td><td>+0.4%</td><td>+0.6%</td></tr><tr><td>包围盒填充率</td><td>+7.3%</td><td>-0.6%</td><td>-22.5%</td></tr></tbody></table>
+<p>像素数被三个变量同时驱动, 它读出的任何数字都无法归因到其中某一个. 长宽比对字号和字体族几乎不敏感 (0.9% 与 0.6%), 对字符数敏感 (101%), 所以它适合回答&quot;这一行有多少个字&quot;这类问题.</p>
+<p>归一化宽度几乎不随任何东西变, 稳定落在 0.68 附近. 那是 CJK 全角字的步进宽度 (advance) 占 em 的比例, 一个排版常数. 注意它量的是墨迹框宽, 只是数值上接近 advance.</p>
+<p>到这里能推出一件事: 指标对某组变换不变, 就必然对另一组敏感. 想知道一个指标能检出什么缺陷, 只需看它敏感的维度有没有被这个缺陷改变.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x02-换指标没用-控制变量才有用">0x02 换指标没用, 控制变量才有用<a href="#0x02-换指标没用-控制变量才有用" class="hash-link" aria-label="0x02 换指标没用, 控制变量才有用的直接链接" title="0x02 换指标没用, 控制变量才有用的直接链接">​</a></h2>
+<p>上一条会推出一个很自然的反应: 换个更好的指标. 我测下来这条路走不通.</p>
+<p>把四种缺陷和四种干扰分别作用在同一基线上, 记录每个指标的相对变化. 缺陷侧: 无字形让像素归零, .notdef 替换让长宽比掉 37.9%, 字体族错让填充率掉 22.5%, 子集缺字让归一化宽掉 25.5%.</p>
+<p>干扰侧的数字更值得看: 字号从 90 降到 60, 像素掉 51.8%; 升到 120, 涨 74.0%; 字符数翻倍, 像素涨 99.9%、长宽比涨 101.0%.</p>
+<p>跨条件比较时, 干扰幅度普遍大于缺陷幅度. 像素数的信噪比只有 0.11, 完全不可用.</p>
+<p>同一条件下换一段文本, 像素只动 0.2%; 而缺陷在同条件下动 11.2%. 余量 56 倍.</p>
+<p>所以同一个指标, 跨条件比就废, 同条件比就够用. 问题不在指标, 在对照条件有没有控制住.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x03-复盘-我卡住的原因是没有基线">0x03 复盘: 我卡住的原因是没有基线<a href="#0x03-复盘-我卡住的原因是没有基线" class="hash-link" aria-label="0x03 复盘: 我卡住的原因是没有基线的直接链接" title="0x03 复盘: 我卡住的原因是没有基线的直接链接">​</a></h2>
+<p>按上一条回头看我当时的调试过程.</p>
+<p>第一步我比的是同一片段、同一时刻的两次渲染, 条件其实是受控的. 两个数是 84932 与 81126, 差 4.5%. 第二步我算出同条件下&quot;换一段文本&quot;只让像素动 0.2%, 于是 4.5% 是它的 22 倍. 信号一直在. 第三步我卡住了, 因为不知道该拿什么当&quot;正常值&quot;.</p>
+<p>缺了参考值, 4.5% 就没法判断是缺陷还是正常波动.</p>
+<p><strong>任何标量指标都必须配一个同条件取得的参考值.</strong> 没有参考值, 这个指标不构成验收, 只构成一个数字.</p>
+<p>顺带修正一个我自己的用词错误. 我之前把&quot;换一段文本带来的 0.2% 变化&quot;叫噪声, 这是错的, 那是不同输入的合法变化. 真正的噪声是同一输入重复渲染的差异, 我实测了 5 次, 逐像素完全相同, 连 ffmpeg 线程数从 1 改到 16 都没有一个像素的差异. 真噪声是 0.</p>
+<p>这个区分有意义: 噪声为 0 意味着任何非零差异都可归因, 剩下的问题只是&quot;归因到缺陷还是归因到合法变动&quot;.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x04-差异法能从整体不对走到哪几个字不对">0x04 差异法能从&quot;整体不对&quot;走到&quot;哪几个字不对&quot;<a href="#0x04-差异法能从整体不对走到哪几个字不对" class="hash-link" aria-label="0x04 差异法能从&quot;整体不对&quot;走到&quot;哪几个字不对&quot;的直接链接" title="0x04 差异法能从&quot;整体不对&quot;走到&quot;哪几个字不对&quot;的直接链接">​</a></h2>
+<p>既然参考值是关键, 那能不能不靠人给? 可以, 用一份故意造错的对照当待测, 拿正确渲染当参考, 逐像素相减.</p>
+<p>我拿完整字体做参考、子集缺两个字做待测, 差异是 2154 像素 (占参考非背景的 23.9%). 把差异往横轴投影, 落在两段: x[766,823] 与 x[830,885], 各宽约 57 像素. 57 像素恰好是一个 90 号 CJK 字的宽度, 于是我不只知道有地方不对, 还知道错的是两个字以及它们在第几个位置.</p>
+<p>标量指标只能回答&quot;整体像不像正常的&quot;. 差异法能回答&quot;错在哪&quot;. 代价是要多渲染一次参考图, 那一次可以用故意造错的方式省掉人工标注. 两类缺陷的差异形状不同: 整体性的偏差 (位置偏、缩放不一致) 让差异弥散, 局部替换 (缺字、错字) 让差异落在离散区间.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x05-按缺陷反查该看哪个量">0x05 按缺陷反查该看哪个量<a href="#0x05-按缺陷反查该看哪个量" class="hash-link" aria-label="0x05 按缺陷反查该看哪个量的直接链接" title="0x05 按缺陷反查该看哪个量的直接链接">​</a></h2>
+<p>把前面的实测整理成反查表. 判据是缺陷幅度大于该指标的所有干扰幅度.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>要检出</th><th>可用指标</th><th>缺陷幅度</th><th>该指标的干扰上界</th></tr></thead><tbody><tr><td>完全不显示</td><td>像素是否归零</td><td>-100%</td><td>无 (归零是绝对信号)</td></tr><tr><td>.notdef 替换</td><td>包围盒长宽比</td><td>-37.9%</td><td>字号 0.9%</td></tr><tr><td>字体族错误</td><td>填充率、归一化墨量</td><td>-22.5% / -22.0%</td><td>归一化墨量对换文本敏感 14.5%</td></tr><tr><td>子集缺字</td><td>归一化宽度</td><td>-25.5%</td><td>换文本 0.6%</td></tr></tbody></table>
+<p>但光有这张表还不够. 反查表必须带前提条件. 判据是: 某个干扰的幅度一旦超过缺陷幅度的三分之一, 它就必须被固定.</p>
+<p>按这条判据逐个算: 长宽比的缺陷幅度是 37.9%, 三分之一是 12.6%, 而它对字符数的响应是 101%、对换文本是 14.5%, 两者都超过 12.6%, 所以长宽比必须固定<strong>字符数和文本</strong>. 填充率的缺陷幅度是 22.5%, 三分之一是 7.5%, 它对字体族的响应是 22.4%、对文本是 13.1%, 所以填充率必须固定<strong>文本和字体族</strong>. 归一化宽度对四种干扰的响应都在 0.6% 以内, 四项都不用固定.</p>
+<p>我按不带前提条件的这版判据写了验收脚本, 在 8 个用例上跑: 缺陷全部检出 (4/4), 但干扰误报 2 个 (2/4). 两例误报正是字符数变化与换一段文本.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x06-阈值具体取多少-先标定-再分层">0x06 阈值具体取多少: 先标定, 再分层<a href="#0x06-阈值具体取多少-先标定-再分层" class="hash-link" aria-label="0x06 阈值具体取多少: 先标定, 再分层的直接链接" title="0x06 阈值具体取多少: 先标定, 再分层的直接链接">​</a></h2>
+<p>上面说的是&quot;信号比干扰大才可用&quot;, 落到脚本里还得有具体数字. 定这个数字的流程是标定.</p>
+<p>固定基线条件渲染一次取参考值; 逐个变动本层不该触发告警的输入, 每次只动一个, 记录每个指标的变化; 取这批变化绝对值的最大者, 就是干扰上界 U; 阈值取在 U 与该指标的缺陷幅度 D 之间. 我按这个流程实测的 U 与 D:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>变动</th><th>像素 U</th><th>长宽比 U</th><th>填充率 U</th><th>归一化宽 U</th></tr></thead><tbody><tr><td>字号</td><td>74.0%</td><td>0.9%</td><td>7.3%</td><td>0.1%</td></tr><tr><td>字符数</td><td>99.9%</td><td>101.0%</td><td>0.6%</td><td>0.5%</td></tr><tr><td>文本</td><td>0.2%</td><td>14.5%</td><td>13.1%</td><td>0.6%</td></tr><tr><td>字体族</td><td>21.9%</td><td>0.6%</td><td>22.4%</td><td>0.6%</td></tr></tbody></table>
+<p>表里的数取的是绝对变化率 (原测量带符号, 例如换文本让长宽比从 8.50 掉到 7.27, 即 -14.5%). 基线统一是「真字形 / 8 字 / 90 号」. 换文本那一行用的是同为 8 字的另一段. 不能用 7 字的句子, 否则分母不同.</p>
+<p>缺陷幅度 D: 像素归零是 100%, 长宽比 37.9%, 填充率 22.5%, 归一化宽 25.5%.</p>
+<p>把这些按&quot;允许哪些输入变动&quot;分成三层, 结论就清楚了.</p>
+<p><strong>L1 同一条字幕重复渲染.</strong> 什么都不该变, U 是 0, 四个指标全部可用.</p>
+<p><strong>L2 同一首歌的不同句子.</strong> 字号和字符数会变. 长宽比在这一层废掉 (它的 U 是 101%, 超过缺陷幅度 37.9%). 剩下三个都可用: 像素的余量刚好 1.0 倍 (它本来就会被字符数翻倍), 填充率 3.1 倍, 归一化宽 51 倍.</p>
+<p><strong>L3 跨作品复用同一套组件.</strong> 四项都变. 归一化宽还稳, 余量 42 倍; 像素的余量 1.0 倍; 长宽比废掉; 填充率在这一层也不可用, 因为它的干扰上界 22.4% 与缺陷幅度 22.5% 只差 0.1 个百分点, 阈值没法取在中间.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x07-可执行件与它的绝对阈值">0x07 可执行件与它的绝对阈值<a href="#0x07-可执行件与它的绝对阈值" class="hash-link" aria-label="0x07 可执行件与它的绝对阈值的直接链接" title="0x07 可执行件与它的绝对阈值的直接链接">​</a></h2>
+<p>上面全是相对幅度, 脚本里需要绝对值. 这些值我在 <span class="tailwind"><a href="/HXLoLi/assets/files/render-check-1e3b9d7982fcced65ae68bee72da3309.py" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">render-check.py<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 里定死了, 并在 8 个用例上复测: 检出 4/4, 误报 0/4. 不带前提条件的版本误报 2/4, 差别只在脚本里 <code>TOL</code> 那张分层表的配置.</p>
+<p>指标定义 (脚本里就是这么算的):</p>
+<ul>
+<li>灰度化用 <code>PIL.Image.convert(&quot;L&quot;)</code>; 灰度 &gt; 30 记为非背景, 30 取在背景 0 与抗锯齿边缘之间的低端</li>
+<li>包围盒取<strong>墨迹框</strong> (非背景像素的最小外接矩形), 不是字身框</li>
+<li>包围盒长宽比 = 包围盒宽 / 包围盒高</li>
+<li>填充率 = 非背景像素数 / 包围盒面积</li>
+<li>归一化宽 = 包围盒宽 / 字符数 / ASS 的 Fontsize</li>
+<li>归一化墨量 = 非背景像素数 / 字符数 / Fontsize 的平方 (这个量只用来说明原理, 可执行件里没有实现它; 脚本只算上面四个)</li>
+</ul>
+<p>分层阈值 (TOL, 四元组依次为像素/长宽比/填充率/归一化宽; None 表示该层禁用):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>层</th><th>允许变动</th><th>阈值四元组</th></tr></thead><tbody><tr><td>L1</td><td>无</td><td>0.0 / 0.10 / 0.10 / 0.10</td></tr><tr><td>L2</td><td>字号, 字符数</td><td>0.99 / None / 0.10 / 0.10</td></tr><tr><td>L3</td><td>字号, 字符数, 文本, 字体族</td><td>0.99 / None / None / 0.10</td></tr></tbody></table>
+<p>L1 那一栏的像素阈值写作 0.0 而不是严格 0, 是为了留一点浮点容差. 其余各项取在该指标的干扰上界与缺陷幅度之间, 具体取一倍余量. L2/L3 的像素阈值放到 0.99, 因为这两层允许字符数变化, 而字符数能让像素动 99.9%.</p>
+<p>渲染与抽帧的完整命令:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-bash codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token comment" style="color:hsl(220, 10%, 40%)"># 渲染一帧 (子集字体目录用 fontsdir 指定, 配合隔离的 fontconfig)</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">ffmpeg </span><span class="token parameter variable" style="color:hsl(207, 82%, 66%)">-y</span><span class="token plain"> </span><span class="token parameter variable" style="color:hsl(207, 82%, 66%)">-f</span><span class="token plain"> lavfi </span><span class="token parameter variable" style="color:hsl(207, 82%, 66%)">-i</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">&quot;color=c=0x000000:s=1280x720:d=100:r=25&quot;</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">\</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">  </span><span class="token parameter variable" style="color:hsl(207, 82%, 66%)">-vf</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">&quot;subtitles=in.ass:fontsdir=./fonts&quot;</span><span class="token plain"> </span><span class="token parameter variable" style="color:hsl(207, 82%, 66%)">-ss</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">10</span><span class="token plain"> </span><span class="token parameter variable" style="color:hsl(207, 82%, 66%)">-frames:v</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">1</span><span class="token plain"> out.png</span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain" style="display:inline-block"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token comment" style="color:hsl(220, 10%, 40%)"># 子集化。输出必须是 ttf, libass/freetype 不读 woff2</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">pyftsubset NotoSansCJK-Regular.ttc --font-number</span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token number" style="color:hsl(29, 54%, 61%)">0</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">\</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">  --text-file</span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain">chars.txt --output-file</span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain">fonts/f.ttf </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">\</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">  --layout-features</span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain">* --no-hinting</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">bash</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p><code>-ss</code> 放在 <code>-vf</code> 之后 (输出侧). 抽样时刻必须从事件表里算出首个事件的真实起点, 不能用窗口参数.</p>
+<p>标定用例的实际输入 (照这三组条件就能重建那 8 个用例):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>用例</th><th>字体目录里放什么</th><th>ASS 里写什么 Fontname</th><th>文本</th><th>字号</th></tr></thead><tbody><tr><td>基线 (真字形)</td><td>Noto Sans CJK 子集</td><td>Noto Sans CJK JP</td><td>用永不止息的光芒</td><td>90</td></tr><tr><td>D1 无字形</td><td>空目录</td><td>Noto Sans CJK JP</td><td>同上</td><td>90</td></tr><tr><td>D2 .notdef</td><td>DejaVuSans.ttf</td><td>DejaVu Sans</td><td>同上</td><td>90</td></tr><tr><td>D3 字体族错</td><td>Noto Serif CJK 子集</td><td>Noto Serif CJK JP</td><td>同上</td><td>90</td></tr><tr><td>D4 子集缺字</td><td>只含&quot;用永不止息的&quot;的子集</td><td>Noto Sans CJK JP</td><td>同上</td><td>90</td></tr><tr><td>V1 字号</td><td>Noto Sans CJK 子集</td><td>Noto Sans CJK JP</td><td>同上</td><td>60 与 120</td></tr><tr><td>V2 字符数</td><td>Noto Sans CJK 子集</td><td>Noto Sans CJK JP</td><td>同一句写两遍 (16 字)</td><td>90</td></tr><tr><td>V3 换文本</td><td>Noto Sans CJK 子集</td><td>Noto Sans CJK JP</td><td>同为 8 字的另一段</td><td>90</td></tr></tbody></table>
+<p>字体隔离靠一个只含单个目录的 fontconfig 配置 (给 ffmpeg 设 <code>FONTCONFIG_FILE</code> 环境变量指向它), 这样系统字体不会参与 fallback, 否则 D1 会退化成本机能显示字体而不是空白.</p>
+<p>参考图的选取约定: <strong><code>--ref</code> 永远放同条件下的正确渲染, <code>--test</code> 放待测</strong>. 差异法那一节里&quot;故意造错的对照&quot;是拿来做 <code>--test</code> 的, 不是做 <code>--ref</code> 的.</p>
+<p>检出告警后的处置: 先按告警类型换判据重查 (长宽比报警说明可能是字符数变了, 不是字形坏了); 确认是字形问题后查字体名匹配与子集覆盖; 仍无法归因时转人工看差异图, 而不是继续加阈值.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x08-视觉任务的失败是静默的">0x08 视觉任务的失败是静默的<a href="#0x08-视觉任务的失败是静默的" class="hash-link" aria-label="0x08 视觉任务的失败是静默的的直接链接" title="0x08 视觉任务的失败是静默的的直接链接">​</a></h2>
+<p>文本任务里做错了, 通常有东西兜住: 类型检查会报, 测试会红, 构建会失败. 视觉任务没有这一层.</p>
+<p>那次调试里有三处&quot;操作成功但结果错&quot;. <code>writeFile</code> 返回成功 (<code>wrote: true, bytes: 43264</code>), 字形却不对. <code>onReady</code> 与 <code>setTrack</code> 都正常触发, 画面里没有字形. 非背景像素 81126 看起来像渲染成功了, 实际和错误状态只差 4.5%.</p>
+<p>画面永远是有像素的, 不会抛异常. 所以视觉任务的反例必须由人主动构造, 不会自己冒出来.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x09-五个具体的坑">0x09 五个具体的坑<a href="#0x09-五个具体的坑" class="hash-link" aria-label="0x09 五个具体的坑的直接链接" title="0x09 五个具体的坑的直接链接">​</a></h2>
+<p><strong>抽帧抽到了空帧.</strong> 我用 <code>-ss 100</code> 得到全黑画面, 判断&quot;渲染失败&quot;. 那段字幕的事件其实从 100.21 秒开始, 差了 0.21 秒. 改成 <code>-ss 101</code> 后正常渲染出 13368 个像素. 抽帧时刻必须从事件表算, 不能拿窗口参数直接套.</p>
+<p><strong>子集化把运行时依赖变成了编译期快照.</strong> 我把 1712 万字节的字体压到 43264 字节, 只保留当时用到的 129 个字符. 换一段内容就会有新字符缺失, 而缺失的表现和原来一模一样, 静默. 更麻烦的是这时人会以为是&quot;组件坏了&quot;. 付款的人是之后复用这个组件去展示别的片段的人, 付款时机是第一次换内容的时候. 只要预览内容可变, 就必须有一条&quot;重新抽字符再重新子集化&quot;的流程, 并在流程末尾检查新字符的覆盖率.</p>
+<p><strong>字体格式的兼容性也是静默失败的.</strong> 子集化时我先用的 woff2 格式, 写进 Worker 后中文仍不显示, 且没有任何报错. 换成 ttf 后立刻正常, 因为 libass 底下的 freetype 不读 woff2. 这条约束写在可执行件里 (它是脚本 make_subset 函数的一句注释), 但文章里得单独讲: 它属于&quot;工具本身的限制&quot;, 与前面讲的&quot;判据选得不对&quot;是两回事.</p>
+<p><strong>&quot;观感不同&quot;这类话必须落到可测的量上.</strong> 我曾在别处写过&quot;四版字体渲染出来观感完全不同&quot;, 但从未测过. 补测后是: 四版在同一帧上两两逐像素差异率 3.06% 到 5.41%, 字面覆盖量 85317 到 94761 像素 (差 11%). 这个数字有区分能力: 如果四版其实一样, 它会给出接近 0 的值.</p>
+<p><strong>判据有效不等于结论有效.</strong> 我用 md5 比两份 ASS 得到相同值, 认为&quot;这是两份可对照的独立样本&quot;. 哈希相同是对的 (两份都是 96e5325006a1c1f07f3b0a758d4c67fd), 但推不出独立样本, 因为前者是指向后者的符号链接. 正确做法是先 <code>ls -la</code> 看链接类型或比对 inode, 再算哈希. 这类错误和前几条性质不同. 前几条是判据本身没区分能力, 这条是从有效判据推出了超出它范围的结论. 第一种要换量, 第二种要少说一句话.</p>
+<hr>
+<p>回到开头那六次误判: 其中四次缺的是&quot;能在正负样本上区分开的量&quot;, 两次缺的是&quot;这个量的正常值&quot;. 第一类靠控制对照条件解决, 第二类靠自造参考渲染解决.</p>
+<!-- -->
+<section class="box_E7L9" aria-label="引用关系"><div class="tabs_yzFt" role="tablist"><button role="tab" aria-selected="true" class="tabActive_VSXV"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg> <!-- -->本文引用<!-- --> (<!-- -->0<!-- -->)</button><button role="tab" aria-selected="false" class="tab_GvgJ"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg> <!-- -->本文被引用<!-- --> (<!-- -->0<!-- -->)</button><button role="tab" aria-selected="false" class="tab_GvgJ"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg> <!-- -->站外来源<!-- --> (<!-- -->0<!-- -->)</button></div><div class="panel_O6s1"><p class="empty_J6nF"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" class="icon_pkkL" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M248 8C111.03 8 0 119.03 0 256s111.03 248 248 248 248-111.03 248-248S384.97 8 248 8zm0 432c-101.69 0-184-82.29-184-184 0-101.69 82.29-184 184-184 101.69 0 184 82.29 184 184 0 101.69-82.29 184-184 184zm0-312c-70.69 0-128 57.31-128 128s57.31 128 128 128 128-57.31 128-128-57.31-128-128-128zm0 192c-35.29 0-64-28.71-64-64s28.71-64 64-64 64 28.71 64 64-28.71 64-64 64z"></path></svg> <!-- -->本文没有引用站内其它文档。</p></div></section></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-tags-row"><div class="col"><b>标签：</b><ul class="tags_jXut padding--none margin-left--sm"><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/ai-agent">AI Agent</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/工程实践">工程实践</a></li></ul></div></div><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin</b> <!-- -->于 <b><time datetime="2026-10-08T14:58:29.000Z" itemprop="dateModified">2026年10月8日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;align-items:center;margin-top:20px;opacity:0.85">给 AI 买点 Token:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi/default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi/img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi/default-icons/wechat.svg" alt="Wechat Icon" class="icon"><img src="/HXLoLi/img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi/default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/knowledge-base/AI/AI逆向/Turnstile防御面分析与误判权衡"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">Turnstile防御面分析与误判权衡</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/knowledge-base/工具链/RTK项目使用说明与Codex本地心得"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">RTK项目使用说明与Codex本地心得</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#0x00-方框的像素比真字还少" class="table-of-contents__link toc-highlight">0x00 方框的像素比真字还少</a></li><li><a href="#0x01-指标是一次有损投影" class="table-of-contents__link toc-highlight">0x01 指标是一次有损投影</a></li><li><a href="#0x02-换指标没用-控制变量才有用" class="table-of-contents__link toc-highlight">0x02 换指标没用, 控制变量才有用</a></li><li><a href="#0x03-复盘-我卡住的原因是没有基线" class="table-of-contents__link toc-highlight">0x03 复盘: 我卡住的原因是没有基线</a></li><li><a href="#0x04-差异法能从整体不对走到哪几个字不对" class="table-of-contents__link toc-highlight">0x04 差异法能从&quot;整体不对&quot;走到&quot;哪几个字不对&quot;</a></li><li><a href="#0x05-按缺陷反查该看哪个量" class="table-of-contents__link toc-highlight">0x05 按缺陷反查该看哪个量</a></li><li><a href="#0x06-阈值具体取多少-先标定-再分层" class="table-of-contents__link toc-highlight">0x06 阈值具体取多少: 先标定, 再分层</a></li><li><a href="#0x07-可执行件与它的绝对阈值" class="table-of-contents__link toc-highlight">0x07 可执行件与它的绝对阈值</a></li><li><a href="#0x08-视觉任务的失败是静默的" class="table-of-contents__link toc-highlight">0x08 视觉任务的失败是静默的</a></li><li><a href="#0x09-五个具体的坑" class="table-of-contents__link toc-highlight">0x09 五个具体的坑</a></li></ul></div></div></div></div></main></div></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">友情链接</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://hengxin666.github.io/cppreference-zh-cn/" target="_blank" rel="noreferrer noopener" style="display: flex; align-items: center; gap: 3px; text-decoration: none; color: inherit; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                  <img src="/HXLoLi/icons/ISO_C++_Logo.svg" alt="cppreference" width="36" height="36" style="flex-shrink: 0;">
+                  <span style="font-size: 16px; font-weight: 600; position: relative; top: -1.75px;">cppreference</span>
+                </a>
+                <div style="height: 10px;"></div>
+              </li><li class="footer__item">
+                <a href="https://bgm.tv" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/img/BanGuMi_Logo.png" alt="BanGuMi" height="50">
+                </a>
+              </li><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2026 HXLoLi, Inc. 在 🇨🇳 用 ❤️ 制作.</div></div></div></footer></div>
+</body>
+</html>
