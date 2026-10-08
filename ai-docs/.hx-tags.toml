@@ -358,50 +358,67 @@ desc = "用语法/结构约束模型输出格式"
 parent = "LLM"
 aliases = []
 
+[tags."音视频特效"]  # 结构层, 不直接挂笔记
+desc = "字幕、歌词动效与视频画面上的视觉加工"
+aliases = []
+
+[tags."字幕特效"]  # 5 篇在用
+desc = "ASS/KFX 特效字幕的实现机制、约束与工程做法"
+parent = "音视频特效"
+aliases = ["KFX", "特效字幕"]
+
+[tags."特效风格"]  # 1 篇在用
+desc = "特效的风格选择: 取材来源、转化与融合、字体与排版取舍"
+parent = "音视频特效"
+aliases = ["动效设计"]
+
 # >>> hx-tags:generated begin (由 hxloli_tags.py generate 重建, 请勿手改) >>>
 [generated]
 schema_version = 1
-source_digest = "sha256:3383b8e46e6a971c"
-generated_at = "2026-09-13T14:19:10Z"
-notes_scanned = 28
-tags_in_use = 53
+source_digest = "sha256:8130cfac0f4064f9"
+generated_at = "2026-10-05T12:28:28Z"
+notes_scanned = 37
+tags_in_use = 55
 
 [generated.usage]
-"AI Agent" = 15
+"AI Agent" = 16
+"工程实践" = 10
 "Harness" = 4
 "Skill" = 4
+"字幕特效" = 4
+"特效风格" = 4
 "记忆系统" = 4
 "逆向与风控" = 4
+"AI工具" = 3
+"C++" = 3
 "DSH" = 3
 "Turnstile" = 3
 "多智能体" = 3
-"工程实践" = 3
 "技术选型" = 3
 "提示词工程" = 3
 "知识库" = 3
+"评测" = 3
 "Agent架构" = 2
-"AI工具" = 2
-"C++" = 2
 "Codex" = 2
 "MCP" = 2
 "Multica" = 2
 "Python" = 2
+"react" = 2
 "上下文工程" = 2
+"前端" = 2
+"协程" = 2
+"可复现性" = 2
+"异步任务" = 2
 "检测面建模" = 2
-"评测" = 2
+"组件库" = 2
 "Bot Defense" = 1
 "KV Cache" = 1
 "LLM" = 1
 "OAuth" = 1
-"react" = 1
 "Tokenization" = 1
 "凭证管理" = 1
-"前端" = 1
 "前端动画" = 1
-"协程" = 1
-"可复现性" = 1
 "增量沉淀" = 1
-"异步任务" = 1
 "数据面" = 1
 "检索" = 1
 "毛选方法论" = 1
@@ -412,7 +429,6 @@ tags_in_use = 53
 "电脑包" = 1
 "短视频" = 1
 "约束解码" = 1
-"组件库" = 1
 "编译期多态" = 1
 "自建部署" = 1
 "语言特性" = 1

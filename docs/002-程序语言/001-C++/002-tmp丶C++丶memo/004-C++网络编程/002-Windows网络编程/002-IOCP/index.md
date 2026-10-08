@@ -443,7 +443,7 @@ BOOL PostQueuedCompletionStatus(
 ## 注解
 ### 参考链接
 1. 感谢GPT-3.5
-2. [c++——iocp模型](https://blog.csdn.net/www_dong/article/details/125667928)
+2. [c++iocp模型](https://blog.csdn.net/www_dong/article/details/125667928)
 3. 拓展阅读: [采用完成端口（IOCP）实现高性能网络服务器（Windows c++版）](https://www.cnblogs.com/yuanchenhui/p/iocp_windows.html)
 
 ### [1] CompletionKey 详解

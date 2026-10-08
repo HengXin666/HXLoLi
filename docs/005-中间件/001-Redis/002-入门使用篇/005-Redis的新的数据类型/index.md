@@ -184,7 +184,7 @@ ERR The ID specified in XADD is equal or smaller than the target stream top item
 ## 6.4 Geospatial(GEO)(地理空间)
 Redis GEO 主要用于存储地理位置信息，并对存储的信息进行操作，该功能在 Redis 3.2 版本新增。
 
-底层数据结构: [地理位置数据存储方案——Redis GEO](https://cloud.tencent.com/developer/article/2030223), [Redis Geo：掌握地理空间数据的艺术](https://blog.csdn.net/Mrxiao_bo/article/details/135455166)
+底层数据结构: [地理位置数据存储方案Redis GEO](https://cloud.tencent.com/developer/article/2030223), [Redis Geo：掌握地理空间数据的艺术](https://blog.csdn.net/Mrxiao_bo/article/details/135455166)
 
 | ##container## |
 |:--:|

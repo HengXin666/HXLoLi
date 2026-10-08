@@ -1,11 +1,6 @@
 // 由 scripts/generateAiDocsSidebar.js 自动生成
 // 请勿手动编辑 — 运行 node scripts/generateAiDocsSidebar.js 以更新
 
-/**
- * ai-docs 目录重分类: 从「来源/体裁」维度切到「学科」维度
- * .agents/notes/implemented/architecture/2026-09-13-ai-docs-taxonomy.md
- * 沉淀流水线改为"两份产物 + 九个单一职责阶段"
- */
 const aiDocsSidebar = [
   {
     "type": "doc",

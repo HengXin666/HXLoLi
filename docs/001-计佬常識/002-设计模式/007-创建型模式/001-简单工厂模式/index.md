@@ -6,7 +6,7 @@
 
 > Wikipedia says：Factory is an object for creating other objects – formally a factory is a function or method that returns objects of a varying prototype or class.
 >
-> 工厂是一个用于创建其他对象的对象——从形式上讲，工厂是一个函数或方法，它返回不同原型或类型的对象。
+> 工厂是一个用于创建其他对象的对象从形式上讲，工厂是一个函数或方法，它返回不同原型或类型的对象。
 >
 > Providing a static method encapsulated in a class called the factory, to hide the implementation logic and make client code focus on usage rather than initializing new objects.
 > 

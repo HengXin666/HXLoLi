@@ -1,4 +1,4 @@
-# 网络编程——C++实现socket通信(TCP)高并发之epoll模式
+# 网络编程C++实现socket通信(TCP)高并发之epoll模式
 
 ## epoll技术简介
 【epoll概述】
@@ -422,7 +422,7 @@ int main()
 
 [CSDN: (C++通讯架构学习笔记)epoll介绍及原理详解](https://blog.csdn.net/baidu_41388533/article/details/110134366)
 
-[CSDN: 网络编程——C++实现socket通信(TCP)高并发之epoll模式](https://blog.csdn.net/buknow/article/details/107018954)
+[CSDN: 网络编程C++实现socket通信(TCP)高并发之epoll模式](https://blog.csdn.net/buknow/article/details/107018954)
 
 [知乎: 深入了解epoll模型 (特别详细)](https://zhuanlan.zhihu.com/p/427512269)
 

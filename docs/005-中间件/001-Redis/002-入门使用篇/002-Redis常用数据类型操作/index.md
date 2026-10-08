@@ -65,7 +65,7 @@ ttl <key-name>
 
 2. 对于整数的加减, 需要保证数值在`long long`的表示范围内
 
-3. 浮点数可以使用科学计数`-2e-12`(可能需要新版本), 不建议使用, 因为会有精度问题<sup>[[Redis——INCRBYFLOAT命令的精度问题](https://blog.csdn.net/dangfulin/article/details/110872480)]</sup>
+3. 浮点数可以使用科学计数`-2e-12`(可能需要新版本), 不建议使用, 因为会有精度问题<sup>[[RedisINCRBYFLOAT命令的精度问题](https://blog.csdn.net/dangfulin/article/details/110872480)]</sup>
 
 注意:
 - `incr`/`decr`命令是**原子操作**。也就是指不会被线程调度机制打断的操作。这种操作一旦开始，就一直运行到结束，中间不会有任何线程上下文切换。在单线程中， 能够在单条指令中完成的操作都可以认为是"原子操作"。

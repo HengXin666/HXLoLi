@@ -259,7 +259,7 @@ class _MyTask implements Runnable {
 
 对于`synchronized(对象) {代码块}`中, `()`内的对象也应该是一个和该对象共用的, 而不能`synchronized(new Obj()) {代码块}`这样!
 
-更多学习: [Java多线程——synchronized使用详解](https://blog.csdn.net/zhangqiluGrubby/article/details/80500505)
+更多学习: [Java多线程synchronized使用详解](https://blog.csdn.net/zhangqiluGrubby/article/details/80500505)
 
 ---
 

@@ -221,7 +221,7 @@ ORDER BY id;
 
 ## 正解
 
-链接 [图解——连续日期及难点分析](https://leetcode.cn/problems/human-traffic-of-stadium/solutions/701681/tu-jie-lian-xu-ri-qi-ji-nan-dian-fen-xi-xnj58/)
+链接 [图解连续日期及难点分析](https://leetcode.cn/problems/human-traffic-of-stadium/solutions/701681/tu-jie-lian-xu-ri-qi-ji-nan-dian-fen-xi-xnj58/)
 
 在公司用`hive`常会用到这解法，有时候会在临时表里再多重嵌套
 

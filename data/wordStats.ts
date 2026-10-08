@@ -1034,11 +1034,83 @@ export const stats: RecordItem[] = [
     "message": "[ai-docs] 对话记忆笔记: 修正 mermaid 图中括号"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-09-10T17:25:18.543Z",
+    "commit": "e4fa2c4ea25e4fb038677ad384dca6c11bcfd889",
+    "date": "2026-09-11T01:25:18+08:00",
     "docsBlogWordCount": 3861735,
     "aiDocsWordCount": 268319,
     "wordCount": 4130054,
     "message": "[ai-docs] ai 搜索插件调研"
+  },
+  {
+    "commit": "d2355db647316ab06c295406612d26e488c3da84",
+    "date": "2026-09-13T15:38:15+08:00",
+    "docsBlogWordCount": 3861826,
+    "aiDocsWordCount": 287407,
+    "wordCount": 4149233,
+    "message": "[chore] 技能重构落地 + hxdeck 主题系统 + 整理前基线"
+  },
+  {
+    "commit": "244e9df2aa8f465d61da1f2dcb3c270716a73265",
+    "date": "2026-09-13T15:43:37+08:00",
+    "docsBlogWordCount": 3861826,
+    "aiDocsWordCount": 287342,
+    "wordCount": 4149168,
+    "message": "[ai-docs] 目录重分类: 从「来源/体裁」维度切到「学科」维度"
+  },
+  {
+    "commit": "dfecd341b050316b1f889b08993046bff2b4bd6f",
+    "date": "2026-09-13T16:17:35+08:00",
+    "docsBlogWordCount": 3861826,
+    "aiDocsWordCount": 287155,
+    "wordCount": 4148981,
+    "message": "[ai-docs] tag 治理: 从标题碎片重做成 5 大类的倒排树"
+  },
+  {
+    "commit": "4d1e725bf29f24a2f001262e8cea40cae4b2acfc",
+    "date": "2026-09-13T16:53:33+08:00",
+    "docsBlogWordCount": 3861826,
+    "aiDocsWordCount": 287176,
+    "wordCount": 4149002,
+    "message": "[chore] 重建 tag 索引: 仅 generatedAt 时间戳变化"
+  },
+  {
+    "commit": "cc0c3a34ae4441b9cfcac9efe0f73a9ba4ff9e06",
+    "date": "2026-09-13T23:07:10+08:00",
+    "docsBlogWordCount": 3861826,
+    "aiDocsWordCount": 239388,
+    "wordCount": 4101214,
+    "message": "chore: ai-docs 规范化整理前基线"
+  },
+  {
+    "commit": "668a5d4a63d1b4d79add6abe60741fb93eafb9a7",
+    "date": "2026-09-13T23:47:35+08:00",
+    "docsBlogWordCount": 3861826,
+    "aiDocsWordCount": 254444,
+    "wordCount": 4116270,
+    "message": "docs(ai-docs): 存量笔记按最新规范全量重写 (29 篇)"
+  },
+  {
+    "commit": "ca2e231f8f484d0e307d5009eb834a29bfc1f6eb",
+    "date": "2026-09-28T03:14:07+08:00",
+    "docsBlogWordCount": 3861826,
+    "aiDocsWordCount": 254444,
+    "wordCount": 4116270,
+    "message": "[chore] AGENTS.md 补严禁: 禁止主动启动博客程序"
+  },
+  {
+    "commit": "b7fbb0c6115dbbc5c9ccd9445cdfd8e914707961",
+    "date": "2026-10-07T23:06:29+08:00",
+    "docsBlogWordCount": 3868018,
+    "aiDocsWordCount": 254444,
+    "wordCount": 4122462,
+    "message": "[blog] add 自用AI代码质量规范"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-10-08T14:58:29.847Z",
+    "docsBlogWordCount": 3867942,
+    "aiDocsWordCount": 441719,
+    "wordCount": 4309661,
+    "message": "[ai-docs] 简单润色部分memo, 新增ass moemo (但不如skill)"
   }
 ];

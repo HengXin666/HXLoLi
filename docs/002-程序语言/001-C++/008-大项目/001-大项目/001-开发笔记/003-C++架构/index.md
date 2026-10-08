@@ -400,7 +400,7 @@ if (query->age) { \
 
 - PO: 数据库表结构到JAVA的映射类
 
-一般我们使用Mybatis建的类为 PO, 控制器接受到前端发来的参数为 DTO, 给前端发送的安全的数据为VO。如果数据类不做映射处理关系时 PO = DO ([三分钟掌握POJO及其转换——PO、DO、DTO、VO](https://zhuanlan.zhihu.com/p/94931336))
+一般我们使用Mybatis建的类为 PO, 控制器接受到前端发来的参数为 DTO, 给前端发送的安全的数据为VO。如果数据类不做映射处理关系时 PO = DO ([三分钟掌握POJO及其转换PO、DO、DTO、VO](https://zhuanlan.zhihu.com/p/94931336))
 
 ## `Controller`から見ると
 考虑以下`Controller`的代码:

@@ -5,12 +5,12 @@
 |:--:|
 |![Clip_2024-04-01_11-49-23.png ##w800##](./Clip_2024-04-01_11-49-23.png)|
 
-- `src/main/java` —— 存放项目的.java 文件
-- `src/main/resources` —— 存放项目资源文件，如 spring, hibernate 配置文件
-- `src/test/java` —— 存放所有单元测试.java 文件，如 JUnit 测试类
-- `src/test/resources` —— 测试资源文件
-- `target` —— 项目输出位置，编译后的 class文件会输出到此目录
-- `pom.xml` —— maven 项目核心配置文件
+- `src/main/java`  存放项目的.java 文件
+- `src/main/resources`  存放项目资源文件，如 spring, hibernate 配置文件
+- `src/test/java`  存放所有单元测试.java 文件，如 JUnit 测试类
+- `src/test/resources`  测试资源文件
+- `target`  项目输出位置，编译后的 class文件会输出到此目录
+- `pom.xml`  maven 项目核心配置文件
 
 注意: *如果是普通的 java 项目，那么就没有 webapp 目录。*
 

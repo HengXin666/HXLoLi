@@ -15980,62 +15980,6 @@ module.exports = {
         "icon": "default-icons/default_folder.svg",
         "tags": []
       }
-    },
-    {
-      "type": "category",
-      "label": "私密笔记",
-      "collapsible": true,
-      "items": [
-        {
-          "type": "category",
-          "label": "密码管理",
-          "collapsible": true,
-          "items": [],
-          "customProps": {
-            "icon": "default-icons/file_type_markdown.svg",
-            "tags": []
-          },
-          "link": {
-            "type": "doc",
-            "id": "私密笔记/密码管理/index"
-          }
-        },
-        {
-          "type": "category",
-          "label": "todo",
-          "collapsible": true,
-          "items": [
-            {
-              "type": "category",
-              "label": "个开架构",
-              "collapsible": true,
-              "items": [],
-              "customProps": {
-                "icon": "default-icons/file_type_markdown.svg",
-                "tags": []
-              },
-              "link": {
-                "type": "doc",
-                "id": "私密笔记/todo/个开架构/index"
-              }
-            }
-          ],
-          "customProps": {
-            "icon": "default-icons/default_folder.svg",
-            "tags": []
-          }
-        }
-      ],
-      "customProps": {
-        "icon": "default-icons/default_folder.svg",
-        "tags": [
-          "private"
-        ]
-      },
-      "link": {
-        "type": "doc",
-        "id": "私密笔记/index"
-      }
     }
   ]
 };

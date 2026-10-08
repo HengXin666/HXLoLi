@@ -172,7 +172,7 @@ int main()
 
 [C++的四个默认函数（构造函数，析构函数，拷贝函数，赋值函数）](https://blog.csdn.net/Fdog_/article/details/113920661)
 
-[【C/C++】拷贝构造函数——深拷贝和浅拷贝](https://blog.csdn.net/qq_34018840/article/details/106232090)
+[【C/C++】拷贝构造函数深拷贝和浅拷贝](https://blog.csdn.net/qq_34018840/article/details/106232090)
 
 ### 代码实现2 (深拷贝)
 实现深克隆，需要处理拷贝构造和赋值运算符，然后可以自身管理内存了。
