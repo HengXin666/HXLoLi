@@ -60,7 +60,7 @@ export interface Datum {
     value: number;
 }
 
-/** 饼图 / 环形图 —— 占比类 */
+/** 饼图 / 环形图  占比类 */
 export function PieChartBlock({
     data,
     height = 300,
@@ -103,7 +103,7 @@ export function PieChartBlock({
     );
 }
 
-/** 折线图 —— 趋势类 */
+/** 折线图  趋势类 */
 export function LineChartBlock({
     data,
     keys,
@@ -148,7 +148,7 @@ export function LineChartBlock({
     );
 }
 
-/** 柱状图 —— 对比类 */
+/** 柱状图  对比类 */
 export function BarChartBlock({
     data,
     keys,
@@ -230,7 +230,7 @@ export function Tree({ root }: { root: TreeNode }): React.ReactElement {
     return <ul style={{ margin: 0, padding: 0 }}>{render(root, 0, 0)}</ul>;
 }
 
-/** 统计数字卡 —— 关键指标 */
+/** 统计数字卡  关键指标 */
 export function Stat({
     label,
     value,

@@ -15,6 +15,10 @@ interface NodeInfo {
   testing: boolean;
 }
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function getNodeList(markAllTesting = false): NodeInfo[] {
   // 使用 musicEngine 获取节点列表 (包含 CF Worker + 所有 jsDelivr 节点)
   // mainEngine 只有 jsDelivr 节点, 缺少子仓库专用的 CF Worker 节点

@@ -54,6 +54,10 @@ function isHtmlHref (href: string): boolean {
     return path.endsWith('.html') || path.endsWith('.htm');
 }
 
+/**
+ * ~~删除线~~ 包住链接时, 链接本体看不到删除线
+ * .agents/notes/implemented/bug-fix/2026-09-27-del-inside-link-loses-strikethrough.md
+ */
 function stripPptSyntax (text: string): string {
     return text
         .replace(/##[wW]\d+%?##/g, '')
@@ -98,7 +102,7 @@ export default function MDXA (props: Props): ReactNode {
       通用本地 HTML (.html / .htm).
 
       内容仍然用 iframe 独立渲染 (它有自己的样式, 强行套主题会坏),
-      但**外框与 .tsx 演示页统一** —— 两者都是"一块可预览的演示内容",
+      但**外框与 .tsx 演示页统一**  两者都是"一块可预览的演示内容",
       边界表现一致, 读者一眼能分清"文章"与"演示".
     */
     if (target === 'html' && hasPptMark) {

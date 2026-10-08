@@ -20,15 +20,13 @@
     "postinstall": "node scripts/patch-image-size-svg.cjs",
     "dev:private": "node scripts/setup-private.mjs && node scripts/run-docusaurus.mjs start",
     "clean:private": "node scripts/clean-private.mjs",
-    "verify-notes": "node .agents/skills/hx-agent-notes/scripts/verify-all.ts",
-    "verify-notes:staged": "node .agents/skills/hx-agent-notes/scripts/verify-all.ts --staged",
-    "verify-notes:tree": "node .agents/skills/hx-agent-notes/scripts/verify-tree.ts",
-    "verify-notes:format": "node .agents/skills/hx-agent-notes/scripts/verify-format.ts",
-    "verify-notes:coverage": "node .agents/skills/hx-agent-notes/scripts/verify-coverage.ts",
-    "verify-notes:backlinks": "node .agents/skills/hx-agent-notes/scripts/verify-backlinks.ts",
-    "notes:new": "node .agents/skills/hx-agent-notes/scripts/new-note.ts",
-    "notes:archive": "node .agents/skills/hx-agent-notes/scripts/archive-note.ts",
-    "notes:board": "node .agents/skills/hx-agent-notes/scripts/build-board.ts --init board.html"
+    "verify-notes": "uv run scripts/redlines/agent_notes.py --diff",
+    "verify-notes:staged": "uv run scripts/redlines/agent_notes.py --staged",
+    "verify-notes:tree": "uv run scripts/redlines/agent_notes.py --diff",
+    "verify-notes:format": "uv run scripts/redlines/agent_notes.py --all",
+    "notes:new": "uv run .agents/skills/hx-agent-notes/scripts/setup/new_note.py",
+    "notes:board": "node .agents/skills/hx-agent-notes/scripts/authoring/build-board.ts --init board.html",
+    "verify-notes:all": "uv run scripts/redlines/agent_notes.py --all"
   },
   "dependencies": {
     "@docusaurus/core": "3.7.0",

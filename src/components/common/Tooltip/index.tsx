@@ -2,6 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './Tooltip.module.css';
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 type TriggerElement = React.ReactElement<
   React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLElement>
 >;

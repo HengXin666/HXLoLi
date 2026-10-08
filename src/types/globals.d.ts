@@ -1,12 +1,16 @@
 /**
  * 静态资源与第三方模块的类型声明.
  *
- * 命名注意: 本文件**不能**叫 `hxdeck.d.ts` —— 那样会与 `src/hxdeck/` 目录同名,
+ * 命名注意: 本文件**不能**叫 `hxdeck.d.ts`  那样会与 `src/hxdeck/` 目录同名,
  * TS 会优先解析 .d.ts, 导致 `import ... from '@site/src/hxdeck'` 全部指向声明文件,
  * 报出莫名其妙的类型错误 (例如把 ReactNode 退化成 string 交集).
  */
 
 declare module '*.webp' {
+    /**
+     * HXLoLi 接入 Agent Notes v2
+     * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+     */
     const src: string;
     export default src;
 }

@@ -13,8 +13,8 @@
  *   也接受具名写法: [##PPT 页码=3 主题=whale##](x.tsx)
  *
  * ── 刻意不做的 ────────────────────────────────────────────────
- *   · 不接受 "标题" 参数 —— 标题一律取自链接原文
- *   · 不接受 宽/高/切换/目录 —— 这些应由 deck 自身与站点统一定义,
+ *   · 不接受 "标题" 参数  标题一律取自链接原文
+ *   · 不接受 宽/高/切换/目录  这些应由 deck 自身与站点统一定义,
  *     放进每篇笔记的链接里会让写法迅速失控
  */
 
@@ -39,7 +39,7 @@ export function classifyHref(href: string): PptTarget {
 /**
  * 解析指令串.
  * 只认两个东西: 一个纯数字 (页码) 和一个非数字词 (主题).
- * 多余的内容会被忽略, 而不是当作标题 —— 避免出现"半个标题进了指令"这种模糊状态.
+ * 多余的内容会被忽略, 而不是当作标题  避免出现"半个标题进了指令"这种模糊状态.
  */
 export function parsePptArgs(raw: string): PptDirective {
     const out: PptDirective = {};
@@ -71,7 +71,7 @@ export function parsePptArgs(raw: string): PptDirective {
 /**
  * 从链接文字里抽出指令, 并返回去掉指令后的**标题原文**.
  *
- * 标题就是链接里除指令之外剩下的文字 —— 与旧语法
+ * 标题就是链接里除指令之外剩下的文字  与旧语法
  * `[标题 #ppt](x.html)` 的行为一致.
  */
 export function parsePptText(text: string): { directive: PptDirective; title: string; matched: boolean } {

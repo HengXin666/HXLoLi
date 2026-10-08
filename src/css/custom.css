@@ -32,7 +32,7 @@
   del/s 删除线内的链接必须显式补线.
 
   HXLink 用 inline-block 做悬停下划线动画 (src/components/HXLink/index.tsx), 而 inline-block
-  属于 atomic inline —— 祖先 <del> 的 text-decoration 不向它传播, 于是 ~~[文字](url)~~ 的线
+  属于 atomic inline  祖先 <del> 的 text-decoration 不向它传播, 于是 ~~[文字](url)~~ 的线
   只画在外层那个空 span 上, 链接本体一条线都看不到 (纯文本的 ~~删除~~ 却正常).
 
   两条规则还会把它抹平, 所以必须带 !important:

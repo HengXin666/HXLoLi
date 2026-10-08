@@ -43,7 +43,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "label": "AI Agent",
       "slug": "ai-agent",
       "permalink": "/knowledge-base/tags/ai-agent",
-      "count": 15,
+      "count": 16,
       "description": "Agent 系统的设计、架构与工程实践, 不含模型原理本身",
       "parent": "",
       "aliases": [],
@@ -53,7 +53,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "label": "工程实践",
       "slug": "工程实践",
       "permalink": "/knowledge-base/tags/工程实践",
-      "count": 4,
+      "count": 11,
       "description": "可直接复用的工程做法与取舍",
       "parent": "AI Agent",
       "aliases": [
@@ -87,17 +87,29 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": ""
     },
     {
-      "label": "C++",
-      "slug": "c",
-      "permalink": "/knowledge-base/tags/c",
+      "label": "特效风格",
+      "slug": "特效风格",
+      "permalink": "/knowledge-base/tags/特效风格",
       "count": 4,
-      "description": "C++ 语言、范式与标准演进",
-      "parent": "编程语言",
+      "description": "特效的风格选择: 取材来源、转化与融合、字体与排版取舍",
+      "parent": "音视频特效",
       "aliases": [
-        "现代C++",
-        "C++20"
+        "动效设计"
       ],
-      "root": "编程语言"
+      "root": "音视频特效"
+    },
+    {
+      "label": "字幕特效",
+      "slug": "字幕特效",
+      "permalink": "/knowledge-base/tags/字幕特效",
+      "count": 4,
+      "description": "ASS/KFX 特效字幕的实现机制、约束与工程做法",
+      "parent": "音视频特效",
+      "aliases": [
+        "KFX",
+        "特效字幕"
+      ],
+      "root": "音视频特效"
     },
     {
       "label": "Harness",
@@ -142,6 +154,26 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "工程与工具"
     },
     {
+      "label": "可复现性",
+      "slug": "可复现性",
+      "permalink": "/knowledge-base/tags/可复现性",
+      "count": 3,
+      "description": "结果可被稳定复现",
+      "parent": "工程与工具",
+      "aliases": [],
+      "root": "工程与工具"
+    },
+    {
+      "label": "评测",
+      "slug": "评测",
+      "permalink": "/knowledge-base/tags/评测",
+      "count": 3,
+      "description": "能力与效果的量化评估",
+      "parent": "工程与工具",
+      "aliases": [],
+      "root": "工程与工具"
+    },
+    {
       "label": "提示词工程",
       "slug": "提示词工程",
       "permalink": "/knowledge-base/tags/提示词工程",
@@ -155,26 +187,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "AI Agent"
     },
     {
-      "label": "协程",
-      "slug": "协程",
-      "permalink": "/knowledge-base/tags/协程",
-      "count": 3,
-      "description": "协程模型与异步调度",
-      "parent": "C++",
-      "aliases": [],
-      "root": "编程语言"
-    },
-    {
-      "label": "异步任务",
-      "slug": "异步任务",
-      "permalink": "/knowledge-base/tags/异步任务",
-      "count": 3,
-      "description": "异步任务的组织与调度",
-      "parent": "协程",
-      "aliases": [],
-      "root": "编程语言"
-    },
-    {
       "label": "知识库",
       "slug": "知识库",
       "permalink": "/knowledge-base/tags/知识库",
@@ -183,6 +195,29 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "parent": "记忆系统",
       "aliases": [],
       "root": "AI Agent"
+    },
+    {
+      "label": "AI工具",
+      "slug": "ai工具",
+      "permalink": "/knowledge-base/tags/ai工具",
+      "count": 3,
+      "description": "AI 辅助开发的工具链",
+      "parent": "工程与工具",
+      "aliases": [],
+      "root": "工程与工具"
+    },
+    {
+      "label": "C++",
+      "slug": "c",
+      "permalink": "/knowledge-base/tags/c",
+      "count": 3,
+      "description": "C++ 语言、范式与标准演进",
+      "parent": "编程语言",
+      "aliases": [
+        "现代C++",
+        "C++20"
+      ],
+      "root": "编程语言"
     },
     {
       "label": "DSH",
@@ -220,24 +255,14 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "逆向与风控"
     },
     {
-      "label": "可复现性",
-      "slug": "可复现性",
-      "permalink": "/knowledge-base/tags/可复现性",
+      "label": "前端",
+      "slug": "前端",
+      "permalink": "/knowledge-base/tags/前端",
       "count": 2,
-      "description": "结果可被稳定复现",
-      "parent": "工程与工具",
+      "description": "Web 前端框架与交互实现",
+      "parent": "编程语言",
       "aliases": [],
-      "root": "工程与工具"
-    },
-    {
-      "label": "评测",
-      "slug": "评测",
-      "permalink": "/knowledge-base/tags/评测",
-      "count": 2,
-      "description": "能力与效果的量化评估",
-      "parent": "工程与工具",
-      "aliases": [],
-      "root": "工程与工具"
+      "root": "编程语言"
     },
     {
       "label": "上下文工程",
@@ -248,6 +273,36 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "parent": "AI Agent",
       "aliases": [],
       "root": "AI Agent"
+    },
+    {
+      "label": "协程",
+      "slug": "协程",
+      "permalink": "/knowledge-base/tags/协程",
+      "count": 2,
+      "description": "协程模型与异步调度",
+      "parent": "C++",
+      "aliases": [],
+      "root": "编程语言"
+    },
+    {
+      "label": "异步任务",
+      "slug": "异步任务",
+      "permalink": "/knowledge-base/tags/异步任务",
+      "count": 2,
+      "description": "异步任务的组织与调度",
+      "parent": "协程",
+      "aliases": [],
+      "root": "编程语言"
+    },
+    {
+      "label": "组件库",
+      "slug": "组件库",
+      "permalink": "/knowledge-base/tags/组件库",
+      "count": 2,
+      "description": "可复用 UI 组件与其设计",
+      "parent": "前端",
+      "aliases": [],
+      "root": "编程语言"
     },
     {
       "label": "Agent架构",
@@ -261,16 +316,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
         "基础设施"
       ],
       "root": "AI Agent"
-    },
-    {
-      "label": "AI工具",
-      "slug": "ai工具",
-      "permalink": "/knowledge-base/tags/ai工具",
-      "count": 2,
-      "description": "AI 辅助开发的工具链",
-      "parent": "工程与工具",
-      "aliases": [],
-      "root": "工程与工具"
     },
     {
       "label": "Codex",
@@ -309,6 +354,16 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "count": 2,
       "description": "Python 语言与生态",
       "parent": "编程语言",
+      "aliases": [],
+      "root": "编程语言"
+    },
+    {
+      "label": "react",
+      "slug": "react",
+      "permalink": "/knowledge-base/tags/react",
+      "count": 2,
+      "description": "React 及其生态组件",
+      "parent": "前端",
       "aliases": [],
       "root": "编程语言"
     },
@@ -417,16 +472,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "工程与工具"
     },
     {
-      "label": "前端",
-      "slug": "前端",
-      "permalink": "/knowledge-base/tags/前端",
-      "count": 1,
-      "description": "Web 前端框架与交互实现",
-      "parent": "编程语言",
-      "aliases": [],
-      "root": "编程语言"
-    },
-    {
       "label": "前端动画",
       "slug": "前端动画",
       "permalink": "/knowledge-base/tags/前端动画",
@@ -531,16 +576,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "工程与工具"
     },
     {
-      "label": "组件库",
-      "slug": "组件库",
-      "permalink": "/knowledge-base/tags/组件库",
-      "count": 1,
-      "description": "可复用 UI 组件与其设计",
-      "parent": "前端",
-      "aliases": [],
-      "root": "编程语言"
-    },
-    {
       "label": "Bot Defense",
       "slug": "bot-defense",
       "permalink": "/knowledge-base/tags/bot-defense",
@@ -581,16 +616,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "工程与工具"
     },
     {
-      "label": "react",
-      "slug": "react",
-      "permalink": "/knowledge-base/tags/react",
-      "count": 1,
-      "description": "React 及其生态组件",
-      "parent": "前端",
-      "aliases": [],
-      "root": "编程语言"
-    },
-    {
       "label": "Tokenization",
       "slug": "tokenization",
       "permalink": "/knowledge-base/tags/tokenization",
@@ -629,9 +654,113 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "parent": "",
       "aliases": [],
       "root": ""
+    },
+    {
+      "label": "音视频特效",
+      "slug": "音视频特效",
+      "permalink": "/knowledge-base/tags/音视频特效",
+      "count": 0,
+      "description": "字幕、歌词动效与视频画面上的视觉加工",
+      "parent": "",
+      "aliases": [],
+      "root": ""
     }
   ],
   "docs": [
+    {
+      "id": "工具链/受控技术中文与AI味的机械判据",
+      "title": "受控技术中文: 把啰嗦变成可机械检测的判据",
+      "description": "我之前写过怎么判断自己写的东西有没有AI味, 那篇治的是人称、句长、加粗密度、抽象名词与同体裁对照这几项. 但还有一类问题它治不了: 句子本身太长、用词没信息量、范围说不清含不含端点. 这类问题属于精度, 不在句式这一层. 后来翻到一套现成的: 简明技术中文 Simplified Technical Chinese .",
+      "permalink": "/knowledge-base/工具链/受控技术中文与AI味的机械判据",
+      "date": "2026-10-06",
+      "tags": [
+        "工程实践",
+        "可复现性"
+      ]
+    },
+    {
+      "id": "AI/AI视觉验证",
+      "title": "AI 做视觉任务时怎么自证结果正确",
+      "description": "NOTE AI 做完视觉任务后说\"渲染成功了\", 这句话里有多少是它真看见的? 我调试一个字幕预览时连续误判六次: 其中四次用了一个在正负样本上区分不开的指标, 一次是参数用错, 一次是从有效判据推出了越界结论. 这篇写那个指标的失效机制, 在它失效时该怎么办, 以及阈值具体取多少. 0x00 方框的像素比真字还少 我",
+      "permalink": "/knowledge-base/AI/AI视觉验证",
+      "date": "2026-09-30",
+      "tags": [
+        "AI Agent",
+        "工程实践"
+      ]
+    },
+    {
+      "id": "音视频特效/特效风格设计/取材的六个来源",
+      "title": "特效风格的取材: 七个来源与一套判断法",
+      "description": "NOTE AI做的特效一直有个毛病: 技术上没出错, 但看着\"土\". 后来发现病根不在参数, 在取材. 我以前从来没认真决定过这个图元该来自哪儿. 0x00 这套判断法给谁用 这篇给已经会写 ASS 模板、但做出来自己不满意的人看. 你不需要再学 \\\\t 或 \\\\pos 的语义, 它只回答一件事: 动手之前去哪儿找、找",
+      "permalink": "/knowledge-base/音视频特效/特效风格设计/取材的六个来源",
+      "date": "2026-09-29",
+      "tags": [
+        "特效风格",
+        "字幕特效",
+        "工程实践"
+      ]
+    },
+    {
+      "id": "音视频特效/特效风格设计/设计规律",
+      "title": "特效的设计规律: 强度、时间与结构怎么安排",
+      "description": "NOTE 前面几篇讲的是素材从哪来. 这篇讲素材齐了之后, 那些数字怎么定 而且每一个都能测. 实测预览: 三段成品的实时重放 ppt w100% 那三段素材来自本地成品, 各截 8 秒. 播放器是站点自己在用的 SubtitlesOctopus, 与博客播放器同一套. 0x00 段落内的粒子数是常量, 与句长和字数都",
+      "permalink": "/knowledge-base/音视频特效/特效风格设计/设计规律",
+      "date": "2026-09-29",
+      "tags": [
+        "特效风格",
+        "字幕特效",
+        "工程实践"
+      ]
+    },
+    {
+      "id": "音视频特效/特效风格设计/转化与融合",
+      "title": "特效风格的转化与融合: 搬什么、怎么搬、什么时候搬不动",
+      "description": "NOTE 上一篇讲的是去哪儿找. 这篇讲找到之后怎么用: 哪些东西真的能从作品里搬进特效, 哪些搬不动. 0x00 先把\"转化与融合\"拆开 Seekladoom 在《OPED 歌词特效设计思路》 2020 09 27 里给了一个分支叫「风格转化与融合」, 只有三条, 而且以「其他有待扩充」结尾. 三条原文是: 把 LO",
+      "permalink": "/knowledge-base/音视频特效/特效风格设计/转化与融合",
+      "date": "2026-09-29",
+      "tags": [
+        "特效风格",
+        "字幕特效",
+        "工程实践"
+      ]
+    },
+    {
+      "id": "音视频特效/特效风格设计/字体的选择",
+      "title": "特效字幕的字体选择: 硬性条件、同行分歧与反常规用法",
+      "description": "NOTE 字体这事看起来最像审美, 其实里面有不少是硬条件: 缺字会乱码, 跨平台尺寸不一致会让屏幕字错位. 这些跟审美无关. 0x00 能判对错的三条要求 Anime 字幕论坛帖 5310 楼主 Seekladoom, 2020 01 07 给了三个场景: 横排 : OPED 中日歌词和正文字幕不易缺字. 简体字幕不",
+      "permalink": "/knowledge-base/音视频特效/特效风格设计/字体的选择",
+      "date": "2026-09-29",
+      "tags": [
+        "特效风格",
+        "字幕特效",
+        "工程实践"
+      ]
+    },
+    {
+      "id": "音视频特效/ASS特效字幕/用AI写ASS特效字幕",
+      "title": "用 AI 写 ASS 特效字幕: 一套可照做的规格",
+      "description": "NOTE 我想让 AI 替我写出本地那批成品同级的效果歌词. 试过之后发现卡点不在\"AI 会不会写 ASS\", 而在 我能不能把要求写成它可执行、又可判定的形式 . 下面是把这件事定死的那套规矩. 0x00 这套规格给谁用 给 一首日语歌做特效歌词、并要嵌进网页播放器 的项目. 交付物是一份 ASS 文件, 渲染在固定",
+      "permalink": "/knowledge-base/音视频特效/ASS特效字幕/用AI写ASS特效字幕",
+      "date": "2026-09-29",
+      "tags": [
+        "AI工具",
+        "工程实践",
+        "评测"
+      ]
+    },
+    {
+      "id": "程序语言/Web前端/OpenVetta界面设计系统拆解",
+      "title": "OpenVetta 界面设计系统拆解: 从设计令牌到可直接复用的组件包",
+      "description": "做 HX Email 的界面时卡住了: 颜色全硬写在组件里, 想换一套配色就得全文替换. 翻到 open vetta 之后, 我把它的视觉规范整套拆了下来, 做成了一个能直接拷走的包. 0x00 一份能被机器检查的清单 open vetta 的主色配得好看, 但可迁移的是那份 259 行的 apps/desktop/D",
+      "permalink": "/knowledge-base/程序语言/Web前端/OpenVetta界面设计系统拆解",
+      "date": "2026-09-27",
+      "tags": [
+        "前端",
+        "组件库",
+        "react"
+      ]
+    },
     {
       "id": "工具链/怎么判断自己写的东西有没有AI味",
       "title": "怎么判断自己写的东西有没有 AI 味",
@@ -641,18 +770,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "tags": [
         "工程实践",
         "可复现性"
-      ]
-    },
-    {
-      "id": "程序语言/现代C++/C++20协程原理-Zhihu",
-      "title": "C++20 协程: 谁来恢复, 谁来销毁",
-      "description": "写 HXLibs 那个串行调度器时, 我卡在一个问题上: 协程挂起之后, 帧到底归谁管. 0x00 挂起的是这次执行, 不是整个线程 < source: K01,K02,K03,K04,K05,K06,K07,K18 先把两个容易混的东西分开. 无栈协程是一个可以挂起、之后恢复的函数; 有栈协程相当于用户态线程,自己带",
-      "permalink": "/knowledge-base/程序语言/现代C++/C++20协程原理-Zhihu",
-      "date": "2026-09-25",
-      "tags": [
-        "C++",
-        "协程",
-        "异步任务"
       ]
     },
     {
@@ -670,7 +787,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/记忆/Agent-Memory框架选型",
       "title": "Agent Memory 选型指南: 五大范式、评测水分与四个必补动作",
-      "description": "NOTE 同一个记忆框架, 在自家 benchmark 上可以报到 94.4 分 —— 而这个数字来自厂商托管平台的自测. 更麻烦的是: 同一类系统换一套测试脚手架, 分数能相差几十个百分点, 变量既不是模型也不是产品, 而是 谁写的评测代码 . 那么问题就不是\"该买哪个\", 而是: 在一个连分数都不可比的领域里, 选",
+      "description": "NOTE 同一个记忆框架, 在自家 benchmark 上可以报到 94.4 分 而这个数字来自厂商托管平台的自测. 更麻烦的是: 同一类系统换一套测试脚手架, 分数能相差几十个百分点, 变量既不是模型也不是产品, 而是 谁写的评测代码 . 那么问题就不是\"该买哪个\", 而是: 在一个连分数都不可比的领域里, 选型到底",
       "permalink": "/knowledge-base/AI/记忆/Agent-Memory框架选型",
       "date": "2026-09-13",
       "tags": [
@@ -683,7 +800,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/记忆/obsidian-second-brain",
       "title": "obsidian-second-brain 全解: 一个会自我重写的 AI 知识库",
-      "description": "NOTE 你的笔记库在半年后会比今天更聪明吗? 大多数\"第二大脑\"的答案是不会 —— 它们只是一个更整齐的文件柜: 放进去的东西原样躺着, 三个月前的决策和昨天的决策互相矛盾, 而没有任何人知道. obsidian second brain 想换掉这个前提: 知识库不是往里面加东西, 而是围绕新信息重写自己 . 那么,",
+      "description": "NOTE 你的笔记库在半年后会比今天更聪明吗? 大多数\"第二大脑\"的答案是不会 它们只是一个更整齐的文件柜: 放进去的东西原样躺着, 三个月前的决策和昨天的决策互相矛盾, 而没有任何人知道. obsidian second brain 想换掉这个前提: 知识库不是往里面加东西, 而是围绕新信息重写自己 . 那么, 一个",
       "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain",
       "date": "2026-09-13",
       "tags": [
@@ -696,7 +813,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/检索/自建Agent检索栈与凭证治理",
       "title": "自建 Agent 检索栈: 本地化边界、凭证治理与可用性证明",
-      "description": "NOTE 给 Agent 接检索, 最省事的做法永远是\"买一个搜索 API 然后填 key\". 可一旦把约束换成\"尽量完全本地自建\"和\"凭证配置必须体面\", 整个方案的形态就变了 —— 而且变的不只是选型. 更反直觉的是: 决定这套栈能不能长期活下来的, 往往不是检索算法, 而是 token 过期那一刻用户要面对多少摩",
+      "description": "NOTE 给 Agent 接检索, 最省事的做法永远是\"买一个搜索 API 然后填 key\". 可一旦把约束换成\"尽量完全本地自建\"和\"凭证配置必须体面\", 整个方案的形态就变了 而且变的不只是选型. 更反直觉的是: 决定这套栈能不能长期活下来的, 往往不是检索算法, 而是 token 过期那一刻用户要面对多少摩擦. ",
       "permalink": "/knowledge-base/AI/检索/自建Agent检索栈与凭证治理",
       "date": "2026-09-11",
       "tags": [
@@ -711,7 +828,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Skill/Agent-Skill编写最佳实践",
       "title": "Agent Skill 编写最佳实践: 上下文预算、触发工程与可证伪的验证",
-      "description": "NOTE 为什么一个精心写好的 skill 会从来不被触发, 而一个写得普通的 skill 却总被误触发? 决定这件事的, 甚至不是它的正文. 更反直觉的是: 命名不合法、描述缺失、正文超预算 —— 这些失败 没有一个会报错 . skill 只是安静地从目录里消失, 而模型既看不到错误, 也分不清\"不存在\"与\"写错了\"",
+      "description": "NOTE 为什么一个精心写好的 skill 会从来不被触发, 而一个写得普通的 skill 却总被误触发? 决定这件事的, 甚至不是它的正文. 更反直觉的是: 命名不合法、描述缺失、正文超预算 这些失败 没有一个会报错 . skill 只是安静地从目录里消失, 而模型既看不到错误, 也分不清\"不存在\"与\"写错了\". 那",
       "permalink": "/knowledge-base/AI/Skill/Agent-Skill编写最佳实践",
       "date": "2026-09-11",
       "tags": [
@@ -725,7 +842,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Skill/SkillOpt把skill当参数训练",
       "title": "SkillOpt: 把 skill 文档当参数来训练, 以及它在规范与可复现性上的边界",
-      "description": "NOTE 如果一份 skill 文档写得不好, 为什么不能像调参一样把它\"训\"好? SKILL.md 是纯文本, 模型权重可以冻结, 任务分数就是现成的损失函数 —— 这条路听起来几乎无懈可击. 但真正的问题在另一头: 一个只会看任务分数的优化器, 知不知道 skill 该长成什么形状? 它怎么判断\"变得更长\"是进步还",
+      "description": "NOTE 如果一份 skill 文档写得不好, 为什么不能像调参一样把它\"训\"好? SKILL.md 是纯文本, 模型权重可以冻结, 任务分数就是现成的损失函数 这条路听起来几乎无懈可击. 但真正的问题在另一头: 一个只会看任务分数的优化器, 知不知道 skill 该长成什么形状? 它怎么判断\"变得更长\"是进步还是灾难",
       "permalink": "/knowledge-base/AI/Skill/SkillOpt把skill当参数训练",
       "date": "2026-09-11",
       "tags": [
@@ -739,7 +856,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/记忆/自维护可插拔记忆层设计",
       "title": "自维护可插拔记忆层设计: 一次对比市面方案后的收敛",
-      "description": "NOTE 一个 AI 在 A 项目里踩过的坑, 为什么到了 B 项目还要再踩一遍? 多数\"记忆\"系统只做到了同一工作区内的召回 —— 出了这个会话, 经验就归零. 真正想要的是另一件事: 让一次具体事故自动上升成一条对 所有 项目都成立的规则. 那么, 一个既能被任何 harness 读写、又能自己把经验拔高的记忆层,",
+      "description": "NOTE 一个 AI 在 A 项目里踩过的坑, 为什么到了 B 项目还要再踩一遍? 多数\"记忆\"系统只做到了同一工作区内的召回 出了这个会话, 经验就归零. 真正想要的是另一件事: 让一次具体事故自动上升成一条对 所有 项目都成立的规则. 那么, 一个既能被任何 harness 读写、又能自己把经验拔高的记忆层, 该由",
       "permalink": "/knowledge-base/AI/记忆/自维护可插拔记忆层设计",
       "date": "2026-09-06",
       "tags": [
@@ -751,7 +868,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Agent-Harness/DSH/DSH预设提示词全解",
       "title": "DeepSeek Harness 提示词全解: 四个预设与每一步投递",
-      "description": "NOTE 同一句\"你好\", 为什么在标准模式和极简模式里会被送出完全不同的请求头? 提示词在那台运行时里不是一段文字, 而是一组按 order 拼装、按预设挂载、按步骤重建的资产. 更反常识的是: 压缩指令不是另写的摘要 system prompt, 而是 追加在回放会话最后的一条 user 消息 —— 只为让这次旁路",
+      "description": "NOTE 同一句\"你好\", 为什么在标准模式和极简模式里会被送出完全不同的请求头? 提示词在那台运行时里不是一段文字, 而是一组按 order 拼装、按预设挂载、按步骤重建的资产. 更反常识的是: 压缩指令不是另写的摘要 system prompt, 而是 追加在回放会话最后的一条 user 消息 只为让这次旁路调用命",
       "permalink": "/knowledge-base/AI/Agent-Harness/DSH/DSH预设提示词全解",
       "date": "2026-09-06",
       "tags": [
@@ -776,7 +893,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Agent-Harness/DSH/DSH-Runtime设计思想插件树与事件日志",
       "title": "DeepSeek Harness设计思想: 插件树与事件日志",
-      "description": "NOTE 一个 agent 最贵的时刻, 不是模型答错, 而是它在崩溃重启后 把已经改过的文件又改了一遍 . 要避免这件事, 光有\"聊天记录\"远远不够: 系统必须能回答三个问题 —— 这个能力是谁给的、这次副作用到底发生了没有、模型究竟看见过什么. DeepSeek Harness 把这些归属全部收进两根支柱: 插件树",
+      "description": "NOTE 一个 agent 最贵的时刻, 不是模型答错, 而是它在崩溃重启后 把已经改过的文件又改了一遍 . 要避免这件事, 光有\"聊天记录\"远远不够: 系统必须能回答三个问题 这个能力是谁给的、这次副作用到底发生了没有、模型究竟看见过什么. DeepSeek Harness 把这些归属全部收进两根支柱: 插件树 与 ",
       "permalink": "/knowledge-base/AI/Agent-Harness/DSH/DSH-Runtime设计思想插件树与事件日志",
       "date": "2026-09-05",
       "tags": [
@@ -800,7 +917,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/记忆/对话记忆与知识库增量沉淀",
       "title": "AI Agent 对话记忆与知识库增量沉淀设计",
-      "description": "NOTE 你的 Agent 记住的应该是什么? 是一堆日志, 还是一条 能从过去通向当下决策的链子 ? 如果一个用户今天改了偏好、明天打断纠正了你, 你的系统是\"秒更新又能回答昨天\", 还是两者顾此失彼? 日志该追加、知识该分视图、现状该覆盖、历史该双时态、错误该变成 skill —— 而这一切不始于某张精美的架构图,",
+      "description": "NOTE 你的 Agent 记住的应该是什么? 是一堆日志, 还是一条 能从过去通向当下决策的链子 ? 如果一个用户今天改了偏好、明天打断纠正了你, 你的系统是\"秒更新又能回答昨天\", 还是两者顾此失彼? 日志该追加、知识该分视图、现状该覆盖、历史该双时态、错误该变成 skill 而这一切不始于某张精美的架构图, 而始",
       "permalink": "/knowledge-base/AI/记忆/对话记忆与知识库增量沉淀",
       "date": "2026-08-31",
       "tags": [
@@ -874,7 +991,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/基础/Agent要懂的LLM基础知识",
       "title": "Agent要懂的LLM基础知识",
-      "description": "NOTE 一个 Agent 聊到第二十轮突然不守规矩, 第一百零一次工具调用吐出坏 JSON —— 第一反应通常是\"框架有 bug\", 可如果问题根本不在框架里呢? 温度、分词、注意力这些看起来离业务很远的东西, 决定了 Agent 的成本、延迟与稳定边界; 把它们当成玄学调参, 就只会在同一个坑里反复摔. 0x00 ",
+      "description": "NOTE 一个 Agent 聊到第二十轮突然不守规矩, 第一百零一次工具调用吐出坏 JSON 第一反应通常是\"框架有 bug\", 可如果问题根本不在框架里呢? 温度、分词、注意力这些看起来离业务很远的东西, 决定了 Agent 的成本、延迟与稳定边界; 把它们当成玄学调参, 就只会在同一个坑里反复摔. 0x00 一句话",
       "permalink": "/knowledge-base/AI/基础/Agent要懂的LLM基础知识",
       "date": "2026-08-10",
       "tags": [
@@ -888,7 +1005,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Agent架构/AI-Agent设计原理与工程实践",
       "title": "AI Agent设计原理与工程实践",
-      "description": "NOTE 同一个模型, 换一套外壳, 有的 Agent 能可靠跑完一单退款, 有的却在第三步就编出一句\"已经帮你处理好了\"——差距究竟在模型里, 还是在模型之外? 上下文、工具、约束、验证、纠正, 每一环都决定它落地时是助手还是负担; 这篇文章要问的是, 把这些环节拼成生产可用的 Agent, 工程上到底要付出什么. ",
+      "description": "NOTE 同一个模型, 换一套外壳, 有的 Agent 能可靠跑完一单退款, 有的却在第三步就编出一句\"已经帮你处理好了\"差距究竟在模型里, 还是在模型之外? 上下文、工具、约束、验证、纠正, 每一环都决定它落地时是助手还是负担; 这篇文章要问的是, 把这些环节拼成生产可用的 Agent, 工程上到底要付出什么. 0x",
       "permalink": "/knowledge-base/AI/Agent架构/AI-Agent设计原理与工程实践",
       "date": "2026-08-10",
       "tags": [
@@ -951,7 +1068,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/多智能体/Multica-agent协作与上下文机制",
       "title": "Multica agent协作与上下文机制",
-      "description": "NOTE 在一个工作区里让一个 agent 去唤起另一个 agent 继续干活, 听起来只需要一句 @ ; 但它最容易长成的却是停不下来的成本循环 —— 谁该被叫醒, 被叫醒时它究竟带着哪些上下文? 更反直觉的是: 决定一次运行的并不是上一条评论, 而是 runtime 为这次触发临时注入的任务 brief. agen",
+      "description": "NOTE 在一个工作区里让一个 agent 去唤起另一个 agent 继续干活, 听起来只需要一句 @ ; 但它最容易长成的却是停不下来的成本循环 谁该被叫醒, 被叫醒时它究竟带着哪些上下文? 更反直觉的是: 决定一次运行的并不是上一条评论, 而是 runtime 为这次触发临时注入的任务 brief. agent 一",
       "permalink": "/knowledge-base/AI/多智能体/Multica-agent协作与上下文机制",
       "date": "2026-07-05",
       "tags": [
@@ -963,7 +1080,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/多智能体/Multica智能体模板与小队编排skills调研",
       "title": "Multica智能体模板与小队编排skills调研",
-      "description": "NOTE 用户说\"这些技术栈都可以用\", 一个 agent 会怎么理解? 大概率是把它们全部装进方案 —— 因为它把\"可用\"读成了\"必用\". 同一个问题在编排上还会再出现一次: 当\"组一个小队\"被理解成\"把成员都 @ 一遍\", 平台实际只唤醒了一个 leader, 其余人从未收到任务. 那么, 一套真正可交付的智能体编",
+      "description": "NOTE 用户说\"这些技术栈都可以用\", 一个 agent 会怎么理解? 大概率是把它们全部装进方案 因为它把\"可用\"读成了\"必用\". 同一个问题在编排上还会再出现一次: 当\"组一个小队\"被理解成\"把成员都 @ 一遍\", 平台实际只唤醒了一个 leader, 其余人从未收到任务. 那么, 一套真正可交付的智能体编排 s",
       "permalink": "/knowledge-base/AI/多智能体/Multica智能体模板与小队编排skills调研",
       "date": "2026-07-05",
       "tags": [
@@ -976,7 +1093,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "程序语言/现代C++/现代C++编译期多态审视",
       "title": "现代C++编译期多态审视",
-      "description": "NOTE 如果编译器已经知道你程序里只会出现哪几种类型, 那么每一次调用都穿过一层运行期间接, 究竟是在为谁保留可能性? 「C++20 之后可以彻底抛弃 virtual 」更像一句口号 —— 它成立的前提 类型集合封闭、二进制与源码一起构建 比结论本身重要得多. 这篇文章要问的是: 编译期多态把哪些成本挪走了, 又把哪",
+      "description": "NOTE 如果编译器已经知道你程序里只会出现哪几种类型, 那么每一次调用都穿过一层运行期间接, 究竟是在为谁保留可能性? 「C++20 之后可以彻底抛弃 virtual 」更像一句口号 它成立的前提 类型集合封闭、二进制与源码一起构建 比结论本身重要得多. 这篇文章要问的是: 编译期多态把哪些成本挪走了, 又把哪些成本",
       "permalink": "/knowledge-base/程序语言/现代C++/现代C++编译期多态审视",
       "date": "2026-07-04",
       "tags": [
@@ -1025,11 +1142,11 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "关于",
       "title": "关于",
-      "description": "TIP 这里是 HXLoLi 的 AI 沉淀知识库. 作者懒得写笔记的时候, 内容会先沉淀在这里, 以免污染正式笔记. 站内笔记按统一的写作规范与工作流起草, 每一篇都经作者复核后才提交 —— 你能读到的内容都经过人工确认, 而非模型的一次性输出. 目标: 减少编写笔记的时间. 非期望: 使用 AI 瞎jb产出.",
+      "description": "TIP 这里是 HXLoLi 的 AI 沉淀知识库. 作者懒得写笔记的时候, 内容会先沉淀在这里, 以免污染正式笔记. 站内笔记按统一的写作规范与工作流起草, 每一篇都经作者复核后才提交 你能读到的内容都经过人工确认, 而非模型的一次性输出. 目标: 减少编写笔记的时间. 非期望: 使用 AI 瞎jb产出.",
       "permalink": "/knowledge-base/关于",
       "date": "2026-06-04",
       "tags": []
     }
   ],
-  "generatedAt": "2026-09-27T08:26:49.758Z"
+  "generatedAt": "2026-10-08T13:36:46.302Z"
 };

@@ -6,7 +6,7 @@ import type { DeckTheme } from './theme/types';
 /**
  * 前端主题切换器.
  *
- * 允许读者自己换主题 —— 因为主题只是数据, 换主题不涉及任何代码路径变化.
+ * 允许读者自己换主题  因为主题只是数据, 换主题不涉及任何代码路径变化.
  * 顺序: 已注册 -> 按名加载 (static/themes/*) -> 用户当场导入文件.
  */
 export function ThemeSwitch({

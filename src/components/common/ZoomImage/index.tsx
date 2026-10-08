@@ -17,7 +17,7 @@ import styles from './ZoomImage.module.css';
  *
  *   transform: translate(p.x, p.y) scale(f)
  *
- * 下面三条约束都从这一套坐标里长出来, 动它们之前先把这一节读完 —— 它们各自对应一个踩过的坑:
+ * 下面三条约束都从这一套坐标里长出来, 动它们之前先把这一节读完  它们各自对应一个踩过的坑:
  *
  * 1. p 一旦与 fit 系混用, 锚点和拖拽都会按 f 缩水: 实测拖 100px 只走 42px、滚轮锚点
  *    u 从 0.25 漂到 0.37. 所以本文件里凡是要加减的量 (锚点、拖拽增量、边界) 一律是屏幕像素,
@@ -32,11 +32,11 @@ import styles from './ZoomImage.module.css';
  * 与坐标系无关、但同样踩过的三条:
  *
  * 1. **wheel 必须原生监听.** React 17 起把 wheel 注册为 passive, onWheel 里的
- *    preventDefault() 会被浏览器静默忽略 —— 表现为"在查看器里滚轮同时滚动了背后的文章".
+ *    preventDefault() 会被浏览器静默忽略  表现为"在查看器里滚轮同时滚动了背后的文章".
  * 2. **样式全部收在本目录的 module 里.** 查看器 Portal 到 document.body, 宿主组件的
  *    CSS Module 类名在 Portal 子节点里解析成 undefined, 会塌成没有样式的裸元素.
  * 3. **点没点中图片要看 pointerdown 的 target.** 舞台调了 setPointerCapture 之后,
- *    合成 click 的 target 恒为舞台 —— 拿 click.target 判断会让单击直接关掉查看器.
+ *    合成 click 的 target 恒为舞台  拿 click.target 判断会让单击直接关掉查看器.
  */
 
 export type ZoomImageProps = React.ImgHTMLAttributes<HTMLImageElement> & {
@@ -59,7 +59,7 @@ type Fit = { w: number; h: number };
 /** 放大上限按"一个图像像素最多铺到几个设备像素"算, 与图片原始分辨率挂钩 */
 const MAX_DEVICE_PX_PER_IMAGE_PX = 4;
 const MAX_F = 64;
-/** 低于这个倍数就算回到"整张装下", 直接吸附归位 —— 否则用户永远退不回严格的 f = 1 */
+/** 低于这个倍数就算回到"整张装下", 直接吸附归位  否则用户永远退不回严格的 f = 1 */
 const SNAP_F = 1.02;
 /** 双击的两档: 1.8x, 再双击 3.5x, 第三下复位 */
 const DOUBLE_ZOOM_STEPS = [1.8, 3.5];
@@ -104,7 +104,7 @@ export default function ZoomImage ({
     const measureRef = useRef<() => void>(() => {});
     /** 权威视角: 高频手势直接改它 + 手写 style, 只有倍率的变化才回写 state (工具条读数) */
     const view = useRef<View>({ f: 1, x: 0, y: 0 });
-    /** 每次手势都从"按下那一刻的视角"重算, 而不是累加增量 —— 累加会把丢事件和浮点误差一并算进去 */
+    /** 每次手势都从"按下那一刻的视角"重算, 而不是累加增量  累加会把丢事件和浮点误差一并算进去 */
     const gestureStart = useRef<View>({ f: 1, x: 0, y: 0 });
     const gesture = useRef<{
         kind: 'pan' | 'pinch' | null;
@@ -120,7 +120,7 @@ export default function ZoomImage ({
      * 本次手势是否按在图片上.
      *
      * 只能取 pointerdown 的 target: 舞台调了 setPointerCapture, pointerup 会被重定向到舞台,
-     * 于是合成出来的 click 的 target **永远是舞台** —— 拿 click.target 判断"点的是图片还是背景"
+     * 于是合成出来的 click 的 target **永远是舞台**  拿 click.target 判断"点的是图片还是背景"
      * 会得到恒 false, 单击就直接把查看器关掉 (双击放大也因此被打断).
      */
     const downOnImage = useRef(false);
@@ -136,13 +136,17 @@ export default function ZoomImage ({
      * 把当前 view 画到 DOM 上.
      *
      * 越界收敛是这里的核心: 图片比舞台小时中心必须钉死 (否则"放大过再缩回来, 图被拖出了屏幕"),
-     * 比舞台大时才允许平移, 且边界停在图片边缘 —— 即永远拖不出空白.
+     * 比舞台大时才允许平移, 且边界停在图片边缘  即永远拖不出空白.
      *
      * 下面这条 transform 与上面那段坐标系数是同一个决策的两半, 改动前先读
-     * (see ../../../../.agents/notes/implemented/feature/2026-09-27-image-viewer-zoom-and-pan.md):
+     * (see ):
      * 居中靠负 margin 而不是 `translate(-50%, -50%)`, 单位一律屏幕像素.
      */
-    const apply = useCallback(() => {
+    const apply = useCallback(/**
+                               * 图片查看器自己管缩放与平移, 不复用幻灯架构图那套
+                               * .agents/notes/implemented/feature/2026-09-27-image-viewer-zoom-and-pan.md
+                               */
+                              () => {
         const img = imgRef.current;
         const stage = stageRef.current;
         const fit = fitRef.current;
@@ -165,7 +169,7 @@ export default function ZoomImage ({
     /**
      * 缩放. 锚点 (ax, ay) 是**舞台中心坐标系下的屏幕像素偏移** (即 clientX 减去舞台中心).
      *
-     * 让锚点处对应到图片上的那个点保持不动, 解出来就是这条式子 —— 与当前倍率、与是否拖过都无关.
+     * 让锚点处对应到图片上的那个点保持不动, 解出来就是这条式子  与当前倍率、与是否拖过都无关.
      */
     const zoomAt = useCallback((nextF: number, ax: number, ay: number) => {
         const v = view.current;
@@ -215,7 +219,7 @@ export default function ZoomImage ({
      * 量出 contain 后的尺寸, 写进 img 的内联样式, 再应用当前视角.
      *
      * 尺寸由 JS 算而不是交给 CSS object-fit: 平移边界需要知道**图片实际占了多少舞台**,
-     * 而 object-fit 的盒子永远等于容器, 拿不到真实边界 —— 那正是"拖不出边界"的来源.
+     * 而 object-fit 的盒子永远等于容器, 拿不到真实边界  那正是"拖不出边界"的来源.
      * 这里用 position:absolute + left/top:50% + translate(-50%,-50%) 把图片钉在舞台中心,
      * 中心即唯一锚点.
      */
@@ -295,7 +299,7 @@ export default function ZoomImage ({
      * 滚轮缩放, 以光标为锚点.
      *
      * 两个必须点:
-     * · 原生绑定 + { passive: false } —— React 17 起 wheel 是 passive 的, onWheel 里
+     * · 原生绑定 + { passive: false }  React 17 起 wheel 是 passive 的, onWheel 里
      *   preventDefault() 无效, 事件会继续去滚宿主页面.
      * · 打开期间在 window 捕获阶段无条件吃掉 wheel, 否则光标滑出图片一步, 背后的文章就跟着滚了.
      */
@@ -310,7 +314,7 @@ export default function ZoomImage ({
             const r = stage.getBoundingClientRect();
             if (e.clientX < r.left || e.clientX > r.right
                 || e.clientY < r.top || e.clientY > r.bottom) return;
-            // deltaMode: 0 像素 / 1 行 / 2 页 —— 不换算, 触控板与 Firefox 的步长会差一个量级
+            // deltaMode: 0 像素 / 1 行 / 2 页  不换算, 触控板与 Firefox 的步长会差一个量级
             const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? r.height : 1;
             const dy = clamp(e.deltaY * unit, -120, 120);
             animate(false);
@@ -382,7 +386,7 @@ export default function ZoomImage ({
             }
             const send = gestureStart.current;
             const v = view.current;
-            // 屏幕像素直接叠加, 不按倍率折算 —— 手移动多少, 图就该走多少
+            // 屏幕像素直接叠加, 不按倍率折算  手移动多少, 图就该走多少
             v.x = send.x + dx;
             v.y = send.y + dy;
             apply();
@@ -414,8 +418,8 @@ export default function ZoomImage ({
      * 单击关闭.
      *
      * 判据两条, 缺一不可:
-     * · 拖过 (位移超过阈值) 不算点击 —— 否则每次拖完松手都会把查看器关掉;
-     * · 已经放大过也不算 —— 放大之后"点一下"是放开鼠标, 想退出得点背景 / Esc / × 或双击复位.
+     * · 拖过 (位移超过阈值) 不算点击  否则每次拖完松手都会把查看器关掉;
+     * · 已经放大过也不算  放大之后"点一下"是放开鼠标, 想退出得点背景 / Esc / × 或双击复位.
      * 点图片时还要等一个双击窗口, 不然"双击放大"的第一下就把它关了.
      */
     const onStageClick = (e: React.MouseEvent<HTMLDivElement>) => {

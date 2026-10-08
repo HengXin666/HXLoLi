@@ -1,24 +1,17 @@
-# Agent Notes — 决策记录
-
-非平凡改动的定义: 改变行为、架构、跨文件的契约、流程或工具、测试策略, 或任何落盘 / 线上 / 配置格式。
-每一次非平凡改动都在**同一次提交里**新增或更新一篇 Agent Note; 纯机械的局部编辑豁免。
-
-1. 改一个声明之前, 先找它旁边引用的 note —— `.agents/notes/<lifecycle>/<class>/<file>.md` 路径,
-   通常写在注释或 JSDoc 里。先读它: 它记着已经否决过什么、为什么。
-2. 优先更新已经拥有那条决策的 note。过时的事实**就地重写**, 不要追加变更历史;
-   绝不把一篇 note 改写成另一条决策 —— 要取代它, 并双向互链。
-3. 新方向从 `.agents/notes/proposed/{class}/` 开始; 落地时在同一提交里移到
-   `implemented/{class}/`, 用现在时陈述, 并从它约束的代码里引用它 (见第 1 条)。
-   只引用一次, 引在"读者否则就会删掉这个约束"的那个位置。
-4. 每一篇 active note 都带 `## Alternatives considered`, 其中必须有"什么都不做 / 复用现有"
-   这一项, 且每个被否掉的选项都要先给出它最强的理由, 再否决。
-5. note 被完全取代时用 `notes:archive` 归档; rejected 提案不再能拦住一个
-   有人可能重犯的错误时, 直接删除。
-
-推送前跑 `npm run verify-notes`。受保护的源码改动若同一次改动里没有 note, 门禁会失败;
-要刻意豁免, 写 `.agents/notes/NOTE-EXEMPT.md`, 内容为 `note-exempt: <为什么这次不需要 note>`。
-规则细节见 `.agents/notes/AGENTS.md`。
-
 # 严禁
 
 禁止主动启动博客程序, 永远只能用户启动
+
+<!-- agent-notes:start -->
+## Agent Notes 红线
+
+改声明前先读其顶部多行注释引用的 `.agents/notes/...md`. 每条决策只保留一篇 note, `## Code` 逐行列仓库相对精确文件路径, 每个直接父目录只选一个代表文件, 在该文件的声明顶部反向引用该 note. 禁止 glob, 花括号和文件头占位引用
+
+代码或 note 改动必须在同一 diff 配对, 同目录兄弟代码也算该决策的代码端. 单边改动必须 review, 不可用无关 note 或豁免文本放行. 过时事实就地改写, 废弃 note 直接删除并修复所有引用. `## Alternatives considered` 必须包含什么都不做 / 复用现有, 每项先给最强理由再否决
+
+完成改动运行 `uv run scripts/redlines/agent_notes.py --diff`, 全量调研用 `--all`, 提交前用 `--staged`. AST 必须支持 cpp/ts/tsx/js/mjs/go/py/rs, 缺依赖或解析失败即失败. 规则见 `.agents/notes/AGENTS.md`
+
+受保护的非 AST 资源改动报告 resource-review, 由人工核对决策和引用
+
+CI 工作流始终容错完成, 有问题时在对应代码片段评论并保存完整 JSON 诊断. CI 成功只表示流程完成, 双链是否有效以诊断内容为准. 本地校验仍用非零退出码暴露问题
+<!-- agent-notes:end -->

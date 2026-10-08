@@ -11,7 +11,7 @@ import { useDeckTheme } from './theme/context';
  * 因此单独实现, 互不牵连.
  */
 
-/** 三套配色 —— 都是 VS Code 系, 随主题明暗自动选 */
+/** 三套配色  都是 VS Code 系, 随主题明暗自动选 */
 export type CodeScheme = 'onedark' | 'nightowl' | 'plain';
 
 export interface CodeBlockProps {
@@ -144,7 +144,7 @@ export function CodeBlock({
     );
 }
 
-/** 行内代码 —— 跟正文同一行用 */
+/** 行内代码  跟正文同一行用 */
 export function Code({ children }: { children: React.ReactNode }): React.ReactElement {
     const t = useDeckTheme();
     return (

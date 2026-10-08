@@ -13,7 +13,9 @@ import './fonts.css';
 import './deck.css';
 import './ui.css';
 
-/* (see .agents/notes/implemented/bug-fix/2026-09-14-deck-wheel-leak-scrolls-host-page.md — 滚轮不漏给宿主页面的实现处) */
+/* (see  — 滚轮不漏给宿主页面的实现处) 
+ * .agents/notes/implemented/bug-fix/2026-09-14-deck-wheel-leak-scrolls-host-page.md
+ */
 const STAGE_W = 1600;
 const STAGE_H = 900;
 const PAGE_DURATION = 860;   // 与 --hxd-motion-page 对齐
@@ -46,7 +48,7 @@ export interface DeckProps {
      *
      * 为什么需要它:
      *   卡片在**预览态**时, deck 铺在正文里. 若此时接管滚轮, 用户在卡片上滚
-     *   会被拿去翻演示页, 而页面纹丝不动 —— 违反直觉 ("页面滚不动了").
+     *   会被拿去翻演示页, 而页面纹丝不动  违反直觉 ("页面滚不动了").
      *   因此预览态传 false (纯静态展示), 打开后的放大态才传 true.
      */
     interactive?: boolean;
@@ -60,17 +62,17 @@ export interface DeckProps {
 }
 
 /**
- * Deck 运行时 —— **整屏纵向位移**, 不是淡入淡出.
+ * Deck 运行时  **整屏纵向位移**, 不是淡入淡出.
  *
  * 核心机制 (与答辩模板一致):
  *   1. 所有屏在纵向**依次排开** (每屏 100% 高), 组成一个 N 屏高的长条
- *   2. 翻页 = 对这个长条做 translateY(-index * 100%) —— 真实的"向上滚动"
+ *   2. 翻页 = 对这个长条做 translateY(-index * 100%)  真实的"向上滚动"
  *   3. 加动画锁, 切换进行中忽略新输入, 防止惯性滚动连跳
  *   4. 舞台缩放仍在: 每屏内部是固定 1600x900, 用 scale 适配容器
  *
  * 这样"向下移动"的观感才成立; 单纯切 opacity 是没有位移的, 谈不上滚动.
  */
-/* (see .agents/notes/implemented/bug-fix/2026-09-14-hxid-bare-links-not-navigable.md — hxid 裸链接跳转处) */
+/* (see  — hxid 裸链接跳转处) */
 export function Deck({
     theme,
     children,
@@ -93,7 +95,7 @@ export function Deck({
      *
      * 必须递归展开 Fragment: deck 常由 `<>{...}</>` 包裹 (如注册表里的 render()),
      * 此时 Children.toArray 只给到**一个** Fragment, total 恒为 1,
-     * 于是导航/进度/翻页全部不渲染 —— 表现为"嵌入了但什么都没有".
+     * 于是导航/进度/翻页全部不渲染  表现为"嵌入了但什么都没有".
      */
     const items = useMemo(() => {
         const out: { node: React.ReactNode; title: string; chapter: string }[] = [];
@@ -141,12 +143,12 @@ export function Deck({
       这是"指定页码后侧边栏就不更新了"的根因:
       之前 current 直接由 props.index 算出来, 一旦链接写成 [##PPT 3##],
       index 恒为 2; 点侧栏/圆点/翻页按钮时 applyGo 改了内部 state,
-      current 却仍等于 props —— 长条滚走了, 侧栏高亮/圆点/进度条纹丝不动.
+      current 却仍等于 props  长条滚走了, 侧栏高亮/圆点/进度条纹丝不动.
     */
     /*
       预览态 (interactive=false) 永远冻结在第 1 屏.
 
-      为什么: 卡片预览是**缩略图**, 语义是"封面". 它此前会跟着 index 与 ?page= 一起跳 ——
+      为什么: 卡片预览是**缩略图**, 语义是"封面". 它此前会跟着 index 与 ?page= 一起跳 
       分享 ?ppt=xxx&page=8 给别人时, 对方正文里那张缩略图也停在第八屏, 而设计意图
       是"看一眼这是什么, 点开再看细节". 弹层是另一个 Deck 实例 (interactive=true),
       不受这里影响, 因此 `##PPT 3##` 的指定页码仍然生效.
@@ -183,7 +185,7 @@ export function Deck({
      * 提升成 state, 挂载后重渲染一次, 控件才拿得到.
      */
     const [layerHost, setLayerHost] = useState<HTMLElement | null>(null);
-    /** 有控件正在占用整页 (如架构图放大) —— 让 deck 自己的装饰+层级让位 */
+    /** 有控件正在占用整页 (如架构图放大)  让 deck 自己的装饰+层级让位 */
     const [layerFull, setLayerFull] = useState(false);
     const attachHost = useCallback((el: HTMLDivElement | null) => {
         hostRef.current = el;
@@ -242,7 +244,7 @@ export function Deck({
      * 翻页入口.
      *
      * 注意 (一个真实 bug): 当外部通过 `index` 受控传值时, 之前的实现只调用
-     * onIndexChange 而不更新内部 state —— 若外部没提供 onIndexChange (PptEmbed 就是这样),
+     * onIndexChange 而不更新内部 state  若外部没提供 onIndexChange (PptEmbed 就是这样),
      * 点了侧栏也不会变页.
      * 现在: 无论是否受控, 都同步内部 state; 受控时额外通知外部.
      */
@@ -286,7 +288,7 @@ export function Deck({
           找到光标下"还真的能滚"的那个内部容器.
 
           注意这里返回的是**元素**而不是布尔值, 而且必须带上方向判断.
-          之前写的是 "只要祖先里有 overflow:auto 且内容超长就 return true" ——
+          之前写的是 "只要祖先里有 overflow:auto 且内容超长就 return true" 
           于是内层滚到边界之后, 这次滚轮依然被让给浏览器, 滚动链一路传到宿主页面:
           读者看到的就是"滑到某一格之后, 整个 PPT 开始整体上滑".
           这正是报告的 bug: 判定不是"消失"了, 而是"该轮到 deck 接管"的那一刻漏给了页面.
@@ -306,7 +308,7 @@ export function Deck({
         };
 
         /*
-          "deck 是否还有足够面积留在视口内" —— 滚出视野后就不该再接管滚轮,
+          "deck 是否还有足够面积留在视口内"  滚出视野后就不该再接管滚轮,
           否则会与页面滚动互相打架, 出现"元素整体上移且回不来".
 
           这里必须用**缓存的**几何, 不能在每次 wheel 里现读:
@@ -338,10 +340,10 @@ export function Deck({
         const onWheel = (e: WheelEvent) => {
             /*
               前置的这几个 return 都是"这一下确实不归 deck 管", 必须放行默认滚动:
-                · 预览态 —— 卡片就该让页面正常滚;
-                · 内层已消费 —— 架构图缩放等已在原生监听里 preventDefault;
-                · 内层还能滚 —— 交给内层滚它自己的内容;
-                · deck 已滚出视野 —— 交还给页面.
+                · 预览态  卡片就该让页面正常滚;
+                · 内层已消费  架构图缩放等已在原生监听里 preventDefault;
+                · 内层还能滚  交给内层滚它自己的内容;
+                · deck 已滚出视野  交还给页面.
             */
             if (!interactiveRef.current) return;
             if (isWheelConsumed(e)) return;
@@ -353,7 +355,7 @@ export function Deck({
 
             之前的写法把 preventDefault() 放在动画锁判断**之后**, 于是
             "翻页动画进行中"这一瞬间成了漏网之口: 既不翻页, 也不拦截,
-            浏览器就把这一次滚动交给了宿主页面 ——
+            浏览器就把这一次滚动交给了宿主页面 
             读者看到的就是"滑着滑着忽然整个 PPT 往下滑".
 
             这就是"某个触发状态下判定消失"的真相:
@@ -456,7 +458,7 @@ export function Deck({
         <DeckThemeProvider theme={activeTheme}>
             {/*
               层端口向下发: 页内浮层 (架构图放大等) 挂在 deck 根节点里而不是 body,
-              于是"全屏"的边界天然就是演示页本身 —— 见 deck-layer.tsx.
+              于是"全屏"的边界天然就是演示页本身  见 deck-layer.tsx.
             */}
             <DeckLayerProvider value={layer}>
             <div
@@ -484,7 +486,7 @@ export function Deck({
                             <div className="hxd-screen__inner" style={{ width: STAGE_W, height: STAGE_H, transform: `scale(${scale})` }}>
                                 {/*
                                   交互态随内容一起下发: 预览卡片里的控件据此降级
-                                  (如 Diagram 不提供页内全屏, 避免被 stage scale() 裁住 —— 见 slide-state 注释)
+                                  (如 Diagram 不提供页内全屏, 避免被 stage scale() 裁住  见 slide-state 注释)
                                 */}
                                 <DeckInteractiveProvider interactive={interactive}>
                                     {/* 页码下发给控件: 分享链接要能带上"此刻在第几页" */}

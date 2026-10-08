@@ -1,7 +1,7 @@
 /*
  * 图查看器 (ZoomImage) 的样式.
  *
- * 全部样式都留在本 module 内 —— 查看器经 Portal 挂到 document.body,
+ * 全部样式都留在本 module 内  查看器经 Portal 挂到 document.body,
  * 宿主组件的 CSS Module 类名在 Portal 子节点里解析成 undefined (PptCard 踩过这个坑).
  */
 .overlay {

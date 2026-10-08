@@ -9,6 +9,10 @@ import styles from './styles.module.css';
 
 // 使用自定义 className
 // 这可以防止 TOCInline/TOCCollapsible 被错误地突出显示
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 const LINK_CLASS_NAME = 'table-of-contents__link toc-highlight';
 const LINK_ACTIVE_CLASS_NAME = 'table-of-contents__link--active';
 

@@ -45,7 +45,9 @@ if (typeof window !== 'undefined') {
 const CDN_STORAGE_KEY = 'hxloli-cdn-node';
 const DEFAULT_NODE = 'jsd-mirror';
 
-/** 检查 localStorage 是否已有保存的节点 */
+/** 检查 localStorage 是否已有保存的节点 
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function getSavedNodeId(): string | null {
   if (typeof window === 'undefined') return null;
   try { return localStorage.getItem(CDN_STORAGE_KEY); } catch { return null; }

@@ -8,6 +8,8 @@ type RawObject = { [key: string]: any };
  * 这等价于 Python 中的 ANiMeDecoder.object_hook 的功能。
  * @param obj 从 JSON.parse 出来的原始对象或值
  * @returns "复活"后的对象
+ 
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
  */
 function revive(obj: any): any {
   // 如果不是对象, 或者是 null, 则直接返回 (递归的基线条件)

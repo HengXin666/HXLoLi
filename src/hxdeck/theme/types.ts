@@ -7,7 +7,9 @@
  * 命名空间统一用 --hxd-* , 与博客自身的 --ifm-* 完全隔离.
  */
 
-/** 语义化色板 —— 控件只允许引用这些语义名, 不允许出现字面色值 */
+/** 语义化色板  控件只允许引用这些语义名, 不允许出现字面色值 
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 export interface DeckColors {
     /** 页面底色 (通常是渐变起点) */
     bg: string;
@@ -48,7 +50,7 @@ export interface DeckShape {
 }
 
 /**
- * 尺度梯度 —— 让"换主题"也能换排版气质, 而不只是换色.
+ * 尺度梯度  让"换主题"也能换排版气质, 而不只是换色.
  * 全部用 clamp() 做流体缩放, 保证投屏与笔电都可读.
  */
 export interface DeckScale {
@@ -83,7 +85,7 @@ export interface DeckScale {
 /** 间距梯度 (8pt 网格) */
 
 /**
- * 高度层级 —— Material 3 的 elevation 思路.
+ * 高度层级  Material 3 的 elevation 思路.
  * 用"表面亮度 + 阴影"共同表达层级, 而不是只靠阴影 (深色主题下纯阴影几乎不可见).
  */
 export interface DeckElevation {
@@ -104,7 +106,7 @@ export interface DeckElevation {
 }
 
 /**
- * 状态层 —— hover/press 的统一反馈.
+ * 状态层  hover/press 的统一反馈.
  * Apple 用"材质变化", Material 用"叠加半透明色", 这里取后者, 因为它与主题色自然联动.
  */
 export interface DeckState {
@@ -116,7 +118,7 @@ export interface DeckState {
 /**
  * 关于字号的重要约束:
  *   舞台是**固定 1600x900 画布**, 再整体 scale 去适配容器.
- *   因此这里必须用**绝对 px 值** (相对画布), 绝不能用 vw/vh ——
+ *   因此这里必须用**绝对 px 值** (相对画布), 绝不能用 vw/vh 
  *   否则 vw 与 scale 会叠加两次缩放, 投屏时字会小到看不清.
  */
 /** 字体栈 */
@@ -128,7 +130,7 @@ export interface DeckFonts {
     numeric?: string;
 }
 
-/** 动效曲线与时长 —— 用户可整体调"活泼度" */
+/** 动效曲线与时长  用户可整体调"活泼度" */
 export interface DeckMotion {
     /** 进场缓动 */
     ease: string;
@@ -148,7 +150,7 @@ export interface DeckMotion {
 export type { DeckSkin as DeckAssets } from '../assets';
 
 /**
- * 署名 —— 合规必需.
+ * 署名  合规必需.
  * CC BY-NC-SA 之类要求署名的素材, 必须通过这里声明, 由渲染器统一在页脚输出.
  */
 export interface DeckCredit {

@@ -8,6 +8,10 @@ import BlogListPageStructuredData from '@theme/BlogListPage/StructuredData';
 import clsx from 'clsx';
 import React, { type ReactNode } from 'react';
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function BlogListPageMetadata(props: Props): ReactNode {
   const { metadata } = props;
   const { blogDescription, blogTitle } = metadata;

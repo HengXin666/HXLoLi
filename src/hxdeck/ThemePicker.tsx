@@ -10,7 +10,7 @@ import type { DeckTheme } from './theme/types';
  * 交互顺序刻意如此:
  *   1. 先列出**本地已有**的主题 (static/themes 下的全部 + 内置)
  *   2. 最后一行才是"导入主题文件…"
- * 之前直接把"导入"摆在外面, 用户第一眼看到的是导入动作, 而不是自己已有的主题 —— 那是反的.
+ * 之前直接把"导入"摆在外面, 用户第一眼看到的是导入动作, 而不是自己已有的主题  那是反的.
  */
 export function ThemePicker({
     value,
@@ -70,7 +70,7 @@ export function ThemePicker({
 
             {open ? (
                 <div className="hxpk__menu" role="listbox">
-                    {local.length ? <div className="hxpk__group">我保存的主题</div> : <div className="hxpk__group">还没有保存的主题 —— 可在编辑器里做一个</div>}
+                    {local.length ? <div className="hxpk__group">我保存的主题</div> : <div className="hxpk__group">还没有保存的主题  可在编辑器里做一个</div>}
                     {local.map((t) => (
                         <button key={t.id} type="button" role="option" aria-selected={t.id === value}
                             className="hxpk__item" data-on={t.id === value ? 'true' : undefined} onClick={() => pick(t)}>

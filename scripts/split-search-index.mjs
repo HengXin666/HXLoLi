@@ -23,7 +23,7 @@ function hasFlag(name) {
 
 const MAX_CHUNK_SIZE = parseInt(getArg('--max-size', '20'), 10) * 1024 * 1024; // 默认 20MB
 const BUILD_DIR = getArg('--build-dir', './build');
-// 默认不删除源文件, 便于本地查看; CI 传 --delete-source —— 源文件超过 25MiB 时
+// 默认不删除源文件, 便于本地查看; CI 传 --delete-source  源文件超过 25MiB 时
 // wrangler 会直接拒绝整个 assets 目录 (Asset too large)。
 const DELETE_SOURCE = hasFlag('--delete-source');
 const INDEX_FILE = path.join(BUILD_DIR, 'search-index.json');

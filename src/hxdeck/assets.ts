@@ -1,7 +1,7 @@
 /**
  * 静态资源解析 + 主题素材槽位.
  *
- * 两种图片, 语义完全不同 —— 这是本系统的一条核心区分:
+ * 两种图片, 语义完全不同  这是本系统的一条核心区分:
  *
  *   · 内容图片 (用户要看的东西, 如架构图、截图)
  *     -> 走普通的 <img>, 属于正文内容, 与主题无关.
@@ -63,7 +63,7 @@ export interface SkinSlot {
 
 /**
  * 皮肤素材槽位.
- * 全部可选 —— 缺省时控件必须优雅降级 (纯 CSS 装饰), 不允许报错.
+ * 全部可选  缺省时控件必须优雅降级 (纯 CSS 装饰), 不允许报错.
  */
 export interface DeckSkin {
     /** 吉祥物立绘槽 (封面右下角) */
@@ -104,5 +104,5 @@ export function slotVars(prefix: string, slot?: SkinSlot): Record<string, string
     return out;
 }
 
-/** 语义化情绪名 —— 控件按语义要图, 不按文件名要图 */
+/** 语义化情绪名  控件按语义要图, 不按文件名要图 */
 export type EmojiKey = 'happy' | 'think' | 'warn' | 'error' | 'success' | 'sleep' | 'work' | 'rich';

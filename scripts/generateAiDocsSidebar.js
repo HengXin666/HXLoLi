@@ -37,7 +37,9 @@ function getJsonTagConfig(folderPath) {
     return { icon: undefined, tags: [] };
 }
 
-/* (see .agents/notes/implemented/architecture/2026-09-13-ai-docs-taxonomy.md — 目录维度的分类决策决定本函数的遍历结果) */
+/* (see  — 目录维度的分类决策决定本函数的遍历结果) 
+ * .agents/notes/implemented/architecture/2026-09-13-ai-docs-taxonomy.md
+ */
 function scanDocs(dir, relativePath = '') {
     if (!fs.existsSync(dir)) return { items: [], hasIndex: false };
 
@@ -119,6 +121,10 @@ function scanDocs(dir, relativePath = '') {
 
 const sidebar = { aiDocsSidebar: scanDocs(docsDir).items };
 
+/**
+ * 沉淀流水线改为"两份产物 + 九个单一职责阶段"
+ * .agents/notes/implemented/process/2026-09-24-sediment-two-artifacts-nine-stages.md
+ */
 const sidebarContent = `// 由 scripts/generateAiDocsSidebar.js 自动生成\n// 请勿手动编辑 — 运行 node scripts/generateAiDocsSidebar.js 以更新\n\nconst aiDocsSidebar = ${JSON.stringify(sidebar.aiDocsSidebar, null, 2)};\n\nexport default { aiDocsSidebar };\n`;
 
 fs.outputFileSync(path.join(__dirname, '../sidebarsAiDocs.ts'), sidebarContent);

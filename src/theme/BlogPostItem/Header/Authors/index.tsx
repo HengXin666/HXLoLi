@@ -6,6 +6,10 @@ import type {Props} from '@theme/BlogPostItem/Header/Authors';
 import styles from './styles.module.css';
 
 // Component responsible for the authors layout
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 export default function BlogPostItemHeaderAuthors({
   className,
 }: Props): ReactNode {

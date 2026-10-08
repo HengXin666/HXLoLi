@@ -10,6 +10,10 @@ import Tag from "../Tag";
 import ZoomImage from "../../common/ZoomImage";
 
 // format date from YYYY-MM-DD to MM-DD
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 const formatDate = (dateString: string) => {
     if (!dateString) return "";
     const date = new Date(dateString);

@@ -4,7 +4,7 @@
  * 背景 (一个真实踩过的坑):
  *   Diagram 用 React 的 onWheel 做缩放. React 事件是**合成事件**, 挂在 root 上委托处理;
  *   而 Deck 用的是原生 `addEventListener('wheel', ...)`. 原生监听在冒泡链上先于 React 委托,
- *   因此 Diagram 里调 stopPropagation() **拦不住 Deck** —— 结果是:
+ *   因此 Diagram 里调 stopPropagation() **拦不住 Deck**  结果是:
  *     · 图缩放到极限后, 滚轮仍被 Deck 当成翻页信号 → 整屏被翻走
  *
  * 解决: 内层控件在**原生**监听里先打标记, 外层据此跳过.

@@ -20,9 +20,9 @@ import './decks-builtin';
  *   [标题 ##PPT##](x.tsx)   我们的演示页     -> 卡片里放内联 React deck
  *
  * 两者的工具栏、打开遮罩、放大弹层、新标签页按钮完全一致
- * (外观由 PptCard.module.css 统一提供 —— 弹层走 Portal, 复用别人的 module 会失效,
+ * (外观由 PptCard.module.css 统一提供  弹层走 Portal, 复用别人的 module 会失效,
  *  详见该 CSS 顶部说明).
- * 唯一区别: .tsx 的工具栏右侧多一个主题下拉 —— 因为它是内联 React, 可以实时换主题;
+ * 唯一区别: .tsx 的工具栏右侧多一个主题下拉  因为它是内联 React, 可以实时换主题;
  * iframe 里的内容换不了.
  */
 
@@ -75,7 +75,7 @@ function siteBase(): string {
  *
  * 为什么必须显式解析 (一个真实踩坑):
  *   Docusaurus 文档的**规范 URL 不带尾斜杠**。浏览器对这种 URL 解析相对链接时,
- *   会先砍掉最后一段再拼接 ——
+ *   会先砍掉最后一段再拼接 
  *     /knowledge-base/…/001-CF过盾工程        + cf-gateway-pipeline.html
  *       -> /knowledge-base/…/cf-gateway-pipeline.html      (错了! 少了 001-… 这一层)
  *   而带尾斜杠时才是对的。于是同一篇笔记:
@@ -83,7 +83,7 @@ function siteBase(): string {
  *     · 刷新 / 从侧边栏直达 (无尾斜杠) -> iframe 404, 站点再把它 302 到首页,
  *       表现为"整块演示页变成网站首页"。
  *
- * 旧组件 PptHtmlViewer 里有一份 resolvePptSrc 专门处理这件事, 换成 PptEmbed 时丢了 ——
+ * 旧组件 PptHtmlViewer 里有一份 resolvePptSrc 专门处理这件事, 换成 PptEmbed 时丢了 
  * 这里补回来: 把相对路径按"当前笔记的目录"重新拼绝对地址。
  */
 export function resolveSidecarSrc(src: string, pathname: string): string {
@@ -92,7 +92,7 @@ export function resolveSidecarSrc(src: string, pathname: string): string {
 
     /*
       关键: 把当前 pathname 当作**目录**来拼, 即在末尾补一个斜杠.
-      无尾斜杠时浏览器会把最后一段当文件名, 相对链接因此掉一层 —— 这正是 bug 本身.
+      无尾斜杠时浏览器会把最后一段当文件名, 相对链接因此掉一层  这正是 bug 本身.
     */
     const dir = pathname.replace(/\/$/, '') + '/';
     return dir + src;
@@ -106,7 +106,7 @@ export function PptEmbed({
     const { pathname } = useLocation();
     const autoNoteDir = useNoteDir();
     const resolvedNoteDir = noteDir ?? autoNoteDir;
-    /** 侧车 .html 的绝对地址 —— 必须按"当前笔记目录"解析, 见 resolveSidecarSrc */
+    /** 侧车 .html 的绝对地址  必须按"当前笔记目录"解析, 见 resolveSidecarSrc */
     const resolvedSrc = useMemo(() => resolveSidecarSrc(src ?? '', pathname), [src, pathname]);
 
     const [t, setT] = useState<DeckTheme | null>(() => (theme ? getTheme(theme) ?? null : defaultTheme()));
@@ -173,10 +173,10 @@ export function PptEmbed({
     };
 
     /*
-      主题下拉 —— 预览外框的右上角 (在"打开"/"新标签页"按钮之前), 与用户确认的
+      主题下拉  预览外框的右上角 (在"打开"/"新标签页"按钮之前), 与用户确认的
       "在外边框那里放一个下拉菜单来选择主题"一致; 放大弹层的工具栏里同样保留一份.
 
-      实现: 自绘组件 —— 原生 <select> 的展开列表由浏览器渲染, CSS 定制不了,
+      实现: 自绘组件  原生 <select> 的展开列表由浏览器渲染, CSS 定制不了,
             达不到站点风格.
       仅 .tsx 有: iframe 里的内容换不了主题.
     */
@@ -204,11 +204,11 @@ export function PptEmbed({
     /*
       分享链接里的 ?page=N: 打开这张卡片时直接落在那一屏.
 
-      必须在**任何提前 return 之前**求值 —— 它是个 hook, 而卡片会在
+      必须在**任何提前 return 之前**求值  它是个 hook, 而卡片会在
       "iframe 分支 / 主题还没加载完"时提前返回, 放在后面会让 hook 数量
       随分支变化 (Rendered more hooks than during the previous render).
 
-      只在"这张卡片确实被 ?ppt= 点名"时才采用 —— 否则页面里其它卡片会跟着
+      只在"这张卡片确实被 ?ppt= 点名"时才采用  否则页面里其它卡片会跟着
       跳到同一个页码, 而它们本该停在自己的初始页.
     */
     const sharedPage = useMemo(() => {
@@ -236,10 +236,10 @@ export function PptEmbed({
 
     /*
       两个实例, 各司其职:
-        · 预览态 interactive={false} —— 不接管滚轮/键盘, 让页面正常滚动;
+        · 预览态 interactive={false}  不接管滚轮/键盘, 让页面正常滚动;
           同时这条通道也告诉内部控件"现在是预览", 于是架构图不给页内全屏
           (否则浮层会被卡片的 stage scale() 裁住, 退不出去).
-        · 放大态 interactive       —— 接管, 可以翻页/快捷键/缩放看图.
+        · 放大态 interactive        接管, 可以翻页/快捷键/缩放看图.
       这是"卡片上滚不动页面"与"预览里放大退不出来"两个问题的正解.
     */
     const deckProps = {

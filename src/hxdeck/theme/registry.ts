@@ -15,7 +15,7 @@ function sitePrefix(): string {
     const injected = (window as unknown as { __HXD_BASE_URL__?: string }).__HXD_BASE_URL__;
     if (injected) return injected.endsWith('/') ? injected.slice(0, -1) : injected;
 
-    // require() 在浏览器不存在 —— 早期版本因此静默回退到 '/', 主题清单永远加载不到.
+    // require() 在浏览器不存在  早期版本因此静默回退到 '/', 主题清单永远加载不到.
     const baseEl = document.querySelector('base[href]');
     if (baseEl) {
         const href = baseEl.getAttribute('href') || '';
@@ -28,14 +28,14 @@ function sitePrefix(): string {
 }
 
 /**
- * 主题注册表 —— 让"主题"成为可运行时加载/切换的资源, 而不是编译期常量.
+ * 主题注册表  让"主题"成为可运行时加载/切换的资源, 而不是编译期常量.
  *
  * 三种来源:
  *   1. 内置: 随包发布的主题 (whale / hxloli)
  *   2. 静态: 用户放到 `static/themes/*.yaml|json` 的主题, 由文档里的语法按名引用
  *   3. 临时: 用户在前端导入的文件 (仅本次会话有效)
  *
- * 关键: 三者在消费侧没有区别 —— 都是 DeckTheme 对象.
+ * 关键: 三者在消费侧没有区别  都是 DeckTheme 对象.
  */
 
 /**
@@ -83,7 +83,7 @@ let manifestLoaded = false;
 
 /**
  * 加载主题清单 (static/themes/index.json).
- * 静态站无法列目录, 所以必须靠这份索引 —— 它让"用户放进去的主题"能被自动发现.
+ * 静态站无法列目录, 所以必须靠这份索引  它让"用户放进去的主题"能被自动发现.
  */
 /** 依次尝试若干候选路径, 返回第一个 2xx 的文本 */
 async function fetchFirst(paths: string[]): Promise<string | null> {
@@ -101,7 +101,7 @@ async function fetchFirst(paths: string[]): Promise<string | null> {
 /**
  * 主题资源的候选路径.
  *
- * 不做单点路径推导 —— 直接给出全部可能位置, 谁先命中用谁.
+ * 不做单点路径推导  直接给出全部可能位置, 谁先命中用谁.
  * 这样开发服务器 / 生产构建 / 任意 baseUrl 前缀都能取到, 不会因为推导错误而静默失联.
  */
 export function themePaths(file: string, baseUrl?: string): string[] {

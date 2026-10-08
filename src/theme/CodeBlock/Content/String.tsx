@@ -96,6 +96,8 @@ const useStore = create<Store>()(
 /**
  * 初始化页面, 如果url更新了, 那么会初始化`groupedBlocks`变量
  * @returns 
+ 
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
  */
 function initComponent () {
     const location = useLocation();

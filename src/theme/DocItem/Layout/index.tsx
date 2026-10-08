@@ -25,6 +25,10 @@ import MDXA from '../../MDXComponents/A';
 import './hx.css';
 import styles from './styles.module.css';
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function useDocTOC () {
     const { frontMatter, toc } = useDoc();
     const windowSize = useWindowSize();

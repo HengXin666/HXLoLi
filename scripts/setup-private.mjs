@@ -43,13 +43,15 @@ const excludeEnd = '# END HXLoLi-imouto private mappings';
 /**
  * 需要映射的隐藏文件 (相对私有仓库根)。
  *
- * 默认规则会跳过 "." 开头的条目 —— 那是为了避开 .git / .DS_Store 这类噪声。
+ * 默认规则会跳过 "." 开头的条目  那是为了避开 .git / .DS_Store 这类噪声。
  * 但有些**真正的私有内容本身就是点开头** (如写作画像 **ai-docs/.hx-persona.md**,
  * 它含项目方向与商业数字, 不能进公开仓)。这些在这里显式列出。
  *
- * 加新条目时只需往这个数组加一行 —— 不要放宽全局的 "." 过滤, 那会把噪声一起带进来。
+ * 加新条目时只需往这个数组加一行  不要放宽全局的 "." 过滤, 那会把噪声一起带进来。
  */
-/* (see .agents/notes/implemented/architecture/2026-09-26-persona-moved-to-private-repo.md — 画像为什么必须留在私有仓) */
+/* (see  — 画像为什么必须留在私有仓) 
+ * .agents/notes/implemented/architecture/2026-09-26-persona-moved-to-private-repo.md
+ */
 const privateDotFiles = [
   'ai-docs/.hx-persona.md',
   'ai-docs/.hx-persona.extra.md',

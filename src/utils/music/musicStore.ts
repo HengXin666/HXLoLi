@@ -108,7 +108,9 @@ const SHARED_STATE_KEY = 'hxloli-music-shared-state';
 // Leader 状态广播间隔 (ms)，越小 Follower 插值越准，但增加 IPC 开销
 const STATE_BROADCAST_INTERVAL = 200;
 
-/** 保存状态到 sessionStorage */
+/** 保存状态到 sessionStorage 
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function saveState(state: MusicPlayerState): void {
     try {
         const data: MusicState = {

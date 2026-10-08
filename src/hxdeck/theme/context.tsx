@@ -20,7 +20,7 @@ export function DeckThemeProvider({
 
 export function useDeckTheme(): DeckTheme {
     const t = useContext(DeckThemeContext);
-    if (!t) throw new Error('useDeckTheme 必须在 <Deck> 内部使用 —— 图表控件需要主题色值.');
+    if (!t) throw new Error('useDeckTheme 必须在 <Deck> 内部使用  图表控件需要主题色值.');
     return t;
 }
 

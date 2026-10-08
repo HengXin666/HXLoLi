@@ -69,7 +69,7 @@ export function Head({ children, i = 0 }: { children: React.ReactNode; i?: numbe
 /**
  * 通用卡片.
  *
- * 命名注意: 角落装饰位的 prop 叫 **skin** 而不是 slot ——
+ * 命名注意: 角落装饰位的 prop 叫 **skin** 而不是 slot 
  * 因为 `React.HTMLAttributes` 本身已有 `slot?: string` (Web Components 属性),
  * 与 ReactNode 相交会退化成一个谁都传不进去的畸形类型.
  */

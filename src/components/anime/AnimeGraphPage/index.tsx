@@ -54,6 +54,10 @@ export const THEME = {
 
 // 图片缓存
 const imgCache = new Map<string, HTMLImageElement>();
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function getImage (url: string): HTMLImageElement {
     if (imgCache.has(url)) return imgCache.get(url)!;
     const img = new Image();

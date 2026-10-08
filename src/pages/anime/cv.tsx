@@ -60,6 +60,10 @@ const formatDate = (dateString: string) => {
 };
 
 // 将扁平的角色列表按年份分组
+/**
+ * 图片查看器自己管缩放与平移, 不复用幻灯架构图那套
+ * .agents/notes/implemented/feature/2026-09-27-image-viewer-zoom-and-pan.md
+ */
 function listRolesByYears (rolePosts: RolePost[]): YearProp[] {
     const postsByYear = rolePosts.reduceRight((posts, post) => {
         const year = post.metadata.date.split("-")[0]!;

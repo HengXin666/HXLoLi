@@ -1,6 +1,11 @@
 // 由 scripts/generateAiDocsSidebar.js 自动生成
 // 请勿手动编辑 — 运行 node scripts/generateAiDocsSidebar.js 以更新
 
+/**
+ * ai-docs 目录重分类: 从「来源/体裁」维度切到「学科」维度
+ * .agents/notes/implemented/architecture/2026-09-13-ai-docs-taxonomy.md
+ * 沉淀流水线改为"两份产物 + 九个单一职责阶段"
+ */
 const aiDocsSidebar = [
   {
     "type": "doc",
@@ -45,15 +50,6 @@ const aiDocsSidebar = [
             "type": "doc",
             "id": "程序语言/现代C++/C++20协程原理与应用/index",
             "label": "C++20协程原理与应用",
-            "customProps": {
-              "icon": "default-icons/ai-doc.svg",
-              "tags": []
-            }
-          },
-          {
-            "type": "doc",
-            "id": "程序语言/现代C++/C++20协程原理-Zhihu/index",
-            "label": "C++20协程原理-Zhihu",
             "customProps": {
               "icon": "default-icons/ai-doc.svg",
               "tags": []
@@ -105,6 +101,15 @@ const aiDocsSidebar = [
             "type": "doc",
             "id": "程序语言/Web前端/react-bits分门别类学习/index",
             "label": "react-bits分门别类学习",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "程序语言/Web前端/OpenVetta界面设计系统拆解/index",
+            "label": "OpenVetta界面设计系统拆解",
             "customProps": {
               "icon": "default-icons/ai-doc.svg",
               "tags": []
@@ -406,6 +411,15 @@ const aiDocsSidebar = [
           "icon": "default-icons/ai-folder.svg",
           "tags": []
         }
+      },
+      {
+        "type": "doc",
+        "id": "AI/AI视觉验证/index",
+        "label": "AI视觉验证",
+        "customProps": {
+          "icon": "default-icons/ai-doc.svg",
+          "tags": []
+        }
       }
     ],
     "customProps": {
@@ -441,6 +455,15 @@ const aiDocsSidebar = [
         "type": "doc",
         "id": "工具链/怎么判断自己写的东西有没有AI味/index",
         "label": "怎么判断自己写的东西有没有AI味",
+        "customProps": {
+          "icon": "default-icons/ai-doc.svg",
+          "tags": []
+        }
+      },
+      {
+        "type": "doc",
+        "id": "工具链/受控技术中文与AI味的机械判据/index",
+        "label": "受控技术中文与AI味的机械判据",
         "customProps": {
           "icon": "default-icons/ai-doc.svg",
           "tags": []
@@ -485,6 +508,87 @@ const aiDocsSidebar = [
         "label": "短视频-精神鸦片",
         "customProps": {
           "icon": "default-icons/ai-doc.svg",
+          "tags": []
+        }
+      }
+    ],
+    "customProps": {
+      "icon": "default-icons/ai-folder.svg",
+      "tags": []
+    }
+  },
+  {
+    "type": "category",
+    "label": "音视频特效",
+    "collapsible": true,
+    "collapsed": true,
+    "items": [
+      {
+        "type": "category",
+        "label": "ASS特效字幕",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "doc",
+            "id": "音视频特效/ASS特效字幕/用AI写ASS特效字幕/index",
+            "label": "用AI写ASS特效字幕",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          }
+        ],
+        "customProps": {
+          "icon": "default-icons/ai-folder.svg",
+          "tags": []
+        }
+      },
+      {
+        "type": "category",
+        "label": "特效风格设计",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "doc",
+            "id": "音视频特效/特效风格设计/取材的六个来源/index",
+            "label": "取材的六个来源",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "音视频特效/特效风格设计/转化与融合/index",
+            "label": "转化与融合",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "音视频特效/特效风格设计/字体的选择/index",
+            "label": "字体的选择",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "音视频特效/特效风格设计/设计规律/index",
+            "label": "设计规律",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          }
+        ],
+        "customProps": {
+          "icon": "default-icons/ai-folder.svg",
           "tags": []
         }
       }

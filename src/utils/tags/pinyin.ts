@@ -4,7 +4,7 @@ import { pinyin } from 'pinyin-pro';
  * 标签的拼音检索键 (中文友好)
  *
  * 为什么需要它:
- *   Docusaurus 原生 `listTagsByLetters` 用 `label[0]` 作为分组键 —— 对中文来说
+ *   Docusaurus 原生 `listTagsByLetters` 用 `label[0]` 作为分组键  对中文来说
  *   就是"只按第一个汉字分组", 于是「多模态大模型」「短视频」「电脑包」全挤进"多"那一组,
  *   索引完全失去意义。
  *
@@ -34,11 +34,15 @@ export interface TagPinyinKeys {
 
 const cache = new Map<string, TagPinyinKeys>();
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function isHan(char: string): boolean {
   return /[\u4e00-\u9fff]/.test(char);
 }
 
-/** 去掉拼音串里的分隔空格并小写 —— 检索键不需要保留词界 */
+/** 去掉拼音串里的分隔空格并小写  检索键不需要保留词界 */
 function squeeze(value: string): string {
   return value.replace(/\s+/g, '').toLowerCase();
 }
@@ -50,7 +54,7 @@ function buildKeys(label: string): TagPinyinKeys {
   }
 
   // 纯拉丁/数字标签 (AI Agent / HXLibs / C++20): 不做音译, 检索键就是原文小写。
-  // 不能按"首字符是不是字母"来分流 —— "CF过盾"以 C 开头但仍要音译出 guo dun。
+  // 不能按"首字符是不是字母"来分流  "CF过盾"以 C 开头但仍要音译出 guo dun。
   if (!/[\u4e00-\u9fff]/.test(trimmed)) {
     const flat = squeeze(trimmed);
     const head = trimmed.charAt(0);

@@ -4,6 +4,10 @@ import BlogSidebarDesktop from '@theme/BlogSidebar/Desktop';
 import BlogSidebarMobile from '@theme/BlogSidebar/Mobile';
 import type {Props} from '@theme/BlogSidebar';
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 export default function BlogSidebar({sidebar}: Props): ReactNode {
   const windowSize = useWindowSize();
   if (!sidebar?.items.length) {

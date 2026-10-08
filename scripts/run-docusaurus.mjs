@@ -8,22 +8,26 @@
  *   @docusaurus/core/bin/docusaurus.mjs 顶部第一件事就是 import @docusaurus/utils。
  *   等到 docusaurus.config.ts 被执行时, 常量与 FileLoaderUtilsMap 早已固化, 在那里改
  *   process.env 对本次进程无效 (实测: 仍是 limit=10000)。所以注入必须发生在
- *   加载任何 @docusaurus/* 之前 —— 也就是这个独立进程里。
+ *   加载任何 @docusaurus/* 之前  也就是这个独立进程里。
  *
  * 为什么要把阈值关成 0:
- *   见 .agents/notes/implemented/bug-fix/2026-09-27-drawio-svg-inlined-loses-editor-shell.md
+ *   见 
  *   小于阈值的 markdown 图片会被 url-loader 内联成 data URI, 于是 src 不再以 .svg 结尾,
  *   src/theme/MDXComponents/Img 的 draw.io 分支判定失败, 图退化成裸 <img>。
  *
  * 用法: 由 package.json 的 start / build / dev:private 调用, 参数原样透传。
  *
  * 引用落点: src/theme/MDXComponents/Img/index.tsx 的 draw.io 分支判定
- * (see .agents/notes/implemented/bug-fix/2026-09-27-drawio-svg-inlined-loses-editor-shell.md
+ * (see 
  *  — 内联阈值必须为 0 的实现处)
  */
 import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 
+/**
+ * 小于 10KB 的 .drawio.svg 被内联后丢掉 draw.io 编辑外壳
+ * .agents/notes/implemented/bug-fix/2026-09-27-drawio-svg-inlined-loses-editor-shell.md
+ */
 const require = createRequire(import.meta.url);
 
 process.env.WEBPACK_URL_LOADER_LIMIT = '0';

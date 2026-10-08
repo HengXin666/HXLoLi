@@ -4,6 +4,10 @@ import React, { useEffect, useState, type ReactNode } from 'react';
 
 import type { Props } from '@theme/BlogLayout';
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 export default function BlogLayout (props: Props): ReactNode {
     const { sidebar, toc, children, ...layoutProps } = props;
     const hasSidebar = sidebar && sidebar.items.length > 0;

@@ -3,6 +3,10 @@
  * 内容: 图形 SVG + archify 语义 class (配色走 --hxd 变量, 由 Diagram 控件注入)
  */
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 export const title = "CF-Gateway-Pro 过盾链路";
 export const viewBox = "0 0 1345 602";
 

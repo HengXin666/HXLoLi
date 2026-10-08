@@ -5,9 +5,9 @@ import { FaExternalLinkAlt, FaArrowRight, FaArrowLeft, FaBullseye } from 'react-
 
 import styles from './styles.module.css';
 
-/** [渲染后的 permalink, 标题] —— permalink 已由构建期解析好, 这里不再拼路径 */
+/** [渲染后的 permalink, 标题]  permalink 已由构建期解析好, 这里不再拼路径 */
 type Edge = [string, string];
-/** [URL, 锚文本] —— 锚文本空串表示原文没给 */
+/** [URL, 锚文本]  锚文本空串表示原文没给 */
 type ExternalEdge = [string, string];
 
 export interface NoteReferencesData {
@@ -24,7 +24,7 @@ type TabKey = 'out' | 'in' | 'ext';
  * 为什么不做成对象属性: 见 plugins/note-references-plugin.mjs 里对"为什么是字符串"的说明
  * (MDX 3 只在属性表达式自带 estree 时才序列化它, 否则静默输出空)。
  *
- * 解析失败时退化成空载荷而不是抛错 —— 引用框是页面附属信息, 它不该让整篇文档白屏。
+ * 解析失败时退化成空载荷而不是抛错  引用框是页面附属信息, 它不该让整篇文档白屏。
  */
 function parseData (raw: unknown): NoteReferencesData {
     if (raw && typeof raw === 'object') return raw as NoteReferencesData;
@@ -40,7 +40,7 @@ function parseData (raw: unknown): NoteReferencesData {
 /**
  * 笔记底部的「引用关系」方框。
  *
- * 取代原来手写的 `## 0x0A 参考来源` 章节 —— 手写的参考来源有三个问题:
+ * 取代原来手写的 `## 0x0A 参考来源` 章节  手写的参考来源有三个问题:
  *   1. 读者读完就忘, 而它本来是**图**, 一眼能看出方向 (引了谁 / 谁引了这篇);
  *   2. 必须人工与正文同步, 必然漂移;
  *   3. 分不出站内与站外, 也就分不出"延伸阅读"和"结论的出处"。
@@ -49,15 +49,19 @@ function parseData (raw: unknown): NoteReferencesData {
  *   本文引用 (出边, 站内) / 本文被引用 (入边) / 站外来源 (出边, 站外)。
  *
  * 为什么站外来源要独立成页签而不是塞在"本文引用"下面: 它们过去共用一个数字, 于是
- * 出现"本文引用 (0)"底下挂着九条来源的自相矛盾 —— 计数和内容说的是两件事, 读者只能
+ * 出现"本文引用 (0)"底下挂着九条来源的自相矛盾  计数和内容说的是两件事, 读者只能
  * 怀疑功能坏了。数字必须数它下面真正列出来的东西。
  *
- * 数据由 plugins/note-references-plugin.mjs 在构建期从正文抽出, 以 props 注入 ——
+ * 数据由 plugins/note-references-plugin.mjs 在构建期从正文抽出, 以 props 注入 
  * 不 import 全站表, 见该文件的说明。
  */
 export default function NoteReferences ({ data }: { data?: NoteReferencesData | string }): ReactNode {
     const [tab, setTab] = useState<TabKey>('out');
-    // Hook 必须在组件顶层调用 —— 放进回调里会违反 hooks 规则。
+    // Hook 必须在组件顶层调用  放进回调里会违反 hooks 规则。
+    /**
+     * 引用关系方框改为全站注入, 站外来源按「域名@标题」显示
+     * .agents/notes/implemented/architecture/2026-09-26-note-references-auto-rendered.md
+     */
     const { withBaseUrl } = useBaseUrlUtils();
 
     const payload = parseData(data);
@@ -89,7 +93,7 @@ export default function NoteReferences ({ data }: { data?: NoteReferencesData | 
      *
      * 为什么不是整条 URL: 一条带 commit hash 的 GitHub 链接能有 90 字符, 列八条就把方框
      * 撑满, 而且真正有信息量的部分 (哪个域名、这篇文章叫什么) 全被路径噪声埋掉。
-     * 完整 URL 仍然可达 —— 挪进 title 属性, 悬停可见, 链接本身不变。
+     * 完整 URL 仍然可达  挪进 title 属性, 悬停可见, 链接本身不变。
      */
     const renderExternal = (edges: ExternalEdge[]) => (
         <ul className={styles.list}>

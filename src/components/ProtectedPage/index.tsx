@@ -26,6 +26,10 @@ interface ProtectedPageProps {
 
 /** 生成稳定的唯一 ID */
 let idCounter = 0;
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function generateInstanceId(): string {
   return `hxloli-${Date.now()}-${++idCounter}-${Math.random().toString(36).slice(2, 8)}`;
 }

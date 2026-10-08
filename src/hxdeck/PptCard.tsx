@@ -10,14 +10,14 @@ import styles from './PptCard.module.css';
 import { PptCardIdProvider } from './deck-layer';
 
 /**
- * 演示页卡片 —— 与老 #ppt 的 PptHtmlViewer **外观一致**的 .tsx 版本.
+ * 演示页卡片  与老 #ppt 的 PptHtmlViewer **外观一致**的 .tsx 版本.
  *
  * 两类内容共用同一套卡片 UI: 同样的工具栏、同样的"打开"遮罩、同样的放大弹层、
  * 同样的新标签页按钮. 唯一区别: .tsx 的工具栏右侧多一个**主题下拉**
  * (因为 .tsx 是内联 React, 可以实时换主题; iframe 里的内容换不了).
  *
  * 外观现在由自带的 PptCard.module.css 提供 (而非 import PptHtmlViewer 的 module),
- * 原因见该 CSS 顶部注释 —— 一句话: 弹层走 Portal, 别人的 module class 在里面会失效.
+ * 原因见该 CSS 顶部注释  一句话: 弹层走 Portal, 别人的 module class 在里面会失效.
  */
 /**
  * 已被 URL 的 ?ppt= 认领过的卡片标识.
@@ -27,12 +27,14 @@ import { PptCardIdProvider } from './deck-layer';
  *
  * 规则: 同一个标识只允许**第一张**卡片认领, 其余保持关闭.
  *
- * 注意: 认领只能发生在 effect 里, 不能放在 useState 的初始化器里 ——
+ * 注意: 认领只能发生在 effect 里, 不能放在 useState 的初始化器里 
  * 初始化器属于渲染阶段, React 可能渲染多次而只提交一次 (hydration / 并发渲染),
  * 在渲染里改这个 Set 会让"第一次渲染认领成功、提交的那次却看到已被认领"
  * 从而判定为不打开 (实测: 直接带 ?ppt= 刷新, 一张都打不开).
  */
-/* (see .agents/notes/implemented/bug-fix/2026-09-12-ppt-embed-card-fixes.md — 卡片滚动与侧栏同步的修复处) */
+/* (see  — 卡片滚动与侧栏同步的修复处) 
+ * .agents/notes/implemented/bug-fix/2026-09-12-ppt-embed-card-fixes.md
+ */
 const claimedPptIds = new Set<string>();
 
 export interface PptCardProps {
@@ -40,7 +42,7 @@ export interface PptCardProps {
     /**
      * 卡片在 URL 里的唯一标识 (?ppt=<id>).
      *
-     * 默认回退到 title —— 但**同名卡片必须由调用方传一个真正唯一的 id**
+     * 默认回退到 title  但**同名卡片必须由调用方传一个真正唯一的 id**
      * (如演示页路径 / iframe 的 src), 否则刷新会把同名的全部打开.
      */
     cardId?: string;
@@ -132,14 +134,14 @@ export function PptCard({
             setIsFullscreen(on);
             /*
               浏览器全屏被外部撤销 (Esc / F11 / 系统手势) 时, 弹层要跟着收掉。
-              否则会出现"全屏已退出, 但仍有一层最大化的弹层压在页面上, 退出不明显" ——
+              否则会出现"全屏已退出, 但仍有一层最大化的弹层压在页面上, 退出不明显" 
               这正是用户报的那个隐患。
               但自己按 Esc 时由 onKey 先退全屏, 这里不能再关弹层, 否则一次 Esc 全没了,
               所以用这个 ref 标记"这次是脚本主动退出"。
 
               判据必须是"**没有任何元素**处于全屏", 而不是"弹层自己不是全屏元素":
               弹层里的 iframe (老 #ppt 语法) 或演示页自己请求全屏时, fullscreenElement
-              会变成那个内层元素 —— 那不是撤销, 弹层不该跟着消失。
+              会变成那个内层元素  那不是撤销, 弹层不该跟着消失。
             */
             if (!document.fullscreenElement && !selfExitRef.current) {
                 setIsOpen(false);
@@ -158,7 +160,7 @@ export function PptCard({
         };
     }, [isOpen]);
 
-    /** 把"打开了哪张卡片"写进 URL —— 刷新/分享可复原 */
+    /** 把"打开了哪张卡片"写进 URL  刷新/分享可复原 */
     const syncUrl = (open: boolean) => {
         if (typeof window === 'undefined') return;
         const url = new URL(window.location.href);
@@ -173,7 +175,7 @@ export function PptCard({
 
       这两个参数只在"从分享链接进来"时才有意义 (由下面的 effect 处理, 不经过这里).
       不清的话, 读者关掉卡片后再点开, 会莫名其妙跳到别人分享的那个页码、
-      甚至架构图一进来就是放大态 —— 与他的点击意图不符.
+      甚至架构图一进来就是放大态  与他的点击意图不符.
     */
     const openModal = () => {
         if (typeof window !== 'undefined') {
@@ -186,7 +188,7 @@ export function PptCard({
         syncUrl(true);
     };
     const closeModal = () => {
-        // 全屏中先退全屏, 再关弹层 —— 与原组件一致 (标记为主动退出, 免得 onFs 重复处理)
+        // 全屏中先退全屏, 再关弹层  与原组件一致 (标记为主动退出, 免得 onFs 重复处理)
         if (document.fullscreenElement === shellRef.current) {
             selfExitRef.current = true;
             void document.exitFullscreen();
@@ -196,7 +198,7 @@ export function PptCard({
     };
 
     /**
-     * 全屏 —— 与原组件完全一致的实现.
+     * 全屏  与原组件完全一致的实现.
      *
      * 两种内容 (.html 的 iframe / .tsx 的内联 deck) 走同一条路径:
      * 让 modalShell 自己 requestFullscreen.
@@ -246,7 +248,7 @@ export function PptCard({
                         </button>
                         {/*
                           新标签页打开: .html 指向文件本身; .tsx 指向独立播放页.
-                          两种内容都提供 —— 这是原组件就有的能力, 不该被省掉.
+                          两种内容都提供  这是原组件就有的能力, 不该被省掉.
                         */}
                         <a
                             className={styles.actionButton}
@@ -289,7 +291,7 @@ export function PptCard({
                             className={styles.modalShell}
                             /*
                               遮罩关闭挂在 overlay 上, 内容区自己吞掉 mousedown;
-                              但 mousedown 不是点击 —— 从弹层里按下鼠标、拖到遮罩上再松手,
+                              但 mousedown 不是点击  从弹层里按下鼠标、拖到遮罩上再松手,
                               浏览器会把 click 派发给 overlay, 于是"一拖动就关掉"。
                               这里再补一层 click 拦截, 只关心从遮罩本身发起的点击。
                             */
@@ -335,7 +337,7 @@ export function PptCard({
 
                               之前在这里叠了两个 position:absolute; inset:0 的层
                               (一个当"底页", 一个当"前景层"), 结果是:
-                                · 它们脱离文档流, 盖住了真正的 deck ——
+                                · 它们脱离文档流, 盖住了真正的 deck 
                                   鼠标事件全落在空层上, 于是"点击无反应、滚动失效"
                                 · deck 被压在两层之间, 架构图的半透明背景仍不对
                               正确做法: 底页就是 modalFrame 自己的背景色, 不需要额外元素.

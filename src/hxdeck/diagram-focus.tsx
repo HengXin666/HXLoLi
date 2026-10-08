@@ -1,19 +1,19 @@
 import React from 'react';
 
 /**
- * 架构图"语义护照" —— 把 archify viewer 的节点探查能力搬进我们的 React 控件.
+ * 架构图"语义护照"  把 archify viewer 的节点探查能力搬进我们的 React 控件.
  *
  * archify 的产物里, 每个节点/连线都带着稳定的语义钩子:
  *   <g data-node-id data-node-label data-node-sublabel data-node-context data-node-kind>
  *   <path data-edge-from data-edge-to data-edge-label data-edge-key>
- * 交互全部建立在这份钩子上, 与几何无关 —— 所以缩放/拖拽之后依然准确.
+ * 交互全部建立在这份钩子上, 与几何无关  所以缩放/拖拽之后依然准确.
  *
  * 这里只做两件事:
  *   1. 从 SVG 文本里解析出这张语义图 (节点 + 有向边)
  *   2. 渲染悬浮信息卡 (archify 叫 Semantic Passport)
  *
  * 高亮本身不走 JS: 直接给元素打 data-focus-* 属性, 由 archify 自带的语义
- * CSS (extracted-diagram 的 css 字段) 负责变暗/提亮 —— 这样视觉语言与
+ * CSS (extracted-diagram 的 css 字段) 负责变暗/提亮  这样视觉语言与
  * 原始 archify 产物完全一致, 我们只是"重新接线".
  */
 
@@ -103,7 +103,7 @@ export function neighborhood(facts: DiagramFacts, id: string): { nodes: Set<stri
  *
  * 为什么在**文本层**做, 而不是拿到 DOM 后 setAttribute:
  *   我们的 SVG 是用 dangerouslySetInnerHTML 注进去的, React 每次重渲染都会
- *   重建这棵子树 —— 命令式打上的属性会被下一次渲染抹掉 (实测: 点节点后
+ *   重建这棵子树  命令式打上的属性会被下一次渲染抹掉 (实测: 点节点后
  *   setFocusId 触发重渲染 -> 属性生效 -> 紧接着 setPassportPos 又一次重渲染
  *   -> 属性全没了). 改成 useMemo 派生字符串, 属性就是 React 渲染结果的一部分,
  *   任何重渲染都只会把它画回正确的样子.
@@ -292,9 +292,9 @@ export function applyView(svg: string, facts: DiagramFacts, view: DiagramView): 
  *   字符串版意味着 svg 内容随视图状态变化, React 每次重渲染都会重建整棵 SVG 子树.
  *   实测两个后果 (用户直接报的):
  *     1. **动效被打回起点**: 任何交互 (点节点/开面板) 都重启动画,
- *        观感上"不按箭头顺序""有时候倒着来" —— 因为那条边被重置后又从头跑;
+ *        观感上"不按箭头顺序""有时候倒着来"  因为那条边被重置后又从头跑;
  *     2. **点击失效**: mousedown 触发了重渲染 (setPanning), 光标下的节点被销毁,
- *        浏览器于是不会派发 click —— 路径探测"点了没用"就是这么来的.
+ *        浏览器于是不会派发 click  路径探测"点了没用"就是这么来的.
  *
  *   所以现在 SVG 只注入一次 (dangerouslySetInnerHTML 用稳定的 a.svg),
  *   视图属性走这里**命令式**设置. React 不再碰这棵子树, 属性与动画都不会被打断.
@@ -312,7 +312,7 @@ export function applyViewToDom(root: HTMLElement | null, facts: DiagramFacts, vi
     const svg = root.querySelector('svg');
     if (!svg) return;
 
-    // 先全部清掉 (包括 aria-pressed), 再按当前视图重新打 —— 保证互斥
+    // 先全部清掉 (包括 aria-pressed), 再按当前视图重新打  保证互斥
     for (const el of Array.from(svg.querySelectorAll('*')) as Element[]) {
         for (const a of VIEW_ATTRS) el.removeAttribute(a);
         if (el.hasAttribute('aria-pressed')) el.setAttribute('aria-pressed', 'false');
@@ -403,7 +403,7 @@ export interface PassportPos { left: number; top: number }
  * /直接上下游), 不推断因果, 不猜运行时行为.
  *
  * 卡片上**不放任何动作按钮**: 点节点是"我想看这个节点是什么", 不是"我要对这个
- * 节点做点什么". 复制链接属于"带走这张图"的通用操作, 归工具条的分享菜单 ——
+ * 节点做点什么". 复制链接属于"带走这张图"的通用操作, 归工具条的分享菜单 
  * 放在节点卡里既与本意无关, 又和分享菜单重复.
  */
 export function DiagramPassport({

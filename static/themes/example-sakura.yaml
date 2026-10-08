@@ -1,6 +1,6 @@
 id: sakura
 name: 樱花
-description: 示例主题 —— 演示"复制一份改几个值"即可成为新主题
+description: 示例主题  演示"复制一份改几个值"即可成为新主题
 colors:
   bg: '#1a0f14'
   bgAlt: '#2b1620'

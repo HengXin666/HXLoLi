@@ -37,6 +37,10 @@ import {
 
 // If we navigate to a category and it becomes active, it should automatically
 // expand itself
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function useAutoExpandActiveCategory ({
     isActive,
     collapsed,

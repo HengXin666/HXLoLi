@@ -8,7 +8,7 @@
 .hxd-pageheader { display: flex; flex-direction: column; gap: var(--hxd-scale-sp2); }
 .hxd-pageheader__eyebrow {
     /*
-      eyebrow 是**每屏开场的标识**, 不是页脚注释 —— 用最小字阶会让整页第一节就"轻飘飘".
+      eyebrow 是**每屏开场的标识**, 不是页脚注释  用最小字阶会让整页第一节就"轻飘飘".
       投屏 (1600x900 画布再整体 scale) 下 label (15px) 缩完只剩 ~10px, 这里统一抬到正文级.
     */
     font-size: var(--hxd-scale-body);
@@ -168,7 +168,7 @@
 .hxd-kv__v { margin: 0; font-size: var(--hxd-scale-body); font-family: var(--hxd-font-mono); }
 
 /* ==========================================================================
-   图片容器 —— 让任意图片都像版面的一部分
+   图片容器  让任意图片都像版面的一部分
    ========================================================================== */
 .hxd-figure { margin: 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .hxd-figure__frame {
@@ -199,7 +199,7 @@
 .hxd-figure__caption { font-size: var(--hxd-scale-label); color: var(--hxd-color-text-muted); line-height: 1.5; }
 
 /* ==========================================================================
-   state layer —— 统一交互反馈 (Material 3 思路)
+   state layer  统一交互反馈 (Material 3 思路)
    同一套反馈作用于所有可交互元素, 避免各处各写一份 hover
    ========================================================================== */
 .hxd-card, .hxd-figure[data-tone='card'] .hxd-figure__frame {
@@ -209,7 +209,7 @@
 }
 .hxd-card:hover { box-shadow: var(--hxd-elev-e2); border-color: color-mix(in srgb, var(--hxd-color-primary) 40%, var(--hxd-color-border)); }
 
-/* 焦点可见性 —— 无障碍必需, 且不破坏视觉 */
+/* 焦点可见性  无障碍必需, 且不破坏视觉 */
 :where(.hxd-deck) :focus-visible {
     outline: 2px solid var(--hxd-state-focus-ring);
     outline-offset: 3px;
@@ -220,7 +220,7 @@
    架构图 / 流程图容器族
 
    设计约束 (都被踩过):
-     · 容器高度由 JS 按 viewBox 比例锁定, **与缩放无关** ——
+     · 容器高度由 JS 按 viewBox 比例锁定, **与缩放无关** 
        否则放大时版面变高, deck 会以为要翻页
      · 内部画布用 width/height 百分比参与布局 (不是 transform),
        于是 scrollWidth/scrollHeight 是真实尺寸, 拖拽能摸到四边
@@ -237,7 +237,7 @@
       溢出内容可滚: 这是拖拽/缩放的"视口".
 
       注意 overscroll-behavior 必须是 auto:
-        contain 会**阻断滚动链** —— 即使图框自己滚到头, 滚轮也不会传给页面.
+        contain 会**阻断滚动链**  即使图框自己滚到头, 滚轮也不会传给页面.
         实测现象: 鼠标停在架构图上滚动, 页面纹丝不动.
       只有在图处于放大查看状态时, 才需要 contain 防止穿透到背景页.
     */
@@ -270,7 +270,7 @@
 
 /* 内边距档位 */
 .hxd-diagram[data-pad='md'] .hxd-diagram__frame { padding: 16px; }
-/* 内边距每 10px 都会从图上扣掉一圈可用宽度, 图内文字随之等比缩小 —— 演示场景下"图大"比"留白"重要 */
+/* 内边距每 10px 都会从图上扣掉一圈可用宽度, 图内文字随之等比缩小  演示场景下"图大"比"留白"重要 */
 .hxd-diagram[data-pad='sm'] .hxd-diagram__frame { padding: 4px; }
 .hxd-diagram[data-pad='none'] .hxd-diagram__frame { padding: 0; }
 
@@ -306,7 +306,7 @@
 /*
   舞台: 图框 + 悬浮工具条的共同定位上下文.
 
-  工具条是**浮在图右下角**的, 所以它必须是图框的兄弟而不是子节点 ——
+  工具条是**浮在图右下角**的, 所以它必须是图框的兄弟而不是子节点 
   图框 overflow: auto, 放里面会跟着画布一起滚走 (放大后按钮就"跑出屏幕"了).
 */
 .hxd-diagram__stage { position: relative; min-width: 0; display: block; }
@@ -441,7 +441,7 @@
 .hxd-ctable__wrap { overflow-x: auto; border-radius: var(--hxd-shape-radius); border: 1px solid var(--hxd-color-border); background: var(--hxd-color-surface); }
 .hxd-ctable { border-collapse: collapse; width: 100%; font-size: var(--hxd-scale-body); }
 .hxd-ctable th, .hxd-ctable td { padding: 12px 18px; text-align: left; border-bottom: 1px solid var(--hxd-color-border); }
-/* 表头与首列是"索引", 在投屏上要被一眼扫到 —— 各抬一档字阶并加粗, 靠层级而不是靠颜色区分 */
+/* 表头与首列是"索引", 在投屏上要被一眼扫到  各抬一档字阶并加粗, 靠层级而不是靠颜色区分 */
 .hxd-ctable thead th { font-size: calc(var(--hxd-scale-body) + 1px); font-weight: 800; color: var(--hxd-color-text); letter-spacing: 0.03em; }
 .hxd-ctable tbody th { font-size: calc(var(--hxd-scale-body) + 1px); font-weight: 700; }
 .hxd-ctable tbody tr:last-child th, .hxd-ctable tbody tr:last-child td { border-bottom: 0; }
@@ -475,7 +475,7 @@
 
 /* ==========================================================================
    图内字号下限
-   archify 按 viewBox 尺度写死 font-size 7~12 —— 那是"网页里一张大图"的尺度,
+   archify 按 viewBox 尺度写死 font-size 7~12  那是"网页里一张大图"的尺度,
    缩进卡片后只剩 3~5px, 完全读不了.
    这里按**字号所在位置**统一给下限: 属性与行内 style 两条来源都覆盖到.
    注意不要用 zoom 放大整图: 那会把节点推出可视区, 点不中 (见 Diagram 里
@@ -654,7 +654,7 @@
     font-size: 14px;
 }
 /* ==========================================================================
-   放大查看 (页内浮层) —— 边界是**演示页**, 不是整个网页
+   放大查看 (页内浮层)  边界是**演示页**, 不是整个网页
 
    浮层通过 Portal 挂在演示页根节点里 (见 deck-layer.tsx), 用 inset:0 铺满它.
    于是"全屏"的最大尺寸天然等于父布局, 内部布局不可能比父布局还大.
@@ -670,7 +670,7 @@
       position:absolute (不是 fixed) 是关键:
         absolute 的包含块是最近的非 static 祖先 = 演示页根节点 (position:relative),
         inset:0 因此严格等于"演示页有多大, 浮层就有多大".
-        fixed 则相对**视口**, 在卡片预览里就是整块网页 —— 那正是 bug 本身.
+        fixed 则相对**视口**, 在卡片预览里就是整块网页  那正是 bug 本身.
     */
     position: absolute;
     left: 0;
@@ -702,7 +702,7 @@
 }
 
 /* 舞台撑满浮层剩余空间; 图框再撑满舞台.
-   高度完全交给 CSS, 不再让 JS 按 window.innerHeight 算 frameH ——
+   高度完全交给 CSS, 不再让 JS 按 window.innerHeight 算 frameH 
    那正是"比父布局还大"的来源 */
 .hxd-diagram[data-full='true'] .hxd-diagram__stage {
     flex: 1 1 auto;
@@ -724,7 +724,7 @@
 /*
   放大时让 deck 自己的装饰让位.
 
-  旧版本用 body:has(.hxd-diagram[data-full]) 选 —— 现在浮层就是 deck 的子节点,
+  旧版本用 body:has(.hxd-diagram[data-full]) 选  现在浮层就是 deck 的子节点,
   直接用 deck 上的占用标记即可, 不必依赖 :has() 支持, 也不会误伤同页的其它卡片.
 */
 .hxd-deck[data-layer-full='true'] .hxd-nav,
@@ -740,7 +740,7 @@
   下拉菜单 (分享 / 下载).
 
   样式必须**完全自洽**: 这些按钮是原生 <button>, 不重置的话会继承站点
-  主题的按钮外观 (自带边框/底色/padding), 在本就紧凑的胶囊里显得又重又脏 ——
+  主题的按钮外观 (自带边框/底色/padding), 在本就紧凑的胶囊里显得又重又脏 
   这正是"下拉菜单样式需要优化"的观感来源.
 */
 .hxd-diagram__menu {
@@ -830,7 +830,7 @@
     .hxd-diagram__menu { animation: none; }
 }
 /* ==========================================================================
-   PPT 外框 —— 与代码块同一套"外框"语言
+   PPT 外框  与代码块同一套"外框"语言
    顶栏放控件 (文件名 / 主题下拉), 内容区放演示页, 边界清晰
    ========================================================================== */
 
@@ -843,7 +843,7 @@
 }
 
 /* ==========================================================================
-   语义护照 (节点信息浮卡) —— 对应 archify 的 Semantic Passport
+   语义护照 (节点信息浮卡)  对应 archify 的 Semantic Passport
 
    为什么放在 __stage 而不是图框里: 节点本身在可滚动的画布里, 卡片跟着滚会永远错位;
    stage 是静态定位上下文, 卡片的 left/top 由 JS 按节点的视口位置算好.

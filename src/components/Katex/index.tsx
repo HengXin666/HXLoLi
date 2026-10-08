@@ -2,6 +2,10 @@ import React from 'react';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 interface KatexProps {
     content: string;
 }

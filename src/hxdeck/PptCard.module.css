@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PptCard —— 演示页卡片 (预览外框 + 放大弹层)
+   PptCard  演示页卡片 (预览外框 + 放大弹层)
    ==========================================================================
 
    为什么这里有一份**完整的**卡片样式, 而不是继续 import
@@ -8,7 +8,7 @@
      PptCard 的放大弹层是 Portal 到 document.body 的, 不在卡片的 DOM 子树里。
      曾经试过"让 PptCard 复用 PptHtmlViewer 的 module", 结果弹层的 class
      (modalShell / modalButton / modalFrame) 全部解析成 undefined:
-     弹层没有边框、按钮塌成没有尺寸的方块、底页透明 —— 表现为
+     弹层没有边框、按钮塌成没有尺寸的方块、底页透明  表现为
      "退出不明显、背景也不对"。作用域 class / :global 都救不了 Portal 子节点。
 
    所以: 卡片外观 (与 PptHtmlViewer 保持一致) 在这里自带一份。
@@ -156,7 +156,7 @@
 }
 
 /*
-  ":fullscreen" 不能写成 ".modalShell:fullscreen" 依赖的哈希类名之外的形态 ——
+  ":fullscreen" 不能写成 ".modalShell:fullscreen" 依赖的哈希类名之外的形态 
   这里就是本地的 .modalShell, 直接写即可。
   规则本身很重要: 全屏时要去掉弹层的宽高与圆角, 否则浏览器全屏后
   内容仍按 min(96vw,1400px) 排版, 四周留黑边, 观感像"没进全屏"。
@@ -190,7 +190,7 @@
 
 /* ---------- 内联 deck 的容器 ----------
    modalFrame 是 flex 子项, 给容器 100% 宽高即可;
-   注意: 不要用 position:absolute —— 那会脱离文档流, 盖住兄弟元素,
+   注意: 不要用 position:absolute  那会脱离文档流, 盖住兄弟元素,
    导致指针事件落到错误的层上 (表现为点击失效 / 无法滚动). */
 .deckHolder {
     display: block;

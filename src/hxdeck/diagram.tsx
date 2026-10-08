@@ -17,13 +17,13 @@ import { FaShareAlt, FaFileDownload, FaCheck } from 'react-icons/fa';
  *
  * 1. **容器尺寸固定, 只有内容缩放.**
  *    早期做法是给 <svg> 设 width: zoom*100% + height:auto, 于是放大时容器被撑高,
- *    整个版面高度跟着变 —— deck 侦测到尺寸变化就翻页, 观感上"缩放变成了翻页".
+ *    整个版面高度跟着变  deck 侦测到尺寸变化就翻页, 观感上"缩放变成了翻页".
  *    现在容器高度由 viewBox 宽高比算出并锁死; 缩放只作用于内部画布.
  *
  * 2. **滚动边界必须真实.**
  *    内部画布用 width/height = zoom*100% 参与布局, 因此
  *    scrollWidth/scrollHeight 恰好等于缩放后的尺寸, 拖拽能真正摸到四边.
- *    若改用 transform: scale(), 布局尺寸不变, 滚动区就永远是 0 —— 那正是"拖不到边界"的原因.
+ *    若改用 transform: scale(), 布局尺寸不变, 滚动区就永远是 0  那正是"拖不到边界"的原因.
  *
  * 3. **放大 = 占满"当前演示页", 不是占满整个网页.**
  *    浮层挂在**演示页/弹层的舞台容器**里 (见 deck-layer.tsx), 用 inset:0 定位.
@@ -50,7 +50,9 @@ export interface DiagramAsset {
  * 拿到的可能是 Module 命名空间对象 (带 default 字段), 直接读 a.viewBox 会是 undefined,
  * 于是自动缩放静默失效 (表现为永远 100%).
  */
-/* (see .agents/notes/implemented/bug-fix/2026-09-12-diagram-fullscreen-layer.md — 全屏层边界计算处) */
+/* (see  — 全屏层边界计算处) 
+ * .agents/notes/implemented/bug-fix/2026-09-12-diagram-fullscreen-layer.md
+ */
 export function resolveAsset(input: DiagramAsset | string): DiagramAsset {
     if (typeof input === 'string') return { svg: input, css: '' };
     const anyIn = input as unknown as { default?: DiagramAsset };
@@ -142,7 +144,7 @@ export interface DiagramProps {
     /**
      * 图表所属卡片在 URL 里的标识 (?ppt=).
      *
-     * 分享链接需要它才能"直接打开这个架构图" —— 光有 ?page= 只会落在正文的
+     * 分享链接需要它才能"直接打开这个架构图"  光有 ?page= 只会落在正文的
      * 缩略图上, 对方还要自己点一下。由 PptEmbed 透传进来.
      */
     cardId?: string;
@@ -180,7 +182,7 @@ export function Diagram({
     /*
       初始缩放**固定 100%**: 整张图完整可见, 每个节点都能点到.
 
-      之前按"像素密度"自动放大到 187%, 结果是 2761px 的图塞进 1064px 的框里 ——
+      之前按"像素密度"自动放大到 187%, 结果是 2761px 的图塞进 1064px 的框里 
       实测 10 个节点里 9 个落在可视区之外, 点谁都点不到 (路径探测"点了没用"的直接原因).
       要看细节用 +/- 或滚轮, 不该由默认值替读者做这个决定.
     */
@@ -194,7 +196,7 @@ export function Diagram({
     /*
       节点探查 (语义护照).
 
-      图的"语义"来自 SVG 上的稳定钩子 (data-node-id / data-edge-from ...) ——
+      图的"语义"来自 SVG 上的稳定钩子 (data-node-id / data-edge-from ...) 
       与几何无关, 所以缩放/拖拽/放大之后仍然准确. 解析一次缓存, 交互时只改属性,
       具体的变暗/提亮交给 archify 自带的那段语义 CSS, 视觉语言与原始产物一致.
     */
@@ -217,19 +219,19 @@ export function Diagram({
     /*
       聚焦是**派生渲染**, 不是命令式改 DOM.
 
-      坑: SVG 走 dangerouslySetInnerHTML, React 每次重渲染都会重建这棵子树 ——
+      坑: SVG 走 dangerouslySetInnerHTML, React 每次重渲染都会重建这棵子树 
       命令式 setAttribute 打上的标记会被下一次渲染抹掉 (点完节点紧接着摆卡片就是两次渲染).
       所以把聚焦态算进 SVG 字符串, 任何重渲染都只会把它画回正确状态.
     */
     /*
-      读者的"语义视图" —— 聚焦 / 语义透镜 / 图例预览 / 路径探测.
+      读者的"语义视图"  聚焦 / 语义透镜 / 图例预览 / 路径探测.
       它们互斥 (同一时刻只有一种主导), 由 applyView 统一算进 SVG 字符串.
     */
     const [lensKind, setLensKind] = useState<string | null>(null);
     const [previewKind, setPreviewKind] = useState<string | null>(null);
     const [route, setRoute] = useState<string[] | null>(null);
     const [routePick, setRoutePick] = useState<'source' | 'target' | null>(null);
-    // 放大态下的阅读深度 (map / read / full) —— 随缩放自动升降
+    // 放大态下的阅读深度 (map / read / full)  随缩放自动升降
     const [detailLevel, setDetailLevel] = useState<'map' | 'read' | 'full'>('read');
     // 查找器 / 演示模式
     const [finderOpen, setFinderOpen] = useState(false);
@@ -240,7 +242,7 @@ export function Diagram({
       SVG **只注入一次** (用稳定的 a.svg), 视图属性走命令式 applyViewToDom.
 
       这是用户报的两个问题的共同根因: 之前把视图算进字符串, 于是任何交互都重建
-      SVG 子树 —— 动画被打回起点 (看着"倒着跑"), mousedown 后节点被销毁导致
+      SVG 子树  动画被打回起点 (看着"倒着跑"), mousedown 后节点被销毁导致
       click 根本不触发 (路径探测点了没用).
     */
     const containerRef = useRef<HTMLDivElement>(null);
@@ -263,7 +265,7 @@ export function Diagram({
       放大 (页内全屏, 非浏览器全屏).
 
       边界 = **当前演示页**. 浮层挂在 deck-layer 给出的宿主节点里 (演示页根节点,
-      或卡片弹层的舞台容器), 用 inset:0 铺满它 —— 而不是铺满整个网页.
+      或卡片弹层的舞台容器), 用 inset:0 铺满它  而不是铺满整个网页.
     */
     /*
       上下文读取放在最前: 下面多个 useCallback/useEffect 都依赖它们
@@ -278,7 +280,7 @@ export function Diagram({
 
     const [full, setFull] = useState(false);
     /*
-      ?zoom=1 —— "复制链接"带上的视角参数.
+      ?zoom=1  "复制链接"带上的视角参数.
 
       带参数的链接打开后应**直接是放大态**, 否则对方还得自己点一次"放大",
       那就没达到"直接打开这个架构图"的目的. 只在可交互的图上生效 (见下方 effect).
@@ -322,7 +324,7 @@ export function Diagram({
 
     /**
      * 容器高度 = 可用宽 / 宽高比, 用可用高度封顶.
-     * 只依赖宽度与比例, **与缩放无关** —— 这是"缩放不再引发版面高度变化"的关键.
+     * 只依赖宽度与比例, **与缩放无关**  这是"缩放不再引发版面高度变化"的关键.
      */
     const measureRef = useRef<() => void>(() => {});
 
@@ -332,10 +334,10 @@ export function Diagram({
             const frame = frameRef.current;
             if (!wrap || !frame) return;
             /*
-              放大态: 高度交给 CSS (flex:1 撑满浮层剩余空间), JS 不再插手 ——
+              放大态: 高度交给 CSS (flex:1 撑满浮层剩余空间), JS 不再插手 
               之前这里按 window.innerHeight 算, 而 window 是**视口**而非演示页,
               卡片预览里算出的高度比父布局还大 (实测 900 vs 卡片 782), 直接把
-              浮层内容顶出父边界 —— 正是"内部布局比父布局还大"的来源.
+              浮层内容顶出父边界  正是"内部布局比父布局还大"的来源.
             */
             if (full) { setFrameH(null); return; }
             const w = frame.clientWidth || wrap.clientWidth;
@@ -385,7 +387,7 @@ export function Diagram({
     /**
      * 语义透镜 / 图例预览用的类型清单.
      *
-     * 直接来自图里真实存在的 data-node-kind —— 不预置一份写死的词表,
+     * 直接来自图里真实存在的 data-node-kind  不预置一份写死的词表,
      * 换了图 (或 archify 换了角色集) 这里自动跟着变.
      */
     const kinds = useMemo(() => {
@@ -404,7 +406,7 @@ export function Diagram({
         if (!q) return [];
         /*
           排序: 标签命中 > 稳定 ID > 子标签/上下文命中.
-          更贴近"我找的是这个名字"的直觉 —— 否则搜 cookie 时,
+          更贴近"我找的是这个名字"的直觉  否则搜 cookie 时,
           子标签里带 cookie 的节点会挤到真正的 CookieFetcher 前面.
         */
         const rank = (n: { id: string; label: string; sublabel?: string; context?: string }) => {
@@ -472,7 +474,7 @@ export function Diagram({
       聚焦 / 取消聚焦.
 
       与 archify 的 set() 一致: 点节点 = 聚焦 (高亮它的直接邻域), 再点一次 = 取消,
-      点空白 = 取消. 状态既写进 SVG 属性, 也同步到 URL 的 #focus=<id> —— 分享链接能复原.
+      点空白 = 取消. 状态既写进 SVG 属性, 也同步到 URL 的 #focus=<id>  分享链接能复原.
     */
     const selectNode = useCallback((id: string | null) => {
         setFocusId((prev) => (prev === id ? null : id));
@@ -500,9 +502,9 @@ export function Diagram({
      * 复制"这张图在当前站点的链接".
      *
      * 链接要能**完整还原此刻的视角**, 因此带上三样东西:
-     *   · ?ppt=<卡片标识>  —— 直接打开这张卡片的放大弹层 (否则只看到正文里的缩略图)
-     *   · ?page=<页码>      —— 翻到了第几屏 (否则对方落在第 1 页还得自己翻)
-     *   · #focus=<节点>     —— 聚焦到哪个节点 (可选)
+     *   · ?ppt=<卡片标识>   直接打开这张卡片的放大弹层 (否则只看到正文里的缩略图)
+     *   · ?page=<页码>       翻到了第几屏 (否则对方落在第 1 页还得自己翻)
+     *   · #focus=<节点>      聚焦到哪个节点 (可选)
      *
      * 为什么在**客户端**补而不是用当前 location: 卡片打开时 URL 里只有 ?ppt=;
      * 页码由 deck 内部维护 (props.syncUrl=false, 不往地址栏写), 所以要显式拼进去.
@@ -513,7 +515,7 @@ export function Diagram({
         if (pptCardId) url.searchParams.set('ppt', pptCardId);
         if (pageTotal > 0) url.searchParams.set('page', String(pageIndex + 1));
         if (focusId) url.hash = 'focus=' + encodeURIComponent(focusId);
-        // 若此刻正把这张图放大着看, 链接也带上下 —— 对方打开就是同一个视角
+        // 若此刻正把这张图放大着看, 链接也带上下  对方打开就是同一个视角
         if (full) url.searchParams.set('zoom', '1');
         else url.searchParams.delete('zoom');
         const value = url.toString();
@@ -572,7 +574,7 @@ export function Diagram({
     /*
       按 ?zoom=1 自动进入放大态.
 
-      必须等 canZoom 为真 (即这张卡片真的被打开、内容切到交互实例) 才执行 ——
+      必须等 canZoom 为真 (即这张卡片真的被打开、内容切到交互实例) 才执行 
       预览卡片里铺满整页是个 bug, 不是需求. 用 ref 保证只自动做一次,
       读者手动退出后不该被再次拽回放大态.
     */
@@ -581,7 +583,7 @@ export function Diagram({
         /*
           必须同时满足 slideActive: deck 会把**所有**屏都挂载 (只是隐藏),
           少了这个条件, ?zoom=1 会让每一屏里的图都自动展开 (实测 2 张同时铺满).
-          只有当前可见那一屏的图才该放大, 而且它必须已经量好尺寸 ——
+          只有当前可见那一屏的图才该放大, 而且它必须已经量好尺寸 
           隐藏屏量出来是 0, FLIP 动画也会算错.
         */
         if (autoZoomed.current || !wantsZoom || !canZoom || !slideActive) return;
@@ -609,7 +611,7 @@ export function Diagram({
       宿主消失 (弹层被卸载 / 换了演示页) 时收起浮层.
 
       为什么必须做: 浮层挂在宿主节点里, 宿主一卸载浮层也跟着没了 React 树,
-      但内部 state 还停在 full=true —— 下次挂载会"一进来就是全屏".
+      但内部 state 还停在 full=true  下次挂载会"一进来就是全屏".
     */
     useEffect(() => {
         if (!full) return;
@@ -667,7 +669,7 @@ export function Diagram({
 
     /*
       事件委托: SVG 是 dangerouslySetInnerHTML 注进来的, 不能给每个节点挂 React 事件.
-      所以在舞台容器上委托 —— 与 archify 在 svg 上挂一个监听的做法一致.
+      所以在舞台容器上委托  与 archify 在 svg 上挂一个监听的做法一致.
         · 点节点      -> 聚焦 / 再点取消 (archify: svg click -> set(id))
         · 点空白      -> 取消聚焦
         · Enter/Space -> 键盘聚焦 (节点本来就带 tabindex="0" role="button")
@@ -676,7 +678,7 @@ export function Diagram({
         const stage = stageRef.current;
         /*
           只在"可交互"的图 (放大弹层 / 独立播放页) 上启用节点探查.
-          预览卡片里的图是静态缩略图, 且整张卡片本身就是"点一下打开"的热区 ——
+          预览卡片里的图是静态缩略图, 且整张卡片本身就是"点一下打开"的热区 
           在那里抢点击会让读者点不卡片. 与缩放/放大的降级规则一致.
         */
         if (!stage || !facts.nodes.size || !canZoom) return;
@@ -739,7 +741,7 @@ export function Diagram({
             stage.removeEventListener('keydown', onStageKey);
         };
     /*
-      full 必须在 deps 里: 放大/收起会切换"内联 <-> Portal", 那是一次**重新挂载** ——
+      full 必须在 deps 里: 放大/收起会切换"内联 <-> Portal", 那是一次**重新挂载** 
       stageRef 指向的是新节点, 监听却还绑在已卸载的旧节点上, 于是放大后点节点毫无反应.
       (滚轮那条 effect 早就带了 full, 所以滚轮一直正常, 只有点击/键盘受影响.)
     */
@@ -769,7 +771,7 @@ export function Diagram({
         · 内容变 (换图/换主题) -> 重写;
         · **容器变** (放大/收起时浮层会 Portal 出一个新的 div) -> 也要重写.
 
-      踩过的坑: 一开始只比 a.svg, 于是放大后新挂载的容器永远是空的 ——
+      踩过的坑: 一开始只比 a.svg, 于是放大后新挂载的容器永远是空的 
       表现就是"放大之后一片空白, 只有放大时才触发".
     */
 /** 换图/换容器时 +1, 逼视图 effect 重新贴属性 */
@@ -787,7 +789,7 @@ export function Diagram({
     /*
       把当前视图 (聚焦/透镜/预览/路径) 应用到 DOM.
 
-      命令式设置属性, 不碰节点身份 —— 动画与事件监听都保留.
+      命令式设置属性, 不碰节点身份  动画与事件监听都保留.
     */
     useEffect(() => {
         applyViewToDom(containerRef.current, facts, {
@@ -807,17 +809,17 @@ export function Diagram({
     }, [facts, focusId]);
 
     /*
-      轨迹动效 (trace) —— 对应 archify 的 ambient motion.
+      轨迹动效 (trace)  对应 archify 的 ambient motion.
 
       设计稿的 SVG 里每个节点/边都带 data-animate + --step (作者编排的顺序).
       动效规则全部是 html[data-ambient-motion="running"] … 的形式, 也就是
-      "由**文档根**上的一个属性统一放行" —— 这是 archify 的 Motion Governor:
+      "由**文档根**上的一个属性统一放行"  这是 archify 的 Motion Governor:
         · 跑完一轮就把 data-ambient-motion 置为 settled, 动效自然停在终态;
         · 静态产物 (没有 data-animation="trace") 完全不参与.
       我们照搬这套协议, 不自己造动画.
 
       触发时机: 打开放大 / 进入独立播放页 (canZoom) 时跑一轮;
-      读者点节点探查时**不**重放 —— 语义意图优先于氛围动效.
+      读者点节点探查时**不**重放  语义意图优先于氛围动效.
     */
     const hasTrace = useMemo(() => /data-animation="trace"/.test(a.svg), [a.svg]);
     const [motionRun, setMotionRun] = useState(0);
@@ -894,7 +896,7 @@ export function Diagram({
       按住拖拽 = 平移.
 
       踩过的坑 (用户报的"路径探测点了没用"的真根因):
-        之前在 mousedown 里就 setPanning(true) —— 那是一次状态变更, 会让浏览器
+        之前在 mousedown 里就 setPanning(true)  那是一次状态变更, 会让浏览器
         认为按下与抬起落在**不同的 DOM 状态**上, 于是**根本不派发 click 事件**.
         实测: 节点上拿到 mousedown + mouseup, 但 click 一次都没有 → 节点永远选不中.
       正解: mousedown 只记起点, **等指针真的移动了**才开始拖拽/置 panning.
@@ -934,8 +936,8 @@ export function Diagram({
       放大态 = 一个真正的模态: 键盘先由它接管.
 
       两个必须拦住的兄弟处理:
-        · 宿主 (PptCard) 的 Esc —— 退浏览器全屏 / 关弹层;
-        · Deck 的翻页键盘 —— 否则浮层开着, 底下的演示页还在被翻走.
+        · 宿主 (PptCard) 的 Esc  退浏览器全屏 / 关弹层;
+        · Deck 的翻页键盘  否则浮层开着, 底下的演示页还在被翻走.
       两者都挂在 document/window 的**冒泡**阶段, 所以这里用捕获阶段监听 +
       stopPropagation, 抢在它们之前. 这样"放大时按 Esc"只退放大, 不会一次退两层.
     */
@@ -965,7 +967,7 @@ export function Diagram({
     }, [full, closeFull, selectNode]);
 
     /*
-      聚焦护照开着时, Esc 也要能收掉它 —— 上面那条只在**放大态**生效,
+      聚焦护照开着时, Esc 也要能收掉它  上面那条只在**放大态**生效,
       而卡片预览/独立播放页里没有放大态, 只靠它收不了卡片.
       同样用捕获阶段, 抢在 Deck / PptCard 之前.
     */
@@ -995,7 +997,7 @@ export function Diagram({
     }, [zoom]);
 
     /*
-      键盘快捷键 —— 与 archify 的键位保持一致.
+      键盘快捷键  与 archify 的键位保持一致.
       必须用**捕获阶段**并拦下来: Deck 的翻页监听在 window 冒泡阶段,
       不拦的话按 / 或 r 会被当成翻页快捷键.
     */
@@ -1047,10 +1049,10 @@ export function Diagram({
      *
      * 必须用**原生**监听:
      *   React 的 onWheel 是合成事件 (委托在 root 上), 而 Deck 用的是原生 addEventListener,
-     *   原生监听在冒泡链上更早触发 —— 合成事件的 stopPropagation 根本拦不住它.
+     *   原生监听在冒泡链上更早触发  合成事件的 stopPropagation 根本拦不住它.
      *
      * 另外: 图已经可滚动且还能滚 / 或者缩放已到极限时, 也要吃掉这次滚轮.
-     * 否则"缩到最小再继续滚"会把信号放给 Deck, 整屏被翻走 —— 这正是报告的 bug.
+     * 否则"缩到最小再继续滚"会把信号放给 Deck, 整屏被翻走  这正是报告的 bug.
      */
     useEffect(() => {
         const f = stageRef.current;
@@ -1061,7 +1063,7 @@ export function Diagram({
               只在**图已处于放大查看状态**时才用滚轮缩放.
 
               踩过的坑: 之前无条件 preventDefault + stopPropagation, 结果是
-              只要页面里有架构图, 鼠标停在图上滚就永远被吃掉 —— 页面滚不动.
+              只要页面里有架构图, 鼠标停在图上滚就永远被吃掉  页面滚不动.
               这不是"图的边界"问题, 而是图不该在预览态抢滚轮:
               读者此时想滚的是**文章**, 不是图.
             */
@@ -1099,7 +1101,7 @@ export function Diagram({
             <div ref={stageRef} className="hxd-diagram__stage">
                 {/*
                   放大态必须拦住发生在浮层上的 mousedown, 不能让它冒泡到宿主:
-                  卡片弹层的 modalOverlay 用 onMouseDown 关闭自己 —— 放大后在图上按一下鼠标,
+                  卡片弹层的 modalOverlay 用 onMouseDown 关闭自己  放大后在图上按一下鼠标,
                   整个弹层 (连同浮层) 就被关掉了. 这也是"退出路径不明显"的一个来源.
                 */}
                 <div
@@ -1114,7 +1116,7 @@ export function Diagram({
                       SVG 由 effect **一次性写入**, React 不参与管理这棵子树.
 
                       为什么不用 dangerouslySetInnerHTML: 实测只要父组件重渲染
-                      (缩放 / 点节点 / 开面板都会), React 就会重设 innerHTML ——
+                      (缩放 / 点节点 / 开面板都会), React 就会重设 innerHTML 
                       SVG 被整棵重建, 于是 (a) 动画被打回起点, 看着"倒着跑";
                       (b) mousedown 后节点被销毁, click 不派发, 节点选不中.
                       手动写入后 React 只管这个空 div, 内容与动画都不再被打断.
@@ -1209,7 +1211,7 @@ export function Diagram({
                             {full ? '✕ 退出' : '⛶'}
                         </button>
                         {/*
-                          分享菜单 —— "带走这张图".
+                          分享菜单  "带走这张图".
 
                           为什么不是一个裸的下载箭头: 之前那个 ⤓ 既不像导出, 也不像分享,
                           而且读者最想要的是"这张图在我们网站上的链接", 不是一份离线文件.
@@ -1311,15 +1313,15 @@ export function Diagram({
     /*
       放大: Portal 到**演示页根节点** (deck-layer 给的 host), 不是 document.body.
 
-      历史教训 —— 三种"错的全屏"都出自 Portal 到 body + position: fixed:
+      历史教训  三种"错的全屏"都出自 Portal 到 body + position: fixed:
         1. 定位相对**视口**: 卡片预览里 inset:0 就是整块网页, 盖住正文与站点 UI;
         2. 脱离 deck 的 CSS 变量: 背景色解析不出值, 浮层透明, 后面的内容透出来;
-        3. 宿主进入浏览器全屏时, 全屏元素在 top layer, body 上的浮层被压在下面 ——
+        3. 宿主进入浏览器全屏时, 全屏元素在 top layer, body 上的浮层被压在下面 
            点"放大"反而什么都看不见.
       Portal 只搬自己这一棵子树, 完全不动 deck 的 transform, 因此没有连带动画.
 
       为什么不用 :has() 把祖先 transform 改成 none:
-        .hxd-strip 带着 0.86s 的 transform 过渡, 强行设成 none 会触发一次"回到第 1 页"的动画 ——
+        .hxd-strip 带着 0.86s 的 transform 过渡, 强行设成 none 会触发一次"回到第 1 页"的动画 
         那正是"放大时有页面切换特效"和"某些页加载不出来"的原因.
     */
     if (full) {

@@ -282,7 +282,7 @@ export default function tagIndexPlugin(_context, options) {
       tags.sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
 
       const index = { tags, docs };
-      // 在 loadContent 阶段就落盘, 让 `docusaurus start` (dev) 也能拿到数据 ——
+      // 在 loadContent 阶段就落盘, 让 `docusaurus start` (dev) 也能拿到数据 
       // postBuild 只在正式构建时跑, dev 下不会执行。
       writeDataModule(path.resolve(siteDir, outputFile), index, outputFile);
 

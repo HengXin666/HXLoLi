@@ -2,6 +2,10 @@ import React from "react";
 import { Tabs, TabItem } from "@site/src/components/common/Tabs";
 import { WatchStatus } from "@site/src/utils/anime/types";
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 export interface WatchStatusTabProps {
     value: WatchStatus;
     onChange: (value: WatchStatus) => void;

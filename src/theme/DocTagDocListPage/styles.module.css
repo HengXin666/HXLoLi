@@ -1,6 +1,6 @@
 /* ============================================================
    ai-docs 标签详情页 (/knowledge-base/tags/<tag>)
-   swizzle 自 @theme/DocTagDocListPage —— 卡片网格 + 相关标签, 见 index.tsx。
+   swizzle 自 @theme/DocTagDocListPage  卡片网格 + 相关标签, 见 index.tsx。
    与总览页共用同一套配色变量 (见 DocTagsListPage/styles.module.css 的说明)。
    ============================================================ */
 

@@ -9,7 +9,7 @@ import { deckModules, findDeckKey } from '../hxdeck/decks.generated';
 /**
  * 演示页独立播放页.
  *
- * 用途: 从笔记里的 PPT 外框点"新页面打开"跳到这 —— 一个干净的、可投屏的全屏页.
+ * 用途: 从笔记里的 PPT 外框点"新页面打开"跳到这  一个干净的、可投屏的全屏页.
  * 地址形如: /ppt?deck=<key>&page=3&theme=whale
  *
  * 为什么需要它:
@@ -61,6 +61,10 @@ export default function PptPage(): React.ReactElement {
 
     // 内容
     const content = useMemo(() => {
+        /**
+         * 演示页滚轮会"漏"给宿主页面, 导致整个 PPT 整体上滑
+         * .agents/notes/implemented/bug-fix/2026-09-14-deck-wheel-leak-scrolls-host-page.md
+         */
         const key = deckKey && deckModules[deckKey] ? deckKey : findDeckKey(deckKey);
         if (!key) {
             setErr(`找不到演示页: ${deckKey || '(未指定)'}`);

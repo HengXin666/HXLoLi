@@ -6,8 +6,8 @@ import { Rise } from './blocks';
  * 外挂嵌入控件.
  *
  * 支持两类外部图:
- *   1. .drawio.svg  —— 博客已支持的可在线编辑矢量图, 直接 <img> 即可保留可编辑性
- *   2. 任意自包含 HTML —— 用 iframe (老 #ppt 侧车 / 第三方导出图)
+ *   1. .drawio.svg   博客已支持的可在线编辑矢量图, 直接 <img> 即可保留可编辑性
+ *   2. 任意自包含 HTML  用 iframe (老 #ppt 侧车 / 第三方导出图)
  *
  * 为什么不统一用 iframe:
  *   .drawio.svg 用 <img> 才能让浏览器的 SVG 渲染管线接管, 缩放清晰、体积小;

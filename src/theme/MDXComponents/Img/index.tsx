@@ -17,6 +17,10 @@ export default function MDXImg (props: Props): ReactNode {
     const width = ((res: string | undefined) => {
         return res ? (res.includes('%') ? res : `${res}px`) : undefined;
     })(matchRegex("##[wW](\\d+%?)##", alt));
+    /**
+     * 小于 10KB 的 .drawio.svg 被内联后丢掉 draw.io 编辑外壳
+     * .agents/notes/implemented/bug-fix/2026-09-27-drawio-svg-inlined-loses-editor-shell.md
+     */
     const borderRadius = matchRegex("##[rR](\\d+)##", alt);
 
     // 注意由于混淆, 它 .drawio.svg 会变为 `${hash()}.svg`
@@ -24,8 +28,8 @@ export default function MDXImg (props: Props): ReactNode {
     // 判定依据是"src 以 .svg 结尾", 这要求 .drawio.svg 以**文件 URL** 形态到达浏览器。
     // 一旦被 webpack 内联成 data URI, src 变成 `data:image/svg+xml;base64,...`, 这里就判假,
     // 图静默退化成裸 <img>。保证它不被内联的是 scripts/run-docusaurus.mjs 注入的
-    // WEBPACK_URL_LOADER_LIMIT=0 与 docusaurus.config.ts 的护栏 ——
-    // 见 .agents/notes/implemented/bug-fix/2026-09-27-drawio-svg-inlined-loses-editor-shell.md
+    // WEBPACK_URL_LOADER_LIMIT=0 与 docusaurus.config.ts 的护栏 
+    // 见 
     if (!src.endsWith('.svg')) {
         return (
             // eslint-disable-next-line jsx-a11y/alt-text

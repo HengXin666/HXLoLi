@@ -2,11 +2,11 @@
 /**
  * 扫描 ai-docs 下的演示页, 生成静态注册表.
  *
- * 演示页判定: 文件扩展名 .tsx —— 与"本地 .html 侧车"同一套思路, 按相对路径 + 扩展名识别.
+ * 演示页判定: 文件扩展名 .tsx  与"本地 .html 侧车"同一套思路, 按相对路径 + 扩展名识别.
  *
  * 为什么用**静态 import** 而不是动态 import():
  *   项目 tsconfig 是 moduleResolution: nodenext, 动态 import 的相对路径必须带扩展名,
- *   而 .tsx 扩展名又不被允许 (allowImportingTsExtensions 未开) —— 两头堵.
+ *   而 .tsx 扩展名又不被允许 (allowImportingTsExtensions 未开)  两头堵.
  *   静态 import 交给 webpack 解析, 没有这个限制.
  *
  * 用法: node scripts/generate-deck-registry.mjs

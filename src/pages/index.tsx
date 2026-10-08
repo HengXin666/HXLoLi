@@ -143,37 +143,37 @@ export default function Home (): ReactNode {
                     <a
                         target="_blank"
                         rel="noopener noreferrer nofollow"
-                        href="https://github-readme-stats-flame-pi-70.vercel.app/api?username=HengXin666&show_icons=true&theme=transparent&locale=ja&title_color=990099&hide_border=true&icon_color=F7CE45&text_color=D17277"
+                        href={"https://github-readme-stats-flame-pi-70.vercel.app/api?username=HengXin666&show_icons=true&theme=transparent&locale=ja&title_color=990099&hide_border=true&icon_color=F7CE45&text_color=D17277"}
                     >
                         <img
                             style={{ maxWidth: "100%", width: "400px" }}
-                            src="https://github-readme-stats-flame-pi-70.vercel.app/api?username=HengXin666&show_icons=true&theme=transparent&locale=ja&title_color=990099&hide_border=true&icon_color=F7CE45&text_color=D17277"
+                            src={"https://github-readme-stats-flame-pi-70.vercel.app/api?username=HengXin666&show_icons=true&theme=transparent&locale=ja&title_color=990099&hide_border=true&icon_color=F7CE45&text_color=D17277"}
                             title="GitHub Stats"
-                            data-canonical-src="https://github-readme-stats-flame-pi-70.vercel.app/api?username=HengXin666&show_icons=true&theme=transparent&locale=ja&title_color=990099&hide_border=true&icon_color=F7CE45&text_color=D17277"
+                            data-canonical-src={"https://github-readme-stats-flame-pi-70.vercel.app/api?username=HengXin666&show_icons=true&theme=transparent&locale=ja&title_color=990099&hide_border=true&icon_color=F7CE45&text_color=D17277"}
                         />
                     </a>
                     <a
                         target="_blank"
                         rel="noopener noreferrer nofollow"
-                        href="https://github-readme-streak-stats-two-coral-24.vercel.app?user=HengXin666&theme=radical&hide_border=true&border_radius=10&locale=ja&short_numbers=false%C2%A0%C2%A0%E6%97%A0%E6%95%88&date_format=%5BY.%5Dn.j"
+                        href={"https://github-readme-streak-stats-two-coral-24.vercel.app?user=HengXin666&theme=radical&hide_border=true&border_radius=10&locale=ja&short_numbers=false%C2%A0%C2%A0%E6%97%A0%E6%95%88&date_format=%5BY.%5Dn.j"}
                     >
                         <img
                             style={{ maxWidth: "100%", width: "400px" }}
-                            src="https://github-readme-streak-stats-two-coral-24.vercel.app?user=HengXin666&theme=radical&hide_border=true&border_radius=10&locale=ja&short_numbers=false%C2%A0%C2%A0%E6%97%A0%E6%95%88&date_format=%5BY.%5Dn.j"
+                            src={"https://github-readme-streak-stats-two-coral-24.vercel.app?user=HengXin666&theme=radical&hide_border=true&border_radius=10&locale=ja&short_numbers=false%C2%A0%C2%A0%E6%97%A0%E6%95%88&date_format=%5BY.%5Dn.j"}
                             title="GitHub Streak"
-                            data-canonical-src="https://github-readme-streak-stats-two-coral-24.vercel.app?user=HengXin666&theme=radical&hide_border=true&border_radius=10&locale=ja&short_numbers=false%C2%A0%C2%A0%E6%97%A0%E6%95%88&date_format=%5BY.%5Dn.j"
+                            data-canonical-src={"https://github-readme-streak-stats-two-coral-24.vercel.app?user=HengXin666&theme=radical&hide_border=true&border_radius=10&locale=ja&short_numbers=false%C2%A0%C2%A0%E6%97%A0%E6%95%88&date_format=%5BY.%5Dn.j"}
                         />
                     </a>
                     <p dir="auto">
                         <a
                             target="_blank"
                             rel="noopener noreferrer nofollow"
-                            href="https://github-readme-activity-graph.vercel.app/graph?username=HengXin666&show_icons=true&theme=github-compact&locale=ja&title_color=990099&icon_color=F7CE45&text_color=D17277&hide_border=true"
+                            href={"https://github-readme-activity-graph.vercel.app/graph?username=HengXin666&show_icons=true&theme=github-compact&locale=ja&title_color=990099&icon_color=F7CE45&text_color=D17277&hide_border=true"}
                         >
                             <img
-                                src="https://github-readme-activity-graph.vercel.app/graph?username=HengXin666&show_icons=true&theme=github-compact&locale=ja&title_color=990099&icon_color=F7CE45&text_color=D17277&hide_border=true"
+                                src={"https://github-readme-activity-graph.vercel.app/graph?username=HengXin666&show_icons=true&theme=github-compact&locale=ja&title_color=990099&icon_color=F7CE45&text_color=D17277&hide_border=true"}
                                 alt="Activity Graph"
-                                data-canonical-src="https://github-readme-activity-graph.vercel.app/graph?username=HengXin666&show_icons=true&theme=github-compact&locale=ja&title_color=990099&icon_color=F7CE45&text_color=D17277&hide_border=true"
+                                data-canonical-src={"https://github-readme-activity-graph.vercel.app/graph?username=HengXin666&show_icons=true&theme=github-compact&locale=ja&title_color=990099&icon_color=F7CE45&text_color=D17277&hide_border=true"}
                                 style={{ maxWidth: "100%" }}
                             />
                         </a>
@@ -182,24 +182,24 @@ export default function Home (): ReactNode {
                         <a
                             target="_blank"
                             rel="noopener noreferrer nofollow"
-                            href="https://github-readme-stats-flame-pi-70.vercel.app/api/wakatime?username=Heng_Xin&theme=transparent&hide_border=true&layout=compact&langs_count=10&locale=ja&title_color=990099&text_color=D17277"
+                            href={"https://github-readme-stats-flame-pi-70.vercel.app/api/wakatime?username=Heng_Xin&theme=transparent&hide_border=true&layout=compact&langs_count=10&locale=ja&title_color=990099&text_color=D17277"}
                         >
                             <img
-                                src="https://github-readme-stats-flame-pi-70.vercel.app/api/wakatime?username=Heng_Xin&theme=transparent&hide_border=true&layout=compact&langs_count=10&locale=ja&title_color=990099&text_color=D17277"
+                                src={"https://github-readme-stats-flame-pi-70.vercel.app/api/wakatime?username=Heng_Xin&theme=transparent&hide_border=true&layout=compact&langs_count=10&locale=ja&title_color=990099&text_color=D17277"}
                                 alt="WakaTime Stats"
-                                data-canonical-src="https://github-readme-stats-flame-pi-70.vercel.app/api/wakatime?username=Heng_Xin&theme=transparent&hide_border=true&layout=compact&langs_count=10&locale=ja&title_color=990099&text_color=D17277"
+                                data-canonical-src={"https://github-readme-stats-flame-pi-70.vercel.app/api/wakatime?username=Heng_Xin&theme=transparent&hide_border=true&layout=compact&langs_count=10&locale=ja&title_color=990099&text_color=D17277"}
                                 style={{ maxWidth: "100%" }}
                             />
                         </a>
                         <a
                             target="_blank"
                             rel="noopener noreferrer nofollow"
-                            href="https://github-readme-stats-flame-pi-70.vercel.app/api/top-langs/?username=HengXin666&theme=transparent&hide_border=true&layout=donut-vertical&langs_count=10&locale=ja&title_color=990099&text_color=D17277"
+                            href={"https://github-readme-stats-flame-pi-70.vercel.app/api/top-langs/?username=HengXin666&theme=transparent&hide_border=true&layout=donut-vertical&langs_count=10&locale=ja&title_color=990099&text_color=D17277"}
                         >
                             <img
-                                src="https://github-readme-stats-flame-pi-70.vercel.app/api/top-langs/?username=HengXin666&theme=transparent&hide_border=true&layout=donut-vertical&langs_count=10&locale=ja&title_color=990099&text_color=D17277"
+                                src={"https://github-readme-stats-flame-pi-70.vercel.app/api/top-langs/?username=HengXin666&theme=transparent&hide_border=true&layout=donut-vertical&langs_count=10&locale=ja&title_color=990099&text_color=D17277"}
                                 alt="Top Langs"
-                                data-canonical-src="https://github-readme-stats-flame-pi-70.vercel.app/api/top-langs/?username=HengXin666&theme=transparent&hide_border=true&layout=donut-vertical&langs_count=10&locale=ja&title_color=990099&text_color=D17277"
+                                data-canonical-src={"https://github-readme-stats-flame-pi-70.vercel.app/api/top-langs/?username=HengXin666&theme=transparent&hide_border=true&layout=donut-vertical&langs_count=10&locale=ja&title_color=990099&text_color=D17277"}
                                 style={{ maxWidth: "100%" }}
                             />
                         </a>
@@ -208,12 +208,12 @@ export default function Home (): ReactNode {
                         <a
                             target="_blank"
                             rel="noopener noreferrer nofollow"
-                            href="https://skillicons.dev/icons?i=git,github,c,cpp,cmake,qt,linux,arch,docker,py,java,spring,mysql,redis,mongodb,html,css,js,ts,react,vue,cf,windows,md&theme=light"
+                            href={"https://skillicons.dev/icons?i=git,github,c,cpp,cmake,qt,linux,arch,docker,py,java,spring,mysql,redis,mongodb,html,css,js,ts,react,vue,cf,windows,md&theme=light"}
                         >
                             <img
-                                src="https://skillicons.dev/icons?i=git,github,c,cpp,cmake,qt,linux,arch,docker,py,java,spring,mysql,redis,mongodb,html,css,js,ts,react,vue,cf,windows,md&theme=light"
+                                src={"https://skillicons.dev/icons?i=git,github,c,cpp,cmake,qt,linux,arch,docker,py,java,spring,mysql,redis,mongodb,html,css,js,ts,react,vue,cf,windows,md&theme=light"}
                                 alt="Skills"
-                                data-canonical-src="https://skillicons.dev/icons?i=git,github,c,cpp,cmake,qt,linux,arch,docker,py,java,spring,mysql,redis,mongodb,html,css,js,ts,react,vue,cf,windows,md&theme=light"
+                                data-canonical-src={"https://skillicons.dev/icons?i=git,github,c,cpp,cmake,qt,linux,arch,docker,py,java,spring,mysql,redis,mongodb,html,css,js,ts,react,vue,cf,windows,md&theme=light"}
                                 style={{ maxWidth: "100%" }}
                             />
                         </a>
@@ -276,7 +276,7 @@ export default function Home (): ReactNode {
                             <img
                                 src="https://camo.githubusercontent.com/90c14675730ad6338b5025083b1ac6f75da3b63eb58d667b7b4694d772d1ef90/68747470733a2f2f6b6f6d617265762e636f6d2f67687076632f3f757365726e616d653d48656e6758696e3636362661626272657669617465643d7472756526636f6c6f723d79656c6c6f77"
                                 alt="Profile Views"
-                                data-canonical-src="https://komarev.com/ghpvc/?username=HengXin666&abbreviated=true&color=yellow"
+                                data-canonical-src={"https://komarev.com/ghpvc/?username=HengXin666&abbreviated=true&color=yellow"}
                                 style={{ maxWidth: "100%" }}
                             />
                         </a>

@@ -14,7 +14,9 @@ const EDIT_FILE_URL =
 const FILE_VIEW_URL =
   'https://github.com/HengXin666/HXLoLi/blob/main/data/friendLinks.ts';
 
-/** 友链卡片 */
+/** 友链卡片 
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function FriendCard ({ link }: { link: FriendLink }) {
   return (
     <div className={styles.cardWrapper}>
@@ -153,7 +155,7 @@ export default function FriendsPage (): React.ReactElement {
                 className={styles.headerImage}
               />
               <div className={styles.headerImageOverlay} />
-              {/* 按钮叠加在图片右上角 —— 手指指向按钮 */}
+              {/* 按钮叠加在图片右上角  手指指向按钮 */}
               <button
                 className={styles.addButton}
                 onClick={() => setShowModal(true)}

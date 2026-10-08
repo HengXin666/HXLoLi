@@ -2,7 +2,7 @@ import React from 'react';
 import type { DiagramFacts } from './diagram-focus';
 
 /**
- * 架构图的"语义面板"族 —— 图例/透镜/查找器/指南.
+ * 架构图的"语义面板"族  图例/透镜/查找器/指南.
  *
  * 这些都是**关于这张图的元信息**, 不是图本身, 所以贴在图上层的浮层里,
  * 与工具条同属 __stage. 交互只改 SVG 上的语义属性, 视觉由 archify 自带 CSS 决定.

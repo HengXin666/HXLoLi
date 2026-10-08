@@ -9,8 +9,8 @@ import type { DeckTheme } from './types';
  * -> 运行时加载 -> 继续修改. 整个过程不需要改代码.
  *
  * 格式选择:
- *   JSON  —— 机器友好, 适合被代码 import, 无歧义
- *   YAML  —— 人手写友好, 适合配置文件 (注释 / 多行字符串)
+ *   JSON   机器友好, 适合被代码 import, 无歧义
+ *   YAML   人手写友好, 适合配置文件 (注释 / 多行字符串)
  * 两者互转, 内容完全等价 (loadTheme 两种都能吃).
  */
 
@@ -18,7 +18,7 @@ export type ThemeFormat = 'json' | 'yaml';
 
 /** 主题 -> 字符串 */
 export function serializeTheme(theme: DeckTheme, format: ThemeFormat = 'json'): string {
-    // 去掉运行期字段 (函数等) —— 主题本身已是纯数据, 这里只保证键序稳定
+    // 去掉运行期字段 (函数等)  主题本身已是纯数据, 这里只保证键序稳定
     const plain = JSON.parse(JSON.stringify(theme)) as DeckTheme;
     return format === 'yaml'
         ? yaml.dump(plain, { indent: 2, lineWidth: 120, noRefs: true })

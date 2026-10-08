@@ -61,6 +61,10 @@ const convertSvgToXml = (svgCode: string): string => {
 
 const DrawIoPage: React.FC = () => {
     const query = useQuery();
+    /**
+     * HXLoLi 接入 Agent Notes v2
+     * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+     */
     const src = query.get('src'); // 获取 ?src 参数
     const [initialXML, setInitialXML] = useState<string | null>(null);
 

@@ -23,7 +23,7 @@ import cfFig from './figures/cf-gateway';
  * 而不是"一页一页地翻着看". 用户点哪个元素, 就编辑哪个元素; 没选中时右侧给全局项.
  *
  * 保存: 生成一个主题文件放进 static/themes/, 站点自动识别.
- * 用户只需要 **起一个名字** —— 格式、文件名、清单都由系统生成.
+ * 用户只需要 **起一个名字**  格式、文件名、清单都由系统生成.
  */
 
 /** 可点击编辑的元素类型 */
@@ -153,7 +153,7 @@ export default function ThemeEditor(): React.ReactElement {
                 </div>
                 <div className="hxed__deck" onClick={(e) => pick(e, 'page')}>
                     <div onClick={(e) => pick(e, 'mascot')} className="hxed__hot hxed__hot--mascot" title="吉祥物立绘" />
-                    {/* showNav=false: 编辑器的画布不需要 deck 自带的章节条 ——
+                    {/* showNav=false: 编辑器的画布不需要 deck 自带的章节条 
                         那条会把画布宽度吃掉一块, 也让用户以为"编辑器里还有个侧边栏" */}
                     <Deck theme={asTheme} fill index={0} showNav={false} showDots={false} showPager={false} showBrand={false}>
                         <Slide title="预览" chapter="">

@@ -9,6 +9,10 @@ import AssLyrics from '@site/src/components/MusicPlayer/AssLyrics';
 import { useMusicStore } from '@site/src/utils/music/musicStore';
 import React, { useEffect } from 'react';
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 export default function Root({ children }: { children: React.ReactNode }): React.ReactElement {
     const init = useMusicStore((s) => s.init);
     const initialized = useMusicStore((s) => s.initialized);

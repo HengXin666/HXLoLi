@@ -7,7 +7,7 @@ import remarkMath from 'remark-math'; // 数学渲染
 
 // 引用关系: default 是构建期插件 (扫正文 + 问 Docusaurus 要权威 permalink),
 // noteReferencesRemark 是 remark 侧 (把每篇自己那份注入成方框的 props)。
-// 必须走同一条 import —— require 与 import 同一个 .mjs 会各自实例化一份模块状态。
+// 必须走同一条 import  require 与 import 同一个 .mjs 会各自实例化一份模块状态。
 import noteReferencesPlugin, { noteReferencesRemark } from './plugins/note-references-plugin.mjs';
 
 // 基础路径, 末尾不带 '/'
@@ -26,11 +26,15 @@ const BaseUrl = isCloudflare ? "" : "/HXLoLi";
 // data URI, 图静默退化成裸 <img>。这里主动拦住, 让它当场失败而不是悄悄产出坏页面。
 //
 // 为什么不在本文件里设置 process.env: constants.js 在模块加载时就把该值求值成常量
-// (constants.js:79), 而 @docusaurus/utils 早在 config 被加载前就 import 完了 ——
+// (constants.js:79), 而 @docusaurus/utils 早在 config 被加载前就 import 完了 
 // 在这个文件里改 process.env 对本次构建无效。
 //
-// 原理与取舍见 .agents/notes/implemented/bug-fix/2026-09-27-drawio-svg-inlined-loses-editor-shell.md
+// 原理与取舍见 
 // 只拦会重新打包的命令。serve 只是静态文件服务, 不经过 webpack, 拦它只会制造无谓摩擦。
+/**
+ * 小于 10KB 的 .drawio.svg 被内联后丢掉 draw.io 编辑外壳
+ * .agents/notes/implemented/bug-fix/2026-09-27-drawio-svg-inlined-loses-editor-shell.md
+ */
 const BUILD_COMMANDS = new Set(['build', 'start', 'deploy']);
 const docusaurusCommand = process.argv.slice(2).find((arg) => !arg.startsWith('-'));
 if (BUILD_COMMANDS.has(docusaurusCommand ?? '') && process.env.WEBPACK_URL_LOADER_LIMIT !== '0') {
@@ -152,13 +156,13 @@ function getPptHtmlCopyPatterns(siteDir: string): PptHtmlCopyPattern[] {
 
   // 一条通配 glob 覆盖整个内容根, 路由由 to() 现场反查。**不要改回逐目录/逐文件列举。**
   //
-  // 为什么必须是 glob (踩过): 固定文件列表是**启动期快照** —— dev server 起完之后新增的 .html
+  // 为什么必须是 glob (踩过): 固定文件列表是**启动期快照**  dev server 起完之后新增的 .html
   // 不在列表里, 访问就是 404, 而文件明明在磁盘上。实测: 一次会话里先起了 dev server, 57 分钟后
   // 才生成侧车; 同一份文件在之后重启的 server 上 200, 在原来那个上 404。
   //
   // CopyPlugin 对 glob 形式的 from 会把 globParent 注册成 webpack 的 contextDependency
   // (copy-webpack-plugin/dist/index.js: contextDependencies.add(globParent(from))), 并在
-  // **每次 compilation** 的 processAssets 阶段重新展开 —— 所以新增侧车会被自动发现。
+  // **每次 compilation** 的 processAssets 阶段重新展开  所以新增侧车会被自动发现。
   //
   // 为什么不是逐目录下 pattern**: 那样每个含 md 的目录都要 2 条, 实测 docs 一个根就产出 1870 条
   // (935 个目录 x 2), 而其中只有 9 个目录真含 html。用一个根的 glob 是 2 条, 且 watch 覆盖全根。
@@ -185,7 +189,7 @@ function getPptHtmlCopyPatterns(siteDir: string): PptHtmlCopyPattern[] {
     const from = '**/*.html';
     // **注意 to 的入参**: CopyPlugin 传的是 { context, absoluteFilename }, 不是 filename。
     // 写成 info.filename 会永远拿到 undefined, 表现为 path.basename(undefined) 抛
-    // 「The "paths[1]" argument must be of type string」—— 整个 client bundle 编译失败。
+    // 「The "paths[1]" argument must be of type string」 整个 client bundle 编译失败。
     // 见 copy-webpack-plugin/dist/index.js: await pattern.to({context, absoluteFilename})。
     const routeOf = (absoluteFilename: string): string | null =>
       routeByDir.get(path.dirname(absoluteFilename)) ?? null;
@@ -394,6 +398,10 @@ const config: Config = {
             createFeedItems: async ({ blogPosts, defaultCreateFeedItems, siteConfig, outDir }) => {
               // 排除加密的私有博客文章
               const filtered = blogPosts.filter(
+                /**
+                 * 引用关系方框改为全站注入, 站外来源按「域名@标题」显示
+                 * .agents/notes/implemented/architecture/2026-09-26-note-references-auto-rendered.md
+                 */
                 (post) => !post.metadata.frontMatter.hx_protected,
               );
               return defaultCreateFeedItems({ blogPosts: filtered, siteConfig, outDir });

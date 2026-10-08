@@ -38,6 +38,10 @@ interface ProcessedWakaData {
 type Precision = "minutes" | "seconds" | "milliseconds";
 
 // --- 工具函数 ---
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function formatSecondsToHMS (seconds: number, precision: Precision): string {
     if (isNaN(seconds) || seconds < 0) return "0m";
     const h = Math.floor(seconds / 3600);

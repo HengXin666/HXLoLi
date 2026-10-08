@@ -22,11 +22,13 @@ const SEARCH_INDEX_PATTERN = /^\/search-index(-[a-zA-Z0-9]+)?\.json$/;
  * 站点早期部署在 GitHub Pages, baseUrl = "/HXLoLi", 分享出去的链接都长这样:
  *   https://HengXin666.github.io/HXLoLi/docs/...
  * 迁移到 Cloudflare Workers 后 baseUrl 变成 "" (根路径), 但旧链接 / 书签 /
- * 搜索引擎索引里仍然带着 /HXLoLi, 访问会落到 404 页面 —— 用户观感就是
+ * 搜索引擎索引里仍然带着 /HXLoLi, 访问会落到 404 页面  用户观感就是
  * "这篇笔记找不到"。
  *
  * 构建产物根目录下不存在名为 HXLoLi 的条目, 所以可以安全地把 /HXLoLi/*
  * 308 永久重定向到 /*。
+ 
+ * .agents/notes/implemented/bug-fix/2026-09-13-cf-workers-assets-binding-1101.md
  */
 const LEGACY_BASE_PREFIX = '/HXLoLi';
 

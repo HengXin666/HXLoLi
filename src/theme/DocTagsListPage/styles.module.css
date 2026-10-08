@@ -1,6 +1,6 @@
 /* ============================================================
    ai-docs 标签总览页 (/knowledge-base/tags)
-   swizzle 自 @theme/DocTagsListPage —— 见 index.tsx 顶部的设计说明。
+   swizzle 自 @theme/DocTagsListPage  见 index.tsx 顶部的设计说明。
    风格与知识库正文页保持一致: 暗底 + 青/洋红霓虹; 外层 Layout 由内容插件
    (DocsRoot) 提供, 这里不能再包一层, 样式全部收敛在 *.module.css 里。
    ============================================================ */

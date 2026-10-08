@@ -15,6 +15,10 @@ import React, { useEffect, type ReactNode } from 'react';
 
 import type { Props } from '@theme/DocRoot/Layout';
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 export default function DocRootLayout(props: Props): ReactNode {
   const location = useLocation();
   const isAIDocs = location.pathname.includes('/knowledge-base');

@@ -1,5 +1,5 @@
 /**
- * Docusaurus 引用关系插件 —— 从正文抽出「本文引用 / 本文被引用 / 站外来源」三类边。
+ * Docusaurus 引用关系插件  从正文抽出「本文引用 / 本文被引用 / 站外来源」三类边。
  *
  * 为什么需要它 (而不是在 md 里手写「参考来源」章节):
  *   手写的参考来源是**线性文字**, 读者读完就忘, 也看不出方向 (这篇引了谁 / 谁在依赖
@@ -14,7 +14,7 @@
  *     载荷注入成组件 props。
  *
  * 为什么 slug 必须问 Docusaurus 要: 规则含数字前缀剥离、index 归一、frontmatter slug
- * 覆盖, 复刻必然漂移 —— 而仓库里已经有这个函数的两份副本了 (docusaurus.config.ts 与
+ * 覆盖, 复刻必然漂移  而仓库里已经有这个函数的两份副本了 (docusaurus.config.ts 与
  * tag-index-plugin.mjs), 再加一份就是第三个会跑偏的真相源。
  *
  * 为什么载荷由 remark 注入 props, 而不是组件 import 一份全站表:
@@ -27,7 +27,7 @@
  *   会重复读上千个文件 (935 篇 x 1010 次读取)。把扫描钉在插件这一次, remark 退化成一次
  *   文件读取 + 一次查表。
  *
- * (see .agents/notes/implemented/architecture/2026-09-26-note-references-auto-rendered.md
+ * (see 
  *  — 为什么引用关系由构建期抽取而不是手写章节)
  */
 
@@ -37,6 +37,10 @@ import { fileURLToPath } from 'node:url';
 
 import matter from 'gray-matter';
 
+/**
+ * 引用关系方框改为全站注入, 站外来源按「域名@标题」显示
+ * .agents/notes/implemented/architecture/2026-09-26-note-references-auto-rendered.md
+ */
 const PLUGIN_DIR = path.dirname(fileURLToPath(import.meta.url));
 const SITE_DIR = path.resolve(PLUGIN_DIR, '..');
 const BACKTICK = String.fromCharCode(96);
@@ -55,7 +59,7 @@ const LINK_RE = /\[([^\]]*)\]\(([^)\s]+)(?:\s+["']([^"']*)["'])?\)/g;
 const AUTOLINK_RE = /<(https?:\/\/[^>\s]+)>/g;
 /** 原生 HTML 锚点 */
 const ANCHOR_RE = /<a\s[^>]*href=["'](https?:\/\/[^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
-/** 指向静态资源而不是文档的目标 —— 这些不是引用 (图表 / PPT / 源码 / schema 等) */
+/** 指向静态资源而不是文档的目标  这些不是引用 (图表 / PPT / 源码 / schema 等) */
 const ASSET_RE =
   /\.(png|jpe?g|svg|gif|webp|bmp|ico|drawio|html?|tsx|jsx|ts|js|json|css|scss|txt|pdf|zip|gz|tar|mp4|mp3|webm|xml|ya?ml|toml|c|cc|cpp|cxx|h|hpp|py|java|go|rs|sh|sql|ipynb)([?#]|$)/i;
 
@@ -107,14 +111,14 @@ function walkMarkdown(dir, out = []) {
  *
  * 三条判据缺一不可, 因为它们在**不同机器上各有失效场景**:
  *
- * 1. **解析到站点目录之外** —— 覆盖符号链接 (docs/015-私密笔记、blog/2026/04/30、
+ * 1. **解析到站点目录之外**  覆盖符号链接 (docs/015-私密笔记、blog/2026/04/30、
  *    ai-docs/.hx-persona.md 都指向同级私有仓 HXLoLi-imouto)。别的机器没跑
- *    setup-private 时这些链接根本不存在, 所以这条只在本机生效 —— 但它必须**同时判
+ *    setup-private 时这些链接根本不存在, 所以这条只在本机生效  但它必须**同时判
  *    链接本身与解析结果**: 直接判 realpath 只能发现"已经断了"的链接, 已经挂上的私有
  *    仓内容 realpath 是通的, 会整批漏过 (实测漏 4 条)。
- * 2. **路径段以 `_` 开头** —— Docusaurus 的 globby 以 dot:false 读取内容, 这是它自己
+ * 2. **路径段以 `_` 开头**  Docusaurus 的 globby 以 dot:false 读取内容, 这是它自己
  *    的排除约定, 与私有性无关但同样不该出现在引用框里。
- * 3. **`hx_protected`** —— 加密流程写进 frontmatter 的标记, 是唯一一条跟着**内容**走的
+ * 3. **`hx_protected`**  加密流程写进 frontmatter 的标记, 是唯一一条跟着**内容**走的
  *    判据, 因此也是唯一在别人的机器上仍然有效的那条。
  *
  * 判据 1 用 `lstatSync` 拿链接自身、用 `realpathSync` 拿落点, 两者都检查:
@@ -130,7 +134,7 @@ function buildPrivacyFilter(siteReal) {
       return true; // 断链: 连内容都读不到, 更不该进引用框
     }
     if (!real.startsWith(sitePrefix)) return true;
-    // 链接自身的落点也要在站内 —— 上面的 realpath 已经能覆盖"指向站外"的情况,
+    // 链接自身的落点也要在站内  上面的 realpath 已经能覆盖"指向站外"的情况,
     // 这一条额外挡住"链接本身就在站外目录但仍解析进来"的形态。
     const lexical = path.resolve(abs);
     if (!lexical.startsWith(sitePrefix)) return true;
@@ -164,7 +168,7 @@ function cleanLabel(text) {
  * 站内边只认**同区**引用: Docusaurus 按插件解析 markdown 链接, 跨区相对路径不会被
  * resolve, 注入出去就是死链。
  *
- * 键用「相对站点根的 posix 路径」, 与 Docusaurus 的 @site/ 别名同构 —— 这样才能和插件
+ * 键用「相对站点根的 posix 路径」, 与 Docusaurus 的 @site/ 别名同构  这样才能和插件
  * 从 allContent 拿到的权威表直接对上。
  */
 function scanContent(siteDir) {
@@ -214,14 +218,14 @@ function scanContent(siteDir) {
   for (const key of documents.keys()) ensure(key);
 
   const resolveTarget = (from, target, title) => {
-    // 1) md 链接 title 里带 hxid —— 站内跨笔记引用的主路径 (目录改名也不断链)
+    // 1) md 链接 title 里带 hxid  站内跨笔记引用的主路径 (目录改名也不断链)
     if (title) {
       const tagged = /hxid:(hx-[0-9a-f]+)/i.exec(title);
       if (tagged) return byHxid.get(tagged[1]) ?? null;
     }
     const clean = target.replace(/[#?].*$/, '');
     if (!clean || /[{}]/.test(clean)) return null;
-    // 2) 相对路径 —— 兼容手写时漏掉 title 的情况
+    // 2) 相对路径  兼容手写时漏掉 title 的情况
     if (!clean.startsWith('/')) {
       const base = path.resolve(path.dirname(from.abs), clean);
       const candidates = [
@@ -297,7 +301,7 @@ function getScan(siteDir) {
  * Docusaurus 插件: 扫正文 + 用 Docusaurus 的权威表解析出可点链接, 落盘每篇一份载荷。
  *
  * allContentLoaded 一定晚于所有插件的 contentLoaded, 而 md 要到更晚的 webpack 阶段才编译
- * —— 所以 remark 那边读这个文件时它必然已经写好了。
+ *  所以 remark 那边读这个文件时它必然已经写好了。
  */
 export default function noteReferencesPlugin(context, options) {
   const siteDir = context.siteDir ?? SITE_DIR;
@@ -351,17 +355,17 @@ export default function noteReferencesPlugin(context, options) {
        * 键是**源文件相对路径**, 值里带 permalink。
        *
        * 为什么不用 permalink 当键: remark 编译时手上只有绝对文件路径, permalink 要到
-       * 更晚才随 metadata 生成 —— 用它当键就查不到。源路径两边都拿得到, 且与 Docusaurus
+       * 更晚才随 metadata 生成  用它当键就查不到。源路径两边都拿得到, 且与 Docusaurus
        * 的 @site/ 别名同构。
        *
        * 收录条件是**同时**通过扫描与页面表两道关:
-       *   · 在 `documents` 里 —— 说明它通过了隐私过滤 (符号链接出界 / `_` 前缀 /
+       *   · 在 `documents` 里  说明它通过了隐私过滤 (符号链接出界 / `_` 前缀 /
        *     `hx_protected`)。只按页面表建会漏这条: 本地开发时私有内容以符号链接存在,
        *     Docusaurus 照样把它读成页面, 于是载荷里出现一批空壳, 私有页面反而渲染出空框。
-       *   · 在 `permalinks` 里 —— 说明 Docusaurus 确实为它产页面 (不是草稿、没被 include
+       *   · 在 `permalinks` 里  说明 Docusaurus 确实为它产页面 (不是草稿、没被 include
        *     排除)。只按扫描建会漏这条: 那些文件注入出去就是指向 404 的框。
        *
-       * 满足两条的每篇都有一条记录, 哪怕三条边全空 —— 页面侧据此知道"这是真实页面",
+       * 满足两条的每篇都有一条记录, 哪怕三条边全空  页面侧据此知道"这是真实页面",
        * 从而在没有引用时渲染空态, 而不是让方框整个消失。
        */
       const payload = {};
@@ -428,7 +432,7 @@ const COMPONENT_NAME = 'NoteReferences';
 /** 博客列表用的截断标记, 与 blog 插件的 truncateMarker 默认值一致 */
 const TRUNCATE_RE = /<!--\s*truncate\s*-->|\{\/\*\s*truncate\s*\*\/\}/;
 
-/** 原始正文缓存 —— 截断判定要读盘, 同一个文件会在两种变体与两端编译里反复出现 */
+/** 原始正文缓存  截断判定要读盘, 同一个文件会在两种变体与两端编译里反复出现 */
 const rawCache = new Map();
 function readRaw(filePath) {
   const cached = rawCache.get(filePath);
@@ -451,7 +455,7 @@ function clearRawCache() {
 /**
  * remark 插件: 在每篇文档末尾注入「引用关系」方框。
  *
- * 常驻语义 —— 只要这篇是 Docusaurus 认得的**页面**, 就一定注入, 哪怕三条边全空。空引用
+ * 常驻语义  只要这篇是 Docusaurus 认得的**页面**, 就一定注入, 哪怕三条边全空。空引用
  * 时框仍在, 显示的是空态。方框的缺席必须只意味着「插件没跑」, 不能意味着「这篇恰好没
  * 引用」, 否则读者分不清是没引用还是坏了。
  *
@@ -478,7 +482,7 @@ export function noteReferencesRemark(options = {}) {
      * 博客列表页用 file.md?truncated=true 编译**同一个文件**的另一份产物, 内容是原文在
      * 截断标记处切开的前半段。不挡住它, 引用框就会出现在列表里每一条摘要下面。
      *
-     * 判据用「原文有标记、当前编译的内容里没有」—— 截断会把标记本身一起切掉, 所以两者
+     * 判据用「原文有标记、当前编译的内容里没有」 截断会把标记本身一起切掉, 所以两者
      * 不一致就说明这是截断版。比去问 loader 更省事, 且不依赖 Docusaurus 内部实现。
      */
     const raw = readRaw(filePath);
@@ -496,7 +500,7 @@ export function noteReferencesRemark(options = {}) {
      * 载荷以 **JSON 字符串**作为属性值传下去, 由组件侧 JSON.parse。
      *
      * 为什么不传对象表达式 (`data={{...}}`): mdxJsxAttributeValueExpression 只有同时带上
-     * `data.estree` 才会被 MDX 3 序列化成代码 —— 只给 value 字段时它**静默输出空**,
+     * `data.estree` 才会被 MDX 3 序列化成代码  只给 value 字段时它**静默输出空**,
      * 编译结果里就是 `data: ` 后面什么都没有。那需要一个 estree 构造器 (或 acorn) 参与,
      * 而这里传的是构建期自己生成的合法 JSON, 多这一层纯属自找。
      *

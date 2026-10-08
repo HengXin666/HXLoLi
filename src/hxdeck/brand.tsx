@@ -3,7 +3,7 @@ import { useDeckTheme } from './theme/context';
 import { normalizeSlot } from './assets';
 
 /**
- * 右上角品牌题头 —— 站点名 + 图标.
+ * 右上角品牌题头  站点名 + 图标.
  *
  * 图标来自主题皮肤槽 assets.logo (默认指向博客自己的 logo),
  * 因此换主题 = 换品牌资产, 控件结构不动.

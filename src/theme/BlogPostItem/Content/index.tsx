@@ -5,6 +5,10 @@ import {useBlogPost} from '@docusaurus/plugin-content-blog/client';
 import MDXContent from '@theme/MDXContent';
 import type {Props} from '@theme/BlogPostItem/Content';
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 export default function BlogPostItemContent({
   children,
   className,

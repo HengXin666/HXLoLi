@@ -6,6 +6,10 @@ import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 // 增加 description 属性
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 const HXGiscus: React.FC<{ term?: string, description?: string }> = ({ term: propTerm, description }) => {
     const { siteConfig } = useDocusaurusContext();
     const location = useLocation();

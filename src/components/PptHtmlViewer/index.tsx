@@ -36,6 +36,10 @@ function toCleanPptPath (pathPart: string): string {
     return pathPart.replace(/\.html?$/i, '');
 }
 
+/**
+ * HXLoLi 接入 Agent Notes v2
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function resolvePptSrc (src: string, currentPathname: string): string {
     if (!src || /^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(src)) {
         return src;

@@ -24,7 +24,9 @@ interface InlineEditorProps {
  * 仅 dev-edit-server (localhost:3310) 可达时渲染; 生产构建/静态站永不出现。
  */
 
-/** 文本相似度评分: 基于公共子串/前缀覆盖, 0..1 */
+/** 文本相似度评分: 基于公共子串/前缀覆盖, 0..1 
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function scoreMatch (domText: string, candText: string): number {
   if (!domText || !candText) return 0;
   const d = domText;

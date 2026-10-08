@@ -1,16 +1,16 @@
 import React, { createContext, useContext } from 'react';
 
 /**
- * 演示页"层"端口 —— 页内浮层 (放大/全屏类控件) 的挂载点与占用信号.
+ * 演示页"层"端口  页内浮层 (放大/全屏类控件) 的挂载点与占用信号.
  *
  * 为什么需要它 (一个真实踩出来的层级 bug):
  *   Diagram 的"放大"曾经把浮层 Portal 到 document.body, 于是:
- *     1. 浮层脱离了 .hxd-deck 的 CSS 变量 (--hxd-color-bg 等) ——
+ *     1. 浮层脱离了 .hxd-deck 的 CSS 变量 (--hxd-color-bg 等) 
  *        背景色解析不出值, 浮层是透明的, 后面的正文直接透出来;
- *     2. 它按 100vw/100vh 铺满**整个网页**, 而不是演示页 ——
+ *     2. 它按 100vw/100vh 铺满**整个网页**, 而不是演示页 
  *        内部布局比父布局还大, 视觉上就是"整页变成了演示页";
  *     3. 宿主在浏览器全屏里时, 全屏元素处于 top layer,
- *        body 上的浮层被压在它下面 —— 点了全屏反而什么也看不见.
+ *        body 上的浮层被压在它下面  点了全屏反而什么也看不见.
  *
  *   正解: 浮层挂在**演示页根节点**里. inset:0 天然等于"恰好铺满演示页",
  *   永远不可能超过父布局; 变量、字体、圆角也都还在; 站点 UI 与卡片外框一概不受影响.
@@ -25,7 +25,7 @@ export interface DeckLayer {
 const DeckLayerContext = createContext<DeckLayer>({ host: null, setLayerFull: () => {} });
 
 /**
- * 卡片身份 (端口) —— 图表生成分享链接时要知道"我属于哪张卡片".
+ * 卡片身份 (端口)  图表生成分享链接时要知道"我属于哪张卡片".
  *
  * 为什么用 context 而不是 prop: 演示页内容是**预先渲染好的 React 节点**
  * (registry 里的 slides()), 从 PptCard 一路把 cardId 传到 Diagram 需要
@@ -58,7 +58,7 @@ export function DeckLayerProvider({
     return <DeckLayerContext.Provider value={value}>{children}</DeckLayerContext.Provider>;
 }
 
-/** 默认值 (host=null) 让控件可以脱离 Deck 单独使用 —— 那时退回视口浮层 */
+/** 默认值 (host=null) 让控件可以脱离 Deck 单独使用  那时退回视口浮层 */
 export function useDeckLayer(): DeckLayer {
     return useContext(DeckLayerContext);
 }

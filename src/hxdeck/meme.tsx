@@ -42,7 +42,7 @@ export function Meme({
 }
 
 /**
- * 吉祥物立绘 —— 属于**主题皮肤**, 站在页面右下角.
+ * 吉祥物立绘  属于**主题皮肤**, 站在页面右下角.
  * 图来自主题 assets.mascot, 不单独作为内容展示.
  */
 export function Mascot({ src, alt = '' }: { src?: Src; alt?: string }): React.ReactElement | null {

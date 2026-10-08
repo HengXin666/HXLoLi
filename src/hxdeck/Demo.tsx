@@ -81,7 +81,7 @@ export default function Demo(): React.ReactElement {
             <div style={{ height: h }}>
                 <Deck theme={theme} fill syncUrl themeId={which}>
                     <Slide title="封面" chapter="">
-                        <Cover eyebrow="HXDECK · 控件总览" title="原生控件 30 个" subtitle="版式 / 内容 / 数据 / 代码 / 图 / 外挂 —— 全部吃主题 token" />
+                        <Cover eyebrow="HXDECK · 控件总览" title="原生控件 30 个" subtitle="版式 / 内容 / 数据 / 代码 / 图 / 外挂  全部吃主题 token" />
                         <Mascot />
                     </Slide>
 
@@ -176,9 +176,9 @@ export default function Demo(): React.ReactElement {
                         <div className="hxd-row" style={{ marginTop: 14 }}>
                             <Card i={1} className="hxd-fill">
                                 <Bullets items={[
-                                    { text: 'Embed kind="drawio" —— 在线可编辑的矢量图', strong: true },
-                                    'Embed kind="html" —— 任意自包含 HTML',
-                                    'Embed kind="image" —— 普通图片, 自动推断',
+                                    { text: 'Embed kind="drawio"  在线可编辑的矢量图', strong: true },
+                                    'Embed kind="html"  任意自包含 HTML',
+                                    'Embed kind="image"  普通图片, 自动推断',
                                 ]} />
                             </Card>
                             <Card i={2} className="hxd-fill" style={{ flex: '0 0 420px' }}>

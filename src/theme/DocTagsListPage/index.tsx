@@ -19,19 +19,21 @@ import styles from './styles.module.css';
 /**
  * ai-docs 标签总览页 (swizzle 自 @theme/DocTagsListPage)
  *
- * 原生实现 (`listTagsByLetters`) 用 `label[0]` 分组 —— 对中文就是把所有标签按
+ * 原生实现 (`listTagsByLetters`) 用 `label[0]` 分组  对中文就是把所有标签按
  * 第一个汉字切开: 「多模态大模型」「短视频」「电脑包」全在"多"那一组, 索引等于没有。
  * 这个版本换成:
  *
- *   1. **拼音首字母索引** —— 记忆系统 -> J, 多模态大模型 -> D (见 src/utils/tags/pinyin.ts);
- *   2. **分级标签云** —— 字号随笔记数变化, 一眼看出哪些是主干概念;
- *   3. **即时搜索** —— 中文原文、拼音全拼 (jiyi)、首字母缩写 (jyxt) 都能命中。
+ *   1. **拼音首字母索引**  记忆系统 -> J, 多模态大模型 -> D (见 src/utils/tags/pinyin.ts);
+ *   2. **分级标签云**  字号随笔记数变化, 一眼看出哪些是主干概念;
+ *   3. **即时搜索**  中文原文、拼音全拼 (jiyi)、首字母缩写 (jyxt) 都能命中。
  *
  * 标签本身与计数用页面 props (内容插件给的权威 permalink); 构建期索引
- * data/aiDocTags.ts 只用来补 props 里没有的东西 —— 标签的人工描述与笔记总数。
+ * data/aiDocTags.ts 只用来补 props 里没有的东西  标签的人工描述与笔记总数。
  */
 
-/** 字号档位: 0 最弱 (1 篇), 3 最强 (主干概念) */
+/** 字号档位: 0 最弱 (1 篇), 3 最强 (主干概念) 
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function getTagTier(count: number, maxCount: number): 0 | 1 | 2 | 3 {
   if (maxCount <= 1) return 1;
   const ratio = count / maxCount;
@@ -41,7 +43,7 @@ function getTagTier(count: number, maxCount: number): 0 | 1 | 2 | 3 {
   return 0;
 }
 
-/** 由标签名派生一个稳定色相 —— 让每个标签有自己的霓虹色, 而不是清一色洋红 */
+/** 由标签名派生一个稳定色相  让每个标签有自己的霓虹色, 而不是清一色洋红 */
 function hueOf(label: string): number {
   let hash = 0;
   for (let i = 0; i < label.length; i += 1) {
@@ -90,7 +92,7 @@ export default function DocTagsListPage(props: Props): ReactNode {
    * (AI Agent -> Harness -> DSH), 构建期索引把它压成了 root (L1 名)。
    *
    * 为什么需要它: 拼音索引能回答"这个标签在哪一屏", 但回答不了"这个概念属于哪里"。
-   * 84 个平级标签对新读者是一片没有结构的词云 —— 大类分组才是倒排索引的入口。
+   * 84 个平级标签对新读者是一片没有结构的词云  大类分组才是倒排索引的入口。
    */
   const topicGroups = useMemo(() => {
     const rootOf = new Map(aiDocTagIndex.tags.map((tag) => [tag.label, tag.root ?? '']));

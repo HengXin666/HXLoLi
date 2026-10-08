@@ -1,16 +1,16 @@
 /**
- * hxdeck —— HXLoLi 演示页 UI 系统 (独立层)
+ * hxdeck  HXLoLi 演示页 UI 系统 (独立层)
  *
  * 边界: 自成一体的 UI 系统; 允许依赖 node_modules, 不引用博客自身组件/样式,
  * 也不被博客原有代码引用 (删掉本目录不影响博客).
  *
  * 分层:
- *   theme/   端口层  —— token 契约 + 主题实现, 换主题不改控件
- *   Deck     运行时  —— 整屏纵向位移 / 导航 / 键盘 / 滚轮 / 触屏
- *   ui       控件层  —— 版式原语 + 内容块 + 图片容器
- *   charts   数据层  —— 饼/折线/柱/树/指标 (recharts)
- *   code     代码层  —— VS Code 配色静态高亮
- *   meme     皮肤层  —— 吉祥物/纹样等主题素材槽位
+ *   theme/   端口层   token 契约 + 主题实现, 换主题不改控件
+ *   Deck     运行时   整屏纵向位移 / 导航 / 键盘 / 滚轮 / 触屏
+ *   ui       控件层   版式原语 + 内容块 + 图片容器
+ *   charts   数据层   饼/折线/柱/树/指标 (recharts)
+ *   code     代码层   VS Code 配色静态高亮
+ *   meme     皮肤层   吉祥物/纹样等主题素材槽位
  */
 
 /* 外挂嵌入 (drawio / html / image) */
@@ -62,7 +62,7 @@ export {
     Figure,
 } from './ui';
 
-/* 图 (架构/流程/时序/数据流/状态) —— 内联 archify 产物并跟随主题 */
+/* 图 (架构/流程/时序/数据流/状态)  内联 archify 产物并跟随主题 */
 export { Diagram, DiagramWithNotes, DiagramGrid, DiagramPlaceholder, extractSvg, diagramVars, autoZoom, minFontSize, resolveAsset } from './diagram';
 export type { DiagramProps, DiagramAsset, DiagramKind } from './diagram';
 

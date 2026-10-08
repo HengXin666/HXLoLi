@@ -20,13 +20,15 @@ import styles from './styles.module.css';
  * 这个版本改成卡片网格:
  *   - 每张卡: 标题 + 摘要 + 创建日期 + 该文的其它标签 (可点, 直接"换乘"到别的标签);
  *   - 顶部: 标签名、拼音 (帮助确认读音)、笔记数、返回全部标签;
- *   - 侧边/底部: 相关标签 —— 与当前标签共现次数最多的几个, 用来继续探索。
+ *   - 侧边/底部: 相关标签  与当前标签共现次数最多的几个, 用来继续探索。
  *
  * 摘要/日期/共现关系来自构建期索引 data/aiDocTags.ts (plugins/tag-index-plugin.mjs),
  * 标题与链接用页面 props (内容插件给的权威 permalink)。
  */
 
-/** 从 id 里取分类路径, 例如 "知识沉淀/LLM与Agent/xxx" -> ["知识沉淀", "LLM与Agent"] */
+/** 从 id 里取分类路径, 例如 "知识沉淀/LLM与Agent/xxx" -> ["知识沉淀", "LLM与Agent"] 
+ * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
+ */
 function categoryOf(id: string): string[] {
   return id.split('/').slice(0, -1);
 }
@@ -54,7 +56,7 @@ export default function DocTagDocListPage({ tag }: Props): ReactNode {
   );
 
   /**
-   * props 里的 permalink 带 baseUrl 且以 / 结尾, 索引里的不带 baseUrl ——
+   * props 里的 permalink 带 baseUrl 且以 / 结尾, 索引里的不带 baseUrl 
    * 统一剥成「以 / 开头, 不带 baseUrl」的形式再去索引里找,
    * 免得在两处各写一份"URL 该长什么样"的逻辑。
    */
@@ -110,7 +112,7 @@ export default function DocTagDocListPage({ tag }: Props): ReactNode {
    *
    * 必须排除 count === 0 的纯结构 tag (编程语言 / 工程与工具 / 生活杂谈):
    * 它们只在注册表里当 parent 用, 没有笔记挂在自己名下, Docusaurus 不会为
-   * count 为 0 的 tag 生成路由 —— 链接过去就是 404。
+   * count 为 0 的 tag 生成路由  链接过去就是 404。
    */
   const siblingTags = useMemo(
     () =>
