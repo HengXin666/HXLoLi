@@ -94,7 +94,7 @@ def scan(path, text):
     errors, sites = [], []
     if tree.root_node.has_error:
         bad = next((n for n in walk(tree.root_node) if n.type == 'ERROR' or n.is_missing), tree.root_node)
-        errors.append(('ast-parse', bad.start_point.row + 1, 'AST parse failed; no regex fallback'))
+        errors.append(('ast-parse', bad.start_point.row + 1, 'AST 解析失败, 无法校验声明锚点, 不回落到正则匹配'))
     spans = set()
     python = path.endswith('.py')
     for node in walk(tree.root_node):
@@ -116,6 +116,6 @@ def scan(path, text):
         end = start + len(match.group().encode())
         line = text.count('\n', 0, match.start()) + 1
         if not any(a <= start and end <= b for a, b in spans):
-            errors.append(('anchor-position', line, 'Put the repository-relative note path in a multiline comment bound to a function or declarative code node'))
+            errors.append(('anchor-position', line, '请将决策记录的仓库相对路径放入紧邻函数或声明节点的多行注释'))
         sites.append((match.group(), line))
     return sites, errors

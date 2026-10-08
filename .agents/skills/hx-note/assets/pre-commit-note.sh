@@ -1,7 +1,6 @@
 #!/bin/sh
-# HXLoLi 笔记门禁 (pre-commit): 三段式  自动修 / 只读校验 / 报了就给出口。
-# 立场是替人把该做的做掉而不是拦住提交 (BYPASS 提示只在真失败时打印)。
-# 出口: HX_SKIP=1 git commit ... 或 git commit --no-verify ...
+# Normalize article text, check its prose, then report the exact staged v2 graph.
+# This human commit hook reports findings and always allows the commit.
 
 set -u
 
@@ -23,22 +22,15 @@ cd "$SITE" || exit 0
 # 路径可能带 HXLoLi/ 前缀 (在总库提交时), 统一去掉
 strip() { echo "$1" | sed 's|^HXLoLi/||'; }
 
-if [ "${HX_SKIP:-0}" = "1" ]; then
-    echo "[note-gate] HX_SKIP=1, 跳过"
-    exit 0
-fi
-
-# 只看这次真的改到的 md, 没改就不跑 (省时间, 也避免无关失败)。
+# Only staged Markdown enters text processing; the v2 scan also runs without Markdown changes.
 # 另外: `git add .` 会 stage 全库, 所以这里对**未改动的文件**也要跳过 
 # 否则每次提交都把全库 lint 一遍 (实测 3.4s, 而且会报一堆历史遗留)。
 # **必须 -z**: 默认输出会把中文路径转成八进制转义并加引号 (core.quotepath),
 # 于是 'grep \.md$' 匹配不到  实测踩过, 表现为钩子"静默不工作"。
 CHANGED=$(git -c core.quotepath=false diff --cached --name-only --diff-filter=ACMR -z \
           | tr '\0' '\n' | grep '\.md$' || true)
-[ -z "$CHANGED" ] && exit 0
 
-# 只保留**内容真的变了**的 (git add . 会把全库塞进来)  用 diff 的 -M 与 --diff-filter 都挡不住,
-# 得逐个问 git: 这个路径在暂存区与 HEAD 之间有没有内容差异。
+# Keep Markdown paths whose staged contents differ from HEAD.
 REAL=""
 for f in $CHANGED; do
     if ! git diff --cached --quiet -- "$f" 2>/dev/null; then
@@ -46,7 +38,6 @@ for f in $CHANGED; do
     fi
 done
 CHANGED=$REAL
-[ -z "$CHANGED" ] && exit 0
 
 PY=".agents/skills/hx-note/scripts/cli"
 fail=0
@@ -104,29 +95,54 @@ for f in $CHANGED; do
     fi
 done
 
-# 2b. notes 门禁 (快, ~260ms)
-for s in verify-format verify-backlinks verify-tree; do
-    if ! node ".agents/skills/hx-agent-notes/scripts/cli/$s.ts" >/tmp/hx_gate.txt 2>&1; then
-        echo "[note-gate] $s 未过"
-        grep -v 'Reparsing\|Warning\|eliminate\|trace\|MODULE_TYPELESS' /tmp/hx_gate.txt | tail -4
-        fail=1
-    fi
-done
-if ! node .agents/skills/hx-agent-notes/scripts/cli/verify-coverage.ts --staged >/tmp/hx_cov.txt 2>&1; then
-    echo "[note-gate] verify-coverage 未过"
-    grep -v 'Reparsing\|Warning\|eliminate\|trace\|MODULE_TYPELESS' /tmp/hx_cov.txt | tail -4
+# Check v2 once, including commits that contain only code changes.
+GATE_LOG=$(mktemp "${TMPDIR:-/tmp}/hx-agent-notes-pre-commit.XXXXXX") || {
+    echo "[note-gate] 无法创建诊断文件, 本次双链未经验证"
+    exit 0
+}
+GATE_REPORT="$GATE_LOG.json"
+if [ -f scripts/redlines/agent_notes.py ]; then
+    uv run scripts/redlines/agent_notes.py --all --staged --json "$GATE_REPORT" >"$GATE_LOG" 2>&1
+else
+    uv run --with-requirements .agents/skills/hx-agent-notes/scripts/redline/requirements.txt \
+        python .agents/skills/hx-agent-notes/scripts/redline/verify.py \
+        --all --staged --json "$GATE_REPORT" >"$GATE_LOG" 2>&1
+fi
+GATE_STATUS=$?
+
+if [ -f "$GATE_REPORT" ] && python3 - "$GATE_REPORT" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1], encoding='utf-8') as report:
+    data = json.load(report)
+issues = data['issues']
+errors = [i for i in issues if i['severity'] != 'review']
+reviews = [i for i in issues if i['severity'] == 'review']
+print(f"[note-gate] v2 暂存区: {len(errors)} 项错误, {len(reviews)} 项待审核")
+for label, findings, limit in [('ERROR', errors, 6), ('REVIEW', reviews, 3)]:
+    for issue in findings[:limit]:
+        print(f"  {label} {issue['path']}:{issue['line']} [{issue['rule']}] {issue['message']}")
+    if len(findings) > limit:
+        print(f"  {label} 另有 {len(findings) - limit} 项, 见完整诊断")
+if issues:
+    print(f"[note-gate] 完整诊断: {sys.argv[1]}")
+PY
+then
+    :
+else
+    echo "[note-gate] v2 扫描或报告读取失败, 本次双链未经验证"
+    tail -8 "$GATE_LOG"
+    echo "[note-gate] 工具日志: $GATE_LOG"
     fail=1
 fi
+if [ "$GATE_STATUS" != "0" ]; then
+    fail=1
+elif [ "$fail" = "0" ]; then
+    rm -f "$GATE_LOG" "$GATE_REPORT"
+fi
 
-# ---- 第 3 段: 报了就给出路 ----
 if [ "$fail" != "0" ]; then
-    echo ""
-    echo "  以上是提示, 不是死路。两条出口:"
-    echo "    HX_SKIP=1 git commit ...      只跳过这个笔记门禁"
-    echo "    git commit --no-verify ...    跳过全部钩子"
-    echo ""
-    # 默认放行: 立场是「不挡人类」. 想改成硬拦, 把下面两行换成 exit 1
-    echo "  [note-gate] 默认放行 (设计前提: 不阻挡提交)"
-    exit 0
+    echo "[note-gate] 提示模式, 提交继续; 有待审核项或错误, 不代表双链通过"
 fi
 exit 0

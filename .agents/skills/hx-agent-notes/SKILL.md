@@ -4,7 +4,7 @@ description: Validate bidirectional Agent Notes and code decisions with Tree-sit
 license: MIT
 metadata:
   author: Heng_Xin
-  version: "2.2"
+  version: "2.3"
 ---
 
 # Agent Notes
@@ -18,6 +18,8 @@ metadata:
 全量扫描同时检查每个受保护源码目录是否已经建立双链, 没有 note 的存量目录报告 unowned-directory. 目录范围为直接父目录, 不用上级目录的决策代替子目录的决策
 
 CI 工作流始终容错完成, 有问题就在对应代码片段评论, 并保留完整 JSON 诊断. PR 使用行内 review comment, push 使用提交片段评论, 无法行内定位时汇总精确路径与行号. 本地 CLI 仍严格返回校验退出码, CI 成功不代表双链有效
+
+审核评论, 扫描诊断和日志摘要使用中文, 标点只用英文半角. 规则 ID, 精确路径, SHA 和 JSON 字段保持原值; 外部工具原始错误附在中文说明后
 
 ## 按任务执行
 

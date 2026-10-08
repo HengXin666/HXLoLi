@@ -5,7 +5,7 @@ Status: implemented
 Decision-ID: ai-docs-taxonomy
 
 - **引入于**: `f28d9cfd13`
-- **引用落点**: 无源码引用 (本文约束的是 ai-docs 内容组织, 不落到某个代码声明)
+- 引用落点: scanDocs 与生成的 aiDocsSidebar 声明
 
 
 ## Code
@@ -27,6 +27,8 @@ ai-docs 的目录树混了三种切分维度, 读者无法通过树导航:
 ## Decision
 
 **唯一合法的切分维度是「这是什么知识」**; 来源 / 体裁 / 载体 / 时间都不能当大类. 树形规则见 `.agents/skills/hx-docs-organize/references/taxonomy-directory.md`.
+
+侧栏生成器在 `sidebarsAiDocs.ts` 的 aiDocsSidebar 声明顶部输出本决策的多行锚点, 重新生成也保留同一双链. 修改输出格式时同步修改生成器, 不依靠手改生成文件维持引用
 
 最终树 (5 个根, 全部 <=4 字):
 

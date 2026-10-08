@@ -89,6 +89,8 @@ Decision-ID: repository-agent-notes-v2-adoption
 
 本地 diff, all 和 staged 检查使用同一严格扫描器. GitHub Diff 和 Full 保存完整诊断, Report 在相应代码片段评论, 依赖或 API 故障也保留诊断且工作流容错完成. CI 成功仅表示报告流程完成
 
+hx-note 的人工提交 hook 在文本处理后只执行一次 `--all --staged` 扫描, 核对完整暂存快照和相对 HEAD 的配对, 代码单独改动也扫描, 不运行 v1 格式或树检查. hook 保留提示不阻挡提交的策略, 分别显示错误与待审核数量并保留完整 JSON. 严格 CLI 的非零退出码保持原意, hook 放行不代表双链有效
+
 配置保留原有受保护源码范围并纳入门禁实现, 根目录源码按精确文件登记. 不通过无关 note, 空函数或 NOTE-EXEMPT 放行. 无本仓有效代码约束的记录直接退役, 有指导价值的理由先迁入存活决策, 修复入站链接, 冻结归档保持原样
 
 ## Alternatives considered
@@ -105,3 +107,5 @@ Decision-ID: repository-agent-notes-v2-adoption
 ## Verification
 
 逐仓检查格式, 精确路径, AST 归属, 每目录唯一锚点和完整双链. 精确 Git 树检查用于验证 checkout 内容, v1 比较基线仍保留 migration-review 和 policy-review, 不把首次迁移误称为已独立审核
+
+提交 hook 的隔离 Git 试验覆盖四种情况: Code 首节的有效 note, 只暂存代码的待审核差异, 暂存区断链但工作区已修复, 代码与 note 成对暂存. 每次仅执行一次 v2 扫描, 正确区分错误和待审核项, 提示型 hook 均正常退出. 工作区修复不能掩盖暂存区中的断链

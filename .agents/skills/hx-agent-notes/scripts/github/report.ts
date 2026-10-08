@@ -21,8 +21,9 @@ async function publish({github, context, core}: any, run: any, data: any, pr?: a
     ? {files: await github.paginate(github.rest.pulls.listFiles, {...params, pull_number: pr.number}), base: pr.base.sha}
     : await commitFiles(github, params, run.head_sha)
   const {files} = diff
-  const issues = data.issues
-  const links = {files, base: data.base_commit || diff.base, deleted: data.deleted}
+  const issues = [...data.issues].sort((a: any, b: any) =>
+    Number(b.severity === 'error') - Number(a.severity === 'error'))
+  const links = {files, base: data.base_commit || diff.base, deleted: data.deleted, mode: data.mode}
   const existing = pr
     ? await github.paginate(github.rest.pulls.listReviewComments, {...params, pull_number: pr.number})
     : await github.paginate(github.rest.repos.listCommentsForCommit, {...params, commit_sha: run.head_sha})
@@ -58,14 +59,13 @@ async function publish({github, context, core}: any, run: any, data: any, pr?: a
           path: group.location.path, position: group.location.position, body: text})
       }
     } catch (error: any) {
-      core.warning(`Could not comment on ${group.location.path}: ${error.message}`)
+      core.warning(`无法在 ${group.location.path} 发布评论: ${error.message}`)
       fallback.push(...group.issues)
     }
   }
   if (fallback.length) {
     const key = `${run.name || 'Agent Notes Diff'}:summary`
-    const text = body(context, run, fallback.slice(0, 40), key, links) +
-      (fallback.length > 40 ? `\n\n另有 ${fallback.length - 40} 项, 见完整诊断 artifact` : '')
+    const text = body(context, run, fallback, key, {...links, limit: 8})
     if (pr) {
       const comments = await github.paginate(github.rest.issues.listComments, {...params, issue_number: pr.number})
       const prior = comments.find((comment: any) => owned(comment, marker(key)))
@@ -86,14 +86,14 @@ async function publish({github, context, core}: any, run: any, data: any, pr?: a
 module.exports = async function report({github, context, core}: any) {
   try {
     const run = context.payload.workflow_run
-    if (!['push', 'pull_request'].includes(run.event)) throw new Error('Unexpected originating event')
+    if (!['push', 'pull_request'].includes(run.event)) throw new Error('不支持的扫描触发事件')
     let data: any
     try {
       data = readReport(run.head_sha)
     } catch (error: any) {
       if (error.code !== 'ENOENT') throw error
       data = {issues: [{path: '.agents/notes.config.json', line: 1, rule: 'missing-report',
-        message: '扫描未产生诊断 artifact, 请查看扫描工作流日志', related: []}]}
+        severity: 'error', message: '扫描未产生诊断附件, 请查看扫描工作流日志', related: []}]}
     }
     if (!data.issues.length) return
     if (run.event === 'pull_request') {
@@ -106,8 +106,8 @@ module.exports = async function report({github, context, core}: any) {
         await publish({github, context, core}, run, data, pr)
       }
     } else await publish({github, context, core}, run, data)
-    core.info('Agent Notes findings published')
+    core.info('Agent Notes 审核评论已发布')
   } catch (error: any) {
-    core.warning(`Agent Notes report unavailable: ${error.message}`)
+    core.warning(`Agent Notes 报告不可用: ${error.message}`)
   }
 }

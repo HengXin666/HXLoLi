@@ -36,7 +36,7 @@ class Snapshot:
                 meta, p = entry.split(b'\t', 1)
                 mode, _, stage = meta.split()
                 if stage != b'0':
-                    raise ValueError('Resolve merge conflicts before checking notes')
+                    raise ValueError('请先解决合并冲突, 再检查决策记录')
                 self.modes[p.decode()] = mode.decode()
             if not index:
                 for p in git(repo, 'ls-files', '--others', '--exclude-standard', '-z').split(b'\0'):
@@ -50,14 +50,14 @@ class Snapshot:
             return None
         if path not in self.cache:
             if self.modes[path] not in ('100644', '100755'):
-                raise ValueError(f'{path}: only regular files are allowed')
+                raise ValueError(f'{path}: 只允许普通文件')
             if self.revision or self.index:
                 spec = f'{self.revision}:{path}' if self.revision else f':{path}'
                 data = git(self.repo, 'show', spec)
             else:
                 target = self.repo / path
                 if target.is_symlink() or not target.resolve().is_relative_to(self.repo):
-                    raise ValueError(f'{path}: symlink or path outside repository')
+                    raise ValueError(f'{path}: 路径为符号链接或位于仓库外')
                 data = target.read_bytes()
             self.cache[path] = data.decode('utf-8')
         return self.cache[path]
@@ -65,15 +65,15 @@ class Snapshot:
     def config(self):
         text = self.read(CONFIG)
         if text is None:
-            raise ValueError(f'Missing {CONFIG}; run scripts/setup/install.py first')
+            raise ValueError(f'缺少 {CONFIG}; 请先运行 scripts/setup/install.py')
         data = json.loads(text)
         if set(data) != {'version', 'guarded'} or data['version'] != 2:
-            raise ValueError('Expected version 2 config with only version and guarded; migrate legacy config explicitly')
+            raise ValueError('须使用 v2 配置, 且只能包含 version 和 guarded; 请显式迁移旧配置')
         roots = data['guarded']
         if not isinstance(roots, list) or not roots or len(set(roots)) != len(roots):
-            raise ValueError('guarded must be a nonempty list of unique exact repository paths')
+            raise ValueError('guarded 必须是非空列表, 只含不重复的精确仓库路径')
         if not all(canonical(p) for p in roots):
-            raise ValueError('guarded accepts exact files or directories, without globs or trailing slashes')
+            raise ValueError('guarded 只接受精确文件或目录路径, 不允许 glob 或末尾斜杠')
         return data
 
 
@@ -111,7 +111,7 @@ def comparison_config(before, current, changed):
         coverage = data.get('coverage', {})
         patterns = coverage.get('guarded', []) if coverage.get('enabled', True) else []
         if not isinstance(patterns, list) or not all(isinstance(p, str) for p in patterns):
-            raise ValueError('Cannot reconstruct legacy guarded policy')
+            raise ValueError('无法还原旧版 guarded 保护策略')
         paths = [p for p in before.modes if p != CONFIG and not p.startswith(NOTE_ROOT) and
                  any(legacy_match(p, pattern) for pattern in patterns)]
         return dict(version=2, guarded=paths), True

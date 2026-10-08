@@ -125,7 +125,7 @@ const sidebar = { aiDocsSidebar: scanDocs(docsDir).items };
  * 沉淀流水线改为"两份产物 + 九个单一职责阶段"
  * .agents/notes/implemented/process/2026-09-24-sediment-two-artifacts-nine-stages.md
  */
-const sidebarContent = `// 由 scripts/generateAiDocsSidebar.js 自动生成\n// 请勿手动编辑 — 运行 node scripts/generateAiDocsSidebar.js 以更新\n\nconst aiDocsSidebar = ${JSON.stringify(sidebar.aiDocsSidebar, null, 2)};\n\nexport default { aiDocsSidebar };\n`;
+const sidebarContent = `// 由 scripts/generateAiDocsSidebar.js 自动生成\n// 请勿手动编辑 — 运行 node scripts/generateAiDocsSidebar.js 以更新\n\n/**\n * ${path.posix.join('.agents', 'notes', 'implemented', 'architecture', '2026-09-13-ai-docs-taxonomy.md')}\n */\nconst aiDocsSidebar = ${JSON.stringify(sidebar.aiDocsSidebar, null, 2)};\n\nexport default { aiDocsSidebar };\n`;
 
 fs.outputFileSync(path.join(__dirname, '../sidebarsAiDocs.ts'), sidebarContent);
 

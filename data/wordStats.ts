@@ -1106,11 +1106,19 @@ export const stats: RecordItem[] = [
     "message": "[blog] add 自用AI代码质量规范"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-10-08T14:58:29.847Z",
+    "commit": "57144124014b1684584e35a91743315f44f02ce0",
+    "date": "2026-10-08T22:58:29+08:00",
     "docsBlogWordCount": 3867942,
     "aiDocsWordCount": 441719,
     "wordCount": 4309661,
     "message": "[ai-docs] 简单润色部分memo, 新增ass moemo (但不如skill)"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-10-08T18:07:06.062Z",
+    "docsBlogWordCount": 3867942,
+    "aiDocsWordCount": 500609,
+    "wordCount": 4368551,
+    "message": "[ai-docs] AI CR 调研"
   }
 ];

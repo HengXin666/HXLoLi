@@ -27,6 +27,8 @@ v2 门禁以精确 Code 列表和源码声明顶部多行注释构成双向图. 
 
 项目红线入口委托 vendored skill 实现. Python 的安装器, 生成入口, npm 脚本, hook 和开发期校验通过 uv 运行, 测试子进程继承 uv 解释器. 离线运行预置 uv 缓存并使用 `UV_OFFLINE=1`. 统一入口支持 diff, 全工作区, 精确 Git index 和精确提交树. Code 路径无效或反向锚点缺失时, 诊断定位到 note 的精确 Code 行并关联源码路径. JSON 分开保存比较树 base, 实际基线提交 base_commit 和已删除的相关路径 deleted, 为报告提供删除前的文件位置
 
+扫描器诊断, 命令帮助和终端结果使用中文, 标点只用英文半角. 终端分别统计错误与待审核数量. 规则 ID, 路径, 行号, SHA, JSON 字段和严格退出码保持原值, 外部工具原始错误附在中文说明后
+
 CI 收集同一严格扫描器的诊断并保持工作流成功, 本地扫描仍以非零退出码暴露无效双链. 默认分支的可信脚本发布对应代码片段评论, 具体运行与评论契约由 `.agents/notes/implemented/process/2026-10-08-agent-notes-advisory-comments.md` 拥有
 
 废弃 note 直接删除并修复全部入站引用, Git 保留历史. 精确文件保护, 纯声明节点与首次 v1 比较边界由 `.agents/notes/implemented/process/2026-10-08-agent-notes-v2-migration-boundaries.md` 约束. v1 配置必须显式迁移, 旧命令委托新红线, 不继承禁用开关和全局豁免. 模板将短约束写入项目 AGENTS.md, 独立 CODEOWNERS review 审核机制本身

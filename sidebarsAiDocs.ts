@@ -1,6 +1,9 @@
 // 由 scripts/generateAiDocsSidebar.js 自动生成
 // 请勿手动编辑 — 运行 node scripts/generateAiDocsSidebar.js 以更新
 
+/**
+ * .agents/notes/implemented/architecture/2026-09-13-ai-docs-taxonomy.md
+ */
 const aiDocsSidebar = [
   {
     "type": "doc",
@@ -168,6 +171,15 @@ const aiDocsSidebar = [
             "type": "doc",
             "id": "AI/Agent架构/Agent平台数据面灵活解耦/index",
             "label": "Agent平台数据面灵活解耦",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "AI/Agent架构/AICR规则事故记忆与业务上下文/index",
+            "label": "AICR规则事故记忆与业务上下文",
             "customProps": {
               "icon": "default-icons/ai-doc.svg",
               "tags": []

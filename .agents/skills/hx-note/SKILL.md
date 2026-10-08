@@ -112,7 +112,7 @@ steps/2-collect/impl/layout.json
 
 ## 模板与素材
 
-`templates/interest-outlook.md` (默认文章结构) / `templates/problem-solution.md` (踩坑复盘) / `templates/reusable-spec.md` (照做型规格: 骨架 / 库 / 分层 / 写法偏好 / 可拷走的件) / `templates/_registry.md` (模板索引; 加一个文件即新增一种结构) / `assets/info-template.md` (info 骨架) / `assets/divergence-template.md` (发散记录格式; 算子见 `steps/3-atom/impl/divergence.md`) / `assets/goal-template.md` (目标与验收契约; 需求唯一事实源, 阶段 1 起由 `grill.md` 锐化术语) / `assets/voice-audit-prompt.md` 与 `assets/fidelity-audit-prompt.md` (两个盲审的 prompt) / `assets/deck-template.html` (演示页起点) / `assets/pre-commit-note.sh` (提交前自动跑标点归一化与语料检查; 立场是不阻挡提交, 见文件头)
+`templates/interest-outlook.md` (默认文章结构) / `templates/problem-solution.md` (踩坑复盘) / `templates/reusable-spec.md` (照做型规格: 骨架 / 库 / 分层 / 写法偏好 / 可拷走的件) / `templates/_registry.md` (模板索引; 加一个文件即新增一种结构) / `assets/info-template.md` (info 骨架) / `assets/divergence-template.md` (发散记录格式; 算子见 `steps/3-atom/impl/divergence.md`) / `assets/goal-template.md` (目标与验收契约; 需求唯一事实源, 阶段 1 起由 `grill.md` 锐化术语) / `assets/voice-audit-prompt.md` 与 `assets/fidelity-audit-prompt.md` (两个盲审的 prompt) / `assets/deck-template.html` (演示页起点) / `assets/pre-commit-note.sh` (提交前自动跑标点归一化与语料检查, 再执行一次 v2 暂存区扫描并区分错误与待审核项; 提示不阻挡人工提交)
 
 ## 怎么扩展 (都不要改这个文件)
 

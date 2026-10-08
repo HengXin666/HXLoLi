@@ -22,7 +22,7 @@ function fixture(t: any) {
   mkdirSync('.agent-notes-report')
   t.after(() => { process.chdir(original); rmSync(directory, {recursive: true, force: true}) })
   const data: any = {version: 2, ok: false, head: sha, issues: [
-    {path: 'src/a.py', line: 3, rule: 'code-only-diff', message: '@team must review <script>', related: []},
+    {path: 'src/a.py', line: 3, rule: 'code-only-diff', severity: 'review', message: '@team must review <script>', related: []},
   ]}
   const save = () => writeFileSync('.agent-notes-report/agent-notes-report.json', JSON.stringify(data))
   save()
@@ -85,7 +85,7 @@ test('findings on the same code location are grouped', async t => {
 test('missing backlink diagnostics attach to their related code', async t => {
   const f = fixture(t)
   f.data.issues = [{path: '.agents/notes/' + 'example.md', line: 9, rule: 'anchor-cardinality',
-    message: 'Missing anchor', related: ['src/a.py']}]
+    severity: 'error', message: 'Missing anchor', related: ['src/a.py']}]
   f.save()
   await f.invoke()
   assert.equal(f.calls[0].path, 'src/a.py')
@@ -183,13 +183,14 @@ test('untrusted reports are rejected and do not fail the reporter', async t => {
     () => { f.data.head = sha; f.data.issues[0].path = '../escape.py' },
     () => { f.data.issues[0].path = 'src/a.py'; f.data.issues[0].line = 0 },
     () => { f.data.issues[0].line = 3; f.data.issues[0].related = ['../bad.py'] },
+    () => { f.data.issues[0].related = []; f.data.issues[0].severity = 'ignored' },
   ]) {
     change(); f.save()
     assert.throws(() => readReport(sha))
     await assert.doesNotReject(f.invoke)
     assert.equal(f.calls.length, 0)
   }
-  assert.equal(f.warnings.length, 5)
+  assert.equal(f.warnings.length, 6)
 })
 
 test('findings beyond the inline limit remain in the summary', async t => {
@@ -253,4 +254,27 @@ test('deleted files outside the latest commit use the exact comparison base', as
   f.save()
   await f.invoke()
   assert.ok(f.calls[0].body.includes(`/blob/${f.data.base_commit}/src/a.py#L3`))
+})
+
+test('push summaries explain the full range and prioritize errors after review findings', async t => {
+  const f = fixture(t)
+  f.context.payload.workflow_run.event = 'push'
+  f.data.mode = 'diff'
+  f.data.base_commit = 'c'.repeat(40)
+  const error = {...f.data.issues[0], severity: 'error', rule: 'anchor-cardinality'}
+  f.data.issues = Array.from({length: 50}, (_, i) => ({...f.data.issues[0], path: `assets/${i}.md`, rule: 'resource-review'}))
+  f.data.issues.push(error)
+  f.save()
+  await f.invoke()
+  const inline = f.calls.find(call => call.path === 'src/a.py')
+  assert.ok(inline.body.includes('1 项错误, 0 项待审核'))
+  const summary = f.calls.find(call => !call.path)
+  assert.ok(summary.body.includes('0 项错误, 50 项待审核'))
+  assert.ok(summary.body.includes(`/compare/${f.data.base_commit}...${sha}`))
+  assert.ok(summary.body.includes('resource-review: 50'))
+  assert.ok(summary.body.includes('其余 42 项'))
+  assert.ok(!summary.body.includes('assets/49.md'))
+  const original = JSON.parse(require('node:fs').readFileSync('.agent-notes-report/agent-notes-report.json', 'utf8'))
+  assert.equal(original.issues.length, 51)
+  assert.equal(original.issues.at(-1).severity, 'error')
 })

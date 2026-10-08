@@ -10,19 +10,20 @@ const escape = (value: unknown) => String(value).replace(/[\r\n]/g, ' ').replace
 
 function readReport(head: string) {
   const path = '.agent-notes-report/agent-notes-report.json'
-  if (fs.statSync(path).size > 2_000_000) throw new Error('Report too large')
+  if (fs.statSync(path).size > 2_000_000) throw new Error('报告超过大小限制')
   const data = JSON.parse(fs.readFileSync(path, 'utf8'))
-  if (!/^[a-f0-9]{40}$/.test(head) || data.head !== head) throw new Error('Report belongs to another commit')
+  if (!/^[a-f0-9]{40}$/.test(head) || data.head !== head) throw new Error('报告与当前提交不匹配')
   if (data.version !== 2 || typeof data.ok !== 'boolean' || !Array.isArray(data.issues) ||
-      data.ok !== (data.issues.length === 0)) throw new Error('Invalid report')
-  if (data.base_commit && !/^[a-f0-9]{40}$/.test(data.base_commit)) throw new Error('Invalid base commit')
-  if (data.deleted && (!Array.isArray(data.deleted) || !data.deleted.every(safePath))) throw new Error('Invalid deleted paths')
+      data.ok !== (data.issues.length === 0)) throw new Error('报告格式或结果无效')
+  if (data.base_commit && !/^[a-f0-9]{40}$/.test(data.base_commit)) throw new Error('基线提交无效')
+  if (data.deleted && (!Array.isArray(data.deleted) || !data.deleted.every(safePath))) throw new Error('已删除路径无效')
   for (const issue of data.issues) {
     if (!safePath(issue.path) || (issue.related && (!Array.isArray(issue.related) || !issue.related.every(safePath)))) {
-      throw new Error('Invalid path')
+      throw new Error('诊断路径无效')
     }
-    if (!Number.isSafeInteger(issue.line) || issue.line < 1) throw new Error('Invalid line')
-    if (typeof issue.rule !== 'string' || typeof issue.message !== 'string') throw new Error('Invalid diagnostic')
+    if (!Number.isSafeInteger(issue.line) || issue.line < 1) throw new Error('诊断行号无效')
+    if (typeof issue.rule !== 'string' || typeof issue.message !== 'string' ||
+        !['error', 'review'].includes(issue.severity)) throw new Error('诊断内容或级别无效')
   }
   return data
 }
@@ -37,6 +38,13 @@ function permalink(context: any, head: string, path: string, line: number) {
 }
 
 function body(context: any, run: any, issues: any[], key: string, links: any = {}) {
+  const errors = issues.filter(issue => issue.severity === 'error').length
+  const reviews = issues.length - errors
+  const compare = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/compare/${links.base}...${run.head_sha}`
+  const scope = links.mode === 'diff' && links.base
+    ? `检查范围: [${links.base.slice(0, 10)}..${run.head_sha.slice(0, 10)}](${compare}), 包含这次 push 或 PR 比较范围内的全部提交`
+    : links.mode === 'all' ? `检查范围: ${run.head_sha.slice(0, 10)} 的完整快照` : ''
+  const limit = links.limit ?? issues.length
   const reference = (path: string, line: number) => {
     const file = (links.files || []).find((file: any) => file.filename === path || file.previous_filename === path)
     const old = (links.deleted || []).includes(path) || file?.status === 'removed' ||
@@ -46,12 +54,19 @@ function body(context: any, run: any, issues: any[], key: string, links: any = {
       : permalink(context, old ? links.base : run.head_sha, path, line)
     return `[${escape(path)}:${line}${old ? ' (删除前)' : ''}](${url})`
   }
-  const lines = issues.map(issue => {
+  const lines = issues.slice(0, limit).map(issue => {
     const related = (issue.related || []).map((path: string) => reference(path, 1))
-    return `- ${reference(issue.path, issue.line)} | ${escape(issue.rule)}: ${escape(issue.message)}` +
+    const level = issue.severity === 'error' ? '错误' : '待审核'
+    return `- ${reference(issue.path, issue.line)} | ${level} ${escape(issue.rule)}: ${escape(issue.message)}` +
       (related.length ? `\n  关联代码或决策: ${related.join(', ')}` : '')
   })
-  return `${marker(key)}\nAgent Notes: 请核对双向引用或决策与代码的配对\n\n${lines.join('\n')}\n\n[完整诊断与运行日志](${run.html_url})`
+  const counts = new Map<string, number>()
+  for (const issue of issues) counts.set(issue.rule, (counts.get(issue.rule) || 0) + 1)
+  const statistics = links.limit ? `\n\n规则统计: ${[...counts].map(([rule, count]) => `${escape(rule)}: ${count}`).join(', ')}` : ''
+  const omitted = issues.length > limit ? `\n\n其余 ${issues.length - limit} 项见完整 JSON 诊断附件, 待审核提示不等于结构错误` : ''
+  return `${marker(key)}\nAgent Notes: ${errors} 项错误, ${reviews} 项待审核` +
+    (scope ? `\n\n${scope}` : '') + statistics + `\n\n${lines.join('\n')}` + omitted +
+    `\n\n[完整诊断与运行日志](${run.html_url})`
 }
 
 function patchLines(patch: string = '') {

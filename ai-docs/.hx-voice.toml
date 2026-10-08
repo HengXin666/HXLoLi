@@ -246,3 +246,78 @@ pattern = "反直觉"
 text = "缺前者会显得平均, 缺后者会让长句爆掉"
 why = "对偶金句落点: 两分句主语结构严格对仗并以对称负面结果收束; 每节末尾都安一句即成模板"
 pattern = "缺[^。]{0,8}会[^。]{0,10}, 缺[^。]{0,8}会"
+
+[[bad]]
+text = "专业前提改变了判断结果."
+why = "前文业务要求已经讲清，抽象复述不补信息"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "这组对照很适合研究上下文"
+why = "用材料价值评价收束，遮住具体观察"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "但足以提醒"
+why = "从单个个案跳到可套用的通用提醒"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "代码索引说明现在怎样实现."
+why = "与业务规范构成整齐概念对举，应说明各自怎样使用"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "同页泛称持续更新与这段细则有张力."
+why = "用有张力绕开实际同步限制"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "风险不会因为无人采纳而变低."
+why = "警句式重复原则，直接说明如何记录延期即可"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "三家都有可借鉴的记忆入口."
+why = "宽泛正面评价，不补具体功能"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "风险绑定、专业取证和可执行回归各自都有工作."
+why = "抽象名词排比配空谓语，应写明做什么"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "不把摘要升级成无出处的权威."
+why = "价值判断比喻替代回查原文的操作要求"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "这个检查仍然是模型的语义工作."
+why = "语义工作含义模糊，应指出判断错误与核验办法"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "缺陷消失在审查之前"
+why = "用消失夸大未进入检查的检索遗漏"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "再完美的模型也不会看到那条事故."
+why = "用不存在的极端对象加强已经明确的映射遗漏"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "没有权力覆盖批准的保留政策."
+why = "拟人化权力说法替代规范优先级"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "不能用采纳率代替全部真实性."
+why = "全部真实性缺少清楚的统计对象"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "先用自己的事故接通这条路径"
+why = "指代宽泛，并在末段重复起步顺序"
+source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
