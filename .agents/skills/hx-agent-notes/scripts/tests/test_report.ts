@@ -193,12 +193,15 @@ test('untrusted reports are rejected and do not fail the reporter', async t => {
   assert.equal(f.warnings.length, 6)
 })
 
-test('findings beyond the inline limit remain in the summary', async t => {
+test('many findings at one location retain counts and bounded detail', async t => {
   const f = fixture(t)
-  f.data.issues = Array.from({length: 45}, (_, i) => ({...f.data.issues[0], line: i + 1}))
+  f.data.issues = Array.from({length: 45}, (_, i) => ({...f.data.issues[0], line: i + 1,
+    related: ['.agents/notes/' + 'example.md']}))
   f.save()
   await f.invoke()
-  assert.ok(f.calls.some(call => call.kind === 'pr-create' && call.body.includes('src/a.py:45')))
+  assert.equal(f.calls.length, 1)
+  assert.ok(f.calls[0].body.includes('45 项待审核'))
+  assert.ok(f.calls[0].body.includes('其余 37 项'))
 })
 
 test('diff positions count later hunk headers and removed lines', () => {

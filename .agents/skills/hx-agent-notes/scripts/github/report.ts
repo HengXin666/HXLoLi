@@ -1,4 +1,4 @@
-const {readReport, marker, body, locate} = require('./diagnostics.ts')
+const {readReport, marker, body, locate, notePaths} = require('./diagnostics.ts')
 
 const owned = (comment: any, tag: string) => comment.user?.login === 'github-actions[bot]' && comment.body?.startsWith(tag)
 
@@ -28,22 +28,29 @@ async function publish({github, context, core}: any, run: any, data: any, pr?: a
     ? await github.paginate(github.rest.pulls.listReviewComments, {...params, pull_number: pr.number})
     : await github.paginate(github.rest.repos.listCommentsForCommit, {...params, commit_sha: run.head_sha})
   const groups = new Map<string, {location: any, issues: any[]}>()
-  for (const issue of issues.slice(0, 40)) {
+  for (const issue of issues) {
     const location = locate(issue, files)
-    const key = location ? `${location.path}:${location.side || 'file'}:${location.line || 0}` : 'summary'
+    const notes = notePaths(issue)
+    const key = notes.length ? `notes:${notes.join('|')}`
+      : location ? `${location.path}:${location.side || 'file'}:${location.line || 0}` : 'summary'
     const group = groups.get(key) || {location, issues: []}
+    if (!group.location || (group.location.subject_type === 'file' && location?.subject_type === 'line')) {
+      group.location = location || group.location
+    }
     group.issues.push(issue)
     groups.set(key, group)
   }
-  const fallback: any[] = issues.slice(40)
+  const fallback: any[] = []
+  let inline = 0
   for (const [key, group] of groups) {
-    if (!group.location || (!pr && group.location.subject_type === 'file')) {
+    if (!group.location || (!pr && group.location.subject_type === 'file') || inline >= 40) {
       fallback.push(...group.issues)
       continue
     }
+    inline++
     const identity = `${run.name || 'Agent Notes Diff'}:${key}`
     const tag = marker(identity)
-    const text = body(context, run, group.issues, identity, links)
+    const text = body(context, run, group.issues, identity, {...links, limit: 8})
     const prior = existing.find((comment: any) => owned(comment, tag))
     try {
       if (pr) {

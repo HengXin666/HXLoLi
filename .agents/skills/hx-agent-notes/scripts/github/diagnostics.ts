@@ -37,6 +37,40 @@ function permalink(context: any, head: string, path: string, line: number) {
   return `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/blob/${head}/${encoded}#L${line}`
 }
 
+function notePaths(issue: any): string[] {
+  return [...new Set<string>([issue.path, ...(issue.related || [])]
+    .filter((path: string) => path.startsWith('.agents/notes/') && path.endsWith('.md')))].sort()
+}
+
+function groupedLines(issues: any[], reference: (path: string, line: number) => string) {
+  const groups = new Map<string, Map<string, Set<string>>>()
+  for (const issue of issues) {
+    const notes = notePaths(issue)
+    const paths: string[] = [...new Set<string>([issue.path, ...(issue.related || [])])]
+    for (const note of notes.length ? notes : ['']) {
+      const files = groups.get(note) || new Map<string, Set<string>>()
+      const targets = paths.filter(path => !notes.includes(path))
+      const level = issue.severity === 'error' ? '错误' : '待审核'
+      const detail = `${level} ${escape(issue.rule)}: ${escape(issue.message)}`
+      for (const path of targets.length ? targets : [issue.path]) {
+        const target = path
+        const entries = files.get(target) || new Set<string>()
+        const origin = ` (诊断: ${reference(issue.path, issue.line)})`
+        entries.add(detail + origin)
+        files.set(target, entries)
+      }
+      groups.set(note, files)
+    }
+  }
+  return [...groups].sort(([a], [b]) => a.localeCompare(b)).map(([note, files]) => {
+    const title = note ? reference(note, 1) : '未关联决策文件'
+    const entries = [...files].sort(([a], [b]) => a.localeCompare(b))
+      .map(([path, details]) => `- ${reference(path, issues.find(issue => issue.path === path)?.line || 1)}` +
+        ` | ${[...details].join('; ')}`)
+    return `${title}\n\n${entries.join('\n')}`
+  }).join('\n\n')
+}
+
 function body(context: any, run: any, issues: any[], key: string, links: any = {}) {
   const errors = issues.filter(issue => issue.severity === 'error').length
   const reviews = issues.length - errors
@@ -54,18 +88,13 @@ function body(context: any, run: any, issues: any[], key: string, links: any = {
       : permalink(context, old ? links.base : run.head_sha, path, line)
     return `[${escape(path)}:${line}${old ? ' (删除前)' : ''}](${url})`
   }
-  const lines = issues.slice(0, limit).map(issue => {
-    const related = (issue.related || []).map((path: string) => reference(path, 1))
-    const level = issue.severity === 'error' ? '错误' : '待审核'
-    return `- ${reference(issue.path, issue.line)} | ${level} ${escape(issue.rule)}: ${escape(issue.message)}` +
-      (related.length ? `\n  关联代码或决策: ${related.join(', ')}` : '')
-  })
+  const lines = groupedLines(issues.slice(0, limit), reference)
   const counts = new Map<string, number>()
   for (const issue of issues) counts.set(issue.rule, (counts.get(issue.rule) || 0) + 1)
   const statistics = links.limit ? `\n\n规则统计: ${[...counts].map(([rule, count]) => `${escape(rule)}: ${count}`).join(', ')}` : ''
   const omitted = issues.length > limit ? `\n\n其余 ${issues.length - limit} 项见完整 JSON 诊断附件, 待审核提示不等于结构错误` : ''
   return `${marker(key)}\nAgent Notes: ${errors} 项错误, ${reviews} 项待审核` +
-    (scope ? `\n\n${scope}` : '') + statistics + `\n\n${lines.join('\n')}` + omitted +
+    (scope ? `\n\n${scope}` : '') + statistics + `\n\n${lines}` + omitted +
     `\n\n[完整诊断与运行日志](${run.html_url})`
 }
 
@@ -110,4 +139,4 @@ function locate(issue: any, files: any[]) {
   return null
 }
 
-module.exports = {readReport, marker, body, locate, patchLines, ROOT}
+module.exports = {readReport, marker, body, locate, patchLines, notePaths, ROOT}

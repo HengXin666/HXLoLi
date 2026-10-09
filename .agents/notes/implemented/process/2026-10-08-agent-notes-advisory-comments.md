@@ -12,6 +12,7 @@ Decision-ID: agent-notes-advisory-comments
 
 - `.agents/skills/hx-agent-notes/scripts/github/report.ts`
 - `.agents/skills/hx-agent-notes/scripts/tests/test_report.ts`
+- `.agents/skills/hx-agent-notes/scripts/tests/github/test_grouping.ts`
 
 ## Decision
 
@@ -19,9 +20,9 @@ GitHub diff, 主线全量和报告工作流的 job 与步骤容错完成. 标准
 
 报告工作流监听两种扫描的完成事件, 使用默认分支可信 TypeScript 实现读取诊断 artifact, 脚本目录固定 CommonJS 以兼容宿主项目的 ESM 配置. 校验版本, 必填 head SHA, ok 一致性, 诊断级别和所有路径与行号. PR 当前 head 必须仍匹配扫描 SHA, fork 数据不作为可执行代码加载. 报告缺失产出 missing-report 评论, 发布失败写 warning
 
-PR 问题优先放到对应代码行, 删除与改名前的代码使用 LEFT, 正文链接指向删除前的基线提交和旧路径. note 端问题优先映射 related 源码. push 分页读取提交文件并使用对应 patch position 评论. 每种扫描的同位置诊断合并, 重跑更新已有机器人评论, diff 与全量报告分别保留. 超出行内范围或 API 拒绝的诊断汇总精确路径和行号. 完整 JSON 保留全部问题, 已修复问题的旧评论保留为 review 记录
+PR 问题优先放到对应代码行, 删除与改名前的代码使用 LEFT, 正文链接指向删除前的基线提交和旧路径. note 端问题优先映射 related 源码. push 分页读取提交文件并使用对应 patch position 评论. 每种扫描按决策 Markdown 路径聚合诊断, 正文以 note 为标题列出关联源码及准确行号, 规则和原因. 未关联决策的诊断单独列出, 不根据文件名推测关联, 重跑更新已有机器人评论, diff 与全量报告分别保留. 超出行内范围或 API 拒绝的诊断汇总精确路径和行号. 完整 JSON 保留全部问题, 已修复问题的旧评论保留为 review 记录
 
-评论分别显示结构或工具错误与待审核项. diff 评论注明实际 base 到 head 的比较范围, 多提交 push 包含整个范围, 不声称累计诊断只属于最后一个提交. 错误优先使用 40 项的行内定位预算; 汇总保留全部数量与规则统计, 只展开 8 项具体位置, 其他细节继续保留在 JSON artifact
+评论分别显示结构或工具错误与待审核项. diff 评论注明实际 base 到 head 的比较范围, 多提交 push 包含整个范围, 不声称累计诊断只属于最后一个提交. 错误优先使用 40 组的行内评论预算; 汇总保留全部数量与规则统计, 每条评论只展开 8 项诊断, 其他细节继续保留在 JSON artifact
 
 审核评论的级别和原因, 报告日志及 Actions 摘要使用中文, 标点只用英文半角. 规则 ID, 路径, 行号, SHA 和 JSON 字段保留原值, 外部工具原始错误附在中文说明后
 
@@ -42,6 +43,6 @@ PR 问题优先放到对应代码行, 删除与改名前的代码使用 LEFT, �
 
 ## Testing
 
-使用隔离 Git 仓库验证双链删除, 改名, 代表文件错误, 重复锚点和入站引用. 收集器验证违规, 缺失比较端点和依赖故障仍退出 0. 模拟 GitHub API 验证 PR 与 push 定位, 删除侧, 幂等更新, 无 patch, API 失败, 过时 head 和不可信 artifact
+使用隔离 Git 仓库验证双链删除, 改名, 代表文件错误, 重复锚点和入站引用. 收集器验证违规, 缺失比较端点和依赖故障仍退出 0. 模拟 GitHub API 验证同一决策的多源码合并与稳定评论身份, PR 与 push 定位, 删除侧, 幂等更新, 无 patch, API 失败, 过时 head 和不可信 artifact
 
 多提交 push 回归验证 50 项资源待审核后出现的真实锚点错误仍放到代码行, 汇总显示精确比较范围和待审核总数, 只展开 8 项, 原始 JSON 的 51 项及顺序保持完整

@@ -17,7 +17,7 @@ metadata:
 
 全量扫描同时检查每个受保护源码目录是否已经建立双链, 没有 note 的存量目录报告 unowned-directory. 目录范围为直接父目录, 不用上级目录的决策代替子目录的决策
 
-CI 工作流始终容错完成, 有问题就在对应代码片段评论, 并保留完整 JSON 诊断. PR 使用行内 review comment, push 使用提交片段评论, 无法行内定位时汇总精确路径与行号. 本地 CLI 仍严格返回校验退出码, CI 成功不代表双链有效
+CI 工作流始终容错完成, 有问题就在对应代码片段评论, 并保留完整 JSON 诊断. PR 使用行内 review comment, push 使用提交片段评论, 按决策 Markdown 文件聚合源码列表, 无法行内定位时汇总精确路径与行号. 本地 CLI 仍严格返回校验退出码, CI 成功不代表双链有效
 
 审核评论, 扫描诊断和日志摘要使用中文, 标点只用英文半角. 规则 ID, 精确路径, SHA 和 JSON 字段保持原值; 外部工具原始错误附在中文说明后
 
@@ -65,7 +65,7 @@ Python 扫描入口通过 uv 运行, 包括安装器, 项目红线, hook 与开�
 
 ```sh
 uv run --with-requirements scripts/redline/requirements.txt python -m unittest discover -s scripts/tests -v
-node --experimental-strip-types --test scripts/tests/test_report.ts
+node --experimental-strip-types --test scripts/tests/test_report.ts scripts/tests/github/test_grouping.ts
 uv run ../hx-make-skill/scripts/validate_skill.py .
 uv run ../hx-make-skill/scripts/prose_rules.py --check .
 uv run ../hx-make-skill/scripts/check_layout.py .
@@ -78,6 +78,7 @@ uv run ../hx-make-skill/scripts/check_layout.py .
 - `scripts/tests/test_links.py`: 双链删改, 错误代表文件, 入站链接与精确 Code 行号
 - `scripts/tests/test_collect.py`: 正常扫描, 违规, 缺失端点和依赖故障下的成功退出与完整诊断
 - `scripts/tests/test_setup.py`: 安装幂等, 退役, 骨架与首次 push 基线
+- `scripts/tests/github/test_grouping.ts`: 按决策文件聚合, 无归属资源, 删除链接和跨源码幂等更新
 - `scripts/tests/test_report.ts`: 模拟 GitHub API 的行内与提交评论, 更新, 失败兜底和不可信报告拒绝
 
 ## 兼容与浏览工具

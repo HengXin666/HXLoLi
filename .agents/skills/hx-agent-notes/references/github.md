@@ -16,7 +16,7 @@ PR 比较 merge-base 到真实 head SHA, push 比较 before 到 after, 首次分
 
 `scripts/github/report.ts` 优先创建 PR review 行内评论, 使用准确 path, line, side 和 head SHA. 删除或改名前的代码定位到 LEFT, 正文链接使用删除前的 base_commit 与旧路径. 没有 base_commit 时用 PR 基线或提交父版本, 不把已删文件链接到新 head. note 的 Code 或反向锚点问题优先定位 related 源码, 正文同时列出关联路径. 无 patch 时使用文件评论, 不在本次 diff 内的问题汇总到 PR 总评论, 保留精确路径与行号链接
 
-push 分页读取提交文件, 使用带 path 和 patch position 的 commit comment, 不可定位的内容汇总到提交评论. 每种扫描在同一位置的多项诊断合并, 重跑更新已有机器人评论, diff 与全量报告分别保留. 错误优先使用最多 40 项的行内定位预算, 其余内容保留在汇总和完整 artifact 中. 汇总区分错误与待审核数量, 列规则统计和实际比较范围, 只展示 8 项具体位置并给出其余数量, 不把一次多提交 push 的累计诊断描述为最后一个提交独有的问题. 已修复问题的旧评论保留为 review 记录, head 已变化的 PR 跳过过时报告
+push 分页读取提交文件, 使用带 path 和 patch position 的 commit comment, 不可定位的内容汇总到提交评论. 每种扫描按关联的决策 Markdown 文件合并诊断, 同篇决策下的源码文件列成项目符号列表, 保留各自行号与规则原因. 未关联决策的资源显示在单独分组, 不猜测其归属, 按扫描名与决策路径生成稳定标记, 重跑更新已有机器人评论, diff 与全量报告分别保留. 错误优先使用最多 40 组的行内评论预算, 其余内容保留在汇总和完整 artifact 中. 汇总区分错误与待审核数量, 列规则统计和实际比较范围, 每条评论只展开 8 项诊断, 按 Markdown 分组显示关联源码并给出其余数量, 不把一次多提交 push 的累计诊断描述为最后一个提交独有的问题. 已修复问题的旧评论保留为 review 记录, head 已变化的 PR 跳过过时报告
 
 CI 成功只表示流程完成, 双链有效性由 JSON 的 ok 与诊断决定. 不把始终成功的扫描 job 当作双链有效的 required check. 本地 CLI 仍严格使用 0, 1, 2 退出码. Actions 禁止机器人评论时 artifact 和日志仍保留, 开启评论权限后远端报告才可发布
 
