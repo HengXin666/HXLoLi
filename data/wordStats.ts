@@ -1114,11 +1114,19 @@ export const stats: RecordItem[] = [
     "message": "[ai-docs] 简单润色部分memo, 新增ass moemo (但不如skill)"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-10-08T18:07:06.062Z",
+    "commit": "f0480816b074928b73b485265916eebd71bfc20e",
+    "date": "2026-10-09T02:07:06+08:00",
     "docsBlogWordCount": 3867942,
     "aiDocsWordCount": 500609,
     "wordCount": 4368551,
     "message": "[ai-docs] AI CR 调研"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-10-09T18:00:02.693Z",
+    "docsBlogWordCount": 3867942,
+    "aiDocsWordCount": 559572,
+    "wordCount": 4427514,
+    "message": "[ai-docs] add pi/oh-my-pi 学习"
   }
 ];

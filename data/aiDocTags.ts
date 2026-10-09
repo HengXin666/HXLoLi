@@ -43,7 +43,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "label": "AI Agent",
       "slug": "ai-agent",
       "permalink": "/knowledge-base/tags/ai-agent",
-      "count": 16,
+      "count": 18,
       "description": "Agent 系统的设计、架构与工程实践, 不含模型原理本身",
       "parent": "",
       "aliases": [],
@@ -53,13 +53,60 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "label": "工程实践",
       "slug": "工程实践",
       "permalink": "/knowledge-base/tags/工程实践",
-      "count": 11,
+      "count": 12,
       "description": "可直接复用的工程做法与取舍",
       "parent": "AI Agent",
       "aliases": [
         "接口设计"
       ],
       "root": "AI Agent"
+    },
+    {
+      "label": "Harness",
+      "slug": "harness",
+      "permalink": "/knowledge-base/tags/harness",
+      "count": 4,
+      "description": "Agent 运行时/循环/工具调用的实现机制",
+      "parent": "AI Agent",
+      "aliases": [],
+      "root": "AI Agent"
+    },
+    {
+      "label": "Skill",
+      "slug": "skill",
+      "permalink": "/knowledge-base/tags/skill",
+      "count": 4,
+      "description": "Agent 技能的编写、打包、训练与评测",
+      "parent": "AI Agent",
+      "aliases": [
+        "项目学习"
+      ],
+      "root": "AI Agent"
+    },
+    {
+      "label": "字幕特效",
+      "slug": "字幕特效",
+      "permalink": "/knowledge-base/tags/字幕特效",
+      "count": 4,
+      "description": "ASS/KFX 特效字幕的实现机制、约束与工程做法",
+      "parent": "音视频特效",
+      "aliases": [
+        "KFX",
+        "特效字幕"
+      ],
+      "root": "音视频特效"
+    },
+    {
+      "label": "特效风格",
+      "slug": "特效风格",
+      "permalink": "/knowledge-base/tags/特效风格",
+      "count": 4,
+      "description": "特效的风格选择: 取材来源、转化与融合、字体与排版取舍",
+      "parent": "音视频特效",
+      "aliases": [
+        "动效设计"
+      ],
+      "root": "音视频特效"
     },
     {
       "label": "记忆系统",
@@ -87,113 +134,16 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": ""
     },
     {
-      "label": "特效风格",
-      "slug": "特效风格",
-      "permalink": "/knowledge-base/tags/特效风格",
-      "count": 4,
-      "description": "特效的风格选择: 取材来源、转化与融合、字体与排版取舍",
-      "parent": "音视频特效",
-      "aliases": [
-        "动效设计"
-      ],
-      "root": "音视频特效"
-    },
-    {
-      "label": "字幕特效",
-      "slug": "字幕特效",
-      "permalink": "/knowledge-base/tags/字幕特效",
-      "count": 4,
-      "description": "ASS/KFX 特效字幕的实现机制、约束与工程做法",
-      "parent": "音视频特效",
-      "aliases": [
-        "KFX",
-        "特效字幕"
-      ],
-      "root": "音视频特效"
-    },
-    {
-      "label": "Harness",
-      "slug": "harness",
-      "permalink": "/knowledge-base/tags/harness",
-      "count": 4,
-      "description": "Agent 运行时/循环/工具调用的实现机制",
-      "parent": "AI Agent",
-      "aliases": [],
-      "root": "AI Agent"
-    },
-    {
-      "label": "Skill",
-      "slug": "skill",
-      "permalink": "/knowledge-base/tags/skill",
-      "count": 4,
-      "description": "Agent 技能的编写、打包、训练与评测",
+      "label": "Agent架构",
+      "slug": "agent架构",
+      "permalink": "/knowledge-base/tags/agent架构",
+      "count": 3,
+      "description": "Agent 系统的分层与模块解耦设计",
       "parent": "AI Agent",
       "aliases": [
-        "项目学习"
+        "Agent平台",
+        "基础设施"
       ],
-      "root": "AI Agent"
-    },
-    {
-      "label": "多智能体",
-      "slug": "多智能体",
-      "permalink": "/knowledge-base/tags/多智能体",
-      "count": 3,
-      "description": "多个 Agent 之间的协作与编排",
-      "parent": "AI Agent",
-      "aliases": [],
-      "root": "AI Agent"
-    },
-    {
-      "label": "技术选型",
-      "slug": "技术选型",
-      "permalink": "/knowledge-base/tags/技术选型",
-      "count": 3,
-      "description": "在多个方案之间做选择",
-      "parent": "工程与工具",
-      "aliases": [],
-      "root": "工程与工具"
-    },
-    {
-      "label": "可复现性",
-      "slug": "可复现性",
-      "permalink": "/knowledge-base/tags/可复现性",
-      "count": 3,
-      "description": "结果可被稳定复现",
-      "parent": "工程与工具",
-      "aliases": [],
-      "root": "工程与工具"
-    },
-    {
-      "label": "评测",
-      "slug": "评测",
-      "permalink": "/knowledge-base/tags/评测",
-      "count": 3,
-      "description": "能力与效果的量化评估",
-      "parent": "工程与工具",
-      "aliases": [],
-      "root": "工程与工具"
-    },
-    {
-      "label": "提示词工程",
-      "slug": "提示词工程",
-      "permalink": "/knowledge-base/tags/提示词工程",
-      "count": 3,
-      "description": "提示词的设计、优化与预设",
-      "parent": "AI Agent",
-      "aliases": [
-        "提示词优化",
-        "预设"
-      ],
-      "root": "AI Agent"
-    },
-    {
-      "label": "知识库",
-      "slug": "知识库",
-      "permalink": "/knowledge-base/tags/知识库",
-      "count": 3,
-      "description": "知识库的组织与存取",
-      "parent": "记忆系统",
-      "aliases": [],
       "root": "AI Agent"
     },
     {
@@ -242,80 +192,77 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "逆向与风控"
     },
     {
-      "label": "检测面建模",
-      "slug": "检测面建模",
-      "permalink": "/knowledge-base/tags/检测面建模",
-      "count": 2,
-      "description": "攻击者与防御者视角的信号建模",
-      "parent": "逆向与风控",
-      "aliases": [
-        "事件可信度",
-        "风控"
-      ],
-      "root": "逆向与风控"
-    },
-    {
-      "label": "前端",
-      "slug": "前端",
-      "permalink": "/knowledge-base/tags/前端",
-      "count": 2,
-      "description": "Web 前端框架与交互实现",
-      "parent": "编程语言",
-      "aliases": [],
-      "root": "编程语言"
-    },
-    {
       "label": "上下文工程",
       "slug": "上下文工程",
       "permalink": "/knowledge-base/tags/上下文工程",
-      "count": 2,
+      "count": 3,
       "description": "上下文窗口的构造、压缩与组织",
       "parent": "AI Agent",
       "aliases": [],
       "root": "AI Agent"
     },
     {
-      "label": "协程",
-      "slug": "协程",
-      "permalink": "/knowledge-base/tags/协程",
-      "count": 2,
-      "description": "协程模型与异步调度",
-      "parent": "C++",
+      "label": "可复现性",
+      "slug": "可复现性",
+      "permalink": "/knowledge-base/tags/可复现性",
+      "count": 3,
+      "description": "结果可被稳定复现",
+      "parent": "工程与工具",
       "aliases": [],
-      "root": "编程语言"
+      "root": "工程与工具"
     },
     {
-      "label": "异步任务",
-      "slug": "异步任务",
-      "permalink": "/knowledge-base/tags/异步任务",
-      "count": 2,
-      "description": "异步任务的组织与调度",
-      "parent": "协程",
+      "label": "多智能体",
+      "slug": "多智能体",
+      "permalink": "/knowledge-base/tags/多智能体",
+      "count": 3,
+      "description": "多个 Agent 之间的协作与编排",
+      "parent": "AI Agent",
       "aliases": [],
-      "root": "编程语言"
+      "root": "AI Agent"
     },
     {
-      "label": "组件库",
-      "slug": "组件库",
-      "permalink": "/knowledge-base/tags/组件库",
-      "count": 2,
-      "description": "可复用 UI 组件与其设计",
-      "parent": "前端",
+      "label": "技术选型",
+      "slug": "技术选型",
+      "permalink": "/knowledge-base/tags/技术选型",
+      "count": 3,
+      "description": "在多个方案之间做选择",
+      "parent": "工程与工具",
       "aliases": [],
-      "root": "编程语言"
+      "root": "工程与工具"
     },
     {
-      "label": "Agent架构",
-      "slug": "agent架构",
-      "permalink": "/knowledge-base/tags/agent架构",
-      "count": 2,
-      "description": "Agent 系统的分层与模块解耦设计",
+      "label": "提示词工程",
+      "slug": "提示词工程",
+      "permalink": "/knowledge-base/tags/提示词工程",
+      "count": 3,
+      "description": "提示词的设计、优化与预设",
       "parent": "AI Agent",
       "aliases": [
-        "Agent平台",
-        "基础设施"
+        "提示词优化",
+        "预设"
       ],
       "root": "AI Agent"
+    },
+    {
+      "label": "知识库",
+      "slug": "知识库",
+      "permalink": "/knowledge-base/tags/知识库",
+      "count": 3,
+      "description": "知识库的组织与存取",
+      "parent": "记忆系统",
+      "aliases": [],
+      "root": "AI Agent"
+    },
+    {
+      "label": "评测",
+      "slug": "评测",
+      "permalink": "/knowledge-base/tags/评测",
+      "count": 3,
+      "description": "能力与效果的量化评估",
+      "parent": "工程与工具",
+      "aliases": [],
+      "root": "工程与工具"
     },
     {
       "label": "Codex",
@@ -368,212 +315,57 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "编程语言"
     },
     {
-      "label": "编译期多态",
-      "slug": "编译期多态",
-      "permalink": "/knowledge-base/tags/编译期多态",
-      "count": 1,
-      "description": "模板元编程与编译期计算",
-      "parent": "C++",
-      "aliases": [],
-      "root": "编程语言"
-    },
-    {
-      "label": "电脑包",
-      "slug": "电脑包",
-      "permalink": "/knowledge-base/tags/电脑包",
-      "count": 1,
-      "description": "电脑包的容量与结构",
-      "parent": "选购指标",
-      "aliases": [],
-      "root": "生活杂谈"
-    },
-    {
-      "label": "短视频",
-      "slug": "短视频",
-      "permalink": "/knowledge-base/tags/短视频",
-      "count": 1,
-      "description": "短视频的内容形态与影响",
-      "parent": "生活杂谈",
-      "aliases": [
-        "想法探索"
-      ],
-      "root": "生活杂谈"
-    },
-    {
-      "label": "检索",
-      "slug": "检索",
-      "permalink": "/knowledge-base/tags/检索",
-      "count": 1,
-      "description": "Agent 的外部检索与 RAG 链路",
-      "parent": "AI Agent",
-      "aliases": [],
-      "root": "AI Agent"
-    },
-    {
-      "label": "浏览器指纹",
-      "slug": "浏览器指纹",
-      "permalink": "/knowledge-base/tags/浏览器指纹",
-      "count": 1,
-      "description": "浏览器与 TLS 指纹的构成和识别",
-      "parent": "逆向与风控",
-      "aliases": [
-        "TLS指纹"
-      ],
-      "root": "逆向与风控"
-    },
-    {
-      "label": "浏览器自动化",
-      "slug": "浏览器自动化",
-      "permalink": "/knowledge-base/tags/浏览器自动化",
-      "count": 1,
-      "description": "Playwright 等浏览器自动化手段",
-      "parent": "逆向与风控",
-      "aliases": [],
-      "root": "逆向与风控"
-    },
-    {
-      "label": "毛选方法论",
-      "slug": "毛选方法论",
-      "permalink": "/knowledge-base/tags/毛选方法论",
-      "count": 1,
-      "description": "用毛选的方法分析现实问题",
-      "parent": "生活杂谈",
-      "aliases": [],
-      "root": "生活杂谈"
-    },
-    {
-      "label": "逆向工程",
-      "slug": "逆向工程",
-      "permalink": "/knowledge-base/tags/逆向工程",
-      "count": 1,
-      "description": "逆向分析的方法与经验",
-      "parent": "逆向与风控",
-      "aliases": [],
-      "root": "逆向与风控"
-    },
-    {
-      "label": "爬虫",
-      "slug": "爬虫",
-      "permalink": "/knowledge-base/tags/爬虫",
-      "count": 1,
-      "description": "网络数据采集与解析",
-      "parent": "Python",
-      "aliases": [],
-      "root": "编程语言"
-    },
-    {
-      "label": "凭证管理",
-      "slug": "凭证管理",
-      "permalink": "/knowledge-base/tags/凭证管理",
-      "count": 1,
-      "description": "密钥与凭据的存放和轮换",
-      "parent": "工程与工具",
-      "aliases": [],
-      "root": "工程与工具"
-    },
-    {
-      "label": "前端动画",
-      "slug": "前端动画",
-      "permalink": "/knowledge-base/tags/前端动画",
-      "count": 1,
-      "description": "交互动效与动画实现",
-      "parent": "前端",
-      "aliases": [],
-      "root": "编程语言"
-    },
-    {
-      "label": "数据面",
-      "slug": "数据面",
-      "permalink": "/knowledge-base/tags/数据面",
-      "count": 1,
-      "description": "数据面与控制面的职责切分",
-      "parent": "Agent架构",
-      "aliases": [],
-      "root": "AI Agent"
-    },
-    {
-      "label": "通勤",
-      "slug": "通勤",
-      "permalink": "/knowledge-base/tags/通勤",
-      "count": 1,
-      "description": "通勤场景下的取舍",
-      "parent": "选购指标",
-      "aliases": [],
-      "root": "生活杂谈"
-    },
-    {
-      "label": "选购指标",
-      "slug": "选购指标",
-      "permalink": "/knowledge-base/tags/选购指标",
-      "count": 1,
-      "description": "买东西时真正该看的指标",
-      "parent": "生活杂谈",
-      "aliases": [
-        "商品选购"
-      ],
-      "root": "生活杂谈"
-    },
-    {
-      "label": "验证码求解",
-      "slug": "验证码求解",
-      "permalink": "/knowledge-base/tags/验证码求解",
-      "count": 1,
-      "description": "验证码识别与自动化求解",
-      "parent": "逆向与风控",
-      "aliases": [
-        "AI验证码求解"
-      ],
-      "root": "逆向与风控"
-    },
-    {
-      "label": "语言特性",
-      "slug": "语言特性",
-      "permalink": "/knowledge-base/tags/语言特性",
-      "count": 1,
-      "description": "语言层面的特性与设计取舍",
+      "label": "前端",
+      "slug": "前端",
+      "permalink": "/knowledge-base/tags/前端",
+      "count": 2,
+      "description": "Web 前端框架与交互实现",
       "parent": "编程语言",
       "aliases": [],
       "root": "编程语言"
     },
     {
-      "label": "约束解码",
-      "slug": "约束解码",
-      "permalink": "/knowledge-base/tags/约束解码",
-      "count": 1,
-      "description": "用语法/结构约束模型输出格式",
-      "parent": "LLM",
+      "label": "协程",
+      "slug": "协程",
+      "permalink": "/knowledge-base/tags/协程",
+      "count": 2,
+      "description": "协程模型与异步调度",
+      "parent": "C++",
       "aliases": [],
-      "root": "AI Agent"
+      "root": "编程语言"
     },
     {
-      "label": "增量沉淀",
-      "slug": "增量沉淀",
-      "permalink": "/knowledge-base/tags/增量沉淀",
-      "count": 1,
-      "description": "只追加不重写的沉淀方式",
-      "parent": "记忆系统",
+      "label": "异步任务",
+      "slug": "异步任务",
+      "permalink": "/knowledge-base/tags/异步任务",
+      "count": 2,
+      "description": "异步任务的组织与调度",
+      "parent": "协程",
       "aliases": [],
-      "root": "AI Agent"
+      "root": "编程语言"
     },
     {
-      "label": "注意力",
-      "slug": "注意力",
-      "permalink": "/knowledge-base/tags/注意力",
-      "count": 1,
-      "description": "注意力被如何捕获与消耗",
-      "parent": "生活杂谈",
-      "aliases": [],
-      "root": "生活杂谈"
+      "label": "检测面建模",
+      "slug": "检测面建模",
+      "permalink": "/knowledge-base/tags/检测面建模",
+      "count": 2,
+      "description": "攻击者与防御者视角的信号建模",
+      "parent": "逆向与风控",
+      "aliases": [
+        "事件可信度",
+        "风控"
+      ],
+      "root": "逆向与风控"
     },
     {
-      "label": "自建部署",
-      "slug": "自建部署",
-      "permalink": "/knowledge-base/tags/自建部署",
-      "count": 1,
-      "description": "自托管服务与网络配置",
-      "parent": "工程与工具",
+      "label": "组件库",
+      "slug": "组件库",
+      "permalink": "/knowledge-base/tags/组件库",
+      "count": 2,
+      "description": "可复用 UI 组件与其设计",
+      "parent": "前端",
       "aliases": [],
-      "root": "工程与工具"
+      "root": "编程语言"
     },
     {
       "label": "Bot Defense",
@@ -626,14 +418,212 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "AI Agent"
     },
     {
-      "label": "编程语言",
-      "slug": "编程语言",
-      "permalink": "/knowledge-base/tags/编程语言",
-      "count": 0,
-      "description": "语言本身的特性、范式与技术选型",
-      "parent": "",
+      "label": "凭证管理",
+      "slug": "凭证管理",
+      "permalink": "/knowledge-base/tags/凭证管理",
+      "count": 1,
+      "description": "密钥与凭据的存放和轮换",
+      "parent": "工程与工具",
       "aliases": [],
-      "root": ""
+      "root": "工程与工具"
+    },
+    {
+      "label": "前端动画",
+      "slug": "前端动画",
+      "permalink": "/knowledge-base/tags/前端动画",
+      "count": 1,
+      "description": "交互动效与动画实现",
+      "parent": "前端",
+      "aliases": [],
+      "root": "编程语言"
+    },
+    {
+      "label": "增量沉淀",
+      "slug": "增量沉淀",
+      "permalink": "/knowledge-base/tags/增量沉淀",
+      "count": 1,
+      "description": "只追加不重写的沉淀方式",
+      "parent": "记忆系统",
+      "aliases": [],
+      "root": "AI Agent"
+    },
+    {
+      "label": "数据面",
+      "slug": "数据面",
+      "permalink": "/knowledge-base/tags/数据面",
+      "count": 1,
+      "description": "数据面与控制面的职责切分",
+      "parent": "Agent架构",
+      "aliases": [],
+      "root": "AI Agent"
+    },
+    {
+      "label": "检索",
+      "slug": "检索",
+      "permalink": "/knowledge-base/tags/检索",
+      "count": 1,
+      "description": "Agent 的外部检索与 RAG 链路",
+      "parent": "AI Agent",
+      "aliases": [],
+      "root": "AI Agent"
+    },
+    {
+      "label": "毛选方法论",
+      "slug": "毛选方法论",
+      "permalink": "/knowledge-base/tags/毛选方法论",
+      "count": 1,
+      "description": "用毛选的方法分析现实问题",
+      "parent": "生活杂谈",
+      "aliases": [],
+      "root": "生活杂谈"
+    },
+    {
+      "label": "注意力",
+      "slug": "注意力",
+      "permalink": "/knowledge-base/tags/注意力",
+      "count": 1,
+      "description": "注意力被如何捕获与消耗",
+      "parent": "生活杂谈",
+      "aliases": [],
+      "root": "生活杂谈"
+    },
+    {
+      "label": "浏览器指纹",
+      "slug": "浏览器指纹",
+      "permalink": "/knowledge-base/tags/浏览器指纹",
+      "count": 1,
+      "description": "浏览器与 TLS 指纹的构成和识别",
+      "parent": "逆向与风控",
+      "aliases": [
+        "TLS指纹"
+      ],
+      "root": "逆向与风控"
+    },
+    {
+      "label": "浏览器自动化",
+      "slug": "浏览器自动化",
+      "permalink": "/knowledge-base/tags/浏览器自动化",
+      "count": 1,
+      "description": "Playwright 等浏览器自动化手段",
+      "parent": "逆向与风控",
+      "aliases": [],
+      "root": "逆向与风控"
+    },
+    {
+      "label": "爬虫",
+      "slug": "爬虫",
+      "permalink": "/knowledge-base/tags/爬虫",
+      "count": 1,
+      "description": "网络数据采集与解析",
+      "parent": "Python",
+      "aliases": [],
+      "root": "编程语言"
+    },
+    {
+      "label": "电脑包",
+      "slug": "电脑包",
+      "permalink": "/knowledge-base/tags/电脑包",
+      "count": 1,
+      "description": "电脑包的容量与结构",
+      "parent": "选购指标",
+      "aliases": [],
+      "root": "生活杂谈"
+    },
+    {
+      "label": "短视频",
+      "slug": "短视频",
+      "permalink": "/knowledge-base/tags/短视频",
+      "count": 1,
+      "description": "短视频的内容形态与影响",
+      "parent": "生活杂谈",
+      "aliases": [
+        "想法探索"
+      ],
+      "root": "生活杂谈"
+    },
+    {
+      "label": "约束解码",
+      "slug": "约束解码",
+      "permalink": "/knowledge-base/tags/约束解码",
+      "count": 1,
+      "description": "用语法/结构约束模型输出格式",
+      "parent": "LLM",
+      "aliases": [],
+      "root": "AI Agent"
+    },
+    {
+      "label": "编译期多态",
+      "slug": "编译期多态",
+      "permalink": "/knowledge-base/tags/编译期多态",
+      "count": 1,
+      "description": "模板元编程与编译期计算",
+      "parent": "C++",
+      "aliases": [],
+      "root": "编程语言"
+    },
+    {
+      "label": "自建部署",
+      "slug": "自建部署",
+      "permalink": "/knowledge-base/tags/自建部署",
+      "count": 1,
+      "description": "自托管服务与网络配置",
+      "parent": "工程与工具",
+      "aliases": [],
+      "root": "工程与工具"
+    },
+    {
+      "label": "语言特性",
+      "slug": "语言特性",
+      "permalink": "/knowledge-base/tags/语言特性",
+      "count": 1,
+      "description": "语言层面的特性与设计取舍",
+      "parent": "编程语言",
+      "aliases": [],
+      "root": "编程语言"
+    },
+    {
+      "label": "逆向工程",
+      "slug": "逆向工程",
+      "permalink": "/knowledge-base/tags/逆向工程",
+      "count": 1,
+      "description": "逆向分析的方法与经验",
+      "parent": "逆向与风控",
+      "aliases": [],
+      "root": "逆向与风控"
+    },
+    {
+      "label": "选购指标",
+      "slug": "选购指标",
+      "permalink": "/knowledge-base/tags/选购指标",
+      "count": 1,
+      "description": "买东西时真正该看的指标",
+      "parent": "生活杂谈",
+      "aliases": [
+        "商品选购"
+      ],
+      "root": "生活杂谈"
+    },
+    {
+      "label": "通勤",
+      "slug": "通勤",
+      "permalink": "/knowledge-base/tags/通勤",
+      "count": 1,
+      "description": "通勤场景下的取舍",
+      "parent": "选购指标",
+      "aliases": [],
+      "root": "生活杂谈"
+    },
+    {
+      "label": "验证码求解",
+      "slug": "验证码求解",
+      "permalink": "/knowledge-base/tags/验证码求解",
+      "count": 1,
+      "description": "验证码识别与自动化求解",
+      "parent": "逆向与风控",
+      "aliases": [
+        "AI验证码求解"
+      ],
+      "root": "逆向与风控"
     },
     {
       "label": "工程与工具",
@@ -656,6 +646,16 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": ""
     },
     {
+      "label": "编程语言",
+      "slug": "编程语言",
+      "permalink": "/knowledge-base/tags/编程语言",
+      "count": 0,
+      "description": "语言本身的特性、范式与技术选型",
+      "parent": "",
+      "aliases": [],
+      "root": ""
+    },
+    {
       "label": "音视频特效",
       "slug": "音视频特效",
       "permalink": "/knowledge-base/tags/音视频特效",
@@ -667,6 +667,38 @@ export const aiDocTagIndex: AiDocTagIndex = {
     }
   ],
   "docs": [
+    {
+      "id": "AI/Agent-Harness/oh-my-pi原生调试与代码审查",
+      "title": "oh-my-pi 的功能与原生调试: 对比 Pi 和 Codex",
+      "description": "我对 oh my pi 的“原生调试”挺好奇, 想看看 Agent 怎么读变量、验证 review 里的猜测. 0x00 它在 Pi 上加了什么 如果已经在终端里读 diff, 下一步想直接查引用、看诊断、打断点验证一个越界假设, oh my pi 把这些入口接在同一个 coding agent 里. 模型调用 lsp",
+      "permalink": "/knowledge-base/AI/Agent-Harness/oh-my-pi原生调试与代码审查",
+      "date": "2026-10-10",
+      "tags": [
+        "AI Agent"
+      ]
+    },
+    {
+      "id": "AI/Agent-Harness/Pi-PR-Review-Agent",
+      "title": "Pi 能做什么: API、工具并发与 PR Review 实例",
+      "description": "我想写个只接收 PR 的审查 Agent, 但还没弄清 Pi 能替我做多少, 尤其是多个工具同时调用的时候. 0x00 从能做的东西选入口 拿 Pi 做一个 PR reviewer, 宿主程序先获取 PR, 再给模型几个取证工具. 模型决定读哪个文件, Pi 负责执行工具、把结果放回对话、继续请求模型. 你负责定义“审",
+      "permalink": "/knowledge-base/AI/Agent-Harness/Pi-PR-Review-Agent",
+      "date": "2026-10-10",
+      "tags": [
+        "AI Agent"
+      ]
+    },
+    {
+      "id": "AI/Agent架构/AICR规则事故记忆与业务上下文",
+      "title": "AI CR 的规则、事故记忆与业务上下文：重点研究 Qodo",
+      "description": "我最近在研究代码质量, 想搭一个 AI CR. 难点是那些只有内部人才知道的事故和业务约束. 0x00 模型没有想到的风险 ScyllaDB 31705 改了 repair 的恢复过程. 采集时仓库有 15785 stars, PR 尚未合并. Qodo 看到持续重试, 建议加一个总上限. 作者回答: “This is",
+      "permalink": "/knowledge-base/AI/Agent架构/AICR规则事故记忆与业务上下文",
+      "date": "2026-10-09",
+      "tags": [
+        "Agent架构",
+        "上下文工程",
+        "工程实践"
+      ]
+    },
     {
       "id": "工具链/受控技术中文与AI味的机械判据",
       "title": "受控技术中文: 把啰嗦变成可机械检测的判据",
@@ -690,34 +722,22 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
+      "id": "音视频特效/ASS特效字幕/用AI写ASS特效字幕",
+      "title": "用 AI 写 ASS 特效字幕: 一套可照做的规格",
+      "description": "NOTE 我想让 AI 替我写出本地那批成品同级的效果歌词. 试过之后发现卡点不在\"AI 会不会写 ASS\", 而在 我能不能把要求写成它可执行、又可判定的形式 . 下面是把这件事定死的那套规矩. 0x00 这套规格给谁用 给 一首日语歌做特效歌词、并要嵌进网页播放器 的项目. 交付物是一份 ASS 文件, 渲染在固定",
+      "permalink": "/knowledge-base/音视频特效/ASS特效字幕/用AI写ASS特效字幕",
+      "date": "2026-09-29",
+      "tags": [
+        "AI工具",
+        "工程实践",
+        "评测"
+      ]
+    },
+    {
       "id": "音视频特效/特效风格设计/取材的六个来源",
       "title": "特效风格的取材: 七个来源与一套判断法",
       "description": "NOTE AI做的特效一直有个毛病: 技术上没出错, 但看着\"土\". 后来发现病根不在参数, 在取材. 我以前从来没认真决定过这个图元该来自哪儿. 0x00 这套判断法给谁用 这篇给已经会写 ASS 模板、但做出来自己不满意的人看. 你不需要再学 \\\\t 或 \\\\pos 的语义, 它只回答一件事: 动手之前去哪儿找、找",
       "permalink": "/knowledge-base/音视频特效/特效风格设计/取材的六个来源",
-      "date": "2026-09-29",
-      "tags": [
-        "特效风格",
-        "字幕特效",
-        "工程实践"
-      ]
-    },
-    {
-      "id": "音视频特效/特效风格设计/设计规律",
-      "title": "特效的设计规律: 强度、时间与结构怎么安排",
-      "description": "NOTE 前面几篇讲的是素材从哪来. 这篇讲素材齐了之后, 那些数字怎么定 而且每一个都能测. 实测预览: 三段成品的实时重放 ppt w100% 那三段素材来自本地成品, 各截 8 秒. 播放器是站点自己在用的 SubtitlesOctopus, 与博客播放器同一套. 0x00 段落内的粒子数是常量, 与句长和字数都",
-      "permalink": "/knowledge-base/音视频特效/特效风格设计/设计规律",
-      "date": "2026-09-29",
-      "tags": [
-        "特效风格",
-        "字幕特效",
-        "工程实践"
-      ]
-    },
-    {
-      "id": "音视频特效/特效风格设计/转化与融合",
-      "title": "特效风格的转化与融合: 搬什么、怎么搬、什么时候搬不动",
-      "description": "NOTE 上一篇讲的是去哪儿找. 这篇讲找到之后怎么用: 哪些东西真的能从作品里搬进特效, 哪些搬不动. 0x00 先把\"转化与融合\"拆开 Seekladoom 在《OPED 歌词特效设计思路》 2020 09 27 里给了一个分支叫「风格转化与融合」, 只有三条, 而且以「其他有待扩充」结尾. 三条原文是: 把 LO",
-      "permalink": "/knowledge-base/音视频特效/特效风格设计/转化与融合",
       "date": "2026-09-29",
       "tags": [
         "特效风格",
@@ -738,15 +758,27 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "音视频特效/ASS特效字幕/用AI写ASS特效字幕",
-      "title": "用 AI 写 ASS 特效字幕: 一套可照做的规格",
-      "description": "NOTE 我想让 AI 替我写出本地那批成品同级的效果歌词. 试过之后发现卡点不在\"AI 会不会写 ASS\", 而在 我能不能把要求写成它可执行、又可判定的形式 . 下面是把这件事定死的那套规矩. 0x00 这套规格给谁用 给 一首日语歌做特效歌词、并要嵌进网页播放器 的项目. 交付物是一份 ASS 文件, 渲染在固定",
-      "permalink": "/knowledge-base/音视频特效/ASS特效字幕/用AI写ASS特效字幕",
+      "id": "音视频特效/特效风格设计/设计规律",
+      "title": "特效的设计规律: 强度、时间与结构怎么安排",
+      "description": "NOTE 前面几篇讲的是素材从哪来. 这篇讲素材齐了之后, 那些数字怎么定 而且每一个都能测. 那三段素材来自本地成品, 各截 8 秒. 播放器是站点自己在用的 SubtitlesOctopus, 与博客播放器同一套. 0x00 段落内的粒子数是常量, 与句长和字数都无关 有一份 42872 事件的成品, 每次爆发撒多",
+      "permalink": "/knowledge-base/音视频特效/特效风格设计/设计规律",
       "date": "2026-09-29",
       "tags": [
-        "AI工具",
-        "工程实践",
-        "评测"
+        "特效风格",
+        "字幕特效",
+        "工程实践"
+      ]
+    },
+    {
+      "id": "音视频特效/特效风格设计/转化与融合",
+      "title": "特效风格的转化与融合: 搬什么、怎么搬、什么时候搬不动",
+      "description": "NOTE 上一篇讲的是去哪儿找. 这篇讲找到之后怎么用: 哪些东西真的能从作品里搬进特效, 哪些搬不动. 0x00 先把\"转化与融合\"拆开 Seekladoom 在《OPED 歌词特效设计思路》 2020 09 27 里给了一个分支叫「风格转化与融合」, 只有三条, 而且以「其他有待扩充」结尾. 三条原文是: 把 LO",
+      "permalink": "/knowledge-base/音视频特效/特效风格设计/转化与融合",
+      "date": "2026-09-29",
+      "tags": [
+        "特效风格",
+        "字幕特效",
+        "工程实践"
       ]
     },
     {
@@ -811,21 +843,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "AI/检索/自建Agent检索栈与凭证治理",
-      "title": "自建 Agent 检索栈: 本地化边界、凭证治理与可用性证明",
-      "description": "NOTE 给 Agent 接检索, 最省事的做法永远是\"买一个搜索 API 然后填 key\". 可一旦把约束换成\"尽量完全本地自建\"和\"凭证配置必须体面\", 整个方案的形态就变了 而且变的不只是选型. 更反直觉的是: 决定这套栈能不能长期活下来的, 往往不是检索算法, 而是 token 过期那一刻用户要面对多少摩擦. ",
-      "permalink": "/knowledge-base/AI/检索/自建Agent检索栈与凭证治理",
-      "date": "2026-09-11",
-      "tags": [
-        "AI Agent",
-        "检索",
-        "MCP",
-        "自建部署",
-        "OAuth",
-        "凭证管理"
-      ]
-    },
-    {
       "id": "AI/Skill/Agent-Skill编写最佳实践",
       "title": "Agent Skill 编写最佳实践: 上下文预算、触发工程与可证伪的验证",
       "description": "NOTE 为什么一个精心写好的 skill 会从来不被触发, 而一个写得普通的 skill 却总被误触发? 决定这件事的, 甚至不是它的正文. 更反直觉的是: 命名不合法、描述缺失、正文超预算 这些失败 没有一个会报错 . skill 只是安静地从目录里消失, 而模型既看不到错误, 也分不清\"不存在\"与\"写错了\". 那",
@@ -854,15 +871,18 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "AI/记忆/自维护可插拔记忆层设计",
-      "title": "自维护可插拔记忆层设计: 一次对比市面方案后的收敛",
-      "description": "NOTE 一个 AI 在 A 项目里踩过的坑, 为什么到了 B 项目还要再踩一遍? 多数\"记忆\"系统只做到了同一工作区内的召回 出了这个会话, 经验就归零. 真正想要的是另一件事: 让一次具体事故自动上升成一条对 所有 项目都成立的规则. 那么, 一个既能被任何 harness 读写、又能自己把经验拔高的记忆层, 该由",
-      "permalink": "/knowledge-base/AI/记忆/自维护可插拔记忆层设计",
-      "date": "2026-09-06",
+      "id": "AI/检索/自建Agent检索栈与凭证治理",
+      "title": "自建 Agent 检索栈: 本地化边界、凭证治理与可用性证明",
+      "description": "NOTE 给 Agent 接检索, 最省事的做法永远是\"买一个搜索 API 然后填 key\". 可一旦把约束换成\"尽量完全本地自建\"和\"凭证配置必须体面\", 整个方案的形态就变了 而且变的不只是选型. 更反直觉的是: 决定这套栈能不能长期活下来的, 往往不是检索算法, 而是 token 过期那一刻用户要面对多少摩擦. ",
+      "permalink": "/knowledge-base/AI/检索/自建Agent检索栈与凭证治理",
+      "date": "2026-09-11",
       "tags": [
         "AI Agent",
-        "记忆系统",
-        "知识库"
+        "检索",
+        "MCP",
+        "自建部署",
+        "OAuth",
+        "凭证管理"
       ]
     },
     {
@@ -876,6 +896,18 @@ export const aiDocTagIndex: AiDocTagIndex = {
         "Harness",
         "DSH",
         "提示词工程"
+      ]
+    },
+    {
+      "id": "AI/记忆/自维护可插拔记忆层设计",
+      "title": "自维护可插拔记忆层设计: 一次对比市面方案后的收敛",
+      "description": "NOTE 一个 AI 在 A 项目里踩过的坑, 为什么到了 B 项目还要再踩一遍? 多数\"记忆\"系统只做到了同一工作区内的召回 出了这个会话, 经验就归零. 真正想要的是另一件事: 让一次具体事故自动上升成一条对 所有 项目都成立的规则. 那么, 一个既能被任何 harness 读写、又能自己把经验拔高的记忆层, 该由",
+      "permalink": "/knowledge-base/AI/记忆/自维护可插拔记忆层设计",
+      "date": "2026-09-06",
+      "tags": [
+        "AI Agent",
+        "记忆系统",
+        "知识库"
       ]
     },
     {
@@ -940,30 +972,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "AI/AI逆向/多模态AI通用验证码求解服务",
-      "title": "用AI从零实现通用验证码求解服务:OhMyCaptcha原理剖析",
-      "description": "NOTE 当\"看懂图片\"这件事从传统 CV 的模板匹配/图像处理, 变成\"直接问多模态大模型\", 验证码求解的架构会简化多少? 代价又是什么? 0x00 背景 原文剖析开源项目 OhMyCaptcha: 用 Playwright + 多模态大模型构建覆盖 19 种验证码类型的自托管求解服务. 它值得被单独拆解的三个理由",
-      "permalink": "/knowledge-base/AI/AI逆向/多模态AI通用验证码求解服务",
-      "date": "2026-08-26",
-      "tags": [
-        "逆向与风控",
-        "验证码求解",
-        "浏览器自动化"
-      ]
-    },
-    {
-      "id": "AI/AI逆向/真实浏览器扩展的验证机制拆解",
-      "title": "Infinitoai与Turnstile:一次浏览器验证机制的技术拆解",
-      "description": "NOTE 一个\"会点复选框\"的脚本和一个\"看起来像真人\"的脚本, 差距究竟在哪一层? 是注入时机, 是事件来源, 还是页面状态感知? 0x00 背景 原文以开源项目 Infinitoai 一个 Chrome 扩展 为切入点, 不讲\"怎么一把梭\", 而是拆解 真实浏览器里的扩展为什么比普通脚本更接近真人环境 . 它值得被",
-      "permalink": "/knowledge-base/AI/AI逆向/真实浏览器扩展的验证机制拆解",
-      "date": "2026-08-26",
-      "tags": [
-        "逆向与风控",
-        "Turnstile",
-        "检测面建模"
-      ]
-    },
-    {
       "id": "AI/AI逆向/CF过盾工程-从零实现Turnstile绕过",
       "title": "深入理解Cloudflare过盾原理:无需AI从零实现CFTurnstile绕过",
       "description": "NOTE 当一个系统反复向你证明\"你是机器人\"时, 它到底在看什么? 是屏幕上的图片, 还是你浏览器内核里每一个不自洽的细节? 0x00 背景 Turnstile 与传统验证码有一个根本差异: 它几乎不出视觉题. 没有扭曲字母, 也没有九宫格选图, 只是在后台收集你浏览器的环境信号, 再判断\"这个环境是不是一个真实的人",
@@ -989,17 +997,27 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "AI/基础/Agent要懂的LLM基础知识",
-      "title": "Agent要懂的LLM基础知识",
-      "description": "NOTE 一个 Agent 聊到第二十轮突然不守规矩, 第一百零一次工具调用吐出坏 JSON 第一反应通常是\"框架有 bug\", 可如果问题根本不在框架里呢? 温度、分词、注意力这些看起来离业务很远的东西, 决定了 Agent 的成本、延迟与稳定边界; 把它们当成玄学调参, 就只会在同一个坑里反复摔. 0x00 一句话",
-      "permalink": "/knowledge-base/AI/基础/Agent要懂的LLM基础知识",
-      "date": "2026-08-10",
+      "id": "AI/AI逆向/多模态AI通用验证码求解服务",
+      "title": "用AI从零实现通用验证码求解服务:OhMyCaptcha原理剖析",
+      "description": "NOTE 当\"看懂图片\"这件事从传统 CV 的模板匹配/图像处理, 变成\"直接问多模态大模型\", 验证码求解的架构会简化多少? 代价又是什么? 0x00 背景 原文剖析开源项目 OhMyCaptcha: 用 Playwright + 多模态大模型构建覆盖 19 种验证码类型的自托管求解服务. 它值得被单独拆解的三个理由",
+      "permalink": "/knowledge-base/AI/AI逆向/多模态AI通用验证码求解服务",
+      "date": "2026-08-26",
       "tags": [
-        "AI Agent",
-        "LLM",
-        "Tokenization",
-        "KV Cache",
-        "约束解码"
+        "逆向与风控",
+        "验证码求解",
+        "浏览器自动化"
+      ]
+    },
+    {
+      "id": "AI/AI逆向/真实浏览器扩展的验证机制拆解",
+      "title": "Infinitoai与Turnstile:一次浏览器验证机制的技术拆解",
+      "description": "NOTE 一个\"会点复选框\"的脚本和一个\"看起来像真人\"的脚本, 差距究竟在哪一层? 是注入时机, 是事件来源, 还是页面状态感知? 0x00 背景 原文以开源项目 Infinitoai 一个 Chrome 扩展 为切入点, 不讲\"怎么一把梭\", 而是拆解 真实浏览器里的扩展为什么比普通脚本更接近真人环境 . 它值得被",
+      "permalink": "/knowledge-base/AI/AI逆向/真实浏览器扩展的验证机制拆解",
+      "date": "2026-08-26",
+      "tags": [
+        "逆向与风控",
+        "Turnstile",
+        "检测面建模"
       ]
     },
     {
@@ -1014,6 +1032,20 @@ export const aiDocTagIndex: AiDocTagIndex = {
         "上下文工程",
         "多智能体",
         "工程实践"
+      ]
+    },
+    {
+      "id": "AI/基础/Agent要懂的LLM基础知识",
+      "title": "Agent要懂的LLM基础知识",
+      "description": "NOTE 一个 Agent 聊到第二十轮突然不守规矩, 第一百零一次工具调用吐出坏 JSON 第一反应通常是\"框架有 bug\", 可如果问题根本不在框架里呢? 温度、分词、注意力这些看起来离业务很远的东西, 决定了 Agent 的成本、延迟与稳定边界; 把它们当成玄学调参, 就只会在同一个坑里反复摔. 0x00 一句话",
+      "permalink": "/knowledge-base/AI/基础/Agent要懂的LLM基础知识",
+      "date": "2026-08-10",
+      "tags": [
+        "AI Agent",
+        "LLM",
+        "Tokenization",
+        "KV Cache",
+        "约束解码"
       ]
     },
     {
@@ -1042,30 +1074,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "工具链/RTK项目使用说明与Codex本地心得",
-      "title": "RTK项目使用说明与Codex本地心得",
-      "description": "NOTE 你喂给 AI 编程助手的每一条 shell 输出, 有多少是它真正需要看见的? 一次全量测试就能刷掉几千 token, 其中大半只是\"通过了\". RTK Rust Token Killer 的答案不是让模型少跑命令, 而是在命令输出进入上下文之前先过滤一层; 但压缩过的输出 不再等于原始事实全集 . 于是真正",
-      "permalink": "/knowledge-base/工具链/RTK项目使用说明与Codex本地心得",
-      "date": "2026-07-05",
-      "tags": [
-        "AI工具",
-        "Codex",
-        "Harness"
-      ]
-    },
-    {
-      "id": "生活/电脑包选购指标",
-      "title": "电脑包选购指标",
-      "description": "NOTE 为什么商品页上「大容量」「商务」「多功能」「轻便」每一条都挑不出错, 到手却可能塞不进电脑、勒着肩膀、功能多到空包就沉? 如果我根本不知道自己每天要装什么、电脑实际多宽, 那我看的到底是包, 还是一串没人能验证的形容词? 0x00 背景 电脑包很容易被商品标题误导: 「大容量」「商务」「旅行」「多功能」「轻便",
-      "permalink": "/knowledge-base/生活/电脑包选购指标",
-      "date": "2026-07-05",
-      "tags": [
-        "选购指标",
-        "电脑包",
-        "通勤"
-      ]
-    },
-    {
       "id": "AI/多智能体/Multica-agent协作与上下文机制",
       "title": "Multica agent协作与上下文机制",
       "description": "NOTE 在一个工作区里让一个 agent 去唤起另一个 agent 继续干活, 听起来只需要一句 @ ; 但它最容易长成的却是停不下来的成本循环 谁该被叫醒, 被叫醒时它究竟带着哪些上下文? 更反直觉的是: 决定一次运行的并不是上一条评论, 而是 runtime 为这次触发临时注入的任务 brief. agent 一",
@@ -1091,15 +1099,27 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "程序语言/现代C++/现代C++编译期多态审视",
-      "title": "现代C++编译期多态审视",
-      "description": "NOTE 如果编译器已经知道你程序里只会出现哪几种类型, 那么每一次调用都穿过一层运行期间接, 究竟是在为谁保留可能性? 「C++20 之后可以彻底抛弃 virtual 」更像一句口号 它成立的前提 类型集合封闭、二进制与源码一起构建 比结论本身重要得多. 这篇文章要问的是: 编译期多态把哪些成本挪走了, 又把哪些成本",
-      "permalink": "/knowledge-base/程序语言/现代C++/现代C++编译期多态审视",
-      "date": "2026-07-04",
+      "id": "工具链/RTK项目使用说明与Codex本地心得",
+      "title": "RTK项目使用说明与Codex本地心得",
+      "description": "NOTE 你喂给 AI 编程助手的每一条 shell 输出, 有多少是它真正需要看见的? 一次全量测试就能刷掉几千 token, 其中大半只是\"通过了\". RTK Rust Token Killer 的答案不是让模型少跑命令, 而是在命令输出进入上下文之前先过滤一层; 但压缩过的输出 不再等于原始事实全集 . 于是真正",
+      "permalink": "/knowledge-base/工具链/RTK项目使用说明与Codex本地心得",
+      "date": "2026-07-05",
       "tags": [
-        "C++",
-        "编译期多态",
-        "工程实践"
+        "AI工具",
+        "Codex",
+        "Harness"
+      ]
+    },
+    {
+      "id": "生活/电脑包选购指标",
+      "title": "电脑包选购指标",
+      "description": "NOTE 为什么商品页上「大容量」「商务」「多功能」「轻便」每一条都挑不出错, 到手却可能塞不进电脑、勒着肩膀、功能多到空包就沉? 如果我根本不知道自己每天要装什么、电脑实际多宽, 那我看的到底是包, 还是一串没人能验证的形容词? 0x00 背景 电脑包很容易被商品标题误导: 「大容量」「商务」「旅行」「多功能」「轻便",
+      "permalink": "/knowledge-base/生活/电脑包选购指标",
+      "date": "2026-07-05",
+      "tags": [
+        "选购指标",
+        "电脑包",
+        "通勤"
       ]
     },
     {
@@ -1128,6 +1148,26 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
+      "id": "程序语言/现代C++/现代C++编译期多态审视",
+      "title": "现代C++编译期多态审视",
+      "description": "NOTE 如果编译器已经知道你程序里只会出现哪几种类型, 那么每一次调用都穿过一层运行期间接, 究竟是在为谁保留可能性? 「C++20 之后可以彻底抛弃 virtual 」更像一句口号 它成立的前提 类型集合封闭、二进制与源码一起构建 比结论本身重要得多. 这篇文章要问的是: 编译期多态把哪些成本挪走了, 又把哪些成本",
+      "permalink": "/knowledge-base/程序语言/现代C++/现代C++编译期多态审视",
+      "date": "2026-07-04",
+      "tags": [
+        "C++",
+        "编译期多态",
+        "工程实践"
+      ]
+    },
+    {
+      "id": "关于",
+      "title": "关于",
+      "description": "TIP 这里是 HXLoLi 的 AI 沉淀知识库. 作者懒得写笔记的时候, 内容会先沉淀在这里, 以免污染正式笔记. 站内笔记按统一的写作规范与工作流起草, 每一篇都经作者复核后才提交 你能读到的内容都经过人工确认, 而非模型的一次性输出. 目标: 减少编写笔记的时间. 非期望: 使用 AI 瞎jb产出.",
+      "permalink": "/knowledge-base/关于",
+      "date": "2026-06-04",
+      "tags": []
+    },
+    {
       "id": "程序语言/现代C++/HXLibs编写串行协程调度器",
       "title": "HXLibs 协程串行调度器探索",
       "description": "NOTE 一个协程被恢复的那一刻, 它究竟\"站在\"哪里? 无栈协程本身只是一段可暂停的状态机, 真正决定行为的是 恢复它的那一瞬间, 控制流从哪条线上继续 . 把这条线收拢成一条, 串行调度就成立了; 一旦想不清它, 析构顺序、悬空引用与玄学段错误便会一起找上门. 下面这三轮迭代, 其实一直在反复回答同一个问题: 谁持",
@@ -1138,15 +1178,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
         "协程",
         "异步任务"
       ]
-    },
-    {
-      "id": "关于",
-      "title": "关于",
-      "description": "TIP 这里是 HXLoLi 的 AI 沉淀知识库. 作者懒得写笔记的时候, 内容会先沉淀在这里, 以免污染正式笔记. 站内笔记按统一的写作规范与工作流起草, 每一篇都经作者复核后才提交 你能读到的内容都经过人工确认, 而非模型的一次性输出. 目标: 减少编写笔记的时间. 非期望: 使用 AI 瞎jb产出.",
-      "permalink": "/knowledge-base/关于",
-      "date": "2026-06-04",
-      "tags": []
     }
   ],
-  "generatedAt": "2026-10-08T13:36:46.302Z"
+  "generatedAt": "2026-10-09T17:09:44.353Z"
 };

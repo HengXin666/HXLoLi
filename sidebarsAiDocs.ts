@@ -198,6 +198,24 @@ const aiDocsSidebar = [
         "collapsed": true,
         "items": [
           {
+            "type": "doc",
+            "id": "AI/Agent-Harness/Pi-PR-Review-Agent/index",
+            "label": "Pi-PR-Review-Agent",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "AI/Agent-Harness/oh-my-pi原生调试与代码审查/index",
+            "label": "oh-my-pi原生调试与代码审查",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
+          },
+          {
             "type": "category",
             "label": "DSH",
             "collapsible": true,

@@ -321,3 +321,98 @@ source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上�
 text = "先用自己的事故接通这条路径"
 why = "指代宽泛，并在末段重复起步顺序"
 source = "ai-docs/003-AI/002-Agent架构/003-AICR规则事故记忆与业务上下文/index.md"
+
+[[bad]]
+text = "这几项使它的 API 用起来接近普通 TypeScript 库:"
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/001-Pi-PR-Review-Agent/index.md"
+
+[[bad]]
+text = "我会把它评价为**便于组合和测试的现代库接口**, 但做成服务时, 任务调度和执行边界仍要自己安排."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/001-Pi-PR-Review-Agent/index.md"
+
+[[bad]]
+text = "`finish_review` 不是让模型“随便输出一段 JSON”. 它的 schema 约束字段, 实现再核对 diff 坐标, 错误会作为失败工具结果回到下一轮. 接受后才形成报告."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/001-Pi-PR-Review-Agent/index.md"
+
+[[bad]]
+text = "优化从“少读和分段读”开始, 更容易知道模型缺哪段证据."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/001-Pi-PR-Review-Agent/index.md"
+
+[[bad]]
+text = "SessionManager 保存会话历史, 供模型使用的是压缩后的投影."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/001-Pi-PR-Review-Agent/index.md"
+
+[[bad]]
+text = "工厂收到 `ExtensionAPI`, 注册完能力即可."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/001-Pi-PR-Review-Agent/index.md"
+
+[[bad]]
+text = "PR 审查框架能验证的报告约束越多, 模型的推理就越容易复核."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/001-Pi-PR-Review-Agent/index.md"
+
+[[bad]]
+text = "这是它最值得围绕 code review 研究的部分."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
+
+[[bad]]
+text = "不用首页的“工具总数”概括一切, 因为有些入口默认关闭, 有些走 eval helper, 还有些由扩展和发现机制提供."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
+
+[[bad]]
+text = "这些比工具名更能说明实际可以拿它做什么."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
+
+[[bad]]
+text = "部分操作在进程内执行; 此处不据宣传数字比较速度"
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
+
+[[bad]]
+text = "OMP 的价值需要看这些具体集成, 工具数量不能替代准确率证据."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
+
+[[bad]]
+text = "“原生调试”对应这条真实调试链; DAP 管理逻辑并没有全部藏在 Rust 组件里."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
+
+[[bad]]
+text = "屏障保护执行顺序, 并不生成缺失参数. 若 scopes 依赖刚返回的 frameId, 仍要等 `stack_trace` 的结果再发调用, 或由工具内部串起来."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
+
+[[bad]]
+text = "产品源码还有各工具自己的状态约束, 一层 Promise 屏障无法概括全部生命周期."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
+
+[[bad]]
+text = "这比把所有 lsp 操作都看成“查信息”更准确."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
+
+[[bad]]
+text = "这些是本文提出的设计约束."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
+
+[[bad]]
+text = "对审查真正有用的是输入、停止状态、观测与影响能互相对上."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
+
+[[bad]]
+text = "动态审查的价值, 会越来越取决于能否留下可重放的证据."
+why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
+source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
