@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 
 MAX_COMPAT = 500
+BLOCK_SCALAR_RE = re.compile(r'[|>][+-]?\d?$')
 
 
 class MiniYamlError(ValueError):
@@ -18,8 +19,12 @@ def mini_yaml(raw: str) -> dict:
     That shape is a YAML compact-mapping error, and DSH drops the whole skill over it — silently,
     with one logger.warn. A fallback that swallowed it would certify a skill that cannot load.
     """
+    lines = raw.splitlines()
     out: dict = {}
-    for line in raw.splitlines():
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        i += 1
         if not line.strip() or line.lstrip().startswith('#'):
             continue
         if line.startswith((' ', '\t', '-')):
@@ -28,6 +33,19 @@ def mini_yaml(raw: str) -> dict:
             continue
         key, _, val = line.partition(':')
         val = val.strip()
+        if BLOCK_SCALAR_RE.match(val):
+            # A block scalar carries its value on the following indented lines, not on this one.
+            block: list[str] = []
+            while i < len(lines) and (not lines[i].strip() or lines[i][:1] in (' ', '\t')):
+                block.append(lines[i].strip())
+                i += 1
+            if val.startswith('>'):
+                text = ' '.join(part for part in block if part)
+            else:
+                text = chr(10).join(block)
+            # Keep the key even when the block is empty: a dropped key skips its type check.
+            out[key.strip()] = text
+            continue
         quoted = val[:1] in ('"', "'")
         if val and not quoted and ': ' in val:
             raise MiniYamlError(
