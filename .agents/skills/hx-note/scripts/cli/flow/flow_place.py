@@ -168,11 +168,14 @@ def cmd_brief(args) -> int:
 
     pending = [it for it in items if not it["answered"]]
     answered = [it for it in items if it["answered"]]
-    print(f"## 你要回答的 ({len(pending)} 题未答 / 共 {len(items)} 题)")
+    # 阶段 4 是单题推进：即使旧答题卡中残留多道未答题，也只把
+    # 稳定顺序中的第一道作为当前轮展示，避免 brief 再次批量抛题。
+    current = pending[:1]
+    print("## 你要回答的 (本轮 1 题)" if pending else "## 你要回答的")
     print()
     if not pending:
         print("  全部已答, 可以直接推进。")
-    for it in pending:
+    for it in current:
         print(f"### {it['seq']}")
         print(it["q"] or "(问题正文为空)")
         print()
