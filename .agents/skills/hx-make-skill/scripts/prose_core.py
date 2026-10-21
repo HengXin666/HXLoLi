@@ -56,8 +56,37 @@ def code_spans(line: str) -> list[tuple[int, int]]:
     return sorted(spans)
 
 
+# A relative path is an identifier, not prose: its dots and dashes take no spaces.
+PATH_RE = re.compile(r'(?<![\w/])(?:\.{1,2}/)?[\w.\-]*[\w\-/]+\.(?:md|ts|mjs|py|json|ya?ml|sh|html)')
+# `.agents`, `.tsx`, `.hx-info.md`: a dot that opens a word is part of a name, not a clause mark.
+# A trailing sentence dot is not swallowed, and a dot right after a word, `**`, or a quote is prose.
+DOT_IDENT_RE = re.compile(r'(?<![\w.*)\]"\'\u201d\u2019])\.[A-Za-z][\w-]*(?:\.[\w-]+)*')
+URL_RE = re.compile(r'https?://\S+')
+
+
+def mask_code(line: str, filler: str = ' ') -> str:
+    """Blank inline code spans and URLs only. Used where bold and path shapes must stay visible."""
+    out = line
+    for start, stop in reversed(code_spans(line)):
+        out = out[:start] + filler * (stop - start) + out[stop:]
+    return URL_RE.sub(lambda m: filler * len(m.group(0)), out)
+
+
+def mask_identifiers(line: str, filler: str = ' ') -> str:
+    """Blank everything that is a name rather than prose: code, link targets, URLs, paths, and
+    dot-led identifiers. Bold is left alone, so the fixer still respaces inside it.
+
+    The judge and the fixer both start from this view. When only the judge masked paths, the
+    fixer respaced raw text and wrote `HXLoLi/. agents` and `. drawio.svg` into real files.
+    """
+    out = mask_code(line, filler)
+    out = re.sub(r'\]\([^)]*\)', lambda m: ' ' * len(m.group(0)), out)
+    out = PATH_RE.sub(lambda m: filler * len(m.group(0)), out)
+    return DOT_IDENT_RE.sub(lambda m: filler * len(m.group(0)), out)
+
+
 def mask_inline(line: str, filler: str = ' ') -> str:
-    """Blank out inline code, link targets, bold runs, and URLs, keeping the length aligned.
+    """Blank out inline code, link targets, bold runs, URLs, and identifiers, keeping the length aligned.
 
     A clause mark directly before a closing `**` or `)` is followed by a space in practice; the
     mark itself is still checked for being halfwidth, so blanking the run loses no finding.
@@ -66,19 +95,58 @@ def mask_inline(line: str, filler: str = ' ') -> str:
     space, so a bold key followed by a code span is not read as a missing space; the end-of-line
     checks want a non-blank character, so a trailing code span does not look like a break mark.
     """
-    def blanks(match: re.Match) -> str:
-        return ' ' * len(match.group(0))
+    out = mask_identifiers(line, filler)
+    return re.sub(r'\*\*([^*]*)\*\*', lambda m: '**' + 'x' * len(m.group(1)) + '**', out)
 
 
-    out = line
-    for start, stop in reversed(code_spans(line)):
-        out = out[:start] + filler * (stop - start) + out[stop:]
-    out = re.sub(r'\]\([^)]*\)', blanks, out)
-    out = re.sub(r'\*\*([^*]*)\*\*', lambda m: '**' + 'x' * len(m.group(1)) + '**', out)
-    out = re.sub(r'https?://\S+', lambda m: filler * len(m.group(0)), out)
-    # A relative path is an identifier, not prose: its dots and dashes take no spaces.
-    return re.sub(r'(?<![\w/])(?:\.{1,2}/)?[\w.\-]*[\w\-/]+\.(?:md|ts|mjs|py|json|ya?ml|sh|html)',
-                  lambda m: filler * len(m.group(0)), out)
+def bold_closers(view: str) -> list[int]:
+    """Start index of every `**` that closes a bold run (the 2nd, 4th, ... on the line)."""
+    marks = [m.start() for m in re.finditer(r'\*\*', view)]
+    return marks[1::2]
+
+
+SPLIT_PATH_RE = re.compile(r'/\. (?=[A-Za-z])')
+SPLIT_IDENT_RE = re.compile(r'(?:(?<=\s)|^)\. (?=[a-z][\w-]*\.[A-Za-z])')
+CJK_GAP_RE = re.compile(CJK_RE.pattern + r' {2,}(?=' + CJK_RE.pattern + ')')
+
+
+def split_bold_spaces(view: str) -> list[int]:
+    """Index of the space in `X. **` where that `**` closes bold: the space kills the closer."""
+    out = []
+    for pos in bold_closers(view):
+        if pos >= 3 and view[pos - 1] == ' ' and view[pos - 2] in NEEDS_SPACE and not view[pos - 3].isspace():
+            out.append(pos - 1)
+    return out
+
+
+def damage(line: str) -> list[str]:
+    """P6: shapes only an earlier bad respace leaves behind. Code spans and URLs are not inspected."""
+    view = mask_code(line, 'x')  # a blanked code span must not read as a gap between CJK
+    found = ['space between a mark and its closing ** at col ' + str(i + 1) for i in split_bold_spaces(view)]
+    found += ['path split after /. at col ' + str(m.start() + 1) for m in SPLIT_PATH_RE.finditer(view)]
+    found += ['dot-led name split at col ' + str(m.start() + 1) for m in SPLIT_IDENT_RE.finditer(view)]
+    found += ['run of spaces between CJK at col ' + str(m.start() + 2) for m in CJK_GAP_RE.finditer(view)]
+    return found
+
+
+def heal(line: str) -> str:
+    """Undo the respace damage P6 reports, except CJK gaps, whose lost text cannot be guessed.
+
+    `X. **` closing bold becomes `X.**`, with the space moved after the `**` when text follows;
+    `/. agents` and ` . drawio.svg` lose the inserted space.
+    """
+    view = mask_code(line)
+    drop = set(split_bold_spaces(view))
+    drop |= {m.end() - 1 for m in SPLIT_PATH_RE.finditer(view)}
+    drop |= {m.end() - 1 for m in SPLIT_IDENT_RE.finditer(view)}
+    add = {i + 3 for i in split_bold_spaces(view)}
+    out: list[str] = []
+    for pos, char in enumerate(line):
+        if pos in add and not char.isspace() and char not in ')]}.,;:!?"\'':
+            out.append(' ')
+        if pos not in drop:
+            out.append(char)
+    return ''.join(out)
 
 
 def role_of(line: str) -> str:

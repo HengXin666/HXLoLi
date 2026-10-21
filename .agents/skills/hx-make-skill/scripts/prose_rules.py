@@ -10,6 +10,7 @@ Checks:
   P3 terminal    -- a prose line must not end with . , ; : ! (only ? may close a sentence)
   P4 wrap        -- a sentence broken across two lines
   P5 lead        -- a prose line must not start with a break mark
+  P6 damage      -- `X. **` before a closing **, `/. x` in a path, a run of spaces between CJK
 
 Protected regions are never inspected: YAML frontmatter, fenced blocks, indented code, inline code,
 link targets, bold runs, paths, URLs. Headings and table rows are checked for P1/P2 only, since a
@@ -29,8 +30,9 @@ import sys
 from pathlib import Path
 
 from prose_core import (CJK_RE, FULLWIDTH_TO_ASCII, MARK_FOLLOWED_BY, NEEDS_SPACE, TERMINAL_ALLOWED,
-                        TERMINAL_BANNED, analyze, code_spans, expand, group_violations,
-                        mask_inline, needs_space_at, prose_blocks)
+                        TERMINAL_BANNED, analyze, bold_closers, code_spans, damage, expand,
+                        group_violations, heal, mask_code, mask_identifiers, mask_inline,
+                        needs_space_at, prose_blocks)
 
 
 # Agent Notes: skill 产物受自己那套文本与体量门禁约束, 站点标点规范仍不覆盖 skill
@@ -112,6 +114,7 @@ def scan(text: str) -> list[tuple[int, str, str]]:
             if char in body:
                 out.append((idx + 1, 'P1', 'fullwidth ' + char + ' -> ' + ascii_form))
         check_spacing(body, idx + 1, out)
+        out.extend((idx + 1, 'P6', message) for message in damage(lines[idx]))
     tail_view = [mask_inline(line, 'x') for line in lines]
     for begin, end in prose_blocks(roles, lines):
         for idx in range(begin, end):
@@ -131,20 +134,17 @@ def scan(text: str) -> list[tuple[int, str, str]]:
     return sorted(out)
 
 def _respace(line: str) -> str:
-    """Insert the missing space after a clause mark. Inline code is left untouched."""
-    parts = re.split(r'(`[^`]*`)', line)
-    for idx in range(0, len(parts), 2):
-        parts[idx] = _respace_plain(parts[idx])
-    return ''.join(parts)
+    """Insert the missing space after a clause mark, judged on the same masked view as P2.
 
-
-def _respace_plain(text: str) -> str:
-    def replace(match: re.Match) -> str:
-        if not needs_space_at(text, match.start()):
-            return match.group(0)
-        return match.group(0) + ' '
-
-    return re.sub(MARK_FOLLOWED_BY, replace, text)
+    Code, link targets, URLs, paths, and dot-led names (`.agents`) are blanked first, so a mark
+    inside a name never looks like it lacks a space.
+    """
+    masked = mask_identifiers(line, ' ')
+    cuts = [m.start() + 1 for m in re.finditer(MARK_FOLLOWED_BY, masked)
+            if needs_space_at(masked, m.start())]
+    for cut in reversed(cuts):
+        line = line[:cut] + ' ' + line[cut:]
+    return line
 
 
 def normalize(text: str) -> str:
@@ -152,7 +152,7 @@ def normalize(text: str) -> str:
     _, roles, lines, _ = analyze(text)
     for idx, role in enumerate(roles):
         if role != 'skip' and lines[idx].strip():
-            lines[idx] = _respace(_convert(lines[idx]))
+            lines[idx] = _respace(_convert(heal(lines[idx])))
     for begin, end in reversed(prose_blocks(roles, lines)):
         lines[begin:end] = [_merge(lines[begin:end])]
     return '\n'.join(lines)
@@ -165,8 +165,13 @@ def _convert(line: str) -> str:
     for start, stop in spans:
         for index in range(start, stop):
             protected[index] = True
+    # A mark right before a closing `**` takes its space after the `**`: `X. **` kills the closer.
+    closers = set(bold_closers(mask_code(line)))
+    space_before: set[int] = set()
     out: list[str] = []
     for pos, char in enumerate(line):
+        if pos in space_before and not char.isspace():
+            out.append(' ')
         if protected[pos]:
             out.append(char)
             continue
@@ -175,7 +180,10 @@ def _convert(line: str) -> str:
             out.append(char)
             continue
         nxt = line[pos + 1] if pos + 1 < len(line) else ''
-        if ascii_form in NEEDS_SPACE and nxt and not nxt.isspace():
+        if ascii_form in NEEDS_SPACE and pos + 1 in closers:
+            out.append(ascii_form)
+            space_before.add(pos + 3)
+        elif ascii_form in NEEDS_SPACE and nxt and not nxt.isspace():
             out.append(ascii_form + ' ')
         else:
             out.append(ascii_form)
