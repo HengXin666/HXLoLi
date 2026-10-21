@@ -22,12 +22,8 @@ CJK_RE = re.compile(r'[\u3000-\u303f\u4e00-\u9fff\uff00-\uffef]')
 
 
 def code_spans(line: str) -> list[tuple[int, int]]:
-    """Inline code spans, paired the way markdown pairs them: a run of n backticks closes on the
-    next run of exactly n.
-
-    Pairing matters because `mask_inline` (judging) and the fixer (rewriting) must agree on which
-    characters are code. Toggling per backtick character splits a run of three into ` + ``, so the
-    two disagreed and a real replacement happened inside what the judge had masked out.
+    """Inline code spans. A run of n backticks closes on the next run of exactly n, so the judge
+    and the fixer agree on which characters are code.
     """
     runs: list[tuple[int, int]] = []
     index = 0
@@ -73,13 +69,10 @@ def mask_code(line: str, filler: str = ' ') -> str:
 
 
 def mask_identifiers(line: str, filler: str = ' ') -> str:
-    """Blank everything that is a name rather than prose: code, link targets, URLs, paths, and
-    dot-led identifiers. Bold is left alone, so the fixer still respaces inside it.
+    """Blank every name: code, link targets, URLs, paths, dot-led identifiers. Bold stays visible.
 
-    The judge and the fixer both start from this view. Every pattern is matched against the
-    original line, never against an already blanked copy: once a path became blanks, the
-    sentence dot in `.hx-info.md.Then` looked like the start of a dot-led name and vanished
-    from both the check and the fix.
+    Patterns match the original line, never an already blanked copy, so a sentence dot right
+    after a path keeps reading as prose.
     """
     chars = list(line)
     protected = [False] * len(line)
@@ -101,14 +94,10 @@ def mask_identifiers(line: str, filler: str = ' ') -> str:
 
 
 def mask_inline(line: str, filler: str = ' ') -> str:
-    """Blank out inline code, link targets, bold runs, URLs, and identifiers, keeping the length aligned.
+    """Blank inline code, link targets, bold runs, URLs, and identifiers, keeping the length aligned.
 
-    A clause mark directly before a closing `**` or `)` is followed by a space in practice; the
-    mark itself is still checked for being halfwidth, so blanking the run loses no finding.
-
-    `filler` is the character used where a code span or path was removed. Spacing checks want a
-    space, so a bold key followed by a code span is not read as a missing space; the end-of-line
-    checks want a non-blank character, so a trailing code span does not look like a break mark.
+    `filler` is what replaces a removed span: spacing checks want a space, end-of-line checks want
+    a non-blank character.
     """
     out = mask_identifiers(line, filler)
     return re.sub(r'\*\*([^*]*)\*\*', lambda m: '**' + 'x' * len(m.group(1)) + '**', out)
