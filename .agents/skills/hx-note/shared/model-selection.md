@@ -7,7 +7,7 @@
 1. **能确定就显式传**: `--model "<当前实际模型名>"`
 2. **不能确定就写 `Unknown`**: 脚本在无法感知真实模型时默认就是 `Unknown`. **禁止**从 `config.toml` 或其他配置文件编造当前会话模型
 3. 环境变量优先级 (`makeDoc.py` 实际读取顺序): `HX_AI_DOCS_MODEL` > `CODEX_MODEL` > `OPENAI_MODEL` > `ANTHROPIC_MODEL` > `CLAUDE_MODEL` > `MODEL`; 推理强度取 `HX_AI_DOCS_MODEL_REASONING_EFFORT` 等; 两者会拼成 `<model>-<effort>`
-4. **不要去翻任何配置文件来推断当前模型. ** 脚本读不到就写 `Unknown`  编一个"看起来对"的模型名比留空更坏, 因为它会被当真
+4. **不要去翻任何配置文件来推断当前模型.** 脚本读不到就写 `Unknown`  编一个"看起来对"的模型名比留空更坏, 因为它会被当真
 
 ## 该用哪个模型来沉淀
 
