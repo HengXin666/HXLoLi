@@ -57,10 +57,10 @@ def code_spans(line: str) -> list[tuple[int, int]]:
 
 
 # A relative path is an identifier, not prose: its dots and dashes take no spaces.
-PATH_RE = re.compile(r'(?<![\w/])(?:\.{1,2}/)?[\w.\-]*[\w\-/]+\.(?:md|ts|mjs|py|json|ya?ml|sh|html)')
+PATH_RE = re.compile(r'(?<![\w/])(?:\.{1,2}/)?[\w.*\-]*[\w\-/*]+\.(?:md|ts|mjs|py|json|ya?ml|sh|html)')
 # `.agents`, `.tsx`, `.hx-info.md`: a dot that opens a word is part of a name, not a clause mark.
 # A trailing sentence dot is not swallowed, and a dot right after a word, `**`, or a quote is prose.
-DOT_IDENT_RE = re.compile(r'(?<![\w.*)\]"\'\u201d\u2019])\.[A-Za-z][\w-]*(?:\.[\w-]+)*')
+DOT_IDENT_RE = re.compile(r'(?<![\w.*)\]"\'\u201d\u2019])\.[A-Za-z][\w-]*(?:\.[a-z0-9][\w-]*)*')
 URL_RE = re.compile(r'https?://\S+')
 
 
@@ -76,13 +76,28 @@ def mask_identifiers(line: str, filler: str = ' ') -> str:
     """Blank everything that is a name rather than prose: code, link targets, URLs, paths, and
     dot-led identifiers. Bold is left alone, so the fixer still respaces inside it.
 
-    The judge and the fixer both start from this view. When only the judge masked paths, the
-    fixer respaced raw text and wrote `HXLoLi/. agents` and `. drawio.svg` into real files.
+    The judge and the fixer both start from this view. Every pattern is matched against the
+    original line, never against an already blanked copy: once a path became blanks, the
+    sentence dot in `.hx-info.md.Then` looked like the start of a dot-led name and vanished
+    from both the check and the fix.
     """
-    out = mask_code(line, filler)
-    out = re.sub(r'\]\([^)]*\)', lambda m: ' ' * len(m.group(0)), out)
-    out = PATH_RE.sub(lambda m: filler * len(m.group(0)), out)
-    return DOT_IDENT_RE.sub(lambda m: filler * len(m.group(0)), out)
+    chars = list(line)
+    protected = [False] * len(line)
+
+    def blank(start: int, stop: int) -> None:
+        for index in range(start, stop):
+            chars[index] = filler
+            protected[index] = True
+
+    for start, stop in code_spans(line):
+        blank(start, stop)
+    for pattern in (URL_RE, re.compile(r'\]\([^)]*\)'), PATH_RE):
+        for match in pattern.finditer(line):
+            blank(match.start(), match.end())
+    for match in DOT_IDENT_RE.finditer(line):
+        if not any(protected[match.start():match.end()]):
+            blank(match.start(), match.end())
+    return ''.join(chars)
 
 
 def mask_inline(line: str, filler: str = ' ') -> str:
@@ -99,10 +114,19 @@ def mask_inline(line: str, filler: str = ' ') -> str:
     return re.sub(r'\*\*([^*]*)\*\*', lambda m: '**' + 'x' * len(m.group(1)) + '**', out)
 
 
+GLOB_MARK_RE = re.compile(r'(?<=/)\*\*|\*\*(?=/)')
+
+
+def bold_marks(view: str) -> list[int]:
+    """Start index of every `**` that can delimit bold. A `**` inside a glob (`src/**/*.ts`
+    or `**/*.md`) is part of a path, so counting it shifts every closer after it."""
+    return [m.start() for m in re.finditer(r'\*\*', view)
+            if not GLOB_MARK_RE.match(view, m.start())]
+
+
 def bold_closers(view: str) -> list[int]:
     """Start index of every `**` that closes a bold run (the 2nd, 4th, ... on the line)."""
-    marks = [m.start() for m in re.finditer(r'\*\*', view)]
-    return marks[1::2]
+    return bold_marks(view)[1::2]
 
 
 SPLIT_PATH_RE = re.compile(r'/\. (?=[A-Za-z])')
@@ -125,17 +149,24 @@ def damage(line: str) -> list[str]:
     found = ['space between a mark and its closing ** at col ' + str(i + 1) for i in split_bold_spaces(view)]
     found += ['path split after /. at col ' + str(m.start() + 1) for m in SPLIT_PATH_RE.finditer(view)]
     found += ['dot-led name split at col ' + str(m.start() + 1) for m in SPLIT_IDENT_RE.finditer(view)]
-    found += ['run of spaces between CJK at col ' + str(m.start() + 2) for m in CJK_GAP_RE.finditer(view)]
+    # A double space between CJK is this repo's house style for a mid-sentence pause, not
+    # damage: the em dash was retired, so the gap is deliberate. Flagging it marked 157 real
+    # paragraphs as broken and no fixer can restore text that was never lost.
     return found
 
 
 def heal(line: str) -> str:
-    """Undo the respace damage P6 reports, except CJK gaps, whose lost text cannot be guessed.
+    """Undo the respace damage P6 reports. The repair is text-preserving: only a space that a
+    bad respace inserted is dropped, never text that was lost.
 
     `X. **` closing bold becomes `X.**`, with the space moved after the `**` when text follows;
     `/. agents` and ` . drawio.svg` lose the inserted space.
+
+    The view must blank code the same way `damage` does: with a non-space filler. A space
+    filler makes a code span look like the damage ` . build.sh`, and the fixer then
+    then deletes a legitimate sentence space.
     """
-    view = mask_code(line)
+    view = mask_code(line, 'x')
     drop = set(split_bold_spaces(view))
     drop |= {m.end() - 1 for m in SPLIT_PATH_RE.finditer(view)}
     drop |= {m.end() - 1 for m in SPLIT_IDENT_RE.finditer(view)}

@@ -168,9 +168,11 @@ def _convert(line: str) -> str:
     # A mark right before a closing `**` takes its space after the `**`: `X. **` kills the closer.
     closers = set(bold_closers(mask_code(line)))
     space_before: set[int] = set()
+    # The space moved past a closing ** still cannot land in front of punctuation.
+    no_lead = set('.,;:!?)]}') | {chr(0xFF0C), chr(0x3002), chr(0xFF1B), chr(0xFF1A), chr(0xFF01)}
     out: list[str] = []
     for pos, char in enumerate(line):
-        if pos in space_before and not char.isspace():
+        if pos in space_before and not char.isspace() and char not in no_lead:
             out.append(' ')
         if protected[pos]:
             out.append(char)
