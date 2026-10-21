@@ -15,8 +15,8 @@ metadata:
 ## 三条不可违反的原则
 
 1. **规范优先, 不要即兴发挥.** 字段与约束见 `references/spec-checklist.md`. 拿不准就查, 不要猜
-2. **超长不是压缩问题, 是拆分问题.** 有文件系统时, skill 能携带的上下文总量基本无上限  前提是按"是否总是需要"把内容分到 L2 (SKILL.md) 和 L3 (references/scripts/assets). 把 15 万 token 压到 1.5 万 token 仍是错的, 因为它没回答"这些字该不该在 L2"
-3. **触发信息只能写一处.** `when to use` 全部写在 frontmatter 的 `description` 里. 正文**禁止**出现 "When to Use" 之类的段  那段永远不会被读到, 因为 body 只在触发之后才加载
+2. **超长不是压缩问题, 是拆分问题.** 有文件系统时, skill 能携带的上下文总量基本无上限, 前提是按"是否总是需要"把内容分到 L2 (SKILL.md) 和 L3 (references/scripts/assets). 把 15 万 token 压到 1.5 万 token 仍是错的, 因为它没回答"这些字该不该在 L2"
+3. **触发信息只能写一处.** `when to use` 全部写在 frontmatter 的 `description` 里. 正文**禁止**出现 "When to Use" 之类的段, 那段永远不会被读到, 因为 body 只在触发之后才加载
 
 ## 四条硬约定 (写任何 skill 都要遵守)
 
@@ -31,7 +31,7 @@ metadata:
      `references/patterns.md`: 想让 skill 真的被触发时
 ```
 
-第二行「坏」是另一种病: **平铺一串路径没有描述**. 模型看不出哪个该读, 等于没写. **每个路径后面必须跟一句「这是什么 / 什么时候读」**  这是索引的唯一价值
+第二行「坏」是另一种病: **平铺一串路径没有描述**. 模型看不出哪个该读, 等于没写. **每个路径后面必须跟一句「这是什么 / 什么时候读」**, 这是索引的唯一价值
 
 ### 二、一个步骤 = 一个文件夹 = `index.md` + `impl/`
 
@@ -169,9 +169,9 @@ uv run scripts/check_layout.py <skill-dir> # 代码质量上限
 
 1. `description` 只写了"做什么", 没写"什么时候用". 模型没有任何依据判断该不该加载
 2. 触发信息写在 body 的 `## When to Use` 段里. body 在触发前不可见, 等于没写
-3. **frontmatter 解析失败, 整个 skill 被丢弃.** 典型判据: `description` 是裸标量却含 `: ` (如 `description: 工作台  协议化: 需要摸清链路`). YAML 视其为 compact mapping 嵌套而报错, DSH 的 loader 只打一行 `logger.warn` 就跳过该 skill  **不报错、不降级、不重试**. 现象: 调用时得到 `skill "<name>" is unknown or no longer available`, 而目录与正文都在, 别的 skill 照常可用
+3. **frontmatter 解析失败, 整个 skill 被丢弃.** 典型判据: `description` 是裸标量却含 `: ` (如 `description: 工作台  协议化: 需要摸清链路`). YAML 视其为 compact mapping 嵌套而报错, DSH 的 loader 只打一行 `logger.warn` 就跳过该 skill, **不报错、不降级、不重试**. 现象: 调用时得到 `skill "<name>" is unknown or no longer available`, 而目录与正文都在, 别的 skill 照常可用
 
-三类都是**静默失效**  不会报错, skill 只是从不出现. 所以必须用校验器兜住, 不能靠肉眼
+三类都是**静默失效**, 不会报错, skill 只是从不出现. 所以必须用校验器兜住, 不能靠肉眼
 
 **判据速记**: frontmatter 的值只要含 `:` + 空格, 就给整个值加引号
 (`description: "a: b"`); 或用折叠标量 `>-`. 单引号/双引号/折叠标量三种写法都合法, 裸标量不行
