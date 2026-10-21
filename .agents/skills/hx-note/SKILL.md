@@ -10,7 +10,7 @@ metadata:
 
 # hx-note
 
-沉淀一篇 ai-docs 笔记. **知识产物有两份; 可运行件是侧车, 不算第三份. **
+沉淀一篇 ai-docs 笔记. **知识产物有两份; 可运行件是侧车, 不算第三份.**
 
 ```
 素材 ──> .hx-info.md   面向知识库: 纯知识点, 自包含, 无铺垫
@@ -73,10 +73,10 @@ $F doctor --slug "<slug>"        # 步骤 9: 全部交付闸门
 ## 红线 (任何步骤都不得违反)
 
 - **责任在人类.** 方向由人类把握, 你只辅助. 禁止自作主张开始沉淀, 禁止替人类拍板
-- **先出阶段性成果再反问.** 有半成品再问, 不要问空问题. 一次只问当前 frontier, 每题附推荐答案
+- **先出阶段性成果再反问.** 有半成品再问, 不要问空问题. 一次只问一题, 附推荐答案
 - **用户意图要先定位再动手.** 用户的话指代的是对话里前面的内容, 他在和人说话而不是填表. 收到「这个不行」时先把「这个」解析成具体对象并复述确认, 再改
 - **读者视角铁律.** `index.md` 只写面向读者的内容. 生成过程、工具链、本地路径、验证步骤、provenance、审核提示一律不进正文; 审核要点只写进 `.hx-mitemite.md`
-- **需求必须有可判定的验收条款.** 阶段 1 的 `source/goal.md` 里, 每条 `G` 都要写清"怎么算满足"  出现可执行动作 (查/跑/测/数/看, 或具体文件名与命令). 写不出检查动作的是愿望, 进"背景"一节. **需求只活在对话里 = 上下文一压缩就没了. ** `done intake` 会拦; `cover` 会在后面暴露"哪条需求从没被实现过"
+- **需求必须有可判定的验收条款.** 阶段 1 的 `source/goal.md` 里, 每条 `G` 都要写清"怎么算满足"  出现可执行动作 (查/跑/测/数/看, 或具体文件名与命令). 写不出检查动作的是愿望, 进"背景"一节. **需求只活在对话里 = 上下文一压缩就没了.** `done intake` 会拦; `cover` 会在后面暴露"哪条需求从没被实现过"
 - **一次只问一题.** 阶段 4 的对齐是**对话**, 不是问卷. 把 8 题带长理由一次性抛出去, 人类只会扫读或照抄推荐 (实测原话: 「他就让我在那里乱说」). 做法见 `steps/4-align/impl/grill.md`
 - **先发散再落盘.** 素材是一套做法/规范/实现时, 步骤 3 必须**先**跑四个发散算子(`steps/3-atom/impl/divergence.md`) 产出 `source/divergence.md`, 再写 `.hx-info.md`. **不跑就会退化成复述**  模型读素材的默认行为就是换一种说法讲一遍. 闸门是硬的: `done atom` 在发散记录少于 4 条带判据产出时直接拒绝推进
 - **审核必须真的发生.** 出完题要跑 `hx_flow.py brief --slug <slug>` 并把那一屏**贴进对话**  答题卡在点开头目录里, 人类看不见它. **推荐答案不是答案**: 它写在问题里让人能否决, 不是人类的答复. 未答的题会让 `done align` 直接拒绝推进
@@ -94,7 +94,7 @@ $F doctor --slug "<slug>"        # 步骤 9: 全部交付闸门
 | `scripts/cli/voice/hx_voice.py` | AI 味检测 (lint) / 合并折行 (fix) / 语料库 (learn/samples) | 步骤 3 / 6 / 7 |
 | `scripts/lib/textpaths.py` | 上面两个文风脚本共用的路径展开 (收目录/通配符); 内部件, 不直接调用 | — |
 | `scripts/cli/persona/hx_persona.py` | 构建用户画像 | 步骤 6 |
-| `scripts/cli/illustration/hx_drawio.py` | JSON spec -> 可再编辑的 . drawio.svg | 步骤 6 |
+| `scripts/cli/illustration/hx_drawio.py` | JSON spec -> 可再编辑的 .drawio.svg | 步骤 6 |
 | `scripts/cli/mitemite/hx_mitemite_add.py` `scripts/cli/mitemite/hx_mitemite_res.py` | 答题卡读写 | 步骤 4 |
 | `scripts/cli/authoring/makeDoc.py` | 初始化 `index.md` 模板 (由 `place` 调用) | 步骤 5 |
 | `scripts/cli/taxonomy/hxloli_tags.py` | tag 注册表 | 步骤 5 / 9, 存量整理 |
