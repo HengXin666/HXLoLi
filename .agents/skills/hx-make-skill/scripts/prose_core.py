@@ -60,7 +60,7 @@ def code_spans(line: str) -> list[tuple[int, int]]:
 PATH_RE = re.compile(r'(?<![\w/])(?:\.{1,2}/)?[\w.*\-]*[\w\-/*]+\.(?:md|ts|mjs|py|json|ya?ml|sh|html)')
 # `.agents`, `.tsx`, `.hx-info.md`: a dot that opens a word is part of a name, not a clause mark.
 # A trailing sentence dot is not swallowed, and a dot right after a word, `**`, or a quote is prose.
-DOT_IDENT_RE = re.compile(r'(?<![\w.*)\]"\'\u201d\u2019])\.[A-Za-z][\w-]*(?:\.[a-z0-9][\w-]*)*')
+DOT_IDENT_RE = re.compile(r'(?<![\w.*)\]"\'`\u201d\u2019])\.[A-Za-z][\w-]*(?:\.[a-z0-9][\w-]*)*')
 URL_RE = re.compile(r'https?://\S+')
 
 
@@ -119,9 +119,19 @@ GLOB_MARK_RE = re.compile(r'(?<=/)\*\*|\*\*(?=/)')
 
 def bold_marks(view: str) -> list[int]:
     """Start index of every `**` that can delimit bold. A `**` inside a glob (`src/**/*.ts`
-    or `**/*.md`) is part of a path, so counting it shifts every closer after it."""
-    return [m.start() for m in re.finditer(r'\*\*', view)
-            if not GLOB_MARK_RE.match(view, m.start())]
+    or `**/*.md`) belongs to a path, and one with whitespace on both sides (`2 ** 3`) is an
+    operator, not a delimiter; counting either shifts every closer after it."""
+    marks = []
+    for match in re.finditer(r'\*\*', view):
+        pos = match.start()
+        if GLOB_MARK_RE.match(view, pos):
+            continue
+        before = view[pos - 1] if pos else ' '
+        after = view[pos + 2] if pos + 2 < len(view) else ' '
+        if before.isspace() and after.isspace():
+            continue
+        marks.append(pos)
+    return marks
 
 
 def bold_closers(view: str) -> list[int]:
@@ -129,7 +139,7 @@ def bold_closers(view: str) -> list[int]:
     return bold_marks(view)[1::2]
 
 
-SPLIT_PATH_RE = re.compile(r'/\. (?=[A-Za-z])')
+SPLIT_PATH_RE = re.compile(r'/\. (?=[a-z])')
 SPLIT_IDENT_RE = re.compile(r'(?:(?<=\s)|^)\. (?=[a-z][\w-]*\.[A-Za-z])')
 CJK_GAP_RE = re.compile(CJK_RE.pattern + r' {2,}(?=' + CJK_RE.pattern + ')')
 
