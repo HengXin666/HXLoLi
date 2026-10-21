@@ -12,9 +12,9 @@
 | 2 | **命名合法** | 目录名不许含空格或等号  用 `find ai-docs -mindepth 2 -type d` 配合 grep 筛出. 注意改名会改 URL, 见 [decision-matrix](decision-matrix.md) | A |
 | 3 | **层级一致** | 先看深度分布 `find ai-docs -name index.md` 输出后按斜杠数统计; 再按深度排序定位. 同一分类下深度不一致就是归类的症状 | B |
 | 4 | **空目录** | `find ai-docs -type d -empty` | A |
-| 5 | **散装 md** | 文章目录内**允许**存在: index.md; . hx-mitemite.md (答题卡, 每篇最多一个); tag.json (侧边栏标签与图标, 机制来自 `generateAiDocsSidebar.js` 的 getJsonTagConfig, `docs/` 树在大量使用); 侧车资源 (. html/. tsx/. spec.json/图片); 以及 index.md 显式引用的同目录分片 md. 这些之外的散装 md 才是问题 | B |
+| 5 | **散装 md** | 文章目录内**允许**存在: index.md; .hx-mitemite.md (答题卡, 每篇最多一个); tag.json (侧边栏标签与图标, 机制来自 `generateAiDocsSidebar.js` 的 getJsonTagConfig, `docs/` 树在大量使用); 侧车资源 (. html/.tsx/.spec.json/图片); 以及 index.md 显式引用的同目录分片 md. 这些之外的散装 md 才是问题 | B |
 | 6 | **frontmatter 完整性** | 每篇须有 hxid / title / created_at / model / skill / authors / tags; skill 必须是列表且**指向当前存在的 skill 名** (引用已删除的 skill 也算 FAIL). 非笔记页面 (如 001-关于) 允许无 frontmatter, 但要在注册表 settings.ignore_notes 登记, 并让 `hx_docs_id.py` 跳过 | A |
-| 7 | **正文过程痕迹** | 搜 "AI 辅助沉淀" / "需要用户 review" / "TODO(仅 AI"  只应出现在 . hx-mitemite.md, 不进正文 | A |
+| 7 | **正文过程痕迹** | 搜 "AI 辅助沉淀" / "需要用户 review" / "TODO(仅 AI"  只应出现在 .hx-mitemite.md, 不进正文 | A |
 | 8 | **tag 体系** | `hxloli_tags.py check --health`  看单次出现占比 / desc 覆盖率 / 目录名当 tag, 而不是只看 PASS | C |
 | 9 | **hxid 覆盖** | (跑 hx_docs_id.py 的 check 子命令)  缺 ID、ID 重复、链接悬空、路径陈旧都会报出来. 口径: "可被跨文章引用".
 

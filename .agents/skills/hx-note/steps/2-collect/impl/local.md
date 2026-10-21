@@ -2,8 +2,8 @@
 
 ## 固定路线
 
-1. `git log` / `git diff` / `git show <sha>` 定位改了什么. **未提交的改动同样可以沉淀. **
-2. **打开源码确认实际行为. 禁止只凭 commit message 或 diff 摘要推断实现细节. **
+1. `git log` / `git diff` / `git show <sha>` 定位改了什么. **未提交的改动同样可以沉淀.**
+2. **打开源码确认实际行为. 禁止只凭 commit message 或 diff 摘要推断实现细节.**
 3. 正文里给出 commit 链接: `[\`50c931c\`](https://github.com/<owner>/<repo>/commit/<sha>)`
 
 ## 人类踩过的坑

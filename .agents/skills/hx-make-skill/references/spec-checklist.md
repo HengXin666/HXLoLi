@@ -65,4 +65,4 @@ uv run scripts/validate_skill.py <skill-dir> --json
 
 退出码: `0` = 通过 (可能有 WARN), `1` = 有 ERROR, `2` = 参数错误
 
-实现要点: 优先用 PyYAML; 若无 PyYAML 则退化为内置的顶层 `key: value` 解析器, 因此脚本无第三方依赖. 该回落解析器**显式拒绝**裸标量里含 `": "` 的值 (给整个值加引号, 或用折叠标量 `>-`). 理由: 那种写法在 DSH 侧会让整个 skill 被静默丢弃, 而回落解析器若宽松吃掉它, 校验器就会为"加载不了的 skill"发出 PASS  这个洞在本仓真实发生过 (see ../../../HXLoLi/. agents/notes/implemented/process/2026-09-29-validator-fallback-must-not-pass-invalid-frontmatter.md)
+实现要点: 优先用 PyYAML; 若无 PyYAML 则退化为内置的顶层 `key: value` 解析器, 因此脚本无第三方依赖. 该回落解析器**显式拒绝**裸标量里含 `": "` 的值 (给整个值加引号, 或用折叠标量 `>-`). 理由: 那种写法在 DSH 侧会让整个 skill 被静默丢弃, 而回落解析器若宽松吃掉它, 校验器就会为"加载不了的 skill"发出 PASS  这个洞在本仓真实发生过 (see ../../../HXLoLi/.agents/notes/implemented/process/2026-09-29-validator-fallback-must-not-pass-invalid-frontmatter.md)
