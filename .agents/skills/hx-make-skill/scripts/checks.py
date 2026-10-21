@@ -136,12 +136,18 @@ def check_body(body: str, skill_dir: Path, errors: list[str], warns: list[str]) 
 
 
 def path_described(line: str, matches: list[re.Match], index: int) -> bool:
-    """A path is described when the text up to the next path carries a marker or opens with a bracket."""
+    """A path is described when a marker is followed by descriptive text."""
     end = matches[index + 1].start() if index + 1 < len(matches) else len(line)
     tail = line[matches[index].end():end]
-    if tail.lstrip().startswith(('(', '\uff08')):
-        return True
-    return any(marker in tail for marker in DESC_MARKERS)
+    opening = tail.lstrip()
+    if opening.startswith(('(', '\uff08')):
+        # Do not treat an empty pair of brackets (or just the opening mark) as prose.
+        return bool(opening[1:].strip().strip('()\uff08\uff09'))
+    for marker in DESC_MARKERS:
+        marker_end = tail.find(marker)
+        if marker_end >= 0 and tail[marker_end + len(marker):].strip():
+            return True
+    return False
 
 
 def check_index_style(body: str, errors: list[str], warns: list[str]) -> None:
