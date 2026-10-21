@@ -19,15 +19,45 @@ def mini_yaml(raw: str) -> dict:
     with one logger.warn. A fallback that swallowed it would certify a skill that cannot load.
     """
     out: dict = {}
-    for line in raw.splitlines():
+    lines = raw.splitlines()
+    index = 0
+    while index < len(lines):
+        line = lines[index]
         if not line.strip() or line.lstrip().startswith('#'):
+            index += 1
             continue
         if line.startswith((' ', '\t', '-')):
+            index += 1
             continue
         if ':' not in line:
+            index += 1
             continue
         key, _, val = line.partition(':')
         val = val.strip()
+        if val.startswith(('>-', '>+', '>', '|-', '|+', '|')):
+            style = val[0]
+            chomping = val[1:2]
+            block: list[str] = []
+            index += 1
+            while index < len(lines) and (not lines[index].strip() or lines[index].startswith((' ', '\t'))):
+                block.append(lines[index].lstrip())
+                index += 1
+            if style == '>':
+                paragraphs: list[str] = []
+                current: list[str] = []
+                for item in block:
+                    if item:
+                        current.append(item)
+                    elif current:
+                        paragraphs.append(' '.join(current))
+                        current = []
+                if current:
+                    paragraphs.append(' '.join(current))
+                parsed = '\n'.join(paragraphs)
+            else:
+                parsed = '\n'.join(block)
+            out[key.strip()] = parsed if chomping == '+' else parsed.rstrip()
+            continue
         quoted = val[:1] in ('"', "'")
         if val and not quoted and ': ' in val:
             raise MiniYamlError(
@@ -36,6 +66,7 @@ def mini_yaml(raw: str) -> dict:
         val = val.strip("\"'")
         if val:
             out[key.strip()] = val
+        index += 1
     return out
 
 
