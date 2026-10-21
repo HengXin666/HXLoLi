@@ -152,9 +152,13 @@ uv run scripts/prose_rules.py --check <skill-dir>     # 产物文本
 uv run scripts/check_layout.py <skill-dir>            # 代码质量上限
 ```
 
-`--strict` 把社区约定也当 ERROR: 默认档只对齐 loader 真正强制的集合, 对上游或第三方 skill 跑 strict 会把它们的写法报成错误. 每一档的具体等级见 `references/spec-checklist.md` 第 2 到 4 节的"默认 / --strict"两列
+`--strict` 把社区约定也当 ERROR: 默认档只对齐 loader 真正强制的集合, 对上游或第三方 skill 跑 strict 会把它们的写法报成错误. 当前只有 hx-make-skill 与 hx-note 清偿到 strict 全绿, 其余 hx skill 与 vendored skill 仍用默认档. 每一档的具体等级见 `references/spec-checklist.md` 第 2 到 4 节的"默认 / --strict"两列
 
-三条都退出码 0 才算通过. 有 ERROR 必须修; WARN 建议修. 每条检查的规范依据见 `references/spec-checklist.md`. `scripts/validate_skill.py` 覆盖命名、description 触发词、500 行预算、正文里的 "When to Use" 段、禁止的杂项文档文件、L3 文件是否被引用、引用深度是否超过一层. `scripts/prose_rules.py` 覆盖全角残留、标点后空格、句末标点、折行. `scripts/check_layout.py` 覆盖目录文件数、单文件行数、`.js`/`.mjs` 禁令
+三条都退出码 0 才算通过. 有 ERROR 必须修; WARN 建议修. 每条检查的规范依据见 `references/spec-checklist.md`
+
+- `scripts/validate_skill.py`  覆盖命名, description 触发词, 500 行预算, 正文里的 When to Use 段, 禁止的杂项文档文件, L3 文件是否被引用, 引用深度是否超过一层
+- `scripts/prose_rules.py`  覆盖全角残留, 标点后空格, 句末标点, 折行, 以及 P6 的空格破损
+- `scripts/check_layout.py`  覆盖目录文件数, 单文件行数, `.js`/`.mjs` 禁令
 
 ### 第六步: forward-test (复杂 skill 必做)
 
