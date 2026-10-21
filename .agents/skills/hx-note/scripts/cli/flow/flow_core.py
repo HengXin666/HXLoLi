@@ -212,20 +212,78 @@ def _orphan_sidecars(target: Path) -> list[str]:
     return out
 
 
-def cmd_list(args) -> int:
-    root = repo_root(Path(args.root) if args.root else None)
-    base = root / STAGING
-    if not base.is_dir():
-        print("(暂存区为空)")
-        return 0
-    for d in sorted(base.iterdir()):
-        fp = d / FLOW
-        if not fp.is_file():
+# --- 盲审报告解析 ---
+# 报告首行判定 + 固定小节. 解析放共享层, 因为 doctor 与将来的别的检查都要读同一份格式。
+VERDICT_RE = re.compile(r"^verdict:\s*(PASS|FAIL)\s*$")
+# 写错的判定 (如 verdict: MAYBE) 与完全没有判定行是两回事: 前者永远判红。
+VERDICT_PREFIX_RE = re.compile(r"^verdict\s*:")
+# 小节里只剩这些占位时视为空 (去掉列表符号与标点后比较)。
+EMPTY_MARKS = {"", "无", "没有", "暂无", "none", "n/a", "na", "null"}
+
+
+@dataclass
+class Verdict:
+    """一份盲审报告的解析结果. 小节问题与判定问题分开记, 因为豁免只针对后者。"""
+
+    exists: bool
+    verdict: str | None      # PASS / FAIL / None
+    malformed: bool          # 有 verdict 行但取值不合法
+    sections: list[str]      # 小节层面问题, 永远计入闸门
+    head: str                # 判定层面问题, 旧流程可豁免
+
+
+def section_lines(lines: list[str], title: str) -> list[str] | None:
+    """返回 `## title` 小节的正文行; 没有这个标题时返回 None。"""
+    body: list[str] | None = None
+    for line in lines:
+        if line.startswith("## "):
+            if body is not None:
+                break
+            if line[3:].strip() == title:
+                body = []
             continue
-        data = json.loads(fp.read_text(encoding="utf-8"))
-        done = data.get("done", [])
-        cur = next((s for s in STAGES if s.key not in set(done)), None)
-        print(f"{d.name:<40} {len(done)}/9  "
-              f"{'完成' if cur is None else f'阶段 {cur.num} {cur.key}'}  "
-              f"{data.get('target_dir') or ''}")
-    return 0
+        if body is not None:
+            body.append(line)
+    return body
+
+
+def real_items(body: list[str]) -> list[str]:
+    """去掉空行与 `无` `-` 之类占位后剩下的条目。"""
+    out = []
+    for line in body:
+        if line.strip().startswith("<!--"):
+            continue
+        core = re.sub(r"^\s*(?:[-*+]|\d+[.)])?\s*", "", line).strip(" .,;:!?。,;:")
+        if core.lower() not in EMPTY_MARKS and set(core) - set("-—_*`"):
+            out.append(line.strip())
+    return out
+
+
+def section_problems(lines: list[str], sections: tuple[str, ...]) -> list[str]:
+    """小节层面: 缺标题或正文非空都算, 与判定行是否豁免无关。"""
+    problems: list[str] = []
+    for title in sections:
+        body = section_lines(lines, title)
+        if body is None:
+            problems.append("缺小节 ## " + title)
+        elif items := real_items(body):
+            problems.append("小节 ## " + title + " 非空 (" + str(len(items)) + " 条): " + items[0][:50])
+    return problems
+
+
+def audit_verdict(path: Path, sections: tuple[str, ...] = ()) -> Verdict:
+    """解析盲审报告: 首行判定 + 指定小节是否为空。"""
+    if not path.is_file():
+        return Verdict(False, None, False, [], "文件不存在: " + str(path))
+    lines = path.read_text(encoding="utf-8").lstrip("\ufeff").splitlines()
+    # 契约写的是第 1 行, 所以不跳过空行: 前置空行本身就是格式违规。
+    first = lines[0].strip() if lines else ""
+    m = VERDICT_RE.match(first)
+    if not m:
+        if VERDICT_PREFIX_RE.match(first):
+            return Verdict(True, None, True, section_problems(lines, sections),
+                           "判定值非法, 只接受 PASS 或 FAIL: " + repr(first[:40]))
+        return Verdict(True, None, False, section_problems(lines, sections),
+                       "首行不是 verdict: PASS 或 verdict: FAIL: " + repr(first[:40]))
+    head = "判定为 FAIL, 不许交付" if m.group(1) == "FAIL" else ""
+    return Verdict(True, m.group(1), False, section_problems(lines, sections), head)

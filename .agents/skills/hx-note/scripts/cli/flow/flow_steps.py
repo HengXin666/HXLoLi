@@ -21,6 +21,8 @@ def cmd_init(args) -> int:
         "source": args.source or "",
         "kind": args.kind,
         "created_at": date.today().isoformat(),
+        # 新流程必须带盲审判定头; 没有这个键的是旧流程, 缺首行只报告不拦。
+        "verdict_required": True,
         "target_dir": "",
         "done": [],
         "notes": {},
