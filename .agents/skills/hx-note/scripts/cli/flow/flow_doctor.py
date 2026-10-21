@@ -12,7 +12,7 @@ from flow.flow_core import (PUNCT_CLI, SCRIPTS_DIR, TAGS_CLI, VOICE_CLI, Flow,
 SKILL_DIR = SCRIPTS_DIR.parent
 # 盲审报告首行必须是这一句; 早于 VERDICT_SINCE 创建的流程缺首行只报告不拦。
 VERDICT_RE = re.compile(r"^verdict:\s*(PASS|FAIL)\s*$")
-VERDICT_SINCE = "2026-10-22"
+VERDICT_SINCE = "2026-10-21"
 # 小节里只剩这些占位时视为空 (去掉列表符号与标点后比较)。
 EMPTY_MARKS = {"", "无", "没有", "暂无", "none", "n/a", "na", "null"}
 
@@ -151,17 +151,20 @@ def _real_items(body: list[str]) -> list[str]:
     return out
 
 
-def audit_verdict(path: Path, sections: tuple[str, ...] = ()) -> tuple[bool, bool, str]:
+def audit_verdict(path: Path, sections: tuple[str, ...] = (),
+                  check_verdict: bool = True) -> tuple[bool, bool, str]:
     """解析盲审报告, 返回 (通过, 缺首行, 问题说明)。"""
     if not path.is_file():
         return False, True, f"文件不存在: {path}"
-    lines = path.read_text(encoding="utf-8").lstrip("\ufeff").splitlines()
-    first = next((ln.strip() for ln in lines if ln.strip()), "")
+    lines = path.read_text(encoding="utf-8").splitlines()
+    if lines:
+        lines[0] = lines[0].lstrip("\ufeff")
+    first = lines[0].strip() if lines else ""
     m = VERDICT_RE.match(first)
     problems = []
-    if not m:
+    if check_verdict and not m:
         problems.append(f"首行不是 `verdict: PASS` 或 `verdict: FAIL`: {first[:40]!r}")
-    elif m.group(1) == "FAIL":
+    elif check_verdict and m.group(1) == "FAIL":
         problems.append("判定为 FAIL, 不许交付")
     for title in sections:
         body = _section(lines, title)
@@ -169,7 +172,7 @@ def audit_verdict(path: Path, sections: tuple[str, ...] = ()) -> tuple[bool, boo
             problems.append(f"缺小节 `## {title}`")
         elif items := _real_items(body):
             problems.append(f"`## {title}` 非空 ({len(items)} 条): {items[0][:50]}")
-    return not problems, m is None, chr(10).join(problems)
+    return not problems, check_verdict and m is None, chr(10).join(problems)
 
 
 def cmd_doctor(args) -> int:
@@ -232,9 +235,14 @@ def cmd_doctor(args) -> int:
     legacy = str(f.data.get("created_at") or "") < VERDICT_SINCE
     for rel, secs in (("review/voice-audit.md", ()),
                       ("review/fidelity-audit.md", ("新增", "歪曲"))):
-        ok, no_head, why = audit_verdict(f.dir / rel, secs)
-        if legacy and no_head and (f.dir / rel).is_file():
-            add(f"{rel} 判定 (历史流程无 verdict 首行, 仅报告不拦截)", ok, why, "info")
+        path = f.dir / rel
+        ok, no_head, why = audit_verdict(path, secs)
+        if legacy and no_head and path.is_file():
+            verdict_ok, _, verdict_why = audit_verdict(path)
+            add(f"{rel} 判定 (历史流程无 verdict 首行, 仅报告不拦截)", verdict_ok, verdict_why, "info")
+            if secs:
+                sections_ok, _, sections_why = audit_verdict(path, secs, check_verdict=False)
+                add(f"{rel} 新增/歪曲两节为空", sections_ok, sections_why)
         else:
             add(f"{rel} 判定 PASS" + (" 且新增/歪曲两节为空" if secs else ""), ok, why)
 
@@ -262,7 +270,6 @@ def cmd_doctor(args) -> int:
                        "能拿到手的东西 (见 steps/6-derive/impl/reusable-spec.md)")
 
     # --- 本 skill 文档里的路径是否还指向真东西 ---
-    # 实测踩过: 一次批量改名后 18 处路径全部失效, 而 skill 照样"看起来正常"。
     broken = _broken_skill_paths()
     add("技能文档里的路径全部可达", not broken,
         chr(10).join(broken[:8]) if broken else "")
