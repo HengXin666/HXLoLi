@@ -1,16 +1,16 @@
 ---
 name: hx-note
-description: "HXLoLi 知识沉淀流水线: 采集素材 (视频/文章/外部源码项目/代码/调研) 再到 写出面向知识库的原子知识点 .hx-info.md 再到 人类审核 再到 定路径 再到 派生出面向人类阅读的 index.md 再到 AI 味盲审 再到 保真盲审 再到 落地注册, 由一个九步状态机强制不许跳步、产物缺失就拒绝推进; 另有两条独立入口: 整理存量笔记 (重分类/hxid/tag 倒排树) 与把视频音频转成 transcript。素材是一套可照做的做法时另出一份可复用规格 (触发场景 / 契约+机械判据 / 已定死的选择 / 写法偏好 / 可直接拷走的件). 配图走 drawio.svg, 去 AI 味有可机械检测的判据与可增长的表达语料库. Use when 用户说 沉淀到 ai-docs、写一篇 ai-docs、参考这个视频/文章/开源项目沉淀一下、学习这个项目的前端或 UI 设计、知识点、原子笔记、派生文档、写成文章、把这套规范沉淀下来、照着搭一个、可复用规格、怎么把这套做法写下来、去AI味、AI味、盲审、画个架构图、配图、演示页、整理一下目录、重新分类、tag 太碎、链接断了、总结这个视频、转写这个音频, 或要把链接/视频/代码变更/调研变成知识稿与阅读稿时."
+description: "HXLoLi 知识沉淀流水线: 采集素材 (视频/文章/外部源码项目/代码/调研) -> 写出面向知识库的原子知识点 .hx-info.md -> 人类审核 -> 定路径 -> 派生出面向人类阅读的 index.md -> AI 味盲审 -> 保真盲审 -> 落地注册, 由一个九步状态机强制不许跳步、产物缺失就拒绝推进; 另有两条独立入口: 整理存量笔记 (重分类/hxid/tag 倒排树) 与把视频音频转成 transcript。素材是一套可照做的做法时另出一份可复用规格 (触发场景 / 契约+机械判据 / 已定死的选择 / 写法偏好 / 可直接拷走的件). 配图走 drawio.svg, 去 AI 味有可机械检测的判据与可增长的表达语料库. Use when 用户说 沉淀到 ai-docs、写一篇 ai-docs、参考这个视频/文章/开源项目沉淀一下、学习这个项目的前端或 UI 设计、知识点、原子笔记、派生文档、写成文章、把这套规范沉淀下来、照着搭一个、可复用规格、怎么把这套做法写下来、去AI味、AI味、盲审、画个架构图、配图、演示页、整理一下目录、重新分类、tag 太碎、链接断了、总结这个视频、转写这个音频, 或要把链接/视频/代码变更/调研变成知识稿与阅读稿时."
 license: MIT
 disable-model-invocation: true
 metadata:
   author: Heng_Xin
-  version: "4.0"
+  version: "4.1"
 ---
 
 # hx-note
 
-沉淀一篇 ai-docs 笔记. **知识产物有两份; 可运行件是侧车, 不算第三份.**
+沉淀一篇 ai-docs 笔记. **知识产物有两份; 可运行件是侧车, 不算第三份. **
 
 ```
 素材 ──> .hx-info.md   面向知识库: 纯知识点, 自包含, 无铺垫
@@ -73,10 +73,10 @@ $F doctor --slug "<slug>"        # 步骤 9: 全部交付闸门
 ## 红线 (任何步骤都不得违反)
 
 - **责任在人类.** 方向由人类把握, 你只辅助. 禁止自作主张开始沉淀, 禁止替人类拍板
-- **先出阶段性成果再反问.** 有半成品再问, 不要问空问题. 一次只问一题, 附推荐答案
+- **先出阶段性成果再反问.** 有半成品再问, 不要问空问题. 一次只问当前 frontier, 每题附推荐答案
 - **用户意图要先定位再动手.** 用户的话指代的是对话里前面的内容, 他在和人说话而不是填表. 收到「这个不行」时先把「这个」解析成具体对象并复述确认, 再改
 - **读者视角铁律.** `index.md` 只写面向读者的内容. 生成过程、工具链、本地路径、验证步骤、provenance、审核提示一律不进正文; 审核要点只写进 `.hx-mitemite.md`
-- **需求必须有可判定的验收条款.** 阶段 1 的 `source/goal.md` 里, 每条 `G` 都要写清"怎么算满足"  出现可执行动作 (查/跑/测/数/看, 或具体文件名与命令). 写不出检查动作的是愿望, 进"背景"一节. **需求只活在对话里 = 上下文一压缩就没了.** `done intake` 会拦; `cover` 会在后面暴露"哪条需求从没被实现过"
+- **需求必须有可判定的验收条款.** 阶段 1 的 `source/goal.md` 里, 每条 `G` 都要写清"怎么算满足"  出现可执行动作 (查/跑/测/数/看, 或具体文件名与命令). 写不出检查动作的是愿望, 进"背景"一节. **需求只活在对话里 = 上下文一压缩就没了. ** `done intake` 会拦; `cover` 会在后面暴露"哪条需求从没被实现过"
 - **一次只问一题.** 阶段 4 的对齐是**对话**, 不是问卷. 把 8 题带长理由一次性抛出去, 人类只会扫读或照抄推荐 (实测原话: 「他就让我在那里乱说」). 做法见 `steps/4-align/impl/grill.md`
 - **先发散再落盘.** 素材是一套做法/规范/实现时, 步骤 3 必须**先**跑四个发散算子(`steps/3-atom/impl/divergence.md`) 产出 `source/divergence.md`, 再写 `.hx-info.md`. **不跑就会退化成复述**  模型读素材的默认行为就是换一种说法讲一遍. 闸门是硬的: `done atom` 在发散记录少于 4 条带判据产出时直接拒绝推进
 - **审核必须真的发生.** 出完题要跑 `hx_flow.py brief --slug <slug>` 并把那一屏**贴进对话**  答题卡在点开头目录里, 人类看不见它. **推荐答案不是答案**: 它写在问题里让人能否决, 不是人类的答复. 未答的题会让 `done align` 直接拒绝推进
@@ -94,7 +94,7 @@ $F doctor --slug "<slug>"        # 步骤 9: 全部交付闸门
 | `scripts/cli/voice/hx_voice.py` | AI 味检测 (lint) / 合并折行 (fix) / 语料库 (learn/samples) | 步骤 3 / 6 / 7 |
 | `scripts/lib/textpaths.py` | 上面两个文风脚本共用的路径展开 (收目录/通配符); 内部件, 不直接调用 | — |
 | `scripts/cli/persona/hx_persona.py` | 构建用户画像 | 步骤 6 |
-| `scripts/cli/illustration/hx_drawio.py` | JSON spec -> 可再编辑的 .drawio.svg | 步骤 6 |
+| `scripts/cli/illustration/hx_drawio.py` | JSON spec -> 可再编辑的 . drawio.svg | 步骤 6 |
 | `scripts/cli/mitemite/hx_mitemite_add.py` `scripts/cli/mitemite/hx_mitemite_res.py` | 答题卡读写 | 步骤 4 |
 | `scripts/cli/authoring/makeDoc.py` | 初始化 `index.md` 模板 (由 `place` 调用) | 步骤 5 |
 | `scripts/cli/taxonomy/hxloli_tags.py` | tag 注册表 | 步骤 5 / 9, 存量整理 |
@@ -103,11 +103,7 @@ $F doctor --slug "<slug>"        # 步骤 9: 全部交付闸门
 | `scripts/cli/transcribe/hx_look_video_prepare.py` | 解析输入、准备 transcript | 转写媒体 |
 | `scripts/cli/voice/review-paragraphs.py` | 逐段测「格言化」(jev), 挑出该看哪几段 | 步骤 6 / 7 |
 
-`scripts/cli/` 下按域分目录, 共 flow / voice / textfmt / taxonomy / identity / authoring / illustration / persona / mitemite / transcribe 十个域: 每个域的入口脚本可直接 `uv run`, 兄弟模块只被 import
-
-`scripts/lib/` 是跨域共享库, 只被 import 不直接运行
-
-一个目录的文件数上限与预算声明机制见 `hx-make-skill/references/code-quality.md`: 目录确需超过 6 个文件时, 在该目录内放一份预算声明. 本 skill 有两处按这种方式声明
+`scripts/cli/` 下按域分目录 (flow / voice / textfmt / taxonomy / identity / authoring / illustration / persona / mitemite / transcribe): 每个域的入口脚本可直接 `uv run`, 兄弟模块只被 import; `scripts/lib/` 是跨域共享库. 一个目录的文件数上限与预算声明机制见 `hx-make-skill/references/code-quality.md`: 目录确需超过 6 个文件时, 在该目录内放一份预算声明. 本 skill 有两处按这种方式声明
 
 ```text
 assets/layout.json
@@ -116,19 +112,8 @@ steps/2-collect/impl/layout.json
 
 ## 模板与素材
 
-| 文件 | 是什么, 什么时候读 |
-|---|---|
-| `templates/interest-outlook.md` | 默认文章结构, 写正文前选它 |
-| `templates/problem-solution.md` | 踩坑复盘结构, 素材是一段调试过程时用 |
-| `templates/reusable-spec.md` | 照做型规格: 骨架 / 库 / 分层 / 写法偏好 / 可拷走的件 |
-| `templates/_registry.md` | 模板索引; 加一个模板文件即在此登记 |
-| `assets/info-template.md` | `.hx-info.md` 的骨架, 阶段 3 用 |
-| `assets/divergence-template.md` | 发散记录格式; 算子见 `steps/3-atom/impl/divergence.md` |
-| `assets/goal-template.md` | 目标与验收契约; 需求唯一事实源, 阶段 1 起由 `grill.md` 锐化术语 |
-| `assets/voice-audit-prompt.md` | 味道盲审的 prompt, 阶段 7 用 |
-| `assets/fidelity-audit-prompt.md` | 保真盲审的 prompt, 阶段 8 用 |
-| `assets/deck-template.html` | 演示页起点 |
-| `assets/pre-commit-note.sh` | 提交前跑标点归一化与语料检查, 再扫一次暂存区; 只提示, 不阻挡人工提交 |
+`templates/interest-outlook.md` (默认文章结构) / `templates/problem-solution.md` (踩坑复盘) / `templates/reusable-spec.md` (照做型规格: 骨架 / 库 / 分层 / 写法偏好 / 可拷走的件) / `templates/_registry.md` (模板索引; 加一个文件即新增一种结构) / `assets/info-template.md` (info 骨架) / `assets/divergence-template.md` (发散记录格式; 算子见 `steps/3-atom/impl/divergence.md`) / `assets/goal-template.md` (目标与验收契约; 需求唯一事实源, 阶段 1 起由 `grill.md` 锐化术语) / `assets/voice-audit-prompt.md` 与 `assets/fidelity-audit-prompt.md` (两个盲审的 prompt) / `assets/deck-template.html` (演示页起点) / `assets/pre-commit-note.sh` (提交前自动跑标点归一化与语料检查, 再执行一次 v2 暂存区扫描并区分错误与待审核项; 提示不阻挡人工提交)
+
 ## 怎么扩展 (都不要改这个文件)
 
 | 要加什么 | 加在哪 |
