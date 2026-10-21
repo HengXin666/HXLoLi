@@ -19,23 +19,40 @@ def mini_yaml(raw: str) -> dict:
     with one logger.warn. A fallback that swallowed it would certify a skill that cannot load.
     """
     out: dict = {}
-    for line in raw.splitlines():
+    lines = raw.splitlines()
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        index += 1
         if not line.strip() or line.lstrip().startswith('#'):
             continue
-        if line.startswith((' ', '\t', '-')):
-            continue
-        if ':' not in line:
+        if line.startswith((' ', '\t', '-')) or ':' not in line:
             continue
         key, _, val = line.partition(':')
         val = val.strip()
+        if val.startswith(('|', '>')):
+            folded = val[0] == '>'
+            chomping = '-' if '-' in val[1:] else '+' if '+' in val[1:] else ''
+            indent_hint = next((int(char) for char in val[1:] if char.isdigit()), 0)
+            block: list[str] = []
+            while index < len(lines) and (not lines[index].strip() or lines[index].startswith((' ', '\t'))):
+                block.append(lines[index])
+                index += 1
+            nonempty = [item for item in block if item.strip()]
+            indent = min((len(item) - len(item.lstrip()) for item in nonempty), default=0)
+            if indent_hint:
+                indent = indent_hint
+            content = [item[indent:] if item.strip() else '' for item in block]
+            text = (' '.join(item.strip() for item in content if item.strip())
+                    if folded else '\n'.join(content))
+            out[key.strip()] = text if chomping != '-' else text.rstrip()
+            continue
         quoted = val[:1] in ('"', "'")
         if val and not quoted and ': ' in val:
             raise MiniYamlError(
                 "bare scalar contains ': ' — quote the whole value (got: " + line.strip()[:60] + ")"
             )
-        val = val.strip("\"'")
-        if val:
-            out[key.strip()] = val
+        out[key.strip()] = val.strip("\"'")
     return out
 
 

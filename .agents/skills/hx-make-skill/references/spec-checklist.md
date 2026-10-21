@@ -21,10 +21,10 @@ skill-name/
 
 | 字段 | 必需 | 约束 | 默认 | `--strict` |
 |---|---|---|---|---|
-| `name` | 是 | 1-64 字符; 只允许 `a-z` `0-9` `-`; 不能以 `-` 开头或结尾; 不能有连续 `--`; 必须与父目录名一致; 不含 `<` `>` 与保留词 `anthropic` `claude` | ERROR (缺失, 形态, 尖括号, 保留词) / WARN (超长, 与目录名不一致) | 同默认 |
-| `description` | 是 | 1-1024 字符; 必须同时描述"做什么"和"什么时候用"; 不含 `<` `>` | ERROR (缺失, 超长, 尖括号) / WARN (箭头写法, 缺 Use when, 第一人称) | 同默认 |
+| `name` | 是 | 1-64 字符; 只允许 `a-z` `0-9` `-`; 不能以 `-` 开头或结尾; 不能有连续 `--`; 必须与父目录名一致 | ERROR (缺失, 形态) / WARN (超长, 与目录名不一致) | 同默认 |
+| `description` | 是 | 1-1024 字符; 必须同时描述"做什么"和"什么时候用" | ERROR (缺失) / WARN (超长, 缺 Use when, 过短) | ERROR (超长, 缺 Use when, 过短) |
 | `license` | 否 | 许可证名或指向 bundle 内 license 文件 | - | - |
-| `compatibility` | 否 | 1-500 字符; 只在有特定环境要求时才写 | ERROR (类型) / WARN (超长) | ERROR (超长) |
+| `compatibility` | 否 | 1-500 字符; 只在有特定环境要求时才写 | WARN (类型, 超长) | ERROR (类型, 超长) |
 | `metadata` | 否 | string -> string 映射 (作者、版本等) | ERROR (非映射) | 同默认 |
 | `allowed-tools` | 否 | 空格分隔的预授权工具; **实验性**, 各家支持不一 | - | - |
 
@@ -69,7 +69,7 @@ name: pdf-processing   # 有效
 
 | 维度 | DSH | Claude Code | Codex |
 |---|---|---|---|
-| 扫描根 | `<project>/.dsh/skills`, `<project>/.agents/skills`, `~/.dsh/skills`, `~/.agents/skills` | `.claude/skills` | 从当前目录逐级向上到仓库根, 每级看 `.agents/skills` |
+| 扫描根 | `<project>/.dsh/skills`, `<project>/.agents/skills`, `~/.dsh/skills`, `~/.agents/skills`, `Config.customSkillDirs` | `.claude/skills` | 从当前目录逐级向上到仓库根, 每级看 `.agents/skills` |
 | 嵌套 `**/SKILL.md` | 不发现, 必须放在扫描根的一级目录下 | 不发现 | 不发现 |
 | 目录名与 `name` 不一致 | 仍加载 | 仍加载 | 仍加载 |
 | frontmatter 解析失败 | 整个 skill 被静默丢弃, 只打一行 `logger.warn`, 调用时得到 unknown skill | 以空元数据继续加载 body | 跳过该 skill |
@@ -88,4 +88,5 @@ uv run scripts/validate_skill.py <skill-dir> --strict     # hx 自家 skill 用�
 
 退出码: `0` = 通过 (可能有 WARN), `1` = 有 ERROR, `2` = 参数错误
 
-实现要点: 优先用 PyYAML; 若无 PyYAML 则退化为内置的顶层 `key: value` 解析器, 因此脚本无第三方依赖. 该回落解析器**显式拒绝**裸标量里含 `": "` 的值 (给整个值加引号, 或用折叠标量 `>-`), 但支持 `|` 与 `>` 两种块标量. 理由: 那种写法在 DSH 侧会让整个 skill 被静默丢弃, 而回落解析器若宽松吃掉它, 校验器就会为"加载不了的 skill"发出 PASS  这个洞在本仓真实发生过 (见 `references/legacy-audit.md`)
+实现要点: 优先用 PyYAML; 若无 PyYAML 则退化为内置的顶层 `key: value` 解析器, 因此脚本无第三方依赖. 该回落解析器**显式拒绝**裸标量里含 `": "` 的值 (给整个值加引号), 并支持 `|` 与 `>` 两种块标量. 理由: 那种写法在 DSH 侧会让整个 skill 被静默丢弃, 而回落解析器若宽松吃掉它, 校验器就会为"加载不了的 skill"发出 PASS  这个洞在本仓真实发生过 (见 `references/legacy-audit.md`)
+rences/legacy-audit.md`)

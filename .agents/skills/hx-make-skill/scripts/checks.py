@@ -66,9 +66,9 @@ def check_description(fm: dict, errors: list[str], warns: list[str]) -> None:
     if len(desc) > MAX_DESC:
         soft(errors, warns, 'description is ' + str(len(desc)) + ' chars; the spec suggests <= ' + str(MAX_DESC))
     if not re.search(r'\buse when\b|\buse this\b|Use when|用于|当用户', desc, re.I):
-        warns.append('description has no `Use when ...` trigger phrase; the model only sees name+description, so triggering info must live here')
+        soft(errors, warns, 'description has no `Use when ...` trigger phrase; the model only sees name+description, so triggering info must live here')
     if len(desc) < 40:
-        warns.append('description is very short; add concrete keywords')
+        soft(errors, warns, 'description is very short; add concrete keywords')
 
 
 def check_optional(fm: dict, errors: list[str], warns: list[str]) -> None:
@@ -116,7 +116,7 @@ def check_body(body: str, skill_dir: Path, errors: list[str], warns: list[str]) 
             soft(errors, warns, child.name + ' inside a skill; skills are for agents, not for human READMEs')
 
 
-def check_index_style(body: str, warns: list[str]) -> None:
+def check_index_style(body: str, errors: list[str], warns: list[str]) -> None:
     """Bare paths beat markdown links in an index; a bare path still needs a description."""
     prose_lines: list[str] = []
     in_fence = False
@@ -139,9 +139,10 @@ def check_index_style(body: str, warns: list[str]) -> None:
         stripped = line.strip()
         paths = re.findall(r'\b(references|scripts|assets|templates|steps|entries|shared)/[\w./-]+', stripped)
         if len(paths) >= 3:
-            described = any(token in stripped for token in ('', ':', '：', '什么时候读', '用于'))
+            described = any(token in stripped for token in (':', '：', '什么时候读', '用于'))
             if not described:
-                warns.append(
+                soft(
+                    errors, warns,
                     'one line lists ' + str(len(paths)) + ' paths with no description: ' + stripped[:60]
                     + ' ...; add what each one is and when to read it'
                 )
@@ -151,7 +152,7 @@ def check_index_style(body: str, warns: list[str]) -> None:
             continue
         depth = len([part for part in Path(target).parts if part not in ('.', '..')])
         if depth > 2:
-            warns.append('reference ' + repr(target) + ' nests more than one level deep; the spec suggests flattening')
+            soft(errors, warns, 'reference ' + repr(target) + ' nests more than one level deep; the spec suggests flattening')
 
 
 def check_reference_size(skill_dir: Path, warns: list[str]) -> None:
@@ -184,5 +185,7 @@ def run(skill_dir: Path) -> tuple[list[str], list[str]]:
     check_body(body, skill_dir, errors, warns)
     check_references(skill_dir, text, errors, warns)
     check_reference_size(skill_dir, warns)
-    check_index_style(body, warns)
+    check_index_style(body, errors, warns)
+    return errors, warns
+arns)
     return errors, warns
