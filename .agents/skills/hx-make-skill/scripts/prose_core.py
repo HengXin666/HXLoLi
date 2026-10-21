@@ -73,16 +73,23 @@ def mask_code(line: str, filler: str = ' ') -> str:
 
 
 def mask_identifiers(line: str, filler: str = ' ') -> str:
-    """Blank everything that is a name rather than prose: code, link targets, URLs, paths, and
-    dot-led identifiers. Bold is left alone, so the fixer still respaces inside it.
+    """Blank code, link targets, URLs, paths, and dot-led identifiers while preserving length.
 
-    The judge and the fixer both start from this view. When only the judge masked paths, the
-    fixer respaced raw text and wrote `HXLoLi/. agents` and `. drawio.svg` into real files.
+    Dot-led identifiers are located in the original line so a path's masked suffix cannot turn a
+    following sentence dot into part of the identifier.
     """
-    out = mask_code(line, filler)
-    out = re.sub(r'\]\([^)]*\)', lambda m: ' ' * len(m.group(0)), out)
-    out = PATH_RE.sub(lambda m: filler * len(m.group(0)), out)
-    return DOT_IDENT_RE.sub(lambda m: filler * len(m.group(0)), out)
+    protected: list[tuple[int, int]] = [(start, stop) for start, stop in code_spans(line)]
+    protected += [(match.start(), match.end()) for match in URL_RE.finditer(line)]
+    protected += [(match.start(), match.end()) for match in re.finditer(r'\]\([^)]*\)', line)]
+    protected += [(match.start(), match.end()) for match in PATH_RE.finditer(line)]
+    spans = protected[:]
+    for match in DOT_IDENT_RE.finditer(line):
+        if not any(start < match.end() and match.start() < stop for start, stop in protected):
+            spans.append((match.start(), match.end()))
+    out = line
+    for start, stop in sorted(spans, reverse=True):
+        out = out[:start] + filler * (stop - start) + out[stop:]
+    return out
 
 
 def mask_inline(line: str, filler: str = ' ') -> str:
@@ -100,8 +107,10 @@ def mask_inline(line: str, filler: str = ' ') -> str:
 
 
 def bold_closers(view: str) -> list[int]:
-    """Start index of every `**` that closes a bold run (the 2nd, 4th, ... on the line)."""
-    marks = [m.start() for m in re.finditer(r'\*\*', view)]
+    """Return the starts of Markdown bold closers, excluding `**` path globs."""
+    marks = [m.start() for m in re.finditer(r'\*\*', view)
+             if not (m.start() > 0 and m.end() < len(view)
+                     and view[m.start() - 1] == '/' and view[m.end()] == '/')]
     return marks[1::2]
 
 
@@ -142,7 +151,7 @@ def heal(line: str) -> str:
     add = {i + 3 for i in split_bold_spaces(view)}
     out: list[str] = []
     for pos, char in enumerate(line):
-        if pos in add and not char.isspace() and char not in ')]}.,;:!?"\'':
+        if pos in add and not char.isspace() and char not in ')]}.,;:!?"\'，。！？：；':
             out.append(' ')
         if pos not in drop:
             out.append(char)
