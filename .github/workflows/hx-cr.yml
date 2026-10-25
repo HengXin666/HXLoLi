@@ -1,0 +1,23 @@
+name: hx-cr
+# Two reviews, one pipeline. context checks whether the AI context files still match the code; code
+# reviews the diff itself. Both call the shared reusable workflow so a fix there reaches every repo.
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+jobs:
+    context:
+        uses: HengXin666/HX-AI-Review/.github/workflows/review.yml@v1
+        with:
+            endpoint: https://hx-context-review.hxloli.workers.dev
+            kind: context
+        secrets:
+            HX_CTX_TOKEN: ${{ secrets.HX_CTX_TOKEN }}
+    code:
+        uses: HengXin666/HX-AI-Review/.github/workflows/review.yml@v1
+        with:
+            endpoint: https://hx-context-review.hxloli.workers.dev
+            kind: code
+        secrets:
+            HX_CTX_TOKEN: ${{ secrets.HX_CTX_TOKEN }}
