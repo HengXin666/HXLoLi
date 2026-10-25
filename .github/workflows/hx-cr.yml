@@ -1,6 +1,11 @@
 name: hx-cr
 # Two reviews, one pipeline. context checks whether the AI context files still match the code; code
 # reviews the diff itself. Both call the shared reusable workflow so a fix there reaches every repo.
+#
+# They run in sequence, not in parallel. /init reserves the month's budget as a single claim per
+# repository, so two concurrent jobs would have the second fall back to L0-only with "another run is
+# using this month's budget": the review would silently lose its AI stage. Running code after context
+# lets the first job settle its claim before the second asks for one.
 on:
     push:
         branches: [main]
@@ -15,6 +20,10 @@ jobs:
         secrets:
             HX_CTX_TOKEN: ${{ secrets.HX_CTX_TOKEN }}
     code:
+        # always() so a context failure does not silently skip the diff review too; each job reports its
+        # own result.
+        needs: context
+        if: always()
         uses: HengXin666/HX-AI-Review/.github/workflows/review.yml@v1
         with:
             endpoint: https://hx-context-review.hxloli.workers.dev
