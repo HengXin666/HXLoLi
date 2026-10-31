@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff7fb"/>
+      <stop offset=".52" stop-color="#f0fffb"/>
+      <stop offset="1" stop-color="#fff8d7"/>
+    </linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff8fb8"/>
+      <stop offset="1" stop-color="#9ad8ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1100" rx="56" fill="url(#bg)"/>
+  <g fill="none" stroke="#ffd166" stroke-width="8" opacity=".65">
+    <path d="M132 124h92M178 78v92M724 204h78M763 165v78"/>
+    <path d="m150 822 32 32 58-62M682 870l36-58 36 58"/>
+  </g>
+  <circle cx="450" cy="492" r="256" fill="#fff" stroke="#26344a" stroke-width="10"/>
+  <path d="M219 424c13-169 112-271 231-271s218 102 231 271c-75-50-156-77-231-77s-156 27-231 77Z" fill="url(#hair)" stroke="#26344a" stroke-width="10"/>
+  <path d="M239 430c53-73 128-111 211-111s158 38 211 111v121c0 126-90 229-211 229S239 677 239 551V430Z" fill="#ffe4ef" stroke="#26344a" stroke-width="10"/>
+  <circle cx="354" cy="522" r="24" fill="#26344a"/>
+  <circle cx="546" cy="522" r="24" fill="#26344a"/>
+  <circle cx="323" cy="584" r="30" fill="#ff9fc5" opacity=".75"/>
+  <circle cx="577" cy="584" r="30" fill="#ff9fc5" opacity=".75"/>
+  <path d="M384 631c39 30 93 30 132 0" fill="none" stroke="#26344a" stroke-width="12" stroke-linecap="round"/>
+  <path d="M222 774c46-52 126-78 228-78s182 26 228 78v169H222V774Z" fill="#7bdff2" stroke="#26344a" stroke-width="10"/>
+  <path d="M360 708h180v235H360z" fill="#fff7fb" stroke="#26344a" stroke-width="10"/>
+  <path d="M390 764h120M390 818h120M390 872h82" stroke="#26344a" stroke-width="14" stroke-linecap="round"/>
+  <path d="M224 244 103 139l24 149M676 244l121-105-24 149" fill="#fff7fb" stroke="#26344a" stroke-width="10" stroke-linejoin="round"/>
+  <text x="450" y="1018" text-anchor="middle" font-family="Arial, sans-serif" font-size="54" font-weight="800" fill="#26344a">LoLiOA</text>
+</svg>
