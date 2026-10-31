@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750">
+  <rect width="1200" height="750" fill="#141218"/>
+  <circle cx="836" cy="90" r="166" fill="none" stroke="#fb7185" stroke-width="2" opacity="0.75"/>
+  <circle cx="876" cy="140" r="83" fill="#fb7185" opacity="0.16"/>
+  <rect width="14" height="750" fill="#fb7185"/>
+  <text x="72" y="292" fill="#fb7185" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="22" letter-spacing="5">ASS KARAOKE</text>
+  <text x="72" y="410" fill="#f6f3f8" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="68">HX-Ass-Skill</text>
+  <text x="72" y="478" fill="#9b95a3" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="22">cover placeholder</text>
+</svg>
