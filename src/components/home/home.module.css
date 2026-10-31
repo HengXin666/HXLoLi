@@ -21,11 +21,11 @@
 
 .heroInner {
   position: relative;
-  max-width: 1120px;
+  max-width: 1180px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
-  gap: 3rem;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 1.5rem 2rem;
   align-items: center;
 }
 
@@ -98,32 +98,46 @@
   color: #fff;
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.8rem 1rem;
-  margin: 2rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.stats strong {
-  display: block;
-  font-size: 1.35rem;
-  letter-spacing: -0.03em;
-}
-
-.stats span {
-  color: var(--ifm-color-emphasis-600);
-  font-size: 0.85rem;
-}
-
 .heroFrame {
+  position: relative;
+  margin-top: 1.4rem;
   border-radius: 22px;
   overflow: hidden;
   border: 1px solid var(--ifm-color-emphasis-200);
   box-shadow: 0 22px 50px rgba(80, 16, 70, 0.12);
   background: #111;
+}
+
+.heroStart {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  background: #ffdc33;
+  color: #111;
+  border-radius: 8px;
+  padding: 0.45rem 1rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.heroStart:hover {
+  color: #111;
+  text-decoration: none;
+}
+
+.chartPane {
+  min-width: 0;
+  width: 100%;
+}
+
+.timeBoard :global(.charts-container) {
+  flex-wrap: wrap;
+}
+
+.timeBoard :global(.charts-container) > div {
+  flex: 1 1 28rem;
+  min-width: 16rem;
 }
 
 .heroFrame img {
@@ -493,11 +507,6 @@
   margin: 0;
   max-width: none;
   padding: 0;
-}
-
-.chartGrid {
-  display: grid;
-  gap: 1.2rem;
 }
 
 .aboutLayout {

@@ -6,9 +6,7 @@ import Layout from '@theme/Layout';
 import React, { useCallback, useState } from 'react';
 
 import {
-    ECOSYSTEM_SINCE,
     featuredProjects,
-    graphProjects,
     projects,
 } from '@site/data/ecosystem';
 import LatestDocsSection from '../LatestDocsSection';
@@ -99,9 +97,6 @@ export default function HomePage(): React.ReactElement {
     const { siteConfig } = useDocusaurusContext();
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const close = useCallback(() => setSelectedId(null), []);
-    const latest = stats[stats.length - 1];
-    const words = latest ? Math.round(latest.wordCount / 10000) : 0;
-    const wheels = graphProjects.filter((project) => project.layer === 'wheel').length;
     const hero = useBaseUrl('/img/main_menu_misaka.png');
     const catLeft = useBaseUrl('/default-img/neko_left.png');
     const catRight = useBaseUrl('/default-img/neko_right.png');
@@ -125,26 +120,33 @@ export default function HomePage(): React.ReactElement {
                                 <a className={styles.primary} href="#ecosystem">看项目图</a>
                                 <Link className={styles.ghost} to="/docs/关于">读笔记</Link>
                             </div>
-                            <ul className={styles.stats}>
-                                <li>
-                                    <strong>{words} 万</strong>
-                                    <span>笔记字数</span>
-                                </li>
-                                <li>
-                                    <strong>{projects.length}</strong>
-                                    <span>{ECOSYSTEM_SINCE} 之后仍在更新的仓库</span>
-                                </li>
-                                <li>
-                                    <strong>{wheels}</strong>
-                                    <span>抽出来的轮子</span>
-                                </li>
-                            </ul>
+                            <div className={styles.heroFrame}>
+                                <img src={hero} alt="博客首页插画" />
+                                <Link className={styles.heroStart} to="/docs/关于">快速开始</Link>
+                            </div>
                         </div>
-                        <div className={styles.heroFrame}>
-                            <img src={hero} alt="博客首页插画" />
+                        <div className={styles.chartPane} id="words">
+                            <WordCountChart rawData={stats} />
                         </div>
                     </div>
                 </header>
+
+                <section className={styles.section} id="notes">
+                    <div className={styles.sectionHead}>
+                        <div>
+                            <p className={styles.kicker}>知识库</p>
+                            <h2>最近更新的笔记</h2>
+                        </div>
+                        <Link to="/docs/关于">关于这些笔记</Link>
+                    </div>
+                    <div className={styles.notesWrap}>
+                        <LatestDocsSection />
+                    </div>
+                </section>
+
+                <section className={`${styles.section} ${styles.timeBoard}`} id="time">
+                    <WakaTimeChart />
+                </section>
 
                 <section className={styles.section} id="ecosystem">
                     <div className={styles.sectionHead}>
@@ -216,32 +218,6 @@ export default function HomePage(): React.ReactElement {
                                 <p>{post.excerpt}</p>
                             </Link>
                         ))}
-                    </div>
-                </section>
-
-                <section className={styles.section} id="notes">
-                    <div className={styles.sectionHead}>
-                        <div>
-                            <p className={styles.kicker}>知识库</p>
-                            <h2>最近更新的笔记</h2>
-                        </div>
-                        <Link to="/docs/关于">关于这些笔记</Link>
-                    </div>
-                    <div className={styles.notesWrap}>
-                        <LatestDocsSection />
-                    </div>
-                </section>
-
-                <section className={styles.section} id="writing">
-                    <div className={styles.sectionHead}>
-                        <div>
-                            <p className={styles.kicker}>还在写</p>
-                            <h2>字数与编码时间</h2>
-                        </div>
-                    </div>
-                    <div className={styles.chartGrid}>
-                        <WordCountChart rawData={stats} />
-                        <WakaTimeChart />
                     </div>
                 </section>
 
