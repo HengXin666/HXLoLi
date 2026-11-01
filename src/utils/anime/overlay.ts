@@ -1,0 +1,85 @@
+import overlayJson from "@site/data/animeOverlay.json";
+import { ANiMeRecord, WatchStatus } from "@site/src/utils/anime/types";
+
+/**
+ * 本人标注 overlay: data/animeOverlay.json, 键是 BanGuMi subject id. 运行时盖在 CDN 拉来的 ANiMeRecord 上.
+ *
+ * 优先级 (逐字段, 只看 overlay 里出现了的字段):
+ *   - watch_status / watched_eps / comment / rate: overlay > CDN user_status.
+ *   - tags: overlay 写了 tags 就是这部番的**最终标签列表**, data/animeTags.ts 与 CDN user_status.tags 都不再参与;
+ *           没写 tags 时照旧 = animeTags.ts ∪ CDN tags (见 utils/anime/tags.ts).
+ *   - 删掉某部番的 overlay 条目 = 回到 CDN + animeTags.ts.
+ * 写入只在 dev 下经 plugins/anime-overlay-plugin.mjs 完成; 本模块只读, 生产构建也只读这份文件.
+ * .agents/notes/implemented/feature/2026-11-01-anime-local-overlay.md
+ */
+export interface AnimeOverlayEntry {
+    tags?: string[];
+    watch_status?: WatchStatus;
+    watched_eps?: number;
+    /** 本人评分 1-10, CDN 数据里没有这一项 */
+    rate?: number;
+    comment?: string;
+    /** 写入时间 (ISO), 由 dev 写入通道填 */
+    updated_at?: string;
+}
+
+export type AnimeOverlay = Record<string, AnimeOverlayEntry>;
+
+const WATCH_STATUSES = new Set<number>([1, 2, 3, 4, 5]);
+
+/** 只保留形状正确的字段; 手改坏了的 JSON 不至于让整页崩掉 */
+export function sanitizeOverlayEntry (raw: unknown): AnimeOverlayEntry | null {
+    if (!raw || typeof raw !== "object") return null;
+    const r = raw as Record<string, unknown>;
+    const out: AnimeOverlayEntry = {};
+    if (Array.isArray(r.tags)) out.tags = r.tags.filter((t): t is string => typeof t === "string" && t.trim() !== "").map((t) => t.trim());
+    if (typeof r.watch_status === "number" && WATCH_STATUSES.has(r.watch_status)) out.watch_status = r.watch_status as WatchStatus;
+    if (typeof r.watched_eps === "number" && Number.isFinite(r.watched_eps) && r.watched_eps >= 0) out.watched_eps = Math.floor(r.watched_eps);
+    if (typeof r.rate === "number" && r.rate >= 1 && r.rate <= 10) out.rate = Math.round(r.rate);
+    if (typeof r.comment === "string") out.comment = r.comment;
+    if (typeof r.updated_at === "string") out.updated_at = r.updated_at;
+    return Object.keys(out).length ? out : null;
+}
+
+function sanitizeOverlay (raw: unknown): AnimeOverlay {
+    const out: AnimeOverlay = {};
+    if (!raw || typeof raw !== "object") return out;
+    for (const [id, v] of Object.entries(raw as Record<string, unknown>)) {
+        if (!/^\d+$/.test(id)) continue;
+        const e = sanitizeOverlayEntry(v);
+        if (e) out[id] = e;
+    }
+    return out;
+}
+
+/** 构建时打进包里的 overlay (dev 下改文件后由 HMR 更新) */
+export const ANIME_OVERLAY: Readonly<AnimeOverlay> = Object.freeze(sanitizeOverlay(overlayJson));
+
+/** 被 overlay 接管了标签的记录 -> 最终标签; tags.ts 先查这里 */
+const tagOverride = new WeakMap<ANiMeRecord, readonly string[]>();
+
+export function overlayTagsOf (record: ANiMeRecord): readonly string[] | undefined {
+    return tagOverride.get(record);
+}
+
+/** overlay 盖到一条记录上; 没有条目时原样返回 (同一个对象, 缓存不失效) */
+export function applyOverlayEntry (record: ANiMeRecord, entry: AnimeOverlayEntry | undefined | null): ANiMeRecord {
+    if (!entry) return record;
+    const { tags, rate, updated_at: _u, ...status } = entry;
+    const next: ANiMeRecord = Object.freeze({
+        anime_data: record.anime_data,
+        user_status: Object.freeze({
+            ...record.user_status,
+            ...status,
+            ...(rate !== undefined ? { rate } : {}),
+            ...(tags ? { tags } : {}),
+        }),
+    });
+    if (tags) tagOverride.set(next, Object.freeze([...new Set(tags)]));
+    return next;
+}
+
+export function applyOverlay (records: readonly ANiMeRecord[], overlay: Readonly<AnimeOverlay> = ANIME_OVERLAY): ANiMeRecord[] {
+    if (Object.keys(overlay).length === 0) return [...records];
+    return records.map((r) => applyOverlayEntry(r, overlay[String(r.anime_data.id)]));
+}

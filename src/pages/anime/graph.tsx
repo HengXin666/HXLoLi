@@ -1,120 +1,93 @@
-import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "@docusaurus/router";
+import React from "react";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import { AnimeForceGraph, AnimeGraphController, THEME } from "@site/src/components/anime/AnimeGraphPage";
-import { useAnimeRecords } from "@site/src/utils/anime/animeStore";
+import Layout from "@theme/Layout";
+import {
+    AnimeForceGraph,
+    AnimeGraphController,
+    GraphBreadcrumb,
+    focusTitleOf,
+} from "@site/src/components/anime/AnimeGraphPage";
+import { GraphEmpty, GraphError, GraphLoading } from "@site/src/components/anime/AnimeGraphPage/GraphStatus";
+import { GraphSearch } from "@site/src/components/anime/AnimeGraphPage/SearchBox";
+import { useGraphUrlState } from "@site/src/components/anime/AnimeGraphPage/useGraphUrlState";
+import styles from "@site/src/components/anime/AnimeGraphPage/graph.module.css";
+import { useAnimeRecordsState } from "@site/src/utils/anime/animeStore";
 
 
+/**
+ * 番剧关系图路由: 套站点 Layout, 按加载状态切换 加载 / 错误 / 空态 / 图; 状态全在 URL (id 有值 = 聚焦层)
+ * .agents/notes/implemented/feature/2026-11-01-anime-graph-refactor.md
+ */
 export default function AnimeGraphPage () {
     const { siteConfig } = useDocusaurusContext();
-    const records = useAnimeRecords(siteConfig.baseUrl);
+    const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl);
+    const [state, update] = useGraphUrlState();
+    const { focusId, hiddenRelations, preferCn, showImages, chargeStrength, linkDistance, minShared } = state;
 
-    const history = useHistory();
-    const location = useLocation();
+    const focusMissing = status === "ready" && focusId !== undefined
+        && !records.some(r => r.anime_data.id === focusId);
+    const layer = focusId !== undefined && !focusMissing ? "focus" : "overview";
+    const setFocus = (id: number | undefined) => update({ focusId: id });
 
-    // 状态初始化: 优先从 URL 读取, 如果没有则使用默认值
-    const [targetAnimeId, setTargetAnimeId] = useState<number | undefined>(() => {
-        const params = new URLSearchParams(location.search);
-        const id = params.get('id');
-        return id ? Number(id) : undefined;
-    });
-
-    const [hiddenRelations, setHiddenRelations] = useState<string[]>(() => {
-        const params = new URLSearchParams(location.search);
-        if (params.has('hide')) {
-            const val = params.get('hide');
-            // 处理空字符串的情况, 避免 split 出来 ['']
-            return val ? val.split(',') : [];
-        }
-        // 默认值
-        return ["配角", "客串", "闲角", "旁白"];
-    });
-
-    const [preferCn, setPreferCn] = useState(() => {
-        const params = new URLSearchParams(location.search);
-        // 如果 URL 里没有 'cn' 参数, 默认 true; 如果有, 判断是否不等于 'false'
-        return params.has('cn') ? params.get('cn') !== 'false' : true;
-    });
-
-    const [showImages, setShowImages] = useState(() => {
-        const params = new URLSearchParams(location.search);
-        return params.has('img') ? params.get('img') !== 'false' : true;
-    });
-
-    // 从 URL 初始化 chargeStrength (默认为 -180)
-    const [chargeStrength, setChargeStrength] = useState<number>(() => {
-        const params = new URLSearchParams(location.search);
-        const val = params.get('charge');
-        return val ? Number(val) : -180; 
-    });
-
-    // 从 URL 初始化 linkDistance (默认为 100)
-    const [linkDistance, setLinkDistance] = useState<number>(() => {
-        const params = new URLSearchParams(location.search);
-        const val = params.get('dist');
-        return val ? Number(val) : 100;
-    });
-
-    // 监听状态变化并写入 URL
-    useEffect(() => {
-        const params = new URLSearchParams();
-        
-        // 原有参数
-        if (targetAnimeId !== undefined) params.set('id', String(targetAnimeId));
-        if (hiddenRelations.length > 0) params.set('hide', hiddenRelations.join(','));
-        params.set('cn', String(preferCn));
-        params.set('img', String(showImages));
-
-        params.set('charge', String(chargeStrength));
-        params.set('dist', String(linkDistance));
-
-        const newSearch = params.toString();
-        
-        if (location.search !== `?${newSearch}`) {
-            history.replace({
-                pathname: location.pathname,
-                search: newSearch,
-                hash: location.hash
-            });
-        }
-    }, [
-        targetAnimeId, hiddenRelations, preferCn, showImages, 
-        chargeStrength, linkDistance,
-        history, location.pathname, location.hash
-    ]);
+    let overlay: React.ReactNode = null;
+    if (status === "loading") {
+        overlay = <GraphLoading stage="正在下载番剧数据" detail="约 12 MB, 含角色与声优" />;
+    } else if (status === "error") {
+        overlay = <GraphError message={error} onRetry={retry} />;
+    } else if (records.length === 0) {
+        overlay = <GraphEmpty title="还没有番剧数据" detail="番剧库为空, 关系图无内容可画." />;
+    } else if (focusMissing) {
+        overlay = (
+            <GraphEmpty
+                title={`找不到 id=${focusId} 的番剧`}
+                detail="链接里的番剧不在库中, 可能已被移除."
+                actionLabel="返回全部番剧"
+                onAction={() => setFocus(undefined)}
+            />
+        );
+    }
 
     return (
-        <div style={{
-            position: 'relative',
-            width: '100%',
-            height: '100vh',
-            background: THEME.background,
-            overflow: 'hidden'
-        }}>
-            <AnimeForceGraph
-                baseUrl={siteConfig.baseUrl}
-                targetAnimeId={targetAnimeId}
-                hiddenRelations={hiddenRelations}
-                preferCn={preferCn}
-                showImages={showImages}
-                chargeStrength={chargeStrength}
-                linkDistance={linkDistance}
-            />
-            <AnimeGraphController
-                hiddenRelations={hiddenRelations}
-                setHiddenRelations={setHiddenRelations}
-                preferCn={preferCn}
-                setPreferCn={setPreferCn}
-                showImages={showImages}
-                setShowImages={setShowImages}
-                targetAnimeId={targetAnimeId}
-                setTargetAnimeId={setTargetAnimeId}
-                allRecords={records}
-                chargeStrength={chargeStrength}
-                setChargeStrength={setChargeStrength}
-                linkDistance={linkDistance}
-                setLinkDistance={setLinkDistance}
-            />
-        </div>
+        <Layout title="番剧关系图" description="番剧、角色与声优的关系图" noFooter>
+            <main className={styles.shell}>
+                {overlay ?? (
+                    <>
+                        <AnimeForceGraph
+                            baseUrl={siteConfig.baseUrl}
+                            targetAnimeId={focusId}
+                            hiddenRelations={hiddenRelations}
+                            preferCn={preferCn}
+                            showImages={showImages}
+                            chargeStrength={chargeStrength}
+                            linkDistance={linkDistance}
+                            minShared={minShared}
+                            onFocusAnime={setFocus}
+                        />
+                        <div className={styles.topbar}>
+                            <GraphBreadcrumb
+                                focusTitle={layer === "focus" ? focusTitleOf(records, focusId, preferCn) : undefined}
+                                onOverview={() => setFocus(undefined)}
+                            />
+                            <GraphSearch records={records} preferCn={preferCn} onPick={setFocus} />
+                        </div>
+                        <AnimeGraphController
+                            layer={layer}
+                            hiddenRelations={hiddenRelations}
+                            setHiddenRelations={v => update({ hiddenRelations: v })}
+                            preferCn={preferCn}
+                            setPreferCn={v => update({ preferCn: v })}
+                            showImages={showImages}
+                            setShowImages={v => update({ showImages: v })}
+                            minShared={minShared}
+                            setMinShared={v => update({ minShared: v })}
+                            chargeStrength={chargeStrength}
+                            setChargeStrength={v => update({ chargeStrength: v })}
+                            linkDistance={linkDistance}
+                            setLinkDistance={v => update({ linkDistance: v })}
+                        />
+                    </>
+                )}
+            </main>
+        </Layout>
     );
 }

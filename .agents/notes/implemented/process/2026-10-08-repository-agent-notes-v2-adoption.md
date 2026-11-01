@@ -11,7 +11,6 @@ Decision-ID: repository-agent-notes-v2-adoption
 - `.agents/skills/hx-agent-notes/scripts/triage/note-triage.py`
 - `src/components/AIDocHeader/index.tsx`
 - `src/components/BlogWithCats/index.tsx`
-- `src/components/CDNNodeSelector/index.tsx`
 - `src/components/DevTools/InlineEditor.tsx`
 - `src/components/DrawIoPage/index.tsx`
 - `src/components/Giscus/index.tsx`
@@ -28,7 +27,6 @@ Decision-ID: repository-agent-notes-v2-adoption
 - `src/components/anime/SortTabs/index.tsx`
 - `src/components/anime/Tag/index.tsx`
 - `src/components/anime/WatchStatusTabs/index.tsx`
-- `src/components/chart/WakaTimeChart/index.tsx`
 - `src/components/chart/WordCountChart/index.tsx`
 - `src/components/common/Tabs/index.tsx`
 - `src/components/common/Tooltip/index.tsx`

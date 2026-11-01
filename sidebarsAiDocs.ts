@@ -247,6 +247,15 @@ const aiDocsSidebar = [
                   "icon": "default-icons/ai-doc.svg",
                   "tags": []
                 }
+              },
+              {
+                "type": "doc",
+                "id": "AI/Agent-Harness/DSH/Super-agent设计探索双层架构与事件驱动/index",
+                "label": "Super-agent设计探索双层架构与事件驱动",
+                "customProps": {
+                  "icon": "default-icons/ai-doc.svg",
+                  "tags": []
+                }
               }
             ],
             "customProps": {
@@ -441,6 +450,15 @@ const aiDocsSidebar = [
         "type": "doc",
         "id": "AI/AI视觉验证/index",
         "label": "AI视觉验证",
+        "customProps": {
+          "icon": "default-icons/ai-doc.svg",
+          "tags": []
+        }
+      },
+      {
+        "type": "doc",
+        "id": "AI/HX-AI-Review通用AI-CR方案/index",
+        "label": "HX-AI-Review通用AI-CR方案",
         "customProps": {
           "icon": "default-icons/ai-doc.svg",
           "tags": []

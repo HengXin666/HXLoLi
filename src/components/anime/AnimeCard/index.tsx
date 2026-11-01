@@ -3,6 +3,7 @@ import Heading from "@theme/Heading";
 import Link from "@docusaurus/Link";
 import MDXA from "@site/src/theme/MDXComponents/A";
 import { ANiMeRecord, EpisodeType } from "@site/src/utils/anime/types";
+import { getRecordTags } from "@site/src/utils/anime/tags";
 import { toAnimeCdnUrl } from "@site/src/utils/cdn/linkJsDelivr";
 import styles from "./AnimeCard.module.css";
 import { SortMode } from "../SortTabs";
@@ -22,6 +23,10 @@ const formatDate = (dateString: string) => {
     return `${month}-${day}`;
 };
 
+/**
+ * 番剧页时间线上的一张卡. 标签取 getRecordTags (本站标签表 data/animeTags.ts + user_status.tags), 不只读 user_status.tags.
+ * .agents/notes/implemented/feature/2026-11-01-anime-tags-and-home-anime.md
+ */
 export default function AnimeCard ({
     record,
     sortMode,
@@ -70,7 +75,7 @@ export default function AnimeCard ({
                             return cnt;
                         })()} 话`}</span>|
                         <span>评分: {anime_data.score}</span>|
-                        {user_status.tags.map((tag, idx) => (
+                        {getRecordTags(record).map((tag, idx) => (
                             <React.Fragment key={idx}>
                                 <Tag text={tag} />|
                             </React.Fragment>

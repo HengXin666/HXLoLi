@@ -1,316 +1,935 @@
-/* --- 页面基础布局 --- */
-.pageContainer {
-    color: #e0e0e0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-.headerSection {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.mainTitle {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #fff;
-}
-
-.subTitle {
-    font-size: 1.2rem;
-    color: #a0a0a0;
-    margin-top: 5px;
-}
-
-.mainContent {
-    display: flex;
-    gap: 30px;
-    flex-direction: row;
-}
-
-.coverImage {
-    width: 300px;
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-    top: 80px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, .3);
-}
-
-.infoColumn {
-    flex: 1;
-}
-
-.infoBox {
-    background-color: #3c3c3c;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.infoBox p {
-    margin: 8px 0;
-}
-
-.sectionTitle {
-    margin-bottom: 20px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #555;
-    font-weight: bold;
-    color: #fff;
-}
-
-/* --- 角色横向滚动区域 --- */
-.characterScrollContainer {
-    display: flex;
-    overflow-x: auto;
-    gap: 15px; /* 减小卡片间距 */
-    padding: 10px 0 20px 0;
-
-    padding-top: 150px; /* 留出足够的高度给 tooltip */
-    margin-top: -150px; /* 将多余的 padding-top 向上推, 保持布局不变 */
-}
-
-/* 自定义横向滚动条 */
-.characterScrollContainer::-webkit-scrollbar {
-    height: 8px;
-}
-.characterScrollContainer::-webkit-scrollbar-track {
-    background: #2b2b2b;
-    border-radius: 4px;
-}
-.characterScrollContainer::-webkit-scrollbar-thumb {
-    background-color: #555;
-    border-radius: 4px;
-}
-.characterScrollContainer::-webkit-scrollbar-thumb:hover {
-    background-color: #777;
-}
-
-/* --- 角色卡片整体 --- */
-.characterCard {
-    flex: 0 0 100px; /* 固定卡片宽度 */
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    position: relative; /* 设定为相对定位 */
-}
-
-/* --- 角色图片链接 (关键: 尺寸定义者) --- */
-.characterImageLink {
-    display: block;
-    width: 100%;
-    aspect-ratio: 3/4; /* 核心: 定义宽高比 */
-    border-radius: 6px;
-    overflow: hidden; /* 隐藏内部span溢出的部分 */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
-    transition: all .3s ease;
-}
-
-.characterImageLink:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, .4);
-}
-
-/* --- 角色图片 Span (关键: 背景显示者) --- */
-.characterImageSpan {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-}
-
-/* --- 角色信息文本 --- */
-.characterInfo {
-    padding-top: 10px;
-}
-
-.characterName {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #fff;
-    margin: 0;
-}
-
-.characterRelation {
-    font-size: 0.8rem;
-    color: #999;
-    margin: 4px 0 0 0;
-}
-
-.characterActors {
-    font-size: 0.8rem;
-    color: #ccc;
-    margin: 4px 0 0 0;
-    /* 渲染 \n */
-    white-space: pre-wrap;
-}
-
-/* --- 关联作品样式 --- */
-/* 容器总览 */
-.relationContainer {
-    width: 100%;
-    font-family: sans-serif;
-}
-
-/* 每个关系分组 (例如 "续集", "前传") */
-.relationGroup {
-    /* 与下一个分组隔开一些距离 */
-    margin-bottom: 24px;
-    padding: 10px;
-    border-left: 3px solid var(--ifm-color-primary);
-    border-right: 2px solid var(--ifm-color-primary);
-    border-radius: 8px;
-}
-
-/* 分组标题, 例如 "续集" */
-.relationGroupTitle {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--ifm-color-primary);
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-}
-
-/* 关系项目列表容器 */
-.relationList {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px; /* 项目之间的间距 */
-}
-
-/* 单个关系项目卡片 */
-.relationItem {
-    display: flex;
-    align-items: center;
-    background-color: var(--ifm-background-color);
-    border-radius: 8px;
-    width: 285px; /* 固定宽度 */
-    height: 120px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    position: relative; /* 设定为相对定位 */
-}
-
-.relationItem:hover {
-    display: flex;
-    align-items: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-    background-color: var(--ifm-color-emphasis-100);
-    border-radius: 8px;
-}
-
-/* 关系图 */
-.relationImage {
-    width: 100px;
-    height: 120px;
-    object-fit: cover; /* 保证图片不变形 */
-    flex-shrink: 0; /* 防止图片被压缩 */
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-}
-
-/* 右侧信息区域 */
-.relationInfo {
-    padding: 8px 12px;
-}
-
-/* --- 剧集列表容器 --- */
-.episodeList {
-    display: flex;
-    flex-wrap: wrap; /* 允许方块换行 */
-    gap: 8px;      /* 方块之间的间距 */
-    padding-top: 10px;
-}
-
-/* --- 单个剧集方块 --- */
-.episodeItem {
-    flex-shrink: 0; /* 防止方块被压缩 */
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-    position: relative; /* 关键: 作为 tooltip 的定位父级 */
-}
-
-.episodeNumber {
-    user-select: none; /* 防止用户选中文本 */
-}
-
-
-.tooltipTitle {
-    font-weight: bold;
-    margin-bottom: 6px;
+/*
+ * 番剧详情. 颜色全部走 Infima 变量 (+ color-mix 派生), 明暗主题都可读.
+ * 决策见 src/pages/anime/details.tsx 顶部引用的 note (2026-11-01-anime-detail-redesign / -sidebar-and-hero).
+ *
+ * 节奏 (改这里之前先对一下 note 里的数值表):
+ *   区块间距 48px, 区块标题到内容 16px, 卡片内边距 16px / 20px, 组内间距 12px
+ *   字号: h1 32px (窄屏 22px), h2 20px, 正文 15px, 辅助 13px
+ *   圆角: 大卡 16px, 卡片 12px, 小件 8px, 胶囊 999px
+ */
+.shell {
+    --detail-gap: 48px;
+    --detail-radius-lg: 16px;
+    --detail-radius: 12px;
+    --detail-radius-sm: 8px;
+    --detail-border: var(--ifm-color-emphasis-200);
+    --detail-surface: var(--ifm-background-surface-color);
+    --detail-soft: var(--ifm-color-emphasis-100);
+    /* 辅助文字: 正文色与背景 68 / 32 混合, 亮色 5.75:1, 暗色 7.16:1 (Infima emphasis-600 在亮色只有 ~3:1) */
+    --detail-muted: color-mix(in srgb, var(--ifm-font-color-base) 68%, var(--ifm-background-color));
+    --detail-accent: var(--ifm-color-primary);
+    /* 主题色 #ff88ff 做文字在白底只有 ~2:1, 亮色下压暗 45% 当"墨色" (6.0:1); 暗色直接用主题色 (9.1:1) */
+    --detail-accent-ink: color-mix(in srgb, var(--ifm-color-primary) 55%, #000);
+    /* 主题色块上的字: 白字只有 2.06:1, 改用深紫 (8.65:1) */
+    --detail-on-accent: #2b0a2b;
+    --detail-cover-w: 220px;
+    --detail-toc-w: 160px;
+    max-width: 1200px;
+    margin: 16px auto 80px;
+    padding: 0 24px;
     font-size: 15px;
 }
 
-.tooltipDate {
+:global(html[data-theme='dark']) .shell {
+    --detail-accent-ink: var(--ifm-color-primary);
+}
+
+.center {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.notFoundImg {
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+.muted {
+    color: var(--detail-muted);
+    font-size: 13px;
+}
+
+.backLink {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--detail-muted);
+}
+
+.backLink:hover {
+    color: var(--detail-accent-ink);
+    text-decoration: none;
+}
+
+/* ---------------- 骨架 ---------------- */
+
+.skeletonHero {
+    display: grid;
+    grid-template-columns: var(--detail-cover-w) 1fr;
+    gap: 32px;
+    align-items: start;
+    padding: 28px;
+    border-radius: var(--detail-radius-lg);
+    border: 1px solid var(--detail-border);
+}
+
+.skeletonCover,
+.skeletonLine {
+    border-radius: var(--detail-radius);
+    background: linear-gradient(90deg, var(--ifm-color-emphasis-100) 25%, var(--ifm-color-emphasis-200) 50%, var(--ifm-color-emphasis-100) 75%);
+    background-size: 200% 100%;
+    animation: detailShimmer 1.4s linear infinite;
+}
+
+.skeletonCover {
+    aspect-ratio: 2 / 3;
+}
+
+.skeletonLines {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 8px;
+}
+
+.skeletonLine {
+    height: 14px;
+    border-radius: 7px;
+}
+
+.skeletonTitle {
+    width: 60%;
+    height: 28px;
+}
+
+.skeletonW40 { width: 40%; }
+.skeletonW55 { width: 55%; }
+.skeletonW75 { width: 75%; }
+
+@keyframes detailShimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+}
+
+/* ---------------- Hero ----------------
+ * 以前: 整块铺 blur(40px) 的封面 + 88% 黑罩, 亮色主题里也是一块发灰的黑板, 封面颜色一脏整块就脏.
+ * 现在: 主题色卡片, 虚化封面只在左上角留一层 18% 的光晕并向下渐隐, 文字走主题色.
+ */
+
+.hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 28px;
+    border-radius: var(--detail-radius-lg);
+    border: 1px solid var(--detail-border);
+    background: var(--detail-surface);
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: -40px;
+    z-index: -1;
+    background: var(--cover) left top / cover no-repeat;
+    filter: blur(48px) saturate(1.2);
+    opacity: 0.18;
+    -webkit-mask-image: linear-gradient(160deg, #000 0%, transparent 65%);
+    mask-image: linear-gradient(160deg, #000 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.heroGrid {
+    display: grid;
+    grid-template-columns: var(--detail-cover-w) minmax(0, 1fr);
+    grid-template-areas:
+        "cover head"
+        "cover body";
+    grid-template-rows: auto 1fr;
+    column-gap: 32px;
+    row-gap: 20px;
+}
+
+.coverFrame {
+    grid-area: cover;
+    width: 100%;
+    max-width: var(--detail-cover-w);
+    aspect-ratio: 2 / 3;
+    align-self: start;
+    overflow: hidden;
+    border-radius: var(--detail-radius);
+    background: var(--detail-soft);
+    /* 1px 描边防止浅色封面和卡片融成一片; 阴影大半径低不透明度, 没有硬边 */
+    box-shadow:
+        0 0 0 1px var(--detail-border),
+        0 2px 6px rgba(0, 0, 0, 0.08),
+        0 16px 36px -12px rgba(0, 0, 0, 0.35);
+}
+
+.cover {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: zoom-in;
+}
+
+.heroHead {
+    grid-area: head;
+    min-width: 0;
+}
+
+.heroBody {
+    grid-area: body;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 层次 1: 标题 */
+.title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ifm-heading-color, var(--ifm-font-color-base));
+}
+
+/* 层次 2: 原名 */
+.originalTitle {
+    margin: 6px 0 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--detail-muted);
+}
+
+/* 层次 3: 元信息, 一行小字以 "·" 分隔, 不再是一排胶囊 */
+.metaRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    color: var(--detail-muted);
+}
+
+.metaRow li {
+    margin: 0;
+}
+
+.metaRow li + li::before {
+    content: "·";
+    margin: 0 10px;
+    opacity: 0.6;
+}
+
+.score {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--ifm-font-color-base);
+}
+
+.score svg {
+    color: #f5a524;
+}
+
+.score strong {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.scoreSrc {
     font-size: 12px;
-    color: #b3b3b3;
+    color: var(--detail-muted);
+}
+
+.statusCard {
+    max-width: 560px;
+    padding: 14px 16px;
+    border-radius: var(--detail-radius);
+    border: 1px solid var(--detail-border);
+    background: color-mix(in srgb, var(--detail-surface) 85%, transparent);
+}
+
+.statusLine {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+}
+
+.statusBadge {
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0e0c14;
+    background: #cbd5e1;
+}
+
+.statusWatching { background: #7dd3fc; }
+.statusWatched { background: #c4b5fd; }
+.statusWish { background: #fcd34d; }
+.statusOnHold { background: #cbd5e1; }
+.statusDropped { background: #fca5a5; }
+
+.progressText {
+    font-size: 14px;
+    color: var(--detail-muted);
+}
+
+.progressText strong {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ifm-font-color-base);
+}
+
+.updated {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--detail-muted);
+}
+
+.progressBar {
+    margin-top: 10px;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--detail-soft);
+    overflow: hidden;
+}
+
+.progressBar span {
+    display: block;
+    height: 100%;
+    border-radius: 3px;
+    background: var(--detail-accent);
+}
+
+.tagRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--ifm-font-color-base);
+    background: var(--detail-soft);
+    border: 1px solid transparent;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.tag:hover {
+    text-decoration: none;
+    color: var(--detail-accent-ink);
+    border-color: var(--detail-accent);
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: var(--detail-radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ifm-font-color-base);
+    background: transparent;
+    border: 1px solid var(--detail-border);
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.action:hover {
+    text-decoration: none;
+    color: var(--detail-accent-ink);
+    border-color: var(--detail-accent);
+}
+
+/* 本人标注编辑器 (dev only, 由另一条线提供组件) */
+.overlayEditor {
+    margin-top: 16px;
+}
+
+/* ---------------- 短评 ---------------- */
+
+.comment {
+    margin: 16px 0 0;
+    padding: 16px 20px;
+    border: 1px solid var(--detail-border);
+    border-left: 3px solid var(--detail-accent);
+    border-radius: var(--detail-radius);
+    background: var(--detail-surface);
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+.commentLabel {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--detail-accent-ink);
+}
+
+/* ---------------- 正文布局 + 页内目录 ----------------
+ * 窄屏 (< 996px): 单栏, 目录是内容上方一条可横滑的细条, 不吸顶.
+ * 宽屏 (>= 996px, 与 Infima 桌面断点一致): 左 160px 竖排目录 (sticky 在自己那一栏, 不盖内容) + 右正文.
+ */
+
+.layout {
+    margin-top: var(--detail-gap);
+}
+
+.main {
+    min-width: 0;
+}
+
+.toc {
     margin-bottom: 8px;
 }
 
-.tooltipDesc {
-    color: #dcdcdc;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+.tocTitle {
+    display: none;
+}
+
+.tocList {
+    display: flex;
+    gap: 4px;
+    margin: 0;
+    padding: 0 0 8px;
+    list-style: none;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--detail-border);
+    scrollbar-width: none;
+}
+
+.tocList::-webkit-scrollbar {
+    display: none;
+}
+
+.tocList li {
+    flex: none;
+    margin: 0;
+}
+
+.tocLink {
+    display: block;
+    padding: 4px 12px;
+    border-radius: var(--detail-radius-sm);
+    font-size: 14px;
+    color: var(--detail-muted);
+    transition: color 0.15s, background 0.15s;
+}
+
+.tocLink:hover {
+    text-decoration: none;
+    color: var(--ifm-font-color-base);
+    background: var(--detail-soft);
+}
+
+.tocActive,
+.tocActive:hover {
+    font-weight: 600;
+    color: var(--detail-accent-ink);
+    background: var(--detail-soft);
+}
+
+@media (min-width: 996px) {
+    .layout {
+        display: grid;
+        grid-template-columns: var(--detail-toc-w) minmax(0, 1fr);
+        column-gap: 48px;
+        align-items: start;
+    }
+
+    .toc {
+        position: sticky;
+        top: calc(var(--ifm-navbar-height) + 24px);
+        margin: 0;
+    }
+
+    .tocTitle {
+        display: block;
+        margin: 0 0 8px 14px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--detail-muted);
+    }
+
+    .tocList {
+        flex-direction: column;
+        gap: 2px;
+        padding: 0;
+        overflow: visible;
+        border-bottom: none;
+        border-left: 1px solid var(--detail-border);
+    }
+
+    .tocLink {
+        margin-left: -1px;
+        padding: 6px 12px;
+        border-left: 2px solid transparent;
+        border-radius: 0 var(--detail-radius-sm) var(--detail-radius-sm) 0;
+    }
+
+    .tocActive,
+    .tocActive:hover {
+        border-left-color: var(--detail-accent);
+        background: transparent;
+    }
+}
+
+/* ---------------- 分段 ---------------- */
+
+.section {
+    margin-top: var(--detail-gap);
+    scroll-margin-top: calc(var(--ifm-navbar-height) + 16px);
+}
+
+.main > .section:first-child {
+    margin-top: 24px;
+}
+
+@media (min-width: 996px) {
+    .main > .section:first-child {
+        margin-top: 0;
+    }
+}
+
+.section h2 {
+    scroll-margin-top: calc(var(--ifm-navbar-height) + 16px);
+}
+
+.sectionHead {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.sectionTitle {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.summary {
+    margin: 0;
+    max-width: 72ch;
+    font-size: 15px;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+.summaryFolded {
+    display: -webkit-box;
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
     overflow: hidden;
-    text-overflow: ellipsis;
+}
+
+.linkButton {
+    margin-top: 12px;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--detail-accent-ink);
+    cursor: pointer;
+}
+
+.linkButton:hover {
+    text-decoration: underline;
+}
+
+/* ---------------- 剧集 ---------------- */
+
+.epGroups,
+.relGroups {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.epGroup {
+    min-width: 0;
+}
+
+.epGroupHead {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.epGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+    gap: 8px;
+}
+
+.ep {
+    height: 40px;
+    border-radius: var(--detail-radius-sm);
+    border: 1px solid var(--detail-border);
+    background: var(--detail-surface);
+    color: var(--ifm-font-color-base);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.ep:hover,
+.ep:focus-visible {
+    border-color: var(--detail-accent);
+}
+
+.epSeen {
+    color: var(--detail-on-accent);
+    border-color: transparent;
+    background: var(--detail-accent);
+}
+
+.epCard {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+}
+
+.epCard p {
+    margin: 0;
+}
+
+.epCardTitle {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.epCardSub,
+.epCardMeta {
+    font-size: 12px;
+    opacity: 0.75;
+}
+
+.epCardDesc {
+    max-height: 260px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.6;
     white-space: pre-wrap;
 }
 
-@media (max-width: 768px) {
-    .mainContent {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
+/* ---------------- 角色 ---------------- */
+
+.charGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.charCard {
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    padding: 12px;
+    border-radius: var(--detail-radius);
+    border: 1px solid var(--detail-border);
+    background: var(--detail-surface);
+    transition: border-color 0.15s;
+}
+
+.charCard:hover {
+    border-color: var(--ifm-color-emphasis-300);
+}
+
+.charImg {
+    flex: none;
+    display: block;
+    width: 64px;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--detail-radius-sm);
+    background-color: var(--detail-soft);
+    background-size: cover;
+    background-position: center top;
+}
+
+.charBody {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.charBody p {
+    margin: 0;
+}
+
+.charName {
+    font-size: 15px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.charOrig {
+    font-size: 12px;
+    color: var(--detail-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.roleBadge {
+    align-self: flex-start;
+    margin: 4px 0 2px;
+    padding: 0 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--detail-muted);
+    background: var(--detail-soft);
+}
+
+.roleMain {
+    font-weight: 600;
+    color: var(--detail-on-accent);
+    background: var(--detail-accent);
+}
+
+.charCv {
+    font-size: 13px;
+    color: var(--detail-muted);
+}
+
+.cvName {
+    color: var(--ifm-font-color-base);
+    border-bottom: 1px dashed var(--detail-muted);
+    cursor: pointer;
+}
+
+.charTip {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+}
+
+.charTip p {
+    margin: 4px 0 0;
+    max-height: 240px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.actorCard {
+    display: flex;
+    gap: 12px;
+    text-align: left;
+}
+
+.actorSide {
+    flex: none;
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.actorImg {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.actorDesc {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+}
+
+/* ---------------- 关联 / 相似 ---------------- */
+
+.rail {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x proximity;
+}
+
+.poster {
+    position: relative;
+    flex: none;
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--ifm-font-color-base);
+    scroll-snap-align: start;
+}
+
+.poster:hover {
+    text-decoration: none;
+    color: var(--detail-accent-ink);
+}
+
+.posterImg {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--detail-radius-sm);
+    background-color: var(--detail-soft);
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 0 1px var(--detail-border);
+    transition: box-shadow 0.15s;
+}
+
+.poster:hover .posterImg {
+    box-shadow: 0 0 0 2px var(--detail-accent);
+}
+
+.posterName {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.posterSub {
+    font-size: 12px;
+    color: var(--detail-muted);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.posterExt {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    padding: 0 6px;
+    border-radius: 6px;
+    font-size: 11px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.source {
+    margin: 32px 0 0;
+    font-size: 13px;
+    color: var(--detail-muted);
+}
+
+/* ---------------- 响应式 / 动效 ---------------- */
+
+@media (max-width: 760px) {
+    .shell {
+        padding: 0 12px;
+        --detail-gap: 36px;
     }
 
-    .coverImage {
-        width: 200px;
-        position: static;
+    .hero {
+        padding: 16px;
     }
 
-    .mainTitle {
-        font-size: 1.6rem;
+    /* 窄屏: 封面缩成 104px 放左上, 标题在右; 状态 / 标签 / 操作占满整行 */
+    .heroGrid {
+        grid-template-columns: 104px minmax(0, 1fr);
+        grid-template-areas:
+            "cover head"
+            "body body";
+        grid-template-rows: auto auto;
+        column-gap: 16px;
+        row-gap: 16px;
     }
 
-    .subTitle {
-        font-size: 1rem;
+    .title {
+        font-size: 22px;
     }
 
-    .characterScrollContainer {
-        padding-top: 80px;
-        margin-top: -80px;
+    .originalTitle {
+        font-size: 13px;
     }
 
-    .characterCard {
-        flex: 0 0 80px;
+    .metaRow {
+        margin-top: 8px;
+        font-size: 13px;
     }
 
-    .relationItem {
-        width: 100%;
-        max-width: 285px;
+    .metaRow li + li::before {
+        margin: 0 6px;
     }
 
-    .relationList {
+    .statusCard {
+        max-width: none;
+    }
+
+    .skeletonHero {
+        grid-template-columns: 104px 1fr;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .charGrid {
         grid-template-columns: 1fr;
     }
+}
 
-    .episodeItem {
-        width: 40px;
-        height: 40px;
-        font-size: 14px;
+@media (prefers-reduced-motion: reduce) {
+    .skeletonCover,
+    .skeletonLine {
+        animation: none;
+    }
+
+    .ep,
+    .charCard,
+    .posterImg,
+    .tag,
+    .action,
+    .tocLink {
+        transition: none;
     }
 }

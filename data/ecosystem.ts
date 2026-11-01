@@ -96,7 +96,7 @@ export const projects: EcosystemProject[] = [
         stack: ["Docs"],
         repo: gh("cppreference-zh-cn"),
         demo: "https://hengxin666.github.io/cppreference-zh-cn/",
-        image: "/img/ecosystem/cover-cppreference-zh-cn.svg",
+        image: "/img/ecosystem/cover-cppreference-zh-cn.webp",
         pushedAt: "2026-10-26",
     },
     {
@@ -289,7 +289,7 @@ export const projects: EcosystemProject[] = [
         summary: "NVIDIA BUILD 的注册脚本, 带识图过验证和 API key 创建.",
         stack: ["Python"],
         repo: gh("nvidia-register"),
-        image: "/img/ecosystem/cover-nvidia-register.svg",
+        image: "/img/ecosystem/cover-nvidia-register.webp",
         pushedAt: "2026-08-04",
     },
     {
@@ -378,7 +378,7 @@ export const projects: EcosystemProject[] = [
         stack: ["TypeScript", "React"],
         repo: gh("HX-UI"),
         demo: "https://hengxin666.github.io/HX-UI/",
-        image: "/img/ecosystem/cover-hx-ui.svg",
+        image: "/img/ecosystem/cover-hx-ui.webp",
         pushedAt: "2026-10-31",
     },
     {
@@ -390,7 +390,7 @@ export const projects: EcosystemProject[] = [
         summary: "可插拔的 Agent 记忆层. 把一个仓库里确认过的教训推广成其他项目的规则, 推广前要人点确认.",
         stack: ["TypeScript"],
         repo: gh("HX-Memory"),
-        image: "/img/ecosystem/cover-hx-memory.svg",
+        image: "/img/ecosystem/cover-hx-memory.webp",
         pushedAt: "2026-10-25",
     },
     {
@@ -451,7 +451,7 @@ export const projects: EcosystemProject[] = [
         summary: "自用工作流总线. 其中 bilibili-api 负责 B 站 token 和接口, 依赖 HX-Git-DB 存状态.",
         stack: ["Python", "GitHub Actions"],
         repo: gh("HX-Workflows"),
-        image: "/img/ecosystem/cover-hx-workflows.svg",
+        image: "/img/ecosystem/cover-hx-workflows.webp",
         pushedAt: "2026-10-25",
     },
     {
@@ -576,7 +576,7 @@ export const projects: EcosystemProject[] = [
         summary: "B 站收藏夹清灰: 定时挑出收藏, 推送给你. 状态放进 HX-Git-DB, 推送走 HX-HouTiKu.",
         stack: ["Python", "GitHub Actions"],
         repo: gh("HX-Recall"),
-        image: "/img/ecosystem/cover-hx-recall.svg",
+        image: "/img/ecosystem/cover-hx-recall.webp",
         pushedAt: "2026-05-09",
     },
     {
@@ -602,7 +602,7 @@ export const projects: EcosystemProject[] = [
         summary: "指纹浏览器、省流缓存代理和出口代理合成的调试链路. 控制台用 HX-UI, 审查走 HX-AI-Review 的工作流.",
         stack: ["Python", "TypeScript", "React"],
         repo: gh("HX-BCP"),
-        image: "/img/ecosystem/cover-hx-bcp.svg",
+        image: "/img/ecosystem/cover-hx-bcp.webp",
         pushedAt: "2026-10-31",
     },
     {

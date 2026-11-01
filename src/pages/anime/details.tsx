@@ -1,504 +1,589 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import Heading from "@theme/Heading";
-import { useLocation } from "react-router-dom";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import BlogWithCats from "@site/src/components/BlogWithCats";
-import { useActorMap, useAnimeRecords } from "@site/src/utils/anime/animeStore";
+import useIsBrowser from "@docusaurus/useIsBrowser";
+import Link from "@docusaurus/Link";
+import { PageMetadata } from "@docusaurus/theme-common";
+import { FaCodeBranch, FaExternalLinkAlt, FaShareAlt, FaStar } from "react-icons/fa";
+import { useActorMap, useAnimeRecordsState } from "@site/src/utils/anime/animeStore";
 import { toAnimeCdnUrl } from "@site/src/utils/cdn/linkJsDelivr";
-import { ANiMeRecord, EpisodeType, WatchStatus } from "@site/src/utils/anime/types";
-import styles from './AnimeDetailPage.module.css';
-import MDXA from "@site/src/theme/MDXComponents/A";
-import Tooltip from "@site/src/components/common/Tooltip";
+import { Actor, ANiMeRecord, Character, Episode, EpisodeType, Relation, WatchStatus } from "@site/src/utils/anime/types";
+import { ANIME_TAG_QUERY, getRecordTags } from "@site/src/utils/anime/tags";
+import { animeSeasonOf, normalEpisodeCount, statusLabel } from "@site/src/utils/anime/filters";
 import { formatMmSs } from "@site/src/utils/formatTime";
-import { FaCodeBranch, FaRegGem } from "react-icons/fa";
-import Tag from "@site/src/components/anime/Tag";
+import Tooltip from "@site/src/components/common/Tooltip";
+import ZoomImage from "@site/src/components/common/ZoomImage";
 import HXGiscus from "@site/src/components/Giscus";
 import useQuery from "@site/src/utils/url/useQuery";
-import { PageMetadata } from "@docusaurus/theme-common";
-import ZoomImage from "@site/src/components/common/ZoomImage";
+import styles from "./AnimeDetailPage.module.css";
+import { loadAnimeOverlayEditor } from "@site/src/components/home/lazyChunks";
 
+/**
+ * 本人标注编辑器: 只在 dev 下有 (生产构建里 loader 是 null, 整块不渲染).
+ * .agents/notes/implemented/feature/2026-11-01-anime-local-overlay.md
+ */
+const OverlayEditor = loadAnimeOverlayEditor ? React.lazy(loadAnimeOverlayEditor) : null;
 
-// 将观看状态的枚举值转换为可读的文本
-function getWatchStatusText (status: WatchStatus): string {
-    switch (status) {
-        case WatchStatus.WANT_TO_WATCH:
-            return "想看";
-        case WatchStatus.WATCHED:
-            return "看过";
-        case WatchStatus.WATCHING:
-            return "在看";
-        case WatchStatus.ON_HOLD:
-            return "搁置";
-        case WatchStatus.DROPPED:
-            return "抛弃";
-        default:
-            return "未知";
-    }
-}
+// ---------------------------------------------------------------- 常量与小工具
 
-// 格式化番剧剧集type
-function getEpisodeTypeText (type: EpisodeType): string {
-    switch (type) {
-        case EpisodeType.NORMAL:
-            return "正片";
-        case EpisodeType.SP:
-            return "SP";
-        case EpisodeType.OP:
-            return "OP";
-        case EpisodeType.ED:
-            return "ED";
-        case EpisodeType.PROMO:
-            return "PV";
-        case EpisodeType.OTHER:
-            return "其他";
-        default:
-            return "未知";
-    }
-}
-
-const RelationList = ({ record }: { record: ANiMeRecord }) => {
-    const { siteConfig } = useDocusaurusContext();
-
-    // 1. 定义期望的排序顺序
-    const sortOrder = [
-        "前传",
-        "续集",
-        "番外篇",
-        "片头曲",
-        "片尾曲",
-        "书籍",
-        "游戏",
-        "角色曲",
-        "广播剧",
-    ];
-
-    // 2. 数据分组 (与之前相同)
-    const groupedRelations = record.anime_data.relations.reduce((acc: Record<string, typeof record.anime_data.relations>, rel) => {
-        const key = rel.relation;
-        if (!acc[key]) {
-            acc[key] = [];
-        }
-        acc[key].push(rel);
-        return acc;
-    }, {});
-
-    // 3. 核心: 获取分组的 key, 并根据我们定义的 sortOrder 进行排序
-    const sortedGroupKeys = Object.keys(groupedRelations).sort((a, b) => {
-        const indexA = sortOrder.indexOf(a);
-        const indexB = sortOrder.indexOf(b);
-
-        // 如果某个 key 不在我们的排序数组中, 就把它放到最后
-        const effectiveIndexA = indexA === -1 ? Infinity : indexA;
-        const effectiveIndexB = indexB === -1 ? Infinity : indexB;
-
-        return effectiveIndexA - effectiveIndexB;
-    });
-
-    // 4. 渲染: 遍历排序后的 keys 数组, 而不是直接遍历对象
-    return (
-        <div className={styles.relationContainer}>
-            {sortedGroupKeys.map(relation => {
-                const items = groupedRelations[relation];
-                return (
-                    <section key={relation} className={styles.relationGroup}>
-                        <Heading as="h4" id={relation} className={styles.relationGroupTitle}>{relation}</Heading>
-                        <div className={styles.relationList}>
-                            {items.map(rel => (
-                                <Tooltip
-                                    key={relation}
-                                    content={<span>{rel.name_cn || rel.name}</span>}
-                                    style={{ width: "auto" }}
-                                >
-                                    <div key={rel.id} className={styles.relationItem}>
-                                        <ZoomImage src={toAnimeCdnUrl(`/data/relation/${rel.id}.jpg`)} alt={rel.name} className={styles.relationImage} />
-                                        <div className={styles.relationInfo}>
-                                            <MDXA href={`${siteConfig.baseUrl}anime/details?id=${rel.id}`}>{rel.name}</MDXA>
-                                        </div>
-                                    </div>
-                                </Tooltip>
-                            ))}
-                        </div>
-                    </section>
-                );
-            })}
-        </div>
-    );
+const STATUS_CLASS: Record<number, string> = {
+    [WatchStatus.WATCHING]: styles.statusWatching,
+    [WatchStatus.WATCHED]: styles.statusWatched,
+    [WatchStatus.WANT_TO_WATCH]: styles.statusWish,
+    [WatchStatus.ON_HOLD]: styles.statusOnHold,
+    [WatchStatus.DROPPED]: styles.statusDropped,
 };
 
+const EPISODE_GROUPS: readonly { label: string; types: readonly EpisodeType[] }[] = [
+    { label: "正片", types: [EpisodeType.NORMAL] },
+    { label: "SP", types: [EpisodeType.SP] },
+    { label: "OP / ED", types: [EpisodeType.OP, EpisodeType.ED] },
+    { label: "PV 与其他", types: [EpisodeType.PROMO, EpisodeType.MAD, EpisodeType.OTHER] },
+];
+
+const EPISODE_TYPE_TEXT: Record<number, string> = {
+    [EpisodeType.NORMAL]: "正片",
+    [EpisodeType.SP]: "SP",
+    [EpisodeType.OP]: "OP",
+    [EpisodeType.ED]: "ED",
+    [EpisodeType.PROMO]: "PV",
+    [EpisodeType.MAD]: "MAD",
+    [EpisodeType.OTHER]: "其他",
+};
+
+const RELATION_ORDER = ["前传", "续集", "番外篇", "总集篇", "不同演绎", "主线故事", "片头曲", "片尾曲", "插入歌", "角色曲", "原声集", "书籍", "游戏", "广播剧"];
+const CHARACTER_ORDER = ["主角", "配角", "客串"];
+const CHARACTER_PREVIEW = 12;
+const SUMMARY_FOLD = 220;
+
+const orderIndex = (order: readonly string[], key: string): number => {
+    const i = order.indexOf(key);
+    return i === -1 ? order.length : i;
+};
+
+/** last_update 形如 "Mon 2026-03-30 1:07 PM CST (UTC+08:00)", 只取日期 */
+const updateDate = (s: string | null | undefined): string => (s ?? "").match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? "";
+
+/** 页内目录: 宽屏是左侧竖排侧栏, 窄屏是内容上方一条可横滑的细条 (都不吸顶盖内容) */
+const SECTIONS: readonly { id: string; label: string }[] = [
+    { id: "summary", label: "简介" },
+    { id: "eps", label: "剧集" },
+    { id: "characters", label: "角色" },
+    { id: "relations", label: "关联" },
+    { id: "similar", label: "相似" },
+    { id: "comments", label: "讨论" },
+];
+
+// ---------------------------------------------------------------- Hero
+
+function Hero ({ record, coverUrl }: { record: ANiMeRecord; coverUrl: string }): React.ReactElement {
+    const { anime_data: a, user_status: u } = record;
+    const season = animeSeasonOf(a.date);
+    const total = normalEpisodeCount(record) || a.total_episodes;
+    const watched = Math.max(0, u.watched_eps);
+    const pct = total > 0 ? Math.min(1, watched / total) : (u.watch_status === WatchStatus.WATCHED ? 1 : 0);
+    const tags = getRecordTags(record);
+    const updated = updateDate(u.last_update);
+
+    return (
+        <header className={styles.hero} style={{ "--cover": `url("${coverUrl}")` } as React.CSSProperties}>
+            <div className={styles.heroGrid}>
+                <div className={styles.coverFrame}>
+                    <ZoomImage src={coverUrl} alt={a.name_cn || a.name} className={styles.cover} />
+                </div>
+
+                <div className={styles.heroHead}>
+                    <h1 className={styles.title}>{a.name_cn || a.name}</h1>
+                    {a.name_cn && a.name !== a.name_cn && <p className={styles.originalTitle}>{a.name}</p>}
+                    <ul className={styles.metaRow} aria-label="基本信息">
+                        {a.score > 0 && (
+                            <li className={styles.score}>
+                                <FaStar aria-hidden /> <strong>{a.score.toFixed(1)}</strong> <span className={styles.scoreSrc}>Bangumi</span>
+                            </li>
+                        )}
+                        {season && <li>{season.year} {season.season} · {season.index * 3 + 1} 月番</li>}
+                        <li>{a.date ? `${a.date} 首播` : "首播日期未知"}</li>
+                        <li>{total > 0 ? `全 ${total} 话` : "集数未知"}</li>
+                    </ul>
+                </div>
+
+                <div className={styles.heroBody}>
+                    <div className={styles.statusCard}>
+                        <div className={styles.statusLine}>
+                            <span className={`${styles.statusBadge} ${STATUS_CLASS[u.watch_status] ?? ""}`}>{statusLabel(u.watch_status)}</span>
+                            <span className={styles.progressText}>已看 <strong>{watched}</strong>{total > 0 ? ` / ${total}` : ""} 话</span>
+                            {updated && <span className={styles.updated}>更新于 {updated}</span>}
+                        </div>
+                        <div
+                            className={styles.progressBar}
+                            role="progressbar"
+                            aria-label="观看进度"
+                            aria-valuemin={0}
+                            aria-valuemax={total || 1}
+                            aria-valuenow={Math.min(watched, total || 1)}
+                        >
+                            <span style={{ width: `${Math.round(pct * 100)}%` }} />
+                        </div>
+                    </div>
+
+                    {tags.length > 0 && (
+                        <div className={styles.tagRow}>
+                            {tags.map((tag) => (
+                                <Link key={tag} to={`/anime?${ANIME_TAG_QUERY}=${encodeURIComponent(tag)}`} className={styles.tag}>#{tag}</Link>
+                            ))}
+                        </div>
+                    )}
+
+                    <div className={styles.actions}>
+                        <a className={styles.action} href={`https://bgm.tv/subject/${a.id}`} target="_blank" rel="noopener noreferrer">
+                            <FaExternalLinkAlt aria-hidden /> Bangumi
+                        </a>
+                        <Link className={styles.action} to={`/anime/graph?id=${a.id}`}>
+                            <FaCodeBranch aria-hidden /> 关系图
+                        </Link>
+                        <Link className={styles.action} to="/anime/share?status=watched,watching">
+                            <FaShareAlt aria-hidden /> 分享番单
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </header>
+    );
+}
+
+// ---------------------------------------------------------------- 页内目录
+
+/** 当前读到哪一段: 观察各 section, 取视口上部 (navbar 下沿到 45% 高) 里排最前的那个; 不支持 IO 时停在第一个 */
+function useActiveSection (ids: readonly string[]): [string, (id: string) => void] {
+    const key = ids.join(",");
+    const [active, setActive] = React.useState(ids[0] ?? "");
+    React.useEffect(() => {
+        const order = key.split(",").filter(Boolean);
+        if (order.length === 0 || typeof IntersectionObserver === "undefined") return undefined;
+        const byEl = new Map<Element, string>();
+        for (const id of order) {
+            const el = document.getElementById(id)?.closest("section");
+            if (el) byEl.set(el, id);
+        }
+        const visible = new Set<string>();
+        const io = new IntersectionObserver((entries) => {
+            for (const e of entries) {
+                const id = byEl.get(e.target);
+                if (!id) continue;
+                if (e.isIntersecting) visible.add(id);
+                else visible.delete(id);
+            }
+            const first = order.find((id) => visible.has(id));
+            if (first) setActive(first);
+        }, { rootMargin: "-80px 0px -55% 0px", threshold: 0 });
+        byEl.forEach((_, el) => io.observe(el));
+        return () => io.disconnect();
+    }, [key]);
+    return [active, setActive];
+}
+
+function SectionNav ({ sections }: { sections: readonly { id: string; label: string }[] }): React.ReactElement {
+    const [active, setActive] = useActiveSection(sections.map((s) => s.id));
+    return (
+        <nav className={styles.toc} aria-label="页内导航">
+            <p className={styles.tocTitle}>目录</p>
+            <ul className={styles.tocList}>
+                {sections.map((s) => (
+                    <li key={s.id}>
+                        <a
+                            href={`#${s.id}`}
+                            className={`${styles.tocLink} ${active === s.id ? styles.tocActive : ""}`}
+                            aria-current={active === s.id ? "location" : undefined}
+                            onClick={() => setActive(s.id)}
+                        >
+                            {s.label}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    );
+}
+
+// ---------------------------------------------------------------- 简介
+
+function Summary ({ text }: { text: string }): React.ReactElement {
+    const [open, setOpen] = React.useState(false);
+    const long = text.length > SUMMARY_FOLD;
+    return (
+        <div>
+            <p className={`${styles.summary} ${long && !open ? styles.summaryFolded : ""}`}>{text || "暂无简介"}</p>
+            {long && (
+                <button type="button" className={styles.linkButton} onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+                    {open ? "收起" : "展开全部"}
+                </button>
+            )}
+        </div>
+    );
+}
+
+// ---------------------------------------------------------------- 剧集
+
+function EpisodeCard ({ ep }: { ep: Episode }): React.ReactElement {
+    return (
+        <div className={styles.epCard}>
+            <p className={styles.epCardTitle}>第 {ep.sort} 集{ep.name_cn ? ` · ${ep.name_cn}` : ""}</p>
+            {ep.name && ep.name !== ep.name_cn && <p className={styles.epCardSub}>「{ep.name}」</p>}
+            <p className={styles.epCardMeta}>
+                {EPISODE_TYPE_TEXT[ep.type] ?? "其他"} · 放送 {ep.air_date || "未知"} · 时长 {formatMmSs(ep.duration_seconds) || "未知"}
+            </p>
+            <p className={styles.epCardDesc}>{ep.desc || "暂无简介"}</p>
+        </div>
+    );
+}
+
+function Episodes ({ record }: { record: ANiMeRecord }): React.ReactElement | null {
+    // 复制后再排: 记录对象是冻结的, 原地 sort 会抛错, 也会改写其他页面共享的数据
+    const sorted = React.useMemo(() => [...record.anime_data.episodes].sort((x, y) => x.sort - y.sort), [record]);
+    const watched = record.user_status.watched_eps;
+    const groups = EPISODE_GROUPS
+        .map((g) => ({ ...g, eps: sorted.filter((e) => g.types.includes(e.type)) }))
+        .filter((g) => g.eps.length > 0);
+    if (groups.length === 0) return <p className={styles.muted}>暂无剧集信息</p>;
+
+    return (
+        <div className={styles.epGroups}>
+            {groups.map((g) => (
+                <div key={g.label} className={styles.epGroup}>
+                    <div className={styles.epGroupHead}>
+                        <span>{g.label}</span>
+                        <span className={styles.muted}>{g.eps.length} 个</span>
+                    </div>
+                    <div className={styles.epGrid}>
+                        {g.eps.map((ep, i) => {
+                            const isSeen = g.types.includes(EpisodeType.NORMAL) && i < watched;
+                            return (
+                                <Tooltip key={ep.id} selectable width={420} content={<EpisodeCard ep={ep} />}>
+                                    <button
+                                        type="button"
+                                        className={`${styles.ep} ${isSeen ? styles.epSeen : ""}`}
+                                        aria-label={`第 ${ep.sort} 集 ${ep.name_cn || ep.name}${isSeen ? ", 已看" : ""}`}
+                                    >
+                                        {ep.sort}
+                                    </button>
+                                </Tooltip>
+                            );
+                        })}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+// ---------------------------------------------------------------- 角色
+
+function ActorCard ({ actor, cvTo }: { actor: Actor; cvTo: string }): React.ReactElement {
+    return (
+        <div className={styles.actorCard}>
+            <div className={styles.actorSide}>
+                <ZoomImage
+                    src={toAnimeCdnUrl(`/data/cv/${actor.id}.jpg`)}
+                    alt={actor.name}
+                    loading="lazy"
+                    decoding="async"
+                    className={styles.actorImg}
+                />
+                <a href={`https://bgm.tv/person/${actor.id}`} target="_blank" rel="noopener noreferrer">{actor.name}</a>
+                <Link to={cvTo}>出演番剧</Link>
+            </div>
+            <p className={styles.actorDesc}>{actor.short_summary || "暂无简介"}</p>
+        </div>
+    );
+}
+
+function CharacterCard ({ char, actorMap }: { char: Character; actorMap: Map<number, Actor> }): React.ReactElement {
+    const birthday = char.birth_month && char.birth_day ? `${char.birth_month}月${char.birth_day}日` : "";
+    const actors = char.actor_ids.map((id) => actorMap.get(id)).filter((x): x is Actor => !!x);
+    return (
+        <li className={styles.charCard}>
+            <Tooltip
+                width={360}
+                content={
+                    <div className={styles.charTip}>
+                        <strong>{char.name_cn || char.name}</strong>
+                        {birthday && <span className={styles.muted}>生日 {birthday}</span>}
+                        <p>{char.summary || "暂无简介"}</p>
+                    </div>
+                }
+            >
+                <a
+                    href={`https://bgm.tv/character/${char.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.charImg}
+                    style={{ backgroundImage: `url(${toAnimeCdnUrl(`/data/kyara/${char.id}.jpg`)})` }}
+                    aria-label={char.name_cn || char.name}
+                />
+            </Tooltip>
+            <div className={styles.charBody}>
+                <p className={styles.charName}>{char.name_cn || char.name}</p>
+                {char.name_cn && char.name !== char.name_cn && <p className={styles.charOrig}>{char.name}</p>}
+                <span className={`${styles.roleBadge} ${char.relation === "主角" ? styles.roleMain : ""}`}>{char.relation}</span>
+                {actors.length > 0 && (
+                    <p className={styles.charCv}>
+                        CV{" "}
+                        {actors.map((actor, i) => (
+                            <React.Fragment key={actor.id}>
+                                {i > 0 && " / "}
+                                <Tooltip selectable width={480} content={<ActorCard actor={actor} cvTo={`/anime/cv?id=${actor.id}`} />}>
+                                    <span className={styles.cvName} tabIndex={0}>{actor.name}</span>
+                                </Tooltip>
+                            </React.Fragment>
+                        ))}
+                    </p>
+                )}
+            </div>
+        </li>
+    );
+}
+
+function Characters ({ record, actorMap }: { record: ANiMeRecord; actorMap: Map<number, Actor> }): React.ReactElement {
+    const [all, setAll] = React.useState(false);
+    const chars = React.useMemo(
+        () => [...record.anime_data.characters].sort((x, y) => orderIndex(CHARACTER_ORDER, x.relation) - orderIndex(CHARACTER_ORDER, y.relation)),
+        [record],
+    );
+    if (chars.length === 0) return <p className={styles.muted}>暂无角色信息</p>;
+    const shown = all ? chars : chars.slice(0, CHARACTER_PREVIEW);
+    return (
+        <>
+            <ul className={styles.charGrid}>
+                {shown.map((c) => <CharacterCard key={c.id} char={c} actorMap={actorMap} />)}
+            </ul>
+            {chars.length > CHARACTER_PREVIEW && (
+                <button type="button" className={styles.linkButton} onClick={() => setAll((v) => !v)} aria-expanded={all}>
+                    {all ? "收起" : `展开全部 ${chars.length} 个角色`}
+                </button>
+            )}
+        </>
+    );
+}
+
+// ---------------------------------------------------------------- 关联与相似
+
+function PosterLink ({ id, name, img, inLibrary, sub }: { id: number; name: string; img: string; inLibrary: boolean; sub?: string }): React.ReactElement {
+    const body = (
+        <>
+            <span className={styles.posterImg} style={{ backgroundImage: `url(${img})` }} />
+            <span className={styles.posterName}>{name}</span>
+            {sub && <span className={styles.posterSub}>{sub}</span>}
+        </>
+    );
+    return inLibrary
+        ? <Link to={`/anime/details?id=${id}`} className={styles.poster}>{body}</Link>
+        : <a href={`https://bgm.tv/subject/${id}`} target="_blank" rel="noopener noreferrer" className={styles.poster}>{body}<span className={styles.posterExt}>bgm ↗</span></a>;
+}
+
+function Relations ({ record, libraryIds }: { record: ANiMeRecord; libraryIds: ReadonlySet<number> }): React.ReactElement {
+    const grouped = new Map<string, Relation[]>();
+    for (const rel of record.anime_data.relations) {
+        const list = grouped.get(rel.relation) ?? [];
+        list.push(rel);
+        grouped.set(rel.relation, list);
+    }
+    const keys = [...grouped.keys()].sort((x, y) => orderIndex(RELATION_ORDER, x) - orderIndex(RELATION_ORDER, y));
+    if (keys.length === 0) return <p className={styles.muted}>暂无关联条目</p>;
+    return (
+        <div className={styles.relGroups}>
+            {keys.map((k) => (
+                <div key={k}>
+                    <div className={styles.epGroupHead}><span>{k}</span></div>
+                    <div className={styles.rail}>
+                        {(grouped.get(k) ?? []).map((rel) => (
+                            <PosterLink
+                                key={rel.id}
+                                id={rel.id}
+                                name={rel.name_cn || rel.name}
+                                img={toAnimeCdnUrl(`/data/relation/${rel.id}.jpg`)}
+                                inLibrary={libraryIds.has(rel.id)}
+                            />
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+/** 我库里与这部共享标签最多的 6 部 (同分按 Bangumi 评分) */
+function similarRecords (record: ANiMeRecord, records: readonly ANiMeRecord[]): { r: ANiMeRecord; shared: string[] }[] {
+    const own = new Set(getRecordTags(record));
+    if (own.size === 0) return [];
+    return records
+        .filter((r) => r.anime_data.id !== record.anime_data.id)
+        .map((r) => ({ r, shared: getRecordTags(r).filter((t) => own.has(t)) }))
+        .filter((x) => x.shared.length > 0)
+        .sort((x, y) => y.shared.length - x.shared.length || (y.r.anime_data.score || 0) - (x.r.anime_data.score || 0))
+        .slice(0, 6);
+}
+
+// ---------------------------------------------------------------- 页面
+
+function Section ({ id, title, children, extra }: { id: string; title: string; children: React.ReactNode; extra?: React.ReactNode }): React.ReactElement {
+    return (
+        <section className={styles.section} aria-labelledby={id}>
+            <div className={styles.sectionHead}>
+                <Heading as="h2" id={id} className={styles.sectionTitle}>{title}</Heading>
+                {extra}
+            </div>
+            {children}
+        </section>
+    );
+}
+
+/**
+ * 番剧详情. 冷启动 (直接打开 /anime/details?id=...) 的骨架 / 错误 / 404 三态保留.
+ * 信息架构按"这是什么 -> 我看到哪 -> 我怎么评 -> 深挖"排: Hero (封面、标题、季度 / 集数 / 评分、观看状态与进度条、标签、操作),
+ * 短评引用卡, 页内目录 (宽屏左侧竖排侧栏并高亮当前段, 窄屏横滑细条, 不再吸顶横在内容上), 简介 (长文折叠), 剧集 (按类型分组, 已看正片高亮, 点开看单集详情), 角色 (主角在前, 默认 12 个),
+ * 关联条目 (在库里的走站内详情, 不在的去 bgm), 相似推荐 (库里共享标签最多的 6 部), Giscus (term 不变, 旧评论不丢).
+ * 颜色走 Infima 变量, 明暗主题都可读. 剧集复制后再排序, 不再原地 sort 冻结的记录.
+ * Hero 改为主题色卡片 (封面 2:3 定宽 220px, 虚化封面只剩淡光晕), 标题 / 原名 / 元信息三级层次.
+ * .agents/notes/implemented/feature/2026-11-01-anime-detail-redesign.md
+ * .agents/notes/implemented/feature/2026-11-01-anime-detail-sidebar-and-hero.md
+ */
 export default function AnimeDetailPage (): React.ReactElement {
     const query = useQuery();
     const id = query.get("id");
     const { siteConfig } = useDocusaurusContext();
-    const records = useAnimeRecords(siteConfig.baseUrl);
+    const isBrowser = useIsBrowser();
+    const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl);
     const actorMap = useActorMap(siteConfig.baseUrl);
     const notFoundImageUrl = useBaseUrl("/anime/img/misaka-404.png");
 
-    const record =
-        id && /^\d+$/.test(id)
-            ? records.find((r) => r.anime_data.id === Number(id))
-            : undefined;
+    const validId = !!id && /^\d+$/.test(id);
+    const record = validId ? records.find((r) => r.anime_data.id === Number(id)) : undefined;
+    const libraryIds = React.useMemo(() => new Set(records.map((r) => r.anime_data.id)), [records]);
+    const similar = React.useMemo(() => (record ? similarRecords(record, records) : []), [record, records]);
 
-    if (!record) {
+    if (!record && (!isBrowser || (validId && status === "loading"))) {
         return (
-            <Layout title={"アニメ 404 NOT FOUND"}>
-                <div style={{ height: "60px" }} />
-                <BlogWithCats
-                    style={{
-                        backgroundColor: "#2b2b2b",
-                        padding: "20px",
-                        display: "flex",
-                        flexDirection: "column",
-                    }}
-                >
-                    <div style={{ textAlign: "center" }}>
-                        <Heading as="h2" id="404">
-                            404 NOT FOUND
-                        </Heading>
-                        <p>请尝试: <MDXA href={`https://bgm.tv/subject/${id}`}>{`bgm.tv/subject/${id}`}</MDXA></p>
-                        <ZoomImage src={notFoundImageUrl} alt="404" />
+            <Layout title={"アニメ"}>
+                <div className={styles.shell} aria-busy="true" aria-label="正在加载番剧详情">
+                    <div className={styles.skeletonHero}>
+                        <div className={styles.skeletonCover} />
+                        <div className={styles.skeletonLines}>
+                            <div className={`${styles.skeletonLine} ${styles.skeletonTitle}`} />
+                            <div className={`${styles.skeletonLine} ${styles.skeletonW40}`} />
+                            <div className={`${styles.skeletonLine} ${styles.skeletonW75}`} />
+                            <div className={`${styles.skeletonLine} ${styles.skeletonW55}`} />
+                        </div>
                     </div>
-                </BlogWithCats>
-                <div style={{ height: "60px" }} />
+                </div>
             </Layout>
         );
     }
 
+    if (!record && validId && status === "error") {
+        return (
+            <Layout title={"アニメ"}>
+                <div className={`${styles.shell} ${styles.center}`} role="alert">
+                    <Heading as="h2" id="load-error">追番记录没能加载出来</Heading>
+                    <p>数据从 HXLoLi-ANiMe 的 CDN 拉取, 可能是网络或 CDN 节点问题{error ? `: ${error}` : ""}.</p>
+                    <button type="button" className="button button--primary" onClick={retry}>重试</button>
+                </div>
+            </Layout>
+        );
+    }
+
+    if (!record) {
+        return (
+            <Layout title={"アニメ 404 NOT FOUND"}>
+                <div className={`${styles.shell} ${styles.center}`}>
+                    <Heading as="h2" id="404">404 NOT FOUND</Heading>
+                    <p>
+                        追番记录里没有这部
+                        {validId ? <>, 请尝试: <a href={`https://bgm.tv/subject/${id}`} target="_blank" rel="noopener noreferrer">{`bgm.tv/subject/${id}`}</a></> : null}
+                    </p>
+                    <p><Link to="/anime">← 回番剧库</Link></p>
+                    <ZoomImage src={notFoundImageUrl} alt="404" className={styles.notFoundImg} />
+                </div>
+            </Layout>
+        );
+    }
+
+    const a = record.anime_data;
+    const coverUrl = toAnimeCdnUrl(`/data/anime/${a.id}.jpg`);
+    const comment = (record.user_status.comment ?? "").trim();
+    const sections = SECTIONS.filter((s) => s.id !== "similar" || similar.length > 0);
+
     return (
         <>
-            <PageMetadata title={record.anime_data.name} description={record.anime_data.summary} />
-            <Layout title={record.anime_data.name}>
-                <div style={{ height: "60px" }} />
-                <BlogWithCats
-                    style={{
-                        backgroundColor: "#2b2b2b",
-                        padding: "20px",
-                    }}
-                >
-                    <div className={styles.pageContainer}>
+            <PageMetadata title={a.name_cn || a.name} description={a.short_summary || a.summary} />
+            <Layout title={a.name_cn || a.name}>
+                <div className={styles.shell}>
+                    <Link to="/anime" className={styles.backLink}>← 番剧库</Link>
+                    <Hero record={record} coverUrl={coverUrl} />
 
-                        <header className={styles.headerSection}>
-                            <h1 className={styles.mainTitle}>{record.anime_data.name_cn}</h1>
-                            <p className={styles.subTitle}>「{record.anime_data.name}」</p>
-                        </header>
+                    {comment && (
+                        <blockquote className={styles.comment}>
+                            <span className={styles.commentLabel}>我的短评</span>
+                            {comment}
+                        </blockquote>
+                    )}
 
-                        <main className={styles.mainContent}>
-                            <aside>
-                                <ZoomImage src={toAnimeCdnUrl(`/data/anime/${record.anime_data.id}.jpg`)} alt={record.anime_data.name_cn} className={styles.coverImage} />
-                            </aside>
-
-                            <section className={styles.infoColumn}>
-                                <div className={styles.infoBox}>
-                                    <Heading as="h4" className={styles.sectionTitle} id="basic">基本信息</Heading>
-                                    <p><strong>评分:</strong> {record.anime_data.score} / 10</p>
-                                    <p><strong>放送日期:</strong> {record.anime_data.date ?? "未知日期"}</p>
-                                    <p><strong>集数:</strong> {(() => {
-                                        let cnt: number = 0;
-                                        for (const item of record.anime_data.episodes) {
-                                            cnt += item.type === EpisodeType.NORMAL ? 1 : 0;
-                                        }
-                                        return cnt;
-                                    })()} 话</p>
-                                    <p><FaCodeBranch /><MDXA href={`${siteConfig.baseUrl}anime/graph?id=${record.anime_data.id}`}>「番剧-角色-声优」关系图</MDXA></p>
-                                </div>
-                                <div className={styles.infoBox}>
-                                    <Heading as="h4" className={styles.sectionTitle} id="status">我的状态</Heading>
-                                    <p><strong>观看状态:</strong> {getWatchStatusText(record.user_status.watch_status)}</p>
-                                    <p><strong>观看进度:</strong> {record.user_status.watched_eps} / {record.anime_data.total_episodes}</p>
-                                    {record.user_status.comment && <p><strong>简评:</strong> {record.user_status.comment}</p>}
-                                    <p>
-                                        <strong>标签: </strong>
-                                        {record.user_status.tags.length > 0
-                                            ? record.user_status.tags.map(tag => <Tag text={tag} style={{ marginRight: "5px" }} />)
-                                            : <Tag text="暂无标签" style={{ opacity: 0.75 }} />
-                                        }
-                                    </p>
-                                </div>
-                            </section>
-                        </main>
-
-                        <div style={{ height: "20px" }}></div>
-
-                        <div className={styles.infoBox}>
-                            <Heading as="h4" className={styles.sectionTitle} id="eps">剧集</Heading>
-                            <div className={styles.episodeList}>
-                                {record.anime_data.episodes
-                                    // 推荐按 sort 字段排序, 确保 "SP" 等特殊集数顺序正确
-                                    .sort((a, b) => a.sort - b.sort)
-                                    .map(ep => (
-                                        <Tooltip
-                                            key={ep.id}
-                                            style={{
-                                                width: "500px",
-                                            }}
-                                            selectable={true}
-                                            content={
-                                                <div
-                                                    style={{
-                                                        display: "flex",
-                                                        flexDirection: "column", // 垂直排列
-                                                        gap: "8px",              // 每一行元素的间距
-                                                        textAlign: "left",       // 强制左对齐
-                                                        width: "100%",
-                                                    }}
-                                                >
-                                                    {/* --- 标题区域 --- */}
-                                                    <div>
-                                                        <p
-                                                            className={styles.tooltipTitle}
-                                                            style={{
-                                                                margin: 0,
-                                                                fontWeight: "bold",
-                                                                fontSize: "16px",
-                                                            }}
-                                                        >
-                                                            {`第 ${ep.sort} 集・${ep.name_cn}`}
-                                                        </p>
-
-                                                        {/* 如果没有原名, 这行可以不显示, 或者保持样式 */}
-                                                        {ep.name && (
-                                                            <p
-                                                                className={styles.tooltipTitle}
-                                                                style={{
-                                                                    margin: "4px 0 0 0", // 稍微和上面拉开一点距离
-                                                                    fontSize: "13px",
-                                                                }}
-                                                            >
-                                                                「{ep.name}」
-                                                            </p>
-                                                        )}
-                                                    </div>
-
-                                                    {/* --- Meta 信息 (标签/日期/时长) --- */}
-                                                    <div
-                                                        className={styles.tooltipDate}
-                                                        style={{
-                                                            display: "flex",
-                                                            alignItems: "center", // 垂直居中对齐 Tag 和文字
-                                                            flexWrap: "wrap",     // 防止内容过长溢出
-                                                            margin: 0
-                                                        }}
-                                                    >
-                                                        <Tag text={getEpisodeTypeText(ep.type)} />
-                                                        <span>・放送日期 {ep.air_date || '未知'}</span>
-                                                        <span>・时长 {formatMmSs(ep.duration_seconds) || '未知'}</span>
-                                                    </div>
-
-                                                    {/* --- 分割线 (可选, 增加美观度) --- */}
-                                                    <div style={{ height: "1px", background: "#eee", width: "100%" }} />
-
-                                                    {/* --- 简介 (带滚动条) --- */}
-                                                    <p
-                                                        className={styles.tooltipDesc}
-                                                        style={{
-                                                            margin: 0,
-                                                            fontSize: "13px",
-                                                            lineHeight: "1.6",
-                                                            // 核心滚动逻辑:
-                                                            maxHeight: "320px",    // 设定最大高度, 超过此高度出现滚动条
-                                                            overflowY: "auto",     // 允许Y轴滚动
-                                                            whiteSpace: "pre-wrap", // 保留简介中的换行符
-                                                            paddingRight: "4px"    // 防止滚动条挡住文字
-                                                        }}
-                                                    >
-                                                        <span style={{ fontWeight: "bold"}}>简介: </span>
-                                                        {ep.desc || '暂无简介'}
-                                                    </p>
-                                                </div>
-                                            }
-                                        >
-                                            <div className={styles.episodeItem} tabIndex={0}>
-                                                <span className={styles.episodeNumber}>{ep.sort}</span>
-                                            </div>
-                                        </Tooltip>
-                                    ))
-                                }
-                            </div>
+                    {OverlayEditor && isBrowser && (
+                        <div className={styles.overlayEditor}>
+                            <React.Suspense fallback={null}>
+                                <OverlayEditor record={record} />
+                            </React.Suspense>
                         </div>
+                    )}
 
-                        <div style={{ height: "20px" }}></div>
+                    <div className={styles.layout}>
+                        <SectionNav sections={sections} />
 
-                        <section>
-                            <Heading as="h3" className={styles.sectionTitle} id="summary">剧情简介</Heading>
-                            <p className={styles.summaryText}>{record.anime_data.summary}</p>
-                        </section>
+                        <div className={styles.main}>
+                            <Section id="summary" title="剧情简介">
+                                <Summary text={a.summary || a.short_summary} />
+                            </Section>
 
-                        {/* --- 角色介绍 --- */}
-                        <section>
-                            <Heading as="h3" className={styles.sectionTitle} id="characters">角色介绍</Heading>
-                            <div className={styles.characterScrollContainer}>
-                                {record.anime_data.characters.map(char => (
-                                    <div key={char.id} className={styles.characterCard}>
-                                        <Tooltip
-                                            key={char.id}
-                                            style={{
-                                                width: "auto",
-                                                textAlign: "center"
-                                            }}
-                                            content={
-                                                <>
-                                                    {(() => {
-                                                        if (char.name_cn && (char.birth_month && char.birth_day)) {
-                                                            return (
-                                                                <span>
-                                                                    「{char.name_cn}」 <br />
-                                                                    生日: {char.birth_month && char.birth_day && `${char.birth_month}月${char.birth_day}日`}
-                                                                </span>
-                                                            )
-                                                        } else if (char.name_cn) {
-                                                            return (
-                                                                <span>
-                                                                    「{char.name_cn}」
-                                                                </span>
-                                                            )
-                                                        } else if (char.birth_month && char.birth_day) {
-                                                            return (
-                                                                <span>
-                                                                    生日: {char.birth_month}月{char.birth_day}日
-                                                                </span>
-                                                            )
-                                                        } else {
-                                                            return (
-                                                                <span>
-                                                                    {char.name}
-                                                                </span>
-                                                            )
-                                                        }
-                                                    })()}
-                                                    <div style={{ maxWidth: "500px", textAlign: "left", color: "#b3b3b3" }}>
-                                                        {char.summary}
-                                                    </div>
-                                                </>
-                                            }>
-                                            <a href={`https://bgm.tv/character/${char.id}`} target="_blank" className={styles.characterImageLink} title={char.name}>
-                                                <span
-                                                    className={styles.characterImageSpan}
-                                                    style={{ backgroundImage: `url(${toAnimeCdnUrl(`/data/kyara/${char.id}.jpg`)})` }}
-                                                ></span>
-                                            </a>
-                                        </Tooltip>
-                                        <p className={styles.characterName}>{char.name}</p>
-                                        <p className={styles.characterRelation}>{char.relation}</p>
-                                        <p className={styles.characterActors}>
-                                            CV {char.actor_ids
-                                                .map((actorId, idx) => {
-                                                    const actor = actorMap.get(actorId);
-                                                    return actor ? (
-                                                        <>
-                                                            {idx === 0 ? null : <><br /> / </>}
-                                                            <Tooltip
-                                                                style={{ width: "500px" }}
-                                                                selectable={true}
-                                                                content={
-                                                                    <div
-                                                                        style={{
-                                                                            display: "flex",         // 启用 Flex 布局
-                                                                            alignItems: "flex-start", // 顶部对齐
-                                                                            gap: "12px",             // 左右栏之间的间距
-                                                                            textAlign: "left"        // 确保文字默认左对齐
-                                                                        }}
-                                                                    >
-                                                                        {/* --- 左侧栏: 图片 + 名字 --- */}
-                                                                        <div
-                                                                            style={{
-                                                                                display: "flex",
-                                                                                flexDirection: "column", // 竖向排列
-                                                                                alignItems: "center",    // 水平居中 (让名字在图片下方居中)
-                                                                                width: "160px",          // 固定宽度, 与图片一致
-                                                                                flexShrink: 0            // 防止被右侧内容挤压
-                                                                            }}
-                                                                        >
-                                                                            <ZoomImage
-                                                                                src={toAnimeCdnUrl(`/data/cv/${actor.id}.jpg`)}
-                                                                                alt={actor.name}
-                                                                                loading="lazy"
-                                                                                decoding="async"
-                                                                                style={{
-                                                                                    width: "100%",
-                                                                                    height: "auto",
-                                                                                    objectFit: "cover",
-                                                                                    borderRadius: "4px"
-                                                                                }}
-                                                                            />
-                                                                            <p
-                                                                                style={{
-                                                                                    marginTop: "8px",     // 图片和名字的间距
-                                                                                    marginBottom: "0",    // 去除 p 标签默认下边距
-                                                                                    textAlign: "center",  // 文字居中
-                                                                                    fontSize: "14px",     // 调整字号
-                                                                                    fontWeight: "bold",
-                                                                                    lineHeight: "1.2",
-                                                                                    width: "100%",
-                                                                                }}
-                                                                            >
-                                                                                <MDXA href={`https://bgm.tv/person/${actor.id}`}>{`「${actor.name}」`}</MDXA>
-                                                                            </p>
-                                                                            <p
-                                                                                style={{
-                                                                                    marginTop: "8px",     // 图片和名字的间距
-                                                                                    marginBottom: "0",    // 去除 p 标签默认下边距
-                                                                                    textAlign: "center",  // 文字居中
-                                                                                    fontSize: "14px",     // 调整字号
-                                                                                    fontWeight: "bold",
-                                                                                    lineHeight: "1.2",
-                                                                                    width: "100%",
-                                                                                }}
-                                                                            >
-                                                                                <MDXA href={`${siteConfig.baseUrl}anime/cv?id=${actor.id}`}>出演番剧</MDXA>
-                                                                            </p>
-                                                                        </div>
+                            <Section id="eps" title="剧集" extra={<span className={styles.muted}>悬停或点开看单集详情</span>}>
+                                <Episodes record={record} />
+                            </Section>
 
-                                                                        {/* --- 右侧栏: 简介 --- */}
-                                                                        <div
-                                                                            style={{
-                                                                                flex: 1,      // 占据剩余空间
-                                                                                minWidth: 0   // 关键: 防止 Flex 子项内容溢出容器
-                                                                            }}
-                                                                        >
-                                                                            <p
-                                                                                className={styles.tooltipDesc}
-                                                                                style={{
-                                                                                    margin: 0,             // 去除默认边距, 对齐顶部
-                                                                                    maxHeight: "320px",    // 限制高度 (根据左侧高度大概调整)
-                                                                                    overflowY: "auto",     // 超出滚动
-                                                                                    fontSize: "13px",
-                                                                                    lineHeight: "1.5",
-                                                                                    whiteSpace: "pre-wrap" // 保留换行符(如果有)
-                                                                                }}
-                                                                            >
-                                                                                {actor.short_summary || "暂无简介"}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                }
-                                                            >
-                                                                <span>{actor.name}</span>
-                                                            </Tooltip>
-                                                        </>
-                                                    ) : null;
-                                                })
-                                                .filter(Boolean)}
-                                        </p>
+                            <Section id="characters" title="角色" extra={<span className={styles.muted}>{a.characters.length} 个</span>}>
+                                <Characters record={record} actorMap={actorMap} />
+                            </Section>
+
+                            <Section id="relations" title="关联条目">
+                                <Relations record={record} libraryIds={libraryIds} />
+                            </Section>
+
+                            {similar.length > 0 && (
+                                <Section id="similar" title="相似推荐" extra={<span className={styles.muted}>库里标签最接近的番</span>}>
+                                    <div className={styles.rail}>
+                                        {similar.map(({ r, shared }) => (
+                                            <PosterLink
+                                                key={r.anime_data.id}
+                                                id={r.anime_data.id}
+                                                name={r.anime_data.name_cn || r.anime_data.name}
+                                                img={toAnimeCdnUrl(`/data/anime/${r.anime_data.id}.jpg`)}
+                                                inLibrary
+                                                sub={shared.map((t) => `#${t}`).join(" ")}
+                                            />
+                                        ))}
                                     </div>
-                                ))}
-                            </div>
-                        </section>
+                                </Section>
+                            )}
 
-                        <div style={{ height: "20px" }}></div>
+                            <Section id="comments" title="讨论">
+                                <HXGiscus term={`anime/details?id=${a.id}「${a.name}」`} />
+                            </Section>
 
-                        <section>
-                            <Heading as="h3" className={styles.sectionTitle} id="relations">关联条目</Heading>
-                            <RelationList record={record} />
-                        </section>
-
-                        <div style={{ textAlign: "center" }}>
-                            <FaRegGem /> 数据来源: <MDXA href={`https://bgm.tv/subject/${record.anime_data.id}`}>Bangumi.tv</MDXA>
+                            <p className={styles.source}>
+                                数据来源 <a href={`https://bgm.tv/subject/${a.id}`} target="_blank" rel="noopener noreferrer">Bangumi.tv</a>
+                            </p>
                         </div>
                     </div>
-                    <HXGiscus term={`anime/details?id=${record.anime_data.id}「${record.anime_data.name}」`} />
-                </BlogWithCats>
-                <div style={{ height: "60px" }} />
+                </div>
             </Layout>
         </>
     );

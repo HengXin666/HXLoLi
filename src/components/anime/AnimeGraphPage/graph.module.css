@@ -1,0 +1,531 @@
+/*
+ * 番剧关系图专属样式. 底色跟站点暗色 #121212, 强调色用站点主色 (--ifm-color-primary), 其余只用中性灰与半透明白.
+ * 画布区域 = 视口高度减去导航栏高度, 页面套站点 Layout (noFooter).
+ */
+
+.shell {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - var(--ifm-navbar-height, 60px));
+    min-height: 420px;
+    overflow: hidden;
+    background: #121212;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.tabular {
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 加载 / 错误 / 空态 ---------- */
+
+.status {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: #121212;
+}
+
+.statusCard {
+    width: min(420px, 100%);
+    padding: 20px 22px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.statusTitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.statusMeta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.statusHint {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.statusError {
+    font-size: 12px;
+    color: rgba(255, 170, 170, 0.85);
+    word-break: break-all;
+}
+
+.statusActions {
+    display: flex;
+    gap: 8px;
+}
+
+.progressTrack {
+    position: relative;
+    height: 3px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.progressBar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 35%;
+    border-radius: 999px;
+    background: var(--ifm-color-primary, #ff88ff);
+    opacity: 0.75;
+    animation: indeterminate 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes indeterminate {
+    0% { left: -35%; }
+    100% { left: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .progressBar {
+        animation: none;
+        left: 0;
+        width: 100%;
+        opacity: 0.35;
+    }
+}
+
+.button {
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.button:focus-visible {
+    outline: 2px solid var(--ifm-color-primary, #ff88ff);
+    outline-offset: 2px;
+}
+
+/* ---------- 画布 ---------- */
+
+.canvasWrap {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #121212;
+}
+
+/* ---------- 顶栏: 面包屑 + 搜索 (左上) ---------- */
+
+.topbar {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    right: 16px;
+    z-index: 4;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.topbar > * {
+    pointer-events: auto;
+}
+
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 8px;
+    max-width: min(640px, 100%);
+    padding: 7px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(18, 18, 18, 0.82);
+    backdrop-filter: blur(8px);
+    font-size: 13px;
+}
+
+.crumbLink {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: rgba(255, 255, 255, 0.6);
+    font: inherit;
+    cursor: pointer;
+}
+
+.crumbLink:hover {
+    color: var(--ifm-color-primary, #ff88ff);
+}
+
+.crumbLink:focus-visible {
+    outline: 2px solid var(--ifm-color-primary, #ff88ff);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.crumbSep {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.crumbCurrent {
+    max-width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 600;
+}
+
+.crumbHint {
+    flex-basis: 100%;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.42);
+}
+
+.search {
+    position: relative;
+    width: min(320px, 100%);
+}
+
+.searchInput {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(18, 18, 18, 0.88);
+    backdrop-filter: blur(8px);
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 13px;
+    outline: none;
+}
+
+.searchInput:focus {
+    border-color: rgba(255, 136, 255, 0.55);
+}
+
+.searchList {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 4px;
+    list-style: none;
+    max-height: 360px;
+    overflow-y: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(22, 22, 22, 0.97);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.searchItem,
+.searchItemActive {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.searchItemActive {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.searchTitle {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.searchSub {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.searchEmpty {
+    padding: 8px 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- 左下: 缩放 + 图例 ---------- */
+
+.bottomLeft {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    max-width: min(560px, calc(100% - 32px));
+}
+
+.zoomControls {
+    display: flex;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(18, 18, 18, 0.82);
+}
+
+.zoomButton {
+    width: 30px;
+    height: 28px;
+    border: 0;
+    background: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.zoomButton + .zoomButton {
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.zoomButton:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(18, 18, 18, 0.82);
+    backdrop-filter: blur(8px);
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+}
+
+.legendItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.legendDot,
+.legendRect {
+    display: inline-block;
+    flex: none;
+}
+
+.legendDot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.legendRect {
+    width: 8px;
+    height: 11px;
+    border-radius: 2px;
+}
+
+/* ---------- 右下: 设置面板 ---------- */
+
+.controller,
+.controllerCollapsed {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 4;
+    width: 280px;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.controllerCollapsed {
+    transform: translateX(calc(100% + 16px));
+}
+
+.controllerToggle {
+    position: absolute;
+    right: 100%;
+    bottom: 0;
+    margin-right: 6px;
+    min-width: 32px;
+    height: 30px;
+    padding: 0 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(18, 18, 18, 0.88);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(18, 18, 18, 0.9);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+    font-size: 13px;
+}
+
+.sectionTitle {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.chip,
+.chipOn {
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.chipOn {
+    border-color: rgba(255, 136, 255, 0.5);
+    background: rgba(255, 136, 255, 0.1);
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.rangeHead {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.range {
+    width: 100%;
+    accent-color: var(--ifm-color-primary, #ff88ff);
+    cursor: pointer;
+}
+
+.toggles {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.toggles label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.toggles input {
+    accent-color: var(--ifm-color-primary, #ff88ff);
+}
+
+.advanced summary {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    cursor: pointer;
+}
+
+.advanced[open] summary {
+    margin-bottom: 8px;
+}
+
+/* ---------- 右键菜单 ---------- */
+
+.menu {
+    position: fixed;
+    z-index: 1000;
+    min-width: 168px;
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(24, 24, 24, 0.97);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    font-size: 13px;
+}
+
+.menuHead {
+    max-width: 260px;
+    padding: 6px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 4px;
+}
+
+.menuItem {
+    display: block;
+    width: 100%;
+    padding: 6px 10px;
+    border: 0;
+    border-radius: 6px;
+    background: none;
+    color: rgba(255, 255, 255, 0.88);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.menuItem:hover,
+.menuItem:focus-visible {
+    background: rgba(255, 255, 255, 0.08);
+    outline: none;
+}
+
+@media (max-width: 640px) {
+    .crumbHint {
+        display: none;
+    }
+
+    .legend {
+        display: none;
+    }
+
+    .controller,
+    .controllerCollapsed {
+        width: min(280px, calc(100vw - 72px));
+    }
+}

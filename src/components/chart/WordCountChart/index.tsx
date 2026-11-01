@@ -1,337 +1,185 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
     ResponsiveContainer,
-    LineChart,
-    Line,
+    AreaChart,
+    Area,
+    BarChart,
+    Bar,
+    Cell,
     XAxis,
     YAxis,
     Tooltip,
-    Legend,
     Brush,
-    ReferenceDot,
     ReferenceLine,
+    CartesianGrid,
 } from 'recharts';
 import type { RecordItem } from '@site/data/wordStats';
 import { processWordCountData, type ProcessedData } from '../../../utils/wordCountUtils';
 
 interface WordCountChartProps {
     rawData: RecordItem[];
-    /** 初始只展示后 percent% 的数据, 区间以索引计算 */
+    /** 初始只展示后 percent 的数据, 区间以索引计算 */
     initialPercent?: number;
+    /** 上方累计图的高度, 下方增量条固定 72px */
+    height?: number;
 }
+
+/** 与原图保持一致的四个颜色 */
+const C_DOCS = '#F7CE45';
+const C_AI = '#8CFF00';
+const C_UP = '#FF61FF';
+const C_DOWN = 'rgb(97, 255, 97)';
+const AXIS = { fontSize: 11, fill: 'var(--ifm-color-emphasis-600)' };
 
 /**
  * HXLoLi 接入 Agent Notes v2
  * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
  */
-function wordCountFormat (val: number): string {
-    const units: string[] = ["", "万"];
-    let unitIndex = 0;
-    let num = val;
-
-    // 转换单位（当前支持 "", "万"）
-    while (num >= 10000 && unitIndex < units.length - 1) {
-        num /= 10000;
-        unitIndex++;
-    }
-
-    // 使用 toFixed(2) 保留两位小数，再去掉末尾多余的 0 和小数点
-    let numStr = num.toFixed(2).replace(/\.?0+$/, "");
-
-    return `${numStr}${units[unitIndex]}`;
+function wan (val: number): string {
+    if (Math.abs(val) < 10000) return `${val}`;
+    return `${(val / 10000).toFixed(Math.abs(val) >= 1e6 ? 0 : 1).replace(/\.0$/, '')}万`;
 }
 
+/** 把数值抬到 1/2/2.5/5 的整倍数 */
+function niceCeil (val: number): number {
+    if (!(val > 0)) return 1;
+    const exp: number = Math.floor(Math.log10(val));
+    const base: number = Math.pow(10, exp);
+    const step: number = [1, 2, 2.5, 5, 10].find(s => val <= s * base) ?? 10;
+    return step * base;
+}
+
+function shortDate (d: string): string {
+    // processWordCountData 按浏览器语言出串: zh 是 "2026-10-09 02:07:00", en-US 是 "10-09-2026, 02:07:00"
+    const ymd = d.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if (ymd) return `${ymd[1]}-${ymd[2].padStart(2, '0')}`;
+    const mdy = d.match(/(\d{1,2})-(\d{1,2})-(\d{4})/);
+    return mdy ? `${mdy[3]}-${mdy[1].padStart(2, '0')}` : d;
+}
+
+const Tip = ({ active, payload }: any) => {
+    if (!active || !payload?.length) return null;
+    const p: ProcessedData = payload[0].payload;
+    return (
+        <div style={{
+            background: 'rgba(18,18,18,0.94)', border: '1px solid var(--ifm-color-emphasis-300)',
+            borderRadius: 8, padding: '8px 10px', fontSize: 12, lineHeight: 1.6, maxWidth: 280,
+        }}>
+            <div style={{ color: 'var(--ifm-color-emphasis-700)' }}>{p.date}</div>
+            {p.message && <div style={{ marginBottom: 4 }}>{p.message}</div>}
+            <div>总量 <b>{p.total.toLocaleString()}</b></div>
+            <div style={{ color: C_DOCS }}>docs/blog {p.docsBlogTotal.toLocaleString()}</div>
+            <div style={{ color: C_AI }}>ai-docs {p.aiDocsTotal.toLocaleString()}</div>
+            <div style={{ color: p.delta >= 0 ? C_UP : C_DOWN }}>本次 {p.delta >= 0 ? '+' : ''}{p.delta.toLocaleString()}</div>
+        </div>
+    );
+};
+
+/**
+ * 字数图拆成上下两块共用一条时间轴: 上面是 docs/blog + ai-docs 的堆叠面积 (顶边即总量),
+ * 下面是每次提交的增量柱, 正负分色, 0 线居中可见. 不再有双纵轴, 也就没有两根轴 0 对不齐的问题.
+ * .agents/notes/implemented/bug-fix/2026-10-31-word-count-chart-zero-baseline.md
+ */
 export default function WordCountChart ({
     rawData,
     initialPercent = 0.8,
+    height = 200,
 }: WordCountChartProps) {
-    // 数据处理：生成带 delta 的数组
-    const processedData: ProcessedData[] = useMemo<ProcessedData[]>(
-        () => processWordCountData(rawData),
-        [rawData]
-    );
+    const data: ProcessedData[] = useMemo(() => processWordCountData(rawData), [rawData]);
+    const n = data.length;
+    const [range, setRange] = useState(() => ({
+        startIndex: Math.max(Math.floor(n * (1 - initialPercent)), 0),
+        endIndex: Math.max(n - 1, 0),
+    }));
 
-    // Brush 默认展示后 initialPercent 区间
-    const totalCount: number = processedData.length;
-    const defaultStart: number = Math.floor(totalCount * (1 - initialPercent));
-    const defaultEnd: number = totalCount - 1;
-    const [brushRange, setBrushRange] = useState<{ startIndex: number; endIndex: number }>({
-        startIndex: Math.max(defaultStart, 0),
-        endIndex: defaultEnd,
-    });
+    const view = useMemo(() => data.slice(range.startIndex, range.endIndex + 1), [data, range]);
 
-    // 计算增量轴 domain
-    const deltaDomain: [number, number] = useMemo<[number, number]>(() => {
-        const slice: ProcessedData[] = processedData.slice(
-            brushRange.startIndex,
-            brushRange.endIndex + 1
-        );
-        const deltas: number[] = slice.map(d => d.delta);
-        const max: number = Math.max(...deltas);
-        const min: number = Math.min(...deltas);
-        return [min * 0.99, max * 1.01];
-    }, [processedData, brushRange]);
+    const totalTop = useMemo(() => niceCeil(Math.max(1, ...view.map(d => d.total)) * 1.02), [view]);
+    // 增量轴: 正负各自取整, 负向最多是正向的一半, 再深的删字由 allowDataOverflow 压底, tooltip 给真值
+    const deltaDomain = useMemo((): [number, number] => {
+        const max = niceCeil(Math.max(1, ...view.map(d => d.delta)));
+        const min = Math.min(0, ...view.map(d => d.delta));
+        return [min < 0 ? -Math.min(niceCeil(-min), max / 2) : 0, max];
+    }, [view]);
 
-    // 计算总量轴 domain
-    const totalDomain: [number, number] = useMemo<[number, number]>(() => {
-        const slice: ProcessedData[] = processedData.slice(
-            brushRange.startIndex,
-            brushRange.endIndex + 1
-        );
-        const totals: number[] = slice.flatMap(d => [
-            d.total,
-            d.docsBlogTotal,
-            d.aiDocsTotal,
-        ]);
-        const max: number = Math.max(...totals);
-        const min: number = Math.min(...totals);
-        return [min * 0.9, max * 1.1];
-    }, [processedData, brushRange]);
+    const last = data[n - 1];
+    const first = view[0];
+    const gained = last && first ? last.total - first.total + first.delta : 0;
 
-    // -- 当前刷选区间数据和统计 --
-    const rangeSlice: ProcessedData[] = processedData.slice(
-        brushRange.startIndex,
-        brushRange.endIndex + 1
-    );
-    const maxDeltaPoint = useMemo(() => {
-        return rangeSlice.reduce((max, d) => d.delta > max.delta ? d : max, rangeSlice[0]);
-    }, [rangeSlice]);
-
-    const minDeltaPoint = useMemo(() => {
-        return rangeSlice.reduce((min, d) => d.delta < min.delta ? d : min, rangeSlice[0]);
-    }, [rangeSlice]);
-
-    // -- 监听鼠标事件以拖动、缩放 --
-    const chartRef = useRef<HTMLDivElement>(null);
-    const [isDragging, setIsDragging] = useState(false);
-    const [dragStartX, setDragStartX] = useState<number | null>(null);
-
-    const handleWheelZoom = (e: WheelEvent) => {
-        e.preventDefault();
-        const delta = e.deltaY;
-        const zoomStep = Math.ceil((brushRange.endIndex - brushRange.startIndex) * 0.05); // 每次缩放 5%
-        if (delta > 0) {
-            // 放大
-            setBrushRange(prev => {
-                const newStart = Math.min(prev.startIndex + zoomStep, prev.endIndex - 1);
-                const newEnd = Math.max(prev.endIndex - zoomStep, newStart + 1);
-                return { startIndex: newStart, endIndex: newEnd };
-            });
-        } else {
-            // 缩小
-            setBrushRange(prev => {
-                const newStart = Math.max(prev.startIndex - zoomStep, 0);
-                const newEnd = Math.min(prev.endIndex + zoomStep, totalCount - 1);
-                return { startIndex: newStart, endIndex: newEnd };
-            });
-        }
-    };
-
-    useEffect(() => {
-        const el = chartRef.current;
-        if (!el) return;
-
-        // 添加原生 wheel 事件监听
-        el.addEventListener('wheel', handleWheelZoom, { passive: false });
-
-        return () => {
-            el.removeEventListener('wheel', handleWheelZoom);
-        };
-    }, [brushRange]);
-
-    const handleMouseDown = (e: React.MouseEvent) => {
-        setIsDragging(true);
-        setDragStartX(e.clientX);
-    };
-
-    const handleMouseUp = () => {
-        setIsDragging(false);
-        setDragStartX(null);
-    };
+    if (!n) return null;
 
     return (
-        <div className="word-count-chart"
-            ref={chartRef}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            style={{ userSelect: 'none', textAlign: 'center' }}
-        >
-            <h3>历史笔记字数统计</h3>
-            <ResponsiveContainer width="100%" height={400}>
-                <LineChart data={processedData}>
-                    <XAxis
-                        dataKey="date"
-                        tickFormatter={d => new Date(d).toLocaleDateString()}
-                        tick={{ fontSize: 12, fill: '#666' }}
-                    />
+        <div className="word-count-chart" style={{ userSelect: 'none' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 20px', alignItems: 'baseline', marginBottom: 8, fontSize: 12, color: 'var(--ifm-color-emphasis-700)' }}>
+                <span><b style={{ font: '600 20px/1.2 var(--ifm-font-family-monospace)', color: 'var(--ifm-font-color-base)' }}>{wan(last.total)}</b> 字</span>
+                <span>区间内 <b style={{ color: C_UP }}>+{wan(gained)}</b></span>
+                <span><i style={{ display: 'inline-block', width: 8, height: 8, borderRadius: 2, background: C_DOCS, marginRight: 4 }} />docs/blog</span>
+                <span><i style={{ display: 'inline-block', width: 8, height: 8, borderRadius: 2, background: C_AI, marginRight: 4 }} />ai-docs</span>
+            </div>
 
-                    {/* 左轴: 增量 */}
+            <ResponsiveContainer width="100%" height={height}>
+                <AreaChart data={view} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
+                    <defs>
+                        <linearGradient id="wcDocs" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor={C_DOCS} stopOpacity={0.45} />
+                            <stop offset="100%" stopColor={C_DOCS} stopOpacity={0.05} />
+                        </linearGradient>
+                        <linearGradient id="wcAi" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor={C_AI} stopOpacity={0.6} />
+                            <stop offset="100%" stopColor={C_AI} stopOpacity={0.15} />
+                        </linearGradient>
+                    </defs>
+                    <CartesianGrid vertical={false} stroke="rgba(255,255,255,0.06)" />
+                    <XAxis dataKey="date" hide />
                     <YAxis
-                        yAxisId="left"
+                        width={44}
+                        domain={[0, totalTop]}
+                        ticks={[0, totalTop / 4, totalTop / 2, (totalTop * 3) / 4, totalTop]}
+                        tickFormatter={wan}
+                        tick={AXIS}
+                        axisLine={false}
+                        tickLine={false}
+                    />
+                    <Tooltip content={<Tip />} cursor={{ stroke: 'rgba(255,255,255,0.25)' }} />
+                    <Area type="monotone" dataKey="docsBlogTotal" stackId="t" stroke={C_DOCS} strokeWidth={1.5} fill="url(#wcDocs)" isAnimationActive={false} />
+                    <Area type="monotone" dataKey="aiDocsTotal" stackId="t" stroke={C_AI} strokeWidth={1.5} fill="url(#wcAi)" isAnimationActive={false} />
+                </AreaChart>
+            </ResponsiveContainer>
+
+            <ResponsiveContainer width="100%" height={96}>
+                <BarChart data={data} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
+                    <XAxis dataKey="date" tickFormatter={shortDate} tick={AXIS} minTickGap={48} axisLine={false} tickLine={false} />
+                    <YAxis
+                        width={44}
                         domain={deltaDomain}
-                        tickFormatter={v => `${wordCountFormat(v)}`}
-                        stroke="#FF61FF"
-                        tick={{ fontSize: 12, fill: '#FF61FF' }}
+                        ticks={[deltaDomain[0], 0, deltaDomain[1]].filter((v, i, a) => a.indexOf(v) === i)}
+                        tickFormatter={wan}
+                        allowDataOverflow
+                        tick={AXIS}
+                        axisLine={false}
+                        tickLine={false}
                     />
-
-                    {/* 右轴: 总量 */}
-                    <YAxis
-                        yAxisId="right"
-                        orientation="right"
-                        domain={totalDomain}
-                        tickFormatter={v => `${wordCountFormat(v)}`}
-                        stroke="#1AC5FF"
-                        tick={{ fontSize: 12, fill: '#1AC5FF' }}
-                    />
-
-                    <Tooltip
-                        formatter={(value: number | string, name: string) => {
-                            if (name === '增量')
-                                return [`${Number(value).toLocaleString()} 字`, name];
-                            if (name === '总量')
-                                return [`${Number(value).toLocaleString()} 字`, name];
-                            if (name === 'docs/blog')
-                                return [`${Number(value).toLocaleString()} 字`, name];
-                            if (name === 'ai-docs')
-                                return [`${Number(value).toLocaleString()} 字`, name];
-                            if (name === '提交') {
-                                const msg = typeof value === 'string' ? value : String(value);
-                                // 最多显示 30 个字符
-                                return [`${msg.slice(0, 30)}${msg.length > 30 ? '…' : ''}`, name];
-                            }
-                            return [value, name];
-                        }}
-                        labelFormatter={label => label}
-                        contentStyle={{
-                            borderRadius: 8,
-                            borderColor: '#990099',
-                            backgroundColor: '#2b2b2b',
-                        }}
-                    />
-
-                    <Legend verticalAlign="top" height={36} />
-
-                    {/* 提交信息 */}
-                    <Line
-                        yAxisId="right"
-                        dataKey="message"
-                        name="提交"
-                        hide={false}
-                        legendType="none"
-                        stroke="#00FF00"
-                        isAnimationActive={false}
-                    />
-
-                    {/* 平滑增量曲线 */}
-                    <Line
-                        yAxisId="left"
-                        type="monotone"
-                        dataKey="delta"
-                        name="增量"
-                        stroke="#FF61FF"
-                        strokeWidth={2}
-                        isAnimationActive={true}
-                        dot={false}
-                    />
-
-                    {/* docs/blog 累计曲线 */}
-                    <Line
-                        yAxisId="right"
-                        type="monotone"
-                        dataKey="docsBlogTotal"
-                        name="docs/blog"
-                        stroke="#F7CE45"
-                        strokeWidth={2}
-                        dot={false}
-                        isAnimationActive={true}
-                    />
-
-                    {/* ai-docs 累计曲线 */}
-                    <Line
-                        yAxisId="right"
-                        type="monotone"
-                        dataKey="aiDocsTotal"
-                        name="ai-docs"
-                        stroke="#8CFF00"
-                        strokeWidth={2}
-                        dot={false}
-                        isAnimationActive={true}
-                    />
-
-                    {/* 平滑总量曲线 */}
-                    <Line
-                        yAxisId="right"
-                        type="monotone"
-                        dataKey="total"
-                        name="总量"
-                        stroke="#1AC5FF"
-                        strokeWidth={2}
-                        dot={false}
-                        isAnimationActive={true}
-                    />
-
-                    {deltaDomain[0] <= 0 && deltaDomain[1] >= 0 && (
-                        <ReferenceLine
-                            y={0}
-                            yAxisId="left"
-                            stroke="#888"
-                            strokeDasharray="4 4"
-                            strokeWidth={1}
-                            label={{
-                                position: 'insideTopLeft',
-                                value: '零增量',
-                                fill: '#888',
-                                fontSize: 12,
-                            }}
-                        />
-                    )}
-
-                    <ReferenceDot
-                        x={maxDeltaPoint.date}
-                        y={maxDeltaPoint.delta}
-                        yAxisId="left"
-                        r={3}
-                        fill="rgb(255, 97, 97)"
-                        stroke="#2b2b2b"
-                        label={{
-                            value: `▲ ${maxDeltaPoint.delta.toLocaleString()}`,
-                            position: 'top',
-                            fill: 'rgb(255, 97, 97)',
-                            fontSize: 12,
-                        }}
-                    />
-
-                    <ReferenceDot
-                        x={minDeltaPoint.date}
-                        y={minDeltaPoint.delta}
-                        yAxisId="left"
-                        r={3}
-                        fill="rgb(97, 255, 97)"
-                        stroke="#2b2b2b"
-                        label={{
-                            value: `▼ ${minDeltaPoint.delta.toLocaleString()}`,
-                            position: 'bottom',
-                            fill: 'rgb(97, 255, 97)',
-                            fontSize: 12,
-                        }}
-                    />
-
+                    <Tooltip content={<Tip />} cursor={{ fill: 'rgba(255,255,255,0.06)' }} />
+                    <ReferenceLine y={0} stroke="rgba(255,255,255,0.25)" />
+                    <Bar dataKey="delta" isAnimationActive={false} minPointSize={1}>
+                        {data.map((d) => (
+                            <Cell key={d.commit + d.date} fill={d.delta >= 0 ? C_UP : C_DOWN} />
+                        ))}
+                    </Bar>
                     <Brush
                         dataKey="date"
-                        height={15}
-                        stroke="#ff88ff"
-                        fill="#2b2b2b"
-                        startIndex={brushRange.startIndex}
-                        endIndex={brushRange.endIndex}
-                        onChange={range => {
-                            const { startIndex, endIndex } = range;
-                            if (startIndex != null && endIndex != null) {
-                                setBrushRange({ startIndex, endIndex });
-                            }
+                        height={14}
+                        stroke="var(--ifm-color-primary)"
+                        fill="transparent"
+                        travellerWidth={8}
+                        tickFormatter={shortDate}
+                        startIndex={range.startIndex}
+                        endIndex={range.endIndex}
+                        onChange={(r: any) => {
+                            if (r?.startIndex != null && r?.endIndex != null) setRange({ startIndex: r.startIndex, endIndex: r.endIndex });
                         }}
                     />
-                </LineChart>
+                </BarChart>
             </ResponsiveContainer>
         </div>
     );

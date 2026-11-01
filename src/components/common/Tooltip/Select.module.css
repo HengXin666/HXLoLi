@@ -1,0 +1,115 @@
+/*
+ * common/Tooltip/Select: 触发按钮与下拉列表的外观. 弹层外壳 (深色半透明卡片、进场淡入) 沿用 Tooltip.module.css, 这里只管按钮与选项.
+ * .agents/notes/implemented/feature/2026-11-01-anime-custom-select.md
+ */
+
+.trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-width: 96px;
+    height: 32px;
+    padding: 0 8px 0 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--ifm-font-color-base);
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.trigger:hover,
+.trigger[data-open='true'] {
+    border-color: rgba(255, 136, 255, 0.6);
+}
+
+.trigger:focus-visible {
+    outline: 2px solid var(--ifm-color-primary);
+    outline-offset: 2px;
+}
+
+.value {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chevron {
+    flex: none;
+    opacity: 0.6;
+    transition: transform 0.15s ease;
+}
+
+.trigger[data-open='true'] .chevron {
+    transform: rotate(180deg);
+}
+
+.layer {
+    /* 在 <dialog> 里也要压过面板内容 */
+    z-index: 10000;
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    outline: none;
+    scrollbar-width: thin;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px 7px 6px;
+    border-radius: 7px;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #e4e4e7;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.option[data-active='true'] {
+    background: rgba(255, 136, 255, 0.14);
+}
+
+.option[aria-selected='true'] {
+    color: var(--ifm-color-primary);
+}
+
+.option[aria-disabled='true'] {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.check {
+    width: 14px;
+    flex: none;
+    text-align: center;
+    font-size: 12px;
+}
+
+.label {
+    flex: 1;
+}
+
+.hint {
+    margin-left: 12px;
+    font-size: 11.5px;
+    opacity: 0.55;
+    font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .trigger,
+    .chevron {
+        transition: none;
+    }
+}

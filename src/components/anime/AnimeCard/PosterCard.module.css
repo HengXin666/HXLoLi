@@ -1,0 +1,284 @@
+/*
+ * 番剧库卡片: 海报 tile 与列表 row 两种密度. 颜色走 Infima 变量, 暗色站点上用半透明白做层次.
+ * content-visibility 让屏幕外的卡片跳过布局与绘制, 160 张一次渲染也不卡.
+ * .agents/notes/implemented/feature/2026-11-01-anime-page-refactor.md
+ */
+
+/* ---------- 海报 ---------- */
+.tile {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 320px;
+}
+
+.cover {
+    position: relative;
+    display: block;
+    aspect-ratio: 2 / 3;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+    outline-offset: 3px;
+}
+
+.cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.cover:hover img,
+.cover:focus-visible img {
+    transform: scale(1.04);
+    filter: brightness(0.55);
+}
+
+.badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+}
+
+.row .badge {
+    position: static;
+    flex: none;
+}
+
+.sWatching { background: rgba(255, 136, 255, 0.85); color: #2b0b2b; }
+.sWatched { background: rgba(80, 200, 140, 0.8); color: #062417; }
+.sWish { background: rgba(110, 170, 255, 0.85); color: #071a33; }
+.sHold { background: rgba(240, 190, 80, 0.85); color: #2e2104; }
+.sDropped { background: rgba(160, 160, 160, 0.8); color: #1a1a1a; }
+
+.score {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 20px;
+    color: #ffd76a;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    font-variant-numeric: tabular-nums;
+}
+
+.row .score {
+    position: static;
+    background: transparent;
+    padding: 0;
+    flex: none;
+}
+
+.peek {
+    position: absolute;
+    inset: auto 10px 16px 10px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #fff;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+}
+
+.cover:hover .peek,
+.cover:focus-visible .peek {
+    opacity: 1;
+    transform: none;
+}
+
+.progress {
+    display: block;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.cover .progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+}
+
+.progress > span {
+    display: block;
+    height: 100%;
+    background: var(--ifm-color-primary);
+}
+
+.body {
+    padding: 8px 2px 0;
+    min-width: 0;
+}
+
+.title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--ifm-font-color-base);
+}
+
+.title:hover {
+    color: var(--ifm-color-primary);
+    text-decoration: none;
+}
+
+.meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: 2px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    font-variant-numeric: tabular-nums;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.tag {
+    padding: 0 7px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 11.5px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.tag:hover {
+    border-color: var(--ifm-color-primary);
+    color: var(--ifm-color-primary);
+}
+
+.tag[aria-pressed="true"] {
+    border-color: var(--ifm-color-primary);
+    background: rgba(255, 136, 255, 0.16);
+    color: var(--ifm-color-primary);
+}
+
+/* ---------- 列表 ---------- */
+.row {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 14px;
+    padding: 12px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    content-visibility: auto;
+    contain-intrinsic-size: auto 120px;
+}
+
+.rowCover {
+    display: block;
+    aspect-ratio: 2 / 3;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.rowCover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.rowMain {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.rowHead {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.rowTitle {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ifm-font-color-base);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.rowTitle:hover {
+    color: var(--ifm-color-primary);
+    text-decoration: none;
+}
+
+.rowMeta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.55);
+    font-variant-numeric: tabular-nums;
+}
+
+.rowOriginal {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.row .progress {
+    max-width: 240px;
+}
+
+.rowComment {
+    margin: 2px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.78);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cover img,
+    .peek {
+        transition: none;
+    }
+}

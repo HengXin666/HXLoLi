@@ -1,271 +1,329 @@
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { stats } from '@site/data/wordStats';
-import Layout from '@theme/Layout';
-import React, { useCallback, useState } from 'react';
-
+import { latestAiDocs, latestBlogs, latestDocs, type LatestDoc } from '@site/data/latestDocs';
 import {
-    featuredProjects,
-    projects,
-} from '@site/data/ecosystem';
-import LatestDocsSection from '../LatestDocsSection';
-import WakaTimeChart from '../chart/WakaTimeChart';
-import WordCountChart from '../chart/WordCountChart';
-import EcosystemGraph from './EcosystemGraph';
-import ProjectDetail from './ProjectDetail';
-import styles from './home.module.css';
+    PROFILE_AS_OF,
+    profileLede,
+    profileLinks,
+    profileStats,
+    stackGroups,
+} from '@site/data/profile';
+import { PROJECT_SINCE, projects } from '@site/data/projectData';
+import Layout from '@theme/Layout';
+import React, { lazy, useEffect, useState } from 'react';
+import { FaGithub, FaEnvelope } from 'react-icons/fa6';
+import { SiBilibili, SiLeetcode } from 'react-icons/si';
 
-const posts = [
-    {
-        date: '2026-10-07',
-        title: '自用AI代码质量规范',
-        excerpt: '把 AI 当同事来管: 用 Hook 把代码质量红线装进仓库, 而不是靠它自己发挥.',
-        to: '/blog/2026/10/07/01-AI代码质量',
-    },
-    {
-        date: '2026-09-06',
-        title: '接受审判: I',
-        excerpt: '转正面试的记录. 问的是业务, 没有算法和八股.',
-        to: '/blog/2026/09/06/01_部门答辩',
-    },
-    {
-        date: '2026-05-17',
-        title: 'Codex Free 号池搭建',
-        excerpt: '没事找事折腾出来的号池, 步骤和花掉的钱都记在这篇里.',
-        to: '/blog/2026/05/17/01_codexFreePool',
-    },
-    {
-        date: '2026-05-07',
-        title: '最近的项目',
-        excerpt: '按时间吹了一下水, 包括后来上线的简历台 HX-Resume.',
-        to: '/blog/2026/05/07/01_最近的项目',
-    },
+import ProjectCarousel from '../ProjectCarousel';
+import Tooltip from '../common/Tooltip';
+import LazyMount from './LazyMount';
+import {
+    loadEcosystemPanel,
+    loadHomeAnime,
+    loadWakaPulse,
+    loadWakaTimeChart,
+    loadWordCountChart,
+    loadWordStats,
+} from './lazyChunks';
+import styles from './page.module.css';
+
+// 图表与关系图各自拆成独立 chunk, 首屏 HTML 只带文字与占位
+// 字数数据 (约 35 KB) 跟图表一起懒加载, 不进首页入口
+// import() 集中在 lazyChunks.js, 原因见该文件顶部注释 (nodenext 下 .tsx 里的 import() 过不了 tsc)
+const WordCountChart = lazy(() =>
+    Promise.all([loadWordCountChart(), loadWordStats()]).then(([chart, data]) => ({
+        default: () => <chart.default rawData={data.stats} />,
+    })),
+);
+const WakaPulse = lazy(loadWakaPulse);
+const WakaTimeChart = lazy(loadWakaTimeChart);
+const EcosystemPanel = lazy(loadEcosystemPanel);
+// 番剧块要拉约 2.4 MB (gzip) 的追番记录, 与组件一起滚到附近才加载
+const HomeAnime = lazy(loadHomeAnime);
+
+const SECTIONS = [
+    { id: 'writing', label: '写作' },
+    { id: 'notes', label: '最近更新' },
+    { id: 'time', label: '时间' },
+    { id: 'projects', label: '项目' },
+    { id: 'anime', label: '追番' },
+    { id: 'about', label: '关于' },
+] as const;
+
+/** "最近更新"的三栏: 笔记 (docs/)、博客 (blog/)、AI 文章 (ai-docs/), 数据都由 docs-rss-plugin 生成 */
+const FEEDS: { id: string; label: string; items: LatestDoc[]; all: string; allLabel: string }[] = [
+    { id: 'blog', label: '博客', items: latestBlogs, all: '/blog', allLabel: '全部博客' },
+    { id: 'ai', label: 'AI 文章', items: latestAiDocs, all: '/knowledge-base/关于/', allLabel: '全部 AI 文章' },
+    { id: 'docs', label: '笔记', items: latestDocs, all: '/docs/关于', allLabel: '全部笔记' },
 ];
 
-const stack = ['C++20', 'Python', 'TypeScript', 'React', 'Qt / QML', 'Cloudflare', 'GitHub Actions', 'Linux', 'Docker'];
+const LINK_ICONS: Record<string, React.ReactNode> = {
+    github: <FaGithub aria-hidden="true" />,
+    bilibili: <SiBilibili aria-hidden="true" />,
+    leetcode: <SiLeetcode aria-hidden="true" />,
+    mail: <FaEnvelope aria-hidden="true" />,
+};
 
-function FeatureCard({
-    project,
-    onSelect,
-}: {
-    project: (typeof featuredProjects)[number];
-    onSelect: (id: string) => void;
-}): React.ReactElement {
-    const image = useBaseUrl(project.image);
-    return (
-        <button type="button" className={styles.feature} onClick={() => onSelect(project.id)}>
-            <img
-                src={image}
-                alt=""
-                className={project.image.endsWith('.svg') ? styles.contain : undefined}
-            />
-            <div className={styles.featureBody}>
-                <h3>{project.name}</h3>
-                <p>{project.summary}</p>
-            </div>
-        </button>
-    );
+/** 左栏导航高亮: 视口上 1/3 处落在哪一节就点亮哪一节 */
+function useActiveSection (): string {
+    const [active, setActive] = useState<string>(SECTIONS[0].id);
+    useEffect(() => {
+        if (typeof IntersectionObserver === 'undefined') return;
+        const io = new IntersectionObserver((entries) => {
+            const hit = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+            if (hit) setActive(hit.target.id);
+        }, { rootMargin: '-30% 0px -60% 0px' });
+        SECTIONS.forEach((s) => {
+            const el = document.getElementById(s.id);
+            if (el) io.observe(el);
+        });
+        return () => io.disconnect();
+    }, []);
+    return active;
 }
 
-const patterns = [
-    {
-        id: 'hx-cdn-forge',
-        kicker: '博客要快',
-        title: '加载痛了, 就做成 CDN 轮子',
-        body: '主站的 package.json 依赖 HX-CDN-Forge. 音乐和番剧数据留在独立仓库, 由它选节点、分块拉取.',
-    },
-    {
-        id: 'hx-git-db',
-        kicker: '状态要有地方放',
-        title: '私有仓库变成数据库',
-        body: 'HX-Workflows 的 B 站接口、HX-Recall 和 HX-Video-Summary 都把 token 与进度写进 HX-Git-DB.',
-    },
-    {
-        id: 'hx-houtiku',
-        kicker: '邮件推送太疼',
-        title: '清灰工具改走加密推送',
-        body: 'HX-Recall 还留着邮件通知, 真正发出去的那条路是 HX-HouTiKu 的端到端推送.',
-    },
-];
-
 /**
- * 首页以可编辑的项目生态图为中心
- * .agents/notes/implemented/feature/2026-10-31-homepage-ecosystem-graph.md
+ * 首页: 左栏是固定的个人卡 (头图横幅 / 名字 / 一句话 / 在做的项目 / 数字 / 分节导航),
+ * 右栏依次是字数、最近更新 (博客 / AI 文章 / 笔记)、WakaTime (摘要 + 更多: 趋势图)、近一年项目 (+ 更多: 关系图浮层)、追番、关于.
+ * 悬停说明统一走 common/Tooltip, 不用原生 title.
+ * .agents/notes/implemented/feature/2026-10-31-homepage-profile-and-project-index.md
  */
-export default function HomePage(): React.ReactElement {
+export default function HomePage (): React.ReactElement {
     const { siteConfig } = useDocusaurusContext();
-    const [selectedId, setSelectedId] = useState<string | null>(null);
-    const close = useCallback(() => setSelectedId(null), []);
-    const hero = useBaseUrl('/img/main_menu_misaka.png');
-    const catLeft = useBaseUrl('/default-img/neko_left.png');
-    const catRight = useBaseUrl('/default-img/neko_right.png');
+    const active = useActiveSection();
+    const [graphOpen, setGraphOpen] = useState(false);
+    const [wakaFull, setWakaFull] = useState(false);
+    // 趋势图第一次展开后才挂载 (才下载 recharts), 之后收起只是折叠, 再展开不用重新加载
+    const [wakaMounted, setWakaMounted] = useState(false);
+    const [feed, setFeed] = useState(FEEDS[0].id);
+    const avatar = useBaseUrl('/img/ecosystem/profile.webp');
+    const banner640 = useBaseUrl('/img/main_menu_misaka-640.webp');
+    const banner960 = useBaseUrl('/img/main_menu_misaka-960.webp');
+    const siteBase = useBaseUrl('/');
+
+    const nowBuilding = projects
+        .filter((p) => p.pushedAt >= PROJECT_SINCE)
+        .sort((a, b) => b.pushedAt.localeCompare(a.pushedAt))
+        .slice(0, 5);
 
     return (
         <Layout
-            title={siteConfig.title}
-            description="Heng_Xin 的笔记、轮子和应用. 首页是一张可点击的项目生态图."
+            title={`いにゃさい ${siteConfig.title}`}
+            description="Heng_Xin 的笔记、轮子和应用: 字数曲线、WakaTime 统计与近一年项目"
         >
             <div className={styles.page}>
-                <header className={styles.hero}>
-                    <div className={styles.heroInner}>
-                        <div>
-                            <p className={styles.kicker}>Heng_Xin 的实验室</p>
-                            <h1 className={styles.heroTitle}>{siteConfig.title}</h1>
-                            <p className={styles.tagline}>{siteConfig.tagline}</p>
-                            <p className={styles.lede}>
-                                笔记、自研轮子和还在用的应用放在同一张图上. 应用里卡住的地方, 会被抽成下一层还能再用的库.
-                            </p>
-                            <div className={styles.actions}>
-                                <a className={styles.primary} href="#ecosystem">看项目图</a>
-                                <Link className={styles.ghost} to="/docs/关于">读笔记</Link>
+                <aside className={styles.aside}>
+                    <div className={styles.card}>
+                        <img
+                            className={styles.banner}
+                            src={banner640}
+                            srcSet={`${banner640} 640w, ${banner960} 960w`}
+                            sizes="(max-width: 996px) 100vw, 320px"
+                            width={640}
+                            height={335}
+                            alt=""
+                            fetchPriority="high"
+                            decoding="async"
+                        />
+                        <div className={styles.identity}>
+                            <img className={styles.avatar} src={avatar} alt="Heng_Xin" width={56} height={56} />
+                            <div>
+                                <h1 className={styles.name}>{siteConfig.title}</h1>
+                                <p className={styles.tagline}>{siteConfig.tagline}</p>
                             </div>
-                            <div className={styles.heroFrame}>
-                                <img src={hero} alt="博客首页插画" />
-                                <Link className={styles.heroStart} to="/docs/关于">快速开始</Link>
-                            </div>
                         </div>
-                        <div className={styles.chartPane} id="words">
-                            <WordCountChart rawData={stats} />
-                        </div>
-                    </div>
-                </header>
+                        <p className={styles.lede}>{profileLede}</p>
 
-                <section className={styles.section} id="notes">
-                    <div className={styles.sectionHead}>
-                        <div>
-                            <p className={styles.kicker}>知识库</p>
-                            <h2>最近更新的笔记</h2>
+                        <div className={styles.building}>
+                            <span className={styles.label}>在做</span>
+                            {nowBuilding.map((p) => (
+                                <a key={p.title} className={styles.chip} href={p.url} target="_blank" rel="noopener noreferrer">
+                                    {p.title}
+                                </a>
+                            ))}
                         </div>
-                        <Link to="/docs/关于">关于这些笔记</Link>
-                    </div>
-                    <div className={styles.notesWrap}>
-                        <LatestDocsSection />
-                    </div>
-                </section>
 
-                <section className={`${styles.section} ${styles.timeBoard}`} id="time">
-                    <WakaTimeChart />
-                </section>
+                        <dl className={styles.stats}>
+                            {profileStats.map((item) => (
+                                <Tooltip key={item.label} width="auto" content={<span className={styles.tipText}>{item.hint}</span>}>
+                                    <div className={styles.stat} tabIndex={0}>
+                                        <dd>{item.value}</dd>
+                                        <dt>{item.label}</dt>
+                                    </div>
+                                </Tooltip>
+                            ))}
+                        </dl>
 
-                <section className={styles.section} id="ecosystem">
-                    <div className={styles.sectionHead}>
-                        <div>
-                            <p className={styles.kicker}>自下而上</p>
-                            <h2>项目生态</h2>
-                        </div>
-                        <p>
-                            底层是学习和模板, 往上是轮子、平台、应用, 最上面是把它们收在一起的入口. 点任何一个名字.
-                        </p>
-                    </div>
-                    <EcosystemGraph selectedId={selectedId} onSelect={setSelectedId} />
-                    <p className={styles.caption}>
-                        要加项目或改连线, 编辑 <code>data/ecosystem.ts</code>. 换封面只改对应的 <code>image</code> 路径.
-                        虚线是推断, 实线能在仓库里指出文件.
-                    </p>
-                </section>
-
-                <section className={styles.section} id="pattern">
-                    <div className={styles.sectionHead}>
-                        <div>
-                            <p className={styles.kicker}>同一件事发生了三次</p>
-                            <h2>痛点长成轮子</h2>
+                        <div className={styles.actions}>
+                            <Link className={styles.primary} to="/docs/关于">开始阅读</Link>
+                            <a className={styles.ghost} href="https://github.com/HengXin666" target="_blank" rel="noopener noreferrer">GitHub</a>
                         </div>
                     </div>
-                    <div className={styles.patternGrid}>
-                        {patterns.map((item) => (
-                            <button
-                                key={item.id}
-                                type="button"
-                                className={styles.pattern}
-                                onClick={() => setSelectedId(item.id)}
-                            >
-                                <span>{item.kicker}</span>
-                                <h3>{item.title}</h3>
-                                <p>{item.body}</p>
-                            </button>
+
+                    <nav className={styles.toc} aria-label="首页分节">
+                        {SECTIONS.map((s) => (
+                            <a key={s.id} href={`#${s.id}`} className={active === s.id ? styles.tocOn : styles.tocItem}>
+                                {s.label}
+                            </a>
                         ))}
-                    </div>
-                </section>
+                    </nav>
+                </aside>
 
-                <section className={styles.section} id="featured">
-                    <div className={styles.sectionHead}>
-                        <div>
-                            <p className={styles.kicker}>先看这些</p>
-                            <h2>代表项目</h2>
+                <main className={styles.main}>
+                    <section id="writing" className={styles.section}>
+                        <header className={styles.head}>
+                            <h2>写了多少</h2>
+                            <p>每次提交的累计字数, 下方条是单次增删. 拖动底部滑块看任意区间.</p>
+                        </header>
+                        <div className={styles.panel}>
+                            <LazyMount minHeight={330} rootMargin="0px" label="字数图加载中">
+                                <WordCountChart />
+                            </LazyMount>
                         </div>
-                    </div>
-                    <div className={styles.featureGrid}>
-                        {featuredProjects.map((project) => (
-                            <FeatureCard key={project.id} project={project} onSelect={setSelectedId} />
-                        ))}
-                    </div>
-                </section>
+                    </section>
 
-                <section className={styles.section} id="posts">
-                    <div className={styles.sectionHead}>
-                        <div>
-                            <p className={styles.kicker}>博客</p>
-                            <h2>最近的文章</h2>
-                        </div>
-                        <Link to="/blog">全部文章</Link>
-                    </div>
-                    <div className={styles.postGrid}>
-                        {posts.map((post) => (
-                            <Link key={post.to} className={styles.post} to={post.to}>
-                                <time dateTime={post.date}>{post.date}</time>
-                                <h3>{post.title}</h3>
-                                <p>{post.excerpt}</p>
-                            </Link>
-                        ))}
-                    </div>
-                </section>
-
-                <section className={styles.section} id="about">
-                    <div className={styles.aboutLayout}>
-                        <div className={styles.aboutCard}>
-                            <p className={styles.kicker}>关于</p>
-                            <h3>Heng_Xin</h3>
-                            <p>
-                                写 C++ 网络库, 也写把 GitHub 当后端的小服务. 这份站从 HXLoLiHub 的主题长出来, 笔记、追番和带 ASS 歌词的播放器都留在这里.
-                            </p>
-                            <ul className={styles.stack}>
-                                {stack.map((item) => (
-                                    <li key={item}>{item}</li>
+                    <section id="notes" className={styles.section}>
+                        <header className={styles.head}>
+                            <h2>最近更新</h2>
+                            <div className={styles.tabs} role="tablist" aria-label="最近更新的分类">
+                                {FEEDS.map((f) => (
+                                    <button
+                                        key={f.id}
+                                        type="button"
+                                        role="tab"
+                                        id={`feed-tab-${f.id}`}
+                                        aria-selected={feed === f.id}
+                                        aria-controls={`feed-${f.id}`}
+                                        className={feed === f.id ? styles.tabOn : styles.tab}
+                                        onClick={() => setFeed(f.id)}
+                                    >
+                                        {f.label}
+                                        <span className={styles.tabCount}>{f.items.length}</span>
+                                    </button>
                                 ))}
-                            </ul>
-                            <div className={styles.links}>
-                                <a href="https://github.com/HengXin666" target="_blank" rel="noopener noreferrer">GitHub</a>
-                                <a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer">本站仓库</a>
-                                <a href="https://space.bilibili.com/478917126" target="_blank" rel="noopener noreferrer">哔哩哔哩</a>
-                                <a href="https://leetcode.cn/u/heng_xin/" target="_blank" rel="noopener noreferrer">LeetCode</a>
+                            </div>
+                        </header>
+                        {FEEDS.map((f) => (
+                            <div
+                                key={f.id}
+                                id={`feed-${f.id}`}
+                                role="tabpanel"
+                                aria-labelledby={`feed-tab-${f.id}`}
+                                hidden={feed !== f.id}
+                                className={styles.feed}
+                            >
+                                <ol className={styles.notes}>
+                                    {f.items.slice(0, 6).map((doc) => (
+                                        <li key={doc.to}>
+                                            <Link to={siteBase + doc.to.replace(/^\//, '')}>
+                                                <span className={styles.noteCat}>{doc.category}</span>
+                                                <span className={styles.noteTitle}>{doc.title}</span>
+                                                <time className={styles.noteDate}>{doc.date}</time>
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ol>
+                                <Link className={styles.feedAll} to={f.all}>{f.allLabel} →</Link>
+                            </div>
+                        ))}
+                    </section>
+
+                    <section id="time" className={styles.section}>
+                        <header className={styles.head}>
+                            <h2>时间花在哪</h2>
+                            <p>编码时长 = 编辑器里写代码的时间; 使用设备 = 各系统上开着编辑器的时间, 含挂机.</p>
+                        </header>
+                        <div className={styles.panel}>
+                            <LazyMount minHeight={300} label="WakaTime 加载中">
+                                <WakaPulse />
+                            </LazyMount>
+                            <button
+                                type="button"
+                                className={styles.magicBtn}
+                                data-open={wakaFull}
+                                aria-expanded={wakaFull}
+                                aria-controls="waka-trend"
+                                onClick={() => {
+                                    setWakaMounted(true);
+                                    setWakaFull((v) => !v);
+                                }}
+                            >
+                                <span className={styles.magicGlyph} aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" width="16" height="16"><path d="M3 17l5-6 4 3 6-8 3 3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                </span>
+                                {wakaFull ? '收起趋势图' : '更多 · 展开趋势图'}
+                            </button>
+                            <div id="waka-trend" className={styles.magic} data-open={wakaFull} inert={!wakaFull}>
+                                <div className={styles.magicInner}>
+                                    {wakaMounted && (
+                                        <LazyMount minHeight={460} rootMargin="200px" label="趋势图加载中">
+                                            <WakaTimeChart />
+                                        </LazyMount>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                        <div className={styles.cats} aria-hidden="true">
-                            <img src={catLeft} alt="" />
-                            <img src={catRight} alt="" />
-                        </div>
-                    </div>
-                </section>
+                    </section>
 
-                <section className={styles.section} id="roster">
-                    <div className={styles.sectionHead}>
-                        <div>
-                            <p className={styles.kicker}>名录</p>
-                            <h2>没有放进主图的仓库</h2>
+                    <section id="projects" className={styles.section}>
+                        <header className={styles.head}>
+                            <h2>近一年在做</h2>
+                            <p>{PROJECT_SINCE} 之后仍有推送的公开仓库, 手工维护. 悬停暂停并看完整简介, 点卡片进 GitHub.</p>
+                        </header>
+                        <ProjectCarousel more={{ open: graphOpen, onToggle: () => setGraphOpen((o) => !o) }} />
+                        {graphOpen && (
+                            <LazyMount minHeight={0} rootMargin="400px" label="关系图加载中">
+                                <EcosystemPanel onClose={() => setGraphOpen(false)} />
+                            </LazyMount>
+                        )}
+                    </section>
+
+                    <section id="anime" className={styles.section}>
+                        <header className={styles.head}>
+                            <h2>在追的番</h2>
+                            <p>BanGuMi 追番记录, 封面是最近更新进度的在看. 点标签进番剧页筛选.</p>
+                        </header>
+                        <div className={styles.panel}>
+                            <LazyMount minHeight={300} rootMargin="300px" label="追番记录加载中">
+                                <HomeAnime />
+                            </LazyMount>
                         </div>
-                        <p>只有配置或测试桩. 点开仍能看到简介和仓库链接.</p>
-                    </div>
-                    <div className={styles.roster}>
-                        {projects.filter((project) => !project.graph).map((project) => (
-                            <button key={project.id} type="button" onClick={() => setSelectedId(project.id)}>
-                                {project.name}
-                            </button>
-                        ))}
-                    </div>
-                </section>
+                    </section>
+
+                    <section id="about" className={styles.section}>
+                        <header className={styles.head}>
+                            <h2>关于</h2>
+                        </header>
+                        <div className={styles.about}>
+                            {stackGroups.map((g) => (
+                                <div key={g.group} className={styles.stackRow}>
+                                    <span className={styles.label}>{g.group}</span>
+                                    <ul>
+                                        {g.items.map((t) => <li key={t}>{t}</li>)}
+                                    </ul>
+                                </div>
+                            ))}
+                            <div className={styles.stackRow}>
+                                <span className={styles.label}>找到我</span>
+                                <ul className={styles.links}>
+                                    {profileLinks.map((l) => (
+                                        <li key={l.label}>
+                                            <a href={l.href} target="_blank" rel="noopener noreferrer" data-icon={l.icon}>
+                                                <span className={styles.linkIcon}>{LINK_ICONS[l.icon]}</span>
+                                                <span className={styles.linkText}>
+                                                    <b>{l.label}</b>
+                                                    <small>{l.note}</small>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </main>
             </div>
-            <ProjectDetail projectId={selectedId} onSelect={setSelectedId} onClose={close} />
         </Layout>
     );
 }

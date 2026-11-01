@@ -286,6 +286,9 @@ const plugins: PluginConfig[] = [
   // docs RSS/Atom feed + latest docs data 生成插件
   // 类似博客插件的 feed 生成，但是针对 docs (笔记)
   require('./plugins/docs-rss-plugin.mjs'),
+  // 番剧本人标注 overlay 的写入通道: 只在 docusaurus start 下往 dev server 挂 PUT/DELETE, build 时什么都不做
+  // 决策记录挂在 plugins/anime-overlay-plugin.mjs 顶部
+  require('./plugins/anime-overlay-plugin.mjs'),
   // ai-docs 标签索引: 构建期把标签/笔记元数据落盘到 data/aiDocTags.ts
   // 供 /knowledge-base/tags 的拼音索引与标签详情页使用 (中文分组见 src/utils/tags/pinyin.ts)
   [

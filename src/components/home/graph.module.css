@@ -1,0 +1,215 @@
+/*
+ * 项目关系图浮层 (EcosystemPanel + EcosystemGraph), 第三轮重做.
+ * 尺寸: 浮层宽 min(1320px, 100vw - 48px), 高不超过 92vh; 节点胶囊高 24px、最宽 168px, 字号 12px; 行头 112px.
+ * 连线色: 依赖 #ff9af0 / 子模块 #67e8f9 / 派生 #fde047 / 功能相关 #d8b4fe (沿用旧图的暗色值).
+ * 动效: 浮层 260ms 放大淡入, 点亮的连线 1.2s 一圈的流动虚线; prefers-reduced-motion 下全部关掉.
+ */
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(8, 6, 12, 0.62);
+  backdrop-filter: blur(3px);
+  animation: fadeIn 200ms ease both;
+}
+
+.sheet {
+  --edge-depends: #ff9af0;
+  --edge-submodule: #67e8f9;
+  --edge-derived: #fde047;
+  --edge-related: #d8b4fe;
+  position: fixed;
+  z-index: 301;
+  top: calc(var(--ifm-navbar-height, 60px) + 16px);
+  left: 50%;
+  width: min(1320px, calc(100vw - 48px));
+  max-height: min(92vh, calc(100vh - var(--ifm-navbar-height, 60px) - 24px));
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(1200px 400px at 10% -10%, rgba(255, 136, 255, 0.08), transparent 60%),
+    radial-gradient(900px 400px at 100% 0%, rgba(94, 231, 255, 0.06), transparent 60%),
+    var(--ifm-background-color);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 136, 255, 0.05);
+  outline: none;
+  overflow: hidden;
+  animation: sheetIn 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.sheetHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px 0;
+}
+.sheetHead h2 { margin: 0; font-size: 20px; letter-spacing: -0.01em; }
+.sheetHead p { margin: 2px 0 0; font-size: 13px; color: var(--ifm-color-emphasis-600); }
+
+.sheetClose {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  cursor: pointer;
+}
+.sheetClose:hover { background: rgba(255, 255, 255, 0.08); }
+.sheetClose:focus-visible { outline: 2px solid var(--ifm-color-primary); outline-offset: 2px; }
+
+.sheetFoot { margin: 0; padding: 4px 20px 10px; font-size: 12px; color: var(--ifm-color-emphasis-500); }
+
+.graph { display: flex; flex-direction: column; min-height: 0; flex: 1; }
+
+/* 图例: 每种连线是一个开关按钮, 悬停 / 聚焦出说明卡 */
+.legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 8px 20px; }
+.kind {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 10px; border-radius: 999px; cursor: pointer;
+  font-size: 12px; color: var(--ifm-font-color-base);
+  background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: opacity 150ms ease, background-color 150ms ease;
+}
+.kind i { width: 16px; height: 0; border-top: 2px solid currentColor; }
+.kind[data-kind='depends'] i { color: var(--edge-depends); }
+.kind[data-kind='submodule'] i { color: var(--edge-submodule); }
+.kind[data-kind='derived'] i { color: var(--edge-derived); }
+.kind[data-kind='related'] i { color: var(--edge-related); }
+.kind[aria-pressed='false'] { opacity: 0.4; }
+.kind:focus-visible { outline: 2px solid var(--ifm-color-primary); outline-offset: 2px; }
+.legendNote { font-size: 12px; color: var(--ifm-color-emphasis-500); }
+.hint { font-size: 12px; }
+
+.scroller { overflow: auto; min-height: 0; padding: 0 20px; }
+
+.stage {
+  position: relative;
+  display: grid;
+  min-width: 880px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.edges { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: visible; }
+.edge {
+  fill: none;
+  stroke-width: 1.2;
+  opacity: 0.28;
+  transition: opacity 180ms ease, stroke-width 180ms ease;
+}
+.edge[data-kind='depends'] { stroke: var(--edge-depends); }
+.edge[data-kind='submodule'] { stroke: var(--edge-submodule); }
+.edge[data-kind='derived'] { stroke: var(--edge-derived); }
+.edge[data-kind='related'] { stroke: var(--edge-related); }
+.edge[data-inferred='true'] { stroke-dasharray: 3 4; }
+.edge[data-hot='dim'] { opacity: 0.06; }
+.edge[data-hot='true'] {
+  opacity: 1;
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+  animation: flow 1.2s linear infinite;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.35));
+}
+
+.corner, .colHead, .rowHead, .cell { position: relative; z-index: 1; }
+
+.colHead {
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex; align-items: baseline; gap: 6px; flex-wrap: nowrap; min-width: 0;
+}
+.colHead b { font-size: 13px; flex: none; white-space: nowrap; }
+.colHead span { font-size: 11px; color: var(--ifm-color-emphasis-500); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; min-width: 0; }
+
+.rowHead {
+  display: flex; align-items: center;
+  padding: 8px 8px 8px 0;
+  font-size: 12px; font-weight: 600; color: var(--ifm-color-emphasis-700);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.cell {
+  display: flex; flex-wrap: wrap; align-content: center; gap: 4px 6px;
+  padding: 4px 8px;
+  min-height: 34px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-left: 1px dashed rgba(255, 255, 255, 0.05);
+}
+
+/* 节点胶囊: 单行, 超长名字省略, 全名在悬浮卡片里 */
+.node {
+  max-width: min(100%, 168px);
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #17151c;
+  color: var(--ifm-font-color-base);
+  font: 500 12px/24px var(--ifm-font-family-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: opacity 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+.node[data-featured='true'] { border-color: rgba(255, 136, 255, 0.45); }
+.node:hover, .node:focus-visible {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 136, 255, 0.15), 0 0 18px rgba(255, 136, 255, 0.25);
+  transform: translateY(-1px);
+  outline: none;
+}
+.node[data-state='near'] { border-color: rgba(94, 231, 255, 0.6); }
+.node[data-state='dim'] { opacity: 0.32; }
+.node[data-state='on'] { background: var(--ifm-color-primary); color: #1a121c; border-color: var(--ifm-color-primary); }
+
+/* 节点悬浮卡片 */
+.card { display: grid; gap: 6px; font-size: 12px; }
+.cardHead { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.cardHead strong { font-size: 14px; }
+.cardHead span { flex: none; color: rgba(255, 255, 255, 0.55); font-size: 11px; }
+.card p { margin: 0; line-height: 1.55; color: rgba(255, 255, 255, 0.85); }
+.cardStack { color: #ffb3f5; font-family: var(--ifm-font-family-monospace); font-size: 11px; }
+.cardRels { list-style: none; margin: 0; padding: 6px 0 0; border-top: 1px solid rgba(255, 255, 255, 0.08); display: grid; gap: 4px; }
+.cardRels li { display: grid; gap: 1px; padding-left: 8px; border-left: 2px solid var(--edge-related); }
+.cardRels li[data-kind='depends'] { border-left-color: #ff9af0; }
+.cardRels li[data-kind='submodule'] { border-left-color: #67e8f9; }
+.cardRels li[data-kind='derived'] { border-left-color: #fde047; }
+.cardRels li[data-kind='related'] { border-left-color: #d8b4fe; }
+.cardRels small { color: rgba(255, 255, 255, 0.55); line-height: 1.4; }
+.cardRels .cardMore { border-left-color: transparent; color: rgba(255, 255, 255, 0.55); }
+.cardFoot { color: rgba(255, 255, 255, 0.45); font-size: 11px; }
+
+@keyframes flow { to { stroke-dashoffset: -22; } }
+@keyframes fadeIn { from { opacity: 0; } }
+@keyframes sheetIn { from { opacity: 0; transform: translateX(-50%) translateY(12px) scale(0.98); } }
+
+/* 关闭过渡: EcosystemPanel 先挂 data-closing, 动画结束再卸载. .agents/notes/implemented/feature/2026-11-01-home-graph-close-transition.md */
+.scrim[data-closing='true'] { animation: fadeOut 180ms ease both; pointer-events: none; }
+.sheet[data-closing='true'] { animation: sheetOut 180ms cubic-bezier(0.4, 0, 1, 1) both; pointer-events: none; }
+@keyframes fadeOut { to { opacity: 0; } }
+@keyframes sheetOut { to { opacity: 0; transform: translateX(-50%) translateY(12px) scale(0.98); } }
+
+@media (max-width: 996px) {
+  .sheet {
+    top: auto;
+    bottom: 0;
+    width: 100vw;
+    max-height: 92vh;
+    border-radius: 18px 18px 0 0;
+  }
+  .scroller { padding: 0 12px 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrim, .sheet, .scrim[data-closing='true'], .sheet[data-closing='true'] { animation: none; }
+  .edge, .node, .kind { transition: none; }
+  .edge[data-hot='true'] { animation: none; stroke-dasharray: none; }
+  .node:hover, .node:focus-visible { transform: none; }
+}

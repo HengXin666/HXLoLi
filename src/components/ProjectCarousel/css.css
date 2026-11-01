@@ -1,24 +1,128 @@
-.project-carousel-container {
+/* 近一年项目跑马灯. 卡片是普通文档流的纵向 flex, 标签和日期不再绝对定位, 不会压住描述 */
+.pc { --pc-gap: 12px; --pc-ease: cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+.pc-viewport {
+  overflow: hidden;
+  padding: 8px 0 12px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.pc-track {
+  display: flex;
+  gap: var(--pc-gap);
+  width: max-content;
+  animation: pc-marquee 60s linear infinite;
+}
+.pc-dup { display: contents; }
+.pc-viewport:hover .pc-track,
+.pc-viewport:focus-within .pc-track { animation-play-state: paused; }
+
+@keyframes pc-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - var(--pc-gap) / 2)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-viewport { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .pc-track { animation: none; }
+  .pc-dup { display: none; }
+}
+
+.pc-card {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  height: 252px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--ifm-font-color-base);
+  text-decoration: none !important;
+  transition: transform 150ms var(--pc-ease), border-color 150ms var(--pc-ease), background-color 150ms var(--pc-ease);
+}
+.pc-card:hover,
+.pc-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--ifm-color-primary);
+  background: rgba(255, 136, 255, 0.05);
+  color: var(--ifm-font-color-base);
+}
+
+.pc-cover {
+  flex: none;
+  display: block;
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  background: #17151c;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+.pc-cover--blank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 28px/1 var(--ifm-font-family-monospace);
+  color: var(--ifm-color-primary);
+}
+
+.pc-body { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 4px; padding: 10px 12px 0; }
+.pc-title { font-size: 14px; font-weight: 600; color: var(--ifm-color-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-desc {
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ifm-color-emphasis-700);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.project-card {
-  transition: transform 0.3s ease;
-  border: #990099 1px solid;
-  border-radius: 10px;
-  z-index: 2;
+.pc-foot { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px 10px; }
+.pc-tags { display: flex; gap: 4px; min-width: 0; overflow: hidden; }
+.pc-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 1px 6px; border-radius: 999px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  font-size: 11px; line-height: 16px; white-space: nowrap;
+  color: var(--ifm-color-emphasis-800);
 }
+.pc-tag i { width: 6px; height: 6px; border-radius: 50%; }
+.pc-date { flex: none; font: 11px/16px var(--ifm-font-family-monospace); color: var(--ifm-color-emphasis-600); }
+/* 底栏右侧: 星数 + 最近推送. 星数用站点主色, 0 星同样显示 "★ 0" */
+.pc-meta { flex: none; display: inline-flex; align-items: center; gap: 8px; }
+.pc-stars { font: 600 11px/16px var(--ifm-font-family-monospace); font-variant-numeric: tabular-nums; color: var(--ifm-color-primary); white-space: nowrap; }
 
-.project-card:hover {
-  transform: translateY(-8px) scale(1.05);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  z-index: 10;
+.pc-more {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  margin-top: 4px;
+  padding: 10px 16px;
+  border: 1px dashed var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 150ms var(--pc-ease), background-color 150ms var(--pc-ease);
 }
+.pc-more:hover { border-color: var(--ifm-color-primary); background: rgba(255, 136, 255, 0.04); }
+.pc-more__hint { font-size: 13px; color: var(--ifm-color-emphasis-700); }
+.pc-more__action { flex: none; font-size: 13px; font-weight: 600; color: var(--ifm-color-primary); }
+.pc-more__action::after { content: ' →'; display: inline-block; transition: transform 150ms var(--pc-ease); }
+.pc-more[aria-expanded='true'] .pc-more__action::after { transform: rotate(90deg); }
 
-.swiper-slide {
-  transition: opacity 0.5s ease;
-}
-
-.swiper-slide:hover {
-  opacity: 1 !important;
-}
+/* 卡片的悬浮内容 (渲染在统一 Tooltip 卡片里, 原生 title 已删) */
+.pc-hover { display: grid; gap: 6px; font-size: 12px; }
+.pc-hover strong { font-size: 14px; }
+.pc-hover p { margin: 0; line-height: 1.55; color: rgba(255, 255, 255, 0.85); }
+.pc-hover ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.pc-hover li { display: flex; align-items: center; gap: 6px; color: rgba(255, 255, 255, 0.6); }
+.pc-hover li i { flex: none; width: 6px; height: 6px; border-radius: 50%; }
+.pc-hover li b { color: #f4f4f5; font-weight: 600; }
+.pc-hover__meta { color: rgba(255, 255, 255, 0.5); font-family: var(--ifm-font-family-monospace); font-size: 11px; }

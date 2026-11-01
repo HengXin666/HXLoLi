@@ -1,0 +1,486 @@
+/*
+ * 番剧页工具栏 + 标签面板. 工具栏 sticky 在导航栏下方, 滚动时筛选随手可改.
+ * 面板是原生 <dialog>: 桌面居中, 窄屏 (<=720px) 贴底成抽屉.
+ * .agents/notes/implemented/feature/2026-11-01-anime-page-refactor.md
+ */
+
+.bar {
+    position: sticky;
+    top: var(--ifm-navbar-height, 60px);
+    z-index: 5;
+    padding: 12px 0 8px;
+    background: color-mix(in srgb, var(--ifm-background-color, #1b1b1d) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* ---------- 搜索 ---------- */
+.search {
+    flex: 1 1 240px;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.55);
+    transition: border-color 0.15s ease;
+}
+
+.search:focus-within {
+    border-color: var(--ifm-color-primary);
+}
+
+.search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--ifm-font-color-base);
+    font-size: 14px;
+}
+
+.kbd {
+    font-family: var(--ifm-font-family-monospace);
+    font-size: 11px;
+    padding: 0 5px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.search:focus-within .kbd {
+    display: none;
+}
+
+/* ---------- chip ---------- */
+.statusGroup,
+.chipWrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 30px;
+    padding: 0 11px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: transparent;
+    color: #d6d6d6;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.chip:hover:not(:disabled) {
+    border-color: rgba(255, 136, 255, 0.6);
+}
+
+.chip[aria-pressed="true"] {
+    border-color: var(--ifm-color-primary);
+    background: rgba(255, 136, 255, 0.16);
+    color: var(--ifm-color-primary);
+}
+
+.chip:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.chipHot:not([aria-pressed="true"]) {
+    border-color: rgba(255, 136, 255, 0.45);
+}
+
+.count {
+    font-size: 11.5px;
+    opacity: 0.6;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 右侧工具 ---------- */
+.tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.panelBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--ifm-font-color-base);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.panelBtn:hover {
+    border-color: var(--ifm-color-primary);
+}
+
+.badge {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--ifm-color-primary);
+    color: #2b0b2b;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+}
+
+/* 排序 / 年份 / 评分下拉是 common/Select, 外观在它自己的 CSS module 里 */
+
+.segment {
+    display: inline-flex;
+    padding: 2px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.segment button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 26px;
+    padding: 0 9px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12.5px;
+    cursor: pointer;
+}
+
+.segment button[aria-checked="true"] {
+    background: rgba(255, 136, 255, 0.18);
+    color: var(--ifm-color-primary);
+}
+
+/* ---------- 生效条件 ---------- */
+.activeRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    min-height: 26px;
+    font-size: 13px;
+}
+
+.resultCount {
+    color: rgba(255, 255, 255, 0.6);
+    font-variant-numeric: tabular-nums;
+}
+
+.resultCount b {
+    color: var(--ifm-font-color-base);
+}
+
+.activeList {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.activeList li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.joiner {
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.activeChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 26px;
+    padding: 0 6px 0 10px;
+    border-radius: 999px;
+    border: 0;
+    background: rgba(255, 136, 255, 0.16);
+    color: var(--ifm-color-primary);
+    font-size: 12.5px;
+    cursor: pointer;
+}
+
+.activeChip span {
+    display: inline-grid;
+    place-items: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    font-size: 12px;
+    line-height: 1;
+}
+
+.activeChip:hover span {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.clear,
+.linkBtn {
+    border: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12.5px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.clear:hover,
+.linkBtn:hover:not(:disabled) {
+    color: var(--ifm-color-primary);
+}
+
+.linkBtn:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+/* ---------- 面板 ---------- */
+.dialog {
+    width: min(640px, calc(100vw - 32px));
+    max-height: min(80vh, 720px);
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    background: #242426;
+    color: var(--ifm-font-color-base);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+.dialog::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(2px);
+}
+
+.dialog[open] {
+    animation: panelIn 0.18s ease-out;
+}
+
+@keyframes panelIn {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+}
+
+.dialogInner {
+    display: flex;
+    flex-direction: column;
+    max-height: inherit;
+}
+
+.dialogHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px 10px;
+}
+
+.dialogHead h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.iconBtn {
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--ifm-font-color-base);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.dialogBody {
+    padding: 4px 18px 12px;
+    overflow-y: auto;
+}
+
+.dialogFoot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.primaryBtn {
+    height: 36px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--ifm-color-primary);
+    color: #2b0b2b;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.tagPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tagGroup {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.groupLabel {
+    margin-bottom: 6px;
+    padding: 0;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.08em;
+}
+
+.matchRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.matchHint {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.rules {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.moreRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+/* ---------- 窄屏 ---------- */
+@media (max-width: 720px) {
+    .bar {
+        padding-top: 8px;
+    }
+
+    .search {
+        flex-basis: 100%;
+    }
+
+    .kbd {
+        display: none;
+    }
+
+    /* 状态 chips 横向滑动, 不折成三行 */
+    .statusGroup {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        flex: 1 1 100%;
+        padding-bottom: 2px;
+    }
+
+    .statusGroup::-webkit-scrollbar {
+        display: none;
+    }
+
+    .statusGroup .chip {
+        flex: none;
+    }
+
+    .tools {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .panelBtn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .dialog {
+        width: 100vw;
+        max-width: 100vw;
+        max-height: 85vh;
+        margin: auto 0 0;
+        border-radius: 18px 18px 0 0;
+        border-bottom: 0;
+    }
+
+    .dialog[open] {
+        animation: sheetIn 0.22s ease-out;
+    }
+
+    @keyframes sheetIn {
+        from { transform: translateY(100%); }
+        to { transform: none; }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dialog[open] {
+        animation: none;
+    }
+}

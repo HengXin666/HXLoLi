@@ -1,0 +1,185 @@
+/*
+ * 本地标注编辑器 (仅 dev). 深色卡片, 与详情页 infoBox 同一套边框与圆角.
+ * .agents/notes/implemented/feature/2026-11-01-anime-local-overlay.md
+ */
+
+.box {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px dashed rgba(255, 136, 255, 0.45);
+    background: rgba(255, 136, 255, 0.05);
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.title {
+    margin: 0;
+    font-size: 15px;
+}
+
+.badge,
+.on {
+    font-size: 11.5px;
+    padding: 1px 8px;
+    border-radius: 999px;
+}
+
+.badge {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.on {
+    background: rgba(255, 136, 255, 0.18);
+    color: var(--ifm-color-primary);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    align-items: center;
+    gap: 10px 12px;
+}
+
+.label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.muted {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.input,
+.textarea {
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--ifm-font-color-base);
+    font-size: 13px;
+}
+
+.input {
+    height: 32px;
+    width: 88px;
+    padding: 0 10px;
+}
+
+.textarea {
+    width: 100%;
+    padding: 8px 10px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.input:focus-visible,
+.textarea:focus-visible {
+    outline: 2px solid var(--ifm-color-primary);
+    outline-offset: 1px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 26px;
+    padding: 0 4px 0 10px;
+    border-radius: 999px;
+    background: rgba(255, 136, 255, 0.12);
+    font-size: 12.5px;
+}
+
+.chip button {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.chip button:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.tagInput {
+    width: 140px;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.primary,
+.ghost,
+.danger {
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.primary {
+    border: 1px solid rgba(255, 136, 255, 0.6);
+    background: rgba(255, 136, 255, 0.2);
+    color: var(--ifm-color-primary);
+}
+
+.ghost {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: transparent;
+    color: var(--ifm-font-color-base);
+}
+
+.danger {
+    border: 1px solid rgba(255, 99, 99, 0.5);
+    background: transparent;
+    color: #ff8a8a;
+}
+
+.primary:disabled,
+.ghost:disabled,
+.danger:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.ok,
+.err {
+    font-size: 12.5px;
+}
+
+.ok {
+    color: rgba(160, 255, 190, 0.9);
+}
+
+.err {
+    color: #ff8a8a;
+}

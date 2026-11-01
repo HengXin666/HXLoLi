@@ -129,6 +129,7 @@ export interface UserStatus {
   last_update: string; // 最后更新时间(ISO 8601)
   comment: string; // 用户评论
   tags: string[]; // 用户标签
+  rate?: number; // 本人评分 1-10, 只来自本地 overlay (data/animeOverlay.json)
 }
 
 // ================= record =================

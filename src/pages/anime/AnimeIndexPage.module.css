@@ -1,0 +1,256 @@
+/*
+ * 番剧库页面骨架: 去掉两侧猫娘与深灰圆角盒, 内容区最宽 1240px, 海报网格按可用宽度自动排列 (桌面 5-6 列, 手机 2 列).
+ * .agents/notes/implemented/feature/2026-11-01-anime-page-refactor.md
+ */
+
+.page {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 28px 20px 72px;
+}
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px 16px;
+    margin-bottom: 4px;
+}
+
+.title {
+    margin: 0;
+    font-size: clamp(24px, 3vw, 32px);
+}
+
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    font-variant-numeric: tabular-nums;
+}
+
+.stats b {
+    color: var(--ifm-font-color-base);
+    font-weight: 600;
+}
+
+.links {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+}
+
+.group {
+    margin-top: 28px;
+}
+
+.groupTitle {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 0 0 14px;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.groupCount {
+    font-size: 12.5px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+    gap: 22px 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------- 骨架 ---------- */
+.skeletonTile {
+    list-style: none;
+}
+
+.skeletonCover,
+.skeletonLine {
+    border-radius: 12px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.11) 50%, rgba(255, 255, 255, 0.05) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+}
+
+.skeletonCover {
+    aspect-ratio: 2 / 3;
+}
+
+.skeletonLine {
+    height: 12px;
+    margin-top: 10px;
+    border-radius: 6px;
+    width: 80%;
+}
+
+.skeletonLine + .skeletonLine {
+    width: 50%;
+    margin-top: 6px;
+}
+
+@keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+}
+
+/* ---------- 空态 / 错误 ---------- */
+.notice {
+    margin: 56px auto;
+    max-width: 460px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.notice h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.notice p {
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.noticeActions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.suggest {
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 136, 255, 0.5);
+    background: rgba(255, 136, 255, 0.1);
+    color: var(--ifm-color-primary);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.suggest:hover {
+    background: rgba(255, 136, 255, 0.2);
+}
+
+@media (max-width: 720px) {
+    .page {
+        padding: 16px 12px 56px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 12px;
+    }
+}
+
+/* ---------- 筛选切换过渡 (View Transitions) ----------
+ * 只在 runListTransition 进行中 (html[data-anime-vt]) 生效, 不影响站点其它页面.
+ * 卡片的 view-transition-name 由 utils/anime/listMotion.ts 临时挂上: 留下的移位, 新来的淡入, 离开的淡出.
+ * .agents/notes/implemented/feature/2026-11-01-anime-filter-motion.md
+ */
+.results {
+    min-height: 40vh;
+}
+
+:global(html[data-anime-vt])::view-transition-group(*) {
+    animation-duration: 260ms;
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+:global(html[data-anime-vt])::view-transition-new(*):only-child {
+    animation: animeVtIn 260ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+:global(html[data-anime-vt])::view-transition-old(*):only-child {
+    animation: animeVtOut 180ms ease-in both;
+}
+
+@keyframes animeVtIn {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+}
+
+@keyframes animeVtOut {
+    to { opacity: 0; transform: scale(0.96); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeletonCover,
+    .skeletonLine {
+        animation: none;
+    }
+
+    :global(html[data-anime-vt])::view-transition-group(*),
+    :global(html[data-anime-vt])::view-transition-old(*),
+    :global(html[data-anime-vt])::view-transition-new(*) {
+        animation: none !important;
+    }
+}
+
+/* ---------- 分享番单弹层 (内容是 AnimeSharePanel, 外观在它自己的 CSS module) ----------
+ * .agents/notes/implemented/feature/2026-11-01-anime-share-on-index.md
+ */
+.shareDialog {
+    position: fixed;
+    width: min(1200px, 96vw);
+    max-width: 96vw;
+    max-height: min(90vh, 1000px);
+    padding: 8px 0 0;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: 16px;
+    background: var(--ifm-background-color);
+    color: var(--ifm-font-color-base);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+}
+
+.shareDialog::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(2px);
+}
+
+.shareClose {
+    position: sticky;
+    top: 0;
+    float: right;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    margin: 4px 12px 0 0;
+    border: 0;
+    border-radius: 8px;
+    background: var(--ifm-color-emphasis-200);
+    color: var(--ifm-font-color-base);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+@media (max-width: 720px) {
+    .shareDialog {
+        width: 100vw;
+        max-width: 100vw;
+        max-height: 90vh;
+        margin: auto 0 0;
+        border-radius: 18px 18px 0 0;
+        border-bottom: 0;
+    }
+}

@@ -519,7 +519,9 @@
 .hxed__slotfields input[type="file"] { width: 100%; font-size: 13px; margin-bottom: 8px; }
 .hxed__mini { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
 .hxed__mini label { display: flex; align-items: center; gap: 6px; font-size: 13px; opacity: 0.85; }
-.hxed__mini input, .hxed__mini select { width: 100%; padding: 5px 7px; font-size: 13px; }
+.hxed__mini input { width: 100%; padding: 5px 7px; font-size: 13px; }
+/* 融合模式下拉 (common/Tooltip/Select) 撑满格子. .agents/notes/implemented/feature/2026-11-01-hxdeck-custom-select.md */
+.hxed__mini .hxed__sel { flex: 1; width: 100%; min-width: 0; height: 28px; }
 .hxed__io { width: 100%; font-family: monospace; font-size: 11px; resize: vertical; margin-bottom: 7px; }
 .hxed__btns { display: flex; gap: 6px; margin-bottom: 9px; flex-wrap: wrap; }
 .hxed__msg { font-size: 14px; color: #5fd39a; }

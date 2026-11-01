@@ -1,32 +1,31 @@
 import React, { useMemo, useState, useCallback, useRef, useEffect } from 'react';
 import type { ForceGraphMethods, NodeObject, LinkObject } from 'react-force-graph-2d';
 import { useActorMap, useAnimeRecords } from "@site/src/utils/anime/animeStore";
-import { ANiMeRecord, Character } from "@site/src/utils/anime/types";
+import { ANiMeRecord } from "@site/src/utils/anime/types";
 import BrowserOnly from '@docusaurus/BrowserOnly';
-import { toAnimeCdnUrl } from '@site/src/utils/cdn/linkJsDelivr';
+import {
+    buildFocusGraph,
+    buildOverviewGraph,
+    buildSeriesIndex,
+    type GraphLinkType,
+    type GraphNodeData,
+    type GraphNodeType,
+} from './buildGraph';
+import styles from './graph.module.css';
 
 // ================= 1. 类型定义 =================
 
-type NodeType = 'Anime' | 'Character' | 'Actor';
+type NodeType = GraphNodeType;
 
-interface GraphNode extends NodeObject {
-    id: string;
-    type: NodeType;
-    name: string;
-    name_cn?: string;
-    image_url?: string;
-    val: number;
-    // 原始数据
-    rawCharacter?: Character;
-    rawAnimeId?: number;
-    rawActorId?: number;
-}
+/** 图库会在节点对象上挂 x / y / vx / vy 等运行时字段 */
+type GraphNode = NodeObject & GraphNodeData;
 
 interface GraphLink extends LinkObject {
     source: string | GraphNode;
     target: string | GraphNode;
-    type: 'Include' | 'VoicedBy' | 'Sequel' | 'Related';
+    type: GraphLinkType;
     label?: string;
+    weight?: number;
 }
 
 interface GraphData {
@@ -34,23 +33,74 @@ interface GraphData {
     links: GraphLink[];
 }
 
+export type GraphLayer = 'overview' | 'focus';
+
 // ================= 2. 样式常量 (Dark Theme) =================
 
 export const THEME = {
-    background: '#0b0b0b',
-    panelBg: 'rgba(20, 20, 20, 0.85)',
-    textMain: '#ffffff',
-    textSub: '#aaaaaa',
+    // 与站点暗色底 (#121212) 一致; 强调色取站点主色 #ff88ff, 只用于选中 / 高亮描边
+    background: '#121212',
+    panelBg: 'rgba(24, 24, 24, 0.88)',
+    textMain: 'rgba(255, 255, 255, 0.9)',
+    textSub: 'rgba(255, 255, 255, 0.55)',
     border: 'rgba(255, 255, 255, 0.1)',
+    accent: '#ff88ff',
     colors: {
-        Anime: '#ff6b6b',
-        Character: '#4ecdc4',
-        Actor: '#ffe66d',
-        Sequel: '#ff9f43',
-        Default: '#888888',
-        TextBg: 'rgba(0, 0, 0, 0.7)',
+        // 三类节点用低饱和色区分: 番剧中性米白, 角色灰青, 声优灰金
+        Anime: '#d9d4c7',
+        Character: '#7fa6a1',
+        Actor: '#b9a37a',
+        Sequel: '#d9d4c7',
+        Default: '#8a8a8a',
+        TextBg: 'rgba(14, 14, 16, 0.82)',
+        Text: '#ece9e2',
+        Dim: '#3a3a3a',
+        Ghost: '#5c5a55',
     }
 };
+
+/** 边按类型区分: 颜色 / 线宽 / 线型. 续作实线最醒目, 包含细实线, 配音与共享声优虚线, 其它作品点线 */
+export const EDGE_STYLE: Record<GraphLinkType, { color: string; width: number; dash: number[] | null; label: string }> = {
+    Sequel: { color: 'rgba(217, 212, 199, 0.75)', width: 2, dash: null, label: '续作 / 同系列' },
+    SharedCV: { color: 'rgba(185, 163, 122, 0.5)', width: 1, dash: [4, 3], label: '共享声优 (越粗越多)' },
+    Include: { color: 'rgba(127, 166, 161, 0.4)', width: 1, dash: null, label: '番剧 — 角色' },
+    VoicedBy: { color: 'rgba(185, 163, 122, 0.45)', width: 1, dash: [3, 3], label: '角色 — 声优' },
+    Appears: { color: 'rgba(255, 255, 255, 0.18)', width: 1, dash: [1, 3], label: '声优的其它作品' },
+    Related: { color: 'rgba(255, 255, 255, 0.3)', width: 1, dash: [1, 3], label: '相关' },
+};
+
+const LAYER_EDGES: Record<GraphLayer, GraphLinkType[]> = {
+    overview: ['Sequel', 'SharedCV'],
+    focus: ['Sequel', 'Include', 'VoicedBy', 'Appears'],
+};
+
+export const NODE_LEGEND: { type: NodeType; label: string }[] = [
+    { type: 'Anime', label: '番剧' },
+    { type: 'Character', label: '角色' },
+    { type: 'Actor', label: '声优' },
+];
+
+function linkEndId (end: string | GraphNode | undefined): string {
+    if (end && typeof end === 'object') return end.id;
+    return end ?? '';
+}
+
+function linkWidthOf (link: GraphLink): number {
+    const base = EDGE_STYLE[link.type].width;
+    if (link.type === 'SharedCV' && link.weight) return Math.min(base + (link.weight - 1) * 0.6, 4);
+    return base;
+}
+
+function roundRectPath (ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
+    const rr = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rr);
+    ctx.arcTo(x + w, y + h, x, y + h, rr);
+    ctx.arcTo(x, y + h, x, y, rr);
+    ctx.arcTo(x, y, x + w, y, rr);
+    ctx.closePath();
+}
 
 // 图片缓存
 const imgCache = new Map<string, HTMLImageElement>();
@@ -70,15 +120,15 @@ function getImage (url: string): HTMLImageElement {
 // ================= 3. 控制器组件 =================
 
 interface GraphControllerProps {
+    layer: GraphLayer;
     hiddenRelations: string[];
     setHiddenRelations: (val: string[]) => void;
     preferCn: boolean;
     setPreferCn: (val: boolean) => void;
     showImages: boolean;
     setShowImages: (val: boolean) => void;
-    targetAnimeId: number | undefined;
-    setTargetAnimeId: (val: number | undefined) => void;
-    allRecords: readonly ANiMeRecord[];
+    minShared: number;
+    setMinShared: (val: number) => void;
 
     chargeStrength: number;
     setChargeStrength: (val: number) => void;
@@ -86,29 +136,20 @@ interface GraphControllerProps {
     setLinkDistance: (val: number) => void;
 }
 
+const RELATION_OPTIONS = ['主角', '配角', '客串', '闲角', '旁白'];
+
 export const AnimeGraphController: React.FC<GraphControllerProps> = ({
+    layer,
     hiddenRelations, setHiddenRelations,
     preferCn, setPreferCn,
     showImages, setShowImages,
-    targetAnimeId, setTargetAnimeId,
-    allRecords,
+    minShared, setMinShared,
     chargeStrength, setChargeStrength,
     linkDistance, setLinkDistance
 }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
-    const relationOptions = ['主角', '配角', '客串', '闲角', '旁白'];
 
-    const containerStyle: React.CSSProperties = {
-        position: 'absolute',
-        bottom: '20px',
-        right: '20px',
-        width: '320px',
-        zIndex: 10,
-        // 动画核心属性
-        transition: 'transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
-        transform: isCollapsed ? 'translateX(calc(100% + 20px))' : 'translateX(0)',
-    };
-
+    // 勾选 = 显示该角色定位 (URL 里仍存被隐藏的那些, 兼容旧链接)
     const toggleRelation = (rel: string) => {
         if (hiddenRelations.includes(rel)) {
             setHiddenRelations(hiddenRelations.filter(r => r !== rel));
@@ -117,183 +158,130 @@ export const AnimeGraphController: React.FC<GraphControllerProps> = ({
         }
     };
 
-    const panelStyle: React.CSSProperties = {
-        backgroundColor: THEME.panelBg,
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        borderRadius: '12px',
-        padding: '20px',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)',
-        border: `1px solid ${THEME.border}`,
-        color: THEME.textMain,
-        fontSize: '14px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        position: 'relative', // 为了定位 toggle 按钮
-    };
-
-    const toggleBtnStyle: React.CSSProperties = {
-        position: 'absolute',
-        left: '-25px', // 移出面板左侧
-        bottom: '0',
-        width: '32px',
-        height: '32px',
-        backgroundColor: THEME.panelBg,
-        border: `1px solid ${THEME.border}`,
-        borderRadius: '8px 0 0 8px', // 左侧圆角
-        color: '#fff',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        cursor: 'pointer',
-        boxShadow: '-4px 4px 10px rgba(0,0,0,0.3)',
-        fontSize: '18px',
-        backdropFilter: 'blur(12px)',
-    };
-
-    const sectionTitleStyle: React.CSSProperties = {
-        fontWeight: '600',
-        marginBottom: '8px',
-        color: THEME.textSub,
-        fontSize: '12px',
-        textTransform: 'uppercase',
-        letterSpacing: '1px',
-        display: 'block'
-    };
-
-    const selectStyle: React.CSSProperties = {
-        width: '100%',
-        padding: '8px 12px',
-        borderRadius: '6px',
-        border: `1px solid ${THEME.border}`,
-        background: 'rgba(255,255,255,0.05)',
-        color: 'white',
-        outline: 'none'
-    };
-
     return (
-        <div style={containerStyle}>
-            {/* 折叠/展开按钮 */}
-            <div
-                style={toggleBtnStyle}
+        <div className={isCollapsed ? styles.controllerCollapsed : styles.controller}>
+            <button
+                type="button"
+                className={styles.controllerToggle}
                 onClick={() => setIsCollapsed(!isCollapsed)}
-                title={isCollapsed ? "展开菜单" : "折叠菜单"}
+                aria-expanded={!isCollapsed}
+                title={isCollapsed ? "展开设置" : "收起设置"}
             >
-                {isCollapsed ? '⚙️' : '»'}
-            </div>
+                {isCollapsed ? '设置' : '»'}
+            </button>
 
-            {/* 面板内容 */}
-            <div style={panelStyle}>
+            <div className={styles.panel}>
                 <div>
-                    <span style={sectionTitleStyle}>Focus / 聚焦番剧</span>
-                    <select
-                        value={targetAnimeId || ''}
-                        onChange={e => setTargetAnimeId(e.target.value ? Number(e.target.value) : undefined)}
-                        style={selectStyle}
-                    >
-                        <option value="">🪐 全部番剧</option>
-                        {allRecords.map(r => (
-                            <option key={r.anime_data.id} value={r.anime_data.id}>
-                                {r.anime_data.name_cn || r.anime_data.name}
-                            </option>
-                        ))}
-                    </select>
-                    {targetAnimeId && (
-                        <div style={{ fontSize: '12px', marginTop: '5px', color: '#ff9f43' }}>
-                            * 已自动加载前作/续作关系网
-                        </div>
-                    )}
-                </div>
-
-                <div style={{ borderTop: `1px solid ${THEME.border}` }} />
-
-                <div>
-                    <span style={sectionTitleStyle}>Filter / 过滤角色</span>
-                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                        {relationOptions.map(rel => (
-                            <label key={rel} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', fontSize: '13px' }}>
-                                <input
-                                    type="checkbox"
-                                    checked={hiddenRelations.includes(rel)}
-                                    onChange={() => toggleRelation(rel)}
-                                    style={{ marginRight: '6px', accentColor: THEME.colors.Character }}
-                                />
-                                {rel}
-                            </label>
-                        ))}
+                    <span className={styles.sectionTitle}>
+                        {layer === 'overview' ? '共享声优统计的角色' : '显示的角色'}
+                    </span>
+                    <div className={styles.chips}>
+                        {RELATION_OPTIONS.map(rel => {
+                            const shown = !hiddenRelations.includes(rel);
+                            return (
+                                <button
+                                    key={rel}
+                                    type="button"
+                                    className={shown ? styles.chipOn : styles.chip}
+                                    aria-pressed={shown}
+                                    onClick={() => toggleRelation(rel)}
+                                >
+                                    {rel}
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
 
-                <div>
-                    <span style={sectionTitleStyle}>View / 视图设置</span>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <label style={{ cursor: 'pointer', fontSize: '13px' }}>
-                            <input
-                                type="checkbox"
-                                checked={preferCn}
-                                onChange={e => setPreferCn(e.target.checked)}
-                                style={{ marginRight: '6px' }}
-                            />
-                            中文优先
-                        </label>
-                        <label style={{ cursor: 'pointer', fontSize: '13px' }}>
-                            <input
-                                type="checkbox"
-                                checked={showImages}
-                                onChange={e => setShowImages(e.target.checked)}
-                                style={{ marginRight: '6px' }}
-                            />
-                            显示头像
-                        </label>
-                    </div>
-                </div>
-                <div style={{ borderTop: `1px solid ${THEME.border}` }} />
-                <div>
-                    <span style={sectionTitleStyle}>Physics / 物理引擎</span>
-
-                    {/* 斥力控制 */}
-                    <div style={{ marginBottom: '10px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#ccc' }}>
-                            <span>斥力 (Charge)</span>
-                            <span>{chargeStrength}</span>
-                        </div>
-                        <input
-                            type="range"
-                            min="-500"
-                            max="-10"
-                            step="10"
-                            value={chargeStrength}
-                            onChange={(e) => setChargeStrength(Number(e.target.value))}
-                            style={{ width: '100%', cursor: 'pointer' }}
-                        />
-                    </div>
-
-                    {/* 连线距离控制 */}
+                {layer === 'overview' && (
                     <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#ccc' }}>
-                            <span>间距 (Distance)</span>
-                            <span>{linkDistance}</span>
+                        <div className={styles.rangeHead}>
+                            <span>共享声优至少</span>
+                            <span className={styles.tabular}>{minShared} 位</span>
                         </div>
                         <input
+                            className={styles.range}
                             type="range"
-                            min="10"
-                            max="200"
-                            step="5"
-                            value={linkDistance}
-                            onChange={(e) => setLinkDistance(Number(e.target.value))}
-                            style={{ width: '100%', cursor: 'pointer' }}
+                            min="1"
+                            max="6"
+                            step="1"
+                            value={minShared}
+                            onChange={e => setMinShared(Number(e.target.value))}
                         />
                     </div>
+                )}
+
+                <div className={styles.toggles}>
+                    <label>
+                        <input type="checkbox" checked={preferCn} onChange={e => setPreferCn(e.target.checked)} />
+                        中文优先
+                    </label>
+                    <label>
+                        <input type="checkbox" checked={showImages} onChange={e => setShowImages(e.target.checked)} />
+                        显示头像
+                    </label>
                 </div>
+
+                <details className={styles.advanced}>
+                    <summary>物理参数</summary>
+                    <div className={styles.rangeHead}>
+                        <span>斥力</span>
+                        <span className={styles.tabular}>{chargeStrength}</span>
+                    </div>
+                    <input
+                        className={styles.range}
+                        type="range"
+                        min="-500"
+                        max="-10"
+                        step="10"
+                        value={chargeStrength}
+                        onChange={(e) => setChargeStrength(Number(e.target.value))}
+                    />
+                    <div className={styles.rangeHead}>
+                        <span>间距</span>
+                        <span className={styles.tabular}>{linkDistance}</span>
+                    </div>
+                    <input
+                        className={styles.range}
+                        type="range"
+                        min="10"
+                        max="200"
+                        step="5"
+                        value={linkDistance}
+                        onChange={(e) => setLinkDistance(Number(e.target.value))}
+                    />
+                </details>
             </div>
         </div>
     );
 };
 
+// ================= 面包屑 =================
+
+interface BreadcrumbProps {
+    focusTitle?: string;
+    onOverview: () => void;
+}
+
+export const GraphBreadcrumb: React.FC<BreadcrumbProps> = ({ focusTitle, onOverview }) => (
+    <nav className={styles.breadcrumb} aria-label="关系图层级">
+        {focusTitle ? (
+            <>
+                <button type="button" className={styles.crumbLink} onClick={onOverview}>全部番剧</button>
+                <span className={styles.crumbSep} aria-hidden="true">›</span>
+                <span className={styles.crumbCurrent} title={focusTitle}>{focusTitle}</span>
+            </>
+        ) : (
+            <span className={styles.crumbCurrent}>全部番剧</span>
+        )}
+        <span className={styles.crumbHint}>
+            {focusTitle ? '单击选中 · 双击其它作品切换 · Esc 返回' : '单击选中 · 双击番剧展开角色与声优'}
+        </span>
+    </nav>
+);
+
 // ================= 4. 主图表组件 =================
 
-// 新增: 右键菜单类型
 interface ContextMenuState {
     visible: boolean;
     x: number;
@@ -303,14 +291,25 @@ interface ContextMenuState {
 
 interface AnimeForceGraphProps {
     baseUrl: string;
+    /** 有值 = 聚焦层 (以该番剧所在系列为中心), 无值 = 概览层 */
     targetAnimeId?: number;
     hiddenRelations?: string[];
     preferCn?: boolean;
     showImages?: boolean;
     chargeStrength?: number;
     linkDistance?: number;
+    /** 概览层共享声优边的最小共享人数 */
+    minShared?: number;
+    /** 进入 / 切换聚焦层 (传 undefined 回到概览层) */
+    onFocusAnime?: (animeId: number | undefined) => void;
 }
 
+const DOUBLE_CLICK_MS = 320;
+
+/**
+ * 番剧关系图重构: 概览层 / 聚焦层两层视图, 续作改用 relations, 物理参数首屏生效
+ * .agents/notes/implemented/feature/2026-11-01-anime-graph-refactor.md
+ */
 export const AnimeForceGraph: React.FC<AnimeForceGraphProps> = ({
     baseUrl,
     targetAnimeId,
@@ -318,23 +317,36 @@ export const AnimeForceGraph: React.FC<AnimeForceGraphProps> = ({
     preferCn = false,
     showImages = false,
     chargeStrength = -60,
-    linkDistance = 60
+    linkDistance = 60,
+    minShared = 2,
+    onFocusAnime,
 }) => {
     // Hooks
     const records = useAnimeRecords(baseUrl);
     const actorMap = useActorMap(baseUrl);
     const fgRef = useRef<ForceGraphMethods | undefined>(undefined);
+    // 图实例挂载后才有值; 用 state 承载, 物理参数 effect 才能在首次挂载时触发 (ref.current 变化不会触发渲染)
+    const [fgInstance, setFgInstance] = useState<ForceGraphMethods | undefined>(undefined);
+    const attachGraph = useCallback((instance: ForceGraphMethods | undefined | null) => {
+        fgRef.current = instance ?? undefined;
+        setFgInstance(instance ?? undefined);
+    }, []);
     const containerRef = useRef<HTMLDivElement>(null);
 
     // State
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const [hoverNode, setHoverNode] = useState<GraphNode | null>(null);
-    const [pinnedNodeId, setPinnedNodeId] = useState<string | null>(null);
+    const [selectedId, setSelectedId] = useState<string | null>(null);
     const [contextMenu, setContextMenu] = useState<ContextMenuState>({ visible: false, x: 0, y: 0, node: null });
+    const lastClickRef = useRef<{ id: string; time: number } | null>(null);
+    const needFitRef = useRef(true);
+    /** 当前帧可见的图坐标范围, 由 onRenderFramePre 更新, 用于视口裁剪 */
+    const viewRef = useRef<{ minX: number; maxX: number; minY: number; maxY: number } | null>(null);
+    /** 上一版节点对象, 重建图数据时沿用坐标, 过滤切换时图不会整体炸开重排 */
+    const prevNodesRef = useRef<Map<string, GraphNode>>(new Map());
 
     // ------------------- 初始化逻辑 -------------------
 
-    // 监听容器尺寸变化
     useEffect(() => {
         if (!containerRef.current) return;
         const resizeObserver = new ResizeObserver((entries) => {
@@ -349,121 +361,49 @@ export const AnimeForceGraph: React.FC<AnimeForceGraphProps> = ({
         return () => resizeObserver.disconnect();
     }, []);
 
-    // 响应物理引擎参数变化
+    // 响应物理引擎参数变化 (含首次挂载: fgInstance 从 undefined 变为实例时也会执行)
     useEffect(() => {
-        if (fgRef.current) {
-            fgRef.current.d3Force('charge')?.strength(chargeStrength);
-            fgRef.current.d3Force('link')?.distance(linkDistance);
-            fgRef.current.d3ReheatSimulation();
-        }
-    }, [fgRef.current, chargeStrength, linkDistance]);
+        if (!fgInstance) return;
+        fgInstance.d3Force('charge')?.strength(chargeStrength);
+        fgInstance.d3Force('link')?.distance(linkDistance);
+        fgInstance.d3ReheatSimulation();
+    }, [fgInstance, chargeStrength, linkDistance]);
 
     // ------------------- 数据处理逻辑 -------------------
 
-    // 1. 构建图数据
+    // 0. 系列 (续作) 索引: relations 优先, 名字前缀兜底, 只依赖 records
+    const seriesIndex = useMemo(() => buildSeriesIndex(records), [records]);
+
+    const layer: GraphLayer = targetAnimeId !== undefined && records.some(r => r.anime_data.id === targetAnimeId)
+        ? 'focus' : 'overview';
+
+    // 1. 构建图数据 (概览层 / 聚焦层)
     const graphData = useMemo<GraphData>(() => {
-        const nodes: Map<string, GraphNode> = new Map();
-        const links: GraphLink[] = [];
-        const addNode = (node: GraphNode) => {
-            if (!nodes.has(node.id)) nodes.set(node.id, node);
-        };
-
-        // 筛选逻辑
-        let activeRecords: Set<ANiMeRecord> = new Set();
-        if (targetAnimeId) {
-            const targetRecord = records.find(r => r.anime_data.id === targetAnimeId);
-            if (targetRecord) {
-                const queue = [targetRecord];
-                const visitedIds = new Set<number>();
-                while (queue.length > 0) {
-                    const current = queue.shift()!;
-                    if (visitedIds.has(current.anime_data.id)) continue;
-                    visitedIds.add(current.anime_data.id);
-                    activeRecords.add(current);
-                    records.forEach(r => {
-                        if (visitedIds.has(r.anime_data.id)) return;
-                        const n1 = current.anime_data.name || "";
-                        const n2 = r.anime_data.name || "";
-                        if (n1.length > 4 && n2.startsWith(n1.substring(0, 4))) queue.push(r);
-                    });
-                }
-            }
-        } else {
-            records.forEach(r => activeRecords.add(r));
-        }
-
-        // 构建节点
-        const activeRecordsArray = Array.from(activeRecords);
-        activeRecordsArray.forEach(record => {
-            const anime = record.anime_data;
-            const animeNodeId = `anime_${anime.id}`;
-            addNode({
-                id: animeNodeId,
-                type: 'Anime',
-                name: anime.name,
-                name_cn: anime.name_cn,
-                image_url: toAnimeCdnUrl(`/data/anime/${anime.id}.jpg`),
-                val: 80,
-                rawAnimeId: anime.id
-            });
-
-            anime.characters.forEach(char => {
-                if (hiddenRelations.includes(char.relation)) return;
-                const charNodeId = `char_${char.id}`;
-                addNode({
-                    id: charNodeId,
-                    type: 'Character',
-                    name: char.name,
-                    name_cn: char.name_cn,
-                    image_url: toAnimeCdnUrl(`/data/kyara/${char.id}.jpg`),
-                    val: 20,
-                    rawCharacter: char
-                });
-                links.push({ source: animeNodeId, target: charNodeId, type: 'Include' });
-
-                char.actor_ids.forEach(actorId => {
-                    const actor = actorMap.get(actorId);
-                    if (actor) {
-                        const actorNodeId = `actor_${actor.id}`;
-                        addNode({
-                            id: actorNodeId,
-                            type: 'Actor',
-                            name: actor.name,
-                            image_url: toAnimeCdnUrl(`/data/cv/${actor.id}.jpg`),
-                            val: 12,
-                            rawActorId: actor.id
-                        });
-                        links.push({ source: charNodeId, target: actorNodeId, type: 'VoicedBy' });
-                    }
-                });
-            });
+        const plain = layer === 'focus'
+            ? buildFocusGraph(records, actorMap, seriesIndex, targetAnimeId!, hiddenRelations)
+            : buildOverviewGraph(records, seriesIndex, hiddenRelations, minShared);
+        const prev = prevNodesRef.current;
+        const nodes: GraphNode[] = plain.nodes.map(n => {
+            const old = prev.get(n.id);
+            return old ? { ...n, x: old.x, y: old.y } : { ...n };
         });
+        prevNodesRef.current = new Map(nodes.map(n => [n.id, n]));
+        return { nodes, links: plain.links.map(l => ({ ...l })) };
+    }, [layer, records, actorMap, seriesIndex, targetAnimeId, hiddenRelations, minShared]);
 
-        // 构建连线 (续作关系)
-        for (let i = 0; i < activeRecordsArray.length; i++) {
-            for (let j = i + 1; j < activeRecordsArray.length; j++) {
-                const r1 = activeRecordsArray[i];
-                const r2 = activeRecordsArray[j];
-                const n1 = r1.anime_data.name || "";
-                const n2 = r2.anime_data.name || "";
-                if (n1.length > 3 && n2.startsWith(n1.substring(0, 4))) {
-                    links.push({
-                        source: `anime_${r1.anime_data.id}`,
-                        target: `anime_${r2.anime_data.id}`,
-                        type: 'Sequel'
-                    });
-                }
-            }
-        }
-        return { nodes: Array.from(nodes.values()), links };
-    }, [records, actorMap, targetAnimeId, hiddenRelations]);
+    // 换层或换中心后重新适配视图
+    useEffect(() => {
+        needFitRef.current = true;
+        setSelectedId(null);
+        setContextMenu(p => ({ ...p, visible: false }));
+    }, [layer, targetAnimeId]);
 
-    // 2. 构建邻居索引表 (性能核心)
+    // 2. 邻接表
     const neighborMap = useMemo(() => {
         const map = new Map<string, Set<string>>();
         graphData.links.forEach(link => {
-            const sId = typeof link.source === 'object' ? (link.source as any).id : link.source;
-            const tId = typeof link.target === 'object' ? (link.target as any).id : link.target;
+            const sId = linkEndId(link.source);
+            const tId = linkEndId(link.target);
             if (!map.has(sId)) map.set(sId, new Set());
             if (!map.has(tId)) map.set(tId, new Set());
             map.get(sId)!.add(tId);
@@ -472,246 +412,321 @@ export const AnimeForceGraph: React.FC<AnimeForceGraphProps> = ({
         return map;
     }, [graphData]);
 
-    // 3. 计算当前高亮节点集合 (Pinned > Hover)
+    // 3. 高亮集合: 选中优先于悬停, 只取一跳邻居
     const highlightNodes = useMemo(() => {
         const set = new Set<string>();
-        const targetId = pinnedNodeId || hoverNode?.id;
+        const targetId = selectedId || hoverNode?.id;
         if (targetId) {
             set.add(targetId);
-            const layer1 = neighborMap.get(targetId);
-            if (layer1) {
-                layer1.forEach(n1 => {
-                    set.add(n1);
-                    const layer2 = neighborMap.get(n1);
-                    if (layer2) layer2.forEach(n2 => set.add(n2));
-                });
-            }
+            neighborMap.get(targetId)?.forEach(n => set.add(n));
         }
         return set;
-    }, [pinnedNodeId, hoverNode, neighborMap]);
+    }, [selectedId, hoverNode, neighborMap]);
 
     // ------------------- 交互回调 -------------------
 
-    // 拦截中键默认行为
-    const handleContainerMouseDown = useCallback((e: React.MouseEvent) => {
-        // Button 1 是中键
-        if (e.button === 1) {
-            e.preventDefault(); // 阻止浏览器默认的自动滚动圆圈
-            e.stopPropagation();
+    const focusAnime = useCallback((animeId: number | undefined) => {
+        onFocusAnime?.(animeId);
+    }, [onFocusAnime]);
 
-            // 直接根据当前悬停的节点 (hoverNode) 来判断
-            if (hoverNode) {
-                // 如果鼠标正指着一个节点 -> 切换该节点的锁定状态
-                setPinnedNodeId(prev => (prev === hoverNode.id ? null : hoverNode.id));
-            } else {
-                // 如果鼠标指着空白处 -> 取消所有锁定
-                setPinnedNodeId(null);
+    const handleNodeClick = useCallback((node: GraphNode) => {
+        setContextMenu(p => ({ ...p, visible: false }));
+        const now = Date.now();
+        const last = lastClickRef.current;
+        const isDouble = !!last && last.id === node.id && now - last.time < DOUBLE_CLICK_MS;
+        lastClickRef.current = isDouble ? null : { id: node.id, time: now };
+
+        if (isDouble) {
+            // 双击番剧: 概览层进入聚焦层; 聚焦层里双击其它作品切换中心
+            if (node.type === 'Anime' && node.rawAnimeId !== undefined
+                && (layer === 'overview' || node.ghost)) {
+                focusAnime(node.rawAnimeId);
             }
+            return;
         }
-    }, [hoverNode]);
+        setSelectedId(prev => (prev === node.id ? null : node.id));
+    }, [layer, focusAnime]);
 
-    const handleNodeClick = useCallback((node: GraphNode, event: MouseEvent) => {
+    const handleBackgroundClick = useCallback(() => {
         setContextMenu(p => ({ ...p, visible: false }));
-
-        // 这里的 event.button === 1 通常不会触发, 因为库过滤了
-        // 只保留左键逻辑即可
-        fgRef.current?.centerAt(node.x, node.y, 1000);
-        fgRef.current?.zoom(3, 2000);
-    }, []);
-
-    const handleBackgroundClick = useCallback((event: MouseEvent) => {
-        setContextMenu(p => ({ ...p, visible: false }));
-        // 任意点击空白处取消锁定
-        setPinnedNodeId(null);
+        setSelectedId(null);
     }, []);
 
     const handleNodeRightClick = useCallback((node: GraphNode, event: MouseEvent) => {
-        setContextMenu({
-            visible: true,
-            x: event.clientX,
-            y: event.clientY,
-            node: node
-        });
+        setContextMenu({ visible: true, x: event.clientX, y: event.clientY, node });
     }, []);
+
+    // Esc: 关菜单 > 取消选中 > 回概览层
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key !== 'Escape') return;
+            const el = e.target as HTMLElement | null;
+            if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')) return;
+            if (contextMenu.visible) setContextMenu(p => ({ ...p, visible: false }));
+            else if (selectedId) setSelectedId(null);
+            else if (layer === 'focus') focusAnime(undefined);
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [contextMenu.visible, selectedId, layer, focusAnime]);
+
+    const zoomBy = (factor: number) => {
+        const fg = fgRef.current;
+        if (!fg) return;
+        fg.zoom(fg.zoom() * factor, 300);
+    };
 
     // ------------------- Canvas 渲染 -------------------
 
+    const onRenderFramePre = useCallback((ctx: CanvasRenderingContext2D, globalScale: number) => {
+        // 由当前变换反推可见的图坐标范围 (变换含设备像素比, 与 canvas 像素尺寸对应)
+        const t = ctx.getTransform();
+        if (!t.a) return;
+        const margin = 80 / globalScale;
+        const x0 = -t.e / t.a;
+        const y0 = -t.f / t.d;
+        viewRef.current = {
+            minX: x0 - margin,
+            maxX: x0 + ctx.canvas.width / t.a + margin,
+            minY: y0 - margin,
+            maxY: y0 + ctx.canvas.height / t.d + margin,
+        };
+    }, []);
+
     const nodeCanvasObject = useCallback((node: GraphNode, ctx: CanvasRenderingContext2D, globalScale: number) => {
+        if (node.x === undefined || node.y === undefined) return;
+        const view = viewRef.current;
+        if (view && (node.x < view.minX || node.x > view.maxX || node.y < view.minY || node.y > view.maxY)) return;
+
         const label = preferCn ? (node.name_cn || node.name) : node.name;
-        const fontSize = 12 / globalScale;
-        const displayFontSize = Math.max(fontSize, 4);
-        const baseWidth = Math.sqrt(node.val) * 6;
-
-        let w = baseWidth;
-        let h = baseWidth;
-
-        const img = (showImages && node.image_url) ? getImage(node.image_url) : null;
-        const hasImage = img && img.complete && img.naturalWidth > 0;
-
-        if (hasImage) {
-            const ratio = img.naturalHeight / img.naturalWidth;
-            h = w * ratio;
-        }
-        const x = node.x! - w / 2;
-        const y = node.y! - h / 2;
-        const isHover = hoverNode === node;
+        const isHover = hoverNode?.id === node.id;
+        const isSelected = selectedId === node.id;
         const isHighlight = highlightNodes.has(node.id);
+        const dimmed = highlightNodes.size > 0 && !isHighlight && !isHover;
+        const baseColor = node.ghost ? THEME.colors.Ghost : (THEME.colors[node.type] || THEME.colors.Default);
 
-        // 1. 绘制背景
-        ctx.beginPath();
-        ctx.rect(x, y, w, h);
-        const baseColor = THEME.colors[node.type] || THEME.colors.Default;
-        if (highlightNodes.size > 0 && !isHighlight && !isHover) {
-            ctx.fillStyle = '#222';
-            ctx.globalAlpha = 0.2;
+        // 头像只在放大到能看清时画, 缩小时只画色块, 省绘制
+        const img = (showImages && node.image_url && globalScale >= 1.2) ? getImage(node.image_url) : null;
+        const hasImage = !!img && img.complete && img.naturalWidth > 0;
+
+        ctx.save();
+        ctx.globalAlpha = dimmed ? 0.18 : (node.ghost ? 0.6 : 1);
+        const strokeColor = isHover || isSelected ? THEME.accent : 'rgba(255, 255, 255, 0.7)';
+
+        let halfH: number;
+        if (node.type === 'Anime') {
+            // 番剧: 圆角矩形, 有封面时按封面比例
+            const w = Math.sqrt(node.val) * 5;
+            const h = hasImage ? w * (img!.naturalHeight / img!.naturalWidth) : w * 1.4;
+            const x = node.x - w / 2;
+            const y = node.y - h / 2;
+            halfH = h / 2;
+            roundRectPath(ctx, x, y, w, h, 3);
+            ctx.fillStyle = dimmed ? THEME.colors.Dim : baseColor;
+            ctx.fill();
+            if (hasImage) {
+                ctx.save();
+                ctx.clip();
+                ctx.drawImage(img!, x, y, w, h);
+                ctx.restore();
+            }
+            if (isHover || isHighlight) {
+                roundRectPath(ctx, x, y, w, h, 3);
+                ctx.lineWidth = 2 / globalScale;
+                ctx.strokeStyle = strokeColor;
+                ctx.stroke();
+            }
         } else {
-            ctx.fillStyle = baseColor;
-            ctx.globalAlpha = 1;
-        }
-        ctx.fill();
-
-        // 2. 绘制图片
-        if (hasImage) {
-            ctx.save();
+            // 角色 / 声优: 圆形
+            const r = Math.sqrt(node.val) * 2.6;
+            halfH = r;
             ctx.beginPath();
-            ctx.rect(x, y, w, h);
-            ctx.clip();
-            ctx.drawImage(img, x, y, w, h);
-            ctx.restore();
+            ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
+            ctx.fillStyle = dimmed ? THEME.colors.Dim : baseColor;
+            ctx.fill();
+            if (hasImage) {
+                ctx.save();
+                ctx.clip();
+                const side = r * 2;
+                const ratio = img!.naturalHeight / img!.naturalWidth;
+                // 角色图多为竖图, 取上部 (脸) 对齐
+                ctx.drawImage(img!, node.x - r, node.y - r, side, side * ratio);
+                ctx.restore();
+            }
+            if (isHover || isHighlight) {
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
+                ctx.lineWidth = 1.5 / globalScale;
+                ctx.strokeStyle = strokeColor;
+                ctx.stroke();
+            }
         }
 
-        // 3. 边框
-        if (isHover || isHighlight) {
-            ctx.lineWidth = 2 / globalScale;
-            ctx.strokeStyle = '#990099';
-            ctx.stroke();
-        }
-
-        // 4. 文字
-        const textY = node.y! + h / 2 + displayFontSize * 0.5 + 2;
-        ctx.font = `${displayFontSize}px Sans-Serif`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        const textWidth = ctx.measureText(label).width;
-        const bkgDimensions = [textWidth + 4, displayFontSize + 4];
-        ctx.beginPath();
-        ctx.rect(
-            node.x! - bkgDimensions[0] / 2,
-            textY - bkgDimensions[1] / 2,
-            bkgDimensions[0],
-            bkgDimensions[1]
+        // 标签: 番剧常显 (占位作品放大后才显示); 角色 / 声优在放大或被高亮时显示
+        const showLabel = !dimmed && (
+            isHover || isHighlight
+            || (node.type === 'Anime' && (!node.ghost || globalScale >= 1.2))
+            || globalScale >= 1.6
         );
-        ctx.fill();
-        ctx.fillStyle = '#990099';
-        ctx.fillText(label, node.x!, textY);
-        ctx.globalAlpha = 1;
-    }, [preferCn, showImages, hoverNode, highlightNodes]);
+        if (showLabel && label) {
+            const fontSize = Math.max(11 / globalScale, 2.5);
+            ctx.font = `${fontSize}px system-ui, -apple-system, "Segoe UI", sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const padX = fontSize * 0.4;
+            const padY = fontSize * 0.25;
+            const textW = ctx.measureText(label).width;
+            const textY = node.y + halfH + fontSize * 0.5 + padY + 1 / globalScale;
+            roundRectPath(ctx, node.x - textW / 2 - padX, textY - fontSize / 2 - padY, textW + padX * 2, fontSize + padY * 2, fontSize * 0.3);
+            ctx.fillStyle = THEME.colors.TextBg;
+            ctx.fill();
+            ctx.fillStyle = THEME.colors.Text;
+            ctx.fillText(label, node.x, textY);
+        }
+        ctx.restore();
+    }, [preferCn, showImages, hoverNode, highlightNodes, selectedId]);
+
+    const isActiveLink = useCallback((link: GraphLink) =>
+        highlightNodes.has(linkEndId(link.source)) && highlightNodes.has(linkEndId(link.target)), [highlightNodes]);
 
     // ------------------- 组件返回 -------------------
+
+    const menuNode = contextMenu.node;
+    const menuLabel = menuNode ? (preferCn ? (menuNode.name_cn || menuNode.name) : menuNode.name) : '';
+    const closeMenu = () => setContextMenu(p => ({ ...p, visible: false }));
 
     return (
         <div
             ref={containerRef}
-            style={{ width: '100%', height: '100%', overflow: 'hidden', background: THEME.background }}
+            className={styles.canvasWrap}
             onContextMenu={e => e.preventDefault()}
-            onMouseDown={handleContainerMouseDown} // 拦截中键默认行为
         >
             {dimensions.width > 0 && (
                 <BrowserOnly>
                     {() => {
                         const ForceGraph2D = require('react-force-graph-2d').default;
                         return <ForceGraph2D
-                            ref={fgRef}
+                            ref={attachGraph}
                             width={dimensions.width}
                             height={dimensions.height}
+                            backgroundColor={THEME.background}
                             graphData={graphData}
                             nodeLabel={() => ''} // 禁用默认 Label, 完全由 nodeCanvasObject 接管
                             nodeCanvasObject={nodeCanvasObject as any}
+                            onRenderFramePre={onRenderFramePre}
 
-                            // 连线样式
-                            linkColor={(link: any) => {
-                                const s = typeof link.source === 'object' ? link.source.id : link.source;
-                                const t = typeof link.target === 'object' ? link.target.id : link.target;
-                                const isActive = highlightNodes.has(s) && highlightNodes.has(t);
-                                if (highlightNodes.size > 0 && !isActive) return 'rgba(255,255,255,0.02)';
-                                return isActive ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.15)';
+                            linkColor={(link: GraphLink) => {
+                                if (highlightNodes.size > 0 && !isActiveLink(link)) return 'rgba(255, 255, 255, 0.03)';
+                                return EDGE_STYLE[link.type].color;
                             }}
-                            linkWidth={(link: any) => {
-                                const s = typeof link.source === 'object' ? link.source.id : link.source;
-                                const t = typeof link.target === 'object' ? link.target.id : link.target;
-                                return (highlightNodes.has(s) && highlightNodes.has(t)) ? 2 : 1;
+                            linkWidth={(link: GraphLink) => {
+                                const width = linkWidthOf(link);
+                                return (highlightNodes.size > 0 && isActiveLink(link)) ? width + 1 : width;
                             }}
+                            linkLineDash={(link: GraphLink) => EDGE_STYLE[link.type].dash}
+                            linkLabel={(link: GraphLink) => link.label ?? ''}
 
-                            // 交互绑定
-                            onNodeHover={(node: any) => setHoverNode(node || null)}
+                            onNodeHover={(node: GraphNode | null) => setHoverNode(node || null)}
                             onNodeClick={handleNodeClick}
                             onNodeRightClick={handleNodeRightClick}
                             onBackgroundClick={handleBackgroundClick}
+                            onEngineStop={() => {
+                                if (!needFitRef.current) return;
+                                needFitRef.current = false;
+                                fgRef.current?.zoomToFit(500, 60);
+                            }}
 
-                            // 物理参数
-                            d3VelocityDecay={0.1}
-                            cooldownTicks={100}
+                            d3VelocityDecay={0.35}
+                            cooldownTicks={layer === 'overview' ? 200 : 150}
                         />;
                     }}
                 </BrowserOnly>
             )}
 
-            {/* 自定义右键菜单 */}
-            {contextMenu.visible && contextMenu.node && (
-                <div style={{
-                    position: 'fixed',
-                    top: contextMenu.y,
-                    left: contextMenu.x,
-                    backgroundColor: 'rgba(30, 30, 30, 0.95)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255,255,255,0.2)',
-                    borderRadius: '8px',
-                    padding: '6px 0',
-                    minWidth: '160px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-                    zIndex: 1000,
-                    color: '#fff',
-                    fontSize: '13px',
-                    fontFamily: 'sans-serif'
-                }}>
-                    <div style={{ padding: '8px 16px', borderBottom: '1px solid rgba(255,255,255,0.1)', color: '#aaa', fontSize: '12px' }}>
-                        {contextMenu.node.type}: 「{preferCn ? (contextMenu.node.name_cn || contextMenu.node.name) : contextMenu.node.name}」
-                    </div>
+            <div className={styles.bottomLeft}>
+                <div className={styles.zoomControls}>
+                    <button type="button" className={styles.zoomButton} onClick={() => zoomBy(1.4)} aria-label="放大">+</button>
+                    <button type="button" className={styles.zoomButton} onClick={() => zoomBy(1 / 1.4)} aria-label="缩小">−</button>
+                    <button type="button" className={styles.zoomButton} onClick={() => fgRef.current?.zoomToFit(400, 60)} aria-label="适应全部">⤢</button>
+                </div>
+                <GraphLegend edgeTypes={LAYER_EDGES[layer]} nodeTypes={layer === 'overview' ? ['Anime'] : undefined} />
+            </div>
 
+            {contextMenu.visible && menuNode && (
+                <div className={styles.menu} style={{ top: contextMenu.y, left: contextMenu.x }} role="menu">
+                    <div className={styles.menuHead}>「{menuLabel}」</div>
                     <MenuOption onClick={() => {
-                        fgRef.current?.centerAt(contextMenu.node!.x!, contextMenu.node!.y!, 1000);
-                        fgRef.current?.zoom(4, 2000);
-                        setContextMenu(p => ({ ...p, visible: false }));
+                        if (menuNode.x !== undefined && menuNode.y !== undefined) {
+                            fgRef.current?.centerAt(menuNode.x, menuNode.y, 600);
+                            fgRef.current?.zoom(3, 800);
+                        }
+                        closeMenu();
                     }}>
-                        🔍 聚焦 (Focus)
+                        放大到这里
                     </MenuOption>
-
-                    {contextMenu.node.type === 'Anime' && (
-                        <MenuOption onClick={() => {
-                            window.open(`${baseUrl}anime/details?id=${contextMenu.node?.rawAnimeId}`, '_blank');
-                            setContextMenu(p => ({ ...p, visible: false }));
-                        }}>
-                            🔗 跳转番剧详情
+                    {menuNode.type === 'Anime' && menuNode.rawAnimeId !== undefined && (
+                        layer === 'overview' || menuNode.ghost
+                    ) && (
+                        <MenuOption onClick={() => { focusAnime(menuNode.rawAnimeId); closeMenu(); }}>
+                            展开角色与声优
                         </MenuOption>
                     )}
-
-                    <MenuOption onClick={() => setContextMenu(p => ({ ...p, visible: false }))}>
-                        ❌ 关闭 (Close)
-                    </MenuOption>
+                    {menuNode.type === 'Anime' && (
+                        <MenuOption onClick={() => {
+                            window.open(`${baseUrl}anime/details?id=${menuNode.rawAnimeId}`, '_blank');
+                            closeMenu();
+                        }}>
+                            打开番剧详情 ↗
+                        </MenuOption>
+                    )}
                 </div>
             )}
         </div>
     );
 };
 
-// 简单的菜单组件
-const MenuOption: React.FC<{ onClick: () => void, children: React.ReactNode }> = ({ onClick, children }) => (
-    <div
-        onClick={onClick}
-        style={{ padding: '8px 16px', cursor: 'pointer', transition: 'background 0.2s' }}
-        onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'}
-        onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
-    >
-        {children}
+// 图例: 节点类型 + 边类型 (颜色与线型和画布一致)
+const GraphLegend: React.FC<{ edgeTypes: GraphLinkType[]; nodeTypes?: NodeType[] }> = ({ edgeTypes, nodeTypes }) => (
+    <div className={styles.legend} aria-label="图例">
+        {NODE_LEGEND.filter(item => !nodeTypes || nodeTypes.includes(item.type)).map(item => (
+            <span key={item.type} className={styles.legendItem}>
+                <i
+                    className={item.type === 'Anime' ? styles.legendRect : styles.legendDot}
+                    style={{ background: THEME.colors[item.type] }}
+                />
+                {item.label}
+            </span>
+        ))}
+        {edgeTypes.map(type => {
+            const style = EDGE_STYLE[type];
+            return (
+                <span key={type} className={styles.legendItem}>
+                    <svg width="22" height="8" aria-hidden="true">
+                        <line
+                            x1="1" y1="4" x2="21" y2="4"
+                            stroke={style.color}
+                            strokeWidth={Math.max(style.width, 1.5)}
+                            strokeDasharray={style.dash ? style.dash.join(' ') : undefined}
+                        />
+                    </svg>
+                    {style.label}
+                </span>
+            );
+        })}
     </div>
 );
+
+// 简单的菜单组件
+const MenuOption: React.FC<{ onClick: () => void, children: React.ReactNode }> = ({ onClick, children }) => (
+    <button type="button" role="menuitem" className={styles.menuItem} onClick={onClick}>
+        {children}
+    </button>
+);
+
+/** 聚焦层面包屑用的标题: 中心番剧名 */
+export function focusTitleOf (records: readonly ANiMeRecord[], animeId: number | undefined, preferCn: boolean): string | undefined {
+    if (animeId === undefined) return undefined;
+    const anime = records.find(r => r.anime_data.id === animeId)?.anime_data;
+    if (!anime) return undefined;
+    return preferCn ? (anime.name_cn || anime.name) : anime.name;
+}

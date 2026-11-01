@@ -1,0 +1,145 @@
+/*
+ * CDN 节点选择器: 一行状态指示 + 悬浮面板.
+ * 面板外壳 (深色半透明卡片、淡入、定位) 来自 common/Tooltip 的 FloatingLayer, 这里只管触发器与面板内的行;
+ * 行的悬停 / 选中色与 common/Tooltip/Select.module.css 的选项一致.
+ */
+.wrap {
+  display: flex;
+  align-items: center;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ifm-navbar-link-color);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.trigger:hover,
+.trigger[data-open='true'] {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.value {
+  min-width: 3.2em;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  opacity: 0.75;
+}
+
+/* 延迟分档: 触发器图标与面板里的数字共用 */
+.lvIdle { color: var(--ifm-color-emphasis-600); }
+.lvGood { color: #22c55e; }
+.lvOk { color: #eab308; }
+.lvSlow { color: #f97316; }
+.lvBad { color: #ef4444; }
+
+.panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 4px 8px 6px;
+  font-size: 11.5px;
+  opacity: 0.55;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px 7px 6px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: #e4e4e7;
+  font-size: 13px;
+  line-height: 1.3;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.row:hover {
+  background: rgba(255, 136, 255, 0.14);
+}
+
+.row[data-selected='true'] {
+  color: var(--ifm-color-primary);
+}
+
+.check {
+  display: inline-flex;
+  width: 14px;
+  flex: none;
+  justify-content: center;
+}
+
+.region {
+  flex: none;
+  opacity: 0.55;
+}
+
+.name {
+  flex: 1;
+}
+
+.latency {
+  margin-left: 12px;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.retest {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 7px 10px;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  color: #e4e4e7;
+  font-size: 12px;
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.retest:hover:not(:disabled) {
+  color: var(--ifm-color-primary);
+  opacity: 1;
+}
+
+.retest:disabled {
+  cursor: default;
+}
+
+.spin { animation: spin 0.9s linear infinite; }
+.pulse { animation: pulse 1.2s ease-in-out infinite; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 50% { opacity: 0.35; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .spin,
+  .pulse { animation: none; }
+  .trigger { transition: none; }
+}

@@ -15,6 +15,13 @@ import { normalizeSlot, type SkinSlot } from './assets';
 import { listThemes, loadManifest, loadThemeFile, registerTheme } from './theme/registry';
 import type { ThemeInfo } from './theme/registry';
 import cfFig from './figures/cf-gateway';
+import Select from '../components/common/Tooltip/Select';
+
+/**
+ * 贴图融合模式下拉. 用站点自绘 Select 代替原生 select.
+ */
+const BLEND_OPTIONS = (['normal', 'screen', 'luminosity', 'multiply', 'overlay', 'soft-light'] as const)
+    .map((b) => ({ value: b as NonNullable<SkinSlot['blend']>, label: b }));
 
 /**
  * 主题编辑器.
@@ -100,6 +107,10 @@ function slugify(name: string): string {
     return ascii || 'theme-' + Math.abs([...name].reduce((a, c) => a * 31 + c.charCodeAt(0), 7) % 100000);
 }
 
+/**
+ * 贴图融合模式的下拉用站点自绘 Select 代替原生 select, 决策记录:
+ * .agents/notes/implemented/feature/2026-11-01-hxdeck-custom-select.md
+ */
 export default function ThemeEditor(): React.ReactElement {
     const [theme, setTheme] = useState<DeckTheme>(() => JSON.parse(JSON.stringify(whaleTheme)));
     const [target, setTarget] = useState<TargetKind>('page');
@@ -242,9 +253,13 @@ export default function ThemeEditor(): React.ReactElement {
                                     <label>旋转<input type="number" value={slot?.rotate ?? 0} onChange={(e) => setSlot(slotKey, { ...slot, rotate: Number(e.target.value) })} /></label>
                                     <label>圆角<input value={slot?.radius ?? ''} placeholder="50%" onChange={(e) => setSlot(slotKey, { ...slot, radius: e.target.value })} /></label>
                                     <label>融合
-                                        <select value={slot?.blend ?? 'normal'} onChange={(e) => setSlot(slotKey, { ...slot, blend: e.target.value as SkinSlot['blend'] })}>
-                                            {['normal', 'screen', 'luminosity', 'multiply', 'overlay', 'soft-light'].map((b) => <option key={b} value={b}>{b}</option>)}
-                                        </select>
+                                        <Select<NonNullable<SkinSlot['blend']>>
+                                            className="hxed__sel"
+                                            ariaLabel="融合模式"
+                                            value={slot?.blend ?? 'normal'}
+                                            options={BLEND_OPTIONS}
+                                            onChange={(v) => setSlot(slotKey, { ...slot, blend: v })}
+                                        />
                                     </label>
                                 </div>
                                 {slot?.src ? <button type="button" className="hxed__danger" onClick={() => setSlot(slotKey, { ...slot, src: undefined })}>移除图片</button> : null}

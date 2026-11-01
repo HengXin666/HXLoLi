@@ -7,40 +7,97 @@ export interface LatestDoc {
   description: string;
 }
 
-export const latestDocs: LatestDoc[] = [
+/** docs/ 下最近更新的笔记 */
+export const latestDocs: LatestDoc[] = [];
+
+/** blog/ 下最近的博客 */
+export const latestBlogs: LatestDoc[] = [
   {
-    "title": "关于",
-    "to": "/docs/关于",
-    "date": "2026-09-13",
-    "category": "关于",
-    "description": "一、项目描述 本项目基于 HXLoLiHub C++ HX LoLi Heng_Xin's Loli Optimizes Loli Iteratively // static_cast<void / "
+    "title": "自用AI代码质量规范",
+    "to": "/blog/2026/10/07/01-AI代码质量",
+    "date": "2026-10-07",
+    "category": "AI",
+    "description": "我已经受不了AI发挥了, 说好的把AI当人一样用呢? 但它做的根本就不是人做的"
   },
   {
-    "title": "剖析 std::ranges / std::views 库的胖次",
-    "to": "/docs/程序语言/C++/现代C++/现代C++元模版/范围视图",
+    "title": "接受审判: I",
+    "to": "/blog/2026/09/06/01_部门答辩",
+    "date": "2026-09-06",
+    "category": "面试",
+    "description": "简单记录一下转正的面试问题"
+  },
+  {
+    "title": "Codex Free 号池搭建",
+    "to": "/blog/2026/05/17/01_codexFreePool",
     "date": "2026-05-17",
-    "category": "程序语言",
-    "description": "一、起因 最近打算学习一下 C++26 的 std executor 库 看看如何把 HXLibs 的接口对其兼容, 以及写一个该接口规范的线程池 , 发现其一些内容实际上思想是和 std range"
+    "category": "分享",
+    "description": "没事找事折腾..."
   },
   {
-    "title": "HX::net 简介",
-    "to": "/docs/开源项目/HXLibs/HX-net简介",
-    "date": "2026-05-10",
-    "category": "开源项目",
-    "description": "HX net 为 网络库, 使用 Http1.1 协议; 相关头文件存放于 HXLibs/net 。 一、服务端 1.1 快速示例 一个简单的hello world cpp include <HXLi"
+    "title": "最近的项目",
+    "to": "/blog/2026/05/07/01_最近的项目",
+    "date": "2026-05-07",
+    "category": "日常",
+    "description": "吹水一下最近写的一些玩具项目. 因为比较无聊... 基本上按照时间顺序绍介."
   },
   {
-    "title": "分布式系统大厂面试高频知识点图解",
-    "to": "/docs/面试/分布式系统面试知识点图解",
-    "date": "2026-03-06",
-    "category": "面试",
-    "description": "一、分布式知识体系总览 mermaid mindmap root 分布式系统 理论基础 CAP定理 BASE理论 一致性模型 分布式协调 分布式锁 分布式ID 分布式事务 服务治理 服务注册发现 负载"
+    "title": "博客更新日志 (III)",
+    "to": "/blog/2026/04/14/01_博客更新日志",
+    "date": "2026-04-14",
+    "category": "博客",
+    "description": "最近重构了一些模块, 把独立的模块拆分到子仓库, 然后通过PR同步到主仓库。"
   },
   {
-    "title": "后端开发大厂面试高频知识点图解（现代C++）",
-    "to": "/docs/面试/后端开发面试知识点图解",
-    "date": "2026-03-06",
-    "category": "面试",
-    "description": "一、后端知识体系总览 mermaid mindmap root 后端开发 语言基础 现代C++ C++11/14/17/20/23 内存管理 RAII 智能指针 并发编程 模板与泛型编程 Web框架 "
+    "title": "【2025】年终总结",
+    "to": "/blog/2025/12/31/01_2025年终总结",
+    "date": "2025-12-31",
+    "category": "日常",
+    "description": "Heng_Xin 的 2025年终总结 & 2026年展望"
+  }
+];
+
+/** ai-docs/ (路由 /knowledge-base) 下最近的 AI 文章 */
+export const latestAiDocs: LatestDoc[] = [
+  {
+    "title": "DeepSeek Harness Super-agent设计探索: 双层架构与事件驱动",
+    "to": "/knowledge-base/AI/Agent-Harness/DSH/Super-agent设计探索双层架构与事件驱动/",
+    "date": "2026-11-01",
+    "category": "AI",
+    "description": "原文给了一个数: 一个人通常只跟得住 3 到 5 个活跃 Session. 我整理它, 是想看清这个上限怎么从人身上挪回系统里."
+  },
+  {
+    "title": "HX-AI-Review 通用 AI CR 方案",
+    "to": "/knowledge-base/AI/HX-AI-Review通用AI-CR方案/",
+    "date": "2026-10-28",
+    "category": "AI",
+    "description": "本文是 HX-AI-Review 下一版 code 审查的实现规格. 以 hx-context-review 0.3.0 为起点, 首个落地版本是 v0.4. 文中 \"AI CR\" 默认指 code "
+  },
+  {
+    "title": "Pi 能做什么: API、工具并发与 PR Review 实例",
+    "to": "/knowledge-base/AI/Agent-Harness/Pi-PR-Review-Agent/",
+    "date": "2026-10-10",
+    "category": "AI",
+    "description": "我想写个只接收 PR 的审查 Agent, 但还没弄清 Pi 能替我做多少, 尤其是多个工具同时调用的时候."
+  },
+  {
+    "title": "oh-my-pi 的功能与原生调试: 对比 Pi 和 Codex",
+    "to": "/knowledge-base/AI/Agent-Harness/oh-my-pi原生调试与代码审查/",
+    "date": "2026-10-10",
+    "category": "AI",
+    "description": "我对 oh-my-pi 的“原生调试”挺好奇, 想看看 Agent 怎么读变量、验证 review 里的猜测."
+  },
+  {
+    "title": "AI CR 的规则、事故记忆与业务上下文：重点研究 Qodo",
+    "to": "/knowledge-base/AI/Agent架构/AICR规则事故记忆与业务上下文/",
+    "date": "2026-10-09",
+    "category": "AI",
+    "description": "我最近在研究代码质量, 想搭一个 AI CR. 难点是那些只有内部人才知道的事故和业务约束."
+  },
+  {
+    "title": "受控技术中文: 把啰嗦变成可机械检测的判据",
+    "to": "/knowledge-base/工具链/受控技术中文与AI味的机械判据/",
+    "date": "2026-10-06",
+    "category": "工具链",
+    "description": "我之前写过怎么判断自己写的东西有没有AI味, 那篇治的是人称、句长、加粗密度、抽象名词与同体裁对照这几项. 但还有一类问题它治不了: 句子本身太长、用词没信息量、范围说不清含不含端点. 这类问题属于精"
   }
 ];

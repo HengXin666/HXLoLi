@@ -1,11 +1,12 @@
+import type { ReactNode } from 'react';
 import React from 'react';
 
 import HomePage from '../components/home/HomePage';
 
 /**
- * 首页入口挂上字数图、时间图和项目生态图
- * .agents/notes/implemented/feature/2026-10-31-homepage-ecosystem-graph.md
+ * 首页只做入口, 实际内容在 src/components/home/HomePage.tsx
+ * .agents/notes/implemented/feature/2026-10-31-homepage-profile-and-project-index.md
  */
-export default function Home(): React.ReactElement {
+export default function Home (): ReactNode {
     return <HomePage />;
 }
