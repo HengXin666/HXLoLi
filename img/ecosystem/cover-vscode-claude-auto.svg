@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750">
+  <rect width="1200" height="750" fill="#141218"/>
+  <circle cx="1019" cy="197" r="149" fill="none" stroke="#c4b5fd" stroke-width="2" opacity="0.75"/>
+  <circle cx="1059" cy="247" r="74" fill="#c4b5fd" opacity="0.16"/>
+  <rect width="14" height="750" fill="#c4b5fd"/>
+  <text x="72" y="292" fill="#c4b5fd" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="22" letter-spacing="5">VS CODE</text>
+  <text x="72" y="410" fill="#f6f3f8" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="68">vscode-claude-auto</text>
+  <text x="72" y="478" fill="#9b95a3" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="22">cover placeholder</text>
+</svg>
