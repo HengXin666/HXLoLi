@@ -682,3 +682,30 @@
         transform: none;
     }
 }
+
+/* ---------- 去掉页头大标题 (2026-11-03): 页头只剩描述 / 统计 / 标签, 收紧上方留白 ---------- */
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.page {
+    padding-top: 32px;
+}
+
+.head {
+    margin-bottom: 40px;
+}
+
+.lead {
+    font-size: 14px;
+    color: var(--hx-muted);
+    margin: 0 0 16px;
+}

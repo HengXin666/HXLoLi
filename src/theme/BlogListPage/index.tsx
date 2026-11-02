@@ -149,18 +149,16 @@ function BlogListPageContent (props: Props): ReactNode {
             <BlogWithCats contentWidth={CONTENT_WIDTH} style={{ padding: 0, minHeight: 0 }}>
                 <div className={styles.page} ref={reveal}>
                     <header className={styles.head}>
-                        <p className={styles.kicker} style={stagger(0)}>
-                            <span className={styles.dot} aria-hidden="true" />Blog
-                        </p>
-                        <h1 className={styles.heading} style={stagger(1)}>{metadata.blogTitle || '博客'}</h1>
-                        {metadata.blogDescription && <p className={styles.lead} style={stagger(2)}>{metadata.blogDescription}</p>}
-                        <dl className={styles.stats} style={stagger(3)}>
+                        {/* 不放大字标题: 导航栏已有"博客"入口, 页面直接从统计 / 标签 / 列表开始; h1 只给读屏与 SEO */}
+                        <h1 className={styles.srOnly}>{metadata.blogTitle || '博客'}</h1>
+                        {metadata.blogDescription && <p className={styles.lead} style={stagger(0)}>{metadata.blogDescription}</p>}
+                        <dl className={styles.stats} style={stagger(1)}>
                             <div><dd>{String(metadata.totalCount).padStart(2, '0')}</dd><dt>篇文章</dt></div>
                             <div><dd>{metadata.page}<small>/{metadata.totalPages}</small></dd><dt>页</dt></div>
                             <div><dd>{String(tags.length).padStart(2, '0')}</dd><dt>本页标签</dt></div>
                         </dl>
                         {tags.length > 0 && (
-                            <nav className={styles.tags} aria-label="标签" style={stagger(4)}>
+                            <nav className={styles.tags} aria-label="标签" style={stagger(2)}>
                                 {tags.map((t) => (
                                     <Link key={t.permalink} to={t.permalink} className={styles.chip}>
                                         {t.label}<span className={styles.chipN}>{t.n}</span>

@@ -29,12 +29,12 @@
 /*
  * 立绘舞台 (src/components/BlogWithCats/index.tsx 的 NekoStage). 结构: .neko-sides[data-variant] > .neko-slot (fixed, 吃滚动 transform) > .neko-img (吃入场 / 呼吸).
  * --neko-p: 滚动进度 0..1 (JS 每帧写一次). 只动 transform / opacity.
- * 竖直: 不贴底, pair 与 side 底边抬起 clamp(115px, 8vh + 75px, 195px) (原 clamp(40px, 8vh, 120px) 再上移 75px).
+ * 竖直: 不贴底, pair 与 side 底边抬起 clamp(165px, 8vh + 125px, 245px) (最初 clamp(40px, 8vh, 120px), 先 +75px, 2026-11-03 再 +50px).
  */
 .neko-sides {
     --neko-p: 0;
     --neko-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-    --neko-lift: clamp(115px, calc(8vh + 75px), 195px);
+    --neko-lift: clamp(165px, calc(8vh + 125px), 245px);
 }
 
 .neko-slot {
@@ -48,8 +48,9 @@
     display: block;
     width: 100%;
     height: auto;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 80%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 80%, transparent 100%);
+    /* 底部淡出起点逐图 (--neko-fade, 由 NEKO_PAIRS.fade 给), 避开手和手臂 */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 var(--neko-fade, 86%), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 var(--neko-fade, 86%), transparent 100%);
     animation:
         neko-peek-l 0.9s var(--neko-ease) 0.15s both,
         neko-breathe 5.2s ease-in-out 1.2s infinite;
@@ -62,26 +63,71 @@
 
 /* ---------- pair: 正文当墙, 立绘在墙后 ---------- */
 /*
- * 立绘 z 1 < 正文 2. 内侧只侵入正文 4% (之前 12%), 露出更多身体; 滚动一屏后再向上探 64px 并朝外侧倾 3deg (支点在内侧底部, 像扒着墙边往外伸).
+ * 立绘 z 1 < 正文 2. 内侧侵入正文 6%, 露出大部分身体; 滚动一屏后再向上探 64px. 不旋转: 旋转会让内侧竖直裁切线斜出墙外, 露出被切的手.
  */
 [data-variant='pair'] .neko-slot {
-    --neko-in: calc(var(--neko-w, 280px) * 0.04);
+    --neko-in: calc(var(--neko-w, 280px) * 0.06);
     bottom: var(--neko-lift);
     z-index: 1;
     width: var(--neko-w, 280px);
     max-height: calc(100vh - var(--ifm-navbar-height, 60px) - var(--neko-lift));
 }
 
+/*
+ * 横向: --neko-wl / --neko-wr 是 JS 量出来的墙左右外沿 (useWallEdges), 没量到时回落到"正文在视口正中"的推算.
+ * 2026-11-03 右侧割裂: 推算的右沿和真实的墙差几像素到十几像素 (滚动条等), 右侧裁切线露在墙外或和墙隔一条缝; 改为量.
+ */
 [data-variant='pair'] .neko-slot-l {
-    left: calc(50% - var(--neko-cw, 960px) / 2 - var(--neko-w, 280px) + var(--neko-in));
+    left: calc(var(--neko-wl, calc(50% - var(--neko-cw, 960px) / 2)) - var(--neko-w, 280px) + var(--neko-in));
     transform-origin: 100% 100%;
-    transform: translateY(calc(var(--neko-p) * -64px)) rotate(calc(var(--neko-p) * -3deg));
+    transform: translateY(calc(var(--neko-p) * -64px));
 }
 
 [data-variant='pair'] .neko-slot-r {
-    left: calc(50% + var(--neko-cw, 960px) / 2 - var(--neko-in));
+    left: calc(var(--neko-wr, calc(50% + var(--neko-cw, 960px) / 2)) - var(--neko-in));
     transform-origin: 0 100%;
-    transform: translateY(calc(var(--neko-p) * -64px)) rotate(calc(var(--neko-p) * 3deg));
+    transform: translateY(calc(var(--neko-p) * -64px));
+}
+
+/*
+ * 内侧竖边水平淡出 (和底部淡出叠加, 取交集). 立绘内侧 6% 在墙后; 从 90% 宽开始淡, 墙沿处 (94%) 还剩约 60% 不透明,
+ * 扒墙的手仍然看得见, 但万一墙沿和裁切线没对齐, 露出来的也只是一条渐隐边, 不再是硬切的竖线.
+ * mask 在 img 自己的坐标里, 跟着镜像一起翻, 所以镜像过的槽 (neko-flip) 反过来写方向.
+ */
+[data-variant='pair'] .neko-slot-l {
+    --neko-mask-x: linear-gradient(to right, #000 90%, transparent 100%);
+}
+
+[data-variant='pair'] .neko-slot-r {
+    --neko-mask-x: linear-gradient(to left, #000 90%, transparent 100%);
+}
+
+[data-variant='pair'] .neko-slot-l.neko-flip {
+    --neko-mask-x: linear-gradient(to left, #000 90%, transparent 100%);
+}
+
+[data-variant='pair'] .neko-slot-r.neko-flip {
+    --neko-mask-x: linear-gradient(to right, #000 90%, transparent 100%);
+}
+
+[data-variant='pair'] .neko-img {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 var(--neko-fade, 86%), transparent 100%), var(--neko-mask-x);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 var(--neko-fade, 86%), transparent 100%), var(--neko-mask-x);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+}
+
+/* 落位和槽位相反的图 (NEKO_PAIRS.anchor) 水平镜像; 用独立 scale 属性, 不和入场 / 呼吸的 transform 抢. 镜像后入场方向反过来 */
+[data-variant='pair'] .neko-flip .neko-img {
+    scale: -1 1;
+}
+
+[data-variant='pair'] .neko-slot-l.neko-flip .neko-img {
+    animation-name: neko-peek-r, neko-breathe;
+}
+
+[data-variant='pair'] .neko-slot-r.neko-flip .neko-img {
+    animation-name: neko-peek-l, neko-breathe;
 }
 
 /*
@@ -104,22 +150,20 @@
         12px 0 28px -14px rgba(0, 0, 0, 0.7);
 }
 
-/* ---------- corner: 视口右下角斜探 (视口右边当墙) ---------- */
+/* ---------- corner: 番剧库, 视口右边当墙, 从右侧墙后探头 ---------- */
 /*
- * 立绘斜 -9deg, 支点右下角; 初始下沉 22% 只露头和肩, 滚动一屏沿斜线再升 22% + 内移 12px.
+ * 2026-11-03 重做. 原来 right:0 bottom:0 + rotate(-6deg) + 下沉 24%, 再叠上镜像: 裁切线翻到朝内容一侧, 1440 宽时立绘压在最后一列海报上, 只露个头.
+ * 现在: 不旋转, 和博客 pair 一样底边抬 --neko-lift, 右移 6% 把裁切线推出视口; 宽度按右侧留白算 (番剧库正文 1240 - 2*20 padding = 1200),
+ * 角色可见部分约占图宽 0.64, 宽度取留白 * 1.5 时基本不压海报. 留白小于 100px (视口 < 1400) 不渲染 (index.tsx).
+ * 底部淡出走 .neko-img 默认遮罩 (逐图 --neko-fade).
  */
 [data-variant='corner'] .neko-slot {
     right: 0;
-    bottom: 0;
+    bottom: var(--neko-lift);
     z-index: 3;
-    width: clamp(170px, 13vw, 240px);
-    transform-origin: 100% 100%;
-    transform: translate(calc(var(--neko-p) * -12px), calc(22% - var(--neko-p) * 22%)) rotate(-9deg);
-}
-
-[data-variant='corner'] .neko-img {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%);
-    mask-image: linear-gradient(to bottom, transparent 0, #000 14%);
+    width: clamp(150px, calc((100vw - 1200px) * 0.75), 240px);
+    max-height: calc(100vh - var(--ifm-navbar-height, 60px) - var(--neko-lift));
+    transform: translate(6%, calc(var(--neko-p) * -48px));
 }
 
 /* ---------- edges: 视口左右两边从底部升起 (全宽页面) ---------- */
@@ -202,19 +246,20 @@ html:has(.neko-sides) .footer {
     }
 }
 
-/* corner / side 的墙是视口右边: 入场从右往左探 (左图在右墙之左, 用 peek-l 方向) */
+/*
+ * 墙是视口边的变体 (corner / side / edges): 不镜像 (2026-11-03 撤掉之前的 scale:-1 1).
+ * 视口右边放 left 图: 身体贴图的右边、裁切线在右, 正好藏在视口右边外, 人从右侧墙后往左探; 视口左边放 right 图, 反之.
+ * 之前加的镜像把裁切线翻到了朝页面内容的一侧 (/anime 上是一条硬切的竖边压在海报上), 头发和身体朝屏幕外.
+ * 入场: 从墙里滑出, 右边的从右往左 (neko-peek-l 的 +40% 起点), 左边的从左往右.
+ */
 [data-variant='corner'] .neko-slot-r .neko-img,
-[data-variant='side'] .neko-slot-r .neko-img {
-    animation-name: neko-peek-l, neko-breathe;
-}
-
-/* edges 左侧那只贴视口左边, 从左往右探 */
-[data-variant='edges'] .neko-slot-l .neko-img {
-    animation-name: neko-peek-r, neko-breathe;
-}
-
+[data-variant='side'] .neko-slot-r .neko-img,
 [data-variant='edges'] .neko-slot-r .neko-img {
     animation-name: neko-peek-l, neko-breathe;
+}
+
+[data-variant='edges'] .neko-slot-l .neko-img {
+    animation-name: neko-peek-r, neko-breathe;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -243,4 +288,37 @@ html:has(.neko-sides) .footer {
     .blog-content-wrapper {
         padding: 0 4px;
     }
+}
+
+/* ---------- screen: 番剧库, 屏幕左右边界当墙, 两侧各探进来半个身子 ---------- */
+/*
+ * 2026-11-03. 番剧库卡片墙铺满 1200px, 没有正文块可躲 (pair 不适用), 所以墙换成屏幕边: 立绘一部分在屏幕外, 只露探进来的那半边.
+ * 视口左边放 right 图 (身体贴图左边, 裁切线在左, 推出屏幕), 视口右边放 left 图, 不镜像: 左边的人朝右, 右边的人朝左, 都朝卡片探.
+ * 静止推出图宽 24%, 滚动一屏收回到 18%, 多探进来 6%. 宽度 clamp(180px, 留白/2 + 130px, 270px), 1440 宽时 250px; 探进来的身体大多落在 120px 留白里, 手和发梢最多擦到最外一列海报边 (实测静止 0-62px, 滚满 +15px).
+ * 竖直: 底边抬 --neko-lift, 和博客一致, 不挡底部.
+ */
+[data-variant='screen'] .neko-slot {
+    --neko-out: calc(24% - var(--neko-p) * 6%);
+    bottom: var(--neko-lift);
+    z-index: 3;
+    width: clamp(180px, calc((100vw - 1200px) * 0.5 + 130px), 270px);
+    max-height: calc(100vh - var(--ifm-navbar-height, 60px) - var(--neko-lift));
+}
+
+[data-variant='screen'] .neko-slot-l {
+    left: 0;
+    transform: translateX(calc(var(--neko-out) * -1));
+}
+
+[data-variant='screen'] .neko-slot-r {
+    right: 0;
+    transform: translateX(var(--neko-out));
+}
+
+[data-variant='screen'] .neko-slot-r .neko-img {
+    animation-name: neko-peek-l, neko-breathe;
+}
+
+[data-variant='screen'] .neko-slot-l .neko-img {
+    animation-name: neko-peek-r, neko-breathe;
 }
