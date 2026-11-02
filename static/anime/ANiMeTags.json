@@ -1,0 +1,5399 @@
+{
+  "generatedAt": "2026-11-02T00:24:39+08:00",
+  "sources": {
+    "aod": {
+      "release": "2026-27",
+      "lastUpdate": "2026-07-04",
+      "license": "Open Data Commons Open Database License (ODbL) v1.0 + Database Contents License (DbCL) v1.0",
+      "url": "https://github.com/manami-project/anime-offline-database"
+    },
+    "bangumiData": {
+      "version": "0.3.234",
+      "license": "CC-BY-4.0",
+      "url": "https://github.com/bangumi-data/bangumi-data"
+    },
+    "anilist": {
+      "url": "https://anilist.co",
+      "fields": "genres, tags.rank, characters(role:MAIN).age"
+    },
+    "bangumiCharacters": {
+      "from": "data/ANiMeRecord.json anime_data.characters (relation/年龄/身高/简介)"
+    }
+  },
+  "rules": {
+    "wallScore": 2,
+    "loli": "aod loli|lolicon +2; Bangumi 主角+配角中 >=2 个女性 小学生年纪(年龄最大值<=12/小学N年级)/幼女外形(身高<=145cm 且首个年龄<=14) +2, 仅 1 个且为主角 +1; AniList Primarily Child Cast rank>=50 +1; AniList 主角色年龄<=12 +1",
+    "siscon": "aod imouto|sister complex|brother-sister incest +2; aod siblings +1; AniList Incest rank>=20 +1",
+    "genreGate": {
+      "搞笑": "Comedy",
+      "恋爱": "Romance"
+    }
+  },
+  "stats": {
+    "records": 160,
+    "covered": 154,
+    "inBangumiData": 156,
+    "inAod": 154,
+    "inAniList": 154,
+    "unmapped": 6,
+    "wall": {
+      "ロリ": 26,
+      "百合": 24,
+      "妹控": 4,
+      "异世界": 48,
+      "校园": 75,
+      "日常": 85,
+      "恋爱": 32,
+      "搞笑": 89,
+      "战斗": 85,
+      "催泪": 63,
+      "悬疑": 52
+    },
+    "candidates": {
+      "ロリ": 18,
+      "妹控": 9
+    }
+  },
+  "items": {
+    "443831": {
+      "name_cn": "Fate/strange Fake",
+      "tags": [
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18093,
+        "anilist": 166617,
+        "kitsu": 47682,
+        "mal": 55830
+      }
+    },
+    "517057": {
+      "name_cn": "【我推的孩子】 第三季",
+      "tags": [
+        "妹控",
+        "异世界",
+        "日常",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "妹控": [
+          "aod:siblings",
+          "anilist:Incest rank=54",
+          "score=2"
+        ],
+        "异世界": [
+          "aod:reincarnation"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18901,
+        "anilist": 182587,
+        "kitsu": 49264,
+        "mal": 60058
+      }
+    },
+    "255526": {
+      "name_cn": "Fate/Grand Order -绝对魔兽战线巴比伦尼亚-",
+      "tags": [
+        "异世界",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14238,
+        "anilist": 103275,
+        "kitsu": 42269,
+        "mal": 38084
+      }
+    },
+    "515759": {
+      "name_cn": "葬送的芙莉莲 第二季",
+      "tags": [
+        "日常",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "日常": [
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18886,
+        "anilist": 182255,
+        "kitsu": 49240,
+        "mal": 59978
+      }
+    },
+    "564421": {
+      "name_cn": "异世界四重奏 第三季",
+      "tags": [
+        "异世界",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "校园": [
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Raphtalia (10 (mentally), 18 (biologically))",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 19385,
+        "anilist": 194447,
+        "mal": 61851
+      }
+    },
+    "445905": {
+      "name_cn": "判处勇者刑 惩罚勇者9004队刑务纪录",
+      "tags": [
+        "异世界",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18124,
+        "anilist": 167152,
+        "kitsu": 47759,
+        "mal": 56009
+      }
+    },
+    "262865": {
+      "name_cn": "异世界四重奏",
+      "tags": [
+        "异世界",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Tanya Degurechaff (9-13)",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 14435,
+        "anilist": 104454,
+        "kitsu": 42032,
+        "mal": 38472
+      }
+    },
+    "285422": {
+      "name_cn": "异世界四重奏 第二季",
+      "tags": [
+        "异世界",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "校园": [
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Tanya Degurechaff (9-13)",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 14964,
+        "anilist": 110178,
+        "kitsu": 42410,
+        "mal": 39988
+      }
+    },
+    "510753": {
+      "name_cn": "靠死亡游戏混饭吃。",
+      "tags": [
+        "百合",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:yuri"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18845,
+        "anilist": 180746,
+        "kitsu": 50337,
+        "mal": 59711
+      }
+    },
+    "333176": {
+      "name_cn": "这个医师超麻烦",
+      "tags": [
+        "日常",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 16249,
+        "anilist": 132351,
+        "kitsu": 44383,
+        "mal": 48742
+      }
+    },
+    "514353": {
+      "name_cn": "小林家的龙女仆 怕寂寞的龙",
+      "tags": [
+        "ロリ",
+        "百合",
+        "异世界",
+        "日常",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "bgm:核心角色群 康娜卡姆依[主角|年龄 9岁（人类）], 才川莉子[配角|年龄 9岁]",
+          "score=2"
+        ],
+        "百合": [
+          "aod:yuri"
+        ],
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18873,
+        "anilist": 181839,
+        "kitsu": 49215,
+        "mal": 59897
+      }
+    },
+    "193373": {
+      "name_cn": "剧场版 Fate/kaleid liner 魔法少女☆伊莉雅 雪下的誓言",
+      "tags": [
+        "异世界",
+        "校园",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "异世界": [
+          "aod:isekai"
+        ],
+        "校园": [
+          "aod:school life"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Miyu Edelfelt (10)",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 12420,
+        "anilist": 97757,
+        "kitsu": 12555,
+        "mal": 34100
+      }
+    },
+    "147466": {
+      "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅 3rei!!",
+      "tags": [
+        "ロリ",
+        "百合",
+        "异世界",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "bgm:主角 伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)[简介 小学五年级]",
+          "anilist:Primarily Child Cast rank=50",
+          "anilist:主角色年龄<=12 Illyasviel von Einzbern (8 (Fate/Zero), 18 (Fate/stay night)), Miyu Edelfelt (10)",
+          "score=3"
+        ],
+        "百合": [
+          "aod:yuri"
+        ],
+        "异世界": [
+          "aod:isekai"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 11639,
+        "anilist": 21379,
+        "kitsu": 11438,
+        "mal": 31706
+      }
+    },
+    "113134": {
+      "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅 2wei Herz!",
+      "tags": [
+        "ロリ",
+        "百合",
+        "异世界",
+        "日常",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "bgm:主角 伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)[简介 小学五年级]",
+          "anilist:主角色年龄<=12 Illyasviel von Einzbern (8 (Fate/Zero), 18 (Fate/stay night)), Miyu Edelfelt (10)",
+          "score=2"
+        ],
+        "百合": [
+          "aod:yuri"
+        ],
+        "异世界": [
+          "aod:isekai"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 10833,
+        "anilist": 20845,
+        "kitsu": 9095,
+        "mal": 27525
+      }
+    },
+    "565802": {
+      "name_cn": "辉夜大小姐想让我告白 通往大人的阶梯",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "aod:romantic comedy",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 19402,
+        "anilist": 194884,
+        "kitsu": 49998,
+        "mal": 61903
+      }
+    },
+    "83402": {
+      "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅 2wei!",
+      "tags": [
+        "ロリ",
+        "百合",
+        "异世界",
+        "校园",
+        "日常",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "bgm:主角 伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)[简介 小学五年级]",
+          "anilist:Primarily Child Cast rank=60",
+          "anilist:主角色年龄<=12 Illyasviel von Einzbern (8 (Fate/Zero), 18 (Fate/stay night)), Miyu Edelfelt (10)",
+          "score=3"
+        ],
+        "百合": [
+          "aod:yuri"
+        ],
+        "异世界": [
+          "aod:isekai"
+        ],
+        "校园": [
+          "aod:elementary school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 10091,
+        "anilist": 20467,
+        "kitsu": 8003,
+        "mal": 20509
+      }
+    },
+    "377607": {
+      "name_cn": "无神世界的神明活动",
+      "tags": [
+        "异世界",
+        "日常",
+        "搞笑",
+        "战斗",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "悬疑": [
+          "aod:mystery"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 17337,
+        "anilist": 148048,
+        "kitsu": 46089,
+        "mal": 51693
+      }
+    },
+    "498378": {
+      "name_cn": "间谍过家家 第三季",
+      "tags": [
+        "日常",
+        "搞笑",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Anya Forger (6 (self asserted))",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 18677,
+        "anilist": 177937,
+        "kitsu": 48939,
+        "mal": 59027
+      }
+    },
+    "285757": {
+      "name_cn": "一拳超人 第三季",
+      "tags": [
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 17576,
+        "anilist": 153800,
+        "kitsu": 46360,
+        "mal": 52807
+      }
+    },
+    "537743": {
+      "name_cn": "某科学的超电磁炮 第四季",
+      "tags": [],
+      "candidates": [],
+      "evidence": {},
+      "candidateEvidence": {},
+      "ids": {}
+    },
+    "43951": {
+      "name_cn": "Fate/kaleid liner 魔法少女☆伊莉雅",
+      "tags": [
+        "ロリ",
+        "百合",
+        "异世界",
+        "校园",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "aod:lolicon",
+          "bgm:主角 伊莉雅斯菲尔·冯·爱因兹贝伦 (Prisma☆Illya)[简介 小学五年级]",
+          "anilist:Primarily Child Cast rank=79",
+          "anilist:主角色年龄<=12 Illyasviel von Einzbern (8 (Fate/Zero), 18 (Fate/stay night)), Miyu Edelfelt (10)",
+          "score=5"
+        ],
+        "百合": [
+          "aod:yuri"
+        ],
+        "异世界": [
+          "aod:isekai"
+        ],
+        "校园": [
+          "aod:elementary school",
+          "aod:school life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 9042,
+        "anilist": 14829,
+        "kitsu": 7173,
+        "mal": 14829
+      }
+    },
+    "501963": {
+      "name_cn": "无职转生 第三季 ～到了异世界就拿出真本事～",
+      "tags": [
+        "异世界",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18727,
+        "anilist": 178789,
+        "kitsu": 49002,
+        "mal": 59193
+      }
+    },
+    "444557": {
+      "name_cn": "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分",
+      "tags": [
+        "异世界",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18104,
+        "anilist": 166873,
+        "kitsu": 47694,
+        "mal": 55888
+      }
+    },
+    "373247": {
+      "name_cn": "无职转生 第二季 ～到了异世界就拿出真本事～",
+      "tags": [
+        "异世界",
+        "校园",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 17236,
+        "anilist": 146065,
+        "kitsu": 45950,
+        "mal": 51179
+      }
+    },
+    "325585": {
+      "name_cn": "无职转生～到了异世界就拿出真本事～ 第2部分",
+      "tags": [
+        "异世界",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15954,
+        "anilist": 127720,
+        "kitsu": 43907,
+        "mal": 45576
+      }
+    },
+    "277554": {
+      "name_cn": "无职转生～到了异世界就拿出真本事～",
+      "tags": [
+        "异世界",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [
+        "ロリ",
+        "妹控"
+      ],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:Primarily Child Cast rank=67",
+          "score=1"
+        ],
+        "妹控": [
+          "anilist:Incest rank=20",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 14758,
+        "anilist": 108465,
+        "kitsu": 42323,
+        "mal": 39535
+      }
+    },
+    "515880": {
+      "name_cn": "碧蓝之海 第二季",
+      "tags": [
+        "百合",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:yuri"
+        ],
+        "校园": [
+          "aod:school club",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18892,
+        "anilist": 182309,
+        "kitsu": 49247,
+        "mal": 59986
+      }
+    },
+    "364844": {
+      "name_cn": "打了300年的史莱姆，不知不觉就练到了满级 第二季",
+      "tags": [
+        "百合",
+        "异世界",
+        "日常",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:yuri"
+        ],
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 17110,
+        "anilist": 143337,
+        "kitsu": 45717,
+        "mal": 50738
+      }
+    },
+    "26804": {
+      "name_cn": "魔法禁书目录 恩底弥翁的奇迹",
+      "tags": [],
+      "candidates": [],
+      "evidence": {},
+      "candidateEvidence": {},
+      "ids": {}
+    },
+    "225462": {
+      "name_cn": "Re：从零开始的异世界生活 雪之回忆",
+      "tags": [
+        "异世界",
+        "日常",
+        "搞笑",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "悬疑": [
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "kitsu": 13882,
+        "mal": 36286,
+        "anilist": 100049,
+        "anidb": 13430
+      }
+    },
+    "524005": {
+      "name_cn": "坂本日常 第2部分",
+      "tags": [
+        "搞笑",
+        "战斗",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "悬疑": [
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18984,
+        "anilist": 184237,
+        "kitsu": 49332,
+        "mal": 60285
+      }
+    },
+    "184740": {
+      "name_cn": "少女波子汽水",
+      "tags": [],
+      "candidates": [],
+      "evidence": {},
+      "candidateEvidence": {},
+      "ids": {}
+    },
+    "48289": {
+      "name_cn": "学生会的一己之见 Lv.2",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 9090,
+        "anilist": 10464,
+        "kitsu": 6193,
+        "mal": 10464
+      }
+    },
+    "262939": {
+      "name_cn": "某科学的一方通行",
+      "tags": [
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "bgm:主角 最后之作[年龄 0岁]",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 14440,
+        "anilist": 104463,
+        "kitsu": 41980,
+        "mal": 38480
+      }
+    },
+    "235612": {
+      "name_cn": "工作细胞",
+      "tags": [
+        "日常",
+        "搞笑",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 13743,
+        "anilist": 100977,
+        "kitsu": 14212,
+        "mal": 37141
+      }
+    },
+    "239816": {
+      "name_cn": "关于我转生变成史莱姆这档事",
+      "tags": [
+        "异世界",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 13871,
+        "anilist": 101280,
+        "kitsu": 41024,
+        "mal": 37430
+      }
+    },
+    "112146": {
+      "name_cn": "OVERLORD",
+      "tags": [
+        "异世界",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 10816,
+        "anilist": 20832,
+        "kitsu": 9965,
+        "mal": 29803
+      }
+    },
+    "274234": {
+      "name_cn": "小林家的龙女仆S",
+      "tags": [
+        "ロリ",
+        "百合",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "bgm:核心角色群 康娜卡姆依[主角|年龄 9岁（人类）], 才川莉子[配角|年龄 9岁]",
+          "score=4"
+        ],
+        "百合": [
+          "aod:yuri"
+        ],
+        "校园": [
+          "aod:elementary school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14678,
+        "anilist": 107717,
+        "kitsu": 42149,
+        "mal": 39247
+      }
+    },
+    "326895": {
+      "name_cn": "夏日重现",
+      "tags": [
+        "异世界",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:reincarnation"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 16033,
+        "anilist": 129201,
+        "kitsu": 44032,
+        "mal": 47194
+      }
+    },
+    "325281": {
+      "name_cn": "白沙的水族馆",
+      "tags": [
+        "百合",
+        "校园",
+        "日常",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:yuri"
+        ],
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "悬疑": [
+          "aod:mystery"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15987,
+        "anilist": 128545,
+        "kitsu": 44116,
+        "mal": 46093
+      }
+    },
+    "411427": {
+      "name_cn": "间谍过家家 第二季",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "校园": [
+          "aod:elementary school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Anya Forger (6 (self asserted))",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 17784,
+        "anilist": 158927,
+        "kitsu": 46873,
+        "mal": 53887
+      }
+    },
+    "188091": {
+      "name_cn": "珈百璃的堕落",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 12290,
+        "anilist": 21878,
+        "kitsu": 12497,
+        "mal": 33731
+      }
+    },
+    "389474": {
+      "name_cn": "辉夜大小姐想让我告白-初吻不会结束- 电影",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "aod:romantic comedy",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 17477,
+        "anilist": 151384,
+        "kitsu": 46206,
+        "mal": 52198
+      }
+    },
+    "235130": {
+      "name_cn": "碧蓝之海",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [
+        "妹控"
+      ],
+      "evidence": {
+        "校园": [
+          "aod:school club",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {
+        "妹控": [
+          "anilist:Incest rank=46",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 13734,
+        "anilist": 100922,
+        "kitsu": 14190,
+        "mal": 37105
+      }
+    },
+    "316247": {
+      "name_cn": "Re：从零开始的异世界生活 第二季 后半部分",
+      "tags": [
+        "异世界",
+        "恋爱",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15593,
+        "anilist": 119661,
+        "kitsu": 43247,
+        "mal": 42203
+      }
+    },
+    "10639": {
+      "name_cn": "Fate/Zero",
+      "tags": [
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 8160,
+        "anilist": 10087,
+        "kitsu": 6028,
+        "mal": 10087
+      }
+    },
+    "297361": {
+      "name_cn": "开挂药师的异世界悠闲生活～在异世界开药店吧～",
+      "tags": [
+        "异世界",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "日常": [
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15339,
+        "anilist": 114302,
+        "kitsu": 43612,
+        "mal": 40960
+      }
+    },
+    "142758": {
+      "name_cn": "线上游戏的老婆不可能是女生？",
+      "tags": [
+        "校园",
+        "恋爱",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 11480,
+        "anilist": 21290,
+        "kitsu": 11319,
+        "mal": 31404
+      }
+    },
+    "95225": {
+      "name_cn": "Fate/stay night [Unlimited Blade Works]",
+      "tags": [
+        "校园",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 9977,
+        "anilist": 19603,
+        "kitsu": 7882,
+        "mal": 22297
+      }
+    },
+    "484761": {
+      "name_cn": "鹿乃子乃子乃子虎视眈眈",
+      "tags": [
+        "百合",
+        "校园",
+        "日常",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:yuri"
+        ],
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:fighting"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18534,
+        "anilist": 175977,
+        "kitsu": 48618,
+        "mal": 58426
+      }
+    },
+    "109386": {
+      "name_cn": "Fate/stay night [Unlimited Blade Works] 第二季",
+      "tags": [
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 10760,
+        "anilist": 20792,
+        "kitsu": 10052,
+        "mal": 28701
+      }
+    },
+    "9912": {
+      "name_cn": "日常",
+      "tags": [
+        "ロリ",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "bgm:核心角色群 东云名乃[主角|年龄 1], 博士[主角|年龄 8]",
+          "anilist:主角色年龄<=12 Hakase Shinonome (8)",
+          "score=3"
+        ],
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 8168,
+        "anilist": 10165,
+        "kitsu": 6062,
+        "mal": 10165
+      }
+    },
+    "103127": {
+      "name_cn": "电器街的漫画店",
+      "tags": [
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 10619,
+        "anilist": 20710,
+        "kitsu": 8629,
+        "mal": 24031
+      }
+    },
+    "278826": {
+      "name_cn": "Re：从零开始的异世界生活 第二季",
+      "tags": [
+        "异世界",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14792,
+        "anilist": 108632,
+        "kitsu": 42198,
+        "mal": 39587
+      }
+    },
+    "476542": {
+      "name_cn": "盾之勇者成名录 第四季",
+      "tags": [
+        "异世界",
+        "战斗",
+        "悬疑"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Raphtalia (10 (mentally), 18 (biologically))",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 18439,
+        "anilist": 173780,
+        "kitsu": 48444,
+        "mal": 57907
+      }
+    },
+    "217660": {
+      "name_cn": "盾之勇者成名录",
+      "tags": [
+        "ロリ",
+        "异世界",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "anilist:主角色年龄<=12 Raphtalia (10 (mentally), 18 (biologically))",
+          "score=3"
+        ],
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 13246,
+        "anilist": 99263,
+        "kitsu": 13593,
+        "mal": 35790
+      }
+    },
+    "1014": {
+      "name_cn": "魔法禁书目录",
+      "tags": [
+        "ロリ",
+        "日常",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "score=2"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 5975,
+        "anilist": 4654,
+        "kitsu": 3725,
+        "mal": 4654
+      }
+    },
+    "93545": {
+      "name_cn": "甘城光辉游乐园",
+      "tags": [
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 10399,
+        "anilist": 20602,
+        "kitsu": 8259,
+        "mal": 22147
+      }
+    },
+    "487684": {
+      "name_cn": "香格里拉·弗陇提亚～屎作猎人向神作发起挑战～ 第二季",
+      "tags": [
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18578,
+        "anilist": 176508,
+        "kitsu": 48677,
+        "mal": 58572
+      }
+    },
+    "241158": {
+      "name_cn": "邻家的吸血鬼小妹",
+      "tags": [
+        "百合",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:girls love",
+          "aod:shoujo ai",
+          "aod:yuri"
+        ],
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 13966,
+        "anilist": 101371,
+        "kitsu": 41111,
+        "mal": 37579
+      }
+    },
+    "292970": {
+      "name_cn": "魔女之旅",
+      "tags": [
+        "百合",
+        "日常",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:yuri"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15202,
+        "anilist": 112609,
+        "kitsu": 42627,
+        "mal": 40571
+      }
+    },
+    "84873": {
+      "name_cn": "漆黑的子弹",
+      "tags": [
+        "ロリ",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "anilist:主角色年龄<=12 Enju Aihara (10)",
+          "score=3"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 10181,
+        "anilist": 20457,
+        "kitsu": 8052,
+        "mal": 20787
+      }
+    },
+    "297624": {
+      "name_cn": "熊熊勇闯异世界",
+      "tags": [
+        "ロリ",
+        "异世界",
+        "日常",
+        "搞笑",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "bgm:核心角色群 菲娜[主角|年龄 10岁], 诺雅儿·佛许罗赛[主角|年龄 10岁], 修莉[主角|年龄 7岁], 米莎娜·法莲格仑[主角|年龄 9岁]",
+          "anilist:Primarily Child Cast rank=96",
+          "anilist:主角色年龄<=12 Fina (10)",
+          "score=4"
+        ],
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "日常": [
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15342,
+        "anilist": 114340,
+        "kitsu": 43214,
+        "mal": 40974
+      }
+    },
+    "390980": {
+      "name_cn": "香格里拉·弗陇提亚～屎作猎人向神作发起挑战～",
+      "tags": [
+        "校园",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:school life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 17501,
+        "anilist": 151970,
+        "kitsu": 46241,
+        "mal": 52347
+      }
+    },
+    "389571": {
+      "name_cn": "物理魔法使马修",
+      "tags": [
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 17478,
+        "anilist": 151801,
+        "kitsu": 46229,
+        "mal": 52211
+      }
+    },
+    "10440": {
+      "name_cn": "我们仍未知道那天所看见的花的名字。",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 8181,
+        "anilist": 9989,
+        "kitsu": 5981,
+        "mal": 9989
+      }
+    },
+    "296195": {
+      "name_cn": "Re：从零开始的异世界生活 新编集版",
+      "tags": [],
+      "candidates": [],
+      "evidence": {},
+      "candidateEvidence": {},
+      "ids": {}
+    },
+    "278815": {
+      "name_cn": "工作细胞！！",
+      "tags": [
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14791,
+        "anilist": 108631,
+        "kitsu": 42202,
+        "mal": 39586
+      }
+    },
+    "213076": {
+      "name_cn": "如果有妹妹就好了。",
+      "tags": [
+        "妹控",
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "妹控": [
+          "aod:imouto",
+          "score=2"
+        ],
+        "校园": [
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "aod:romantic comedy",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 11352,
+        "anilist": 98596,
+        "kitsu": 11207,
+        "mal": 35413
+      }
+    },
+    "395378": {
+      "name_cn": "迷宫饭",
+      "tags": [
+        "搞笑",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 17564,
+        "anilist": 153518,
+        "kitsu": 46320,
+        "mal": 52701
+      }
+    },
+    "204027": {
+      "name_cn": "齐木楠雄的灾难 第二季",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 12691,
+        "anilist": 98034,
+        "kitsu": 13477,
+        "mal": 34612
+      }
+    },
+    "407573": {
+      "name_cn": "关于我转生变成史莱姆这档事 第三季",
+      "tags": [
+        "异世界",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 17709,
+        "anilist": 156822,
+        "kitsu": 46729,
+        "mal": 53580
+      }
+    },
+    "297224": {
+      "name_cn": "动物狂想曲 第二季",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15330,
+        "anilist": 114194,
+        "kitsu": 42904,
+        "mal": 40935
+      }
+    },
+    "211027": {
+      "name_cn": "OVERLORD 第二季",
+      "tags": [
+        "异世界",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 12952,
+        "anilist": 98437,
+        "kitsu": 13237,
+        "mal": 35073
+      }
+    },
+    "100444": {
+      "name_cn": "四月是你的谎言",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:middle school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 10539,
+        "anilist": 20665,
+        "kitsu": 8403,
+        "mal": 23273
+      }
+    },
+    "299673": {
+      "name_cn": "转生史莱姆日记",
+      "tags": [
+        "异世界",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15457,
+        "anilist": 116741,
+        "kitsu": 43089,
+        "mal": 41488
+      }
+    },
+    "2567": {
+      "name_cn": "学生会的一己之见",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 6556,
+        "anilist": 5909,
+        "kitsu": 4332,
+        "mal": 5909
+      }
+    },
+    "242170": {
+      "name_cn": "OVERLORD 第三季",
+      "tags": [
+        "异世界",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14008,
+        "anilist": 101474,
+        "kitsu": 41174,
+        "mal": 37675
+      }
+    },
+    "397604": {
+      "name_cn": "亚托莉 -我挚爱的时光-",
+      "tags": [
+        "日常",
+        "恋爱",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 17635,
+        "anilist": 154963,
+        "kitsu": 46525,
+        "mal": 53128
+      }
+    },
+    "273843": {
+      "name_cn": "动物狂想曲",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "战斗",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14659,
+        "anilist": 107660,
+        "kitsu": 42147,
+        "mal": 39195
+      }
+    },
+    "262940": {
+      "name_cn": "某科学的超电磁炮T",
+      "tags": [
+        "校园",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "校园": [
+          "aod:middle school",
+          "aod:school life"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Kuroko Shirai (12-13), Kazari Uiharu (12-13), Ruiko Saten (12-13)",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 14441,
+        "anilist": 104462,
+        "kitsu": 41979,
+        "mal": 38481
+      }
+    },
+    "7843": {
+      "name_cn": "魔法禁书目录 第二季",
+      "tags": [
+        "ロリ",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "score=2"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 7599,
+        "anilist": 8937,
+        "kitsu": 5541,
+        "mal": 8937
+      }
+    },
+    "79227": {
+      "name_cn": "游戏人生",
+      "tags": [
+        "妹控",
+        "异世界",
+        "搞笑"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "妹控": [
+          "aod:siblings",
+          "anilist:Incest rank=30",
+          "score=2"
+        ],
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Shiro (11)",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 9998,
+        "anilist": 19815,
+        "kitsu": 7880,
+        "mal": 19815
+      }
+    },
+    "24790": {
+      "name_cn": "男子高中生的日常",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 8729,
+        "anilist": 11843,
+        "kitsu": 6616,
+        "mal": 11843
+      }
+    },
+    "120925": {
+      "name_cn": "夏洛特",
+      "tags": [
+        "校园",
+        "恋爱",
+        "搞笑",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:middle school",
+          "aod:school club",
+          "aod:school life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Ayumi Otosaka (12)",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 10997,
+        "anilist": 20997,
+        "kitsu": 10103,
+        "mal": 28999
+      }
+    },
+    "304065": {
+      "name_cn": "工作细胞BLACK",
+      "tags": [
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15502,
+        "anilist": 117533,
+        "kitsu": 43167,
+        "mal": 41694
+      }
+    },
+    "317042": {
+      "name_cn": "理科生坠入情网，故尝试证明。[r=1-sinθ]♡",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "aod:romantic comedy",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15788,
+        "anilist": 125124,
+        "kitsu": 43681,
+        "mal": 43470
+      }
+    },
+    "317613": {
+      "name_cn": "辉夜大小姐想让我告白-超级浪漫-",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "aod:romantic comedy",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15806,
+        "anilist": 125367,
+        "kitsu": 43691,
+        "mal": 43608
+      }
+    },
+    "278031": {
+      "name_cn": "关于我转生变成史莱姆这档事 第二季",
+      "tags": [
+        "异世界",
+        "搞笑",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14767,
+        "anilist": 108511,
+        "kitsu": 42196,
+        "mal": 39551
+      }
+    },
+    "2585": {
+      "name_cn": "某科学的超电磁炮",
+      "tags": [
+        "ロリ",
+        "百合",
+        "校园",
+        "日常",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "anilist:主角色年龄<=12 Kuroko Shirai (12-13), Kazari Uiharu (12-13), Ruiko Saten (12-13)",
+          "score=3"
+        ],
+        "百合": [
+          "aod:yuri"
+        ],
+        "校园": [
+          "aod:middle school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 6460,
+        "anilist": 6213,
+        "kitsu": 4478,
+        "mal": 6213
+      }
+    },
+    "328313": {
+      "name_cn": "世界顶尖的暗杀者转生为异世界贵族",
+      "tags": [
+        "异世界",
+        "恋爱",
+        "战斗",
+        "悬疑"
+      ],
+      "candidates": [
+        "妹控"
+      ],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "悬疑": [
+          "aod:mystery"
+        ]
+      },
+      "candidateEvidence": {
+        "妹控": [
+          "anilist:Incest rank=60",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 16055,
+        "anilist": 129898,
+        "kitsu": 44393,
+        "mal": 47790
+      }
+    },
+    "325727": {
+      "name_cn": "侦探已经死了。",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15998,
+        "anilist": 128712,
+        "kitsu": 44022,
+        "mal": 46471
+      }
+    },
+    "181354": {
+      "name_cn": "齐木楠雄的灾难",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 12112,
+        "anilist": 21804,
+        "kitsu": 12127,
+        "mal": 33255
+      }
+    },
+    "226540": {
+      "name_cn": "魔法禁书目录 第三季",
+      "tags": [
+        "ロリ",
+        "校园",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "bgm:核心角色群 最后之作[配角|年龄 0岁], 绢旗最爱[配角|年龄 12], 蕾薇妮雅·柏德蔚[配角|年龄 12]",
+          "score=4"
+        ],
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 13481,
+        "anilist": 100185,
+        "kitsu": 13880,
+        "mal": 36432
+      }
+    },
+    "329906": {
+      "name_cn": "间谍过家家",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "校园": [
+          "aod:elementary school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Anya Forger (6 (self asserted))",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 16947,
+        "anilist": 140960,
+        "kitsu": 45398,
+        "mal": 50265
+      }
+    },
+    "51928": {
+      "name_cn": "某科学的超电磁炮S",
+      "tags": [
+        "校园",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "校园": [
+          "aod:middle school",
+          "aod:school life"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Kuroko Shirai (12-13), Kazari Uiharu (12-13), Ruiko Saten (12-13)",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 9484,
+        "anilist": 16049,
+        "kitsu": 7366,
+        "mal": 16049
+      }
+    },
+    "309668": {
+      "name_cn": "异世界迷宫黑心企业",
+      "tags": [
+        "异世界",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15619,
+        "anilist": 120608,
+        "kitsu": 43268,
+        "mal": 42340
+      }
+    },
+    "1424": {
+      "name_cn": "轻音少女",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "bgm:主角 中野梓[简介 小学4年级]",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 6257,
+        "anilist": 5680,
+        "kitsu": 4240,
+        "mal": 5680
+      }
+    },
+    "100449": {
+      "name_cn": "月刊少女野崎君",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "aod:romantic comedy",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 10542,
+        "anilist": 20668,
+        "kitsu": 8402,
+        "mal": 23289
+      }
+    },
+    "100040": {
+      "name_cn": "天体的秩序",
+      "tags": [
+        "校园",
+        "日常",
+        "催泪"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "校园": [
+          "aod:middle school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:Primarily Child Cast rank=52",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 10525,
+        "anilist": 20672,
+        "kitsu": 8337,
+        "mal": 23209
+      }
+    },
+    "88287": {
+      "name_cn": "请问您今天要来点兔子吗？",
+      "tags": [
+        "ロリ",
+        "百合",
+        "校园",
+        "日常"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "bgm:核心角色群 香风智乃[主角|年龄 13岁初二生→14岁初三生→15岁高一生 / 身高 144cm →149cm], 奈津惠[配角|年龄 13岁初二生→14岁初三生→15岁高一生 / 身高 145cm →152cm], 条河麻耶[配角|年龄 13岁初二生→14岁初三生→15岁高一生 / 身高 140cm→146cm]",
+          "anilist:Primarily Child Cast rank=75",
+          "score=3",
+          "judgement:用户判定 2026-11-02: 点兔系列算ロリ (核心角色群含智乃与 Chimame 组)"
+        ],
+        "百合": [
+          "aod:yuri"
+        ],
+        "校园": [
+          "aod:high school",
+          "aod:middle school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:iyashikei",
+          "aod:slice of life"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 10262,
+        "anilist": 20517,
+        "kitsu": 8095,
+        "mal": 21273
+      }
+    },
+    "29648": {
+      "name_cn": "中二病也要谈恋爱！",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "aod:romantic comedy",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 8883,
+        "anilist": 14741,
+        "kitsu": 7160,
+        "mal": 14741
+      }
+    },
+    "13485": {
+      "name_cn": "萝球社！",
+      "tags": [
+        "ロリ",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "aod:lolicon",
+          "anilist:Primarily Child Cast rank=80",
+          "score=3"
+        ],
+        "校园": [
+          "aod:elementary school",
+          "aod:school club",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 8371,
+        "anilist": 10572,
+        "kitsu": 6246,
+        "mal": 10572
+      }
+    },
+    "72942": {
+      "name_cn": "中二病也要谈恋爱！恋",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "aod:romantic comedy",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 9874,
+        "anilist": 18671,
+        "kitsu": 7705,
+        "mal": 18671
+      }
+    },
+    "193282": {
+      "name_cn": "猫咪日常",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 12433,
+        "anilist": 97673,
+        "kitsu": 12687,
+        "mal": 34148
+      }
+    },
+    "172498": {
+      "name_cn": "埃罗芒阿老师",
+      "tags": [
+        "ロリ",
+        "妹控",
+        "日常",
+        "恋爱",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "anilist:Primarily Child Cast rank=91",
+          "anilist:主角色年龄<=12 Sagiri Izumi (12)",
+          "score=2"
+        ],
+        "妹控": [
+          "aod:imouto",
+          "aod:siblings",
+          "score=3"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "aod:romantic comedy",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 11981,
+        "anilist": 21685,
+        "kitsu": 11914,
+        "mal": 32901
+      }
+    },
+    "249637": {
+      "name_cn": "天使降临到了我身边！",
+      "tags": [
+        "ロリ",
+        "百合",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "bgm:主角 白咲花[年龄 10歳(原作第1話)→11歳(原作第58話) / 身高 142cm(动画设定142.3cm)]",
+          "anilist:Primarily Child Cast rank=86",
+          "score=4"
+        ],
+        "百合": [
+          "aod:girls love",
+          "aod:shoujo ai",
+          "aod:yuri"
+        ],
+        "校园": [
+          "aod:elementary school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14156,
+        "anilist": 102680,
+        "kitsu": 41403,
+        "mal": 37993
+      }
+    },
+    "183878": {
+      "name_cn": "紫罗兰永恒花园",
+      "tags": [
+        "日常",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "日常": [
+          "aod:slice of life"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 12138,
+        "anilist": 21827,
+        "kitsu": 12230,
+        "mal": 33352
+      }
+    },
+    "215425": {
+      "name_cn": "电影 中二病也要谈恋爱！ -Take On Me-",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "aod:romantic comedy",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 13176,
+        "anilist": 98762,
+        "kitsu": 13524,
+        "mal": 35608
+      }
+    },
+    "204145": {
+      "name_cn": "调教咖啡厅",
+      "tags": [
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 12694,
+        "anilist": 97994,
+        "kitsu": 13465,
+        "mal": 34618
+      }
+    },
+    "252782": {
+      "name_cn": "转生成蜘蛛又怎样！",
+      "tags": [
+        "异世界",
+        "搞笑",
+        "战斗",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:reincarnation"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "悬疑": [
+          "aod:mystery"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14201,
+        "anilist": 103632,
+        "kitsu": 41463,
+        "mal": 37984
+      }
+    },
+    "219658": {
+      "name_cn": "龙王的工作！",
+      "tags": [
+        "ロリ",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "aod:lolicon",
+          "bgm:核心角色群 雏鹤爱[主角|简介 小学四年级], 夜叉神天衣[主角|简介 小学四年级]",
+          "score=4"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 13281,
+        "anilist": 99507,
+        "kitsu": 13661,
+        "mal": 35905
+      }
+    },
+    "248175": {
+      "name_cn": "辉夜大小姐想让我告白～天才们的恋爱头脑战～",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "aod:romantic comedy",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14111,
+        "anilist": 101921,
+        "kitsu": 41373,
+        "mal": 37999
+      }
+    },
+    "260770": {
+      "name_cn": "请问您今天要来点兔子吗？BLOOM",
+      "tags": [
+        "ロリ",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "bgm:核心角色群 香风智乃[主角|年龄 13岁初二生→14岁初三生→15岁高一生 / 身高 144cm →149cm], 奈津惠[配角|年龄 13岁初二生→14岁初三生→15岁高一生 / 身高 145cm →152cm], 条河麻耶[配角|年龄 13岁初二生→14岁初三生→15岁高一生 / 身高 140cm→146cm]",
+          "score=4",
+          "judgement:用户判定 2026-11-02: 点兔系列算ロリ (核心角色群含智乃与 Chimame 组)"
+        ],
+        "校园": [
+          "aod:high school"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14400,
+        "anilist": 104198,
+        "kitsu": 42365,
+        "mal": 38337
+      }
+    },
+    "254374": {
+      "name_cn": "NEKOPARA OVA Extra 小猫之日的约定",
+      "tags": [
+        "日常",
+        "恋爱",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14206,
+        "anilist": 103256,
+        "kitsu": 41875,
+        "mal": 37983
+      }
+    },
+    "282684": {
+      "name_cn": "悠哉日常大王 Nonstop",
+      "tags": [
+        "ロリ",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "bgm:核心角色群 宫内莲华[主角|简介 小学一年级], 一条萤[主角|简介 小学五年级], 石川穗香[配角|简介 小学1年级]",
+          "anilist:Primarily Child Cast rank=85",
+          "anilist:主角色年龄<=12 Hotaru Ichijou (11), Renge Miyauchi (6-7)",
+          "score=4"
+        ],
+        "校园": [
+          "aod:elementary school",
+          "aod:middle school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14914,
+        "anilist": 109403,
+        "kitsu": 42349,
+        "mal": 39808
+      }
+    },
+    "272510": {
+      "name_cn": "街角魔族",
+      "tags": [
+        "百合",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:yuri"
+        ],
+        "校园": [
+          "aod:high school",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14630,
+        "anilist": 107490,
+        "kitsu": 42137,
+        "mal": 39071
+      }
+    },
+    "290426": {
+      "name_cn": "在魔王城说晚安",
+      "tags": [
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "日常": [
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15095,
+        "anilist": 111428,
+        "kitsu": 42551,
+        "mal": 40397
+      }
+    },
+    "292969": {
+      "name_cn": "打了300年的史莱姆，不知不觉就练到了满级",
+      "tags": [
+        "百合",
+        "异世界",
+        "日常",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:yuri"
+        ],
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15201,
+        "anilist": 112608,
+        "kitsu": 42628,
+        "mal": 40586
+      }
+    },
+    "293049": {
+      "name_cn": "辉夜大小姐想让我告白?～天才们的恋爱头脑战～",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "aod:romantic comedy",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "悬疑": [
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15207,
+        "anilist": 112641,
+        "kitsu": 42632,
+        "mal": 40591
+      }
+    },
+    "470660": {
+      "name_cn": "剧场版 链锯人 蕾塞篇",
+      "tags": [
+        "恋爱",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18324,
+        "anilist": 171627,
+        "kitsu": 48323,
+        "mal": 57555
+      }
+    },
+    "297168": {
+      "name_cn": "碧蓝航线：微速前行！",
+      "tags": [
+        "校园",
+        "日常"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:slice of life"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15327,
+        "anilist": 114473,
+        "kitsu": 43822,
+        "mal": 40930
+      }
+    },
+    "260677": {
+      "name_cn": "碧蓝航线 THE ANIMATION",
+      "tags": [
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14396,
+        "anilist": 104159,
+        "kitsu": 42420,
+        "mal": 38328
+      }
+    },
+    "212775": {
+      "name_cn": "干物妹！小埋R",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [
+        "妹控"
+      ],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {
+        "妹控": [
+          "aod:siblings",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 13106,
+        "anilist": 98572,
+        "kitsu": 13489,
+        "mal": 35376
+      }
+    },
+    "120187": {
+      "name_cn": "干物妹！小埋",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [
+        "妹控"
+      ],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {
+        "妹控": [
+          "aod:siblings",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 10972,
+        "anilist": 20987,
+        "kitsu": 10067,
+        "mal": 28825
+      }
+    },
+    "179949": {
+      "name_cn": "小林家的龙女仆",
+      "tags": [
+        "ロリ",
+        "百合",
+        "异世界",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "bgm:核心角色群 康娜卡姆依[主角|年龄 9岁（人类）], 才川莉子[配角|年龄 9岁]",
+          "score=4"
+        ],
+        "百合": [
+          "aod:yuri"
+        ],
+        "异世界": [
+          "aod:isekai"
+        ],
+        "校园": [
+          "aod:elementary school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 12091,
+        "anilist": 21776,
+        "kitsu": 12243,
+        "mal": 33206
+      }
+    },
+    "249681": {
+      "name_cn": "晚安sex",
+      "tags": [],
+      "candidates": [],
+      "evidence": {},
+      "candidateEvidence": {},
+      "ids": {}
+    },
+    "173850": {
+      "name_cn": "银之守墓人",
+      "tags": [
+        "异世界",
+        "校园",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "校园": [
+          "aod:school life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 11840,
+        "anilist": 21662,
+        "kitsu": 11936,
+        "mal": 32936
+      }
+    },
+    "313852": {
+      "name_cn": "街角魔族 2丁目",
+      "tags": [
+        "百合",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:yuri"
+        ],
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15702,
+        "anilist": 123330,
+        "kitsu": 43547,
+        "mal": 42745
+      }
+    },
+    "48031": {
+      "name_cn": "GJ部",
+      "tags": [
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 9311,
+        "anilist": 14811,
+        "kitsu": 7168,
+        "mal": 14811
+      }
+    },
+    "443428": {
+      "name_cn": "【我推的孩子】 第二季",
+      "tags": [
+        "异世界",
+        "校园",
+        "日常",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [
+        "妹控"
+      ],
+      "evidence": {
+        "异世界": [
+          "aod:reincarnation"
+        ],
+        "校园": [
+          "aod:high school"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {
+        "妹控": [
+          "aod:siblings",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 18086,
+        "anilist": 166531,
+        "kitsu": 47659,
+        "mal": 55791
+      }
+    },
+    "131891": {
+      "name_cn": "暗杀教室 第二季",
+      "tags": [
+        "校园",
+        "搞笑",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:middle school",
+          "aod:school life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 11203,
+        "anilist": 21170,
+        "kitsu": 10877,
+        "mal": 30654
+      }
+    },
+    "106818": {
+      "name_cn": "暗杀教室",
+      "tags": [
+        "校园",
+        "搞笑",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:middle school",
+          "aod:school club",
+          "aod:school life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 10702,
+        "anilist": 20755,
+        "kitsu": 8640,
+        "mal": 24833
+      }
+    },
+    "386809": {
+      "name_cn": "【我推的孩子】",
+      "tags": [
+        "异世界",
+        "校园",
+        "日常",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [
+        "妹控"
+      ],
+      "evidence": {
+        "异世界": [
+          "aod:reincarnation"
+        ],
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {
+        "妹控": [
+          "aod:siblings",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 17449,
+        "anilist": 150672,
+        "kitsu": 46170,
+        "mal": 52034
+      }
+    },
+    "527620": {
+      "name_cn": "章鱼哔的原罪",
+      "tags": [
+        "校园",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "校园": [
+          "aod:elementary school",
+          "aod:middle school",
+          "aod:school life"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:Primarily Child Cast rank=92",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 19038,
+        "anilist": 185407,
+        "kitsu": 49392,
+        "mal": 60489
+      }
+    },
+    "510256": {
+      "name_cn": "与游戏中心的少女异文化交流的故事",
+      "tags": [
+        "ロリ",
+        "日常",
+        "恋爱",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "score=2"
+        ],
+        "日常": [
+          "aod:iyashikei",
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18839,
+        "anilist": 180794,
+        "kitsu": 49897,
+        "mal": 59689
+      }
+    },
+    "477825": {
+      "name_cn": "拔作岛",
+      "tags": [
+        "ロリ",
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "score=2"
+        ],
+        "校园": [
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18459,
+        "kitsu": 48476,
+        "mal": 57969,
+        "anilist": 174188
+      }
+    },
+    "467461": {
+      "name_cn": "胆大党",
+      "tags": [
+        "校园",
+        "恋爱",
+        "搞笑",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18290,
+        "anilist": 171018,
+        "kitsu": 48269,
+        "mal": 57334
+      }
+    },
+    "529431": {
+      "name_cn": "胆大党 第二季",
+      "tags": [
+        "校园",
+        "恋爱",
+        "搞笑",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 19060,
+        "anilist": 185660,
+        "kitsu": 49425,
+        "mal": 60543
+      }
+    },
+    "415779": {
+      "name_cn": "进击的巨人 最终季 完结篇 后篇",
+      "tags": [
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 17303,
+        "anilist": 146984,
+        "kitsu": 46038,
+        "mal": 51535
+      }
+    },
+    "376739": {
+      "name_cn": "进击的巨人 最终季 完结篇 前篇",
+      "tags": [
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 17303,
+        "anilist": 146984,
+        "kitsu": 46038,
+        "mal": 51535
+      }
+    },
+    "331752": {
+      "name_cn": "进击的巨人 最终季 Part.2",
+      "tags": [
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14977,
+        "anilist": 110277,
+        "kitsu": 42422,
+        "mal": 40028
+      }
+    },
+    "285666": {
+      "name_cn": "进击的巨人 最终季",
+      "tags": [
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14977,
+        "anilist": 110277,
+        "kitsu": 42422,
+        "mal": 40028
+      }
+    },
+    "263750": {
+      "name_cn": "进击的巨人 第三季 Part.2",
+      "tags": [
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 14444,
+        "anilist": 104578,
+        "kitsu": 41982,
+        "mal": 38524
+      }
+    },
+    "217300": {
+      "name_cn": "进击的巨人 第三季",
+      "tags": [
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 13241,
+        "anilist": 99147,
+        "kitsu": 13569,
+        "mal": 35760
+      }
+    },
+    "118335": {
+      "name_cn": "进击的巨人 第二季",
+      "tags": [
+        "百合",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:yuri"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 10944,
+        "anilist": 20958,
+        "kitsu": 8671,
+        "mal": 25777
+      }
+    },
+    "55770": {
+      "name_cn": "进击的巨人",
+      "tags": [
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 9541,
+        "anilist": 16498,
+        "kitsu": 7442,
+        "mal": 16498
+      }
+    },
+    "515594": {
+      "name_cn": "关于我转生变成史莱姆这档事 第四季",
+      "tags": [
+        "异世界",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18884,
+        "anilist": 182205,
+        "kitsu": 49235,
+        "mal": 59970
+      }
+    },
+    "547888": {
+      "name_cn": "Re：从零开始的异世界生活 第四季 丧失篇",
+      "tags": [
+        "异世界",
+        "恋爱",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 19242,
+        "anilist": 189046,
+        "kitsu": 49746,
+        "mal": 61316
+      }
+    },
+    "510710": {
+      "name_cn": "欢迎来到实力至上主义教室 第四季",
+      "tags": [
+        "校园",
+        "日常",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18844,
+        "anilist": 180745,
+        "kitsu": 49194,
+        "mal": 59708
+      }
+    },
+    "291821": {
+      "name_cn": "群聚一堂！西顿学园",
+      "tags": [
+        "校园",
+        "日常",
+        "恋爱",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "校园": [
+          "aod:high school",
+          "aod:school club",
+          "aod:school clubs",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:fighting"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 15121,
+        "anilist": 112293,
+        "kitsu": 42601,
+        "mal": 40483
+      }
+    },
+    "378862": {
+      "name_cn": "别当欧尼酱了！",
+      "tags": [
+        "ロリ",
+        "百合",
+        "校园",
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [
+        "妹控"
+      ],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "score=2"
+        ],
+        "百合": [
+          "aod:yuri"
+        ],
+        "校园": [
+          "aod:middle school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:cgdct",
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {
+        "妹控": [
+          "aod:siblings",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 17328,
+        "anilist": 147864,
+        "kitsu": 46077,
+        "mal": 51678
+      }
+    },
+    "623854": {
+      "name_cn": "女神“异世界转生想成为什么”我“勇者的肋骨”",
+      "tags": [
+        "百合",
+        "异世界",
+        "搞笑",
+        "战斗"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:yuri"
+        ],
+        "异世界": [
+          "aod:isekai",
+          "aod:reincarnation"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 19862,
+        "anilist": 206951,
+        "kitsu": 50642,
+        "mal": 63376
+      }
+    },
+    "194261": {
+      "name_cn": "天使的3P!",
+      "tags": [
+        "ロリ",
+        "校园",
+        "日常"
+      ],
+      "candidates": [],
+      "evidence": {
+        "ロリ": [
+          "aod:loli",
+          "aod:lolicon",
+          "anilist:Primarily Child Cast rank=97",
+          "score=3"
+        ],
+        "校园": [
+          "aod:high school",
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 12451,
+        "anilist": 97683,
+        "kitsu": 12624,
+        "mal": 34177
+      }
+    },
+    "569116": {
+      "name_cn": "碧蓝之海 第三季",
+      "tags": [
+        "日常",
+        "搞笑"
+      ],
+      "candidates": [
+        "妹控"
+      ],
+      "evidence": {
+        "日常": [
+          "aod:slice of life"
+        ],
+        "搞笑": [
+          "aod:comedy",
+          "anilist:genre Comedy"
+        ]
+      },
+      "candidateEvidence": {
+        "妹控": [
+          "anilist:Incest rank=50",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 19600,
+        "anilist": 199111,
+        "kitsu": 50181,
+        "mal": 62542
+      }
+    },
+    "541285": {
+      "name_cn": "与你相恋到生命尽头",
+      "tags": [
+        "百合",
+        "校园",
+        "日常",
+        "恋爱",
+        "战斗",
+        "催泪"
+      ],
+      "candidates": [],
+      "evidence": {
+        "百合": [
+          "aod:girls love",
+          "aod:yuri"
+        ],
+        "校园": [
+          "aod:school life"
+        ],
+        "日常": [
+          "aod:slice of life"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 19189,
+        "anilist": 187260,
+        "kitsu": 49607,
+        "mal": 61126
+      }
+    },
+    "339515": {
+      "name_cn": "幼女战记 第二季",
+      "tags": [
+        "异世界",
+        "战斗"
+      ],
+      "candidates": [
+        "ロリ"
+      ],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world",
+          "aod:reincarnation"
+        ],
+        "战斗": [
+          "aod:action"
+        ]
+      },
+      "candidateEvidence": {
+        "ロリ": [
+          "anilist:主角色年龄<=12 Tanya Degurechaff (9-13)",
+          "score=1"
+        ]
+      },
+      "ids": {
+        "anidb": 16392,
+        "anilist": 135865,
+        "kitsu": 44778,
+        "mal": 49233
+      }
+    },
+    "498947": {
+      "name_cn": "咔嗒咔嗒",
+      "tags": [
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "战斗": [
+          "aod:action",
+          "aod:fighting"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:mystery",
+          "aod:psychological"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 18686,
+        "anilist": 178025,
+        "kitsu": 48946,
+        "mal": 59062
+      }
+    },
+    "614606": {
+      "name_cn": "咔嗒咔嗒 第二季",
+      "tags": [],
+      "candidates": [],
+      "evidence": {},
+      "candidateEvidence": {},
+      "ids": {}
+    },
+    "633836": {
+      "name_cn": "Re：从零开始的异世界生活 第四季 夺还篇",
+      "tags": [
+        "异世界",
+        "恋爱",
+        "战斗",
+        "催泪",
+        "悬疑"
+      ],
+      "candidates": [],
+      "evidence": {
+        "异世界": [
+          "aod:isekai",
+          "aod:person in a strange world"
+        ],
+        "恋爱": [
+          "aod:romance",
+          "anilist:genre Romance"
+        ],
+        "战斗": [
+          "aod:action"
+        ],
+        "催泪": [
+          "aod:tragedy"
+        ],
+        "悬疑": [
+          "aod:psychological",
+          "aod:thriller"
+        ]
+      },
+      "candidateEvidence": {},
+      "ids": {
+        "anidb": 19242,
+        "anilist": 189046,
+        "kitsu": 49746,
+        "mal": 61316
+      }
+    }
+  },
+  "unmapped": [
+    537743,
+    26804,
+    184740,
+    296195,
+    249681,
+    614606
+  ]
+}

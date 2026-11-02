@@ -1,3 +1,7 @@
+/*
+ * 两侧猫娘容器 (全局样式, 类名以 blog- / neko- 开头).
+ * .agents/notes/implemented/feature/2026-11-02-blog-catgirl-sides.md
+ */
 .blog-container {
     width: 100%;
     position: relative;
@@ -22,33 +26,58 @@
     z-index: 2;
 }
 
-.neko {
+/* 立绘贴视口左右下角; 图是 RGBA 透明底, 轮廓不需要羽化; 只有底部是半身裁切的硬边, 所以只在底部叠一层渐隐 */
+.neko-side {
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    width: var(--neko-w, 200px);
+    height: auto;
     pointer-events: none;
-    position: absolute;
-    top: 100px;
-    width: 200px;
+    user-select: none;
+    -webkit-mask-image: linear-gradient(to top, transparent 0, #000 14%);
+    mask-image: linear-gradient(to top, transparent 0, #000 14%);
+    animation: neko-in 0.6s ease-out both;
+}
+
+.neko-side-left {
+    left: 0;
+}
+
+.neko-side-right {
+    right: 0;
+}
+
+/* 暗色主题下压一点亮度, 白色衣服不至于比正文还亮 */
+[data-theme='dark'] .neko-side {
+    filter: brightness(0.9);
+}
+
+/* 页脚盖在立绘之上: 滚到底时立绘沉到页脚后面, 不会站在页脚文字上 */
+html:has(.neko-sides) .footer {
+    position: relative;
     z-index: 3;
 }
 
-.neko-left {
-    left: -190px;
+@keyframes neko-in {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
-.neko-right {
-    right: -180px;
+@media (prefers-reduced-motion: reduce) {
+    .neko-side {
+        animation: none;
+    }
 }
 
-.neko-sticky {
-    position: sticky;
-    top: 100px;
-    z-index: 3;
-    pointer-events: none;
-    width: 200px;
-    flex-shrink: 0;
-}
-
-@media (max-width: 1300px) {
-    .neko-left, .neko-right, .neko-sticky {
+@media print {
+    .neko-sides {
         display: none;
     }
 }

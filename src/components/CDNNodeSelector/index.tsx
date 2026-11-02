@@ -31,7 +31,7 @@ function levelOf(ms: number | null): string {
   return styles.lvBad;
 }
 
-function NodeRow({ node, selected }: { node: CdnNodeView; selected: boolean }): React.ReactElement {
+function NodeRow({ node, selected, best }: { node: CdnNodeView; selected: boolean; best: boolean }): React.ReactElement {
   const china = node.region === 'china';
   const RegionIcon = china ? FaEarthAsia : FaGlobe;
   return (
@@ -39,12 +39,13 @@ function NodeRow({ node, selected }: { node: CdnNodeView; selected: boolean }): 
       type="button"
       className={styles.row}
       data-selected={selected ? 'true' : undefined}
-      onClick={() => selectNodeAll(node.id)}
+      onClick={() => selectNodeAll(node.id, 'manual')}
       aria-pressed={selected}
     >
       <span className={styles.check} aria-hidden="true">{selected && <FaCheck size={11} />}</span>
       <RegionIcon size={12} className={styles.region} aria-label={china ? '国内节点' : '全球节点'} />
       <span className={styles.name}>{node.name}</span>
+      {best && <span className={styles.best}>最优</span>}
       <span className={`${styles.latency} ${node.testing ? styles.lvIdle : levelOf(node.latency)}`}>
         {node.testing ? '测速中' : formatLatency(node.latency)}
       </span>
@@ -72,6 +73,10 @@ export function CDNNavbarButton(): React.ReactElement {
   const latency = current?.latency ?? null;
   const pending = testing && latency == null;
   const title = current ? `CDN 节点: ${current.name}` : 'CDN 节点';
+  // 测完才标最优, 测速中不标, 避免 "最优" 在节点间跳
+  const bestId = testing ? null : snap.bestId;
+  const best = snap.nodes.find((n) => n.id === bestId) ?? null;
+  const suggest = snap.source === 'manual' && best && best.id !== snap.currentId ? best : null;
 
   // 点外部 / Esc 关闭 (与 common/Tooltip/Select 同口径: pointerdown 捕获阶段)
   useEffect(() => {
@@ -97,10 +102,17 @@ export function CDNNavbarButton(): React.ReactElement {
 
   const panel = (
     <div className={styles.panel} role="group" aria-label="CDN 节点">
-      <div className={styles.header}>CDN 节点</div>
+      <div className={styles.header}>
+        CDN 节点 · {testing ? '测速中' : snap.source === 'manual' ? '手动选择' : '自动优选'}
+      </div>
       {snap.nodes.map((node) => (
-        <NodeRow key={node.id} node={node} selected={node.id === snap.currentId} />
+        <NodeRow key={node.id} node={node} selected={node.id === snap.currentId} best={node.id === bestId} />
       ))}
+      {suggest && (
+        <button type="button" className={styles.suggest} onClick={() => selectNodeAll(suggest.id, 'auto')}>
+          当前节点较慢, 切换到 {suggest.name} ({formatLatency(suggest.latency)})
+        </button>
+      )}
       <button
         type="button"
         className={styles.retest}

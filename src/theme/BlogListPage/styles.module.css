@@ -1,0 +1,194 @@
+/*
+ * 博客列表页. 单栏, 两侧猫娘 (BlogWithCats); 时间轴式条目.
+ * .agents/notes/implemented/feature/2026-11-02-blog-catgirl-sides.md
+ */
+.page {
+    padding: 40px 20px 72px;
+}
+
+.head {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.kicker {
+    margin: 0 0 6px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    color: var(--ifm-color-primary);
+}
+
+.heading {
+    margin: 0;
+    font-size: 2.2rem;
+    line-height: 1.2;
+}
+
+.lead {
+    margin: 10px 0 0;
+    color: var(--ifm-color-emphasis-700);
+}
+
+.count {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--ifm-color-emphasis-600);
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.tagChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--ifm-color-emphasis-800);
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.tagChip:hover {
+    border-color: var(--ifm-color-primary);
+    color: var(--ifm-color-primary);
+    text-decoration: none;
+}
+
+.tagN {
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: var(--ifm-color-emphasis-600);
+}
+
+.allTags {
+    margin-left: 4px;
+    font-size: 13px;
+}
+
+/* 条目: 左日期块 + 右内容, 左侧一条细竖线串起来像时间轴 */
+.list {
+    position: relative;
+    margin: 0 0 32px;
+    padding: 0;
+    list-style: none;
+}
+
+.list::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 31px;
+    width: 1px;
+    background: var(--ifm-color-emphasis-200);
+}
+
+.post {
+    position: relative;
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 20px;
+    padding: 18px 0;
+}
+
+.post + .post {
+    border-top: 1px dashed var(--ifm-color-emphasis-200);
+}
+
+.date {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 0;
+    background: var(--ifm-background-color);
+    font-variant-numeric: tabular-nums;
+}
+
+.day {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--ifm-font-color-base);
+}
+
+.ym {
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--ifm-color-emphasis-600);
+}
+
+.body {
+    min-width: 0;
+}
+
+.title {
+    margin: 0;
+    font-size: 1.3rem;
+    line-height: 1.4;
+}
+
+.title a {
+    color: var(--ifm-font-color-base);
+}
+
+.title a:hover {
+    color: var(--ifm-color-primary);
+    text-decoration: none;
+}
+
+.desc {
+    margin: 6px 0 0;
+    color: var(--ifm-color-emphasis-700);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--ifm-color-emphasis-600);
+}
+
+.tag {
+    color: var(--ifm-color-emphasis-700);
+}
+
+.tag:hover {
+    color: var(--ifm-color-primary);
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .page {
+        padding: 24px 12px 48px;
+    }
+
+    .post {
+        grid-template-columns: 48px minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .list::before {
+        left: 23px;
+    }
+
+    .day {
+        font-size: 20px;
+    }
+}

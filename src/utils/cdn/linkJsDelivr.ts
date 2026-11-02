@@ -15,8 +15,16 @@
  * CDN 节点同步策略:
  * - 所有 engine 设 autoTest: false, 测速统一由 ensureInit 用 probeEngine (节点全集) 执行, 结果写进同一个 store
  * - 测速结果通过 selectNodeAll() 同步到所有 engine
- * - 节点选择持久化到 localStorage, 跨 Tab 通过 storage 事件同步
- * - 新页面加载时 (模块加载即执行, 不等交互): 有持久化节点 → 不改选择, 只探测当前节点; 没有 → 全量测速选最优
+ * - 节点选择持久化到 localStorage, 跨 Tab 通过 storage 事件同步; 另存来源 (auto = 自动优选, manual = 用户在面板手选)
+ * - 冷加载 (整页刷新 / 新开标签, 模块加载即执行, 不等交互):
+ *   先把持久化节点 (没有则默认节点) 应用到所有引擎, ensureInit 立即完成, 资源请求不等测速;
+ *   同时后台全量测速, 测完: 来源 auto → 切到最优; 来源 manual → 保留手选, 只把最优记进快照 (bestId) 供面板提示
+ * - SPA 站内跳转: 模块不重新执行, 不重测、不切换
+ * - 定时重测: 距上次测速超过 CDN_RETEST_INTERVAL_MS (15 分钟) 且标签页在前台时重测一轮 (每分钟检查一次 + 回到前台时检查),
+ *   规则同冷加载; 后台标签页不测
+ * - 面板 "重新测速" (retestAllNodes) 是用户主动要求重选: 测完切到最优, 来源改回 auto
+ * - 面板手选节点 (selectNodeAll 默认来源 manual): 之后刷新不被自动优选覆盖, 直到用户点 "重新测速"
+ * - 旧版本只存了节点 id 没存来源, 按 auto 处理 (旧逻辑下首访也是自动测出来的)
  */
 
 import { ANIME_CDN_TAG } from '@site/data/animeCdnVersion';
@@ -43,7 +51,15 @@ if (typeof window !== 'undefined') {
 // ============================================================
 
 const CDN_STORAGE_KEY = 'hxloli-cdn-node';
+/** 节点来源: 'auto' | 'manual'; 缺省视为 auto */
+const CDN_SOURCE_KEY = 'hxloli-cdn-node-source';
 const DEFAULT_NODE = 'jsd-mirror';
+/** 定时重新优选的间隔 */
+const CDN_RETEST_INTERVAL_MS = 15 * 60 * 1000;
+/** 检查是否到期的节拍 */
+const CDN_RETEST_TICK_MS = 60 * 1000;
+
+export type CdnNodeSource = 'auto' | 'manual';
 
 /** 检查 localStorage 是否已有保存的节点 
  * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
@@ -54,6 +70,13 @@ function getSavedNodeId(): string | null {
 }
 
 const savedNodeId = getSavedNodeId();
+
+function getSavedSource(): CdnNodeSource {
+  if (typeof window === 'undefined') return 'auto';
+  try { return localStorage.getItem(CDN_SOURCE_KEY) === 'manual' ? 'manual' : 'auto'; } catch { return 'auto'; }
+}
+
+let _source: CdnNodeSource = savedNodeId ? getSavedSource() : 'auto';
 
 /**
  * CF Worker 直连节点 — 静态文件从 Workers 直接提供
@@ -156,14 +179,22 @@ export interface CdnSnapshot {
   phase: CdnPhase;
   currentId: string | null;
   nodes: CdnNodeView[];
+  /** 上一轮测速的最优节点; 来源 manual 时可能 != currentId, 面板据此提示 "建议切换到 X" */
+  bestId: string | null;
+  /** 当前节点来源 */
+  source: CdnNodeSource;
+  /** 上一轮全量测速完成时间 (ms), 未测过为 null */
+  lastTestedAt: number | null;
 }
 
 /** SSR 与水合首帧共用的固定快照, 保证服务端与客户端首帧一致 */
-const SERVER_SNAPSHOT: CdnSnapshot = { phase: 'idle', currentId: null, nodes: [] };
+const SERVER_SNAPSHOT: CdnSnapshot = { phase: 'idle', currentId: null, nodes: [], bestId: null, source: 'auto', lastTestedAt: null };
 
 const _latency = new Map<string, number>();
 const _testingIds = new Set<string>();
 let _phase: CdnPhase = 'idle';
+let _bestId: string | null = null;
+let _lastTestedAt: number | null = null;
 let _snapshot: CdnSnapshot = SERVER_SNAPSHOT;
 
 type CdnListener = () => void;
@@ -182,6 +213,9 @@ function _rebuildSnapshot() {
       latency: _latency.has(n.id) ? (_latency.get(n.id) as number) : null,
       testing: _testingIds.has(n.id),
     })),
+    bestId: _bestId,
+    source: _source,
+    lastTestedAt: _lastTestedAt,
   };
 }
 
@@ -230,11 +264,12 @@ function _bestNodeId(engine: any): string | null {
 }
 
 /**
- * 全量测速: 所有节点并发探测, 结果逐个推给订阅者, 结束后选最优并同步到所有引擎.
- * HXLoLi 首屏新访客自动跑一次; 面板里的 "重新测速" 也走这里.
+ * 一轮全量测速: 所有节点并发探测, 结果逐个推给订阅者 (面板能看到哪个在测、延迟逐个跳出),
+ * 全部结束后才算最优. pick = true 无条件切到最优并把来源改回 auto (用户点 "重新测速");
+ * pick = false 只在来源为 auto 时切换, manual 时保留手选、只记录 bestId.
  * .agents/notes/implemented/feature/2026-11-01-navbar-slim-and-cdn-first-load.md
  */
-export async function retestAllNodes(): Promise<void> {
+async function _runSpeedTest(pick: boolean): Promise<void> {
   if (!probeEngine || _phase === 'testing') return;
   const nodes = probeEngine.getNodes();
   _phase = 'testing';
@@ -247,23 +282,21 @@ export async function retestAllNodes(): Promise<void> {
     _testingIds.delete(n.id);
     _notifyListeners();
   }));
-  const best = _bestNodeId(probeEngine);
-  if (best) selectNodeAll(best);
+  _bestId = _bestNodeId(probeEngine);
+  _lastTestedAt = Date.now();
+  if (_bestId && (pick || _source === 'auto')) selectNodeAll(_bestId, 'auto');
   _phase = 'ready';
   _notifyListeners();
 }
 
-/** 已有持久化节点: 不改选择, 只探测当前节点一次, 让 Navbar 有延迟可显示 */
-async function probeCurrentNode(): Promise<void> {
-  const node = probeEngine?.getCurrentNode();
-  if (!node) { _phase = 'ready'; _notifyListeners(); return; }
-  _phase = 'testing';
-  _testingIds.add(node.id);
-  _notifyListeners();
-  _latency.set(node.id, await probeNode(node));
-  _testingIds.delete(node.id);
-  _phase = 'ready';
-  _notifyListeners();
+/** 面板 "重新测速": 用户主动重选, 测完切到最优 (覆盖手选) */
+export async function retestAllNodes(): Promise<void> {
+  return _runSpeedTest(true);
+}
+
+/** 自动优选 (冷加载 / 定时): 尊重手选 */
+function _autoRetest(): Promise<void> {
+  return _runSpeedTest(false);
 }
 
 // ============================================================
@@ -282,13 +315,11 @@ function ensureInit(): Promise<void> {
         if (!engine.isInitialized()) await engine.initialize();
       } catch {}
     }
-    if (savedNodeId) {
-      selectNodeAll(savedNodeId);
-      // 不 await: 资源请求 (reqMusicByCDN 等) 不必等这次探测
-      void probeCurrentNode();
-    } else {
-      await retestAllNodes();
-    }
+    // 先用上次的节点 (没有则默认节点) 保证首屏可用, 不写回存储, 来源不变
+    _selectOnEngines(savedNodeId || DEFAULT_NODE);
+    _notifyListeners();
+    // 不 await: 资源请求 (reqMusicByCDN 等) 只等引擎初始化, 不等测速; 测完按来源决定是否切换
+    void _autoRetest();
   })().catch((e) => {
     if (typeof console !== 'undefined') console.warn('[CDN] init failed:', e);
     _phase = 'ready';
@@ -298,13 +329,32 @@ function ensureInit(): Promise<void> {
   return _initPromise;
 }
 
+/** 到期检查: 前台、未在测、距上次测速超过间隔 → 自动重测 */
+function _retestIfStale() {
+  if (typeof document === 'undefined' || document.visibilityState !== 'visible') return;
+  if (_phase === 'testing' || _lastTestedAt == null) return;
+  if (Date.now() - _lastTestedAt >= CDN_RETEST_INTERVAL_MS) void _autoRetest();
+}
+
 if (typeof window !== 'undefined') {
   ensureInit();
 
-  // 跨 Tab 同步: 其他 Tab 切换了节点 → 本 Tab 跟随
+  // 定时器与监听只装一份: 模块在一次页面加载里只执行一次 (SPA 跳转不重跑);
+  // 开发时 HMR 会重跑模块, 所以把句柄挂在 window 上, 重跑前先清掉旧的
+  const w = window as any;
+  if (w.__hxCdnRetestTimer) clearInterval(w.__hxCdnRetestTimer);
+  if (w.__hxCdnVisibility) document.removeEventListener('visibilitychange', w.__hxCdnVisibility);
+  w.__hxCdnRetestTimer = setInterval(_retestIfStale, CDN_RETEST_TICK_MS);
+  w.__hxCdnVisibility = _retestIfStale;
+  document.addEventListener('visibilitychange', _retestIfStale);
+
+  // 跨 Tab 同步: 其他 Tab 切换了节点或来源 → 本 Tab 跟随
   window.addEventListener('storage', (e: StorageEvent) => {
     if (e.key === CDN_STORAGE_KEY && e.newValue) {
       _selectOnEngines(e.newValue);
+      _notifyListeners();
+    } else if (e.key === CDN_SOURCE_KEY) {
+      _source = e.newValue === 'manual' ? 'manual' : 'auto';
       _notifyListeners();
     }
   });
@@ -324,10 +374,17 @@ function _selectOnEngines(nodeId: string) {
   }
 }
 
-/** 切换节点 — 同步到所有引擎 + 持久化 + 触发跨 Tab */
-function selectNodeAll(nodeId: string) {
+/**
+ * 切换节点 — 同步到所有引擎 + 持久化 (节点与来源) + 触发跨 Tab.
+ * 默认来源 manual: 面板里点节点直接调这个, 不用改调用方; 自动优选显式传 'auto'.
+ */
+function selectNodeAll(nodeId: string, source: CdnNodeSource = 'manual') {
   _selectOnEngines(nodeId);
-  try { localStorage.setItem(CDN_STORAGE_KEY, nodeId); } catch {}
+  _source = source;
+  try {
+    localStorage.setItem(CDN_STORAGE_KEY, nodeId);
+    localStorage.setItem(CDN_SOURCE_KEY, source);
+  } catch {}
   _notifyListeners();
 }
 

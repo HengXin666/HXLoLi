@@ -32,6 +32,14 @@ Bug: 直接进站时按钮一直是灰色 `CDN`, 点开面板后才出现延迟.
 
 新访客首屏会并发发出每个节点一次 HEAD 探测 (与原 mainEngine 测速同口径); 回访只发一次. 水合首帧用固定 idle 快照, 不产生 hydration 警告. `CDNNodeSelector` 的默认导出从旧 `CDNNodePanel` 改为 `CDNNavbarButton`, 仓库内唯一引用方是 `src/theme/NavbarItem/ComponentTypes.tsx` (用的是具名导出, 未改). 新增 `src/components/CDNNodeSelector/styles.module.css` (非 AST 资源, 需人工核对). 无新增依赖.
 
+## 2026-11-02 补充: 每次冷加载自动优选 + 定时重测 + 尊重手选
+
+问题: 回访时 `ensureInit` 直接沿用 localStorage 里的节点, 只探测这一个, 网络变了也不换. 用户要求每次加载都测速并自动选当前最优, 站内跳转不重测, 定时再优选一轮.
+
+改为: 冷加载先把持久化节点 (没有则默认节点) 应用到所有引擎, `ensureInit` 不等测速就完成, 资源照常加载; 同时后台全量测速, 全部节点测完才算最优. localStorage 新增 `hxloli-cdn-node-source` (`auto` / `manual`): 来源 auto 时测完切到最优; manual (面板手选) 时保留手选, 只把最优记入快照 `bestId`, 面板显示 "最优" 标记和 "当前节点较慢, 切换到 X" 提示. 面板 "重新测速" 视为用户要求重选, 测完切到最优并把来源改回 auto. 定时: 每 60 秒检查一次, 前台且距上次测速满 15 分钟就重测; `visibilitychange` 回到前台时同样检查; 后台标签页不测. 定时器与监听挂在 window 上, HMR 重跑模块时先清旧的, 不会叠加. SPA 跳转不重新执行模块, 不重测. 旧版本没存来源, 按 auto 处理: 少数以前手选过的用户会被自动优选覆盖一次, 之后再手选即可保留.
+
+否决: 什么都不做 (最强理由: 回访首屏零额外请求) — 否决, 因为节点会长期停在已变慢的那个上; 复用现有 `retestAllNodes` 直接在回访时 await (最强理由: 一行改动) — 否决, 因为首屏资源会等最慢节点 5 秒超时, 且会覆盖手选. 代价: 回访首屏每个节点多一次 HEAD 探测, 每 15 分钟一轮.
+
 ## Code
 
 - `src/components/CDNNodeSelector/index.tsx`

@@ -10,7 +10,6 @@ Decision-ID: repository-agent-notes-v2-adoption
 - `.agents/skills/hx-agent-notes/scripts/lib/glob.ts`
 - `.agents/skills/hx-agent-notes/scripts/triage/note-triage.py`
 - `src/components/AIDocHeader/index.tsx`
-- `src/components/BlogWithCats/index.tsx`
 - `src/components/DevTools/InlineEditor.tsx`
 - `src/components/DrawIoPage/index.tsx`
 - `src/components/Giscus/index.tsx`
@@ -38,7 +37,6 @@ Decision-ID: repository-agent-notes-v2-adoption
 - `src/theme/Root.tsx`
 - `src/theme/BlogArchivePage/index.tsx`
 - `src/theme/BlogLayout/index.tsx`
-- `src/theme/BlogListPage/index.tsx`
 - `src/theme/BlogPostItem/index.tsx`
 - `src/theme/BlogPostItem/Container/index.tsx`
 - `src/theme/BlogPostItem/Content/index.tsx`

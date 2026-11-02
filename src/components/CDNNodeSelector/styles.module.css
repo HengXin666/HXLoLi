@@ -100,6 +100,32 @@
   flex: 1;
 }
 
+.best {
+  flex: none;
+  padding: 0 5px;
+  border-radius: 4px;
+  background: rgba(34, 197, 94, 0.16);
+  color: #22c55e;
+  font-size: 10.5px;
+  line-height: 16px;
+}
+
+.suggest {
+  margin: 4px 6px 2px;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 7px;
+  background: rgba(234, 179, 8, 0.12);
+  color: #eab308;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.suggest:hover {
+  background: rgba(234, 179, 8, 0.2);
+}
+
 .latency {
   margin-left: 12px;
   font-family: var(--ifm-font-family-monospace);

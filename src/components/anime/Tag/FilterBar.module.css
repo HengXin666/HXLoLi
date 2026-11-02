@@ -8,10 +8,20 @@
     position: sticky;
     top: var(--ifm-navbar-height, 60px);
     z-index: 5;
+    transition: top var(--ifm-transition-fast) ease;
     padding: 12px 0 8px;
     background: color-mix(in srgb, var(--ifm-background-color, #1b1b1d) 88%, transparent);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/*
+ * 导航栏开了 hideOnScroll: 往下滚时 Docusaurus 给 <nav class="navbar"> 加 CSS Modules 类 navbarHidden_<hash> (translateY(-100%)),
+ * 工具栏若仍钉在导航栏高度, 上方会空出一条缝. 导航栏隐藏时贴顶, 与导航栏的收起动画同时长同曲线.
+ * 用元素 + 属性选择器 (nav[class*=...]) 而不是 .navbar, 免得被本文件的 CSS Modules 改名. 不支持 :has() 的旧浏览器退回原行为 (钉在导航栏下方).
+ */
+html:has(nav[class*="navbarHidden"]) .bar {
+    top: 0;
 }
 
 .row {
