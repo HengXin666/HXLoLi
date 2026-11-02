@@ -825,13 +825,15 @@ export default function AnimeShareBoard ({ embedded = false }: AnimeShareBoardPr
                                         <button
                                             key={id}
                                             type="button"
-                                            className={styles.nameTag}
+                                            className={styles.nameCell}
                                             aria-pressed={mine.has(id)}
                                             title={itemTitle(r)}
                                             onClick={() => toggle(id)}
                                         >
-                                            {theirs.has(id) && <span className={styles.nameTheirs} aria-label="TA 看过">TA</span>}
-                                            {displayName(r)}
+                                            <span className={styles.nameText}>
+                                                {theirs.has(id) && <span className={styles.nameTheirs} aria-label="TA 看过">TA</span>}
+                                                {displayName(r)}
+                                            </span>
                                         </button>
                                     );
                                 })}

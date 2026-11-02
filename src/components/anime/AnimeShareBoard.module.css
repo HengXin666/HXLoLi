@@ -381,56 +381,93 @@
     color: var(--ifm-color-emphasis-700);
 }
 
-/* 表格模式: 没有外框与底色, 年份是一行灰色粗体小标题, 下面紧跟一段密排的番名, 番名之间只靠空白分隔 */
+/*
+ * 表格模式: 照参考站 (anime-sedai.egoist.dev) 做成格子表格, 行列都有 1px 线.
+ * 每年一行: 左边 100px 年份格 (红底白字), 右边番名格等宽 repeat(auto-fill, minmax(112px, 1fr)),
+ * 一年番多就在本行内折到下一排, 年份格纵向撑满整行. 内容区 1440px 约 11 格, 1920px 约 16 格.
+ * 番名在格内居中, 最多 3 行, 超出省略; 选中整格绿底白字.
+ */
 .yearTable {
     margin-bottom: 22px;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    background: var(--ifm-background-color);
 }
 
 .yearRow {
-    margin: 0 0 0.9em;
+    display: grid;
+    grid-template-columns: 100px minmax(0, 1fr);
+    border-top: 1px solid var(--ifm-color-emphasis-300);
+    overflow: hidden;
+}
+
+.yearRow:first-child {
+    border-top: 0;
 }
 
 .yearHead {
-    margin: 0 0 1px;
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1.5;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    background: #ef4444;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
     font-variant-numeric: tabular-nums;
-    letter-spacing: 0.02em;
-    color: var(--ifm-color-emphasis-600);
 }
 
 .nameFlow {
-    font-size: 12.5px;
-    line-height: 1.6;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+    /* 让每格的 border-top 与行线重合, 只有折行处才多出一条横线 */
+    margin-top: -1px;
 }
 
-.nameTag {
-    display: inline;
-    margin: 0 0.9em 0 0;
-    padding: 0;
+.nameCell {
+    display: grid;
+    place-items: center;
+    min-height: 72px;
+    margin: 0;
+    padding: 8px 6px;
     border: 0;
-    border-radius: 2px;
+    border-left: 1px solid var(--ifm-color-emphasis-300);
+    border-top: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: 0;
     background: none;
-    color: var(--ifm-color-emphasis-500);
+    color: var(--ifm-font-color-base);
     font: inherit;
-    line-height: inherit;
+    font-size: 13px;
+    line-height: 1.35;
+    text-align: center;
+    word-break: break-word;
     cursor: pointer;
-    transition: color 0.15s;
+    transition: background-color 0.15s, color 0.15s;
 }
 
-.nameTag:hover {
-    color: var(--ifm-font-color-base);
+.nameText {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
 }
 
-.nameTag:focus-visible {
+.nameCell:hover {
+    background: var(--ifm-color-emphasis-100);
+}
+
+.nameCell:focus-visible {
     outline: 2px solid var(--ifm-color-primary-light);
-    outline-offset: 1px;
+    outline-offset: -2px;
 }
 
-.nameTag[aria-pressed="true"] {
-    color: var(--ifm-font-color-base);
+.nameCell[aria-pressed="true"] {
+    background: #22c55e;
+    color: #fff;
     font-weight: 700;
+}
+
+.nameCell[aria-pressed="true"] .nameTheirs {
+    color: #fff;
 }
 
 .nameTheirs {
@@ -799,7 +836,7 @@
     .cover,
     .cover img,
     .check,
-    .nameTag,
+    .nameCell,
     .meter > span {
         transition: none;
     }
