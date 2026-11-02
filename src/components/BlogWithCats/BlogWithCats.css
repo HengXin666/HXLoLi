@@ -27,54 +27,163 @@
 }
 
 /*
- * 立绘: fixed 贴视口底, 水平紧贴正文外沿 (内侧裁切线 = 正文左 / 右边缘), 层级高于正文 (z 3 > 2), 不挡点击.
- * 顶部 0-12% 渐显, 底部 86-100% 渐隐.
+ * 立绘舞台 (src/components/BlogWithCats/index.tsx 的 NekoStage). 结构: .neko-sides[data-variant] > .neko-slot (fixed, 吃滚动 transform) > .neko-img (吃入场 / 呼吸).
+ * --neko-p: 滚动进度 0..1 (JS 每帧写一次). 只动 transform / opacity.
+ * 竖直: 不贴底, pair 与 side 底边抬起 clamp(115px, 8vh + 75px, 195px) (原 clamp(40px, 8vh, 120px) 再上移 75px).
  */
-.neko-side {
+.neko-sides {
+    --neko-p: 0;
+    --neko-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --neko-lift: clamp(115px, calc(8vh + 75px), 195px);
+}
+
+.neko-slot {
     position: fixed;
-    bottom: 0;
-    z-index: 3;
-    width: var(--neko-w, 280px);
-    height: auto;
-    max-height: calc(100vh - var(--ifm-navbar-height, 60px));
-    object-fit: contain;
     pointer-events: none;
     user-select: none;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 86%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 86%, transparent 100%);
-    animation: neko-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    will-change: transform;
 }
 
-.neko-side-left {
-    left: calc(50% - var(--neko-cw, 960px) / 2 - var(--neko-w, 280px));
-    object-position: right bottom;
+.neko-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 80%, transparent 100%);
+    animation:
+        neko-peek-l 0.9s var(--neko-ease) 0.15s both,
+        neko-breathe 5.2s ease-in-out 1.2s infinite;
 }
 
-.neko-side-right {
-    left: calc(50% + var(--neko-cw, 960px) / 2);
-    object-position: left bottom;
-    animation-delay: 0.08s;
+.neko-slot-r .neko-img {
+    animation-name: neko-peek-r, neko-breathe;
+    animation-delay: 0.27s, 1.5s;
+}
+
+/* ---------- pair: 正文当墙, 立绘在墙后 ---------- */
+/*
+ * 立绘 z 1 < 正文 2. 内侧只侵入正文 4% (之前 12%), 露出更多身体; 滚动一屏后再向上探 64px 并朝外侧倾 3deg (支点在内侧底部, 像扒着墙边往外伸).
+ */
+[data-variant='pair'] .neko-slot {
+    --neko-in: calc(var(--neko-w, 280px) * 0.04);
+    bottom: var(--neko-lift);
+    z-index: 1;
+    width: var(--neko-w, 280px);
+    max-height: calc(100vh - var(--ifm-navbar-height, 60px) - var(--neko-lift));
+}
+
+[data-variant='pair'] .neko-slot-l {
+    left: calc(50% - var(--neko-cw, 960px) / 2 - var(--neko-w, 280px) + var(--neko-in));
+    transform-origin: 100% 100%;
+    transform: translateY(calc(var(--neko-p) * -64px)) rotate(calc(var(--neko-p) * -3deg));
+}
+
+[data-variant='pair'] .neko-slot-r {
+    left: calc(50% + var(--neko-cw, 960px) / 2 - var(--neko-in));
+    transform-origin: 0 100%;
+    transform: translateY(calc(var(--neko-p) * -64px)) rotate(calc(var(--neko-p) * 3deg));
+}
+
+/*
+ * 墙: 有猫娘时正文块必须是实心的 (盖住立绘内侧), 加一圈细线与投向两侧的软阴影.
+ * 阴影画在正文的层里, 因此会压在立绘被挡住的那条边上, 形成接触阴影.
+ */
+.neko-sides[data-variant='pair'] + .blog-content-wrapper > .blog-content {
+    background: var(--ifm-background-color);
+    box-shadow:
+        0 0 0 1px var(--ifm-color-emphasis-200),
+        -10px 0 24px -14px rgba(0, 0, 0, 0.28),
+        10px 0 24px -14px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme='dark'] .neko-sides[data-variant='pair'] + .blog-content-wrapper > .blog-content {
+    background: var(--ifm-background-surface-color, #1b1b1d);
+    box-shadow:
+        0 0 0 1px var(--ifm-color-emphasis-200),
+        -12px 0 28px -14px rgba(0, 0, 0, 0.7),
+        12px 0 28px -14px rgba(0, 0, 0, 0.7);
+}
+
+/* ---------- corner: 视口右下角斜探 (视口右边当墙) ---------- */
+/*
+ * 立绘斜 -9deg, 支点右下角; 初始下沉 22% 只露头和肩, 滚动一屏沿斜线再升 22% + 内移 12px.
+ */
+[data-variant='corner'] .neko-slot {
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    width: clamp(170px, 13vw, 240px);
+    transform-origin: 100% 100%;
+    transform: translate(calc(var(--neko-p) * -12px), calc(22% - var(--neko-p) * 22%)) rotate(-9deg);
+}
+
+[data-variant='corner'] .neko-img {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 14%);
+}
+
+/* ---------- edges: 视口左右两边从底部升起 (全宽页面) ---------- */
+[data-variant='edges'] .neko-slot {
+    bottom: 0;
+    z-index: 3;
+    width: clamp(160px, 12vw, 220px);
+    transform: translateY(calc(30% - var(--neko-p) * 18%));
+}
+
+[data-variant='edges'] .neko-slot-l {
+    left: 0;
+}
+
+[data-variant='edges'] .neko-slot-r {
+    right: 0;
+}
+
+[data-variant='edges'] .neko-img {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 14%);
+}
+
+/* ---------- side: 只在右侧, 快速滚动缩回墙后, 停下再探 ---------- */
+[data-variant='side'] .neko-slot {
+    right: 0;
+    bottom: var(--neko-lift);
+    z-index: 3;
+    width: clamp(180px, 14vw, 260px);
+    transform: translateX(calc(8% - var(--neko-p) * 8%));
+    transition: transform 0.45s var(--neko-ease);
+}
+
+[data-variant='side'][data-shy] .neko-slot {
+    transform: translateX(78%);
+    transition-duration: 0.22s;
+}
+
+/* 待机: 极轻的呼吸 (支点在底部) */
+@keyframes neko-breathe {
+    0%, 100% {
+        transform: none;
+    }
+    50% {
+        transform: translateY(-0.6%) scale(1.006);
+    }
 }
 
 /* 暗色主题: 压一点亮度与饱和度, 不比正文亮; 亮色主题保持原色 */
-[data-theme='dark'] .neko-side {
+[data-theme='dark'] .neko-img {
     filter: brightness(0.88) saturate(0.95);
 }
 
-[data-theme='light'] .neko-side {
-    filter: none;
-}
-
-/* 页脚盖在立绘之上: 滚到底时立绘沉到页脚后面, 不会站在页脚文字上 */
+/* 页脚盖在立绘之上 (pair 立绘 z 1, 其余 3, 页脚 4): 滚到底时立绘沉到页脚后面 */
 html:has(.neko-sides) .footer {
     position: relative;
     z-index: 4;
 }
 
-@keyframes neko-in {
+/* 从墙后横向探出: 起点整只缩在墙里 (向墙的方向平移), 再滑到位 */
+@keyframes neko-peek-l {
     from {
         opacity: 0;
-        transform: translateY(32px);
+        transform: translateX(40%);
     }
     to {
         opacity: 1;
@@ -82,9 +191,39 @@ html:has(.neko-sides) .footer {
     }
 }
 
+@keyframes neko-peek-r {
+    from {
+        opacity: 0;
+        transform: translateX(-40%);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* corner / side 的墙是视口右边: 入场从右往左探 (左图在右墙之左, 用 peek-l 方向) */
+[data-variant='corner'] .neko-slot-r .neko-img,
+[data-variant='side'] .neko-slot-r .neko-img {
+    animation-name: neko-peek-l, neko-breathe;
+}
+
+/* edges 左侧那只贴视口左边, 从左往右探 */
+[data-variant='edges'] .neko-slot-l .neko-img {
+    animation-name: neko-peek-r, neko-breathe;
+}
+
+[data-variant='edges'] .neko-slot-r .neko-img {
+    animation-name: neko-peek-l, neko-breathe;
+}
+
 @media (prefers-reduced-motion: reduce) {
-    .neko-side {
+    .neko-img {
         animation: none;
+    }
+
+    .neko-slot {
+        transition: none;
     }
 }
 

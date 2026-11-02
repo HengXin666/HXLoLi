@@ -146,7 +146,7 @@ function BlogListPageContent (props: Props): ReactNode {
     let n = 0;
     return (
         <Layout>
-            <BlogWithCats contentWidth={CONTENT_WIDTH} style={{ padding: 0, background: 'transparent', minHeight: 0 }}>
+            <BlogWithCats contentWidth={CONTENT_WIDTH} style={{ padding: 0, minHeight: 0 }}>
                 <div className={styles.page} ref={reveal}>
                     <header className={styles.head}>
                         <p className={styles.kicker} style={stagger(0)}>
