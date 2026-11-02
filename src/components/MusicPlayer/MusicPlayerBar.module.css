@@ -393,7 +393,7 @@
 }
 
 .playlistItems {
-    max-height: 150px;
+    max-height: 280px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -443,6 +443,120 @@
     font-size: 11px;
     color: rgba(255, 255, 255, 0.4);
     flex-shrink: 0;
+}
+
+/* ---- 播放列表树: 番剧组 ---- */
+.playlistSub {
+    margin-left: 8px;
+    text-transform: none;
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.group + .group {
+    margin-top: 2px;
+}
+
+.groupHead {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 5px 8px 5px 5px;
+    border: none;
+    border-radius: 8px;
+    background: none;
+    color: var(--ifm-font-color-base);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.groupHead:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.groupHead:focus-visible {
+    outline: 2px solid var(--ifm-color-primary);
+    outline-offset: -2px;
+}
+
+.groupCover {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 12px;
+}
+
+.groupTitle {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.groupHeadPlaying .groupTitle {
+    color: var(--ifm-color-primary);
+}
+
+.groupCount {
+    font: 11px/1 var(--ifm-font-family-monospace);
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.groupChevron {
+    width: 12px;
+    font-size: 15px;
+    line-height: 1;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.group[data-open='true'] .groupChevron {
+    transform: rotate(90deg);
+}
+
+/* 展开: 只有一层内容, 用 grid 行 0fr -> 1fr, 不量高度 */
+.groupBody {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.group[data-open='true'] .groupBody {
+    grid-template-rows: 1fr;
+}
+
+.groupInner {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-height: 0;
+    overflow: hidden;
+    margin-left: 18px;
+    padding-left: 8px;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.group[data-open='true'] .groupInner {
+    padding-block: 2px 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .groupBody,
+    .groupChevron {
+        transition: none;
+    }
 }
 
 /* 滚动条 */

@@ -278,3 +278,48 @@
         max-height: calc(90vh - 56px);
     }
 }
+
+/* ---------- 页面动效 (2026-11-02): 页头入场错落 + 分组标题随滚动浮现 ----------
+ * 只动 opacity / transform; 卡片本身不加, 免得和列表 FLIP / view transition 抢 transform.
+ * 分组标题用 CSS 滚动驱动动画 (animation-timeline: view()), 不支持的浏览器直接显示, 不需要 JS.
+ * .agents/notes/implemented/feature/2026-11-01-anime-page-refactor.md
+ */
+.header > *,
+.stats > li {
+    animation: animeRise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.header > :nth-child(2) { animation-delay: 80ms; }
+.header > :nth-child(3) { animation-delay: 140ms; }
+.stats > li:nth-child(1) { animation-delay: 160ms; }
+.stats > li:nth-child(2) { animation-delay: 210ms; }
+.stats > li:nth-child(3) { animation-delay: 260ms; }
+.stats > li:nth-child(4) { animation-delay: 310ms; }
+.stats > li:nth-child(n + 5) { animation-delay: 360ms; }
+
+@supports (animation-timeline: view()) {
+    .groupTitle {
+        animation: animeRise linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 60%;
+    }
+}
+
+@keyframes animeRise {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .header > *,
+    .stats > li,
+    .groupTitle {
+        animation: none !important;
+    }
+}

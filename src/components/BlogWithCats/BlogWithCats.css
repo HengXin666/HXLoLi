@@ -26,43 +26,55 @@
     z-index: 2;
 }
 
-/* 立绘贴视口左右下角; 图是 RGBA 透明底, 轮廓不需要羽化; 只有底部是半身裁切的硬边, 所以只在底部叠一层渐隐 */
+/*
+ * 立绘: fixed 贴视口底, 水平紧贴正文外沿 (内侧裁切线 = 正文左 / 右边缘), 层级高于正文 (z 3 > 2), 不挡点击.
+ * 顶部 0-12% 渐显, 底部 86-100% 渐隐.
+ */
 .neko-side {
     position: fixed;
     bottom: 0;
-    z-index: 1;
-    width: var(--neko-w, 200px);
+    z-index: 3;
+    width: var(--neko-w, 280px);
     height: auto;
+    max-height: calc(100vh - var(--ifm-navbar-height, 60px));
+    object-fit: contain;
     pointer-events: none;
     user-select: none;
-    -webkit-mask-image: linear-gradient(to top, transparent 0, #000 14%);
-    mask-image: linear-gradient(to top, transparent 0, #000 14%);
-    animation: neko-in 0.6s ease-out both;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 86%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 86%, transparent 100%);
+    animation: neko-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .neko-side-left {
-    left: 0;
+    left: calc(50% - var(--neko-cw, 960px) / 2 - var(--neko-w, 280px));
+    object-position: right bottom;
 }
 
 .neko-side-right {
-    right: 0;
+    left: calc(50% + var(--neko-cw, 960px) / 2);
+    object-position: left bottom;
+    animation-delay: 0.08s;
 }
 
-/* 暗色主题下压一点亮度, 白色衣服不至于比正文还亮 */
+/* 暗色主题: 压一点亮度与饱和度, 不比正文亮; 亮色主题保持原色 */
 [data-theme='dark'] .neko-side {
-    filter: brightness(0.9);
+    filter: brightness(0.88) saturate(0.95);
+}
+
+[data-theme='light'] .neko-side {
+    filter: none;
 }
 
 /* 页脚盖在立绘之上: 滚到底时立绘沉到页脚后面, 不会站在页脚文字上 */
 html:has(.neko-sides) .footer {
     position: relative;
-    z-index: 3;
+    z-index: 4;
 }
 
 @keyframes neko-in {
     from {
         opacity: 0;
-        transform: translateY(24px);
+        transform: translateY(32px);
     }
     to {
         opacity: 1;

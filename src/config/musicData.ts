@@ -5,7 +5,10 @@
  * 类型定义仍保留在此文件中供项目使用
  */
 
-/** 单首歌曲的信息 */
+/**
+ * 单首歌曲的信息. anime 字段由 HXLoLi-Music 的 audioUrl 目录名解析而来, 播放器按它分组.
+ * .agents/notes/implemented/feature/2026-11-02-music-anime-tree.md
+ */
 export interface MusicTrack {
     /** 歌曲唯一ID */
     id: string;
@@ -23,6 +26,8 @@ export interface MusicTrack {
     coverUrl?: string;
     /** ASS 歌词中使用的字体名列表 (用于 fallback 映射, 可选) */
     assFonts?: string[];
+    /** 番剧归属: HXLoLi-Music 的 static/music/<番剧名>/ 目录名, 原样; null = 不属于番剧 (播放器归到"其它"); 旧数据没有该字段 */
+    anime?: { title: string } | null;
 }
 
 /** 歌曲详细配置 (按需加载, 从 static/info/{id}.json 获取) */

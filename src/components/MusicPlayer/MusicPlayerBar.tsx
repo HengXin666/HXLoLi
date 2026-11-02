@@ -4,6 +4,7 @@
  * 放在 Navbar 右侧 "更多" 按钮的前面
  */
 import { useMusicStore, type PlayMode } from '@site/src/utils/music/musicStore';
+import type { MusicTrack } from '@site/src/config/musicData';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
     FaLock, FaLockOpen, FaMusic,
@@ -127,6 +128,106 @@ export function MusicNavbarButton(): React.ReactElement | null {
 
             {/* 下拉面板 */}
             {panelExpanded && <MusicPanel />}
+        </div>
+    );
+}
+
+interface TrackGroup {
+    key: string;
+    title: string;
+    cover?: string;
+    items: { track: MusicTrack; index: number }[];
+}
+
+const OTHER_KEY = '\u0000other';
+
+/** 按 anime.title 分组; 组序 = 组内第一首在原列表中的位置, "其它" (anime 为空) 放最后; 不改歌曲原顺序 */
+function groupByAnime (pl: readonly MusicTrack[]): TrackGroup[] {
+    const map = new Map<string, TrackGroup>();
+    pl.forEach((track, index) => {
+        const title = track.anime?.title;
+        const key = title ?? OTHER_KEY;
+        let g = map.get(key);
+        if (!g) {
+            g = { key, title: title ?? '其它', items: [] };
+            map.set(key, g);
+        }
+        if (!g.cover && track.coverUrl) g.cover = track.coverUrl;
+        g.items.push({ track, index });
+    });
+    const groups = [...map.values()];
+    const other = groups.findIndex((g) => g.key === OTHER_KEY);
+    if (other >= 0) groups.push(groups.splice(other, 1)[0]);
+    return groups;
+}
+
+/**
+ * 播放列表树: 一级 = 番剧 (封面缩略图 / 番名 / 曲数 / 箭头), 二级 = 该番的歌 (原序号).
+ * 默认只展开正在播放的组, 切到别的组的歌时自动展开那组; 只有一组时退化为平铺列表.
+ * .agents/notes/implemented/feature/2026-11-02-music-anime-tree.md
+ */
+function PlaylistTree ({ playlist, trackIndex, onPick }: {
+    playlist: readonly MusicTrack[];
+    trackIndex: number;
+    onPick: (i: number) => void;
+}): React.ReactElement {
+    const groups = React.useMemo(() => groupByAnime(playlist), [playlist]);
+    const currentKey = playlist[trackIndex]?.anime?.title ?? OTHER_KEY;
+    const [open, setOpen] = useState<ReadonlySet<string>>(() => new Set([currentKey]));
+    useEffect(() => {
+        setOpen((s) => (s.has(currentKey) ? s : new Set(s).add(currentKey)));
+    }, [currentKey]);
+    const flip = (key: string): void => setOpen((s) => {
+        const n = new Set(s);
+        if (n.has(key)) n.delete(key); else n.add(key);
+        return n;
+    });
+    const row = ({ track, index }: { track: MusicTrack; index: number }): React.ReactElement => (
+        <button
+            key={track.id}
+            type="button"
+            className={`${styles.playlistItem} ${index === trackIndex ? styles.playlistItemActive : ''}`}
+            onClick={() => onPick(index)}
+        >
+            <span className={styles.playlistItemIndex}>{index + 1}</span>
+            <span className={styles.playlistItemTitle}>{track.title}</span>
+            <span className={styles.playlistItemArtist}>{track.artist}</span>
+        </button>
+    );
+    const flat = groups.length <= 1;
+    return (
+        <div className={styles.playlistSection}>
+            <div className={styles.playlistTitle}>
+                播放列表{flat ? '' : <span className={styles.playlistSub}>{groups.length} 部 · {playlist.length} 首</span>}
+            </div>
+            <div className={styles.playlistItems}>
+                {flat ? playlist.map((track, index) => row({ track, index })) : groups.map((g) => {
+                    const isOpen = open.has(g.key);
+                    const playing = g.key === currentKey;
+                    return (
+                        <div key={g.key} className={styles.group} data-open={isOpen}>
+                            <button
+                                type="button"
+                                className={`${styles.groupHead} ${playing ? styles.groupHeadPlaying : ''}`}
+                                aria-expanded={isOpen}
+                                onClick={() => flip(g.key)}
+                            >
+                                {g.cover
+                                    ? <img className={styles.groupCover} src={g.cover} alt="" loading="lazy" decoding="async" />
+                                    : <span className={styles.groupCover} aria-hidden="true">♪</span>}
+                                <span className={styles.groupTitle}>{g.title}</span>
+                                <span className={styles.groupCount}>{g.items.length}</span>
+                                <span className={styles.groupChevron} aria-hidden="true">›</span>
+                            </button>
+                            <div className={styles.groupBody} inert={!isOpen}>
+                                <div className={styles.groupInner}>
+                                    {g.items.map(row)}
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 }
@@ -401,25 +502,8 @@ function MusicPanel(): React.ReactElement {
                 )}
             </div>
 
-            {/* 播放列表 */}
-            {pl.length >= 1 && (
-                <div className={styles.playlistSection}>
-                    <div className={styles.playlistTitle}>播放列表</div>
-                    <div className={styles.playlistItems}>
-                        {pl.map((track, i) => (
-                            <button
-                                key={track.id}
-                                className={`${styles.playlistItem} ${i === trackIndex ? styles.playlistItemActive : ''}`}
-                                onClick={() => setTrack(i)}
-                            >
-                                <span className={styles.playlistItemIndex}>{i + 1}</span>
-                                <span className={styles.playlistItemTitle}>{track.title}</span>
-                                <span className={styles.playlistItemArtist}>{track.artist}</span>
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            )}
+            {/* 播放列表: 按番剧分组的两级树 */}
+            {pl.length >= 1 && <PlaylistTree playlist={pl} trackIndex={trackIndex} onPick={setTrack} />}
         </div>
     );
 }
