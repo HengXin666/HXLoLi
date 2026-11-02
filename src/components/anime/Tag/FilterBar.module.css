@@ -116,6 +116,10 @@
 }
 
 .count {
+    /* 定宽: 搜索时状态部数会从三位数跳到一位数, 不定宽会改变 chip 宽度, 同一行 flex 里的搜索框跟着抖 */
+    display: inline-block;
+    min-width: 3ch;
+    text-align: right;
     font-size: 11.5px;
     opacity: 0.6;
     font-variant-numeric: tabular-nums;

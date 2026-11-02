@@ -38,6 +38,7 @@ Decision-ID: anime-share-image-and-list
 ## Consequences
 
 2026-11-01 更新: /anime/share 已改为可交互番单 (勾选 + 生成链接), 见 `.agents/notes/implemented/feature/2026-11-01-anime-share-link.md`; 本决策的出图与文本清单作为附带功能保留. 2026-11-02 起 AnimeSharePanel 已删除, 出图 (含页内预览, 见 `.agents/notes/implemented/feature/2026-11-01-anime-share-table-view-and-preview.md`) 与复制清单都在 AnimeShareBoard 的分享区, 番剧库弹窗与分享页共用. 新增路由 `/anime/share`. 分享图的部数与顺序完全跟随 `filters.ts`, 那边的排序如果有问题会一起体现 (例如 "最近更新" 按 `last_update` 字符串比较, 而数据格式以星期开头 `Mon 2026-03-30 ...`, 实际按星期排; 需要维护 `filters.ts` 的一方修). `lain.bgm.tv/r/400/` 不是 Bangumi 文档化的接口, 失效时自动落到镜像, 只是更慢. 字体用系统中文字体栈, 不同系统出图字形略有差异. `src/components/anime/AnimeShareBoard.module.css` 是非 AST 资源, 需人工核对. 本地没跑 `tsc --noEmit`, 在同样严格模式的桩环境里零错误, 并用 node-canvas 实际出图核对过 12 部封面墙 / 纯文字版 / 160 部全库三种情况.
+- 2026-11-02 夜: 用户嫌分享图"AI 味"重. 改为印刷品式: 纸色实底 (#f5f2ec) 代替深色渐变, 墨色字 + 两级灰 + 发丝线, 唯一强调色朱红只画标题下一段短粗线; 标题与段标题用宋体, 正文无衬线; 去掉条件 chip (改成与部数同一行的小字, 间隔号分隔)、封面圆角、封面上的状态 / 序号角标、文字版的卡片底与状态色条; 封面直角加极淡描边, 序号用等宽两位数印在标题前, 列距与行距同一节奏; 页边距 48 -> 64.
 
 ## Code
 

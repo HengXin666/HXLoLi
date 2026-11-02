@@ -8,7 +8,6 @@ import {
     activeConditions,
     AnimeFilters,
     applyFilters,
-    DEFAULT_FILTERS,
     facetCounts,
     groupRecords,
     serializeFilters,
@@ -26,10 +25,14 @@ import {
     MARK_OPTIONS,
     MarkFilter,
     matchesMark,
+    DEFAULT_PRESET,
     parseShareQuery,
     readPicks,
-    sharePath,
-    shareUrl,
+    resolveShareStart,
+    sameShareState,
+    shareSpecPath,
+    shareSpecUrl,
+    siteRootOf,
     storageKeyOf,
     writePicks,
     YEAR_RANGE_OPTIONS,
@@ -51,11 +54,12 @@ type Flash = "link" | "line" | "comma" | null;
 type ViewMode = "card" | "table";
 const VIEW_PARAM = "view";
 /**
- * 独立页的视图模式只认 URL 上的 view=table, 其余一律卡片; 卡片是默认, 不写参数, 老链接原样可用. 弹窗里 (embedded) 改用组件 state.
- * 筛选结果 (visible) 与勾选 (mine) 不看这个参数, 两种模式共用, 切换不丢状态; 表格模式的决策见文件里主组件的注释.
+ * 独立页的视图模式读 URL 上的 view=table / view=card; 没写时用预设 / 默认值的模式 (见 resolveShareStart), 老链接没写也没有预设, 仍是卡片.
+ * 弹窗里 (embedded) 改用组件 state. 筛选结果 (visible) 与勾选 (mine) 不看这个参数, 两种模式共用, 切换不丢状态.
  */
-function viewModeOf (search: string): ViewMode {
-    return new URLSearchParams(search).get(VIEW_PARAM) === "table" ? "table" : "card";
+function viewModeOf (search: string): ViewMode | null {
+    const v = new URLSearchParams(search).get(VIEW_PARAM);
+    return v === "table" || v === "card" ? v : null;
 }
 
 /** 去掉 view 后的查询串: 番单定义与分享者勾选只随它变, 切视图不触发重算 */
@@ -64,11 +68,6 @@ function withoutView (search: string): string {
     p.delete(VIEW_PARAM);
     const q = p.toString();
     return q ? `?${q}` : "";
-}
-
-/** 给链接 / 站内路径追加视图参数; 卡片模式原样返回 */
-function withView (url: string, mode: ViewMode): string {
-    return mode === "table" ? `${url}${url.includes("?") ? "&" : "?"}${VIEW_PARAM}=table` : url;
 }
 
 interface YearRow {
@@ -142,6 +141,7 @@ function ShareImagePreview ({ title, conditions, groups, siteUrl, contentKey, su
     const [busy, setBusy] = React.useState<string | null>(null);
     const [message, setMessage] = React.useState<string | null>(null);
     const [copied, setCopied] = React.useState(false);
+    const [viewerOpen, setViewerOpen] = React.useState(false);
     const imagesRef = React.useRef(images);
     const jobRef = React.useRef(0);
 
@@ -246,12 +246,15 @@ function ShareImagePreview ({ title, conditions, groups, siteUrl, contentKey, su
             {current && total > 0 && (
                 <div className={styles.preview}>
                     <figure className={styles.previewFrame}>
-                        <img
-                            className={styles.previewImg}
-                            src={current.urls[cur]}
-                            alt={`分享图预览 (${label}) 第 ${cur + 1} 页`}
-                            onLoad={(e) => setSize({ w: e.currentTarget.naturalWidth, h: e.currentTarget.naturalHeight })}
-                        />
+                        <button type="button" className={styles.previewZoomBtn} onClick={() => setViewerOpen(true)} title="点击放大查看">
+                            <img
+                                className={styles.previewImg}
+                                src={current.urls[cur]}
+                                alt={`分享图预览 (${label}) 第 ${cur + 1} 页, 点击放大`}
+                                onLoad={(e) => setSize({ w: e.currentTarget.naturalWidth, h: e.currentTarget.naturalHeight })}
+                            />
+                            <span className={styles.previewZoomHint} aria-hidden>点击放大</span>
+                        </button>
                     </figure>
                     <div className={styles.previewSide}>
                         <div className={styles.pager}>
@@ -272,7 +275,151 @@ function ShareImagePreview ({ title, conditions, groups, siteUrl, contentKey, su
                 </div>
             )}
             {message && <p className={styles.warn} role="status">{message}</p>}
+            {viewerOpen && current && total > 0 && (
+                <ImageViewer urls={current.urls} page={cur} onPage={goPage} onClose={() => setViewerOpen(false)} label={label} />
+            )}
         </div>
+    );
+}
+interface ImageViewerProps {
+    urls: readonly string[];
+    page: number;
+    onPage: (p: number) => void;
+    onClose: () => void;
+    label: string;
+}
+const ZOOM_MIN = 0.1;
+const ZOOM_MAX = 8;
+/**
+ * 分享图大图查看器: 原生 <dialog>.showModal (进 top layer, 盖在分享弹窗之上), 不引依赖.
+ * - 打开时按原尺寸 (1:1) 显示, 图比视口大时先缩到"适应"; 滚轮 / 按钮缩放 (以指针为中心), 按住拖动平移, 双击在 1:1 与适应之间切换.
+ * - Esc 与点遮罩关闭本查看器; cancel / close 都 stopPropagation, React 合成事件不会冒泡到外层分享弹窗 (那个只能点"关闭").
+ * - 多页时左右翻页 (按钮或 ← / → 键), 翻页后重新适应.
+ */
+function ImageViewer ({ urls, page, onPage, onClose, label }: ImageViewerProps): React.ReactElement {
+    const dialogRef = React.useRef<HTMLDialogElement | null>(null);
+    const stageRef = React.useRef<HTMLDivElement | null>(null);
+    const [natural, setNatural] = React.useState<{ w: number; h: number } | null>(null);
+    const [zoom, setZoom] = React.useState(1);
+    const [pan, setPan] = React.useState({ x: 0, y: 0 });
+    const drag = React.useRef<{ id: number; x: number; y: number; px: number; py: number } | null>(null);
+    const total = urls.length;
+
+    React.useEffect(() => {
+        const d = dialogRef.current;
+        if (d && !d.open) d.showModal();
+        return () => { if (d?.open) d.close(); };
+    }, []);
+
+    const fitZoom = React.useCallback((w: number, h: number): number => {
+        const stage = stageRef.current;
+        if (!stage || !w || !h) return 1;
+        return Math.min(1, (stage.clientWidth - 32) / w, (stage.clientHeight - 32) / h);
+    }, []);
+    const fit = (): void => {
+        if (natural) setZoom(fitZoom(natural.w, natural.h));
+        setPan({ x: 0, y: 0 });
+    };
+    const zoomAt = React.useCallback((factor: number, cx = 0, cy = 0): void => {
+        setZoom((z) => {
+            const next = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, z * factor));
+            const k = next / z;
+            setPan((p) => ({ x: cx - (cx - p.x) * k, y: cy - (cy - p.y) * k }));
+            return next;
+        });
+    }, []);
+
+    // 滚轮缩放: React 的 onWheel 是 passive, 拦不住页面滚动, 这里手挂非 passive 监听
+    React.useEffect(() => {
+        const stage = stageRef.current;
+        if (!stage) return undefined;
+        const onWheel = (e: WheelEvent): void => {
+            e.preventDefault();
+            const rect = stage.getBoundingClientRect();
+            zoomAt(e.deltaY < 0 ? 1.15 : 1 / 1.15, e.clientX - rect.left - rect.width / 2, e.clientY - rect.top - rect.height / 2);
+        };
+        stage.addEventListener("wheel", onWheel, { passive: false });
+        return () => stage.removeEventListener("wheel", onWheel);
+    }, [zoomAt]);
+
+    const goto = (p: number): void => {
+        if (p < 0 || p >= total) return;
+        onPage(p);
+        setNatural(null);
+    };
+    const onKeyDown = (e: React.KeyboardEvent): void => {
+        if (e.key === "ArrowLeft") goto(page - 1);
+        else if (e.key === "ArrowRight") goto(page + 1);
+        else if (e.key === "+" || e.key === "=") zoomAt(1.25);
+        else if (e.key === "-") zoomAt(1 / 1.25);
+        else if (e.key === "0") { setZoom(1); setPan({ x: 0, y: 0 }); }
+    };
+
+    return (
+        <dialog
+            ref={dialogRef}
+            className={styles.viewer}
+            aria-label={`分享图大图 (${label})`}
+            onCancel={(e) => e.stopPropagation()}
+            onClose={(e) => { e.stopPropagation(); onClose(); }}
+            onClick={(e) => { if (e.target === e.currentTarget || e.target === stageRef.current) dialogRef.current?.close(); }}
+            onKeyDown={onKeyDown}
+        >
+            <div
+                ref={stageRef}
+                className={styles.viewerStage}
+                onPointerDown={(e) => {
+                    if (e.target === stageRef.current) return;
+                    e.currentTarget.setPointerCapture(e.pointerId);
+                    drag.current = { id: e.pointerId, x: e.clientX, y: e.clientY, px: pan.x, py: pan.y };
+                }}
+                onPointerMove={(e) => {
+                    const d = drag.current;
+                    if (!d || d.id !== e.pointerId) return;
+                    setPan({ x: d.px + e.clientX - d.x, y: d.py + e.clientY - d.y });
+                }}
+                onPointerUp={() => { drag.current = null; }}
+                onPointerCancel={() => { drag.current = null; }}
+            >
+                <img
+                    className={styles.viewerImg}
+                    src={urls[page]}
+                    alt={`分享图第 ${page + 1} 页`}
+                    draggable={false}
+                    style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})` }}
+                    onLoad={(e) => {
+                        const w = e.currentTarget.naturalWidth;
+                        const h = e.currentTarget.naturalHeight;
+                        setNatural({ w, h });
+                        setZoom(fitZoom(w, h));
+                        setPan({ x: 0, y: 0 });
+                    }}
+                    onDoubleClick={() => {
+                        if (!natural) return;
+                        const f = fitZoom(natural.w, natural.h);
+                        setZoom((z) => (Math.abs(z - 1) < 0.01 ? f : 1));
+                        setPan({ x: 0, y: 0 });
+                    }}
+                />
+            </div>
+            <div className={styles.viewerBar}>
+                {total > 1 && (
+                    <>
+                        <button type="button" className={styles.viewerBtn} disabled={page === 0} onClick={() => goto(page - 1)} aria-label="上一页">‹</button>
+                        <span className={styles.viewerText}>第 {page + 1} / {total} 页</span>
+                        <button type="button" className={styles.viewerBtn} disabled={page >= total - 1} onClick={() => goto(page + 1)} aria-label="下一页">›</button>
+                        <span className={styles.viewerSep} aria-hidden />
+                    </>
+                )}
+                <button type="button" className={styles.viewerBtn} onClick={() => zoomAt(1 / 1.25)} aria-label="缩小">−</button>
+                <span className={styles.viewerText}>{Math.round(zoom * 100)}%</span>
+                <button type="button" className={styles.viewerBtn} onClick={() => zoomAt(1.25)} aria-label="放大">+</button>
+                <button type="button" className={styles.viewerBtn} onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }}>1:1</button>
+                <button type="button" className={styles.viewerBtn} onClick={fit}>适应</button>
+                <span className={styles.viewerSep} aria-hidden />
+                <button type="button" className={styles.viewerBtn} onClick={() => dialogRef.current?.close()} aria-label="关闭大图">✕</button>
+            </div>
+        </dialog>
     );
 }
 /**
@@ -304,9 +451,13 @@ export default function AnimeShareBoard ({ embedded = false }: AnimeShareBoardPr
     const listSearch = React.useMemo(() => withoutView(location.search), [location.search]);
     const { filters: base, pick } = React.useMemo(() => parseShareQuery(listSearch), [listSearch]);
 
-    // 视图模式 (卡片 / 表格): 独立页存在 URL 的 view 参数里, 复制地址栏或"生成我的链接"都会带上; 弹窗里只存 state, 不动地址栏
-    const [embeddedMode, setEmbeddedMode] = React.useState<ViewMode>("card");
-    const mode = embedded ? embeddedMode : viewModeOf(location.search);
+    // 内定筛选: ?p=<预设> / 默认值 / 老长链接 (不套), 规则在 animeShareLink.resolveShareStart, 定义在 data/animeShareDefault.ts
+    const start = React.useMemo(() => resolveShareStart(listSearch, embedded), [listSearch, embedded]);
+    const startKey = React.useMemo(() => JSON.stringify(start), [start]);
+
+    // 视图模式 (卡片 / 表格): 独立页存在 URL 的 view 参数里 (没写 = 初始状态的模式); 弹窗里只存 state, 不动地址栏
+    const [embeddedMode, setEmbeddedMode] = React.useState<ViewMode>(start.state.mode);
+    const mode = embedded ? embeddedMode : (viewModeOf(location.search) ?? start.state.mode);
     const setMode = (next: ViewMode): void => {
         if (next === mode) return;
         if (embedded) {
@@ -314,12 +465,13 @@ export default function AnimeShareBoard ({ embedded = false }: AnimeShareBoardPr
             return;
         }
         const p = new URLSearchParams(location.search);
-        if (next === "table") p.set(VIEW_PARAM, "table");
-        else p.delete(VIEW_PARAM);
+        if (next === start.state.mode) p.delete(VIEW_PARAM);
+        else p.set(VIEW_PARAM, next);
         const q = p.toString();
         history.replace({ pathname: location.pathname, search: q ? `?${q}` : "", hash: location.hash });
     };
-    const theirs = React.useMemo(() => new Set(pick), [pick]);
+    // 链接自带 pick 以链接为准; 否则用预设里预置的
+    const theirs = React.useMemo(() => new Set(pick.length ? pick : start.state.pick), [pick, start]);
     const baseList = React.useMemo(() => applyFilters(records, base), [records, base]);
     const baseIds = React.useMemo(() => new Set(baseList.map((r) => r.anime_data.id)), [baseList]);
     const baseLabels = React.useMemo(() => activeConditions(base).map((c) => c.label), [base]);
@@ -336,10 +488,19 @@ export default function AnimeShareBoard ({ embedded = false }: AnimeShareBoardPr
         if (loadedKey === storageKey) writePicks(storageKey, mine);
     }, [loadedKey, storageKey, mine]);
 
-    // 页内筛选
-    const [view, setView] = React.useState<AnimeFilters>(() => ({ ...DEFAULT_FILTERS, sort: "air" }));
-    const [range, setRange] = React.useState<YearRange>("all");
-    const [mark, setMark] = React.useState<MarkFilter>("all");
+    // 页内筛选: 初始 = 预设 / 默认值展开后的状态; 换了链接 (startKey 变) 就重新展开
+    const [view, setView] = React.useState<AnimeFilters>(() => start.state.view);
+    const [range, setRange] = React.useState<YearRange>(() => start.state.range);
+    const [mark, setMark] = React.useState<MarkFilter>(() => start.state.mark);
+    const appliedStart = React.useRef(startKey);
+    React.useEffect(() => {
+        if (appliedStart.current === startKey) return;
+        appliedStart.current = startKey;
+        setView(start.state.view);
+        setRange(start.state.range);
+        setMark(start.state.mark);
+        if (embedded) setEmbeddedMode(start.state.mode);
+    }, [startKey, start, embedded]);
     const [showAllTags, setShowAllTags] = React.useState(false);
     const thisYear = React.useMemo(() => new Date().getFullYear(), []);
 
@@ -386,12 +547,17 @@ export default function AnimeShareBoard ({ embedded = false }: AnimeShareBoardPr
         setView((v) => ({ ...v, status: v.status.includes(s) ? v.status.filter((x) => x !== s) : [...v.status, s] }));
     const toggleTag = (t: string): void =>
         setView((v) => ({ ...v, tags: v.tags.includes(t) ? v.tags.filter((x) => x !== t) : [...v.tags, t] }));
+    // 重置 = 回到初始状态 (预设 / 默认值), 不是回到"全部"
     const resetView = (): void => {
-        setView((v) => ({ ...DEFAULT_FILTERS, sort: v.sort }));
-        setRange("all");
-        setMark("all");
+        setView(start.state.view);
+        setRange(start.state.range);
+        setMark(start.state.mark);
+        setMode(start.state.mode);
     };
-    const viewDirty = range !== "all" || mark !== "all" || serializeFilters({ ...view, sort: DEFAULT_FILTERS.sort }) !== "";
+    // 仍与初始状态一致: 能用 ?p= 短链接; 改过就是自定义
+    const atStart = sameShareState({ view, range, mark, mode }, start.state);
+    const viewDirty = !atStart;
+    const linkPreset = atStart ? (start.source === "preset" ? start.name : start.source === "default" ? DEFAULT_PRESET : null) : null;
 
     // 生成我的链接: 原番单筛选 + 我的勾选 (只编码番单内的 id)
     const myPick = React.useMemo(() => mineInList.map((r) => r.anime_data.id), [mineInList]);
@@ -403,7 +569,7 @@ export default function AnimeShareBoard ({ embedded = false }: AnimeShareBoardPr
         window.setTimeout(() => setFlash((f) => (f === kind ? null : f)), 1800);
     };
     const makeLink = async (): Promise<void> => {
-        const url = withView(shareUrl(siteConfig.url, siteConfig.baseUrl, base, myPick), mode);
+        const url = shareSpecUrl(siteConfig.url, siteConfig.baseUrl, { filters: base, pick: myPick, mode, preset: linkPreset });
         setMyLink(url);
         setMessage(null);
         try {
@@ -414,27 +580,30 @@ export default function AnimeShareBoard ({ embedded = false }: AnimeShareBoardPr
         }
     };
     // 勾选或视图变了, 旧链接作废, 避免复制到过期的
-    React.useEffect(() => { setMyLink(null); }, [myPick, mode]);
+    React.useEffect(() => { setMyLink(null); }, [myPick, mode, linkPreset]);
 
     // 图片: 有勾选就画"我看过的", 否则画当前页内筛选结果; 生成与预览在 ShareImagePreview
-    const siteHost = `${siteConfig.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}${siteConfig.baseUrl.replace(/\/$/, "")}`;
-    const imageSource = mineInList.length ? mineInList : visible;
-    const imageTitle = mineInList.length ? `我看过的番 · ${mineInList.length}/${total}` : `番单 · ${visible.length} 部`;
-    const imageGroups = React.useMemo(
-        () => groupRecords(applyFilters(imageSource.map(asWatched), { ...DEFAULT_FILTERS, sort: view.sort }), view.sort),
-        [imageSource, view.sort],
-    );
+    // 图片页脚印当前访问的站点地址 (不带协议), 与分享链接同源, 不用构建时写死的 siteConfig.url
+    const siteHost = siteRootOf(siteConfig.url, siteConfig.baseUrl).replace(/^https?:\/\//, "");
+    // 图片内容 = 页面上当前显示的 (visible 已按页内筛选与排序算好); 当前显示里有我勾过的, 就只画勾过的那部分.
+    // 不再套 applyFilters(DEFAULT_FILTERS): 那会把页内筛选丢掉只留排序.
+    const visibleMineList = React.useMemo(() => visible.filter((r) => mine.has(r.anime_data.id)), [visible, mine]);
+    const imageSource = visibleMineList.length ? visibleMineList : visible;
+    // 图片标题不带部数 / N/M, 进度只在页面上显示
+    const imageTitle = visibleMineList.length ? "我看过的番" : "番单";
+    // 分组跟页面一致: 表格模式按首播年份 (yearRowsOf), 卡片模式按排序键 (groupRecords)
+    const imageGroups = React.useMemo(() => {
+        const list = imageSource.map(asWatched);
+        return mode === "table" ? yearRowsOf(list) : groupRecords(list, view.sort);
+    }, [imageSource, mode, view.sort]);
     const imageKey = React.useMemo(
-        () => [imageTitle, view.sort, baseLabels.join(","), imageSource.map((r) => r.anime_data.id).join(",")].join("|"),
-        [imageTitle, view.sort, baseLabels, imageSource],
+        () => [imageTitle, mode, view.sort, baseLabels.join(","), imageSource.map((r) => r.anime_data.id).join(",")].join("|"),
+        [imageTitle, mode, view.sort, baseLabels, imageSource],
     );
-    const imageSorted = React.useMemo(
-        () => applyFilters(imageSource, { ...DEFAULT_FILTERS, sort: view.sort }),
-        [imageSource, view.sort],
-    );
+    const imageSorted = imageSource;
     const copyList = async (kind: "line" | "comma"): Promise<void> => {
         setMessage(null);
-        const link = withView(shareUrl(siteConfig.url, siteConfig.baseUrl, base, myPick), mode);
+        const link = shareSpecUrl(siteConfig.url, siteConfig.baseUrl, { filters: base, pick: myPick, mode, preset: linkPreset });
         try {
             await copyText(kind === "line" ? toLineList(imageTitle, imageSorted, link) : toCommaList(imageSorted));
             flashOn(kind);
@@ -442,7 +611,9 @@ export default function AnimeShareBoard ({ embedded = false }: AnimeShareBoardPr
             setMessage(`复制失败: ${e instanceof Error ? e.message : String(e)}`);
         }
     };
-    const imageSummary = mineInList.length ? `图片内容: 我看过的 ${mineInList.length} 部` : `还没勾选, 图片内容为当前显示的 ${visible.length} 部`;
+    const imageSummary = visibleMineList.length
+        ? `图片内容: 当前显示里我看过的 ${visibleMineList.length} 部`
+        : `当前显示里还没勾选, 图片内容为当前显示的 ${visible.length} 部`;
 
     if (!isBrowser || (status === "loading" && records.length === 0)) {
         return <div className={styles.shell} aria-busy="true"><p className={styles.muted}>正在加载番单…</p></div>;
@@ -464,10 +635,37 @@ export default function AnimeShareBoard ({ embedded = false }: AnimeShareBoardPr
     return (
         <div className={`${styles.shell}${embedded ? ` ${styles.embedded}` : ""}`}>
             <header className={styles.head}>
-                {embedded
-                    ? <Link to={withView(sharePath(base, myPick), mode)} className={styles.back}>在独立页面打开 →</Link>
-                    : <Link to={`/anime${serializeFilters(base) ? `?${serializeFilters(base)}` : ""}`} className={styles.back}>← 回番剧库</Link>}
-                <h1 className={styles.title}>点击选择你看过的番</h1>
+                {!embedded && (
+                    <nav className={styles.crumbs} aria-label="位置">
+                        <Link to={`/anime${serializeFilters(base) ? `?${serializeFilters(base)}` : ""}`} className={styles.crumbLink}>
+                            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden><path fill="currentColor" d="M15.4 5.4 14 4l-8 8 8 8 1.4-1.4L8.8 12z" /></svg>
+                            追番记录
+                        </Link>
+                        <span className={styles.crumbSep} aria-hidden>/</span>
+                        <span aria-current="page">分享番单</span>
+                    </nav>
+                )}
+                <div className={styles.headRow}>
+                    {embedded ? <h2 className={styles.title}>点击选择你看过的番</h2> : <h1 className={styles.title}>点击选择你看过的番</h1>}
+                    {embedded && (
+                        <Link to={shareSpecPath({ filters: base, pick: myPick, mode, preset: linkPreset })} className={styles.headLink}>在独立页面打开</Link>
+                    )}
+                </div>
+                <p className={styles.subtitle}>
+                    {embedded
+                        ? "勾出你看过的番, 右边生成分享链接或分享图; 别人打开链接能看到你看过哪些, 再勾他自己的."
+                        : "这是一份可交互的番单: 点番名标记你看过的, 生成自己的链接或分享图. 链接带着分享者的勾选, 标\"TA 看过\"的就是对方看过的."}
+                </p>
+                {start.missing !== null && (
+                    <p className={styles.warn} role="status">预设 "{start.missing}" 不存在, 已按默认筛选 ({start.label}) 显示.</p>
+                )}
+                {start.source !== "none" && (
+                    <p className={styles.presetLine}>
+                        {atStart
+                            ? <>{start.source === "preset" ? "预设" : "默认筛选"}: <b>{start.label}</b></>
+                            : <>自定义筛选 (由{start.source === "preset" ? "预设" : "默认筛选"}「{start.label}」改出, 页内筛选不进链接)</>}
+                    </p>
+                )}
                 {baseLabels.length > 0 && (
                     <div className={styles.chips} aria-label="这份番单的条件">
                         <span className={styles.muted}>番单条件</span>
@@ -581,7 +779,7 @@ export default function AnimeShareBoard ({ embedded = false }: AnimeShareBoardPr
                     <button type="button" className="button button--primary" onClick={() => { void makeLink(); }}>
                         {flash === "link" ? "已复制 ✓" : "生成我的链接"}
                     </button>
-                    {myLink && <Link to={withView(sharePath(base, myPick), mode)} className={styles.linkBtn}>在本页打开</Link>}
+                    {myLink && <Link to={shareSpecPath({ filters: base, pick: myPick, mode, preset: linkPreset })} className={styles.linkBtn}>在本页打开</Link>}
                 </div>
                 {myLink && (
                     <label className={styles.linkBox}>

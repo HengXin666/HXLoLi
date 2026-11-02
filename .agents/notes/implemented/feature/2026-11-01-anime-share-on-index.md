@@ -38,6 +38,7 @@ Decision-ID: anime-share-on-index
 - /anime/share 独立路由保留, 与弹窗同一组件, 见 `.agents/notes/implemented/feature/2026-11-01-anime-share-link.md` 与 `.agents/notes/implemented/feature/2026-11-01-anime-share-table-view-and-preview.md`.
 - 弹窗里勾选写的是与独立页同一个 localStorage 键 (按番单筛选区分), 在弹窗里勾过的, 打开同一番单的分享页仍在.
 - 2026-11-01-anime-index-visual-redo.md 描述的改动已全部回退, 那份 note 作废.
+- 2026-11-02 晚: 关闭按钮改为弹窗右上角绝对定位的 38px 圆形 ✕ (不透明背景 + 边框); 弹窗自身 overflow: hidden, 内容放进 .shareBody 滚动, 顶部留 56px, 内容永远滚不到按钮下面.
 
 ## Code
 - `src/pages/anime/index.tsx`

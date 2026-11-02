@@ -3,6 +3,7 @@ import { Actor, ANiMeRecord } from "@site/src/utils/anime/types";
 import { useState, useEffect, useCallback } from "react";
 import { reqAnimeByCDN } from '@site/src/utils/cdn/linkJsDelivr'
 import { ANIME_OVERLAY, AnimeOverlay, AnimeOverlayEntry, applyOverlay } from "@site/src/utils/anime/overlay";
+import { parseSourceTags, setSourceTags } from "@site/src/utils/anime/tags";
 
 /** CDN 原始记录 (未盖 overlay) */
 let baseRecords: readonly ANiMeRecord[] | null = null;
@@ -85,6 +86,40 @@ function loadActorMap (): Promise<Map<number, Actor>> {
     return loadingActorPromise;
 }
 
+/** 源标签 ANiMeTags.json: 先走番剧 CDN (与 ANiMeRecord.json 同一个 ANIME_CDN_TAG), 拉不到再读站点自带的 static/anime/ANiMeTags.json */
+let sourceTagsPromise: Promise<void> | null = null;
+
+async function fetchSourceTagsFile (baseUrl: string): Promise<unknown> {
+    try {
+        const result = await reqAnimeByCDN('/data/ANiMeTags.json');
+        return JSON.parse(await result.blob.text());
+    } catch {
+        const res = await fetch(`${baseUrl.replace(/\/?$/, "/")}anime/ANiMeTags.json`);
+        if (!res.ok) throw new Error(`ANiMeTags.json ${res.status}`);
+        return res.json();
+    }
+}
+
+/**
+ * 加载源标签并注入 tags.ts, 到了以后给所有在用的页面推一份新数组 (记录对象不变, 只为让依赖 records 的 useMemo 重算标签).
+ * 两处都拉不到就静默放弃: 标签退化为追番随手标签 + data/animeTags.ts 手工表, 页面照常.
+ */
+function loadSourceTags (baseUrl: string): void {
+    if (sourceTagsPromise) return;
+    sourceTagsPromise = fetchSourceTagsFile(baseUrl).then(
+        (file) => {
+            const map = parseSourceTags(file);
+            if (map.size === 0) return;
+            setSourceTags(map);
+            if (cachedRecords) {
+                cachedRecords = Object.freeze([...cachedRecords]);
+                listeners.forEach((fn) => fn(cachedRecords!));
+            }
+        },
+        () => { /* 降级: 不报错不白屏 */ },
+    );
+}
+
 export type AnimeLoadStatus = "loading" | "ready" | "error";
 
 export interface AnimeRecordsState {
@@ -107,6 +142,7 @@ export function useAnimeRecordsState (baseUrl: string): AnimeRecordsState {
 
     useEffect(() => {
         let alive = true;
+        loadSourceTags(baseUrl);
         if (!cachedRecords) setStatus("loading");
         loadAnimeRecords().then(
             (data) => { if (alive) { setRecords(data); setStatus("ready"); setError(null); } },

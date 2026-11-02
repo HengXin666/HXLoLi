@@ -169,7 +169,8 @@
  * .agents/notes/implemented/feature/2026-11-01-anime-filter-motion.md
  */
 .results {
-    min-height: 40vh;
+    /* 结果变少 (搜索 / 空态) 时页面若短于视口, 竖向滚动条消失, 整页宽度会跳十几像素; 保证总高超过视口, 滚动条常驻 */
+    min-height: 100vh;
 }
 
 :global(html[data-anime-vt])::view-transition-group(*) {
@@ -214,13 +215,14 @@
     width: min(1200px, 96vw);
     max-width: 96vw;
     max-height: min(90vh, 1000px);
-    padding: 8px 0 0;
+    padding: 0;
     border: 1px solid var(--ifm-color-emphasis-300);
     border-radius: 16px;
     background: var(--ifm-background-color);
     color: var(--ifm-font-color-base);
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
-    overflow-y: auto;
+    /* 弹窗本身不滚, 滚动交给 .shareBody; 关闭按钮绝对定位在弹窗右上角那条 56px 的顶栏里, 内容永远滚不到它下面 */
+    overflow: hidden;
 }
 
 .shareDialog::backdrop {
@@ -228,20 +230,38 @@
     backdrop-filter: blur(2px);
 }
 
+.shareBody {
+    max-height: calc(min(90vh, 1000px) - 56px);
+    margin-top: 56px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
 .shareClose {
-    position: sticky;
-    top: 0;
-    float: right;
-    z-index: 1;
-    width: 32px;
-    height: 32px;
-    margin: 4px 12px 0 0;
-    border: 0;
-    border-radius: 8px;
-    background: var(--ifm-color-emphasis-200);
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    z-index: 10;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: 50%;
+    background: var(--ifm-background-surface-color);
     color: var(--ifm-font-color-base);
     font-size: 18px;
+    line-height: 1;
+    font-weight: 700;
     cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.shareClose:hover,
+.shareClose:focus-visible {
+    border-color: var(--ifm-color-primary);
+    color: var(--ifm-color-primary);
 }
 
 @media (max-width: 720px) {
@@ -252,5 +272,9 @@
         margin: auto 0 0;
         border-radius: 18px 18px 0 0;
         border-bottom: 0;
+    }
+
+    .shareBody {
+        max-height: calc(90vh - 56px);
     }
 }

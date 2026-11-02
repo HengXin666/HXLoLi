@@ -1,5 +1,5 @@
-import { ANiMeRecord, WatchStatus } from "@site/src/utils/anime/types";
-import { animeSeasonOf, RecordGroup, statusLabel } from "@site/src/utils/anime/filters";
+import { ANiMeRecord } from "@site/src/utils/anime/types";
+import { animeSeasonOf, RecordGroup } from "@site/src/utils/anime/filters";
 import { toAnimeCdnUrl } from "@site/src/utils/cdn/linkJsDelivr";
 
 /**
@@ -8,36 +8,32 @@ import { toAnimeCdnUrl } from "@site/src/utils/cdn/linkJsDelivr";
  * .agents/notes/implemented/feature/2026-11-01-anime-share-image-and-list.md
  */
 const W = 1080;
-const PAD = 48;
-const HEADER_GAP = 28;
-const FOOTER_H = 72;
-const SECTION_H = 46;
+const PAD = 64;
+const HEADER_GAP = 40;
+const FOOTER_H = 84;
+const SECTION_H = 64;
 /** iOS Safari 单张画布面积上限 (约 16.7M 像素), 超了 toBlob 会静默出空图 */
 const MAX_AREA = 16_000_000;
 /** 单张画布边长上限 (多数浏览器 16384 / 32767, 取保守值) */
 const MAX_SIDE = 16_000;
 
 const FONT = `"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC", system-ui, sans-serif`;
+/** 标题与段标题用宋体 / 明朝, 没有就落回无衬线; 正文、序号、页脚仍用 FONT */
+const SERIF = `"Songti SC", "STSong", "Noto Serif CJK SC", "Noto Serif SC", "Source Han Serif SC", "SimSun", serif`;
 
+/**
+ * 印刷品式的克制配色: 纸色底 + 墨色字 + 两级灰 + 发丝线, 只有一个强调色 (朱红), 只用在标题下的粗线.
+ * 不用渐变、圆角、阴影、色块角标; 层级只靠字号、字重与留白.
+ */
 const COLOR = {
-    bgTop: "#17141f",
-    bgBottom: "#0e0d13",
-    card: "rgba(255, 255, 255, 0.06)",
-    cardBorder: "rgba(255, 255, 255, 0.08)",
-    text: "#f4f1fa",
-    sub: "rgba(244, 241, 250, 0.62)",
-    faint: "rgba(244, 241, 250, 0.38)",
-    accent: "#f472b6",
-    chip: "rgba(244, 114, 182, 0.14)",
-    placeholder: "#2a2633",
-};
-
-const STATUS_COLOR: Record<number, string> = {
-    [WatchStatus.WATCHING]: "#38bdf8",
-    [WatchStatus.WATCHED]: "#a78bfa",
-    [WatchStatus.WANT_TO_WATCH]: "#fbbf24",
-    [WatchStatus.ON_HOLD]: "#94a3b8",
-    [WatchStatus.DROPPED]: "#f87171",
+    paper: "#f5f2ec",
+    ink: "#1b1a18",
+    sub: "#6f6a62",
+    faint: "#a19b91",
+    rule: "#d8d2c7",
+    accent: "#b8382a",
+    placeholder: "#e6e1d8",
+    coverEdge: "rgba(27, 26, 24, 0.10)",
 };
 
 export interface ShareImageInput {
@@ -142,17 +138,6 @@ async function loadCovers (
 
 // ---------------------------------------------------------------- 画笔工具
 
-function roundRect (ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number): void {
-    const rr = Math.min(r, w / 2, h / 2);
-    ctx.beginPath();
-    ctx.moveTo(x + rr, y);
-    ctx.arcTo(x + w, y, x + w, y + h, rr);
-    ctx.arcTo(x + w, y + h, x, y + h, rr);
-    ctx.arcTo(x, y + h, x, y, rr);
-    ctx.arcTo(x, y, x + w, y, rr);
-    ctx.closePath();
-}
-
 /** 按字符断行 (中日文没有空格可断), 超出 maxLines 的最后一行截断加省略号 */
 function wrapText (ctx: CanvasRenderingContext2D, text: string, maxW: number, maxLines: number): string[] {
     const chars = Array.from(text);
@@ -200,6 +185,8 @@ interface Block {
     kind: "section" | "row";
     h: number;
     label?: string;
+    /** 段内部数 (段标题右侧小字) */
+    count?: number;
     /** 本行条目在全体中的下标 (从 0 起, 用于序号与封面) */
     items?: number[];
 }
@@ -218,21 +205,22 @@ interface Layout {
 
 function wallLayout (n: number): Layout {
     const cols = n <= 12 ? 4 : n <= 30 ? 5 : n <= 60 ? 6 : n <= 120 ? 8 : 10;
-    const colGap = cols >= 8 ? 10 : 16;
+    // 列距与行距同一节奏: 行距 = 列距 + 封面下文字之后的呼吸, 让格子在两个方向上看起来一样松
+    const colGap = cols >= 8 ? 14 : 22;
     const cellW = (W - PAD * 2 - colGap * (cols - 1)) / cols;
     const coverH = cellW * 1.5;
-    const titleSize = Math.max(11, Math.min(19, Math.round(cellW * 0.085)));
+    const titleSize = Math.max(11, Math.min(18, Math.round(cellW * 0.08)));
     const titleLines = cols >= 8 ? 1 : 2;
     const showMeta = cols <= 6;
-    const textH = 10 + titleLines * titleSize * 1.3 + (showMeta ? titleSize * 0.8 * 1.5 + 2 : 0);
-    return { cols, cellW, cellH: coverH + textH, coverH, rowGap: cols >= 8 ? 14 : 22, colGap, titleSize, titleLines, showMeta };
+    const textH = 12 + titleLines * titleSize * 1.35 + (showMeta ? titleSize * 0.78 * 1.5 + 2 : 0);
+    return { cols, cellW, cellH: coverH + textH, coverH, rowGap: colGap + 8, colGap, titleSize, titleLines, showMeta };
 }
 
 function textLayout (n: number): Layout {
     const cols = n > 20 ? 2 : 1;
-    const colGap = 16;
+    const colGap = 48;
     const cellW = (W - PAD * 2 - colGap * (cols - 1)) / cols;
-    return { cols, cellW, cellH: 64, coverH: 0, rowGap: 10, colGap, titleSize: 19, titleLines: 1, showMeta: true };
+    return { cols, cellW, cellH: 58, coverH: 0, rowGap: 0, colGap, titleSize: 18, titleLines: 1, showMeta: true };
 }
 
 function buildBlocks (groups: readonly RecordGroup[], lay: Layout): Block[] {
@@ -240,7 +228,7 @@ function buildBlocks (groups: readonly RecordGroup[], lay: Layout): Block[] {
     const showSections = groups.length > 1 || (groups.length === 1 && !!groups[0].label);
     let idx = 0;
     for (const g of groups) {
-        if (showSections && g.label) blocks.push({ kind: "section", h: SECTION_H, label: `${g.label} · ${g.records.length} 部` });
+        if (showSections && g.label) blocks.push({ kind: "section", h: SECTION_H, label: g.label, count: g.records.length });
         for (let i = 0; i < g.records.length; i += lay.cols) {
             const items: number[] = [];
             for (let j = i; j < Math.min(i + lay.cols, g.records.length); j++) items.push(idx + j);
@@ -253,196 +241,170 @@ function buildBlocks (groups: readonly RecordGroup[], lay: Layout): Block[] {
 
 // ---------------------------------------------------------------- 头尾
 
-function measureHeader (ctx: CanvasRenderingContext2D, input: ShareImageInput): number {
-    let h = PAD + 52 + 14 + 26; // 标题 + 副标题
-    const rows = chipRows(ctx, input.conditions);
-    if (rows.length) h += 18 + rows.length * 34 + (rows.length - 1) * 8;
-    return h + HEADER_GAP;
+const KICKER_H = 18;
+const TITLE_SIZE = 60;
+
+/** 条件不做 chip, 和部数排成一行小字, 用间隔号分开; 太长就断成多行 */
+function metaRows (ctx: CanvasRenderingContext2D, input: ShareImageInput, total: number): string[] {
+    ctx.font = `400 17px ${FONT}`;
+    const parts = [`共 ${total} 部`, ...input.conditions, ...(input.withCovers ? [] : ["文字版"])];
+    return wrapText(ctx, parts.join("　·　"), W - PAD * 2, 3);
 }
 
-function chipRows (ctx: CanvasRenderingContext2D, chips: readonly string[]): string[][] {
-    ctx.font = `500 15px ${FONT}`;
-    const rows: string[][] = [];
-    let cur: string[] = [];
-    let x = 0;
-    const maxW = W - PAD * 2;
-    for (const c of chips) {
-        const w = Math.min(maxW, ctx.measureText(c).width + 28);
-        if (cur.length && x + w > maxW) { rows.push(cur); cur = []; x = 0; }
-        cur.push(c);
-        x += w + 8;
-    }
-    if (cur.length) rows.push(cur);
-    return rows;
+function measureHeader (ctx: CanvasRenderingContext2D, input: ShareImageInput, total: number): number {
+    const rows = metaRows(ctx, input, total).length;
+    return PAD + KICKER_H + 20 + TITLE_SIZE * 1.15 + 18 + rows * 26 + 26 + 3 + HEADER_GAP;
 }
 
 function drawHeader (ctx: CanvasRenderingContext2D, input: ShareImageInput, total: number, page: number, pages: number): number {
     let y = PAD;
-    ctx.fillStyle = COLOR.accent;
-    ctx.fillRect(PAD, y + 6, 6, 40);
-    ctx.fillStyle = COLOR.text;
-    ctx.font = `800 44px ${FONT}`;
     ctx.textBaseline = "top";
-    const title = pages > 1 ? `${input.title}（${page}/${pages}）` : input.title;
-    ctx.fillText(ellipsize(ctx, title, W - PAD * 2 - 22), PAD + 22, y);
-    y += 52 + 14;
-    ctx.font = `500 20px ${FONT}`;
+    ctx.textAlign = "left";
+    // 刊头: 小字号加字距, 像杂志栏目名
+    ctx.font = `500 14px ${FONT}`;
     ctx.fillStyle = COLOR.sub;
-    ctx.fillText(`共 ${total} 部${input.withCovers ? "" : " · 纯文字版"}`, PAD + 22, y);
-    y += 26;
-    const rows = chipRows(ctx, input.conditions);
-    if (rows.length) {
-        y += 18;
-        ctx.font = `500 15px ${FONT}`;
-        for (const row of rows) {
-            let x = PAD;
-            for (const c of row) {
-                const label = ellipsize(ctx, c, W - PAD * 2 - 28);
-                const w = ctx.measureText(label).width + 28;
-                roundRect(ctx, x, y, w, 34, 17);
-                ctx.fillStyle = COLOR.chip;
-                ctx.fill();
-                ctx.fillStyle = COLOR.accent;
-                ctx.textBaseline = "middle";
-                ctx.fillText(label, x + 14, y + 17);
-                x += w + 8;
-            }
-            y += 34 + 8;
-        }
-        y -= 8;
-        ctx.textBaseline = "top";
+    if ("letterSpacing" in ctx) (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = "3px";
+    ctx.fillText("HXLoLi　アニメ", PAD, y);
+    if (pages > 1) {
+        ctx.textAlign = "right";
+        ctx.fillText(`${page} / ${pages}`, W - PAD, y);
+        ctx.textAlign = "left";
     }
-    return y + HEADER_GAP;
+    if ("letterSpacing" in ctx) (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = "0px";
+    y += KICKER_H + 20;
+
+    ctx.font = `700 ${TITLE_SIZE}px ${SERIF}`;
+    ctx.fillStyle = COLOR.ink;
+    ctx.fillText(ellipsize(ctx, input.title, W - PAD * 2), PAD, y);
+    y += TITLE_SIZE * 1.15 + 18;
+
+    ctx.font = `400 17px ${FONT}`;
+    ctx.fillStyle = COLOR.sub;
+    for (const line of metaRows(ctx, input, total)) {
+        ctx.fillText(line, PAD, y);
+        y += 26;
+    }
+    y += 26;
+    // 唯一的强调色: 一条短粗线 + 一条通栏发丝线
+    ctx.fillStyle = COLOR.ink;
+    ctx.fillRect(PAD, y + 1, W - PAD * 2, 1);
+    ctx.fillStyle = COLOR.accent;
+    ctx.fillRect(PAD, y, 72, 3);
+    return y + 3 + HEADER_GAP;
 }
 
 function drawFooter (ctx: CanvasRenderingContext2D, input: ShareImageInput, h: number): void {
     const y = h - FOOTER_H;
-    ctx.fillStyle = COLOR.cardBorder;
-    ctx.fillRect(PAD, y, W - PAD * 2, 1);
+    ctx.fillStyle = COLOR.rule;
+    ctx.fillRect(PAD, y + 8, W - PAD * 2, 1);
     ctx.textBaseline = "middle";
-    ctx.font = `500 16px ${FONT}`;
+    ctx.font = `400 15px ${FONT}`;
     ctx.fillStyle = COLOR.sub;
     ctx.textAlign = "left";
-    ctx.fillText(input.siteUrl, PAD, y + FOOTER_H / 2);
+    ctx.fillText(input.siteUrl, PAD, y + 8 + (FOOTER_H - 8) / 2 - 6);
     ctx.textAlign = "right";
     ctx.fillStyle = COLOR.faint;
-    ctx.fillText(`HXLoLi · アニメ · ${input.dateText}`, W - PAD, y + FOOTER_H / 2);
+    ctx.fillText(input.dateText, W - PAD, y + 8 + (FOOTER_H - 8) / 2 - 6);
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
 }
 
 // ---------------------------------------------------------------- 条目
 
-function drawSection (ctx: CanvasRenderingContext2D, label: string, y: number): void {
-    ctx.font = `700 20px ${FONT}`;
-    ctx.fillStyle = COLOR.text;
-    ctx.textBaseline = "middle";
-    ctx.fillText(label, PAD, y + SECTION_H / 2 - 4);
-    const w = ctx.measureText(label).width;
-    ctx.fillStyle = COLOR.cardBorder;
-    ctx.fillRect(PAD + w + 16, y + SECTION_H / 2 - 4, W - PAD * 2 - w - 16, 1);
+/** 段标题: 宋体大字靠左, 部数小字靠右, 下面一条发丝线; 不画色块 */
+function drawSection (ctx: CanvasRenderingContext2D, label: string, count: number, y: number): void {
+    const base = y + SECTION_H - 22;
+    ctx.textBaseline = "alphabetic";
+    ctx.font = `700 26px ${SERIF}`;
+    ctx.fillStyle = COLOR.ink;
+    ctx.fillText(label, PAD, base);
+    ctx.font = `400 14px ${FONT}`;
+    ctx.fillStyle = COLOR.faint;
+    ctx.textAlign = "right";
+    ctx.fillText(`${count} 部`, W - PAD, base);
+    ctx.textAlign = "left";
+    ctx.fillStyle = COLOR.rule;
+    ctx.fillRect(PAD, base + 10, W - PAD * 2, 1);
     ctx.textBaseline = "top";
 }
+
+const pad2 = (n: number): string => String(n).padStart(2, "0");
 
 function drawWallCell (
     ctx: CanvasRenderingContext2D, lay: Layout, r: ANiMeRecord, no: number,
     img: HTMLImageElement | null, x: number, y: number,
 ): void {
     const { cellW, coverH } = lay;
-    const radius = Math.max(6, cellW * 0.05);
-    ctx.save();
-    roundRect(ctx, x, y, cellW, coverH, radius);
-    ctx.clip();
+    // 封面直角, 不叠任何角标; 一条极淡的描边让浅色封面在纸色底上有边界
     if (img) {
         drawCover(ctx, img, x, y, cellW, coverH);
     } else {
-        // 占位: 色块 + 居中标题, 保证这一格仍然看得出是哪部
         ctx.fillStyle = COLOR.placeholder;
         ctx.fillRect(x, y, cellW, coverH);
         ctx.fillStyle = COLOR.sub;
-        ctx.font = `600 ${lay.titleSize}px ${FONT}`;
-        const lines = wrapText(ctx, displayName(r), cellW - 16, 4);
-        const lh = lay.titleSize * 1.3;
+        ctx.font = `500 ${lay.titleSize}px ${SERIF}`;
+        const lines = wrapText(ctx, displayName(r), cellW - 20, 4);
+        const lh = lay.titleSize * 1.35;
         let ty = y + coverH / 2 - (lines.length * lh) / 2;
         ctx.textAlign = "center";
         for (const l of lines) { ctx.fillText(l, x + cellW / 2, ty); ty += lh; }
         ctx.textAlign = "left";
     }
-    ctx.restore();
+    ctx.strokeStyle = COLOR.coverEdge;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(x + 0.5, y + 0.5, cellW - 1, coverH - 1);
 
-    // 角标: 左上状态, 右上序号
-    const badge = Math.max(10, Math.round(lay.titleSize * 0.72));
-    ctx.font = `700 ${badge}px ${FONT}`;
-    const status = statusLabel(r.user_status.watch_status);
-    const sw = ctx.measureText(status).width + badge;
-    roundRect(ctx, x + 6, y + 6, sw, badge * 1.7, badge * 0.85);
-    ctx.fillStyle = STATUS_COLOR[r.user_status.watch_status] ?? COLOR.faint;
-    ctx.fill();
-    ctx.fillStyle = "#0e0d13";
-    ctx.textBaseline = "middle";
-    ctx.fillText(status, x + 6 + badge / 2, y + 6 + badge * 0.85);
-    const noText = String(no);
-    const nw = ctx.measureText(noText).width + badge;
-    roundRect(ctx, x + cellW - 6 - nw, y + 6, nw, badge * 1.7, badge * 0.85);
-    ctx.fillStyle = "rgba(0, 0, 0, 0.62)";
-    ctx.fill();
-    ctx.fillStyle = "#fff";
-    ctx.fillText(noText, x + cellW - 6 - nw + badge / 2, y + 6 + badge * 0.85);
-    ctx.textBaseline = "top";
-
-    // 封面下: 标题 + 季度 / 评分
-    let ty = y + coverH + 10;
+    // 封面下: 序号与标题同一基线起排, 序号用等宽数字固定宽度, 各列标题因此左缘对齐
+    let ty = y + coverH + 12;
+    const noSize = Math.max(10, Math.round(lay.titleSize * 0.78));
+    ctx.font = `500 ${noSize}px ${FONT}`;
+    ctx.fillStyle = COLOR.faint;
+    const noW = ctx.measureText("000").width + 6;
+    ctx.fillText(pad2(no), x, ty + (lay.titleSize - noSize) * 0.6);
     ctx.font = `600 ${lay.titleSize}px ${FONT}`;
-    ctx.fillStyle = COLOR.text;
-    for (const l of wrapText(ctx, displayName(r), cellW, lay.titleLines)) {
-        ctx.fillText(l, x, ty);
-        ty += lay.titleSize * 1.3;
+    ctx.fillStyle = COLOR.ink;
+    for (const l of wrapText(ctx, displayName(r), cellW - noW, lay.titleLines)) {
+        ctx.fillText(l, x + noW, ty);
+        ty += lay.titleSize * 1.35;
     }
     if (lay.showMeta) {
-        ctx.font = `500 ${Math.round(lay.titleSize * 0.8)}px ${FONT}`;
-        ctx.fillStyle = COLOR.faint;
-        ctx.fillText(ellipsize(ctx, metaLine(r), cellW), x, ty + 2);
+        ctx.font = `400 ${Math.round(lay.titleSize * 0.78)}px ${FONT}`;
+        ctx.fillStyle = COLOR.sub;
+        ctx.fillText(ellipsize(ctx, metaLine(r), cellW - noW), x + noW, ty + 2);
     }
 }
 
+/** 纯文字版: 目录式, 序号 / 标题 (下一行原名) / 右侧季度评分, 行与行之间只有发丝线 */
 function drawTextCell (ctx: CanvasRenderingContext2D, lay: Layout, r: ANiMeRecord, no: number, x: number, y: number): void {
     const { cellW, cellH } = lay;
-    roundRect(ctx, x, y, cellW, cellH, 12);
-    ctx.fillStyle = COLOR.card;
-    ctx.fill();
-    ctx.save();
-    roundRect(ctx, x, y, cellW, cellH, 12);
-    ctx.clip();
-    ctx.fillStyle = STATUS_COLOR[r.user_status.watch_status] ?? COLOR.faint;
-    ctx.fillRect(x, y, 5, cellH);
-    ctx.restore();
+    ctx.fillStyle = COLOR.rule;
+    ctx.fillRect(x, y + cellH - 1, cellW, 1);
 
-    const noW = 44;
-    ctx.textBaseline = "middle";
-    ctx.font = `700 16px ${FONT}`;
-    ctx.fillStyle = COLOR.faint;
-    ctx.fillText(String(no).padStart(2, "0"), x + 18, y + cellH / 2);
-
-    const tx = x + 18 + noW;
-    const tw = cellW - (tx - x) - 16;
-    // 双栏时状态只靠左侧色条表达, 把位置留给标题
-    const meta = [lay.cols > 1 ? "" : statusLabel(r.user_status.watch_status), metaLine(r)].filter(Boolean).join(" · ");
+    const noW = 40;
     const orig = r.anime_data.name_cn && r.anime_data.name !== r.anime_data.name_cn ? r.anime_data.name : "";
-    const titleY = orig ? y + 22 : y + cellH / 2;
-    ctx.font = `500 13px ${FONT}`;
-    const metaW = Math.min(tw * 0.45, ctx.measureText(meta).width);
+    const titleBase = orig ? y + 27 : y + cellH / 2 + 7;
+    ctx.textBaseline = "alphabetic";
+    ctx.font = `500 14px ${FONT}`;
+    ctx.fillStyle = COLOR.faint;
+    ctx.fillText(pad2(no), x, titleBase);
+
+    const tx = x + noW;
+    const tw = cellW - noW;
+    const meta = metaLine(r);
+    ctx.font = `400 13px ${FONT}`;
+    const metaW = Math.min(tw * 0.4, ctx.measureText(meta).width);
     ctx.textAlign = "right";
     ctx.fillStyle = COLOR.sub;
-    ctx.fillText(ellipsize(ctx, meta, metaW + 1), x + cellW - 16, titleY);
+    ctx.fillText(ellipsize(ctx, meta, metaW + 1), x + cellW, titleBase);
     ctx.textAlign = "left";
 
-    ctx.font = `700 ${lay.titleSize}px ${FONT}`;
-    ctx.fillStyle = COLOR.text;
-    ctx.fillText(ellipsize(ctx, displayName(r), tw - metaW - 12), tx, titleY);
+    ctx.font = `600 ${lay.titleSize}px ${FONT}`;
+    ctx.fillStyle = COLOR.ink;
+    ctx.fillText(ellipsize(ctx, displayName(r), tw - metaW - 16), tx, titleBase);
     if (orig) {
         ctx.font = `400 13px ${FONT}`;
         ctx.fillStyle = COLOR.faint;
-        ctx.fillText(ellipsize(ctx, orig, tw), tx, y + 46);
+        ctx.fillText(ellipsize(ctx, orig, tw), tx, y + 47);
     }
     ctx.textBaseline = "top";
 }
@@ -456,10 +418,7 @@ function newCanvas (h: number, scale: number): { canvas: HTMLCanvasElement; ctx:
     const ctx = canvas.getContext("2d");
     if (!ctx) throw new Error("浏览器不支持 Canvas 2D");
     ctx.scale(scale, scale);
-    const bg = ctx.createLinearGradient(0, 0, 0, h);
-    bg.addColorStop(0, COLOR.bgTop);
-    bg.addColorStop(1, COLOR.bgBottom);
-    ctx.fillStyle = bg;
+    ctx.fillStyle = COLOR.paper;
     ctx.fillRect(0, 0, W, h);
     ctx.textBaseline = "top";
     return { canvas, ctx };
@@ -479,7 +438,8 @@ function toPng (canvas: HTMLCanvasElement): Promise<Blob> {
 /**
  * 把当前筛选结果画成分享 PNG (Canvas 2D, 不依赖 DOM 截图库).
  * 条目顺序 = groups 的扁平顺序 = 番剧库 applyFilters 的排序结果; 序号从 1 连续编到 N, 分页时也连续.
- * 带封面: 封面墙, 列数随部数 4/5/6/8/10 自适应, 2:3 居中裁切, 加载失败画占位块. 不带封面: 色块列表, 不发任何图片请求.
+ * 版式走印刷品的克制风格: 纸色底、墨色字、宋体标题、发丝线分隔, 一个强调色只用在标题下; 没有渐变 / 圆角 / 阴影 / 色块角标.
+ * 带封面: 封面墙, 列数随部数 4/5/6/8/10 自适应, 2:3 居中裁切直角, 加载失败画同色系占位块; 序号印在标题前. 不带封面: 目录式列表, 不发任何图片请求.
  * 优先 2x 输出; 画布面积超出浏览器上限时降到 1.5x / 1x, 仍超就按行切成多张.
  */
 export async function renderShareImage (input: ShareImageInput): Promise<ShareImageResult> {
@@ -499,7 +459,7 @@ export async function renderShareImage (input: ShareImageInput): Promise<ShareIm
 
     const measure = document.createElement("canvas").getContext("2d");
     if (!measure) throw new Error("浏览器不支持 Canvas 2D");
-    const headerH = measureHeader(measure, input);
+    const headerH = measureHeader(measure, input, total);
     const bodyH = blocks.reduce((s, b) => s + b.h, 0);
     const fullH = headerH + bodyH + FOOTER_H;
 
@@ -529,7 +489,7 @@ export async function renderShareImage (input: ShareImageInput): Promise<ShareIm
         let y = drawHeader(ctx, input, total, p + 1, pagesBlocks.length);
         for (const b of pb) {
             if (b.kind === "section") {
-                drawSection(ctx, b.label ?? "", y);
+                drawSection(ctx, b.label ?? "", b.count ?? 0, y);
             } else {
                 (b.items ?? []).forEach((i, col) => {
                     const x = PAD + col * (lay.cellW + lay.colGap);

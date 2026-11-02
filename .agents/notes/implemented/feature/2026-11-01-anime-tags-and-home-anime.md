@@ -36,3 +36,5 @@ Decision-ID: anime-tags-and-home-anime
 新番入库后不在表里只是没有分类, 不报错; 补标签就在 `data/animeTags.ts` 加一行. 首页番剧块要在滚到附近时下载约 2.4 MB (gzip) 的 ANiMeRecord.json, 与番剧页共用模块级缓存, 进番剧页不再重复下载; CDN 拉取失败时该块一直是骨架 (animeStore 没有错误回调, 本轮未改). 观看状态的 localStorage 现在可能存 0 (全部). 萝莉判定是人工口径, 有争议的几部 (间谍过家家、GJ部、请问您今天要来点兔子吗、熊熊勇闯异世界、打了300年的史莱姆) 按"核心角色 + 卖点"收入, 改口径时直接改表. `src/pages/anime/details.tsx` 的标签改用 getRecordTags 并链到筛选, 与番剧页同目录. `src/components/home/page.module.css` 新增 anime* 样式, 是非 AST 资源, 需人工核对.
 
 2026-11-01 晚: 番剧页的单选标签条、"全部"页签与带 tag 切状态的 effect 已被 `2026-11-01-anime-page-refactor.md` (URL 化组合筛选) 取代; 萝莉复核后为 35 部 (兔子两季移除, 学生会的一己之见两季与 NEKOPARA OVA Extra 补上), 新增"校园".
+
+2026-11-02 晚: 接上爬虫源标签. `src/utils/anime/animeStore.ts` 拉 `/data/ANiMeTags.json` (与 ANiMeRecord.json 同一个 ANIME_CDN_TAG); 当前 tag HX-20261101141415-poqRvw 早于该文件, CDN 404, 所以兜底读站点自带的 `static/anime/ANiMeTags.json` (HXLoLi-ANiMe data/ANiMeTags.json 的快照, 160 条, 2026-11-02 00:24 生成), 两处都拉不到就静默降级. `src/utils/anime/tags.ts` 的 getRecordTags 合并为 源标签 ∪ user_status.tags ∪ data/animeTags.ts 手工表 (别名归并、去重, overlay 仍是最终结果), 源标签晚到时 setSourceTags 清缓存并推一份新数组让页面重算. 下次 animeCdnVersion 更新到含 ANiMeTags.json 的 tag 后, static 快照可删.

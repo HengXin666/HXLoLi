@@ -31,6 +31,7 @@ const SKELETON_COUNT = 12;
  * .agents/notes/implemented/feature/2026-11-01-anime-page-refactor.md
  * 分享番单: 工具栏最右"分享"按钮打开 <dialog>, 里面挂与 /anime/share 同一个 AnimeShareBoard (embedded): 读当前 URL 筛选作番单,
  * 能切卡片 / 表格、勾选、生成链接、生成并预览分享图; 弹窗里不改地址栏. 只在打开时挂载, 关着不画图.
+ * 真模态: showModal 让页面其余部分 inert (焦点留在弹窗内); 点遮罩与 Esc 都不关 (onCancel 拦掉), 只能点右上角 ✕ (弹窗自身不滚, 内容在 .shareBody 里滚, 按钮不会被盖住).
  * .agents/notes/implemented/feature/2026-11-01-anime-share-on-index.md
  */
 export default function AnimeIndexPage (): React.ReactNode {
@@ -188,10 +189,10 @@ export default function AnimeIndexPage (): React.ReactNode {
                     className={styles.shareDialog}
                     aria-label="分享番单"
                     onClose={() => setShareOpen(false)}
-                    onClick={(e) => { if (e.target === e.currentTarget) closeShare(); }}
+                    onCancel={(e) => e.preventDefault()}
                 >
-                    <button type="button" className={styles.shareClose} onClick={closeShare} aria-label="关闭">×</button>
-                    {shareOpen && <AnimeShareBoard embedded />}
+                    <button type="button" className={styles.shareClose} onClick={closeShare} aria-label="关闭分享弹窗" title="关闭">✕</button>
+                    <div className={styles.shareBody}>{shareOpen && <AnimeShareBoard embedded />}</div>
                 </dialog>
 
                 <div ref={listRef} className={styles.results}>{content}</div>
