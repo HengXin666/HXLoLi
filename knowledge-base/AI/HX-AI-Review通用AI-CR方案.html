@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-ai-docs docs-version-current docs-doc-page docs-doc-id-AI/HX-AI-Review通用AI-CR方案/index" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.7.0">
+<title data-rh="true">HX-AI-Review 通用 AI CR 方案 | HXLoLi</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://HengXin666.github.io/HXLoLi/img/logo.png"><meta data-rh="true" property="og:url" content="https://HengXin666.github.io/HXLoLi/knowledge-base/AI/HX-AI-Review通用AI-CR方案"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-ai-docs-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-ai-docs-current"><meta data-rh="true" property="og:title" content="HX-AI-Review 通用 AI CR 方案 | HXLoLi"><meta data-rh="true" name="description" content="本文是 HX-AI-Review 下一版 code 审查的实现规格. 以 hx-context-review 0.3.0 为起点, 首个落地版本是 v0.4. 文中 &quot;AI CR&quot; 默认指 code 审查 (kind=code, 规则 CODE-AI); context 审查是另一种独立审查, 只在共用设施处出现."><meta data-rh="true" property="og:description" content="本文是 HX-AI-Review 下一版 code 审查的实现规格. 以 hx-context-review 0.3.0 为起点, 首个落地版本是 v0.4. 文中 &quot;AI CR&quot; 默认指 code 审查 (kind=code, 规则 CODE-AI); context 审查是另一种独立审查, 只在共用设施处出现."><link data-rh="true" rel="icon" href="/HXLoLi/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://HengXin666.github.io/HXLoLi/knowledge-base/AI/HX-AI-Review通用AI-CR方案"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/knowledge-base/AI/HX-AI-Review通用AI-CR方案" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://HengXin666.github.io/HXLoLi/knowledge-base/AI/HX-AI-Review通用AI-CR方案" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/HXLoLi/blog/rss.xml" title="HXLoLi RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/HXLoLi/blog/atom.xml" title="HXLoLi Atom Feed"><link rel="stylesheet" href="/HXLoLi/assets/css/styles.6586f48f.css">
+<script src="/HXLoLi/assets/js/runtime~main.9e86a1af.js" defer="defer"></script>
+<script src="/HXLoLi/assets/js/main.0877eafd.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"dark")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/HXLoLi/img/logo.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/ai-doc.svg"><link rel="preload" as="image" href="/HXLoLi/default-icons/ai-folder.svg"><link rel="preload" as="image" href="/HXLoLi/default-icons/alipay.svg"><link rel="preload" as="image" href="/HXLoLi/img/alipay_qr_code.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/wechat.svg"><link rel="preload" as="image" href="/HXLoLi/img/wechat_qr_code.png"><link rel="preload" as="image" href="/HXLoLi/default-icons/cc.svg"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top navbarHideable_m1mJ"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/HXLoLi/"><div class="navbar__logo"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">HXLoLi</b></a><a class="navbar__item navbar__link" href="/HXLoLi/docs/关于">笔记</a><a class="navbar__item navbar__link" href="/HXLoLi/blog">博客</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/HXLoLi/knowledge-base/关于">知识库</a><a class="navbar__item navbar__link" href="/HXLoLi/anime">アニメ</a></div><div class="navbar__items navbar__items--right"><div class="navbar__item wrap_zaSx"><button type="button" class="trigger_LYkl" title="CDN 节点" aria-label="CDN 节点 · —" aria-expanded="false"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" aria-hidden="true" class="lvIdle_Wtyo" height="13" width="13" xmlns="http://www.w3.org/2000/svg"><path d="M576 0c17.7 0 32 14.3 32 32l0 448c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-448c0-17.7 14.3-32 32-32zM448 96c17.7 0 32 14.3 32 32l0 352c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-352c0-17.7 14.3-32 32-32zM352 224l0 256c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32s32 14.3 32 32zM192 288c17.7 0 32 14.3 32 32l0 160c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-160c0-17.7 14.3-32 32-32zM96 416l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32s32 14.3 32 32z"></path></svg><span class="value_HqaZ">—</span></button></div><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">更多</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/HXLoLi/blog/archive">归档</a></li><li><a class="dropdown__link" href="/HXLoLi/docs-graph">笔记关系图</a></li><li><a class="dropdown__link" href="/HXLoLi/friends">友链</a></li><li><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="dropdown__link">GitHub<svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="ai-kb-page"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd sidebarWithHideableNavbar_wUlq"><a tabindex="-1" class="sidebarLogo_isFc" href="/HXLoLi/"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/HXLoLi/img/logo.png" alt="HXLoLi Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"><b>HXLoLi</b></a><div class="root_l0J4"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li data-sidebar-path="关于" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-1" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" href="/HXLoLi/knowledge-base/关于"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">关于</span></span></span></a></li><li data-sidebar-path="程序语言" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/程序语言/现代C++/HXLibs编写串行协程调度器"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">程序语言</span></span></span></a></div></li><li data-sidebar-path="AI" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/HXLoLi/knowledge-base/AI/基础/Agent要懂的LLM基础知识"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">AI</span></span></span></a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list ai-kb-sidebar-children"><li data-sidebar-path="AI/基础" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/基础/Agent要懂的LLM基础知识"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">基础</span></span></span></a></div></li><li data-sidebar-path="AI/Agent架构" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/Agent架构/AI-Agent设计原理与工程实践"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Agent架构</span></span></span></a></div></li><li data-sidebar-path="AI/Agent-Harness" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/Agent-Harness/Pi-PR-Review-Agent"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Agent-Harness</span></span></span></a></div></li><li data-sidebar-path="AI/记忆" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/记忆/对话记忆与知识库增量沉淀"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">记忆</span></span></span></a></div></li><li data-sidebar-path="AI/Skill" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/Skill/SkillOpt把skill当参数训练"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">Skill</span></span></span></a></div></li><li data-sidebar-path="AI/多智能体" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/多智能体/Multica-agent协作与上下文机制"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">多智能体</span></span></span></a></div></li><li data-sidebar-path="AI/检索" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/检索/自建Agent检索栈与凭证治理"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">检索</span></span></span></a></div></li><li data-sidebar-path="AI/AI逆向" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-2 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/HXLoLi/knowledge-base/AI/AI逆向/CF过盾工程-从零实现Turnstile绕过"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">AI逆向</span></span></span></a></div></li><li data-sidebar-path="AI/AI视觉验证" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-2" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link" tabindex="0" href="/HXLoLi/knowledge-base/AI/AI视觉验证"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">AI视觉验证</span></span></span></a></li><li data-sidebar-path="AI/HX-AI-Review通用AI-CR方案" class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-link ai-kb-sidebar-level-2" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/HXLoLi/knowledge-base/AI/HX-AI-Review通用AI-CR方案"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-doc.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">HX-AI-Review通用AI-CR方案</span></span></span></a></li></ul></li><li data-sidebar-path="工具链" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/工具链/RTK项目使用说明与Codex本地心得"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">工具链</span></span></span></a></div></li><li data-sidebar-path="生活" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/生活/电脑包选购指标"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">生活</span></span></span></a></div></li><li data-sidebar-path="杂谈" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/杂谈/短视频-精神鸦片"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">杂谈</span></span></span></a></div></li><li data-sidebar-path="音视频特效" class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item ai-kb-sidebar-item ai-kb-sidebar-category ai-kb-sidebar-level-1 menu__list-item--collapsed" style="opacity:0;filter:blur(3px);transform:translateX(-8px)"><div class="menu__list-item-collapsible ai-kb-sidebar-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/HXLoLi/knowledge-base/音视频特效/ASS特效字幕/用AI写ASS特效字幕"><span class="ai-kb-sidebar-content"><span class="ai-kb-sidebar-main-row"><img class="ai-kb-sidebar-icon" src="/HXLoLi/default-icons/ai-folder.svg" alt="" aria-hidden="true"><span class="ai-kb-sidebar-text">音视频特效</span></span></span></a></div></li></ul></nav></div></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row ai-kb-page"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><div class="aiDocHeader_kTZk" style="opacity:0;transform:translateY(-10px)"><div class="bgGrid_iCNM"></div><div class="metalShine_apht"></div><div class="headerContent_JtLs"><div class="titleRow_gyYW"><div class="aiIcon_uCRj" title="AI 辅助生成内容" style="opacity:0;transform:translateY(-4px) scale(0.9)"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z"></path></svg></div><span class="typewriter_Tkd9" style="display:inline"><span class="typewriterCursor_hJ0X" style="opacity:1;transition:opacity 0.08s">▌</span></span></div><div class="metaRow_SKoK"><span class="metaBadge_cx8r dateBadge_voC8" title="文档创建时间" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"></path></svg></span>2026-10-28</span><span class="metaBadge_cx8r modelBadge_tpoh" title="辅助编辑的 AI 模型: deepseek-v4.1-flash" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z"></path></svg></span>deepseek-v4.1-flash</span><a class="metaBadge_cx8r skillBadge_Kei0 clickableBadge_p2xi" title="查看 Skill 源码: hx-note" href="https://github.com/HengXin666/HXLoLi/tree/main/.agents/skills/hx-note" target="_blank" rel="noopener noreferrer" style="opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"></path></svg></span>hx-note<span class="skillExternalIcon_BIVD"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg></span></a><a class="metaBadge_cx8r tagBadge_MlAR clickableBadge_p2xi" title="查看标签: 上下文工程" href="/HXLoLi/knowledge-base/tags/上下文工程"><span style="display:inline-flex;align-items:center;gap:0.35rem;opacity:0;transform:translateY(-4px) scale(0.9)"><span class="badgeIcon_aplW"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"></path></svg></span>上下文工程</span></a></div></div></div><div style="display:flex;justify-content:space-between;align-items:center"><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/HXLoLi/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">AI</span><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">HX-AI-Review通用AI-CR方案</span><meta itemprop="position" content="2"></li></ul></nav></div><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>HX-AI-Review 通用 AI CR 方案</h1></header><p>本文是 HX-AI-Review 下一版 code 审查的实现规格. 以 hx-context-review 0.3.0 为起点, 首个落地版本是 v0.4. 文中 &quot;AI CR&quot; 默认指 code 审查 (kind=code, 规则 CODE-AI); context 审查是另一种独立审查, 只在共用设施处出现.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x00-触发场景">0x00 触发场景<a href="#0x00-触发场景" class="hash-link" aria-label="0x00 触发场景的直接链接" title="0x00 触发场景的直接链接">​</a></h2>
+<p>这套规格只给一种项目用: 已接入 HX-AI-Review 的 TypeScript + GitHub Actions 业务仓库. 由 PR 触发 code 审查. 审查对象是 diff 的新增行. 审查者额外拿到仓库在 merge-base 上的上下文文件, 作为背景.</p>
+<p>以下情形不适用:</p>
+<ul>
+<li>需要跨服务按接口字段追踪消费方的仓库. 契约轴不在本方案内.</li>
+<li>以 C++, 构建图, proto, clangd, MR 平台为前提的仓库.</li>
+<li>审查上下文文件本身的质量. 那是 context 审查的职责.</li>
+</ul>
+<p>通用指: 接入一个新仓库只靠配置与仓库内已有的上下文文件, 不改 runner 代码, 不假设语言栈.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="接入必填项">接入必填项<a href="#接入必填项" class="hash-link" aria-label="接入必填项的直接链接" title="接入必填项的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项</th><th>放在哪里</th><th>取值</th></tr></thead><tbody><tr><td>.hx-context-review.json</td><td>被审仓库根目录</td><td>仓库配置文件, 沿用 v0.3 格式</td></tr><tr><td>HX_CTX_TOKEN</td><td>被审仓库 secret</td><td>仓库侧唯一 secret, 沿用 v0.3</td></tr><tr><td>总览页仓库登记</td><td>cf-admin 总览页</td><td>repos.kind 取 code 或 both</td></tr><tr><td>code 审查 job</td><td>被审仓库 workflow</td><td>kind=code 的独立 job, 与 context 审查的 job 分开</td></tr><tr><td>上下文文件</td><td>被审仓库任意目录</td><td>可选; AGENTS.md, README.md, SKILL.md, docs/ 下的 .md; 没有时背景为空并在运行记录里写明</td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="前提缺失时的降级">前提缺失时的降级<a href="#前提缺失时的降级" class="hash-link" aria-label="前提缺失时的降级的直接链接" title="前提缺失时的降级的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>缺失的前提</th><th>降级做法</th><th>落在哪里</th></tr></thead><tbody><tr><td>没有构建图</td><td>空间范围用目录祖先关系, 代码邻居用本地 import 边与 git grep 引用方</td><td>context-cr/src/scope/index.ts, context-cr/src/review/evidence.ts</td></tr><tr><td>没有 LSP</td><td>由只读工具 read/grep/find/ls 取上下文, 由 verifier 新会话复核</td><td>context-cr/src/review/tools.ts</td></tr><tr><td>没有 proto</td><td>契约轴不做, 字段级消费方属方案外</td><td>见本文 &quot;非目标&quot;</td></tr><tr><td>不是 PR 触发</td><td>base 回退 origin/&lt;default_branch&gt;</td><td>context-cr/src/scope/base.ts</td></tr></tbody></table>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x01-契约">0x01 契约<a href="#0x01-契约" class="hash-link" aria-label="0x01 契约的直接链接" title="0x01 契约的直接链接">​</a></h2>
+<p>下面七条换掉任何一条, 整套做法就失效. 每条后面是能跑或会失败的判据.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="k1-error-只来自确定性检查-ai-发现恒为-warning">K1 Error 只来自确定性检查, AI 发现恒为 Warning<a href="#k1-error-只来自确定性检查-ai-发现恒为-warning" class="hash-link" aria-label="K1 Error 只来自确定性检查, AI 发现恒为 Warning的直接链接" title="K1 Error 只来自确定性检查, AI 发现恒为 Warning的直接链接">​</a></h3>
+<ul>
+<li>规则: 只有 severity=error 且 origin=new 的发现让 job 失败; CODE-AI 永远是 Warning, 不阻塞合并.</li>
+<li>判据: grep -n &quot;isBlocking&quot; context-cr/src/contract/report.ts 只命中一处定义, 条件是 error 且 new; 构造一份只含 CODE-AI 发现的报告, counts.blocking 必须为 0.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="k2-每条发现带-file-line-是-hunk-新侧行号">K2 每条发现带 file:line, line 是 hunk 新侧行号<a href="#k2-每条发现带-file-line-是-hunk-新侧行号" class="hash-link" aria-label="K2 每条发现带 file:line, line 是 hunk 新侧行号的直接链接" title="K2 每条发现带 file:line, line 是 hunk 新侧行号的直接链接">​</a></h3>
+<ul>
+<li>规则: 候选必须指向本批文件里真实存在的新增行, 非抑制, 非重复; 删除行没有新侧行号, 永不报告.</li>
+<li>判据: 在夹具仓库里让 finder 报一个不存在的行号, 确定性闸门 (context-cr/src/review/index.ts gate) 必须丢弃它, 不花 verifier 会话.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="k3-只有运行完成才能解决发现">K3 只有运行完成才能解决发现<a href="#k3-只有运行完成才能解决发现" class="hash-link" aria-label="K3 只有运行完成才能解决发现的直接链接" title="K3 只有运行完成才能解决发现的直接链接">​</a></h3>
+<ul>
+<li>规则: 运行完成 = AI 未中断, 候选队列清空, notReviewed 为空. 不完整的运行不推进 last_sha, 不把任何 AI 规则 (CX-AI, CODE-AI) 的发现标 resolved, 报告标覆盖不足且不得写 &quot;无问题&quot;.</li>
+<li>判据: 在 cf-admin 测试里提交一次 complete=false 的 code 运行, resolved 必须为 0; 提交一次 notReviewed 为 2 的运行, 报告 coverage.complete 必须为 false.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="k4-背景只取-base-侧-以数据身份进入-user-消息">K4 背景只取 base 侧, 以数据身份进入 user 消息<a href="#k4-背景只取-base-侧-以数据身份进入-user-消息" class="hash-link" aria-label="K4 背景只取 base 侧, 以数据身份进入 user 消息的直接链接" title="K4 背景只取 base 侧, 以数据身份进入 user 消息的直接链接">​</a></h3>
+<ul>
+<li>规则: 背景是 computeScope 从改动路径反推出的上下文文件在 merge-base 上的内容; 本 PR 改动的上下文文件不当背景; 背景以引用块放进 user 消息, 标注 &quot;仓库约定, 供参考&quot;, 不进系统提示; isolatedLoader 保持全部返回空.</li>
+<li>判据: 对一个同时改 src/x/AGENTS.md 与 src/x/a.ts 的 PR, sessions.jsonl 里 code finder 的 user 消息中引用块内容等于 git show <base>:src/x/AGENTS.md, 系统提示中不出现该文件内容; git diff 显示 context-cr/src/review/pi.ts 未改动.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="k5-驳回反馈按-kind-隔离-仓库维度默认只进本仓">K5 驳回反馈按 kind 隔离, 仓库维度默认只进本仓<a href="#k5-驳回反馈按-kind-隔离-仓库维度默认只进本仓" class="hash-link" aria-label="K5 驳回反馈按 kind 隔离, 仓库维度默认只进本仓的直接链接" title="K5 驳回反馈按 kind 隔离, 仓库维度默认只进本仓的直接链接">​</a></h3>
+<ul>
+<li>规则: 抑制表按 (仓库, 指纹); prompt 附录与驳回笔记按 kind 存, 默认只对本仓生效, 管理员 fold 时可显式提升为全局并留痕.</li>
+<li>判据: 在 code 运行里驳回一条并 fold, 下一次 context 运行与另一仓库的 code 运行, 其 system prompt 都不含该驳回理由.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="k6-确认环节不接收发现者的论证">K6 确认环节不接收发现者的论证<a href="#k6-确认环节不接收发现者的论证" class="hash-link" aria-label="K6 确认环节不接收发现者的论证的直接链接" title="K6 确认环节不接收发现者的论证的直接链接">​</a></h3>
+<ul>
+<li>规则: verifier 的输入只有候选的 path, line, category 与 evidence 里的 file:line 位置, finder 的推理文字不进入.</li>
+<li>判据: 取任一 verifier 会话的首条消息, 其中不含 finder 会话写下的推理文字.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="k7-输出稳定">K7 输出稳定<a href="#k7-输出稳定" class="hash-link" aria-label="K7 输出稳定的直接链接" title="K7 输出稳定的直接链接">​</a></h3>
+<ul>
+<li>规则: 报告按 path, line, ruleId, fingerprint 排序, 不含时间戳; AI 发现的指纹为 fingerprint(ruleId, path, category, 该行去首尾空白后的内容).</li>
+<li>判据: 同一输入跑两次, 报告 findings 顺序逐字相同; 只改 title 措辞而不改代码, 指纹不变.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="与-v03-基线的关系">与 v0.3 基线的关系<a href="#与-v03-基线的关系" class="hash-link" aria-label="与 v0.3 基线的关系的直接链接" title="与 v0.3 基线的关系的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>基线</th><th>保持/改动</th><th>理由</th></tr></thead><tbody><tr><td>双 CR kind (<code>2026-10-25-dual-cr-kind</code>)</td><td>改动</td><td>kind 维度与两个 job 保持; 该篇的提示词附录共享改为按 kind 隔离, 因为独立审查要求驳回反馈按 kind 分开</td></tr><tr><td>pi 在 runner 直连模型 (<code>2026-10-11-pi-runner-direct-model</code>)</td><td>保持</td><td>背景在 runner 内拼装, 不经 CF</td></tr><tr><td>CF 只管配置, 存储与总览</td><td>保持</td><td>新增字段都是存储与下发, 不在 CF 上计算</td></tr><tr><td>Error 只来自确定性检查</td><td>保持</td><td>见 K1; <code>2026-10-18-rounds-and-prompts</code> 的附录追加不替换, 附录不能把 AI 输出变 Error, 一并保持</td></tr></tbody></table>
+<p>v0.3 文档有一处与源码不符: docs/architecture/context-cr.md 第 63 行写两种 kind 都跑规则, 而同文件第 115-119 行与 context-cr/src/cli.ts:129 表明 code 运行跳过规则. 本方案以源码为准.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x02-约定">0x02 约定<a href="#0x02-约定" class="hash-link" aria-label="0x02 约定的直接链接" title="0x02 约定的直接链接">​</a></h2>
+<p>同一件事有多种做法时, 下面已经选定一种.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="七层的做法">七层的做法<a href="#七层的做法" class="hash-link" aria-label="七层的做法的直接链接" title="七层的做法的直接链接">​</a></h3>
+<p>层序按 <span class="tailwind"><a href="https://claude.dev/blog/solving-code-review-at-anthropic/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">claude.dev 原文<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> &quot;Layer by layer&quot; 的编号.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>层</th><th>取舍</th><th>理由</th></tr></thead><tbody><tr><td>1 提 PR 前自验证</td><td>不做</td><td>发生在作者本地, 不在 CI 侧审查器范围; 代码质量规范已规定本地只查工作区 diff</td></tr><tr><td>2 每个 PR 的 AI review</td><td>改造</td><td>code 审查加 base 侧上下文文件作背景</td></tr><tr><td>3 可阻塞的安全 review</td><td>改造</td><td>不另起一遍; 安全边界已是 CODE-AI 六类之一, 且不阻塞 (K1)</td></tr><tr><td>4 必过 CI</td><td>采纳</td><td>L0 与仓库规则的 origin=new Error 让 job 失败, v0.3 已是如此</td></tr><tr><td>5 按风险分级人审</td><td>不做</td><td>属于仓库分支保护设置; 本方案只提供档位与未答复 AI 发现数</td></tr><tr><td>6 merge queue 与 flag</td><td>不做</td><td>超出审查器职责</td></tr><tr><td>7 快速发现与回滚</td><td>改造</td><td>引发事故的 PR 及其 revert 进 eval 集</td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="评审器九个机制">评审器九个机制<a href="#评审器九个机制" class="hash-link" aria-label="评审器九个机制的直接链接" title="评审器九个机制的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>机制</th><th>v0.3 现状</th><th>方案取舍</th></tr></thead><tbody><tr><td>多票 verifier</td><td>每个候选一个新会话, 单票, 无 verdict 即驳回</td><td>Standard 档 1 票门槛 1/1; Deep 档 3 票门槛 2/3; 模型由 config.models.verifier 配置</td></tr><tr><td>丢弃纯风格</td><td>CODE_FINDER_SYSTEM 禁报风格, 命名, 缺测试, 等价写法偏好</td><td>保持, 不加 A/B 过滤器</td></tr><tr><td>Important/Nit/Pre-existing 标签</td><td>无标签</td><td>只产 Important; 不产 Nit (风格已禁报); 不产 Pre-existing (AI 发现 origin 恒为 new)</td></tr><tr><td>每条 finding 必须答复</td><td>无</td><td>不阻塞; 报告与总览页显示未答复 AI 发现数</td></tr><tr><td>REVIEW.md</td><td>无</td><td>不新增文件类型; code owner 把审查要点写进 AGENTS.md 或 docs/ 下, 经背景进入审查</td></tr><tr><td>Quick/Standard/Deep 三档</td><td>无</td><td>只设 Standard 与 Deep, 按路径谓词机械定档</td></tr><tr><td>轮次上限</td><td>无</td><td>3 轮; 第 4 轮起报告首行提示作者重新考虑方案, 不阻塞</td></tr><tr><td>若干轮后只审新 diff</td><td>每次 push 重审整个 PR</td><td>第 3 轮起只审相对上一完成运行 head 的新 diff</td></tr><tr><td>按缺陷类别标记且不重复</td><td>只有指纹去重, 指纹含模型写的 title</td><td>每条记 category (六类之一); 指纹改用 category 加该行内容</td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="与代码质量规范对齐">与代码质量规范对齐<a href="#与代码质量规范对齐" class="hash-link" aria-label="与代码质量规范对齐的直接链接" title="与代码质量规范对齐的直接链接">​</a></h3>
+<p>01-AI代码质量.md 2.4.1 的三个 @todo 各落一个组件:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>规范步骤</th><th>落点组件</th><th>做法</th></tr></thead><tbody><tr><td>代码质量工作流第 5 步 &quot;AI CR: 警告级别的内容, 筛选出真问题&quot;</td><td>verifier</td><td>代码质量工作流产出的 Warning 汇总 json 作为外部候选, 跳过 finder, 直接进确定性闸门与 verifier, 确认的以 CODE-AI Warning 发布</td></tr><tr><td>代码质量工作流第 6 步 &quot;AI CR: 基于 diff 上下文 和 commit 语义的代码评审&quot;</td><td>code 审查 finder</td><td>diff 上下文 = 背景, 证据包, 只读工具; commit 语义 = commit message 与 PR 标题描述以数据进入 user 消息</td></tr><tr><td>文档规范工作流第 7 步 &quot;AI CR 文档 review (暂时没有)&quot;</td><td>context 审查</td><td>v0.3 已有, 作为独立审查运行, 不并入 code 审查</td></tr></tbody></table>
+<p>等级映射:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>规范等级</th><th>含义</th><th>发现等级</th><th>是否阻塞</th></tr></thead><tbody><tr><td>错误</td><td>确定性检查明确扫到</td><td>Error</td><td>仅 origin=new 时阻塞</td></tr><tr><td>错误 (历史)</td><td>baseline 中已存在</td><td>Error, origin=historical</td><td>不阻塞</td></tr><tr><td>警告</td><td>静态工具无法断定</td><td>Warning, 含全部 CODE-AI</td><td>不阻塞</td></tr><tr><td>规则崩溃</td><td>检查本身失败</td><td>tool-error</td><td>按 report-contract 处理</td></tr></tbody></table>
+<p>元门禁六条 (01-AI代码质量.md 第四章) 对 CODE-AI 的满足方式:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>元门禁</th><th>CODE-AI 如何满足</th></tr></thead><tbody><tr><td>可单独测试</td><td>夹具仓库回放</td></tr><tr><td>有正例</td><td>eval 集里引发事故的 PR 与 revert</td></tr><tr><td>有反例</td><td>已知干净的 PR, 计数有害报告</td></tr><tr><td>输出稳定</td><td>排序不含时间戳, 指纹用 category 加该行内容 (K7)</td></tr><tr><td>唯一规则 ID</td><td>CODE-AI</td></tr><tr><td>等级明确</td><td>恒为 Warning</td></tr></tbody></table>
+<h4 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="diff-入口与-baseline">Diff 入口与 Baseline<a href="#diff-入口与-baseline" class="hash-link" aria-label="Diff 入口与 Baseline的直接链接" title="Diff 入口与 Baseline的直接链接">​</a></h4>
+<ul>
+<li>01-AI代码质量.md 第五章 &quot;Diff 级别不等于只看 Diff&quot;: 以 diff 为入口, 背景, 证据包与只读工具提供 diff 之外的上下文.</li>
+<li>第五章 &quot;Baseline 区分历史问题与新增问题&quot;: origin=historical 只由 L0 按可信 baseline 赋值 (context-cr/src/l0/index.ts); AI 发现的 origin 恒为 new, finder 禁报 diff 之前已有的问题, 所以 AI 不需要 baseline. 存量问题不进本方案.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="作用域">作用域<a href="#作用域" class="hash-link" aria-label="作用域的直接链接" title="作用域的直接链接">​</a></h3>
+<p>13-scope-and-retrieval.md 第 11 节十条决策在本方案下的取舍:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>决策</th><th>取舍</th><th>HX 中的行为</th></tr></thead><tbody><tr><td>R1 作用域为一级字段</td><td>改造</td><td>上下文文件的作用域由所在目录给出, computeScope 按祖先关系计算, 不另设字段</td></tr><tr><td>R2 三根轴</td><td>改造</td><td>空间 = 目录祖先; 契约 = 不做; 时间 = 背景取 merge-base 版本, 回放带 as_of</td></tr><tr><td>R3 不对称传播</td><td>采纳</td><td>落在驳回反馈作用域: 抑制表按仓库与指纹, fold 按 kind 与仓库</td></tr><tr><td>R4 作用域值只用机器标识</td><td>采纳</td><td>路径, ruleId, 指纹</td></tr><tr><td>R5 构建图作骨架</td><td>不做</td><td>TS 业务仓库没有构建图, 降级为目录祖先加 import 边</td></tr><tr><td>R6 懒标注按触及触发</td><td>不做</td><td>不维护独立知识库</td></tr><tr><td>R7 push 为主, pull 有上限</td><td>改造</td><td>push = 背景与证据包; pull = 只读工具, 不设次数上限, 由预算截停</td></tr><tr><td>R8 旁路只做懒标注与压制审计</td><td>不做</td><td>不设旁路 agent</td></tr><tr><td>R9 人只在审批门放宽压制型</td><td>采纳</td><td>fold 默认同 kind 同仓, 管理员显式提升并留痕</td></tr><tr><td>R10 检索记录入账</td><td>改造</td><td>每次运行记录背景文件, reasons, base sha, 是否截断</td></tr></tbody></table>
+<p>四项在源码上的落点:</p>
+<ul>
+<li>三根轴: 空间由 context-cr/src/scope/index.ts 的 computeScope 计算; 时间由 context-cr/src/scope/base.ts 的 resolveBase 给出 merge-base; 契约不做.</li>
+<li>不对称传播: 抑制集合在 context-cr/src/review/index.ts 读取, fold 收窄改 prompt_versions 与 prompt_notes 的作用域.</li>
+<li>四层来源: 构建图无; 路径与文件类型 = context-cr/src/l0/snapshot.ts 的 isContextFile 与 ignored 路径; 框架谓词无; AI 懒标注不做; 人 = 人写的上下文文件与 fold. 代码邻居来自 context-cr/src/review/evidence.ts.</li>
+<li>push 为主 pull 为辅: push 是背景与证据包, pull 是 context-cr/src/review/tools.ts 的 repoTools.</li>
+</ul>
+<p>14889 在本方案下 (TS 同构: 后端把响应字段改为可缺省, 两个只经 fetch 读它的前端页面, 一个判了空, 一个没判):</p>
+<ul>
+<li>K-契约 (该字段可缺省, 对所有消费方成立): 只有当 base 侧某个适用的上下文文件写明这一点时才进入审查者输入; 证据包按 basename 找不到 fetch 消费方. 本方案下这类问题通常漏报, 列为已知漏报类.</li>
+<li>K-守卫 (某页面已判空, 只对该页面成立): 若写在该页面目录的 AGENTS.md 里, computeScope 只把它交给该目录及其子目录下的改动; 另一个页面的改动收不到, 不会被越域压制.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="主流程">主流程<a href="#主流程" class="hash-link" aria-label="主流程的直接链接" title="主流程的直接链接">​</a></h3>
+<p>14-full-architecture.md 第 1 节六步在 HX 中的对应:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>步骤</th><th>模块</th><th>现有/改造/新增</th><th>输入</th><th>输出</th></tr></thead><tbody><tr><td>1 commit 意图识别</td><td>code finder 的 user 消息</td><td>新增</td><td>commit message, PR 标题与描述</td><td>原样作为数据, 不产意图标签</td></tr><tr><td>2 diff 分组</td><td>scope/code.ts computeCodeScope, review/context.ts batchHunks</td><td>现有</td><td>base, head</td><td>hunks 与批次</td></tr><tr><td>3 找问题</td><td>review/index.ts finder, prompts.ts CODE_FINDER_SYSTEM</td><td>改造</td><td>批次, 背景, 证据包</td><td>候选 (path, line, category, evidence)</td></tr><tr><td>4 校验证据</td><td>review/index.ts gate</td><td>现有</td><td>候选</td><td>行存在, 属于本批, 非抑制, 非重复的候选</td></tr><tr><td>5 工具确认</td><td>review/index.ts verifyCode</td><td>改造</td><td>候选的 path, line, category 与 file:line 位置</td><td>confirmed 或 rejected</td></tr><tr><td>6 写入</td><td>stepPublish, POST /runs, resolveRound</td><td>改造</td><td>报告与 coverage</td><td>发现入库; 只在运行完成时触发 resolved</td></tr></tbody></table>
+<p>14-full-architecture.md 第 11 节缺口:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>缺口</th><th>处理</th></tr></thead><tbody><tr><td>1 只有预算停止</td><td>补: &quot;运行完成&quot; 即完成停止, 预算截停一律记不完整</td></tr><tr><td>2 覆盖记账无门禁</td><td>补: 任一批次未审即覆盖不足, 阈值 0</td></tr><tr><td>3 分块后无跨块一致性检查</td><td>不补: 不加代码检索, 证据包与只读工具部分覆盖</td></tr><tr><td>4 意图识别无输出契约</td><td>不补: 不按意图路由</td></tr><tr><td>5 无分诊</td><td>补: 路径谓词定 Standard 或 Deep</td></tr><tr><td>6 工具确认与发现同族自证</td><td>补: verifier 只收代码与 file:line (K6)</td></tr><tr><td>7 反馈无拒绝错误反馈路径</td><td>部分补: fold 由人触发且默认最窄, 人工驳回带原因分类</td></tr><tr><td>8 无单次成本时延硬门禁</td><td>补: 单次成本上限与 RUN_DEADLINE_MS, 超限输出部分结果并标不完整</td></tr></tbody></table>
+<ul>
+<li>封闭题与程序定级 (第 7 节): 只引入程序定级; 不引入封闭题问卷与等级矩阵, 因为 AI 发现只有一个等级.</li>
+<li>五条可证性质 (第 10 节): 不引入穷举证明, 等级函数只有一个输出, 没有可穷举的状态空间.</li>
+<li>旁路 agent: 不做.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="证据-去噪与定级">证据, 去噪与定级<a href="#证据-去噪与定级" class="hash-link" aria-label="证据, 去噪与定级的直接链接" title="证据, 去噪与定级的直接链接">​</a></h3>
+<ul>
+<li>证据: 每条发现带 file:line (K2); evidence 必须引用新增行与证明它错的代码位置.</li>
+<li>确认: Standard 档每个候选 1 个 verifier 会话, 通过门槛 1/1; Deep 档 3 个会话, 通过门槛 2/3; 会话无 verdict 计为驳回; verifier 输入不含 finder 论证 (K6).</li>
+<li>去噪: finder 只报六类: 逻辑错误, 边界, 错误处理, 并发与资源, 安全边界, 与既有设计冲突.</li>
+<li>定级: 查表. ruleId 为 CODE-AI 即 Warning, origin 恒为 new, 标签恒为 Important.</li>
+</ul>
+<p>档位谓词: CodeScope.changed 中任一路径命中仓库根的 package.json, 锁文件 (pnpm-lock.yaml, package-lock.json, yarn.lock), tsconfig*.json, .github/workflows/ 下任意文件即 Deep, 否则 Standard; 同一 diff 永远同一档.</p>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="收敛与停止">收敛与停止<a href="#收敛与停止" class="hash-link" aria-label="收敛与停止的直接链接" title="收敛与停止的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>参数</th><th>数值或规则</th></tr></thead><tbody><tr><td>轮次上限</td><td>3; 轮次 = 同一 (仓库, PR, kind) 的运行完成次数; 第 4 轮起报告首行提示作者重新考虑方案, 不阻塞</td></tr><tr><td>只审新 diff 的起始轮</td><td>第 3 轮; base 取该 PR 上一运行完成时的 head</td></tr><tr><td>完成停止</td><td>AI 未中断, 候选队列清空, notReviewed 为空</td></tr><tr><td>覆盖不足</td><td>任一批次未审即覆盖不足, 报告不得写 &quot;无问题&quot;</td></tr><tr><td>单次成本与时延上限</td><td>成本 min(剩余月预算, 月预算的 10%), 10% 为默认值, 拍板人甲方; 时延 RUN_DEADLINE_MS 20 分钟, JOB_TIMEOUT_MS 30 分钟; 超限输出部分结果并标不完整</td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="背景注入">背景注入<a href="#背景注入" class="hash-link" aria-label="背景注入的直接链接" title="背景注入的直接链接">​</a></h3>
+<p>背景总量上限 16000 字节, 按以下顺序进入:</p>
+<ol>
+<li>离改动最近的祖先 AGENTS.md.</li>
+<li>引用该文件的上下文文件.</li>
+<li>引用其目录的上下文文件.</li>
+<li>下级 AGENTS.md.</li>
+</ol>
+<p>超出部分不进入. 运行记录里列出被丢弃的路径.</p>
+<p>照着做的最短路径, 是把同目录的侧车 <span class="tailwind"><a href="/HXLoLi/assets/files/code-background-98129fb64c14cacbb9d7e53d06b022ba.ts" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">code-background.ts<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 接进 stepScope 的 code 分支. 它读 base 侧版本, 跳过本 PR 改动的上下文文件. 它按上述顺序与上限, 拼出 user 消息里的引用块. 它同时产出要写进 background.json 的记录.</p>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-ts codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token keyword" style="color:hsl(286, 60%, 67%)">const</span><span class="token plain"> code </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token function" style="color:hsl(207, 82%, 66%)">computeCodeScope</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token comment" style="color:hsl(220, 10%, 40%)">/* 现有参数 */</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token keyword" style="color:hsl(286, 60%, 67%)">const</span><span class="token plain"> ctx </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token function" style="color:hsl(207, 82%, 66%)">computeScope</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">snapshot</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> config</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> changes</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> base</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> head</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> hint</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token keyword" style="color:hsl(286, 60%, 67%)">const</span><span class="token plain"> bg </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token function" style="color:hsl(207, 82%, 66%)">buildBackground</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">{</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">  repoDir</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> process</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">.</span><span class="token function" style="color:hsl(207, 82%, 66%)">cwd</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">  baseSha</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> base</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">  changed</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> code</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">.</span><span class="token plain">changed</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">  contexts</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> ctx</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">.</span><span class="token plain">contexts</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">}</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token comment" style="color:hsl(220, 10%, 40%)">// bg.userBlock 拼到 codeFinderPrompt(...) 结果之前, 属于 user 消息</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token comment" style="color:hsl(220, 10%, 40%)">// bg.record 写入 R2 对象 background.json</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">ts</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="评估闭环">评估闭环<a href="#评估闭环" class="hash-link" aria-label="评估闭环的直接链接" title="评估闭环的直接链接">​</a></h3>
+<ul>
+<li>eval 来源: cr-demo/eval; 引发事故的 PR 及其 revert 与 fix-forward; 已知干净的 PR.</li>
+<li>指标: 召回 (eval 正例中被报出的比例), 噪声率 (说错, 有意为之, 不重要三类占全部已答复发现的比例), rounds-to-pass (PR 从首轮到无 open AI 发现的轮数), 采纳率 (沿用 v0.3).</li>
+<li>改 prompt, 工具或模型时对全集重评, 分升则留, 否则弃.</li>
+<li>时间轴: 回放时 GET /init 带 as_of, 抑制表, prompt_versions, prompt_notes 按 created_at &lt;= as_of 过滤; 仓库内文件随 checkout 回到当时版本.</li>
+</ul>
+<p>作者回应分类:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>回应</th><th>判定方式</th></tr></thead><tbody><tr><td>已修</td><td>后续提交使该发现 resolved</td></tr><tr><td>说错</td><td>人工驳回, 原因分类为说错</td></tr><tr><td>有意为之</td><td>人工驳回, 原因分类为有意为之</td></tr><tr><td>不重要</td><td>人工驳回, 原因分类为不重要</td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="契约与存储改动">契约与存储改动<a href="#契约与存储改动" class="hash-link" aria-label="契约与存储改动的直接链接" title="契约与存储改动的直接链接">​</a></h3>
+<p>所有新增字段都可省略, 省略时按现行行为处理, 与 dual-cr-kind 的缺省兼容写法一致, 老 runner 不受影响.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>位置</th><th>改动</th></tr></thead><tbody><tr><td>report-contract</td><td>Finding 新增可选 category; 报告顶层新增可选 coverage (complete, notReviewed 批次数), round, unanswered</td></tr><tr><td>rules 命名空间</td><td>不变, code 仍只有 CODE-AI</td></tr><tr><td>D1 迁移</td><td>prompt_versions 与 prompt_notes 加 kind; prompt_versions 加可空 repo_id (空 = 全局); 人工反馈加原因分类; 老行 kind 缺省迁移为 &#x27;context&#x27;; resolveRound 保护条件扩到 CX-AI 与 CODE-AI</td></tr><tr><td>R2 对象</td><td>每次 code 运行新增 background.json: 背景文件路径, reasons, base sha, 是否截断</td></tr><tr><td>cf-admin.yaml</td><td>GET /init 新增可选 as_of; POST /runs 接收可选 coverage 与 round; POST /feedback 接收可选原因分类</td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="演进路线">演进路线<a href="#演进路线" class="hash-link" aria-label="演进路线的直接链接" title="演进路线的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>版本</th><th>产出</th><th>验收</th><th>覆盖 G</th></tr></thead><tbody><tr><td>v0.4</td><td>resolveRound 保护全部 AI 规则; 运行完成定义与覆盖不足; 单次成本上限; 背景注入; fold 按 kind 与仓库收窄</td><td>K3, K4, K5 判据全部通过</td><td>G4, G5, G6, G7, G9, G11</td></tr><tr><td>v0.5</td><td>轮次计数与上限; 第 3 轮起只审新 diff; 未答复 AI 发现数; category 与新指纹; verifier 去论证; 外部 Warning 候选; commit 语义输入</td><td>K6, K7 判据通过; 报告出现 round 与 unanswered</td><td>G2, G3, G8, G9, G11</td></tr><tr><td>v0.6</td><td>eval 集与 as_of 回放; 回应原因分类与四个指标; 路径谓词定档; Deep 档 3 票</td><td>全集重评产出召回, 噪声率, rounds-to-pass, 采纳率</td><td>G1, G2, G8, G10</td></tr></tbody></table>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="非目标">非目标<a href="#非目标" class="hash-link" aria-label="非目标的直接链接" title="非目标的直接链接">​</a></h3>
+<ul>
+<li>不做 diff 之外的代码检索增强 (契约轴, 字段级消费方).</li>
+<li>不在 code 审查里审上下文文件本身.</li>
+<li>不让 AI 产出 Error, 不让 AI 发现阻塞合并.</li>
+<li>不审纯删除行.</li>
+<li>不修改 HX-AI-Review 仓库; 本文只给方案.</li>
+</ul>
+<h3 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="待拍板">待拍板<a href="#待拍板" class="hash-link" aria-label="待拍板的直接链接" title="待拍板的直接链接">​</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>编号</th><th>问题</th><th>默认选择</th><th>拍板人</th></tr></thead><tbody><tr><td>P1</td><td>是否接受不对称传播</td><td>接受, 落在驳回反馈作用域</td><td>已定 (甲方)</td></tr><tr><td>P2</td><td>Fact 审批无人时是否降级知识库</td><td>不适用: 没有独立知识库, 知识就是上下文文件, 审批就是改它的 PR</td><td>已定 (甲方)</td></tr><tr><td>P3</td><td>pull 上限 N</td><td>不设次数, 由预算截停</td><td>已定 (甲方)</td></tr><tr><td>P4</td><td>作用域是否加到规则表条目</td><td>不做, 由 computeScope 目录关系决定</td><td>已定 (甲方)</td></tr><tr><td>P5</td><td>别名表是否保留</td><td>不做, 无 proto 全名别名问题</td><td>已定 (甲方)</td></tr><tr><td>12.1</td><td>Fact 审批无人时是否降级知识库</td><td>不适用: 知识就是上下文文件, 审批就是改它的 PR</td><td>已定 (甲方)</td></tr><tr><td>12.2</td><td>是否接受不对称传播</td><td>接受, 落在驳回反馈作用域</td><td>已定 (甲方)</td></tr><tr><td>12.3</td><td>完成停止判据</td><td>采用 &quot;运行完成&quot; 定义</td><td>已定 (甲方)</td></tr><tr><td>12.4</td><td>覆盖门禁阈值</td><td>固定为 0</td><td>已定 (甲方)</td></tr><tr><td>12.5</td><td>旁路 agent 范围</td><td>不做</td><td>已定 (甲方)</td></tr></tbody></table>
+<p>另有一项数值待定: 单次成本上限默认月预算的 10%, 拍板人甲方.</p>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x03-偏好">0x03 偏好<a href="#0x03-偏好" class="hash-link" aria-label="0x03 偏好的直接链接" title="0x03 偏好的直接链接">​</a></h2>
+<p>每条是一句禁令和一个检查动作.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>禁令</th><th>检查</th></tr></thead><tbody><tr><td>禁止把被审仓库的任何文件内容放进系统提示</td><td>对任一 code 运行的 sessions.jsonl, 系统提示中搜不到背景里任何文件的内容</td></tr><tr><td>禁止 head 侧的上下文文件进入背景</td><td>background.json 的 included 与本次 changed 无交集</td></tr><tr><td>禁止 finder 报风格, 命名, 缺测试, 等价写法偏好与 diff 之前已有的问题</td><td>夹具仓库里只有风格问题的 PR, CODE-AI 发现数为 0</td></tr><tr><td>禁止在覆盖不足时出现 &quot;无问题&quot;</td><td>coverage.complete 为 false 的报告中搜不到 &quot;无问题&quot;</td></tr><tr><td>禁止 fold 的默认作用域是全局</td><td>新 fold 产生的 prompt_versions 行 repo_id 非空, kind 非空</td></tr><tr><td>禁止 prompt 附录替换内置系统提示或把 AI 输出变 Error</td><td>发布一份附录后, 系统提示仍以内置提示开头, CODE-AI 仍为 Warning</td></tr><tr><td>禁止发现不带 file:line</td><td>报告中每条 CODE-AI 的 path 与 line 都非空</td></tr><tr><td>禁止报告排序依赖时间戳</td><td>报告 findings 中不含时间字段参与排序, 两次运行顺序相同</td></tr><tr><td>禁止新增上下文文件类型</td><td>isContextFile 的判定列表保持 AGENTS.md, README.md, SKILL.md, docs/*.md</td></tr></tbody></table>
+<h2 class="anchor anchorWithHideOnScrollNavbar_WYt5" id="0x04-可直接拷走的件">0x04 可直接拷走的件<a href="#0x04-可直接拷走的件" class="hash-link" aria-label="0x04 可直接拷走的件的直接链接" title="0x04 可直接拷走的件的直接链接">​</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>件</th><th>用途</th><th>放到哪里</th><th>版本</th></tr></thead><tbody><tr><td><span class="tailwind"><a href="/HXLoLi/assets/files/code-background-98129fb64c14cacbb9d7e53d06b022ba.ts" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">code-background.ts<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span></td><td>读 base 侧上下文文件, 排序, 截断, 生成 user 消息引用块与 background.json 记录; 只依赖 Node.js 内置 node:child_process</td><td>context-cr/src/review/ 下, 由 steps.ts stepScope 的 code 分支调用</td><td>v0.4</td></tr><tr><td>resolveRound 保护条件</td><td>不完整运行不解决任何 AI 规则的发现</td><td>cf-admin/worker/store/d1.ts resolveRound</td><td>v0.4</td></tr><tr><td>AI 发现指纹</td><td>指纹不随 title 措辞变化</td><td>context-cr/src/review/index.ts toFinding</td><td>v0.5</td></tr><tr><td>档位谓词</td><td>机械定 Standard 或 Deep</td><td>context-cr/src/scope/code.ts 之后</td><td>v0.6</td></tr></tbody></table>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-sql codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token comment" style="color:hsl(220, 10%, 40%)">-- 原条件: (?6 = 1 OR rule_id != &#x27;CX-AI&#x27;)</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token comment" style="color:hsl(220, 10%, 40%)">-- ?6 为 aiRechecked; 改为对全部 AI 规则生效</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">?</span><span class="token number" style="color:hsl(29, 54%, 61%)">6</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token number" style="color:hsl(29, 54%, 61%)">1</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">OR</span><span class="token plain"> rule_id </span><span class="token operator" style="color:hsl(207, 82%, 66%)">NOT</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">IN</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token string" style="color:hsl(95, 38%, 62%)">&#x27;CX-AI&#x27;</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">&#x27;CODE-AI&#x27;</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">sql</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-ts codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token comment" style="color:hsl(220, 10%, 40%)">// 原: fingerprint(ruleId, candidate.path, candidate.title, &quot;&quot;)</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token function" style="color:hsl(207, 82%, 66%)">fingerprint</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">ruleId</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> candidate</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">.</span><span class="token plain">path</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> candidate</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">.</span><span class="token plain">category</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> lineText</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">.</span><span class="token function" style="color:hsl(207, 82%, 66%)">trim</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">ts</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:hsl(220, 13%, 18%);--prism-color:hsl(220, 14%, 71%)"><div class="codeBlockContent_m3Ux" style="border-top-left-radius:0px;border-top-right-radius:0px"><pre tabindex="0" class="prism-code language-ts codeBlock_qGQc thin-scrollbar"><code class="codeBlockLines_p187 codeBlockLinesWithNumbering_OFgW"><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token keyword" style="color:hsl(286, 60%, 67%)">const</span><span class="token plain"> </span><span class="token constant" style="color:hsl(29, 54%, 61%)">DEEP</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token regex regex-delimiter" style="color:hsl(95, 38%, 62%)">/</span><span class="token regex regex-source language-regex anchor function" style="color:hsl(207, 82%, 66%)">^</span><span class="token regex regex-source language-regex" style="color:hsl(95, 38%, 62%)">package</span><span class="token regex regex-source language-regex special-escape escape" style="color:hsl(95, 38%, 62%)">\.</span><span class="token regex regex-source language-regex" style="color:hsl(95, 38%, 62%)">json</span><span class="token regex regex-source language-regex anchor function" style="color:hsl(207, 82%, 66%)">$</span><span class="token regex regex-delimiter" style="color:hsl(95, 38%, 62%)">/</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> </span><span class="token regex regex-delimiter" style="color:hsl(95, 38%, 62%)">/</span><span class="token regex regex-source language-regex group punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token regex regex-source language-regex anchor function" style="color:hsl(207, 82%, 66%)">^</span><span class="token regex regex-source language-regex alternation keyword" style="color:hsl(286, 60%, 67%)">|</span><span class="token regex regex-source language-regex escape" style="color:hsl(95, 38%, 62%)">\/</span><span class="token regex regex-source language-regex group punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token regex regex-source language-regex group punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token regex regex-source language-regex" style="color:hsl(95, 38%, 62%)">pnpm-lock</span><span class="token regex regex-source language-regex special-escape escape" style="color:hsl(95, 38%, 62%)">\.</span><span class="token regex regex-source language-regex" style="color:hsl(95, 38%, 62%)">yaml</span><span class="token regex regex-source language-regex alternation keyword" style="color:hsl(286, 60%, 67%)">|</span><span class="token regex regex-source language-regex" style="color:hsl(95, 38%, 62%)">package-lock</span><span class="token regex regex-source language-regex special-escape escape" style="color:hsl(95, 38%, 62%)">\.</span><span class="token regex regex-source language-regex" style="color:hsl(95, 38%, 62%)">json</span><span class="token regex regex-source language-regex alternation keyword" style="color:hsl(286, 60%, 67%)">|</span><span class="token regex regex-source language-regex" style="color:hsl(95, 38%, 62%)">yarn</span><span class="token regex regex-source language-regex special-escape escape" style="color:hsl(95, 38%, 62%)">\.</span><span class="token regex regex-source language-regex" style="color:hsl(95, 38%, 62%)">lock</span><span class="token regex regex-source language-regex group punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token regex regex-source language-regex anchor function" style="color:hsl(207, 82%, 66%)">$</span><span class="token regex regex-delimiter" style="color:hsl(95, 38%, 62%)">/</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> </span><span class="token regex regex-delimiter" style="color:hsl(95, 38%, 62%)">/</span><span class="token regex regex-source language-regex group punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token regex regex-source language-regex anchor function" style="color:hsl(207, 82%, 66%)">^</span><span class="token regex regex-source language-regex alternation keyword" style="color:hsl(286, 60%, 67%)">|</span><span class="token regex regex-source language-regex escape" style="color:hsl(95, 38%, 62%)">\/</span><span class="token regex regex-source language-regex group punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token regex regex-source language-regex" style="color:hsl(95, 38%, 62%)">tsconfig</span><span class="token regex regex-source language-regex char-class char-class-punctuation punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token regex regex-source language-regex char-class char-class-negation operator" style="color:hsl(207, 82%, 66%)">^</span><span class="token regex regex-source language-regex char-class" style="color:hsl(95, 38%, 62%)">/</span><span class="token regex regex-source language-regex char-class char-class-punctuation punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token regex regex-source language-regex quantifier number" style="color:hsl(29, 54%, 61%)">*</span><span class="token regex regex-source language-regex special-escape escape" style="color:hsl(95, 38%, 62%)">\.</span><span class="token regex regex-source language-regex" style="color:hsl(95, 38%, 62%)">json</span><span class="token regex regex-source language-regex anchor function" style="color:hsl(207, 82%, 66%)">$</span><span class="token regex regex-delimiter" style="color:hsl(95, 38%, 62%)">/</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">,</span><span class="token plain"> </span><span class="token regex regex-delimiter" style="color:hsl(95, 38%, 62%)">/</span><span class="token regex regex-source language-regex anchor function" style="color:hsl(207, 82%, 66%)">^</span><span class="token regex regex-source language-regex special-escape escape" style="color:hsl(95, 38%, 62%)">\.</span><span class="token regex regex-source language-regex" style="color:hsl(95, 38%, 62%)">github</span><span class="token regex regex-source language-regex escape" style="color:hsl(95, 38%, 62%)">\/</span><span class="token regex regex-source language-regex" style="color:hsl(95, 38%, 62%)">workflows</span><span class="token regex regex-source language-regex escape" style="color:hsl(95, 38%, 62%)">\/</span><span class="token regex regex-delimiter" style="color:hsl(95, 38%, 62%)">/</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain"></span><span class="token keyword" style="color:hsl(286, 60%, 67%)">export</span><span class="token plain"> </span><span class="token keyword" style="color:hsl(286, 60%, 67%)">const</span><span class="token plain"> tier </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=</span><span class="token plain"> </span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">changed</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token builtin" style="color:hsl(95, 38%, 62%)">string</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">[</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">]</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">&quot;Standard&quot;</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">|</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">&quot;Deep&quot;</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=&gt;</span><span class="token plain"></span></span><br></span><span class="token-line codeLine_lJS_" style="color:hsl(220, 14%, 71%);text-shadow:0 1px rgba(0, 0, 0, 0.3)"><span class="codeLineNumber_Tfdd"></span><span class="codeLineContent_feaV"><span class="token plain">  changed</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">.</span><span class="token function" style="color:hsl(207, 82%, 66%)">some</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">p</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=&gt;</span><span class="token plain"> </span><span class="token constant" style="color:hsl(29, 54%, 61%)">DEEP</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">.</span><span class="token function" style="color:hsl(207, 82%, 66%)">some</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">re</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">=&gt;</span><span class="token plain"> re</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">.</span><span class="token function" style="color:hsl(207, 82%, 66%)">test</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">(</span><span class="token plain">p</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">)</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">?</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">&quot;Deep&quot;</span><span class="token plain"> </span><span class="token operator" style="color:hsl(207, 82%, 66%)">:</span><span class="token plain"> </span><span class="token string" style="color:hsl(95, 38%, 62%)">&quot;Standard&quot;</span><span class="token punctuation" style="color:hsl(220, 14%, 71%)">;</span></span><br></span></code></pre><div class="buttonGroup_6DOT"><span class="languageName_x0G5">ts</span><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<!-- -->
+<section class="box_E7L9" aria-label="引用关系"><div class="tabs_yzFt" role="tablist"><button role="tab" aria-selected="true" class="tabActive_VSXV"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg> <!-- -->本文引用<!-- --> (<!-- -->0<!-- -->)</button><button role="tab" aria-selected="false" class="tab_GvgJ"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg> <!-- -->本文被引用<!-- --> (<!-- -->0<!-- -->)</button><button role="tab" aria-selected="false" class="tab_GvgJ"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg> <!-- -->站外来源<!-- --> (<!-- -->1<!-- -->)</button></div><div class="panel_O6s1"><p class="empty_J6nF"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" class="icon_pkkL" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M248 8C111.03 8 0 119.03 0 256s111.03 248 248 248 248-111.03 248-248S384.97 8 248 8zm0 432c-101.69 0-184-82.29-184-184 0-101.69 82.29-184 184-184 101.69 0 184 82.29 184 184 0 101.69-82.29 184-184 184zm0-312c-70.69 0-128 57.31-128 128s57.31 128 128 128 128-57.31 128-128-57.31-128-128-128zm0 192c-35.29 0-64-28.71-64-64s28.71-64 64-64 64 28.71 64 64-28.71 64-64 64z"></path></svg> <!-- -->本文没有引用站内其它文档。</p></div></section></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-tags-row"><div class="col"><b>标签：</b><ul class="tags_jXut padding--none margin-left--sm"><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/HXLoLi/knowledge-base/tags/上下文工程">上下文工程</a></li></ul></div></div><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">最后<!-- -->由 <b>Heng_Xin</b> <!-- -->于 <b><time datetime="2026-11-03T13:37:51.000Z" itemprop="dateModified">2026年11月3日</time></b> <!-- -->更新</span></div></div></footer></article><div style="display:flex;justify-content:flex-end;align-items:center;margin-top:20px;opacity:0.85">给 AI 买点 Token:<div class="icon-container" style="margin-left:10px"><img src="/HXLoLi/default-icons/alipay.svg" alt="Alipay Icon" class="icon"><img src="/HXLoLi/img/alipay_qr_code.png" alt="QR Code" class="qr-code"></div><div class="icon-container" style="margin-left:10px"><img src="/HXLoLi/default-icons/wechat.svg" alt="Wechat Icon" class="icon"><img src="/HXLoLi/img/wechat_qr_code.png" alt="QR Code" class="qr-code"></div></div><div style="display:flex;justify-content:flex-end"><span style="font-size:12px">本文遵循 <img src="/HXLoLi/default-icons/cc.svg" alt="CC" style="width:14px"> <span class="tailwind"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="relative inline-block transition-all duration-300 text-fuchsia-400 hover:text-pink-700" target="_blank" rel="noopener noreferrer">CC 4.0 BY-SA<span class="absolute right-0 bottom-0 h-0.5 bg-purple-700 w-0 transition-all duration-500"></span><span class="absolute left-0 bottom-0 h-0.5 bg-purple-700 w-0"></span></a></span> 版权协议, 转载请标明出处</span></div><div><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/HXLoLi/knowledge-base/AI/AI视觉验证"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">AI视觉验证</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/HXLoLi/knowledge-base/工具链/RTK项目使用说明与Codex本地心得"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">RTK项目使用说明与Codex本地心得</div></a></nav></div></div><div>Loading Comments...</div></div><div class="col col--3"><div class="tableOfContents_jeP5 thin-scrollbar theme-doc-toc-desktop"><div class="tailwind"><div class="text-fuchsia-400" style="border-left:1px solid var(--ifm-toc-border-color)"><div class="ml-4 -mb-2" style="border-bottom:1.5px solid var(--ifm-toc-border-color)">0<!-- -->%</div></div></div><ul class="table-of-contents table-of-contents__left-border"><li><a href="#0x00-触发场景" class="table-of-contents__link toc-highlight">0x00 触发场景</a><ul><li><a href="#接入必填项" class="table-of-contents__link toc-highlight">接入必填项</a></li><li><a href="#前提缺失时的降级" class="table-of-contents__link toc-highlight">前提缺失时的降级</a></li></ul></li><li><a href="#0x01-契约" class="table-of-contents__link toc-highlight">0x01 契约</a><ul><li><a href="#k1-error-只来自确定性检查-ai-发现恒为-warning" class="table-of-contents__link toc-highlight">K1 Error 只来自确定性检查, AI 发现恒为 Warning</a></li><li><a href="#k2-每条发现带-file-line-是-hunk-新侧行号" class="table-of-contents__link toc-highlight">K2 每条发现带 file, line 是 hunk 新侧行号</a></li><li><a href="#k3-只有运行完成才能解决发现" class="table-of-contents__link toc-highlight">K3 只有运行完成才能解决发现</a></li><li><a href="#k4-背景只取-base-侧-以数据身份进入-user-消息" class="table-of-contents__link toc-highlight">K4 背景只取 base 侧, 以数据身份进入 user 消息</a></li><li><a href="#k5-驳回反馈按-kind-隔离-仓库维度默认只进本仓" class="table-of-contents__link toc-highlight">K5 驳回反馈按 kind 隔离, 仓库维度默认只进本仓</a></li><li><a href="#k6-确认环节不接收发现者的论证" class="table-of-contents__link toc-highlight">K6 确认环节不接收发现者的论证</a></li><li><a href="#k7-输出稳定" class="table-of-contents__link toc-highlight">K7 输出稳定</a></li><li><a href="#与-v03-基线的关系" class="table-of-contents__link toc-highlight">与 v0.3 基线的关系</a></li></ul></li><li><a href="#0x02-约定" class="table-of-contents__link toc-highlight">0x02 约定</a><ul><li><a href="#七层的做法" class="table-of-contents__link toc-highlight">七层的做法</a></li><li><a href="#评审器九个机制" class="table-of-contents__link toc-highlight">评审器九个机制</a></li><li><a href="#与代码质量规范对齐" class="table-of-contents__link toc-highlight">与代码质量规范对齐</a><ul><li><a href="#diff-入口与-baseline" class="table-of-contents__link toc-highlight">Diff 入口与 Baseline</a></li></ul></li><li><a href="#作用域" class="table-of-contents__link toc-highlight">作用域</a></li><li><a href="#主流程" class="table-of-contents__link toc-highlight">主流程</a></li><li><a href="#证据-去噪与定级" class="table-of-contents__link toc-highlight">证据, 去噪与定级</a></li><li><a href="#收敛与停止" class="table-of-contents__link toc-highlight">收敛与停止</a></li><li><a href="#背景注入" class="table-of-contents__link toc-highlight">背景注入</a></li><li><a href="#评估闭环" class="table-of-contents__link toc-highlight">评估闭环</a></li><li><a href="#契约与存储改动" class="table-of-contents__link toc-highlight">契约与存储改动</a></li><li><a href="#演进路线" class="table-of-contents__link toc-highlight">演进路线</a></li><li><a href="#非目标" class="table-of-contents__link toc-highlight">非目标</a></li><li><a href="#待拍板" class="table-of-contents__link toc-highlight">待拍板</a></li></ul></li><li><a href="#0x03-偏好" class="table-of-contents__link toc-highlight">0x03 偏好</a></li><li><a href="#0x04-可直接拷走的件" class="table-of-contents__link toc-highlight">0x04 可直接拷走的件</a></li></ul></div></div></div></div></main></div></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/HengXin666/HXLoLi" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title"></div><ul class="footer__items clean-list"></ul></div><div class="col footer__col"><div class="footer__title">友情链接</div><ul class="footer__items clean-list"><li class="footer__item">
+                <a href="https://hengxin666.github.io/cppreference-zh-cn/" target="_blank" rel="noreferrer noopener" style="display: flex; align-items: center; gap: 3px; text-decoration: none; color: inherit; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                  <img src="/HXLoLi/icons/ISO_C++_Logo.svg" alt="cppreference" width="36" height="36" style="flex-shrink: 0;">
+                  <span style="font-size: 16px; font-weight: 600; position: relative; top: -1.75px;">cppreference</span>
+                </a>
+                <div style="height: 10px;"></div>
+              </li><li class="footer__item">
+                <a href="https://bgm.tv" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/img/BanGuMi_Logo.png" alt="BanGuMi" height="50">
+                </a>
+              </li><li class="footer__item">
+                <a href="https://docusaurus.io" target="_blank" rel="noreferrer noopener">
+                  <img src="/HXLoLi/default-img/buildwith.png" alt="build with docusaurus" height="50">
+                </a>
+                </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">版权所有 © 2025 - 2026 HXLoLi, Inc. 在 🇨🇳 用 ❤️ 制作.</div></div></div></footer></div>
+</body>
+</html>
