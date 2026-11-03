@@ -48,3 +48,6 @@ yarn-error.log*
 # rss
 static/docs-atoms.xml
 static/docs-rss.xml
+
+# fuck ai
+CHECKPOINT.md

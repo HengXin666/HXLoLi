@@ -16,6 +16,8 @@ Decision-ID: blog-catgirl-sides
 - `BlogWithCats` 保留原 API (style / children), 新增可选 `contentWidth`; 立绘拆成导出的 `SideCats`, 可单独挂在不用圆角正文块的页面 (/anime/share 用 1200).
 - 博客列表页 (`src/theme/BlogListPage/index.tsx`) 不再走 BlogLayout 侧栏, 改为 BlogWithCats 包住的 880px 单栏: 页头 (BLOG 刊头 / 标题 / 简介 / 篇数 / 本页标签云带计数 / 全部标签) + 时间轴式条目 (左日期块 日 + 年.月, 右标题 / 摘要三行截断 / 阅读时长 / 标签) + 原分页器. 条目只用 metadata, 不渲染正文 MDX.
 
+- 2026-11-03 全站覆盖与手机端 (设计与逐页理由见 `.agents/research/peek-layout.md`): 新增 gutter 变体 (墙 = 透明内容容器的实测外沿, 零侵入, 内侧 10% 淡出收口), 用于文档 / 知识库 / 标签页 / 搜索 / 404; 路由表改成有序前缀规则, 博客标签 / 作者页用 side, /docs-graph 用 edges, /hxdeck /hxdeck-editor /ppt /drawio 显式 off (演示 / 编辑器 / 投屏页四周都是控件), 表外路由回落 gutter. 页内 SideCats 挂载登记 (模块级 Set + useSyncExternalStore), RouteCats 见到登记就让位, 修掉 /anime/details 叠两组; 同时从路由表删掉 /anime/details. pair 留白改为实测并扣掉障碍物 (博客侧边栏 aside / TOC / 文档侧边栏), 宽度下限 240 -> 130, 修掉博客文章页压侧边栏与 TOC. 素材优先读 `static/img/catgirl/manifest.json` (fetch 一次缓存, 逐图按 catgirl-spec 校验 w >= 600 / 5:12 / fade 0.84-0.94, 左右同角色丢弃), 读不到或为空回落内置 pair1..13. 所有变体 <= 996 宽或 <= 500 高不渲染 (JS 门槛 + CSS 兜底), 高 <= 640 收 lift 与宽度; reduced-motion 完全静态; 立绘无 hover 态. `window.__nekoDebug()` 返回当前页变体 / 是否渲染 / 原因 / room / 用的哪对 / 槽矩形 / 横向滚动 / 与可点击元素的重叠, 给验收用. 挂载点 `src/theme/Root.tsx` 反向引用本 note.
+
 ## Alternatives considered
 
 - 什么都不做, 保留原来的 absolute 立绘: 最强理由是 cv / 友链两页一直这样用, 零风险. 否决: 用户明确说当前效果"浮空、有破绽", 而且博客页根本没有立绘.
@@ -23,6 +25,10 @@ Decision-ID: blog-catgirl-sides
 - mix-blend-mode (lighten / multiply) 融进底色: 只对一种主题成立 (lighten 只在暗底、multiply 只在亮底), 而且会把角色本身的颜色一起改掉.
 - position: sticky 跟着正文 (原 .neko-sticky 思路): 依赖正文高度, 正文短时立绘停在半空, 正是"浮空".
 - 博客列表继续用 BlogPostItems 渲染全文截断: 与首页"最近更新"的卡片语言不一致, 长文列表很高, 也要加载每篇 MDX.
+
+- (2026-11-03 全站覆盖) 什么都不做, 只保留 10 类页面有立绘: 最强理由是现有页面已经调好, 不动不会出新破绽. 否决: 用户要求全站覆盖, 且现状本身有两处破绽 (详情页叠两组, 博客文章压侧边栏 / TOC).
+- (2026-11-03) 复用 pair 套到文档页: 最强理由是一套代码一套参数. 否决: 文档容器透明, pair 的 6% 侵入会透出来压在 TOC 上; 改为零侵入的 gutter.
+- (2026-11-03) 窄屏缩小成单侧小探头: 最强理由是手机也能看到角色. 否决: 390 宽下任何 >= 60px 的立绘都会压正文或返回顶部按钮, 60px 又认不出角色.
 
 ## Consequences
 
@@ -33,3 +39,4 @@ cv 页与友链页 (`src/pages/anime/cv.tsx`, `src/pages/friends/index.tsx`) 随
 - `src/components/BlogWithCats/index.tsx`
 - `src/theme/BlogListPage/index.tsx`
 - `src/pages/anime/share.tsx`
+- `src/theme/Root.tsx`

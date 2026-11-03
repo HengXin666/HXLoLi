@@ -53,7 +53,12 @@ function BlogPostPageContent ({
             }>
             <ContentVisibility metadata={metadata} />
 
-            <BlogWithCats>
+            {/*
+              * 2026-11-04: 文章页在 BlogLayout 三栏里 (博客侧边栏 col--2 + 正文列 78.25% + TOC 列 21.75%), 默认 960 的墙
+              * 两侧缝只有约 80-130px, 立绘 no-room 整页不出. 正文列是流式宽, 这里给墙上限 900; 宽屏再由
+              * BlogWithCats.css 的 html.blog-post-page 规则收成 min(900, 正文列 - 240), 保证两侧各有 120px 缝.
+              */}
+            <BlogWithCats contentWidth={900}>
                 {/* 本地开发专属: VS Code 跳转 (选中右键) — 博客文章同样支持 (仅 dev-edit-server 可达时渲染) */}
                 <InlineEditor source={metadata.source} />
                 <BlogPostItem>

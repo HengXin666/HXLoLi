@@ -19,6 +19,7 @@ import HXGiscus from "@site/src/components/Giscus";
 import useQuery from "@site/src/utils/url/useQuery";
 import styles from "./AnimeDetailPage.module.css";
 import { loadAnimeOverlayEditor } from "@site/src/components/home/lazyChunks";
+import { CharacterMenuAnime, CharacterMenuScope, useCharacterMenuTrigger } from "@site/src/components/anime/CharacterMenu/CharacterContextMenu";
 
 /**
  * 本人标注编辑器: 只在 dev 下有 (生产构建里 loader 是 null, 整块不渲染).
@@ -299,9 +300,22 @@ function ActorCard ({ actor, cvTo }: { actor: Actor; cvTo: string }): React.Reac
     );
 }
 
+/**
+ * 一张角色卡. 角色图挂着右键 / 长按菜单 (复制生图提示词、下载角色图), 本地模式多出开发者用途的探头立绘提示词.
+ * .agents/notes/implemented/feature/2026-11-03-anime-character-context-menu.md
+ */
 function CharacterCard ({ char, actorMap }: { char: Character; actorMap: Map<number, Actor> }): React.ReactElement {
     const birthday = char.birth_month && char.birth_day ? `${char.birth_month}月${char.birth_day}日` : "";
     const actors = char.actor_ids.map((id) => actorMap.get(id)).filter((x): x is Actor => !!x);
+    const imageUrl = toAnimeCdnUrl(`/data/kyara/${char.id}.jpg`);
+    const { className: menuClass, ...menuHandlers } = useCharacterMenuTrigger({
+        id: char.id,
+        name: char.name_cn || char.name,
+        originalName: char.name,
+        imageUrl,
+        imageFallbackUrl: char.image_url || undefined,
+        relation: char.relation,
+    });
     return (
         <li className={styles.charCard}>
             <Tooltip
@@ -318,9 +332,10 @@ function CharacterCard ({ char, actorMap }: { char: Character; actorMap: Map<num
                     href={`https://bgm.tv/character/${char.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={styles.charImg}
-                    style={{ backgroundImage: `url(${toAnimeCdnUrl(`/data/kyara/${char.id}.jpg`)})` }}
+                    className={`${styles.charImg} ${menuClass}`}
+                    style={{ backgroundImage: `url(${imageUrl})` }}
                     aria-label={char.name_cn || char.name}
+                    {...menuHandlers}
                 />
             </Tooltip>
             <div className={styles.charBody}>
@@ -345,7 +360,7 @@ function CharacterCard ({ char, actorMap }: { char: Character; actorMap: Map<num
     );
 }
 
-function Characters ({ record, actorMap }: { record: ANiMeRecord; actorMap: Map<number, Actor> }): React.ReactElement {
+function Characters ({ record, actorMap, anime }: { record: ANiMeRecord; actorMap: Map<number, Actor>; anime: CharacterMenuAnime }): React.ReactElement {
     const [all, setAll] = React.useState(false);
     const chars = React.useMemo(
         () => [...record.anime_data.characters].sort((x, y) => orderIndex(CHARACTER_ORDER, x.relation) - orderIndex(CHARACTER_ORDER, y.relation)),
@@ -354,7 +369,7 @@ function Characters ({ record, actorMap }: { record: ANiMeRecord; actorMap: Map<
     if (chars.length === 0) return <p className={styles.muted}>暂无角色信息</p>;
     const shown = all ? chars : chars.slice(0, CHARACTER_PREVIEW);
     return (
-        <>
+        <CharacterMenuScope anime={anime}>
             <ul className={styles.charGrid}>
                 {shown.map((c) => <CharacterCard key={c.id} char={c} actorMap={actorMap} />)}
             </ul>
@@ -363,7 +378,7 @@ function Characters ({ record, actorMap }: { record: ANiMeRecord; actorMap: Map<
                     {all ? "收起" : `展开全部 ${chars.length} 个角色`}
                 </button>
             )}
-        </>
+        </CharacterMenuScope>
     );
 }
 
@@ -513,6 +528,12 @@ export default function AnimeDetailPage (): React.ReactElement {
     const coverUrl = toAnimeCdnUrl(`/data/anime/${a.id}.jpg`);
     const comment = (record.user_status.comment ?? "").trim();
     const sections = SECTIONS.filter((s) => s.id !== "similar" || similar.length > 0);
+    const menuAnime: CharacterMenuAnime = {
+        name: a.name_cn || a.name,
+        originalName: a.name,
+        coverUrl,
+        coverFallbackUrl: a.image_url || undefined,
+    };
 
     return (
         <>
@@ -550,7 +571,7 @@ export default function AnimeDetailPage (): React.ReactElement {
                             </Section>
 
                             <Section id="characters" title="角色" extra={<span className={styles.muted}>{a.characters.length} 个</span>}>
-                                <Characters record={record} actorMap={actorMap} />
+                                <Characters record={record} actorMap={actorMap} anime={menuAnime} />
                             </Section>
 
                             <Section id="relations" title="关联条目">

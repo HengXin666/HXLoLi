@@ -16,6 +16,17 @@
     padding: 0;
 }
 
+/*
+ * 博客文章页 (html.blog-post-page): BlogLayout 三栏, 正文列 = 主列 78.25% (流式), 正文块 (墙) 上限由 BlogPostPage 传 contentWidth 900.
+ * 宽屏 (>= 1536) 再给两侧各留 120px 缝给立绘: 正文块 = min(900, 正文列 - 240). 1920 下正文列约 1217 -> 墙 900, 缝约 158 (完整模式);
+ * 1536 下正文列约 976 -> 墙 736, 缝 120 (紧凑模式). 更窄时不留缝, 正文优先, 立绘按 useWallFit 实测自然不出.
+ */
+@media (min-width: 1536px) {
+    html.blog-post-page .blog-content-wrapper {
+        max-width: min(900px, calc(100% - 240px)) !important;
+    }
+}
+
 .blog-content {
     position: relative;
     border-radius: 25px;
@@ -32,6 +43,9 @@
  * 竖直: 不贴底, pair 与 side 底边抬起 clamp(165px, 8vh + 125px, 245px) (最初 clamp(40px, 8vh, 120px), 先 +75px, 2026-11-03 再 +50px).
  */
 .neko-sides {
+    /* 不占文档流: 槽全是 fixed, fixed 盒越出视口不计入 scrollWidth, 所以不会出横向滚动条 (peek-layout.md §3) */
+    width: 0;
+    height: 0;
     --neko-p: 0;
     --neko-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
     --neko-lift: clamp(165px, calc(8vh + 125px), 245px);
@@ -63,10 +77,11 @@
 
 /* ---------- pair: 正文当墙, 立绘在墙后 ---------- */
 /*
- * 立绘 z 1 < 正文 2. 内侧侵入正文 6%, 露出大部分身体; 滚动一屏后再向上探 64px. 不旋转: 旋转会让内侧竖直裁切线斜出墙外, 露出被切的手.
+ * 立绘 z 1 < 正文 2. 内侧侵入正文的比例由 JS 按留白实测写入 --neko-in-ratio (上限 0.55): 压进墙后那部分被正文块完全挡住,
+ * 所以画布可以放大到近两倍, 屏幕上的人更大而露出宽度不变. 滚动一屏后再向上探 64px. 不旋转: 旋转会让内侧竖直裁切线斜出墙外.
  */
 [data-variant='pair'] .neko-slot {
-    --neko-in: calc(var(--neko-w, 280px) * 0.06);
+    --neko-in: calc(var(--neko-w, 280px) * var(--neko-in-ratio, 0.06));
     bottom: var(--neko-lift);
     z-index: 1;
     width: var(--neko-w, 280px);
@@ -110,6 +125,24 @@
     --neko-mask-x: linear-gradient(to right, #000 90%, transparent 100%);
 }
 
+/*
+ * 紧凑模式 (2026-11-04, .neko-sides[data-compact], JS 判: 完整宽 < 130 且 room - 8 >= 72 (NEKO_GAP_COMPACT)): 不侵入墙后 (--neko-in 0),
+ * 整张站在缝里; 内侧裁切线改由更宽的水平淡出 (82% 起) 收口, 复用 --neko-mask-x. 博客文章页三栏缝窄时走这里.
+ */
+[data-variant='pair'][data-compact] .neko-slot {
+    --neko-in: 0px;
+}
+
+[data-variant='pair'][data-compact] .neko-slot-l:not(.neko-flip),
+[data-variant='pair'][data-compact] .neko-slot-r.neko-flip {
+    --neko-mask-x: linear-gradient(to right, #000 82%, transparent 100%);
+}
+
+[data-variant='pair'][data-compact] .neko-slot-r:not(.neko-flip),
+[data-variant='pair'][data-compact] .neko-slot-l.neko-flip {
+    --neko-mask-x: linear-gradient(to left, #000 82%, transparent 100%);
+}
+
 [data-variant='pair'] .neko-img {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 var(--neko-fade, 86%), transparent 100%), var(--neko-mask-x);
     mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 var(--neko-fade, 86%), transparent 100%), var(--neko-mask-x);
@@ -134,7 +167,7 @@
  * 墙: 有猫娘时正文块必须是实心的 (盖住立绘内侧), 加一圈细线与投向两侧的软阴影.
  * 阴影画在正文的层里, 因此会压在立绘被挡住的那条边上, 形成接触阴影.
  */
-.neko-sides[data-variant='pair'] + .blog-content-wrapper > .blog-content {
+.neko-sides[data-variant='pair'][data-on] + .blog-content-wrapper > .blog-content {
     background: var(--ifm-background-color);
     box-shadow:
         0 0 0 1px var(--ifm-color-emphasis-200),
@@ -142,12 +175,44 @@
         10px 0 24px -14px rgba(0, 0, 0, 0.28);
 }
 
-[data-theme='dark'] .neko-sides[data-variant='pair'] + .blog-content-wrapper > .blog-content {
+[data-theme='dark'] .neko-sides[data-variant='pair'][data-on] + .blog-content-wrapper > .blog-content {
     background: var(--ifm-background-surface-color, #1b1b1d);
     box-shadow:
         0 0 0 1px var(--ifm-color-emphasis-200),
         -12px 0 28px -14px rgba(0, 0, 0, 0.7),
         12px 0 28px -14px rgba(0, 0, 0, 0.7);
+}
+
+/* ---------- gutter: 墙是透明的内容容器 (文档 / 知识库 / 标签 / 搜索 / 404), 立绘住在容器外的留白里 ---------- */
+/*
+ * 2026-11-03 新增 (peek-layout.md §2). 墙没有底色, 侵入会透出内侧, 所以零侵入: 左槽右沿 = 墙左沿, 右槽左沿 = 墙右沿.
+ * 内侧裁切线用 10% 水平淡出收口 (和 pair 同一套遮罩交集). 宽度由 JS 按留白给 (--neko-w, 120-260), 放不下就不出槽.
+ * z 3: 墙透明, 立绘只在留白里, 不和正文重叠; 页脚 z 4 盖住立绘.
+ */
+[data-variant='gutter'] .neko-slot {
+    bottom: var(--neko-lift);
+    z-index: 3;
+    width: var(--neko-w, 160px);
+    max-height: calc(100vh - var(--ifm-navbar-height, 60px) - var(--neko-lift));
+}
+
+[data-variant='gutter'] .neko-slot-l {
+    left: calc(var(--neko-wl, 0px) - var(--neko-w, 160px));
+    transform: translateY(calc(var(--neko-p) * -48px));
+    --neko-mask-x: linear-gradient(to right, #000 90%, transparent 100%);
+}
+
+[data-variant='gutter'] .neko-slot-r {
+    left: var(--neko-wr, 100vw);
+    transform: translateY(calc(var(--neko-p) * -48px));
+    --neko-mask-x: linear-gradient(to left, #000 90%, transparent 100%);
+}
+
+[data-variant='gutter'] .neko-img {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 var(--neko-fade, 86%), transparent 100%), var(--neko-mask-x);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 var(--neko-fade, 86%), transparent 100%), var(--neko-mask-x);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
 }
 
 /* ---------- corner: 番剧库, 视口右边当墙, 从右侧墙后探头 ---------- */
@@ -218,7 +283,7 @@
 }
 
 /* 页脚盖在立绘之上 (pair 立绘 z 1, 其余 3, 页脚 4): 滚到底时立绘沉到页脚后面 */
-html:has(.neko-sides) .footer {
+html:has(.neko-sides[data-on]) .footer {
     position: relative;
     z-index: 4;
 }
@@ -262,6 +327,46 @@ html:has(.neko-sides) .footer {
     animation-name: neko-peek-r, neko-breathe;
 }
 
+/*
+ * 断点 (peek-layout.md §3). 墙后探头 (.neko-sides) 在 <= 996 宽 / <= 500 高时不显示: Docusaurus 996 起收起侧边栏与 TOC, 正文占满宽, 两侧没有墙后位置.
+ * 这一档改由 .neko-pocket (页尾单侧头肩小探头) 接管, 见文件末尾. 这里是 .neko-sides 的 CSS 兜底, 防 JS 判定与布局断点不同步.
+ */
+@media (max-width: 996px), (max-height: 500px) {
+    .neko-sides {
+        display: none;
+    }
+}
+
+/* 矮视口 (高 <= 640): 底边抬得少一点, 槽高上限随之变化; 宽度由 JS 乘 0.85 (pair / gutter) 或这里收 (视口墙变体) */
+@media (max-height: 640px) {
+    .neko-sides {
+        --neko-lift: clamp(96px, calc(6vh + 60px), 165px);
+    }
+
+    [data-variant='side'] .neko-slot,
+    [data-variant='screen'] .neko-slot,
+    [data-variant='edges'] .neko-slot {
+        scale: 0.85;
+        transform-origin: 50% 100%;
+    }
+}
+
+/*
+ * 触摸设备: 立绘没有任何 hover 态 (槽 pointer-events: none). 唯一的状态 data-shy 由滚动触发, 触摸滚动同样适用;
+ * 惯性滚动会连续触发躲藏, 触摸上把躲藏动画缩短, 免得一直缩在墙后.
+ */
+@media (hover: none) {
+    [data-variant='side'][data-shy] .neko-slot {
+        transition-duration: 0.12s;
+    }
+}
+
+/* 返回顶部按钮: Docusaurus 默认 z calc(fixed - 1) = 199, 已在立绘 (<= 3) 与页脚 (4) 之上; 显式钉住, 防主题改动把它压到立绘下 */
+html:has(.neko-sides[data-on]) .theme-back-to-top-button {
+    z-index: calc(var(--ifm-z-index-fixed, 200) - 1);
+}
+
+/* reduced-motion: 完全静态. JS 不挂滚动监听 (--neko-p 恒 0, 不打 data-shy); 这里去掉入场 / 呼吸 / transition / will-change */
 @media (prefers-reduced-motion: reduce) {
     .neko-img {
         animation: none;
@@ -269,6 +374,11 @@ html:has(.neko-sides) .footer {
 
     .neko-slot {
         transition: none;
+        will-change: auto;
+    }
+
+    [data-variant='side'][data-shy] .neko-slot {
+        transform: translateX(8%);
     }
 }
 
@@ -321,4 +431,71 @@ html:has(.neko-sides) .footer {
 
 [data-variant='screen'] .neko-slot-l .neko-img {
     animation-name: neko-peek-r, neko-breathe;
+}
+
+/* ---------- pocket: 手机端 (<= 768 宽) 右下角窄条探头 ---------- */
+/*
+ * 2026-11-03 用户定稿 (peek-layout.md §3, 方向 A). 视口右边当墙, left 图 (裁切线在右) 右对齐, 窄条里只露贴墙那一窄条的头和肩.
+ * T 481-768: 宽 44px / 高 18vh / 底边抬 72px; N <= 480: 宽 36px / 高 14vh / 底边抬 64px. 769-996 不出 (JS 不挂).
+ * 竖直取景: 素材上 45% 全透明 (catgirl-spec), 图高 = 窄条高 / 0.30, 图上移 0.45 x 图高, 窄条里是图高 45%-75% 那段 (头到肩).
+ * 不吃点击 (pointer-events: none), position: fixed 不进文档流, 不会撑出横向滚动; 量完合规才 data-on 可见.
+ */
+.neko-pocket {
+    --pk-w: 44px;
+    --pk-h: 18vh;
+    --pk-lift: 72px;
+    position: fixed;
+    right: 0;
+    bottom: var(--pk-lift);
+    z-index: 3;
+    width: var(--pk-w);
+    height: var(--pk-h);
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+    visibility: hidden;
+}
+
+.neko-pocket[data-on] {
+    visibility: visible;
+}
+
+.neko-pocket-img {
+    position: absolute;
+    right: 0;
+    top: calc(var(--pk-h) / 0.3 * -0.45);
+    height: calc(var(--pk-h) / 0.3);
+    width: auto;
+    max-width: none;
+    -webkit-mask-image: linear-gradient(to bottom, #000 75%, transparent);
+    mask-image: linear-gradient(to bottom, #000 75%, transparent);
+}
+
+.neko-pocket[data-on] .neko-pocket-img {
+    animation: neko-pocket-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes neko-pocket-in {
+    from { transform: translateX(60%); opacity: 0; }
+    to { transform: none; opacity: 1; }
+}
+
+@media (max-width: 480px) {
+    .neko-pocket {
+        --pk-w: 36px;
+        --pk-h: 14vh;
+        --pk-lift: 64px;
+    }
+}
+
+@media (min-width: 769px) {
+    .neko-pocket { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .neko-pocket[data-on] .neko-pocket-img { animation: none; }
+}
+
+@media print {
+    .neko-pocket { display: none; }
 }

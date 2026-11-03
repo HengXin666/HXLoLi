@@ -1122,11 +1122,75 @@ export const stats: RecordItem[] = [
     "message": "[ai-docs] AI CR 调研"
   },
   {
-    "commit": "WORKING_DIR",
-    "date": "2026-10-09T18:00:02.693Z",
+    "commit": "aa21ee925441207f16ead938bdf832095cda4f36",
+    "date": "2026-10-10T02:00:02+08:00",
     "docsBlogWordCount": 3867942,
     "aiDocsWordCount": 559572,
     "wordCount": 4427514,
     "message": "[ai-docs] add pi/oh-my-pi 学习"
+  },
+  {
+    "commit": "617285d7c6ef860b64a89f27661557b02878a145",
+    "date": "2026-10-22T01:20:56+08:00",
+    "docsBlogWordCount": 3867942,
+    "aiDocsWordCount": 559572,
+    "wordCount": 4427514,
+    "message": "[hx-make-skill] 文本 fixer: 不再破坏标识符与粗体 + 新增 P6 (#146)"
+  },
+  {
+    "commit": "4b85aa2d8baa5659f7f6112b05912bdd8127e3ac",
+    "date": "2026-10-22T01:28:15+08:00",
+    "docsBlogWordCount": 3867942,
+    "aiDocsWordCount": 559572,
+    "wordCount": 4427514,
+    "message": "[hx-make-skill] 校验器: 修平铺路径恒真 + 加强 name/description 检查 (#137)"
+  },
+  {
+    "commit": "6be706324c89b151ade8d4b66c9ac8e90d95f25d",
+    "date": "2026-10-22T01:28:30+08:00",
+    "docsBlogWordCount": 3867942,
+    "aiDocsWordCount": 559572,
+    "wordCount": 4427514,
+    "message": "[hx-note] doctor: 只对本 skill 负责 + 盲审判定进闸门 (#145)"
+  },
+  {
+    "commit": "f20e9fe4177315f25cfaa6a6b5ac681d031e0d1d",
+    "date": "2026-10-22T01:28:45+08:00",
+    "docsBlogWordCount": 3867942,
+    "aiDocsWordCount": 559572,
+    "wordCount": 4427514,
+    "message": "[hx-note] 修步骤4契约矛盾 + voice_rules 注释超体量 (#136)"
+  },
+  {
+    "commit": "f1aa0a099385b4c7f95e862fce727e31b7a1c101",
+    "date": "2026-10-22T01:29:05+08:00",
+    "docsBlogWordCount": 3867942,
+    "aiDocsWordCount": 559572,
+    "wordCount": 4427514,
+    "message": "[hx-make-skill] 文档 M3+M9: 校验等级拆默认/strict, 补三家 loader 对照 (#143)"
+  },
+  {
+    "commit": "78efa5136da36f7e0cacb94b2d8254ef8fb0ded7",
+    "date": "2026-10-22T01:29:20+08:00",
+    "docsBlogWordCount": 3867942,
+    "aiDocsWordCount": 559572,
+    "wordCount": 4427514,
+    "message": "[research] hx-make-skill / hx-note 改造 plan (含首轮 CR 修复与落地状态) (#144)"
+  },
+  {
+    "commit": "3b7b9cd335b9526ef6644c9589aa645bad80d11e",
+    "date": "2026-11-03T01:49:03+08:00",
+    "docsBlogWordCount": 3867942,
+    "aiDocsWordCount": 559572,
+    "wordCount": 4427514,
+    "message": "[style] 番剧库立绘探出幅度加大"
+  },
+  {
+    "commit": "WORKING_DIR",
+    "date": "2026-11-03T18:02:27.711Z",
+    "docsBlogWordCount": 3867942,
+    "aiDocsWordCount": 611693,
+    "wordCount": 4479635,
+    "message": "[feat] 重构博客部分前端"
   }
 ];

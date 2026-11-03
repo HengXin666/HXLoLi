@@ -28,6 +28,9 @@
     margin: 16px auto 80px;
     padding: 0 24px;
     font-size: 15px;
+    position: relative;
+    z-index: 2;
+    background: var(--ifm-background-color);
 }
 
 :global(html[data-theme='dark']) .shell {

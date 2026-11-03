@@ -1,0 +1,179 @@
+/*
+ * 番剧详情角色立绘右键菜单. 弹层外壳 (深色半透明卡片、进场淡入) 沿用 common/Tooltip 的 Tooltip.module.css,
+ * 选项的尺寸、圆角、站点粉高亮与 common/Tooltip/Select.module.css 的下拉列表一致; 亮色主题在这里换成白底卡片.
+ * 决策见同目录 CharacterContextMenu.tsx 的 CharacterMenuScope 注释.
+ */
+
+.layer {
+    z-index: 10000;
+}
+
+/* 亮色主题: FloatingLayer 的内容层默认是深色卡片, 换成白底 + 浅描边 */
+:global(html[data-theme='light']) .layer > div {
+    background: rgba(255, 255, 255, 0.98);
+    color: #1c1e21;
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(255, 136, 255, 0.12);
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    outline: none;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px 4px;
+    font-size: 11.5px;
+    opacity: 0.6;
+    user-select: none;
+}
+
+.headName {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.devBadge {
+    flex: none;
+    padding: 0 6px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    line-height: 16px;
+    background: rgba(255, 136, 255, 0.18);
+    color: var(--ifm-color-primary);
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 7px 10px;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: #e4e4e7;
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.3;
+    text-align: left;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.item:hover,
+.item:focus-visible,
+.item:focus {
+    background: rgba(255, 136, 255, 0.14);
+    outline: none;
+}
+
+.item[data-dev='true'] .label::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 7px;
+    border-radius: 50%;
+    background: var(--ifm-color-primary);
+    vertical-align: 1px;
+}
+
+.label {
+    flex: 1;
+}
+
+.hint {
+    font-size: 11.5px;
+    opacity: 0.55;
+}
+
+.sep {
+    height: 1px;
+    margin: 4px 6px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+:global(html[data-theme='light']) .item {
+    color: #1c1e21;
+}
+
+:global(html[data-theme='light']) .item:hover,
+:global(html[data-theme='light']) .item:focus {
+    background: rgba(255, 136, 255, 0.16);
+}
+
+:global(html[data-theme='light']) .devBadge {
+    color: #8c4b8c;
+}
+
+:global(html[data-theme='light']) .sep {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+/* 指针位置上的 0x0 锚点, 只给 FloatingLayer 量位置 */
+.pointAnchor {
+    position: fixed;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+/* 角色图: 触屏长按不弹系统的链接预览 / 存图菜单, 改由本菜单接管 */
+.trigger {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    z-index: 10001;
+    max-width: calc(100vw - 32px);
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(24, 24, 27, 0.96);
+    color: #f4f4f5;
+    font-size: 13px;
+    line-height: 1.5;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    transform: translateX(-50%);
+    animation: toastIn 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+}
+
+:global(html[data-theme='light']) .toast {
+    background: rgba(255, 255, 255, 0.98);
+    color: #1c1e21;
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 6px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .toast {
+        animation: none;
+    }
+}

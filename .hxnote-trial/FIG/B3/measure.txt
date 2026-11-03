@@ -1,7 +1,0 @@
-python 3.12.15, N=1000000, uname=6.12.110+ aarch64
-float nothing     -       child_dirty=     0.1 MB
-float iterate     -       child_dirty=    30.7 MB
-list  iterate     -       child_dirty=    61.3 MB
-list  gc          -       child_dirty=    62.0 MB
-list  gc          freeze  child_dirty=     0.1 MB
-list  iterate+gc  freeze  child_dirty=    61.3 MB

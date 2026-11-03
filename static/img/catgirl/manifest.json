@@ -1,0 +1,927 @@
+{
+  "version": 2,
+  "generated": "2026-11-04",
+  "pairRule": "left 与 right 必须是不同角色; 禁止同一张图 (或它的镜像) 同时出现在左右两侧",
+  "dirRule": "按角色分目录, 同一角色的所有姿势放在同一目录下",
+  "characters": [
+    {
+      "slug": "chocola",
+      "dir": "chocola",
+      "character": "Chocola",
+      "characterCn": "巧克力",
+      "work": "NEKOPARA",
+      "images": [
+        {
+          "file": "chocola/chocola-01-left.png",
+          "side": "left",
+          "w": 928,
+          "h": 2227,
+          "fade": 0.88,
+          "pose": "chocola-01",
+          "anchor": "right"
+        },
+        {
+          "file": "chocola/chocola-01-right.png",
+          "side": "right",
+          "w": 928,
+          "h": 2227,
+          "fade": 0.88,
+          "pose": "chocola-01",
+          "anchor": "left"
+        },
+        {
+          "file": "chocola/chocola-right.png",
+          "side": "right",
+          "w": 928,
+          "h": 2227,
+          "fade": 0.88,
+          "excluded": true,
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "flandre",
+      "dir": "flandre",
+      "character": "Flandre Scarlet",
+      "characterCn": "芙兰朵露",
+      "work": "东方Project",
+      "images": [
+        {
+          "file": "flandre/flandre-01-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.88,
+          "pose": "flandre-01",
+          "anchor": "right"
+        },
+        {
+          "file": "flandre/flandre-01-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.88,
+          "pose": "flandre-01",
+          "anchor": "left"
+        },
+        {
+          "file": "flandre/flandre-right.png",
+          "side": "right",
+          "w": 944,
+          "h": 2265,
+          "fade": 0.88,
+          "excluded": true,
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "komari",
+      "dir": "komari",
+      "character": "候选: Koshigaya Komari 越谷小鞠",
+      "characterCn": "",
+      "work": "悠哉日常大王 (存疑)",
+      "images": [
+        {
+          "file": "komari/komari-01-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.93,
+          "pose": "komari-01",
+          "anchor": "right"
+        },
+        {
+          "file": "komari/komari-01-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.93,
+          "pose": "komari-01",
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "konata",
+      "dir": "konata",
+      "character": "Izumi Konata",
+      "characterCn": "泉此方",
+      "work": "幸运星",
+      "images": [
+        {
+          "file": "konata/konata-04-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.86,
+          "pose": "konata-04",
+          "anchor": "right"
+        },
+        {
+          "file": "konata/konata-04-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.86,
+          "pose": "konata-04",
+          "anchor": "left"
+        },
+        {
+          "file": "konata/konata-06-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.91,
+          "pose": "konata-06",
+          "anchor": "right"
+        },
+        {
+          "file": "konata/konata-06-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.91,
+          "pose": "konata-06",
+          "anchor": "left"
+        },
+        {
+          "file": "konata/konata-right.png",
+          "side": "right",
+          "w": 848,
+          "h": 2036,
+          "fade": 0.86,
+          "excluded": true,
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "kotori",
+      "dir": "kotori",
+      "character": "Itsuka Kotori",
+      "characterCn": "五河琴里",
+      "work": "约会大作战",
+      "images": [
+        {
+          "file": "kotori/kotori-02-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.92,
+          "pose": "kotori-02",
+          "anchor": "right"
+        },
+        {
+          "file": "kotori/kotori-02-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.92,
+          "pose": "kotori-02",
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "last-order",
+      "dir": "last-order",
+      "character": "Last Order",
+      "characterCn": "最后之作",
+      "work": "某科学的超电磁炮/魔法禁书目录",
+      "images": [
+        {
+          "file": "last-order/last-order-01-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.87,
+          "pose": "last-order-01",
+          "anchor": "right"
+        },
+        {
+          "file": "last-order/last-order-01-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.87,
+          "pose": "last-order-01",
+          "anchor": "left"
+        },
+        {
+          "file": "last-order/last-order-02-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.92,
+          "pose": "last-order-02",
+          "anchor": "right"
+        },
+        {
+          "file": "last-order/last-order-02-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.92,
+          "pose": "last-order-02",
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "mahiro",
+      "dir": "mahiro",
+      "character": "Oyama Mahiro",
+      "characterCn": "绪山真寻",
+      "work": "别当欧尼酱了!",
+      "images": [
+        {
+          "file": "mahiro/mahiro-02-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.88,
+          "pose": "mahiro-02",
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "megumin",
+      "dir": "megumin",
+      "character": "Megumin",
+      "characterCn": "惠惠",
+      "work": "为美好的世界献上祝福!",
+      "images": [
+        {
+          "file": "megumin/megumin-01-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.87,
+          "pose": "megumin-01",
+          "anchor": "right"
+        },
+        {
+          "file": "megumin/megumin-01-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.87,
+          "pose": "megumin-01",
+          "anchor": "left"
+        },
+        {
+          "file": "megumin/megumin-right.png",
+          "side": "right",
+          "w": 618,
+          "h": 1484,
+          "fade": 0.87,
+          "excluded": true,
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "milim",
+      "dir": "milim",
+      "character": "Milim Nava",
+      "characterCn": "米莉姆",
+      "work": "关于我转生变成史莱姆这档事",
+      "images": [
+        {
+          "file": "milim/milim-01-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.93,
+          "pose": "milim-01",
+          "anchor": "right"
+        },
+        {
+          "file": "milim/milim-01-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.93,
+          "pose": "milim-01",
+          "anchor": "left"
+        },
+        {
+          "file": "milim/milim-02-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.91,
+          "pose": "milim-02",
+          "anchor": "right"
+        },
+        {
+          "file": "milim/milim-03-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.93,
+          "pose": "milim-03",
+          "anchor": "right"
+        },
+        {
+          "file": "milim/milim-03-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.93,
+          "pose": "milim-03",
+          "anchor": "left"
+        },
+        {
+          "file": "milim/milim-right.png",
+          "side": "right",
+          "w": 872,
+          "h": 2093,
+          "fade": 0.93,
+          "excluded": true,
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "momiji",
+      "dir": "momiji",
+      "character": "Hozuki Momiji",
+      "characterCn": "穗月红叶 (候选 Oyama Mihari)",
+      "work": "别当欧尼酱了!",
+      "images": [
+        {
+          "file": "momiji/momiji-01-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.88,
+          "pose": "momiji-01",
+          "anchor": "right"
+        },
+        {
+          "file": "momiji/momiji-01-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.88,
+          "pose": "momiji-01",
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "remilia",
+      "dir": "remilia",
+      "character": "Remilia Scarlet",
+      "characterCn": "蕾米莉亚",
+      "work": "东方Project",
+      "images": [
+        {
+          "file": "remilia/remilia-01-left.png",
+          "side": "left",
+          "w": 806,
+          "h": 1935,
+          "fade": 0.88,
+          "pose": "remilia-01",
+          "anchor": "right"
+        },
+        {
+          "file": "remilia/remilia-01-right.png",
+          "side": "right",
+          "w": 806,
+          "h": 1935,
+          "fade": 0.88,
+          "pose": "remilia-01",
+          "anchor": "left"
+        },
+        {
+          "file": "remilia/remilia-right.png",
+          "side": "right",
+          "w": 806,
+          "h": 1935,
+          "fade": 0.88,
+          "excluded": true,
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "renge",
+      "dir": "renge",
+      "character": "Miyauchi Renge",
+      "characterCn": "宫内莲华",
+      "work": "悠哉日常大王",
+      "images": [
+        {
+          "file": "renge/renge-01-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.92,
+          "pose": "renge-01",
+          "anchor": "right"
+        },
+        {
+          "file": "renge/renge-01-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.92,
+          "pose": "renge-01",
+          "anchor": "left"
+        },
+        {
+          "file": "renge/renge-02-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.89,
+          "pose": "renge-02",
+          "anchor": "right"
+        },
+        {
+          "file": "renge/renge-02-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.89,
+          "pose": "renge-02",
+          "anchor": "left"
+        },
+        {
+          "file": "renge/renge-right.png",
+          "side": "right",
+          "w": 863,
+          "h": 2071,
+          "fade": 0.92,
+          "excluded": true,
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "shiro",
+      "dir": "shiro",
+      "character": "Shiro",
+      "characterCn": "白",
+      "work": "NO GAME NO LIFE 游戏人生",
+      "images": [
+        {
+          "file": "shiro/shiro-01-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.88,
+          "pose": "shiro-01",
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "unk-amber-blonde",
+      "dir": "unk-amber-blonde",
+      "character": "候选: 浅金发琥珀瞳少女 (未识别)",
+      "characterCn": "",
+      "work": "未识别",
+      "images": [
+        {
+          "file": "unk-amber-blonde/unk-amber-blonde-02-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.9,
+          "pose": "unk-amber-blonde-02",
+          "anchor": "right"
+        },
+        {
+          "file": "unk-amber-blonde/unk-amber-blonde-02-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.9,
+          "pose": "unk-amber-blonde-02",
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "unk-beige-long",
+      "dir": "unk-beige-long",
+      "character": "候选: 浅米色长发少女 (未识别)",
+      "characterCn": "",
+      "work": "未识别",
+      "images": [
+        {
+          "file": "unk-beige-long/unk-beige-long-01-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.91,
+          "pose": "unk-beige-long-01",
+          "anchor": "right"
+        },
+        {
+          "file": "unk-beige-long/unk-beige-long-01-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.91,
+          "pose": "unk-beige-long-01",
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "unk-beige-short",
+      "dir": "unk-beige-short",
+      "character": "候选: 浅米色短发少女 (未识别)",
+      "characterCn": "",
+      "work": "未识别",
+      "images": [
+        {
+          "file": "unk-beige-short/unk-beige-short-01-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.88,
+          "pose": "unk-beige-short-01",
+          "anchor": "right"
+        },
+        {
+          "file": "unk-beige-short/unk-beige-short-01-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.88,
+          "pose": "unk-beige-short-01",
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "unk-blonde-twintail",
+      "dir": "unk-blonde-twintail",
+      "character": "候选: 金双马尾紫瞳少女 (未识别; 源按外观匹配)",
+      "characterCn": "",
+      "work": "未识别",
+      "images": [
+        {
+          "file": "unk-blonde-twintail/unk-blonde-twintail-01-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.93,
+          "pose": "unk-blonde-twintail-01",
+          "anchor": "right"
+        }
+      ]
+    },
+    {
+      "slug": "unk-brown-twintail",
+      "dir": "unk-brown-twintail",
+      "character": "候选: 棕双马尾+耳机少女 (未识别)",
+      "characterCn": "",
+      "work": "未识别",
+      "images": [
+        {
+          "file": "unk-brown-twintail/unk-brown-twintail-01-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.93,
+          "pose": "unk-brown-twintail-01",
+          "anchor": "right"
+        },
+        {
+          "file": "unk-brown-twintail/unk-brown-twintail-01-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.93,
+          "pose": "unk-brown-twintail-01",
+          "anchor": "left"
+        },
+        {
+          "file": "unk-brown-twintail/unk-brown-twintail-02-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.92,
+          "pose": "unk-brown-twintail-02",
+          "anchor": "right"
+        },
+        {
+          "file": "unk-brown-twintail/unk-brown-twintail-02-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.92,
+          "pose": "unk-brown-twintail-02",
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "unk-strawhat",
+      "dir": "unk-strawhat",
+      "character": "候选: Koshigaya Komari 越谷小鞠 / 原创",
+      "characterCn": "",
+      "work": "悠哉日常大王 (存疑)",
+      "images": [
+        {
+          "file": "unk-strawhat/unk-strawhat-01-left.png",
+          "side": "left",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.91,
+          "pose": "unk-strawhat-01",
+          "anchor": "right"
+        },
+        {
+          "file": "unk-strawhat/unk-strawhat-01-right.png",
+          "side": "right",
+          "w": 760,
+          "h": 1824,
+          "fade": 0.91,
+          "pose": "unk-strawhat-01",
+          "anchor": "left"
+        }
+      ]
+    },
+    {
+      "slug": "vanilla",
+      "dir": "vanilla",
+      "character": "Vanilla",
+      "characterCn": "香草",
+      "work": "NEKOPARA",
+      "images": [
+        {
+          "file": "vanilla/vanilla-01-left.png",
+          "side": "left",
+          "w": 608,
+          "h": 1458,
+          "fade": 0.87,
+          "pose": "vanilla-01",
+          "anchor": "right"
+        },
+        {
+          "file": "vanilla/vanilla-01-right.png",
+          "side": "right",
+          "w": 608,
+          "h": 1458,
+          "fade": 0.87,
+          "pose": "vanilla-01",
+          "anchor": "left"
+        },
+        {
+          "file": "vanilla/vanilla-right.png",
+          "side": "right",
+          "w": 608,
+          "h": 1458,
+          "fade": 0.87,
+          "excluded": true,
+          "anchor": "left"
+        }
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "leftSlug": "chocola",
+      "rightSlug": "shiro",
+      "left": {
+        "file": "chocola/chocola-01-left.png",
+        "w": 928,
+        "h": 2227,
+        "fade": 0.88,
+        "anchor": "right"
+      },
+      "right": {
+        "file": "shiro/shiro-01-right.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.88,
+        "anchor": "left"
+      },
+      "mirrorDiff": 22.63
+    },
+    {
+      "leftSlug": "flandre",
+      "rightSlug": "vanilla",
+      "left": {
+        "file": "flandre/flandre-01-left.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.88,
+        "anchor": "right"
+      },
+      "right": {
+        "file": "vanilla/vanilla-01-right.png",
+        "w": 608,
+        "h": 1458,
+        "fade": 0.87,
+        "anchor": "left"
+      },
+      "mirrorDiff": 16.67
+    },
+    {
+      "leftSlug": "konata",
+      "rightSlug": "kotori",
+      "left": {
+        "file": "konata/konata-04-left.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.86,
+        "anchor": "right"
+      },
+      "right": {
+        "file": "kotori/kotori-02-right.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.92,
+        "anchor": "left"
+      },
+      "mirrorDiff": 20.29
+    },
+    {
+      "leftSlug": "last-order",
+      "rightSlug": "remilia",
+      "left": {
+        "file": "last-order/last-order-01-left.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.87,
+        "anchor": "right"
+      },
+      "right": {
+        "file": "remilia/remilia-01-right.png",
+        "w": 806,
+        "h": 1935,
+        "fade": 0.88,
+        "anchor": "left"
+      },
+      "mirrorDiff": 19.09
+    },
+    {
+      "leftSlug": "megumin",
+      "rightSlug": "mahiro",
+      "left": {
+        "file": "megumin/megumin-01-left.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.87,
+        "anchor": "right"
+      },
+      "right": {
+        "file": "mahiro/mahiro-02-right.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.88,
+        "anchor": "left"
+      },
+      "mirrorDiff": 30.89
+    },
+    {
+      "leftSlug": "milim",
+      "rightSlug": "momiji",
+      "left": {
+        "file": "milim/milim-01-left.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.93,
+        "anchor": "right"
+      },
+      "right": {
+        "file": "momiji/momiji-01-right.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.88,
+        "anchor": "left"
+      },
+      "mirrorDiff": 21.39
+    },
+    {
+      "leftSlug": "renge",
+      "rightSlug": "unk-amber-blonde",
+      "left": {
+        "file": "renge/renge-01-left.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.92,
+        "anchor": "right"
+      },
+      "right": {
+        "file": "unk-amber-blonde/unk-amber-blonde-02-right.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.9,
+        "anchor": "left"
+      },
+      "mirrorDiff": 12.83
+    },
+    {
+      "leftSlug": "unk-blonde-twintail",
+      "rightSlug": "komari",
+      "left": {
+        "file": "unk-blonde-twintail/unk-blonde-twintail-01-left.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.93,
+        "anchor": "right"
+      },
+      "right": {
+        "file": "komari/komari-01-right.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.93,
+        "anchor": "left"
+      },
+      "mirrorDiff": 21.33
+    },
+    {
+      "leftSlug": "unk-beige-long",
+      "rightSlug": "unk-strawhat",
+      "left": {
+        "file": "unk-beige-long/unk-beige-long-01-left.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.91,
+        "anchor": "right"
+      },
+      "right": {
+        "file": "unk-strawhat/unk-strawhat-01-right.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.91,
+        "anchor": "left"
+      },
+      "mirrorDiff": 24.11
+    },
+    {
+      "leftSlug": "unk-brown-twintail",
+      "rightSlug": "unk-beige-short",
+      "left": {
+        "file": "unk-brown-twintail/unk-brown-twintail-01-left.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.93,
+        "anchor": "right"
+      },
+      "right": {
+        "file": "unk-beige-short/unk-beige-short-01-right.png",
+        "w": 760,
+        "h": 1824,
+        "fade": 0.88,
+        "anchor": "left"
+      },
+      "mirrorDiff": 27.87
+    }
+  ],
+  "excluded": [
+    {
+      "file": "chocola/chocola-right.png",
+      "reason": "旧命名残留; 与 chocola/chocola-01-left.png 互为镜像 (重复图); 与 chocola/chocola-01-right.png 为同一张图 (重复图)"
+    },
+    {
+      "file": "flandre/flandre-right.png",
+      "reason": "旧命名残留"
+    },
+    {
+      "file": "konata/konata-right.png",
+      "reason": "旧命名残留"
+    },
+    {
+      "file": "megumin/megumin-right.png",
+      "reason": "旧命名残留"
+    },
+    {
+      "file": "milim/milim-right.png",
+      "reason": "旧命名残留"
+    },
+    {
+      "file": "remilia/remilia-right.png",
+      "reason": "旧命名残留; 与 remilia/remilia-01-left.png 互为镜像 (重复图); 与 remilia/remilia-01-right.png 为同一张图 (重复图)"
+    },
+    {
+      "file": "renge/renge-right.png",
+      "reason": "旧命名残留"
+    },
+    {
+      "file": "vanilla/vanilla-right.png",
+      "reason": "旧命名残留; 与 vanilla/vanilla-01-left.png 互为镜像 (重复图); 与 vanilla/vanilla-01-right.png 为同一张图 (重复图)"
+    }
+  ],
+  "selfCheck": {
+    "pairs": 10,
+    "minMirrorDiff": 12.83,
+    "passed": true,
+    "method": "left 水平翻转后与 right 各自白底合成并缩放到 256x614, 取 RGB 平均绝对像素差 (0-255)",
+    "characters": 20,
+    "unpaired": [],
+    "note": "实际角色目录 20 个 (非 21), 恰好配满 10 对, 无剩余; komari 与 unk-strawhat 疑似同一角色, 已避免互配"
+  }
+}
