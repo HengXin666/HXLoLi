@@ -157,23 +157,77 @@ def check_hard_wrap(masked: str, _limit: int) -> list[tuple[int, str]]:
         i = j if j > i else i + 1
     return out
 
-def check_table(masked: str, _limit: int) -> list[tuple[int, str]]:
-    """按"表格"计数而不是按"表格行"计数, 否则一张大表会刷出几十条命中。"""
+def check_table(masked: str, limit: int) -> list[tuple[int, str]]:
+    """按"表格"计数; 只报数据行 (去掉表头与分隔行) 超过 limit 的表。"""
     out: list[tuple[int, str]] = []
     start = 0
     rows = 0
-    for i, ln in enumerate(masked.splitlines(), start=1):
+    lines = masked.splitlines() + [""]
+    for i, ln in enumerate(lines, start=1):
         if re.match(r"^\s*\|.*\|\s*$", ln):
             if rows == 0:
                 start = i
             rows += 1
             continue
-        if rows:
-            out.append((start, f"一张 {rows} 行的表格"))
-            rows = 0
-    if rows:
-        out.append((start, f"一张 {rows} 行的表格"))
+        if rows and rows - 2 > limit:
+            out.append((start, f"一张 {rows - 2} 行数据的表格 (上限 {limit})"))
+        rows = 0
     return out
+
+
+SECTION_RE = re.compile(r"^## 0x[0-9A-Fa-f]{2}\b")
+
+
+def _sections(text: str) -> list[tuple[int, list[str]]]:
+    """按 `## 0xNN` 切段, 返回 (标题行号, 段内行)。frontmatter 与引入不计。"""
+    out: list[tuple[int, list[str]]] = []
+    for i, ln in enumerate(text.splitlines(), start=1):
+        if SECTION_RE.match(ln):
+            out.append((i, []))
+        elif out:
+            out[-1][1].append(ln)
+    return out
+
+
+def _tally(lines: list[str]) -> tuple[int, int]:
+    """数一段里的 (纯文字行, 视觉数)。视觉 = 图 / 围栏代码块 / 表格。"""
+    prose = visuals = 0
+    fence = in_table = False
+    for ln in lines:
+        st = ln.strip()
+        if st.startswith("```"):
+            visuals += 0 if fence else 1
+            fence = not fence
+            continue
+        is_row = bool(re.match(r"^\|.*\|$", st))
+        visuals += 1 if is_row and not in_table else 0
+        in_table = is_row
+        if fence or is_row or not st or st.startswith("#"):
+            continue
+        if st.startswith("!["):
+            visuals += 1
+            continue
+        prose += 1
+    return prose, visuals
+
+
+def check_section_visual(text: str, _limit: int) -> list[tuple[int, str]]:
+    return [(n, "这一段没有任何图 / 代码块 / 表格") for n, body in _sections(text)
+            if _tally(body)[1] == 0]
+
+
+def check_text_ratio(text: str, limit: int) -> list[tuple[int, str]]:
+    out: list[tuple[int, str]] = []
+    for n, body in _sections(text):
+        prose, vis = _tally(body)
+        if vis and prose / vis > limit:
+            out.append((n, f"{prose} 行纯文字对 {vis} 个视觉 (上限 {limit}:1)"))
+    return out
+
+
+def check_prose_budget(text: str, limit: int) -> list[tuple[int, str]]:
+    total = sum(_tally(body)[0] for _n, body in _sections(text))
+    return [(1, f"正文纯文字共 {total} 行 (上限 {limit})")] if total > limit else []
 
 CHECKERS = {
     "bold_bullet": check_bold_bullet,
@@ -184,4 +238,10 @@ CHECKERS = {
     "abstract_density": check_abstract_density,
     "hard_wrap": check_hard_wrap,
     "table": check_table,
+    "section_visual": check_section_visual,
+    "text_ratio": check_text_ratio,
+    "prose_budget": check_prose_budget,
 }
+
+# 这几个 checker 要看围栏代码块与图, 所以吃原文而不是掩码后的正文。
+RAW_CHECKERS = {"section_visual", "text_ratio", "prose_budget"}

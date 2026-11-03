@@ -1,0 +1,10 @@
+$ hx_voice.py lint --profile article index.md   (原版 skill)
+
+=== A1/index.md  [profile=article]
+  W [long-sentence] 1 处 @ 行 17
+       句长: 作者手写的中位 17 字, AI 生成的中位 34 字. 超过 43 字读起来要喘一口气
+         17: 单句 44 字 (上限 43): [遍历写 ob_refcnt, gc 写 PyGC_Head...
+  0 errors, 1 warnings
+
+PASS  0 errors, 1 warnings
+exit 0

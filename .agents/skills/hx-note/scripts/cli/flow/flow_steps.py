@@ -7,6 +7,22 @@ from pathlib import Path
 from flow.flow_core import (BY_KEY, BY_NUM, DIVERGENT_MARK, GOAL, STAGES, Flow,
                            divergence_report, repo_root, slugify)
 from flow.flow_read import goal_gate, print_status, read_answer_card
+from lib.sources_core import KINDS, breadth_report
+
+VISUALS = ("drawio", "截图", "生图", "表格", "代码")
+
+
+def storyboard_gate(path: Path) -> str:
+    """分镜每行 | 0xNN | 标题 | 主视觉 | ...; 主视觉必须是 VISUALS 之一。空串表示通过。"""
+    if not path.is_file():
+        return "缺 source/storyboard.md  步骤 6 先出分镜再写正文 (assets/storyboard-template.md)"
+    rows = [[c.strip() for c in ln.strip().strip("|").split("|")]
+            for ln in path.read_text(encoding="utf-8").splitlines()
+            if ln.lstrip().startswith("| 0x")]
+    if len(rows) < 3:
+        return "分镜只有 %d 段, 要求 3 到 6 段" % len(rows)
+    bad = [r[0] for r in rows if len(r) < 4 or not any(v in r[2] for v in VISUALS) or not r[3]]
+    return ("这些段没有填主视觉或它要证明的话: " + ", ".join(bad)) if bad else ""
 
 
 def cmd_init(args) -> int:
@@ -90,6 +106,17 @@ def cmd_done(args) -> int:
                 % (len(pending), len(items), seqs, f.slug)
                 + "加 --force 并在 --note 里写明是谁、什么时候授权的。")
 
+    if key == "collect" and not args.force and f.data.get("kind") in KINDS:
+        br = breadth_report(f.dir / "source")
+        if br.problems:
+            raise SystemExit("error: 来源广度不达标, 拒绝推进:\n  " + "\n  ".join(br.problems)
+                             + "\n  等级与格式见 steps/2-collect/impl/research.md")
+
+    if key == "derive" and not args.force:
+        why = storyboard_gate(f.locate("source/storyboard.md"))
+        if why:
+            raise SystemExit("error: " + why)
+
     if key == "atom" and not args.force:
         div = f.locate("source/divergence.md")
         n, detail = divergence_report(div)
@@ -126,3 +153,15 @@ def cmd_done(args) -> int:
     print(f"done: {stage.num} {key}")
     print_status(f)
     return 0
+
+
+def cmd_sources(args) -> int:
+    """单独跑来源广度检查, 不推进阶段。"""
+    root = repo_root(Path(args.root) if args.root else None)
+    f = Flow(root, args.slug).load()
+    b = breadth_report(f.dir / "source")
+    print("来源 %d 个 (T1 %d 个), 要点 %d 条, 反例 %d 条" % (len(b.tiers), b.t1, b.points, b.counter))
+    for line in b.problems:
+        print("  - " + line)
+    print("PASS" if not b.problems else "FAIL")
+    return 0 if not b.problems else 1

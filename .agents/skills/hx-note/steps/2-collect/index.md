@@ -8,8 +8,8 @@
 
 写进暂存区 `ai-docs/.hx-staging/<slug>/source/`
 
-- `material.md`  整理后的要点, **每条带定位** (时间戳 / 小标题 / 函数名)
-- `provenance.md`  来源类型、获取方式、获取时间、可信度、**已知缺口**
+- `material.md`  整理后的要点, **每条带来源编号与定位** (形如 `[S1 §4.2]`, 定位是时间戳 / 小标题 / 函数名); 末尾一节 `## 反例`
+- `provenance.md`  来源表 (编号 / 等级 T1 到 T3 / 获取方式 / 获取时间 / 实际读的 URL) 与**已知缺口**. 等级定义见 `impl/research.md`
 
 ## 选哪条路径
 
@@ -37,7 +37,11 @@ uv run .agents/skills/hx-note/scripts/cli/voice/hx_voice.py learn \
 
 ## 过关条件
 
-`material.md` 里每个要点都能指回 `provenance.md` 里的来源
+`material.md` 里每个要点都能指回 `provenance.md` 里的来源. `--kind article` 与 `research` 另有广度门槛 (至少 3 源, 至少 1 个 T1, 每条要点有 T1 或两个 T2, 至少 1 条反例), 由 `done collect` 检查 (实现在 `scripts/lib/sources_core.py`), 不过就拒绝推进
+
+```bash
+uv run .agents/skills/hx-note/scripts/cli/flow/hx_flow.py sources --slug <slug>
+```
 
 ## 扩展方式
 

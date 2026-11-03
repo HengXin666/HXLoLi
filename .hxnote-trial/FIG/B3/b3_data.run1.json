@@ -1,0 +1,75 @@
+{
+ "env": "python 3.12.15, Linux 6.12.110+ aarch64",
+ "layout": {
+  "page_size": 4096,
+  "float": {
+   "getsizeof": 24,
+   "ob_refcnt@0 before/after one more ref": [
+    3,
+    4
+   ],
+   "ob_type@8 == id(float)": true,
+   "ob_fval@16": 12345.5,
+   "gc_tracked": false
+  },
+  "list": {
+   "getsizeof": 64,
+   "ob_type@8 == id(list)": true,
+   "ob_size@16": 1,
+   "ob_item@24 -> items[0] is the int 7": true,
+   "allocated@32": 1,
+   "gc_tracked": true,
+   "PyGC_Head": "16 bytes before id(obj), sys.getsizeof includes it"
+  }
+ },
+ "stride": {
+  "float": {
+   "mode_bytes": 32,
+   "share": 0.997
+  },
+  "list": {
+   "mode_bytes": 64,
+   "share": 0.9959
+  }
+ },
+ "step_sweep": {
+  "float": {
+   "1": 31428,
+   "2": 31432,
+   "8": 31420,
+   "32": 31416,
+   "64": 31416,
+   "128": 31288,
+   "256": 15668,
+   "512": 7864,
+   "1024": 3960
+  },
+  "list": {
+   "1": 62808,
+   "2": 62800,
+   "8": 62784,
+   "32": 62788,
+   "64": 62532,
+   "128": 31284,
+   "256": 15664,
+   "512": 7864,
+   "1024": 3952
+  }
+ },
+ "n_sweep": {
+  "float": {
+   "125000": 3984,
+   "250000": 7904,
+   "500000": 15744,
+   "1000000": 31432,
+   "2000000": 62804
+  },
+  "list": {
+   "125000": 7904,
+   "250000": 15748,
+   "500000": 31436,
+   "1000000": 62808,
+   "2000000": 125548
+  }
+ }
+}

@@ -1,0 +1,51 @@
+# T2 gates (skill = 改造后 hx-note, 跑于 2026-11-01T14:17:35Z)
+
+$ uv run .agents/skills/hx-make-skill/scripts/validate_skill.py .agents/skills/hx-note --strict
+PASS hx-note (0 errors, 0 warnings)
+exit_code=0
+
+$ uv run .agents/skills/hx-make-skill/scripts/prose_rules.py --check .agents/skills/hx-note
+exit_code=0
+
+$ uv run .agents/skills/hx-make-skill/scripts/check_layout.py .agents/skills/hx-note
+[check_layout] PASS (hx-note)
+exit_code=0
+
+$ uv run .agents/skills/hx-note/scripts/cli/flow/hx_flow.py sources --slug sqlite-wal-starvation
+来源 5 个 (T1 4 个), 要点 16 条, 反例 3 条
+PASS
+exit_code=0
+
+$ uv run .agents/skills/hx-note/scripts/cli/flow/hx_flow.py doctor --slug sqlite-wal-starvation
+
+  [x] index.md 存在
+  [x] .hx-info.md 存在
+  [x] frontmatter 字段齐备
+  [x] 正文无 TODO 残留
+  [x] 正文无过程痕迹
+  [x] index.md AI 味检查
+  [x] index.md 标点规范
+  [x] tag 是注册表里的规范名
+  [x] .hx-info.md 原子度检查
+  [x] 两份文件 hxid 一致
+  [x] 已注册进 sidebarsAiDocs.ts
+  [x] review/voice-audit.md 判定 PASS
+  [x] review/fidelity-audit.md 判定 PASS 且新增/歪曲两节为空
+  [x] 笔记里有可复用物 (被引用的侧车或带分组名的代码块)
+  [x] 技能文档里的路径全部可达
+  [x] 侧车全部被正文引用
+  [i] 发散记录 (>=4 条带判据的产出; 当前 4 条, 已在 done atom 硬拦)
+
+PASS  16/16 项通过
+exit_code=0
+
+$ uv run .agents/skills/hx-note/scripts/cli/voice/hx_voice.py lint T2/index.md --profile article
+
+=== ai-docs/004-工具链/006-SQLite-WAL的检查点饥饿/index.md  [profile=article]
+  W [long-sentence] 1 处 @ 行 19
+       句长: 作者手写的中位 17 字, AI 生成的中位 34 字. 超过 43 字读起来要喘一口气
+         19: 单句 46 字 (上限 43): 例外有三种: 独占锁模式、最后一个连接正在清理、正在恢复, ...
+  0 errors, 1 warnings
+
+PASS  0 errors, 1 warnings
+exit_code=0

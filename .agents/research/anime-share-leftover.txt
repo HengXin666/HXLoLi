@@ -1,0 +1,3 @@
+1. DELETE .agents/notes/implemented/feature/2026-11-01-anime-share-link-delivery.md -> HTTP 404, 返回 {"error":{"code":"not_found","message":"not found","retryable":false}}, 之后目录里文件仍在 (本次复测同样 404): 通道不支持 DELETE, 未删成.
+2. src/components/anime/AnimeShare 是 0 字节空文件, 不是我写的: 我本任务第一次列目录 (尚未写任何文件) 时它已存在, .hark-bak 里也没有它的备份; 推测是更早有人想建 AnimeShare 目录失败留下的 (推测).
+3. 两个残留我都删不了 (通道不支持 DELETE, 也不改用清空或写成合法 note 绕过), 请在本机执行: rm .agents/notes/implemented/feature/2026-11-01-anime-share-link-delivery.md src/components/anime/AnimeShare

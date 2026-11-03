@@ -27,7 +27,7 @@ for _p in (Path(__file__).resolve().parents[1], Path(__file__).resolve().parents
 from flow.flow_doctor import cmd_doctor  # noqa: E402
 from flow.flow_place import cmd_brief, cmd_cover, cmd_place  # noqa: E402
 from flow.flow_read import cmd_list, cmd_status  # noqa: E402
-from flow.flow_steps import cmd_done, cmd_init  # noqa: E402
+from flow.flow_steps import cmd_done, cmd_init, cmd_sources  # noqa: E402
 
 
 def main(argv=None) -> int:
@@ -91,6 +91,10 @@ def main(argv=None) -> int:
     bf = sub.add_parser("brief", help="把待审的题、被审对象、作答方法一次打全 (给人看的)")
     bf.add_argument("--slug", required=True)
     bf.set_defaults(func=cmd_brief)
+
+    so = sub.add_parser("sources", help="阶段 2: 来源分级与广度门槛 (done collect 也会查)")
+    so.add_argument("--slug", required=True)
+    so.set_defaults(func=cmd_sources)
 
     dc = sub.add_parser("doctor", help="阶段 9: 跑全部交付闸门")
     dc.add_argument("--slug", required=True)

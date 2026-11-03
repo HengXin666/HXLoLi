@@ -8,7 +8,8 @@
 
 ## 产物
 
-`index.md`, 结构按模板 (默认「兴趣&展望」); 它引用的图与侧车**与它同目录**. 素材是一套可照做的做法时, 额外产出 `impl/reusable-spec.md` 的第五层那几件(骨架 / 令牌 / 门禁脚本 / 复现件 / 演示页)  这些是侧车, 不是第三份知识产物
+- `source/storyboard.md`  分镜, **先于正文写**. 格式 `../../assets/storyboard-template.md`. 每段一个主视觉, 写清它要证明的一句话
+- `index.md`, 结构按模板 (默认「兴趣&展望」); 它引用的图与侧车**与它同目录**. 素材是一套可照做的做法时, 额外产出 `impl/reusable-spec.md` 的第五层那几件(骨架 / 令牌 / 门禁脚本 / 复现件 / 演示页)  这些是侧车, 不是第三份知识产物
 
 ## 实现
 
@@ -26,10 +27,18 @@
 **规格类素材优先走 `reusable-spec.md`**: 素材是"别人怎么搭出来的"或"自己刚定下的一套约定"时,
 光写原理等于白写  读者能懂但拿不到东西. 选模板前先问一句: **读者读完是要"哦原来如此", 还是要"我也去搭一个"?** 后者用 `reusable-spec.md`
 
+## 写作顺序 (不许倒过来)
+
+先图后字. 旧顺序是先写完正文再找地方配图, 结果图只能重复文字已经讲完的东西
+
+1. **分镜**: 写 `source/storyboard.md`, 每个 `## 0xNN` 先定主视觉 (drawio / 截图 / 生图 / 表格 / 代码) 与它要证明的一句话. 分镜给人看过再往下
+2. **仿写引入**: 读 `../../shared/voice/impl/exemplars.md` 的作者真文, 照着语气只写引入段
+3. **逐段落字**: 每段先放主视觉, 再写接住它的一两句话. 预算是可数的, 见 `../../templates/interest-outlook.md` 的槽位表
+
 动笔前要拿到**三样**输入
 
 1. **用户画像**  `scripts/cli/persona/hx_persona.py` 产出
-2. **已积累的好/坏表达**  `scripts/cli/voice/hx_voice.py samples`
+2. **已积累的好/坏表达**  `scripts/cli/voice/hx_voice.py samples`, 加整段的作者真文 `../../shared/voice/impl/exemplars.md`
 3. **引入的素材**  步骤 1 记在 `intake.md` 里的那次具体遭遇
 
 第 3 样最容易被跳过, 也最要命. **引入不许在这里现编.** 到这里你手上只有一份整理好的知识, 如果现在才想开头, 只能"为主题回找一个合适的入口"  那是倒推的
@@ -46,7 +55,9 @@
 uv run .agents/skills/hx-note/scripts/cli/voice/hx_voice.py lint <index.md> --profile article
 ```
 
-**零 E 级命中**才推进
+**零 E 级命中**才推进. E 级里包括 `section-visual` (某段没有主视觉) 与超过 5 行的表格; `text-ratio` 是 W 级, 命中时在 `.hx-mitemite.md` 写明为什么这段只能用字讲
+
+`done derive` 另查 `source/storyboard.md` 存在
 
 ## 扩展方式
 

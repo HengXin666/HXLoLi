@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from lib.textpaths import expand_markdown
-from voice.voice_checks import CHECKERS, LIST_ITEM_RE, line_of, mask
+from voice.voice_checks import CHECKERS, LIST_ITEM_RE, RAW_CHECKERS, line_of, mask
 from voice.voice_corpus import find_voice_db, load_voice_db
 from voice.voice_rules import E, PARA_LIMIT, RULES, W
 
@@ -49,7 +49,8 @@ def lint_file(path: Path, profile: str, *, allow_table: bool, db: dict) -> FileR
             continue
         if rule.checker:
             limit = PARA_LIMIT[profile] if rule.checker == "long_para" else rule.limit
-            for lineno, detail in CHECKERS[rule.checker](masked, limit):
+            src = text if rule.checker in RAW_CHECKERS else masked
+            for lineno, detail in CHECKERS[rule.checker](src, limit):
                 rep.hits.append(Hit(rule.rid, rule.sev, lineno, detail, rule.why))
             continue
         for m in re.finditer(rule.pattern, masked, rule.flags):

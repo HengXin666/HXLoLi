@@ -416,3 +416,40 @@ source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审�
 text = "动态审查的价值, 会越来越取决于能否留下可重放的证据."
 why = "盲审发现说明后追加抽象评价、预设反驳或扩大结论; 改为具体接口或已验证范围"
 source = "ai-docs/003-AI/003-Agent-Harness/002-oh-my-pi原生调试与代码审查/index.md"
+
+[[bad]]
+text = "直通在这组负载下不让任务更快更好, 它省的是 Router 的 token"
+why = "不是X而是Y的变体: 不让.../它省的是..., 正则漏掉"
+pattern = "不让[^,，.。]{1,12}[,，]\\s*(?:它)?省的是"
+source = "ai-docs/003-AI/003-Agent-Harness/003-DSH/004-Super-agent设计探索双层架构与事件驱动/index.md"
+
+[[bad]]
+text = "用后台算力换人的等待."
+why = "段尾口号式短句, 把上文已说清的内容再压一遍"
+source = "ai-docs/003-AI/003-Agent-Harness/003-DSH/004-Super-agent设计探索双层架构与事件驱动/index.md"
+
+[[bad]]
+text = "每个设计都有人付账"
+why = "小节开头格言式起句, 修辞多于信息"
+source = "ai-docs/003-AI/003-Agent-Harness/003-DSH/004-Super-agent设计探索双层架构与事件驱动/index.md"
+
+[[bad]]
+text = "这是我对照 3.1 与 3.2 两节归纳的, 原文没有这样合并表述"
+why = "每个 TIP 末尾都挂同一种出处声明, 诚实标注被模板化; 声明位置与句式要打散"
+source = "ai-docs/003-AI/003-Agent-Harness/003-DSH/004-Super-agent设计探索双层架构与事件驱动/index.md"
+
+[[bad]]
+text = "多任务 Agent 接下来比的会是把多少判断写成程序状态, 不会是模型本身"
+why = "个人判断式收束 + 比的是X不是Y 对立句式, 把一节 TIP 拔高成全篇结论"
+pattern = "比的(?:会)?是[^,，.。]{2,30}[,，]\\s*不(?:会)?是"
+source = "ai-docs/003-AI/003-Agent-Harness/003-DSH/004-Super-agent设计探索双层架构与事件驱动/index.md"
+
+[[good]]
+text = "原文 13 张配图我没做文字识别, 细节以正文为准."
+why = "主动交代没覆盖的范围并给出具体数目"
+source = "ai-docs/003-AI/003-Agent-Harness/003-DSH/004-Super-agent设计探索双层架构与事件驱动/index.md"
+
+[[good]]
+text = "文末提到的实现插件名在 B 站接口返回里是空的 [不确定]"
+why = "承认数据缺口, 不编名字补上"
+source = "ai-docs/003-AI/003-Agent-Harness/003-DSH/004-Super-agent设计探索双层架构与事件驱动/index.md"

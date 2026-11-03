@@ -54,6 +54,7 @@ $F done <stage> --slug "<slug>" --note "<结论>"   # 产物没落盘会被拒
 $F place  --slug "<slug>" --to "ai-docs/<分类>/<NNN-标题>" --title "<标题>" --tag "<tag>"
 $F brief  --slug "<slug>"        # 步骤 4: 把待审的题与目标契约端给人类 (贴进对话, 再停下等答)
 $F cover  --slug "<slug>"        # 需求覆盖: 哪条验收条款零支撑 (= 从没被实现过)
+$F sources --slug "<slug>"       # 步骤 2: 来源分级与广度门槛
 $F doctor --slug "<slug>"        # 步骤 9: 全部交付闸门
 ```
 
@@ -65,7 +66,7 @@ $F doctor --slug "<slug>"        # 步骤 9: 全部交付闸门
 
 | 能力 | 契约 | 被谁用 |
 |---|---|---|
-| **voice** 去 AI 味与盲审 | `shared/voice/index.md` | 步骤 3 / 6 / 7 / 8 |
+| **voice** 去 AI 味与盲审 (含作者真文样本) | `shared/voice/index.md` | 步骤 3 / 6 / 7 / 8 |
 | 平台 markdown 语法 (含演示页两种形态) | `shared/hxloli-md.md` | 步骤 6 写正文前读一次, 决定用哪种内嵌 |
 | 产出物清单与本地联动 | `shared/pipeline.md` | 步骤 9 |
 | 该用哪个模型 | `shared/model-selection.md` | 任何一步要传 `--model` 时 |
@@ -102,6 +103,7 @@ $F doctor --slug "<slug>"        # 步骤 9: 全部交付闸门
 | `scripts/cli/identity/hx_docs_id.py` | hxid 分配与校验 | 存量整理 |
 | `scripts/cli/transcribe/hx_look_video_prepare.py` | 解析输入、准备 transcript | 转写媒体 |
 | `scripts/cli/voice/review-paragraphs.py` | 逐段测「格言化」(jev), 挑出该看哪几段 | 步骤 6 / 7 |
+| `scripts/lib/sources_core.py` | 来源分级 (T1 到 T3) 与广度门槛; `done collect` 自动查, `hx_flow.py sources` 单独查; 内部件 | 步骤 2 |
 
 `scripts/cli/` 下按域分目录, 共 flow / voice / textfmt / taxonomy / identity / authoring / illustration / persona / mitemite / transcribe 十个域: 每个域的入口脚本可直接 `uv run`, 兄弟模块只被 import
 
@@ -118,12 +120,13 @@ steps/2-collect/impl/layout.json
 
 | 文件 | 是什么, 什么时候读 |
 |---|---|
-| `templates/interest-outlook.md` | 默认文章结构, 写正文前选它 |
+| `templates/interest-outlook.md` | 默认文章结构: 写作顺序 (分镜, 仿写引入, 图先行) 与可数的槽位预算 |
 | `templates/problem-solution.md` | 踩坑复盘结构, 素材是一段调试过程时用 |
 | `templates/reusable-spec.md` | 照做型规格: 骨架 / 库 / 分层 / 写法偏好 / 可拷走的件 |
 | `templates/_registry.md` | 模板索引; 加一个模板文件即在此登记 |
 | `assets/info-template.md` | `.hx-info.md` 的骨架, 阶段 3 用 |
 | `assets/divergence-template.md` | 发散记录格式; 算子见 `steps/3-atom/impl/divergence.md` |
+| `assets/storyboard-template.md` | 分镜格式, 阶段 6 先于正文写; 每段一个主视觉 |
 | `assets/goal-template.md` | 目标与验收契约; 需求唯一事实源, 阶段 1 起由 `grill.md` 锐化术语 |
 | `assets/voice-audit-prompt.md` | 味道盲审的 prompt, 阶段 7 用 |
 | `assets/fidelity-audit-prompt.md` | 保真盲审的 prompt, 阶段 8 用 |
