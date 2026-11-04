@@ -936,3 +936,30 @@
         transition: none;
     }
 }
+
+/* 推荐分类徽章 (物凄い / ロリ / シスコン): 点击进 /anime/susume/<slug> 专属页, 不是 ?tag= 筛选. 2026-11-04 tag 重构 */
+.susumeBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #3a2600;
+    background: linear-gradient(135deg, #ffe29a, #ffb84d);
+    border: 1px solid rgba(255, 184, 77, 0.9);
+    box-shadow: 0 1px 6px rgba(255, 184, 77, 0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.susumeBadge:hover {
+    text-decoration: none;
+    color: #3a2600;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(255, 184, 77, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .susumeBadge { transition: none; }
+}

@@ -1,10 +1,9 @@
 import React from "react";
-import { ANIME_TAG_DEFS } from "@site/data/animeTags";
 import Select from "@site/src/components/common/Tooltip/Select";
 import { getOverlayEntry, setOverlayEntry } from "@site/src/utils/anime/animeStore";
 import { STATUS_OPTIONS } from "@site/src/utils/anime/filters";
 import { AnimeOverlayEntry, sanitizeOverlayEntry } from "@site/src/utils/anime/overlay";
-import { getRecordTags } from "@site/src/utils/anime/tags";
+import { getRecordTags, susumeDefOfTag } from "@site/src/utils/anime/tags";
 import { ANiMeRecord, WatchStatus } from "@site/src/utils/anime/types";
 import styles from "./OverlayEditor.module.css";
 
@@ -12,7 +11,9 @@ import styles from "./OverlayEditor.module.css";
  * 本人标注编辑器, **只在 dev 下存在**: 由 src/components/home/lazyChunks.js 按 NODE_ENV 常量导出,
  * 生产构建里那个 import() 在 webpack 解析阶段就被裁掉, 本文件与写入地址都不会进包.
  * 保存 = PUT /__hx/anime-overlay/<id> (plugins/anime-overlay-plugin.mjs 写 data/animeOverlay.json), 删除 = DELETE.
- * 只提交"已有 overlay 的字段"与"改过的字段", 没碰的字段继续跟随 CDN / data/animeTags.ts.
+ * 只提交"已有 overlay 的字段"与"改过的字段", 没碰的字段继续跟随 CDN.
+ * 2026-11-04 tag 重构: 这里**不再编辑标签** (animeOverlay.json 的 tags 已废弃不读), 只读展示人工标注 data/labels/<id>.json;
+ * 改标签走 HXLoLi-ANiMe 的标注 PR / issue (hx-anime-tag-refactor-design.md 第 5-6 节). 保存时旧的 tags 字段不再写回.
  * .agents/notes/implemented/feature/2026-11-01-anime-local-overlay.md
  */
 const ENDPOINT = "/__hx/anime-overlay/";
@@ -23,7 +24,6 @@ interface Form {
     watch_status: number;
     watched_eps: number;
     rate: number;
-    tags: string[];
     comment: string;
 }
 
@@ -32,12 +32,9 @@ function formOf (record: ANiMeRecord): Form {
         watch_status: record.user_status.watch_status,
         watched_eps: record.user_status.watched_eps,
         rate: record.user_status.rate ?? 0,
-        tags: [...getRecordTags(record)],
         comment: record.user_status.comment ?? "",
     };
 }
-
-const sameTags = (a: readonly string[], b: readonly string[]) => a.length === b.length && a.every((t, i) => t === b[i]);
 
 async function call (method: "PUT" | "DELETE", id: number, body?: AnimeOverlayEntry): Promise<AnimeOverlayEntry | null> {
     const res = await fetch(`${ENDPOINT}${id}`, {
@@ -54,21 +51,14 @@ export default function OverlayEditor ({ record }: { record: ANiMeRecord }): Rea
     const id = record.anime_data.id;
     const initial = React.useMemo(() => formOf(record), [record]);
     const [form, setForm] = React.useState<Form>(initial);
-    const [draftTag, setDraftTag] = React.useState("");
     const [busy, setBusy] = React.useState(false);
     const [msg, setMsg] = React.useState<{ ok: boolean; text: string } | null>(null);
     const existing = getOverlayEntry(id);
+    const labelTags = getRecordTags(record);
 
     React.useEffect(() => { setForm(initial); }, [initial]);
 
     const patch = (p: Partial<Form>) => { setForm((f) => ({ ...f, ...p })); setMsg(null); };
-
-    const addTag = (raw: string) => {
-        const t = raw.trim();
-        if (!t || form.tags.includes(t)) { setDraftTag(""); return; }
-        patch({ tags: [...form.tags, t] });
-        setDraftTag("");
-    };
 
     const body = (): AnimeOverlayEntry => {
         const out: AnimeOverlayEntry = {};
@@ -76,7 +66,6 @@ export default function OverlayEditor ({ record }: { record: ANiMeRecord }): Rea
         if (keep("watch_status") || form.watch_status !== initial.watch_status) out.watch_status = form.watch_status as WatchStatus;
         if (keep("watched_eps") || form.watched_eps !== initial.watched_eps) out.watched_eps = form.watched_eps;
         if (form.rate > 0 && (keep("rate") || form.rate !== initial.rate)) out.rate = form.rate;
-        if (keep("tags") || !sameTags(form.tags, initial.tags)) out.tags = form.tags;
         if (keep("comment") || form.comment !== initial.comment) out.comment = form.comment;
         return out;
     };
@@ -141,27 +130,11 @@ export default function OverlayEditor ({ record }: { record: ANiMeRecord }): Rea
 
                 <span className={styles.label}>标签</span>
                 <div className={styles.tags}>
-                    {form.tags.map((t) => (
-                        <span key={t} className={styles.chip}>
-                            {t}
-                            <button type="button" aria-label={`去掉标签 ${t}`} onClick={() => patch({ tags: form.tags.filter((x) => x !== t) })}>×</button>
-                        </span>
+                    {labelTags.length === 0 && <span className={styles.muted}>未标注</span>}
+                    {labelTags.map((t) => (
+                        <span key={t} className={styles.chip} title={susumeDefOfTag(t) ? "推荐分类" : "普通标注"}>{t}</span>
                     ))}
-                    <input
-                        className={`${styles.input} ${styles.tagInput}`}
-                        list="ov-tag-defs"
-                        placeholder="加标签, 回车"
-                        aria-label="新标签"
-                        value={draftTag}
-                        onChange={(e) => setDraftTag(e.target.value)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") { e.preventDefault(); addTag(draftTag); }
-                            else if (e.key === "Backspace" && !draftTag && form.tags.length) patch({ tags: form.tags.slice(0, -1) });
-                        }}
-                    />
-                    <datalist id="ov-tag-defs">
-                        {ANIME_TAG_DEFS.map((d) => <option key={d.tag} value={d.tag} />)}
-                    </datalist>
+                    <span className={styles.muted}>只读: 来自 HXLoLi-ANiMe data/labels, 改标签请走标注 PR</span>
                 </div>
 
                 <label className={styles.label} htmlFor="ov-comment">评论</label>

@@ -282,3 +282,17 @@
         transition: none;
     }
 }
+
+/* 推荐分类徽章 (物凄い / ロリ / シスコン): 链到 /anime/susume/<slug>, 不是筛选按钮. 2026-11-04 tag 重构 */
+.susumeTag {
+    border-color: rgba(255, 196, 64, 0.55);
+    background: rgba(255, 196, 64, 0.12);
+    color: #ffd27a;
+    font-weight: 600;
+}
+
+.susumeTag:hover {
+    text-decoration: none;
+    border-color: #ffc440;
+    color: #ffc440;
+}

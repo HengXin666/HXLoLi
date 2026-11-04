@@ -10,7 +10,7 @@ import { FaCodeBranch, FaExternalLinkAlt, FaShareAlt, FaStar } from "react-icons
 import { useActorMap, useAnimeRecordsState } from "@site/src/utils/anime/animeStore";
 import { toAnimeCdnUrl } from "@site/src/utils/cdn/linkJsDelivr";
 import { Actor, ANiMeRecord, Character, Episode, EpisodeType, Relation, WatchStatus } from "@site/src/utils/anime/types";
-import { ANIME_TAG_QUERY, getRecordTags } from "@site/src/utils/anime/tags";
+import { ANIME_TAG_QUERY, getRecordTags, susumeDefOfTag, susumePath } from "@site/src/utils/anime/tags";
 import { animeSeasonOf, normalEpisodeCount, statusLabel } from "@site/src/utils/anime/filters";
 import { formatMmSs } from "@site/src/utils/formatTime";
 import Tooltip from "@site/src/components/common/Tooltip";
@@ -131,9 +131,17 @@ function Hero ({ record, coverUrl }: { record: ANiMeRecord; coverUrl: string }):
 
                     {tags.length > 0 && (
                         <div className={styles.tagRow}>
-                            {tags.map((tag) => (
-                                <Link key={tag} to={`/anime?${ANIME_TAG_QUERY}=${encodeURIComponent(tag)}`} className={styles.tag}>#{tag}</Link>
-                            ))}
+                            {/* 标签只读人工标注 data/labels (utils/anime/tags.ts); 推荐分类渲染成徽章进专属页, 普通标注走 ?tag= 筛选 */}
+                            {tags.map((tag) => {
+                                const susume = susumeDefOfTag(tag);
+                                return susume ? (
+                                    <Link key={tag} to={susumePath(susume)} className={styles.susumeBadge} title={`${susume.subtitle}: 进入「${tag}」专属页`}>
+                                        ★ {tag}
+                                    </Link>
+                                ) : (
+                                    <Link key={tag} to={`/anime?${ANIME_TAG_QUERY}=${encodeURIComponent(tag)}`} className={styles.tag}>#{tag}</Link>
+                                );
+                            })}
                         </div>
                     )}
 

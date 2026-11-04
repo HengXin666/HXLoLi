@@ -6,13 +6,15 @@ import { ANiMeRecord, WatchStatus } from "@site/src/utils/anime/types";
  *
  * 优先级 (逐字段, 只看 overlay 里出现了的字段):
  *   - watch_status / watched_eps / comment / rate: overlay > CDN user_status.
- *   - tags: overlay 写了 tags 就是这部番的**最终标签列表**, data/animeTags.ts 与 CDN user_status.tags 都不再参与;
- *           没写 tags 时照旧 = animeTags.ts ∪ CDN tags (见 utils/anime/tags.ts).
- *   - 删掉某部番的 overlay 条目 = 回到 CDN + animeTags.ts.
+ *   - tags: **已废弃, 不再读取** (2026-11-04 tag 重构, hx-anime-tag-refactor-design.md 第 4 / 10 节).
+ *           标签只来自人工标注 HXLoLi-ANiMe/data/labels/<id>.json (见 utils/anime/labels.ts 与 tags.ts);
+ *           animeOverlay.json 里残留的 tags 字段原样保留在文件里但不参与渲染, 也不再覆盖 user_status.tags.
+ *   - 删掉某部番的 overlay 条目 = 回到 CDN 数据.
  * 写入只在 dev 下经 plugins/anime-overlay-plugin.mjs 完成; 本模块只读, 生产构建也只读这份文件.
  * .agents/notes/implemented/feature/2026-11-01-anime-local-overlay.md
  */
 export interface AnimeOverlayEntry {
+    /** @deprecated 2026-11-04 起不再读取 (标签只认 data/labels 人工标注); 只为读旧文件不报错而保留 */
     tags?: string[];
     watch_status?: WatchStatus;
     watched_eps?: number;
@@ -55,28 +57,20 @@ function sanitizeOverlay (raw: unknown): AnimeOverlay {
 /** 构建时打进包里的 overlay (dev 下改文件后由 HMR 更新) */
 export const ANIME_OVERLAY: Readonly<AnimeOverlay> = Object.freeze(sanitizeOverlay(overlayJson));
 
-/** 被 overlay 接管了标签的记录 -> 最终标签; tags.ts 先查这里 */
-const tagOverride = new WeakMap<ANiMeRecord, readonly string[]>();
-
-export function overlayTagsOf (record: ANiMeRecord): readonly string[] | undefined {
-    return tagOverride.get(record);
-}
-
 /** overlay 盖到一条记录上; 没有条目时原样返回 (同一个对象, 缓存不失效) */
 export function applyOverlayEntry (record: ANiMeRecord, entry: AnimeOverlayEntry | undefined | null): ANiMeRecord {
     if (!entry) return record;
-    const { tags, rate, updated_at: _u, ...status } = entry;
-    const next: ANiMeRecord = Object.freeze({
+    // tags 已废弃: 解构出来丢掉, 既不接管标签也不覆盖 user_status.tags (标签只读 data/labels)
+    const { tags: _deprecatedTags, rate, updated_at: _u, ...status } = entry;
+    if (Object.keys(status).length === 0 && rate === undefined) return record;
+    return Object.freeze({
         anime_data: record.anime_data,
         user_status: Object.freeze({
             ...record.user_status,
             ...status,
             ...(rate !== undefined ? { rate } : {}),
-            ...(tags ? { tags } : {}),
         }),
     });
-    if (tags) tagOverride.set(next, Object.freeze([...new Set(tags)]));
-    return next;
 }
 
 export function applyOverlay (records: readonly ANiMeRecord[], overlay: Readonly<AnimeOverlay> = ANIME_OVERLAY): ANiMeRecord[] {

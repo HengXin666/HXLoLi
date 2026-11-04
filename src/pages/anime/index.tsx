@@ -3,10 +3,13 @@ import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import { useHistory, useLocation } from "@docusaurus/router";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { useBaseUrlUtils } from "@docusaurus/useBaseUrl";
 import PosterCard, { AnimeView } from "@site/src/components/anime/AnimeCard/PosterCard";
 import { FilterBar } from "@site/src/components/anime/Tag/FilterBar";
 import AnimeShareBoard from "@site/src/components/anime/AnimeShareBoard";
-import { useAnimeRecordsState } from "@site/src/utils/anime/animeStore";
+import SusumeEntryCards from "@site/src/components/anime/SusumeEntryCards";
+import { useAnimeLabelsStatus, useAnimeRecordsState } from "@site/src/utils/anime/animeStore";
+import { ANIME_TAG_QUERY, susumeDefOfTag, susumePath } from "@site/src/utils/anime/tags";
 import {
     activeConditions,
     AnimeFilters,
@@ -25,6 +28,20 @@ import styles from "./AnimeIndexPage.module.css";
 const SKELETON_COUNT = 12;
 
 /**
+ * 旧式链接 /anime?tag=物凄い (以及 ?tag=ロリ / シスコン / 萝莉 / 妹控, 多选里带上任一个也算) -> 对应 /anime/susume/<slug>.
+ * 推荐分类只有专属页一个入口, 不再作为 ?tag= 筛选 (hx-anime-tag-refactor-design.md 第 3.1 节).
+ * 站点是静态构建, 查询串上的跳转做不了服务端 301, 这里用客户端 replace (不留历史, 后退不会再弹回来).
+ */
+function legacySusumeTarget (search: string): string | null {
+    const raw = new URLSearchParams(search).get(ANIME_TAG_QUERY) ?? "";
+    for (const t of raw.split(",")) {
+        const def = susumeDefOfTag(t.trim());
+        if (def) return susumePath(def);
+    }
+    return null;
+}
+
+/**
  * 番剧库. 筛选状态全部在 URL 上 (见 utils/anime/filters.ts), 默认显示全部状态、按最近更新排序;
  * 只有视图密度 (海报 / 列表) 存本地. 点选类改动 push 一条历史 (后退能撤回上一步筛选), 搜索输入用 replace.
  * 加载中显示骨架, 拉取失败显示错误与重试, 筛空时给出"去掉哪个条件能看到几部"的一键撤销.
@@ -33,12 +50,21 @@ const SKELETON_COUNT = 12;
  * 能切卡片 / 表格、勾选、生成链接、生成并预览分享图; 弹窗里不改地址栏. 只在打开时挂载, 关着不画图.
  * 真模态: showModal 让页面其余部分 inert (焦点留在弹窗内); 点遮罩与 Esc 都不关 (onCancel 拦掉), 只能点右上角 ✕ (弹窗自身不滚, 内容在 .shareBody 里滚, 按钮不会被盖住).
  * .agents/notes/implemented/feature/2026-11-01-anime-share-on-index.md
+ * 2026-11-04 tag 重构: 顶部三张推荐分类大入口卡 (物凄い / ロリ / シスコン, 封面拼贴 + 数量, 进 /anime/susume/<slug>);
+ * 标签只读人工标注 data/labels (utils/anime/tags.ts), 普通九项标注仍走 ?tag= 筛选; 旧式 ?tag=物凄い 等跳到专属页 (见 legacySusumeTarget).
  */
 export default function AnimeIndexPage (): React.ReactNode {
     const { siteConfig } = useDocusaurusContext();
     const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl);
     const location = useLocation();
     const history = useHistory();
+    const labelsStatus = useAnimeLabelsStatus();
+    const { withBaseUrl } = useBaseUrlUtils();
+
+    const legacyTarget = legacySusumeTarget(location.search);
+    React.useEffect(() => {
+        if (legacyTarget) history.replace(withBaseUrl(legacyTarget));
+    }, [legacyTarget, history, withBaseUrl]);
 
     const filters = React.useMemo(() => parseFilters(location.search), [location.search]);
     const [view, setView] = usePersistent<AnimeView>(`${siteConfig.baseUrl}/anime/:view`, "grid");
@@ -164,6 +190,8 @@ export default function AnimeIndexPage (): React.ReactNode {
                         <Link to="/anime/graph">番剧关系图 →</Link>
                     </div>
                 </header>
+                <SusumeEntryCards records={records} labelsStatus={labelsStatus} />
+
                 {records.length > 0 && (
                     <ul className={styles.stats} aria-label="各状态部数">
                         <li>共 <b>{records.length}</b> 部</li>

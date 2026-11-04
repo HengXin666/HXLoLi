@@ -24,7 +24,7 @@ const formatDate = (dateString: string) => {
 };
 
 /**
- * 番剧页时间线上的一张卡. 标签取 getRecordTags (本站标签表 data/animeTags.ts + user_status.tags), 不只读 user_status.tags.
+ * 番剧页时间线上的一张卡. 标签取 getRecordTags: 2026-11-04 起只读人工标注 data/labels (不再读 data/animeTags.ts 分配表与 user_status.tags), 未标注不显示.
  * .agents/notes/implemented/feature/2026-11-01-anime-tags-and-home-anime.md
  */
 export default function AnimeCard ({
