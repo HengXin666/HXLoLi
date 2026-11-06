@@ -330,60 +330,58 @@
  * 在追的番 (HomeAnime): 与"最近更新"同一种写法, 不套面板.
  * 计数是一行文字 (dt 小字 + dd 等宽数字, 中间 1px 竖线), 列表是 1px 分隔的行, 页脚放标签与"全部追番".
  */
-.anime { display: flex; flex-direction: column; gap: 12px; }
-.animeSkeleton { min-height: 360px; border-top: 1px solid var(--hx-line); border-bottom: 1px solid var(--hx-line); }
-.animeStats { display: flex; flex-wrap: wrap; margin: 0; }
-.animeStats > div { display: flex; align-items: baseline; gap: 6px; padding: 0 14px; border-left: 1px solid var(--hx-line); }
-.animeStats > div:first-child { padding-left: 0; border-left: 0; }
-.animeStats dt { font-size: 12px; color: var(--hx-faint); }
-.animeStats dd { margin: 0; font: 600 15px/1.4 var(--ifm-font-family-monospace); font-variant-numeric: tabular-nums; }
-.animeStats > div:first-child dd { color: var(--ifm-color-primary); }
-
-.animeList { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hx-line); }
-.animeList li { border-bottom: 1px solid var(--hx-line); }
-.animeRow {
+.anime { display: flex; flex-direction: column; gap: 16px; }
+.animeSkeleton { min-height: 300px; border-radius: 12px; background: rgba(255, 255, 255, 0.04); }
+.animeStats {
   display: grid;
-  grid-template-columns: 36px minmax(0, 1fr) 140px 36px 84px;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 4px;
-  color: var(--ifm-font-color-base);
-  text-decoration: none !important;
-  transition: background-color 150ms var(--hx-ease), padding-left 150ms var(--hx-ease);
-}
-.animeRow:hover { background: var(--hx-surface); padding-left: 8px; }
-.animeRow:hover .animeName { color: var(--ifm-color-primary); }
-.animeThumb {
-  width: 36px;
-  height: 51px;
-  object-fit: cover;
-  border-radius: 3px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
   border: 1px solid var(--hx-line);
-  background: var(--ifm-color-emphasis-100);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--hx-line);
 }
-.animeTitle { display: grid; min-width: 0; line-height: 1.35; }
-.animeName { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 150ms var(--hx-ease); }
-.animeOrig { font-size: 12px; color: var(--hx-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.animeProg { display: flex; align-items: center; gap: 8px; }
-.animeBar { flex: 1; height: 2px; background: var(--hx-line); }
-.animeBar > span { display: block; height: 100%; background: var(--ifm-color-primary); }
-.animeEps, .animeScore, .animeDate { font: 12px/1 var(--ifm-font-family-monospace); color: var(--hx-faint); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.animeEps { min-width: 40px; text-align: right; }
-.animeScore { text-align: right; color: var(--ifm-font-color-base); }
-.animeDate { text-align: right; }
-
-.animeFoot { display: flex; align-items: baseline; gap: 16px; }
-.animeFoot .feedAll { margin: 0 0 0 auto; white-space: nowrap; }
-.animeTags { display: flex; flex-wrap: wrap; gap: 4px 14px; min-width: 0; }
-.animeTag, .animeTagHot {
-  font-size: 13px;
-  color: var(--hx-muted);
+.animeStat { background: var(--ifm-background-color); padding: 8px 12px; }
+.animeStat dd { margin: 0; font: 600 20px/1.2 var(--ifm-font-family-monospace); font-variant-numeric: tabular-nums; }
+.animeStat dt { font-size: 11px; color: var(--hx-faint); }
+.animeStat:first-child dd { color: var(--ifm-color-primary); }
+.animeCovers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+.animeCover { display: flex; flex-direction: column; gap: 4px; color: var(--ifm-font-color-base); text-decoration: none !important; }
+.animeCover img {
+  width: 100%;
+  aspect-ratio: 12 / 17;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--hx-line);
+  background: rgba(255, 255, 255, 0.04);
+  transition: border-color 150ms var(--hx-ease), transform 150ms var(--hx-ease);
+}
+.animeCover:hover img { border-color: var(--ifm-color-primary); transform: translateY(-2px); }
+.animeCover:hover .animeName { color: var(--ifm-color-primary); }
+.animeName { font-size: 12px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.animeMeta { font: 11px/1.3 var(--ifm-font-family-monospace); color: var(--hx-faint); }
+.animeTags { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.animeTags .label { margin-right: 2px; }
+.animeTagHot {
+  padding: 1px 8px;
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ifm-color-primary);
+  background: rgba(255, 136, 255, 0.12);
   text-decoration: none !important;
-  transition: color 150ms var(--hx-ease);
 }
-.animeTag:hover { color: var(--ifm-color-primary); }
-.animeTagHot { color: var(--ifm-color-primary); }
-.animeTagCount { margin-left: 4px; font: 11px/1 var(--ifm-font-family-monospace); color: var(--hx-faint); }
+.animeTagCount { margin-left: 4px; font-family: var(--ifm-font-family-monospace); opacity: 0.6; }
+.animeAll { margin-left: auto; font-size: 13px; }
 
 @media (prefers-reduced-motion: reduce) {
   .magic, .magicInner, .magicBtn { transition: none; }
@@ -404,14 +402,8 @@
   .notes a { grid-template-columns: minmax(0, 1fr) auto; }
   .noteCat { display: none; }
   .stackRow { grid-template-columns: minmax(0, 1fr); gap: 4px; }
-  .animeStats { row-gap: 4px; }
-  .animeRow { grid-template-columns: 36px minmax(0, 1fr) auto; }
-  .animeProg { grid-column: 2; grid-row: 2; }
-  .animeScore { grid-column: 3; grid-row: 1; }
-  .animeDate { display: none; }
-  .animeThumb { grid-row: span 2; }
-  .animeFoot { flex-direction: column; gap: 8px; }
-  .animeFoot .feedAll { margin-left: 0; }
+  .animeStats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .animeCovers { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 /* 2026-11-06: 首页包进 BlogWithCats 墙 (同系列页), 墙自带 20px 内边距与底色, 这里只留内部间距 */
@@ -419,3 +411,4 @@
   max-width: none;
   padding: 16px 8px 24px;
 }
+

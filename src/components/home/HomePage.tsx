@@ -271,11 +271,13 @@ export default function HomePage (): React.ReactElement {
                     <section id="anime" className={styles.section}>
                         <header className={styles.head}>
                             <h2>在追的番</h2>
-                            <p>BanGuMi 追番记录, 列的是最近更新进度的在看.</p>
+                            <p>BanGuMi 追番记录, 封面是最近更新进度的在看. 点标签进番剧页筛选.</p>
                         </header>
-                        <LazyMount minHeight={360} rootMargin="300px" label="追番记录加载中">
-                            <HomeAnime />
-                        </LazyMount>
+                        <div className={styles.panel}>
+                            <LazyMount minHeight={300} rootMargin="300px" label="追番记录加载中">
+                                <HomeAnime />
+                            </LazyMount>
+                        </div>
                     </section>
 
                     <section id="about" className={styles.section}>
