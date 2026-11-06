@@ -53,7 +53,11 @@ if (typeof window !== 'undefined') {
 const CDN_STORAGE_KEY = 'hxloli-cdn-node';
 /** 节点来源: 'auto' | 'manual'; 缺省视为 auto */
 const CDN_SOURCE_KEY = 'hxloli-cdn-node-source';
-const DEFAULT_NODE = 'jsd-mirror';
+/**
+ * 默认节点: hx-cdn-forge 预设里的 jsdelivr-main (https://cdn.jsdelivr.net/gh),
+ * 与 SSR fallback directUrl() 同域. 原默认的国内镜像节点域名已失效 (HTTP 421), 见 buildNodes 过滤.
+ */
+const DEFAULT_NODE = 'jsdelivr-main';
 /** 定时重新优选的间隔 */
 const CDN_RETEST_INTERVAL_MS = 15 * 60 * 1000;
 /** 检查是否到期的节拍 */
@@ -61,12 +65,28 @@ const CDN_RETEST_TICK_MS = 60 * 1000;
 
 export type CdnNodeSource = 'auto' | 'manual';
 
+/**
+ * 已失效的 CDN 域名: 预设节点 baseUrl 命中则在 buildNodes 里剔除 (HTTP 421, TLS 证书不匹配/停用).
+ * 剔除而非改写 baseUrl: 预设节点的 buildUrl 是闭包, 写死了原域名, 只改 baseUrl 仍会请求坏域名.
+ */
+const BAD_CDN_HOSTS = ['cdn.jsdmirror.com'];
+
+function isBadCdnNode(n: any): boolean {
+  return typeof n?.baseUrl === 'string' && BAD_CDN_HOSTS.some(h => n.baseUrl.includes(h));
+}
+
+/** 被剔除节点的 id: localStorage 里存着这些旧 id 时视为未保存, 免得引擎当前节点指向不存在的节点 */
+const BAD_NODE_IDS = new Set<string>(DEFAULT_GITHUB_CDN_NODES.filter(isBadCdnNode).map((n: any) => n.id));
+
 /** 检查 localStorage 是否已有保存的节点 
  * .agents/notes/implemented/process/2026-10-08-repository-agent-notes-v2-adoption.md
  */
 function getSavedNodeId(): string | null {
   if (typeof window === 'undefined') return null;
-  try { return localStorage.getItem(CDN_STORAGE_KEY); } catch { return null; }
+  try {
+    const id = localStorage.getItem(CDN_STORAGE_KEY);
+    return id && !BAD_NODE_IDS.has(id) ? id : null;
+  } catch { return null; }
 }
 
 const savedNodeId = getSavedNodeId();
@@ -108,10 +128,10 @@ function buildCfWorkerNode(repo: string) {
   };
 }
 
-/** 构建引擎的 CDN 节点列表: CF Worker 直连 (仅子仓库) + jsDelivr 节点 */
+/** 构建引擎的 CDN 节点列表: CF Worker 直连 (仅子仓库) + jsDelivr 节点 (剔除域名已失效的预设节点) */
 function buildNodes(repo: string) {
   const cfNode = buildCfWorkerNode(repo);
-  const jsDelivrNodes = DEFAULT_GITHUB_CDN_NODES.filter((n: any) => n.id !== 'cf-worker');
+  const jsDelivrNodes = DEFAULT_GITHUB_CDN_NODES.filter((n: any) => n.id !== 'cf-worker' && !isBadCdnNode(n));
   return cfNode ? [cfNode, ...jsDelivrNodes] : jsDelivrNodes;
 }
 
