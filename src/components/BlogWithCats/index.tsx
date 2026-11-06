@@ -8,7 +8,7 @@ import './BlogWithCats.css';
 /**
  * 立绘对: static/img/catgirl/pairN-left.png / pairN-right.png, RGBA 透明底无损 PNG 原生分辨率, 5:12, 角色在下 55%.
  * left 图的竖直裁切线在右边 (身体藏在右侧墙后), right 图的裁切线在左边. 几何规格见 .agents/research/catgirl-spec.md.
- * 以用户素材 static/img/catgirl-source/ 的角色为参考生成探头构图 (绿幕抠出 + 去溢色 + 边缘 0.6px 羽化), 素材原图保留.
+ * 立绘成品在 static/img/catgirl/{角色}/ (如 megumin/megumin-01-left.png), 绿幕抠出 + 去溢色 + 边缘 0.6px 羽化.
  * 不动 static/default-img/neko_*.png (原组件素材).
  */
 /**
