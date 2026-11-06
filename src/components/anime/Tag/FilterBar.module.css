@@ -13,7 +13,8 @@
     transition: top var(--ifm-transition-fast) ease;
     margin: 0 0 4px;
     padding: 12px 0 10px;
-    background: var(--ifm-background-color);
+    /* 在探头页正文墙里跟墙同色 (暗色墙是 surface 色, 不是页面底色), 否则工具栏是一条更深的色带 */
+    background: var(--hx-wall-bg, var(--ifm-background-color));
     border-bottom: 1px solid color-mix(in srgb, var(--ifm-font-color-base) 10%, transparent);
 }
 

@@ -176,6 +176,7 @@
  * 阴影画在正文的层里, 因此会压在立绘被挡住的那条边上, 形成接触阴影.
  */
 .neko-sides[data-variant='pair'][data-on] + .blog-content-wrapper > .blog-content {
+    --hx-wall-bg: var(--ifm-background-color);
     background: var(--ifm-background-color);
     box-shadow:
         0 0 0 1px var(--ifm-color-emphasis-200),
@@ -184,6 +185,7 @@
 }
 
 [data-theme='dark'] .neko-sides[data-variant='pair'][data-on] + .blog-content-wrapper > .blog-content {
+    --hx-wall-bg: var(--ifm-background-surface-color, #1b1b1d);
     background: var(--ifm-background-surface-color, #1b1b1d);
     box-shadow:
         0 0 0 1px var(--ifm-color-emphasis-200),
@@ -517,6 +519,7 @@ html:has(.neko-sides[data-on]) .theme-back-to-top-button {
     position: relative;
     z-index: 2;
     border-radius: 16px;
+    --hx-wall-bg: var(--ifm-background-color);
     background: var(--ifm-background-color);
     box-shadow:
         0 0 0 1px var(--ifm-color-emphasis-200),
@@ -529,6 +532,7 @@ html:has(.neko-sides[data-on]) .theme-back-to-top-button {
 }
 
 [data-theme='dark'] [data-neko-wall] {
+    --hx-wall-bg: var(--ifm-background-surface-color, #1b1b1d);
     background: var(--ifm-background-surface-color, #1b1b1d);
     box-shadow:
         0 0 0 1px var(--ifm-color-emphasis-200),
