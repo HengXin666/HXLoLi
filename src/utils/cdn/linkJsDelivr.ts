@@ -395,7 +395,7 @@ function selectNodeAll(nodeId: string, source: CdnNodeSource = 'manual') {
 /** jsDelivr 直连 URL 构建 (SSR fallback) */
 function directUrl(user: string, repo: string, ref: string, path: string): string {
   const p = path.startsWith('/') ? path : `/${path}`;
-  return `https://cdn.jsdmirror.com/gh/${user}/${repo}@${ref}${p}`;
+  return `https://cdn.jsdelivr.net/gh/${user}/${repo}@${ref}${p}`;
 }
 
 export function toJsDelivrUrl(relativePath: string): string {
