@@ -116,6 +116,9 @@ function parseImg (raw: unknown, slug: string): NekoImg | null {
     const h = Number(o.h ?? o.height);
     const fade = Number(o.fade);
     if (!file || !Number.isFinite(w) || !Number.isFinite(h) || !Number.isFinite(fade)) return null;
+    // 2026-11-06: manifest 里标了 excluded 的图 (旧命名残留 / 与其他图重复或互为镜像) 一律不上站.
+    // 之前 parseCharacters 不看这个字段, 8 张残留图照样被抽中, 会出现"左右两侧像同一张图"的情况.
+    if (o.excluded === true) return null;
     const img: NekoImg = {
         file: file.replace(/^\/?(img\/catgirl\/)?/, ''),
         w, h, fade,
@@ -136,6 +139,7 @@ function parseImg (raw: unknown, slug: string): NekoImg | null {
 function parseManifest (json: unknown): NekoPair[] {
     const entries = (json as { entries?: unknown } | null)?.entries;
     if (!Array.isArray(entries)) return [];
+    const avoid = avoidSetOf(json);
     const slugOf = (img: NekoImg): string => img.slug.replace(/-\d+-(left|right)(\.png)?$/i, '').replace(/-(l|r)$/, '');
     const out: NekoPair[] = [];
     for (const e of entries) {
@@ -154,6 +158,7 @@ function parseManifest (json: unknown): NekoPair[] {
         const leftSlug = sideSlug(o.leftSlug, o.left, left);
         const rightSlug = sideSlug(o.rightSlug, o.right, right);
         if (left && right && leftSlug === rightSlug) continue;
+        if (left && right && leftSlug && rightSlug && avoid.has(avoidKey(leftSlug, rightSlug))) continue;
         out.push({ left, right, leftSlug, rightSlug });
     }
     return out;
@@ -165,9 +170,30 @@ function parseManifest (json: unknown): NekoPair[] {
  * 再对所有不同角色两两交叉, 用取模轮转逐张取图, 让每个姿势都能轮到 (2026-11-04: 只用 20/56 张被用户指出浪费).
  * 交叉天生保证 leftSlug !== rightSlug, 不可能出现镜像成对.
  */
+/**
+ * 不许互配的角色对 (疑似同一角色, 配成左右一对看起来就是"同一个人镜像"). 内置一份兜底,
+ * manifest.avoidPairs ([[slugA, slugB], ...]) 可追加. 2026-11-06: manifest.selfCheck 早就写了
+ * "komari 与 unk-strawhat 疑似同一角色, 已避免互配", 但 parseCharacters 的两两交叉没管这条, 照样配了出来.
+ */
+const AVOID_PAIRS: readonly (readonly [string, string])[] = [['komari', 'unk-strawhat']];
+function avoidKey (a: string, b: string): string {
+    return a < b ? `${a}|${b}` : `${b}|${a}`;
+}
+function avoidSetOf (json: unknown): Set<string> {
+    const set = new Set(AVOID_PAIRS.map(([a, b]) => avoidKey(a, b)));
+    const extra = (json as { avoidPairs?: unknown } | null)?.avoidPairs;
+    if (Array.isArray(extra)) {
+        for (const p of extra) {
+            if (Array.isArray(p) && typeof p[0] === 'string' && typeof p[1] === 'string') set.add(avoidKey(p[0], p[1]));
+        }
+    }
+    return set;
+}
+
 function parseCharacters (json: unknown): NekoPair[] {
     const chars = (json as { characters?: unknown } | null)?.characters;
     if (!Array.isArray(chars)) return [];
+    const avoid = avoidSetOf(json);
     const pools: { slug: string; left: NekoImg[]; right: NekoImg[] }[] = [];
     for (const c of chars) {
         if (!c || typeof c !== 'object') continue;
@@ -191,6 +217,7 @@ function parseCharacters (json: unknown): NekoPair[] {
     for (const a of pools) {
         for (const b of pools) {
             if (a.slug === b.slug) continue;
+            if (avoid.has(avoidKey(a.slug, b.slug))) continue;
             if (!a.left.length || !b.right.length) continue;
             out.push({
                 left: a.left[k % a.left.length],
@@ -403,6 +430,7 @@ function useWallFit (
         let retry: number | undefined;
         let ro: ResizeObserver | null = null;
         let observed: Element | null = null;
+        let marked: Element | null = null;
         const findWall = (): Element | null => {
             if (variant === 'pair') return el.parentElement?.querySelector('.blog-content') ?? null;
             for (const sel of cfg.wall ?? []) {
@@ -504,6 +532,9 @@ function useWallFit (
                     w = l ? wl : wr;
                 }
             }
+            // gutter 的墙原本透明: 真出立绘时才标记, 由 CSS 给底色 + 1px 边 + 上下外边距, 和 pair 的正文墙一个样子 (2026-11-06)
+            const markOn = variant === 'gutter' && wall && (l || r) ? wall : null;
+            if (marked !== markOn) { marked?.removeAttribute('data-neko-wall'); markOn?.setAttribute('data-neko-wall', ''); marked = markOn; }
             el.style.setProperty('--neko-wl', `${left}px`);
             el.style.setProperty('--neko-wr', `${right}px`);
             el.style.setProperty('--neko-w', `${Math.round(w)}px`);
@@ -521,6 +552,7 @@ function useWallFit (
         window.addEventListener('resize', schedule);
         return () => {
             ro?.disconnect();
+            marked?.removeAttribute('data-neko-wall');
             window.removeEventListener('resize', schedule);
             if (raf) window.cancelAnimationFrame(raf);
             window.clearTimeout(retry);

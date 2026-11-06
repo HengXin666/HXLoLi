@@ -26,6 +26,94 @@
   --ifm-background-color: #121212;
 }
 
+/*
+  === HXLoLi 全局主题令牌 (--hx-*) ===
+  番剧页 / susume 页 / 卡片共用的一套"可爱但克制"的视觉语言: 粉色主调 + 金色推荐 + 半透明层次.
+  组件里不要再写死 rgba(255,255,255,.x) 与圆角 / 曲线, 一律取这里, 亮暗主题各一份.
+  .agents/notes/implemented/feature/2026-11-06-anime-susume-neko-redesign.md
+*/
+:root {
+  --hx-accent: var(--ifm-color-primary);
+  --hx-accent-soft: rgba(255, 136, 255, 0.14);
+  --hx-accent-ring: rgba(255, 136, 255, 0.55);
+  --hx-gold: #e0a020;
+  --hx-gold-soft: rgba(255, 196, 64, 0.16);
+  --hx-susume-monosugoi: #f0a52a;
+  --hx-susume-loli: #ff6fd8;
+  --hx-susume-loligaaru: #c77dff;
+  --hx-susume-imouto: #4fa8ff;
+
+  --hx-surface-0: #ffffff;
+  --hx-surface-1: rgba(20, 10, 30, 0.035);
+  --hx-surface-2: rgba(20, 10, 30, 0.07);
+  --hx-surface-glass: rgba(255, 255, 255, 0.72);
+  --hx-border: rgba(20, 10, 30, 0.10);
+  --hx-border-strong: rgba(20, 10, 30, 0.18);
+  --hx-text: var(--ifm-font-color-base);
+  --hx-text-dim: rgba(20, 10, 30, 0.62);
+  --hx-text-faint: rgba(20, 10, 30, 0.42);
+
+  --hx-radius-sm: 8px;
+  --hx-radius-md: 12px;
+  --hx-radius-lg: 18px;
+  --hx-radius-xl: 24px;
+  --hx-radius-pill: 999px;
+
+  --hx-shadow-sm: 0 2px 8px rgba(40, 0, 50, 0.08);
+  --hx-shadow-md: 0 10px 28px rgba(40, 0, 50, 0.14);
+  --hx-shadow-lg: 0 22px 60px rgba(40, 0, 50, 0.22);
+
+  --hx-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --hx-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --hx-dur-fast: 0.16s;
+  --hx-dur-med: 0.32s;
+  --hx-dur-slow: 0.55s;
+
+  --hx-font-round: "M PLUS Rounded 1c", "Zen Maru Gothic", "PingFang SC", "Hiragino Maru Gothic ProN", "Microsoft YaHei", sans-serif;
+
+  /* 番剧类页面版式与动效令牌 (HX おすすめ Glass), 用法见 src/components/anime/ui/DESIGN.md */
+  --hx-container: 1200px;
+  --hx-gutter: clamp(16px, 3vw, 28px);
+  --hx-glass-blur: blur(14px) saturate(140%);
+  --hx-mesh:
+    radial-gradient(42% 60% at 12% 18%, rgba(255, 136, 255, 0.18), transparent 70%),
+    radial-gradient(38% 55% at 88% 8%, rgba(255, 196, 64, 0.14), transparent 70%),
+    radial-gradient(48% 60% at 62% 100%, rgba(79, 168, 255, 0.12), transparent 70%);
+  --hx-dots: radial-gradient(circle at 1px 1px, var(--hx-border) 1px, transparent 1.5px) 0 0 / 22px 22px;
+  --hx-focus: 0 0 0 3px var(--hx-accent-ring);
+  --hx-lift: translateY(-4px);
+  --hx-stagger: 40ms;
+  --hx-measure: 68ch;
+}
+
+[data-theme='dark'] {
+  --hx-accent-soft: rgba(255, 136, 255, 0.16);
+  --hx-gold: #ffc440;
+  --hx-gold-soft: rgba(255, 196, 64, 0.14);
+  --hx-susume-monosugoi: #ffb84d;
+  --hx-susume-loli: #ff88ff;
+  --hx-susume-loligaaru: #d4a5ff;
+  --hx-susume-imouto: #7cc4ff;
+
+  --hx-surface-0: #17151a;
+  --hx-surface-1: rgba(255, 255, 255, 0.035);
+  --hx-surface-2: rgba(255, 255, 255, 0.07);
+  --hx-surface-glass: rgba(24, 20, 28, 0.72);
+  --hx-border: rgba(255, 255, 255, 0.09);
+  --hx-border-strong: rgba(255, 255, 255, 0.18);
+  --hx-text-dim: rgba(255, 255, 255, 0.64);
+  --hx-text-faint: rgba(255, 255, 255, 0.42);
+
+  --hx-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --hx-shadow-md: 0 10px 28px rgba(0, 0, 0, 0.45);
+  --hx-shadow-lg: 0 22px 60px rgba(0, 0, 0, 0.55);
+
+  --hx-mesh:
+    radial-gradient(42% 60% at 12% 18%, rgba(255, 136, 255, 0.12), transparent 70%),
+    radial-gradient(38% 55% at 88% 8%, rgba(255, 196, 64, 0.08), transparent 70%),
+    radial-gradient(48% 60% at 62% 100%, rgba(124, 196, 255, 0.08), transparent 70%);
+}
+
 /* ===== Markdown 样式 ===== */
 
 /*

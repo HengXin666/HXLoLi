@@ -11,7 +11,8 @@ import { reqAnimeByCDN } from "@site/src/utils/cdn/linkJsDelivr";
  *
  * 读取顺序 (与 ANiMeRecord.json 同一个 ANIME_CDN_TAG, 数据与标注同版本):
  *   1. 构建产物 data/labels/index.json (标注流合入时汇总, 一次请求拿全; 形状接受 数组 / { items: {id: label} } / { labels: [...] }).
- *   2. 没有汇总文件时: jsDelivr data API 列出该 tag 下 data/labels/*.json, 再逐个拉 (并发 6). 目录不存在 = 一个都没标, 返回空表.
+ *   2. 没有汇总文件时: 先用 jsDelivr data API 列出该 tag 下 data/labels/*.json; 包超过 50 MB 时它回 403,
+ *      再改用 GitHub contents API 只列 data/labels 一层. 然后逐个拉 (并发 6). 目录不存在 = 一个都没标, 返回空表.
  * 两处都失败才算加载失败; 页面据此显示"标注没拉到", 不会把"失败"误当成"没有标注".
  *
  * 渲染只认词表内的标签 (data/animeTags.ts, 镜像 labelVocab.json): 文件里写了词表外的词, 丢弃不显示.
@@ -81,17 +82,62 @@ async function readJson (path: string): Promise<unknown> {
     return JSON.parse(await res.blob.text());
 }
 
-async function listLabelFiles (): Promise<number[]> {
-    const url = `https://data.jsdelivr.com/v1/packages/gh/${GITHUB_CONFIG.USER}/HXLoLi-ANiMe@${ANIME_CDN_TAG}?structure=flat`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`labels 目录列表 ${res.status}`);
-    const json = (await res.json()) as { files?: { name?: string }[] };
+function idsFromNames (names: Iterable<string>): number[] {
     const ids: number[] = [];
-    for (const f of json.files ?? []) {
-        const m = LABEL_FILE_RE.exec(f.name ?? "");
+    for (const n of names) {
+        const m = LABEL_FILE_RE.exec(n.startsWith("/") ? n : `/${n}`);
         if (m) ids.push(Number(m[1]));
     }
     return ids;
+}
+
+/**
+ * 目录列表源 1: jsDelivr data API. 整个包超过 50 MB (data/anime/*.jpg 封面) 时它直接回 403
+ * "Package size exceeded the configured limit of 50 MB", 列不出任何文件 -- 2026-11-05 起就是这样, 所以不能只靠它.
+ */
+async function listViaJsDelivr (): Promise<number[]> {
+    const url = `https://data.jsdelivr.com/v1/packages/gh/${GITHUB_CONFIG.USER}/HXLoLi-ANiMe@${ANIME_CDN_TAG}?structure=flat`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`jsDelivr 目录列表 ${res.status}`);
+    const json = (await res.json()) as { files?: { name?: string }[] };
+    return idsFromNames((json.files ?? []).map((f) => f.name ?? ""));
+}
+
+/**
+ * 目录列表源 2: GitHub contents API, 只列 data/labels 一层, 不受包体积限制.
+ * 404 = 该 tag 下没有 data/labels 目录 = 一个都没标, 返回空表而不是失败.
+ * 未登录限额 60 次/小时/IP, 所以结果按 tag 缓存进 sessionStorage, 同一会话只请求一次.
+ */
+async function listViaGitHub (): Promise<number[]> {
+    const cacheKey = `hxloli-anime-label-ids:${ANIME_CDN_TAG}`;
+    try {
+        const cached = typeof sessionStorage !== "undefined" ? sessionStorage.getItem(cacheKey) : null;
+        if (cached) return JSON.parse(cached) as number[];
+    } catch { /* 隐私模式等拿不到 sessionStorage, 直接请求 */ }
+    const url = `https://api.github.com/repos/${GITHUB_CONFIG.USER}/HXLoLi-ANiMe/contents${LABELS_DIR}?ref=${encodeURIComponent(ANIME_CDN_TAG)}`;
+    const res = await fetch(url, { headers: { Accept: "application/vnd.github+json" } });
+    let ids: number[];
+    if (res.status === 404) ids = [];
+    else if (!res.ok) throw new Error(`GitHub 目录列表 ${res.status}`);
+    else {
+        const json = (await res.json()) as { name?: string; type?: string }[];
+        ids = idsFromNames((Array.isArray(json) ? json : []).filter((f) => f.type !== "dir").map((f) => `${LABELS_DIR}/${f.name ?? ""}`));
+    }
+    try { sessionStorage.setItem(cacheKey, JSON.stringify(ids)); } catch { /* 忽略 */ }
+    return ids;
+}
+
+/** 列出该 tag 下所有标注文件 id: jsDelivr 优先, 失败换 GitHub; 两个都失败才抛 */
+async function listLabelFiles (): Promise<number[]> {
+    const errors: string[] = [];
+    for (const src of [listViaJsDelivr, listViaGitHub]) {
+        try {
+            return await src();
+        } catch (e) {
+            errors.push(e instanceof Error ? e.message : String(e));
+        }
+    }
+    throw new Error(errors.join("; "));
 }
 
 /** 加载全部标注. 汇总文件优先, 其次逐个文件; 都失败才 reject */

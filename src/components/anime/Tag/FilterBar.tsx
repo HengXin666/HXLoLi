@@ -14,6 +14,30 @@ import Select from "@site/src/components/common/Tooltip/Select";
 import { TagFilter } from "./TagFilter";
 import styles from "./FilterBar.module.css";
 
+/** 排序下拉左侧的图标, 跟着当前排序方式换: 最近更新 = 时钟, 首播日期 = 日历, 评分 = 星, 名称 = 字母序 */
+const SORT_ICONS: Record<SortKey, React.ReactElement> = {
+    update: (
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden>
+            <path fill="currentColor" d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20m0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16m1 3v4.6l3.4 2-1 1.7L11 12.7V7z" />
+        </svg>
+    ),
+    air: (
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden>
+            <path fill="currentColor" d="M7 2h2v2h6V2h2v2h2a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2zM5 10v9h14v-9zm2 2h4v4H7z" />
+        </svg>
+    ),
+    score: (
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden>
+            <path fill="currentColor" d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" />
+        </svg>
+    ),
+    name: (
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden>
+            <path fill="currentColor" d="M6.2 4h1.6L12 15h-2l-1-2.8H5L4 15H2zm-.5 6.4h2.6L7 6.8zM14 4h7v1.6L16.3 13H21v2h-7v-1.6L18.7 6H14zm2 13h4l-2 3z" />
+        </svg>
+    ),
+};
+
 export interface FilterBarProps {
     filters: AnimeFilters;
     onChange: (next: AnimeFilters) => void;
@@ -25,6 +49,8 @@ export interface FilterBarProps {
     onViewChange: (view: AnimeView) => void;
     /** 给了就在工具区最右放"分享"按钮 (番剧库用它打开分享番单弹层) */
     onShare?: () => void;
+    /** 「系列」视图下命中的系列数 (单部视图不传) */
+    seriesShown?: number;
 }
 
 /**
@@ -32,11 +58,12 @@ export interface FilterBarProps {
  * (原生 <dialog>: 桌面是居中面板, 窄屏是底部抽屉, Esc 与点遮罩关闭). 下面一行列出所有生效条件, 每个可单独去掉, 外加"清空".
  * 按 "/" 聚焦搜索. 所有改动立刻回调, 状态由番剧页写进 URL.
  * 排序 / 首播年份 / 评分三个下拉用 common/Tooltip/Select (复用 Tooltip 的定位层), 不再用原生 select 元素.
- * 下拉组件用的是 src/components/common/Tooltip/Select.tsx
+ * 下拉组件用的是 src/components/common/Tooltip/Select.tsx; 排序下拉带随排序方式变化的 svg 图标 (SORT_ICONS).
  * .agents/notes/implemented/feature/2026-11-01-anime-page-refactor.md
  * 分享按钮: .agents/notes/implemented/feature/2026-11-01-anime-share-on-index.md
+ * 「单部 | 系列」切换写 ?fold= (与排序正交): .agents/notes/implemented/feature/2026-11-05-anime-series-fold.md
  */
-export const FilterBar: React.FC<FilterBarProps> = ({ filters, onChange, counts, shown, total, view, onViewChange, onShare }) => {
+export const FilterBar: React.FC<FilterBarProps> = ({ filters, onChange, counts, shown, total, view, onViewChange, onShare, seriesShown }) => {
     const searchRef = React.useRef<HTMLInputElement>(null);
     const dialogRef = React.useRef<HTMLDialogElement>(null);
     const [q, setQ] = React.useState(filters.q);
@@ -115,10 +142,19 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, onChange, counts,
                     </button>
                     <Select<SortKey>
                         ariaLabel="排序"
+                        icon={SORT_ICONS[filters.sort]}
                         value={filters.sort}
                         options={SORT_OPTIONS.map((o) => ({ value: o.value, label: `按${o.label}` }))}
                         onChange={(sort) => onChange({ ...filters, sort })}
                     />
+                    <div className={styles.segment} role="radiogroup" aria-label="卡片单位">
+                        <button type="button" role="radio" aria-checked={filters.fold === "none"} onClick={() => onChange({ ...filters, fold: "none" })} title="一部一张卡">
+                            单部
+                        </button>
+                        <button type="button" role="radio" aria-checked={filters.fold === "series"} onClick={() => onChange({ ...filters, fold: "series" })} title="同一番剧的各季聚成一张卡">
+                            系列
+                        </button>
+                    </div>
                     <div className={styles.segment} role="radiogroup" aria-label="显示方式">
                         <button type="button" role="radio" aria-checked={view === "grid"} onClick={() => onViewChange("grid")} title="海报">
                             <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden><path fill="currentColor" d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z" /></svg>
@@ -140,7 +176,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, onChange, counts,
 
             <div className={styles.activeRow} aria-live="polite">
                 <span className={styles.resultCount}>
-                    <b>{shown}</b> / {total} 部
+                    {seriesShown !== undefined && <><b>{seriesShown}</b> 个系列 · </>}<b>{shown}</b> / {total} 部
                 </span>
                 {conditions.length > 0 && (
                     <>

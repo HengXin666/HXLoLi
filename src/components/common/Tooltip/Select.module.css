@@ -32,9 +32,43 @@
 }
 
 .value {
+    /*
+     * line-height 修正: .trigger 是 line-height: 1, 而这里 overflow: hidden (为了省略号) 会按行盒裁剪.
+     * 中文字形的上缘高出 1em 行盒约 5%, 于是"按最近更新"的顶部被切掉一条. 行高放到 1.4 并给 1px 上下内边距,
+     * 字形完整落在裁剪框内; 按钮高度仍由 .trigger 的 32px 决定, 不会撑高工具栏.
+     */
+    flex: 1 1 auto;
+    min-width: 0;
+    padding-block: 1px;
+    line-height: 1.4;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: left;
+}
+
+/* 文字左侧的可选图标 (排序方式), 与 FilterBar 其它按钮的 15px 图标对齐 */
+.icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    margin-right: -2px;
+    color: var(--ifm-color-primary);
+    transition: transform 0.2s ease;
+}
+
+.icon svg {
+    display: block;
+    width: 15px;
+    height: 15px;
+}
+
+.trigger:hover .icon,
+.trigger[data-open='true'] .icon {
+    transform: rotate(-8deg) scale(1.08);
 }
 
 .chevron {
@@ -109,7 +143,13 @@
 
 @media (prefers-reduced-motion: reduce) {
     .trigger,
-    .chevron {
+    .chevron,
+    .icon {
         transition: none;
+    }
+
+    .trigger:hover .icon,
+    .trigger[data-open='true'] .icon {
+        transform: none;
     }
 }

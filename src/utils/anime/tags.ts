@@ -1,4 +1,4 @@
-import { ANIME_SUSUME_DEFS, ANIME_TAG_ALIASES, ANIME_TAG_DEFS, AnimeSusumeDef, AnimeTagGroup } from "@site/data/animeTags";
+import { ANIME_SUSUME_DEFS, ANIME_TAG_ALIASES, ANIME_TAG_DEFS, ANIME_TAG_IMPLIES, AnimeSusumeDef, AnimeTagGroup } from "@site/data/animeTags";
 import { ANiMeRecord } from "@site/src/utils/anime/types";
 import type { AnimeLabel } from "@site/src/utils/anime/labels";
 
@@ -12,7 +12,8 @@ import type { AnimeLabel } from "@site/src/utils/anime/labels";
  * 未标注 = 没有文件 = 空数组, 页面不展示任何 tag.
  *
  * 两类标签:
- *   - 推荐分类 (物凄い / ロリ / シスコン): 有独立专属页 /anime/susume/<slug>, 渲染成特殊徽章, 不进 ?tag= 筛选.
+ *   - 推荐分类 (物凄い / ロリ / ロリがある / シスコン): 有独立专属页 /anime/susume/<slug>, 渲染成特殊徽章, 不进 ?tag= 筛选.
+ *     ロリがある 2026-11-06 由普通标注升为推荐分类, 仍由 ロリ 隐含 (ANIME_TAG_IMPLIES).
  *   - 普通标注 (九项): 走 /anime?tag= 筛选.
  */
 
@@ -77,7 +78,8 @@ export function getRecordTags (record: ANiMeRecord): string[] {
     const hit = tagCache.get(record);
     if (hit) return hit;
     const own = getRecordLabel(record)?.tags ?? [];
-    const out = [...new Set(own)]
+    // 隐含标签 (ロリ -> ロリがある) 在这里补上, 筛选 / 计数 / 徽章都走这一处
+    const out = [...new Set(own.flatMap((t) => [t, ...(ANIME_TAG_IMPLIES[t] ?? [])]))]
         .filter((t) => DEF_ORDER.has(t))
         .sort((a, b) => DEF_ORDER.get(a)! - DEF_ORDER.get(b)!);
     tagCache.set(record, out);

@@ -30,3 +30,5 @@ FilterBar 的 3 处换成 Select: 排序 (`aria-label="排序"`); 年份 ("不�
 ## Consequences
 
 `src/components/common/Tooltip/index.tsx` 的内部组件名 Floating 变成导出的 FloatingLayer; 仓库里引用 Tooltip 的地方 (首页、番剧详情、声优页) 只用默认导出与 useHoverCard, 不受影响. `src/components/common/Tooltip/Tooltip.module.css`、`src/components/common/Tooltip/Select.module.css`、`src/components/anime/Tag/FilterBar.module.css` 是非 AST 资源, 需人工核对. 其余原生 select (`src/components/anime/AnimeGraphPage/index.tsx` 1 处; `src/hxdeck/Dropdown.tsx` 2 处、`src/hxdeck/ThemeEditor.tsx` 1 处、`src/hxdeck/PptEmbed.tsx` 1 处) 本轮没动, 之后换成同一个 Select. 移动端失去系统滚轮式选择器, 换来与站点一致的列表; 列表项高约 30px, 触屏可点. 下拉开合目前只有 Tooltip 原有的 140ms 淡入, 筛选结果的过渡动画是下一项工作.
+
+2026-11-06 补充: 触发按钮的 `.value` 原先继承 `.trigger` 的 `line-height: 1` 又带 `overflow: hidden` (省略号要用), 中文字形上缘超出 1em 行盒, "按最近更新" 顶部约 5% 被裁. `.value` 改为 `line-height: 1.4` + `padding-block: 1px`, 按钮仍是 32px 高. Select 新增可选 `icon` 参数 (文字左侧, 粉色, 悬停 / 展开时微转), 不传不渲染, 年份与评分下拉外观不变; FilterBar 的排序下拉用 `SORT_ICONS` 按当前排序方式传 svg (最近更新 = 时钟, 首播 = 日历, 评分 = 星, 名称 = 字母序). 否决过: 什么都不做 (裁字是可见缺陷); 把 `.trigger` 整体改 line-height (会连带改所有下拉的垂直对齐, 范围过大); 去掉 overflow: hidden (长标签会撑破按钮, 丢省略号).

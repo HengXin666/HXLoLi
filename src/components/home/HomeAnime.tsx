@@ -16,20 +16,21 @@ const STATUS_ORDER: { status: WatchStatus; label: string }[] = [
     { status: WatchStatus.DROPPED, label: '抛弃' },
 ];
 
-/** 首页只放最近更新进度的几部在看, 一行放得下 */
-const COVER_COUNT = 6;
+/** 首页列最近更新进度的几部在看, 与"最近更新"同样的条数 */
+const ROW_COUNT = 6;
 
-function progress (r: ANiMeRecord): string {
-    const total = r.anime_data.eps || r.anime_data.total_episodes;
-    return total ? `${r.user_status.watched_eps} / ${total} 话` : `看到第 ${r.user_status.watched_eps} 话`;
+
+function totalEps (r: ANiMeRecord): number {
+    return r.anime_data.eps || r.anime_data.total_episodes || 0;
 }
 
 /**
- * 首页"在追的番": 一行状态计数 + 最近更新进度的在看封面 + 标签入口. 数据与番剧页同源 (useAnimeRecords,
- * 经 CDN 拉 HXLoLi-ANiMe 的 ANiMeRecord.json, 约 12 MB / gzip 约 2.4 MB), 由 LazyMount 滚到附近才挂载, 首屏不下载.
- * 标签计数走 countTags (本站标签表 + user_status.tags), 点标签进 /anime?tag=..., 萝莉排第一并高亮.
- * 不画分布图: 160 部里看过占 134, 状态分布画出来就是一根长条, 一行数字说得更清楚, 也不用再拉一份 recharts.
+ * 首页"在追的番", 与"最近更新"是同一种写法: 不套面板, 一行文字计数 + 1px 分隔的列表 + 页脚.
+ * 列表每行: 小封面 / 中文名 + 原名 / 细进度条与 已看/总话数 / 评分 / 最后更新日期. 点行进详情页.
+ * 标签行只在有计数时出现 (标注表为空时整行不渲染, 不留一个孤零零的"标签"字).
+ * 数据与番剧页同源 (useAnimeRecords, 经 CDN 拉 ANiMeRecord.json), 由 LazyMount 滚到附近才挂载.
  * .agents/notes/implemented/feature/2026-11-01-anime-tags-and-home-anime.md
+ * .agents/notes/implemented/feature/2026-11-06-home-plain-profile-and-anime.md
  */
 export default function HomeAnime (): React.ReactElement {
     const { siteConfig } = useDocusaurusContext();
@@ -45,62 +46,83 @@ export default function HomeAnime (): React.ReactElement {
     const watching = records
         .filter((r) => r.user_status.watch_status === WatchStatus.WATCHING)
         .sort((a, b) => b.user_status.last_update.localeCompare(a.user_status.last_update))
-        .slice(0, COVER_COUNT);
+        .slice(0, ROW_COUNT);
 
     const tags = countTags(records).filter((t) => t.count > 0).slice(0, 10);
 
     return (
         <div className={styles.anime}>
             <dl className={styles.animeStats}>
-                <div className={styles.animeStat}>
-                    <dd>{records.length}</dd>
+                <div>
                     <dt>记录</dt>
+                    <dd>{records.length}</dd>
                 </div>
                 {STATUS_ORDER.map(({ status, label }) => (
-                    <div key={status} className={styles.animeStat}>
-                        <dd>{byStatus.get(status) ?? 0}</dd>
+                    <div key={status}>
                         <dt>{label}</dt>
+                        <dd>{byStatus.get(status) ?? 0}</dd>
                     </div>
                 ))}
             </dl>
 
             {watching.length > 0 && (
-                <ul className={styles.animeCovers} aria-label="最近在看">
-                    {watching.map((r) => (
-                        <li key={r.anime_data.id}>
-                            <Link to={`/anime/details?id=${r.anime_data.id}`} className={styles.animeCover}>
-                                <img
-                                    src={toAnimeCdnUrl(`/data/anime/${r.anime_data.id}.jpg`)}
-                                    alt={r.anime_data.name_cn || r.anime_data.name}
-                                    loading="lazy"
-                                    decoding="async"
-                                    width={120}
-                                    height={170}
-                                />
-                                <span className={styles.animeName}>{r.anime_data.name_cn || r.anime_data.name}</span>
-                                <span className={styles.animeMeta}>
-                                    {progress(r)}
-                                    {r.anime_data.score ? ` · ${r.anime_data.score}` : ''}
-                                </span>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                <ol className={styles.animeList} aria-label="最近在看">
+                    {watching.map((r) => {
+                        const total = totalEps(r);
+                        const seen = r.user_status.watched_eps;
+                        const pct = total ? Math.min(100, Math.round((seen / total) * 100)) : 0;
+                        const title = r.anime_data.name_cn || r.anime_data.name;
+                        return (
+                            <li key={r.anime_data.id}>
+                                <Link to={`/anime/details?id=${r.anime_data.id}`} className={styles.animeRow}>
+                                    <img
+                                        className={styles.animeThumb}
+                                        src={toAnimeCdnUrl(`/data/anime/${r.anime_data.id}.jpg`)}
+                                        alt=""
+                                        loading="lazy"
+                                        decoding="async"
+                                        width={36}
+                                        height={51}
+                                    />
+                                    <span className={styles.animeTitle}>
+                                        <span className={styles.animeName}>{title}</span>
+                                        {r.anime_data.name_cn && r.anime_data.name !== r.anime_data.name_cn && (
+                                            <span className={styles.animeOrig}>{r.anime_data.name}</span>
+                                        )}
+                                    </span>
+                                    <span className={styles.animeProg}>
+                                        <span className={styles.animeBar} aria-hidden="true">
+                                            <span style={{ width: `${pct}%` }} />
+                                        </span>
+                                        <span className={styles.animeEps}>
+                                            {total ? `${seen}/${total}` : `${seen} 话`}
+                                        </span>
+                                    </span>
+                                    <span className={styles.animeScore}>{r.anime_data.score ? r.anime_data.score.toFixed(1) : '-'}</span>
+                                    <time className={styles.animeDate}>{r.user_status.last_update.slice(0, 10)}</time>
+                                </Link>
+                            </li>
+                        );
+                    })}
+                </ol>
             )}
 
-            <div className={styles.animeTags}>
-                <span className={styles.label}>标签</span>
-                {tags.map((t, i) => (
-                    <Link
-                        key={t.tag}
-                        to={`/anime?${ANIME_TAG_QUERY}=${encodeURIComponent(t.tag)}`}
-                        className={i === 0 && t.tag === '萝莉' ? styles.animeTagHot : styles.chip}
-                    >
-                        {t.tag}
-                        <span className={styles.animeTagCount}>{t.count}</span>
-                    </Link>
-                ))}
-                <Link className={styles.animeAll} to="/anime">全部追番 →</Link>
+            <div className={styles.animeFoot}>
+                {tags.length > 0 && (
+                    <div className={styles.animeTags}>
+                        {tags.map((t) => (
+                            <Link
+                                key={t.tag}
+                                to={`/anime?${ANIME_TAG_QUERY}=${encodeURIComponent(t.tag)}`}
+                                className={styles.animeTag}
+                            >
+                                {t.tag}
+                                <span className={styles.animeTagCount}>{t.count}</span>
+                            </Link>
+                        ))}
+                    </div>
+                )}
+                <Link className={styles.feedAll} to="/anime">全部追番 →</Link>
             </div>
         </div>
     );

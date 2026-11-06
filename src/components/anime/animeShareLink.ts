@@ -145,9 +145,10 @@ function hash36 (text: string): string {
 /**
  * 番单标识: 只由"哪些番"决定 (筛选条件去掉排序), 与分享者的 pick 无关.
  * 所以同一份番单无论谁转发、勾了多少, 打开的人看到的都是自己同一份本地勾选; 不同番单互不污染.
+ * 「系列」视图 (?fold=series) 只改卡片单位不改"哪些番", 同排序一样剔除: .agents/notes/implemented/feature/2026-11-05-anime-series-fold.md
  */
 export function listKeyOf (filters: AnimeFilters): string {
-    const q = serializeFilters({ ...filters, sort: DEFAULT_FILTERS.sort });
+    const q = serializeFilters({ ...filters, sort: DEFAULT_FILTERS.sort, fold: DEFAULT_FILTERS.fold });
     return q ? hash36(q) : "all";
 }
 

@@ -1,0 +1,160 @@
+/*
+ * 番剧专题页骨架 (Stage.tsx), 2026-11-06 第二版: 首页 page.module.css 的语汇.
+ * 1px 细线 = --ifm-color-emphasis-200; 字号 11 / 12 / 13 / 15 / 20 / 28; 动效 150ms cubic-bezier(0.2, 0.8, 0.2, 1).
+ * .agents/notes/implemented/feature/2026-11-06-anime-susume-neko-redesign.md
+ */
+
+/* ---------- 正文纸面: 左右边线 + 实底, 与两侧立绘的留白分开 ---------- */
+.paper {
+    --st-line: var(--ifm-color-emphasis-200);
+    --st-faint: var(--ifm-color-emphasis-600);
+    --st-muted: var(--ifm-color-emphasis-700);
+    --st-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1180px !important;
+    /* 2026-11-06: 和系列页的正文墙同一个样子: 四边 1px + 两侧阴影 + 圆角, 和导航栏 / 页脚之间留上下外边距 */
+    min-height: calc(100vh - var(--ifm-navbar-height, 60px) - 88px);
+    margin: 32px auto 56px !important;
+    padding: 24px 40px 56px !important;
+    border-radius: 25px;
+    background: var(--ifm-background-color);
+    box-shadow:
+        0 0 0 1px var(--st-line),
+        -10px 0 24px -14px rgba(0, 0, 0, 0.28),
+        10px 0 24px -14px rgba(0, 0, 0, 0.28);
+    font-size: 15px;
+    line-height: 1.6;
+    isolation: isolate;
+}
+
+/* 旧版的点阵 / 光晕伪元素一律不画 */
+.paper::before,
+.paper::after { content: none !important; display: none !important; }
+
+:global(html[data-theme='dark']) .paper {
+    background: var(--ifm-background-surface-color, #1b1b1d);
+    box-shadow:
+        0 0 0 1px var(--st-line),
+        -12px 0 28px -14px rgba(0, 0, 0, 0.7),
+        12px 0 28px -14px rgba(0, 0, 0, 0.7);
+}
+
+.hero { --stage-accent: var(--ifm-color-primary); margin-bottom: 32px; }
+
+.crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: var(--st-faint);
+}
+.crumbs a { color: var(--st-faint); text-decoration: none; transition: color 150ms var(--st-ease); }
+.crumbs a:hover { color: var(--ifm-color-primary); }
+.crumbs [aria-current] { color: var(--ifm-font-color-base); }
+
+.heroRow {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+}
+.heroMain { min-width: 0; }
+
+.kicker {
+    margin: 0 0 6px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--stage-accent);
+}
+
+.title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 12px;
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+.romaji {
+    font: 400 12px/1 var(--ifm-font-family-monospace);
+    letter-spacing: 0.04em;
+    color: var(--st-faint);
+}
+
+.sub {
+    margin-top: 8px;
+    max-width: 64ch;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--st-muted);
+}
+
+.heroAside { flex: none; display: flex; align-items: center; gap: 8px; }
+
+/* 统计: 首页左栏那种 1px 分格 */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
+    gap: 1px;
+    max-width: calc(var(--n, 3) * 160px);
+    margin: 20px 0 0;
+    border: 1px solid var(--st-line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--st-line);
+}
+.stat { background: var(--ifm-background-color); padding: 8px 12px; }
+.stat dd {
+    margin: 0;
+    font: 600 18px/1.2 var(--ifm-font-family-monospace);
+    font-variant-numeric: tabular-nums;
+}
+.stat dd small { margin-left: 4px; font: 400 11px/1 var(--ifm-font-family-base); color: var(--st-faint); }
+.stat dt { font-size: 11px; color: var(--st-faint); }
+
+.num { font-variant-numeric: tabular-nums; }
+
+.numeral {
+    font: 12px/1 var(--ifm-font-family-monospace);
+    font-variant-numeric: tabular-nums;
+    color: var(--st-faint);
+}
+
+/* 节标题 (首页 .head) */
+.head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+.head h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+.headCount { font: 400 12px/1 var(--ifm-font-family-monospace); color: var(--st-faint); }
+.headAction { font-size: 13px; color: var(--st-faint); text-align: right; }
+
+@media (max-width: 996px) {
+    .paper { margin: 0 auto !important; padding: 16px 16px 48px !important; border-radius: 0; box-shadow: none !important; background: transparent !important; }
+    .heroRow { flex-direction: column; align-items: flex-start; }
+    .head { flex-direction: column; gap: 4px; }
+    .headAction { text-align: left; }
+}
+
+@media (max-width: 640px) {
+    .stats { grid-template-columns: repeat(min(var(--n, 3), 3), minmax(0, 1fr)); max-width: none; }
+}

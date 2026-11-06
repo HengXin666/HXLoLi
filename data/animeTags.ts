@@ -14,7 +14,7 @@ export const ANIME_LABEL_VOCAB_VERSION = 1;
 
 // ---------------------------------------------------------------- 推荐分类 (susume, 有专属页, 不走 ?tag= 筛选)
 
-export type AnimeSusumeKey = "monosugoi" | "loli" | "imouto";
+export type AnimeSusumeKey = "monosugoi" | "loli" | "loligaaru" | "imouto";
 
 export interface AnimeSusumeDef {
     key: AnimeSusumeKey;
@@ -47,6 +47,15 @@ export const ANIME_SUSUME_DEFS: readonly AnimeSusumeDef[] = [
         slug: "loli",
         subtitle: "萝莉为卖点",
         rule: "主角或核心角色是小学生年纪 / 幼女外形 (含合法ロリ), 且是作品卖点之一; 只在回忆或 Q 版里出现的不算, 初中生不算",
+    },
+    {
+        // 2026-11-06: 由普通标注升为推荐分类 (用户: ロリがある 算 susume). 比 ロリ 宽: 有这样的角色就算, 不要求是卖点
+        key: "loligaaru",
+        display: "ロリがある",
+        bgmTag: "ロリがある",
+        slug: "loli-ga-aru",
+        subtitle: "有萝莉角色",
+        rule: "作品里有外形或年龄偏小的角色, 哪怕只有一个、不是卖点也算; 标了 ロリ 的番自动带上, 不必重复勾选",
     },
     {
         key: "imouto",
@@ -86,6 +95,14 @@ export const ANIME_TAG_DEFS: readonly AnimeTagDef[] = [
     { tag: "恋爱", bgmTag: "恋爱", group: "标注", rule: "恋爱关系是主线" },
     { tag: "致郁", bgmTag: "致郁", group: "标注" },
 ];
+
+/**
+ * 隐含标签: 标了左边的番, 渲染时自动带上右边的 (标注文件里不必重复勾选). 镜像 labelVocab.json genre[].impliedBy.
+ * 2026-11-06: ロリ (卖点) 一定也是 ロリがある (有这样的角色). 两者现在都是推荐分类, 隐含关系不变.
+ */
+export const ANIME_TAG_IMPLIES: Readonly<Record<string, readonly string[]>> = {
+    ロリ: ["ロリがある"],
+};
 
 /**
  * 旧链接里的标签名 -> 新词表名. **只用于解析 URL** (旧式 /anime?tag=萝莉 / ?tag=妹控 跳到对应 susume 页),

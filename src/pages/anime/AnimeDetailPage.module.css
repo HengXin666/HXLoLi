@@ -963,3 +963,40 @@
 @media (prefers-reduced-motion: reduce) {
     .susumeBadge { transition: none; }
 }
+
+/* ---------- 所属系列导航 (.agents/notes/implemented/feature/2026-11-05-anime-series-fold.md) ---------- */
+.seriesNav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    margin: 0 0 12px;
+    padding: 8px 14px;
+    border-radius: var(--detail-radius-sm);
+    border: 1px solid var(--detail-border);
+    background: var(--detail-surface);
+    font-size: 14px;
+}
+
+.seriesNavTitle {
+    font-weight: 700;
+    color: var(--ifm-font-color-base);
+}
+
+.seriesNavTitle:hover {
+    color: var(--detail-accent-ink);
+    text-decoration: none;
+}
+
+.seriesNavSteps {
+    display: flex;
+    gap: 14px;
+}
+
+/* 2026-11-06: 详情页包进 BlogWithCats 墙 (同系列页): 底色与外边距交给墙, .shell 只管内部 */
+:global(.blog-content) > .shell {
+    background: transparent;
+    margin: 0 auto;
+    padding: 8px 4px 24px;
+}

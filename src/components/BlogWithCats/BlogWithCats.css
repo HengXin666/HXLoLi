@@ -17,6 +17,14 @@
 }
 
 /*
+ * 页面直接挂 BlogWithCats (系列 / 详情 / 番剧库 / 首页 / cv / 分享) 时, 墙和导航栏、页脚之间留上下外边距 (2026-11-06 用户反馈: 墙顶贴着导航栏).
+ * 博客列表 / 文章页的墙在 BlogLayout 的 .container.margin-vert--lg 里, 已有外边距, 不走这条.
+ */
+.main-wrapper > .blog-container {
+    padding: 32px 0 56px;
+}
+
+/*
  * 博客文章页 (html.blog-post-page): BlogLayout 三栏, 正文列 = 主列 78.25% (流式), 正文块 (墙) 上限由 BlogPostPage 传 contentWidth 900.
  * 宽屏 (>= 1536) 再给两侧各留 120px 缝给立绘: 正文块 = min(900, 正文列 - 240). 1920 下正文列约 1217 -> 墙 900, 缝约 158 (完整模式);
  * 1536 下正文列约 976 -> 墙 736, 缝 120 (紧凑模式). 更窄时不留缝, 正文优先, 立绘按 useWallFit 实测自然不出.
@@ -498,4 +506,40 @@ html:has(.neko-sides[data-on]) .theme-back-to-top-button {
 
 @media print {
     .neko-pocket { display: none; }
+}
+
+/*
+ * gutter 墙 (文档 / 知识库 / 标签 / 搜索 / 404) 有立绘时也要和外部分开 (2026-11-06 用户反馈: 所有左右探头页都要像系列页那样有底色区分).
+ * useWallFit 给量到的墙打 data-neko-wall, 这里给它和 pair 正文墙一样的底色、1px 边、两侧阴影, 外加上下外边距.
+ * 只加内边距不加横向尺寸, 墙宽不变, 立绘位置不受影响.
+ */
+[data-neko-wall] {
+    position: relative;
+    z-index: 2;
+    border-radius: 16px;
+    background: var(--ifm-background-color);
+    box-shadow:
+        0 0 0 1px var(--ifm-color-emphasis-200),
+        -10px 0 24px -14px rgba(0, 0, 0, 0.28),
+        10px 0 24px -14px rgba(0, 0, 0, 0.28);
+    margin-top: 24px !important;
+    margin-bottom: 40px !important;
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+}
+
+[data-theme='dark'] [data-neko-wall] {
+    background: var(--ifm-background-surface-color, #1b1b1d);
+    box-shadow:
+        0 0 0 1px var(--ifm-color-emphasis-200),
+        -12px 0 28px -14px rgba(0, 0, 0, 0.7),
+        12px 0 28px -14px rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 996px) {
+    [data-neko-wall] {
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+    }
 }

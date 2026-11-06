@@ -21,6 +21,8 @@ export interface SelectProps<T extends string | number> {
   className?: string;
   /** 列表最多显示的高度, 超出滚动; 默认 280 */
   maxHeight?: number;
+  /** 触发按钮文字左侧的小图标 (传一个 aria-hidden 的 svg); 不传就不渲染, 年份 / 评分下拉保持原样 */
+  icon?: React.ReactNode;
 }
 
 /**
@@ -29,10 +31,11 @@ export interface SelectProps<T extends string | number> {
  * 键盘: 方向上下移动 (关着时打开), Home / End 到首尾, Enter / 空格选中或打开, Esc 关闭, Tab 关闭并照常移走焦点,
  * 输入字符按标签首字跳转. 点外部关闭; 超长列表滚动且当前项自动滚入视野.
  * 在模态 <dialog> 里使用时列表挂进那个 dialog (顶层之外的元素是 inert 的).
+ * 可选 icon 放在文字左侧 (番剧页排序用它显示当前排序方式的图标).
  * .agents/notes/implemented/feature/2026-11-01-anime-custom-select.md
  */
 export default function Select<T extends string | number>({
-  value, options, onChange, ariaLabel, ariaLabelledBy, className = '', maxHeight = 280,
+  value, options, onChange, ariaLabel, ariaLabelledBy, className = '', maxHeight = 280, icon,
 }: SelectProps<T>): React.ReactElement {
   const uid = useId().replace(/:/g, '');
   const listId = `hx-sel-${uid}`;
@@ -201,6 +204,7 @@ export default function Select<T extends string | number>({
         onClick={() => (open ? setOpen(false) : openList())}
         onKeyDown={onKeyDown}
       >
+        {icon !== undefined && <span className={styles.icon} aria-hidden>{icon}</span>}
         <span className={styles.value}>{selected?.label ?? ''}</span>
         <svg className={styles.chevron} viewBox="0 0 24 24" width="14" height="14" aria-hidden>
           <path fill="currentColor" d="M7 10l5 5 5-5z" />

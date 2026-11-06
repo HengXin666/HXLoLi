@@ -18,6 +18,8 @@ Decision-ID: blog-catgirl-sides
 
 - 2026-11-03 全站覆盖与手机端 (设计与逐页理由见 `.agents/research/peek-layout.md`): 新增 gutter 变体 (墙 = 透明内容容器的实测外沿, 零侵入, 内侧 10% 淡出收口), 用于文档 / 知识库 / 标签页 / 搜索 / 404; 路由表改成有序前缀规则, 博客标签 / 作者页用 side, /docs-graph 用 edges, /hxdeck /hxdeck-editor /ppt /drawio 显式 off (演示 / 编辑器 / 投屏页四周都是控件), 表外路由回落 gutter. 页内 SideCats 挂载登记 (模块级 Set + useSyncExternalStore), RouteCats 见到登记就让位, 修掉 /anime/details 叠两组; 同时从路由表删掉 /anime/details. pair 留白改为实测并扣掉障碍物 (博客侧边栏 aside / TOC / 文档侧边栏), 宽度下限 240 -> 130, 修掉博客文章页压侧边栏与 TOC. 素材优先读 `static/img/catgirl/manifest.json` (fetch 一次缓存, 逐图按 catgirl-spec 校验 w >= 600 / 5:12 / fade 0.84-0.94, 左右同角色丢弃), 读不到或为空回落内置 pair1..13. 所有变体 <= 996 宽或 <= 500 高不渲染 (JS 门槛 + CSS 兜底), 高 <= 640 收 lift 与宽度; reduced-motion 完全静态; 立绘无 hover 态. `window.__nekoDebug()` 返回当前页变体 / 是否渲染 / 原因 / room / 用的哪对 / 槽矩形 / 横向滚动 / 与可点击元素的重叠, 给验收用. 挂载点 `src/theme/Root.tsx` 反向引用本 note.
 
+- 2026-11-06 素材筛选修正: `parseImg` 丢弃 manifest 里 `excluded: true` 的图 (8 张旧命名残留, 与其他图重复或互为镜像, 原来 `parseCharacters` 不看这个字段, 约 1/5 的组合会抽到它们); `parseCharacters` / `parseManifest` 两两交叉时跳过疑似同一角色的组合 (内置 `AVOID_PAIRS` 含 komari 与 unk-strawhat, 可用 manifest `avoidPairs` 追加), 避免左右看起来是同一个人.
+
 ## Alternatives considered
 
 - 什么都不做, 保留原来的 absolute 立绘: 最强理由是 cv / 友链两页一直这样用, 零风险. 否决: 用户明确说当前效果"浮空、有破绽", 而且博客页根本没有立绘.

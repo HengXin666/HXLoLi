@@ -1,74 +1,141 @@
 /*
- * 番剧库页面骨架: 去掉两侧猫娘与深灰圆角盒, 内容区最宽 1240px, 海报网格按可用宽度自动排列 (桌面 5-6 列, 手机 2 列).
+ * 番剧库页面骨架: 去掉两侧猫娘与深灰圆角盒, 内容区最宽 1280px, 海报网格按可用宽度自动排列 (桌面 5-6 列, 手机 2 列).
+ * 2026-11-06 UI 现代化: 页面级设计令牌 (--anime-*), 柔光极光背景, 渐变标题, 玻璃质感统计胶囊, 卡片式空态 / 错误态.
+ * 颜色一律从 Infima 变量 color-mix 出来, 亮色 / 暗色主题都成立 (不再写死半透明白).
  * .agents/notes/implemented/feature/2026-11-01-anime-page-refactor.md
  */
 
 .page {
-    max-width: 1240px;
+    --anime-accent: var(--ifm-color-primary);
+    --anime-fg: var(--ifm-font-color-base);
+    --anime-muted: color-mix(in srgb, var(--ifm-font-color-base) 58%, transparent);
+    --anime-faint: color-mix(in srgb, var(--ifm-font-color-base) 42%, transparent);
+    --anime-line: color-mix(in srgb, var(--ifm-font-color-base) 10%, transparent);
+    --anime-surface: color-mix(in srgb, var(--ifm-font-color-base) 4%, transparent);
+    --anime-surface-2: color-mix(in srgb, var(--ifm-font-color-base) 7%, transparent);
+    --anime-accent-soft: color-mix(in srgb, var(--ifm-color-primary) 14%, transparent);
+    --anime-radius: 16px;
+    --anime-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    position: relative;
+    isolation: isolate;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 28px 20px 72px;
+    padding: 36px 24px 88px;
 }
 
+/* 顶部柔光: 两团主色 / 冷色径向渐变, 只在页头附近, 不干扰卡片阅读 */
+/*
+ * 页头 (第三版, 2026-11-06): 参考 Letterboxd / AniList 个人页的写法, 不用光晕、渐变字、胶囊按钮和彩色圆点.
+ * 标题 + 一行等宽副标 -> 一条下划线式子导航 (全部 / おすすめ 三类 / キャラ / 关系图), 当前项 2px 主色下划线.
+ * 主色只出现在这条下划线和悬停上.
+ */
 .header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 6px 16px;
-    margin-bottom: 4px;
+    padding-bottom: 16px;
 }
 
 .title {
     margin: 0;
-    font-size: clamp(24px, 3vw, 32px);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--anime-fg);
 }
 
-.stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 14px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.6);
+.titleSub {
+    margin: 6px 0 0;
+    font: 12px/1.5 var(--ifm-font-family-monospace);
+    color: var(--anime-faint);
     font-variant-numeric: tabular-nums;
 }
 
-.stats b {
-    color: var(--ifm-font-color-base);
+.titleSub b {
+    color: var(--anime-fg);
     font-weight: 600;
 }
 
-.links {
+.subnav {
     display: flex;
-    gap: 12px;
-    font-size: 13px;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0 24px;
+    border-bottom: 1px solid var(--anime-line);
+    font-size: 14px;
+}
+
+.subnav a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 10px 0;
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
+    color: var(--anime-muted);
+    text-decoration: none !important;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.subnav a:hover {
+    color: var(--anime-fg);
+}
+
+.subnav a[aria-current="page"] {
+    color: var(--anime-fg);
+    font-weight: 600;
+    border-bottom-color: var(--anime-accent);
+}
+
+.subnavCount {
+    font: 11px/1 var(--ifm-font-family-monospace);
+    color: var(--anime-faint);
+    font-variant-numeric: tabular-nums;
+}
+
+.subnavSep {
+    align-self: center;
+    width: 1px;
+    height: 14px;
+    background: var(--anime-line);
+}
+
+.subnavEnd {
+    margin-left: auto;
 }
 
 .group {
-    margin-top: 28px;
+    margin-top: 36px;
 }
 
 .groupTitle {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 10px;
-    margin: 0 0 14px;
-    font-size: 17px;
-    font-weight: 700;
+    margin: 0 0 16px;
+    font-size: 16px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+}
+
+.groupTitle::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    margin-left: 4px;
+    background: var(--anime-line);
 }
 
 .groupCount {
-    font-size: 12.5px;
+    font: 12px/1 var(--ifm-font-family-monospace);
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--anime-muted);
+    font-variant-numeric: tabular-nums;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
-    gap: 22px 16px;
+    grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
+    gap: 28px 18px;
     margin: 0;
     padding: 0;
 }
@@ -76,6 +143,7 @@
 .list {
     margin: 0;
     padding: 0;
+    border-top: 1px solid var(--anime-line);
 }
 
 /* ---------- 骨架 ---------- */
@@ -85,10 +153,8 @@
 
 .skeletonCover,
 .skeletonLine {
-    border-radius: 12px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.11) 50%, rgba(255, 255, 255, 0.05) 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.4s linear infinite;
+    border-radius: 4px;
+    background: var(--anime-surface-2);
 }
 
 .skeletonCover {
@@ -97,14 +163,14 @@
 
 .skeletonLine {
     height: 12px;
-    margin-top: 10px;
+    margin-top: 12px;
     border-radius: 6px;
     width: 80%;
 }
 
 .skeletonLine + .skeletonLine {
     width: 50%;
-    margin-top: 6px;
+    margin-top: 7px;
 }
 
 @keyframes shimmer {
@@ -112,54 +178,96 @@
     to { background-position: -200% 0; }
 }
 
-/* ---------- 空态 / 错误 ---------- */
+/* ---------- 空态 / 错误: 居中玻璃卡片, 错误态 (role=alert) 顶部带警示徽记 ---------- */
 .notice {
-    margin: 56px auto;
-    max-width: 460px;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.75);
+    margin: 48px 0;
+    max-width: 560px;
+    padding: 20px 0;
+    border-top: 1px solid var(--anime-line);
+    border-bottom: 1px solid var(--anime-line);
+    color: var(--anime-muted);
+}
+
+.notice[role="alert"] {
+    border-top-color: #e5484d;
 }
 
 .notice h2 {
-    font-size: 18px;
     margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 650;
+    color: var(--anime-fg);
 }
 
 .notice p {
+    margin-bottom: 18px;
     font-size: 14px;
-    margin-bottom: 14px;
+    line-height: 1.65;
 }
 
 .noticeActions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 8px;
 }
 
 .suggest {
+    display: inline-flex;
+    align-items: center;
     height: 32px;
-    padding: 0 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 136, 255, 0.5);
-    background: rgba(255, 136, 255, 0.1);
-    color: var(--ifm-color-primary);
+    padding: 0 12px;
+    border-radius: 6px;
+    border: 1px solid var(--anime-line);
+    background: transparent;
+    color: var(--anime-fg);
     font-size: 13px;
     cursor: pointer;
+    transition: border-color 0.15s ease;
 }
 
 .suggest:hover {
-    background: rgba(255, 136, 255, 0.2);
+    border-color: color-mix(in srgb, var(--ifm-font-color-base) 40%, transparent);
+}
+
+.suggest:focus-visible {
+    outline: 2px solid var(--anime-accent);
+    outline-offset: 2px;
+}
+
+/* 错误态的"重试"是主操作: 实心 (正文色底) */
+.notice[role="alert"] .suggest {
+    border-color: transparent;
+    background: var(--anime-fg);
+    color: var(--ifm-background-color);
 }
 
 @media (max-width: 720px) {
     .page {
-        padding: 16px 12px 56px;
+        padding: 20px 14px 64px;
     }
 
     .grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px 12px;
+        gap: 20px 12px;
+    }
+
+    .list {
+        padding: 0;
+    }
+
+    .subnav {
+        gap: 0 16px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+    }
+
+    .subnav a {
+        flex: none;
+    }
+
+    .subnavEnd {
+        margin-left: 0;
     }
 }
 
@@ -205,6 +313,11 @@
     :global(html[data-anime-vt])::view-transition-new(*) {
         animation: none !important;
     }
+
+    .suggest {
+        animation: none;
+        transition: none;
+    }
 }
 
 /* ---------- 分享番单弹层 (内容是 AnimeSharePanel, 外观在它自己的 CSS module) ----------
@@ -217,17 +330,16 @@
     max-height: min(90vh, 1000px);
     padding: 0;
     border: 1px solid var(--ifm-color-emphasis-300);
-    border-radius: 16px;
+    border-radius: 8px;
     background: var(--ifm-background-color);
     color: var(--ifm-font-color-base);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
     /* 弹窗本身不滚, 滚动交给 .shareBody; 关闭按钮绝对定位在弹窗右上角那条 56px 的顶栏里, 内容永远滚不到它下面 */
     overflow: hidden;
 }
 
 .shareDialog::backdrop {
     background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(2px);
 }
 
 .shareBody {
@@ -248,20 +360,18 @@
     height: 38px;
     padding: 0;
     border: 1px solid var(--ifm-color-emphasis-300);
-    border-radius: 50%;
-    background: var(--ifm-background-surface-color);
+    border-radius: 6px;
+    background: var(--ifm-background-color);
     color: var(--ifm-font-color-base);
     font-size: 18px;
     line-height: 1;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .shareClose:hover,
 .shareClose:focus-visible {
-    border-color: var(--ifm-color-primary);
-    color: var(--ifm-color-primary);
+    border-color: color-mix(in srgb, var(--ifm-font-color-base) 40%, transparent);
 }
 
 @media (max-width: 720px) {
@@ -270,7 +380,7 @@
         max-width: 100vw;
         max-height: 90vh;
         margin: auto 0 0;
-        border-radius: 18px 18px 0 0;
+        border-radius: 8px 8px 0 0;
         border-bottom: 0;
     }
 
@@ -279,47 +389,10 @@
     }
 }
 
-/* ---------- 页面动效 (2026-11-02): 页头入场错落 + 分组标题随滚动浮现 ----------
- * 只动 opacity / transform; 卡片本身不加, 免得和列表 FLIP / view transition 抢 transform.
- * 分组标题用 CSS 滚动驱动动画 (animation-timeline: view()), 不支持的浏览器直接显示, 不需要 JS.
- * .agents/notes/implemented/feature/2026-11-01-anime-page-refactor.md
- */
-.header > *,
-.stats > li {
-    animation: animeRise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
+/* 页面动效: 第三版去掉页头错落入场与分组标题滚动浮现, 只保留列表的 view transition (上方). */
 
-.header > :nth-child(2) { animation-delay: 80ms; }
-.header > :nth-child(3) { animation-delay: 140ms; }
-.stats > li:nth-child(1) { animation-delay: 160ms; }
-.stats > li:nth-child(2) { animation-delay: 210ms; }
-.stats > li:nth-child(3) { animation-delay: 260ms; }
-.stats > li:nth-child(4) { animation-delay: 310ms; }
-.stats > li:nth-child(n + 5) { animation-delay: 360ms; }
-
-@supports (animation-timeline: view()) {
-    .groupTitle {
-        animation: animeRise linear both;
-        animation-timeline: view();
-        animation-range: entry 0% entry 60%;
-    }
-}
-
-@keyframes animeRise {
-    from {
-        opacity: 0;
-        transform: translateY(14px);
-    }
-    to {
-        opacity: 1;
-        transform: none;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .header > *,
-    .stats > li,
-    .groupTitle {
-        animation: none !important;
-    }
+/* 2026-11-06 第四版: 页面包进 BlogWithCats 墙 (正文块自带 20px 内边距与底色), 页面自身不再加外边距, 只留内部呼吸 */
+:global(.blog-content) > .page {
+    max-width: none;
+    padding: 12px 4px 32px;
 }

@@ -6,10 +6,13 @@ import { ANIME_TAG_QUERY, countTags, getRecordTags, normalizeTag, OTHER_TAG_GROU
  * 状态完整写在 URL 上 (?q=&status=watching,watched&tag=萝莉,日常&match=any&year=2024&score=8&sort=air),
  * 默认值不写, 所以 /anime 就是默认视图, 分享链接能还原全部筛选. 只有视图密度 (海报 / 列表) 存本地.
  * 组合语义: 维度之间"且"; 观看状态内"或"; 标签默认"全部命中"(且), 可切"任一命中"(或).
+ * ?fold=series 切到「系列」视图: 筛选仍按单季判断, 系列只要有一季命中就显示 (分组 / 排序见 utils/anime/series.ts 的 groupSeries).
  * .agents/notes/implemented/feature/2026-11-01-anime-page-refactor.md
  */
 export type SortKey = "update" | "air" | "score" | "name";
 export type TagMatch = "all" | "any";
+/** 卡片单位: none = 一部一张 (默认); series = 同系列各季聚成一张 (「系列」视图, 见 utils/anime/series.ts). 与排序正交, 不是筛选条件 */
+export type FoldMode = "none" | "series";
 
 export interface AnimeFilters {
     q: string;
@@ -19,6 +22,7 @@ export interface AnimeFilters {
     year: number | null;
     minScore: number | null;
     sort: SortKey;
+    fold: FoldMode;
 }
 
 export const DEFAULT_FILTERS: AnimeFilters = {
@@ -29,6 +33,7 @@ export const DEFAULT_FILTERS: AnimeFilters = {
     year: null,
     minScore: null,
     sort: "update",
+    fold: "none",
 };
 
 export const STATUS_OPTIONS: readonly { value: WatchStatus; key: string; label: string }[] = [
@@ -76,6 +81,7 @@ export function parseFilters (search: string): AnimeFilters {
         year: Number.isInteger(year) && year > 1900 ? year : null,
         minScore: Number.isFinite(score) && score > 0 ? score : null,
         sort: SORT_KEYS.has(sort) ? (sort as SortKey) : DEFAULT_FILTERS.sort,
+        fold: p.get("fold") === "series" ? "series" : DEFAULT_FILTERS.fold,
     };
 }
 
@@ -89,6 +95,7 @@ export function serializeFilters (f: AnimeFilters): string {
     if (f.year !== null) p.set("year", String(f.year));
     if (f.minScore !== null) p.set("score", String(f.minScore));
     if (f.sort !== DEFAULT_FILTERS.sort) p.set("sort", f.sort);
+    if (f.fold !== DEFAULT_FILTERS.fold) p.set("fold", f.fold);
     // URLSearchParams 会把逗号编码成 %2C, 还原成逗号, 链接可读
     return p.toString().replace(/%2C/g, ",");
 }
@@ -114,9 +121,9 @@ export function activeConditions (f: AnimeFilters): ActiveCondition[] {
     return out;
 }
 
-/** 清空所有条件, 保留排序 (排序不是"条件") */
+/** 清空所有条件, 保留排序与聚合方式 (都不是"条件") */
 export function clearConditions (f: AnimeFilters): AnimeFilters {
-    return { ...DEFAULT_FILTERS, sort: f.sort };
+    return { ...DEFAULT_FILTERS, sort: f.sort, fold: f.fold };
 }
 
 type Dimension = "q" | "status" | "tags" | "year" | "score";

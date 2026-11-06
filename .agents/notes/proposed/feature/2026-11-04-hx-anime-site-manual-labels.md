@@ -20,6 +20,8 @@ Decision-ID: hx-anime-site-manual-labels
 4. `/anime` 首页顶部三张大入口卡 (封面拼贴 + 数量), 详情页这三个标签渲染为特殊徽章点击进入对应 susume 页. 旧式 `/anime?tag=物凄い` 等链接客户端重定向到对应 susume 页, 避免两套入口.
 5. 标注 PR 与 data 流的产出由 HXLoLi-ANiMe 子仓的流水线负责, 本仓只消费 `data/labels/` 与词表镜像.
 
+- 2026-11-06 新增普通标注「ロリがある」: 作品里有外形或年龄偏小的角色, 哪怕只有一个、不是卖点也算. 由 ロリ 隐含 (`ANIME_TAG_IMPLIES`, 镜像 labelVocab.json genre[].impliedBy), 在 `getRecordTags` 一处补齐, 筛选 / 计数 / 徽章都跟着生效; 标注文件里不必重复勾选.
+
 ## Alternatives considered
 
 - **什么都不做 / 复用现有四源合并渲染**: 最强理由是覆盖率高且不用改主站. 否决: 误标正是重构起因, 四源并存无法追溯, 自动推断无法反映个人口味.
@@ -37,5 +39,5 @@ Decision-ID: hx-anime-site-manual-labels
 ## Verification
 
 - `uv run scripts/redlines/agent_notes.py --all` 在本子仓运行, 结果见本仓 `.git/reports/agent-notes-all.json`.
-- 静态可查: `src/pages/anime/susume/{monosugoi,loli,imouto}.tsx` 存在且各 import SusumePage; `src/pages/anime/index.tsx` 含 SusumeEntryCards 与 legacySusumeTarget; `src/utils/anime/tags.ts` 含 susumePath / susumeDefOfTag; `data/animeTags.ts` 含 ANIME_SUSUME_DEFS 三项 slug.
+- 静态可查: `src/pages/anime/susume/{monosugoi,loli,imouto}.tsx` 存在且各转发到 `src/components/anime/susume/SusumeCategoryPage.tsx` (2026-11-06 重构, 旧 SusumePage 已删); `src/pages/anime/index.tsx` 含 SusumeEntry 与 legacySusumeTarget; `src/utils/anime/tags.ts` 含 susumePath / susumeDefOfTag; `data/animeTags.ts` 含 ANIME_SUSUME_DEFS 三项 slug.
 - 页面真实渲染与重定向未做浏览器实测.

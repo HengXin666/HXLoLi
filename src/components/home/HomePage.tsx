@@ -1,4 +1,5 @@
 import Link from '@docusaurus/Link';
+import BlogWithCats from '@site/src/components/BlogWithCats';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { latestAiDocs, latestBlogs, latestDocs, type LatestDoc } from '@site/data/latestDocs';
@@ -84,7 +85,7 @@ function useActiveSection (): string {
 }
 
 /**
- * 首页: 左栏是固定的个人卡 (头图横幅 / 名字 / 一句话 / 在做的项目 / 数字 / 分节导航),
+ * 首页: 左栏是固定的个人卡 (头像 + 名字 / 一句话 / 在做的项目 / 数字 / 分节导航),
  * 右栏依次是字数、最近更新 (博客 / AI 文章 / 笔记)、WakaTime (摘要 + 更多: 趋势图)、近一年项目 (+ 更多: 关系图浮层)、追番、关于.
  * 悬停说明统一走 common/Tooltip, 不用原生 title.
  * .agents/notes/implemented/feature/2026-10-31-homepage-profile-and-project-index.md
@@ -98,8 +99,6 @@ export default function HomePage (): React.ReactElement {
     const [wakaMounted, setWakaMounted] = useState(false);
     const [feed, setFeed] = useState(FEEDS[0].id);
     const avatar = useBaseUrl('/img/ecosystem/profile.webp');
-    const banner640 = useBaseUrl('/img/main_menu_misaka-640.webp');
-    const banner960 = useBaseUrl('/img/main_menu_misaka-960.webp');
     const siteBase = useBaseUrl('/');
 
     const nowBuilding = projects
@@ -112,22 +111,12 @@ export default function HomePage (): React.ReactElement {
             title={`いにゃさい ${siteConfig.title}`}
             description="Heng_Xin 的笔记、轮子和应用: 字数曲线、WakaTime 统计与近一年项目"
         >
+            <BlogWithCats contentWidth={1180}>
             <div className={styles.page}>
                 <aside className={styles.aside}>
                     <div className={styles.card}>
-                        <img
-                            className={styles.banner}
-                            src={banner640}
-                            srcSet={`${banner640} 640w, ${banner960} 960w`}
-                            sizes="(max-width: 996px) 100vw, 320px"
-                            width={640}
-                            height={335}
-                            alt=""
-                            fetchPriority="high"
-                            decoding="async"
-                        />
                         <div className={styles.identity}>
-                            <img className={styles.avatar} src={avatar} alt="Heng_Xin" width={56} height={56} />
+                            <img className={styles.avatar} src={avatar} alt="Heng_Xin" width={48} height={48} fetchPriority="high" />
                             <div>
                                 <h1 className={styles.name}>{siteConfig.title}</h1>
                                 <p className={styles.tagline}>{siteConfig.tagline}</p>
@@ -282,13 +271,11 @@ export default function HomePage (): React.ReactElement {
                     <section id="anime" className={styles.section}>
                         <header className={styles.head}>
                             <h2>在追的番</h2>
-                            <p>BanGuMi 追番记录, 封面是最近更新进度的在看. 点标签进番剧页筛选.</p>
+                            <p>BanGuMi 追番记录, 列的是最近更新进度的在看.</p>
                         </header>
-                        <div className={styles.panel}>
-                            <LazyMount minHeight={300} rootMargin="300px" label="追番记录加载中">
-                                <HomeAnime />
-                            </LazyMount>
-                        </div>
+                        <LazyMount minHeight={360} rootMargin="300px" label="追番记录加载中">
+                            <HomeAnime />
+                        </LazyMount>
                     </section>
 
                     <section id="about" className={styles.section}>
@@ -324,6 +311,7 @@ export default function HomePage (): React.ReactElement {
                     </section>
                 </main>
             </div>
+            </BlogWithCats>
         </Layout>
     );
 }

@@ -1,0 +1,426 @@
+/*
+ * 「HX おすすめ Glass」原子组件样式. 颜色全部取 src/css/custom.css 的 --hx-* 令牌, 派生色只用 color-mix,
+ * 这里不写任何十六进制或 rgba. 断点: ≥1280 / 997–1279 / 641–996 / ≤640 (996 与 Docusaurus 移动端对齐).
+ * 决策见 .agents/notes/implemented/feature/2026-11-06-anime-ui-kit.md
+ */
+
+/* ================= Hero ================= */
+.hero {
+    --hx-hero-accent: var(--hx-accent);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(28px, 5vw, 56px) clamp(20px, 4vw, 48px);
+    border-radius: var(--hx-radius-xl);
+    border: 1px solid var(--hx-border);
+    background: var(--hx-dots), var(--hx-surface-0);
+}
+
+.heroMesh {
+    position: absolute;
+    inset: -32px;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(55% 70% at 18% 0%, color-mix(in srgb, var(--hx-hero-accent) 22%, transparent), transparent 70%),
+        var(--hx-mesh);
+}
+
+.heroBody {
+    position: relative;
+    max-width: var(--hx-measure);
+}
+
+.hero[data-neko="right"] .heroBody { padding-right: 120px; }
+.hero[data-neko="left"] .heroBody { padding-left: 120px; }
+
+.kicker {
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--hx-hero-accent) 78%, var(--hx-text));
+    font-variant-numeric: tabular-nums;
+}
+
+.heroTitle {
+    margin: 0;
+    font-family: var(--hx-font-round);
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    color: var(--hx-text);
+    text-wrap: balance;
+}
+
+.heroSub {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 14px;
+    margin: 12px 0 0;
+    color: var(--hx-text-dim);
+    font-size: 15px;
+}
+
+.heroCount {
+    padding: 2px 10px;
+    border-radius: var(--hx-radius-pill);
+    background: color-mix(in srgb, var(--hx-hero-accent) 14%, transparent);
+    color: color-mix(in srgb, var(--hx-hero-accent) 80%, var(--hx-text));
+    font-weight: 700;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* 猫娘台词气泡 */
+.say {
+    position: relative;
+    display: inline-block;
+    margin: 18px 0 0;
+    padding: 10px 16px;
+    border-radius: var(--hx-radius-lg);
+    background: var(--hx-surface-glass);
+    backdrop-filter: var(--hx-glass-blur);
+    -webkit-backdrop-filter: var(--hx-glass-blur);
+    border: 1px solid color-mix(in srgb, var(--hx-hero-accent) 35%, var(--hx-border));
+    box-shadow: var(--hx-shadow-sm);
+    font-family: var(--hx-font-round);
+    color: var(--hx-text);
+    transform-origin: 24px 0;
+}
+
+.say::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 22px;
+    width: 10px;
+    height: 10px;
+    background: inherit;
+    border-left: inherit;
+    border-top: inherit;
+    transform: rotate(45deg);
+}
+
+.heroExtra { margin-top: 20px; }
+
+.heroNeko {
+    position: absolute;
+    bottom: -18px;
+    width: 128px;
+    height: auto;
+    pointer-events: none;
+    filter: drop-shadow(var(--hx-shadow-md));
+    animation: hxNekoIdle 4.8s ease-in-out infinite;
+}
+
+.heroNeko[data-side="right"] { right: -8px; }
+.heroNeko[data-side="left"] { left: -8px; }
+
+/* ================= Pills ================= */
+.pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 5px;
+    width: fit-content;
+    max-width: 100%;
+    border-radius: var(--hx-radius-pill);
+    background: var(--hx-surface-1);
+    border: 1px solid var(--hx-border);
+}
+
+.pill {
+    --hx-pill-accent: var(--hx-accent);
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 7px 16px;
+    border: 0;
+    border-radius: var(--hx-radius-pill);
+    background: transparent;
+    color: var(--hx-text-dim);
+    font: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.3;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color var(--hx-dur-fast) var(--hx-ease-out);
+}
+
+.pill:hover { color: var(--hx-text); text-decoration: none; }
+.pill[data-on="true"] { color: var(--hx-surface-0); }
+.pill:focus-visible { outline: none; box-shadow: var(--hx-focus); }
+
+.pillBg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    background: var(--hx-pill-accent);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--hx-pill-accent) 40%, transparent);
+}
+
+.pillLabel,
+.pillHint { position: relative; z-index: 1; }
+
+.pillHint {
+    font-size: 12px;
+    opacity: 0.75;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ================= Card ================= */
+.card {
+    --hx-card-accent: var(--hx-accent);
+    position: relative;
+    border-radius: var(--hx-radius-lg);
+    background: var(--hx-surface-1);
+    border: 1px solid var(--hx-border);
+    transition:
+        transform var(--hx-dur-med) var(--hx-ease-out),
+        box-shadow var(--hx-dur-med) var(--hx-ease-out),
+        border-color var(--hx-dur-med) var(--hx-ease-out);
+}
+
+.card[data-interactive="true"]:hover,
+.card[data-interactive="true"]:focus-within {
+    transform: var(--hx-lift);
+    box-shadow: var(--hx-shadow-md);
+    border-color: color-mix(in srgb, var(--hx-card-accent) 45%, var(--hx-border));
+}
+
+.card[data-reduced="true"] { transition: none; }
+.card[data-reduced="true"][data-interactive="true"]:hover,
+.card[data-reduced="true"][data-interactive="true"]:focus-within { transform: none; }
+
+/* ================= Section head ================= */
+.sectionHead {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 16px;
+}
+
+.sectionTitle {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 0;
+    font-family: var(--hx-font-round);
+    font-weight: 700;
+    font-size: clamp(18px, 2.2vw, 22px);
+    color: var(--hx-text);
+    scroll-margin-top: calc(var(--ifm-navbar-height, 60px) + 16px);
+}
+
+.sectionCount {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--hx-text-faint);
+    font-variant-numeric: tabular-nums;
+}
+
+.sectionAction { flex: none; font-size: 14px; }
+
+/* ================= 评分 ================= */
+.heart,
+.bgm {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: var(--hx-radius-pill);
+    font-size: 12px;
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+}
+
+.heart {
+    background: var(--hx-accent-soft);
+    color: color-mix(in srgb, var(--hx-accent) 85%, var(--hx-text));
+}
+
+.bgm {
+    background: var(--hx-gold-soft);
+    color: color-mix(in srgb, var(--hx-gold) 85%, var(--hx-text));
+}
+
+/* ================= 列表入场 ================= */
+.revealList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.revealItem { min-width: 0; }
+
+/* ================= 骨架 ================= */
+.skeletons { display: contents; }
+
+.sk {
+    display: block;
+    border-radius: var(--hx-radius-lg);
+    background: linear-gradient(100deg, var(--hx-surface-1) 30%, var(--hx-surface-2) 50%, var(--hx-surface-1) 70%) 0 0 / 300% 100%;
+    animation: hxShimmer 1.4s linear infinite;
+}
+
+.sk[data-reduced="true"] { animation: none; }
+
+.skCover { aspect-ratio: 2 / 3; }
+.skCard { min-height: 180px; }
+.skTile { aspect-ratio: 1 / 1; }
+.skLine { height: 14px; border-radius: var(--hx-radius-pill); margin: 8px 0; }
+.skLine:last-child { width: 60%; }
+
+/* ================= 三态 ================= */
+.state { width: 100%; }
+
+.stateInner {
+    position: relative;
+    padding: 36px 24px;
+    text-align: center;
+    border-radius: var(--hx-radius-lg);
+    background: var(--hx-surface-1);
+    border: 1px dashed var(--hx-border-strong);
+}
+
+.stateInner[data-kind="error"] {
+    border-style: solid;
+    border-color: color-mix(in srgb, var(--hx-accent) 40%, var(--hx-border));
+}
+
+.stateNeko {
+    display: block;
+    width: 72px;
+    height: auto;
+    margin: -8px auto 10px;
+    filter: drop-shadow(var(--hx-shadow-sm));
+}
+
+.stateTitle {
+    margin: 0 0 8px;
+    font-family: var(--hx-font-round);
+    font-size: 18px;
+}
+
+.stateBody {
+    max-width: var(--hx-measure);
+    margin: 0 auto 14px;
+    color: var(--hx-text-dim);
+}
+
+.stateBody code { font-size: 0.9em; }
+
+.retry {
+    padding: 6px 18px;
+    border-radius: var(--hx-radius-pill);
+    border: 1px solid var(--hx-accent);
+    background: var(--hx-accent-soft);
+    color: var(--hx-accent);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--hx-dur-fast) var(--hx-ease-spring);
+}
+
+.retry:hover { transform: translateY(-1px); }
+.retry:focus-visible { outline: none; box-shadow: var(--hx-focus); }
+
+/* ================= 探头猫娘轨道 ================= */
+.nekoRail {
+    --neko-w: 150px;
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    width: var(--neko-w);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* 原图 520x1288, 切口在贴舞台一侧约 6% 处, 轨道往舞台里压 6% 让切口落在舞台边 */
+.nekoRail[data-side="left"] { right: calc(100% - var(--neko-w) * 0.06); }
+.nekoRail[data-side="right"] { left: calc(100% - var(--neko-w) * 0.06); }
+
+.nekoHold[data-sticky="true"] {
+    position: sticky;
+    top: calc(var(--ifm-navbar-height, 60px) + 8px);
+}
+
+.neko {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: calc(var(--neko-w) * -0.45);
+    filter: drop-shadow(var(--hx-shadow-md));
+    animation: hxNekoIdle 4.8s ease-in-out infinite;
+}
+
+.nekoRail[data-side="left"] .neko { transform-origin: 100% 60%; }
+.nekoRail[data-side="right"] .neko { transform-origin: 0% 60%; animation-delay: -2.4s; }
+
+.neko[data-reduced="true"] { animation: none; }
+
+@keyframes hxNekoIdle {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -6px; }
+}
+
+@keyframes hxShimmer {
+    to { background-position: -150% 0; }
+}
+
+/* ================= 响应式 ================= */
+
+/* 997–1279: 两侧轨道放不下, 只留 hero 里那一只 */
+@media (max-width: 1279px) {
+    .nekoRail { display: none; }
+}
+
+/* 641–996: 与 Docusaurus 移动端同一断点 */
+@media (max-width: 996px) {
+    .hero { border-radius: var(--hx-radius-lg); }
+    .heroNeko { width: 104px; }
+    .hero[data-neko="right"] .heroBody { padding-right: 92px; }
+    .hero[data-neko="left"] .heroBody { padding-left: 92px; }
+}
+
+/* ≤640: 手机 */
+@media (max-width: 640px) {
+    .hero { padding: 24px 16px 28px; }
+    .heroNeko { width: 80px; bottom: -12px; }
+    .hero[data-neko="right"] .heroBody { padding-right: 64px; }
+    .hero[data-neko="left"] .heroBody { padding-left: 64px; }
+    .heroSub { font-size: 14px; }
+    .pills {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+    .pill { flex: none; padding: 7px 13px; }
+    .pillHint { display: none; }
+    .sectionHead { align-items: flex-start; flex-direction: column; gap: 8px; }
+}
+
+/* ================= 减少动效 ================= */
+@media (prefers-reduced-motion: reduce) {
+    .heroNeko,
+    .neko,
+    .sk { animation: none; }
+
+    .pill,
+    .card,
+    .retry { transition: none; }
+
+    .card[data-interactive="true"]:hover,
+    .card[data-interactive="true"]:focus-within,
+    .retry:hover { transform: none; }
+}
+
+.heroNeko[data-reduced="true"] { animation: none; }

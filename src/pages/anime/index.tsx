@@ -5,9 +5,11 @@ import { useHistory, useLocation } from "@docusaurus/router";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { useBaseUrlUtils } from "@docusaurus/useBaseUrl";
 import PosterCard, { AnimeView } from "@site/src/components/anime/AnimeCard/PosterCard";
+import SeriesCard from "@site/src/components/anime/AnimeCard/SeriesCard";
+import { groupSeries, seriesHits, useAnimeSeries } from "@site/src/utils/anime/series";
 import { FilterBar } from "@site/src/components/anime/Tag/FilterBar";
 import AnimeShareBoard from "@site/src/components/anime/AnimeShareBoard";
-import SusumeEntryCards from "@site/src/components/anime/SusumeEntryCards";
+import SusumeEntry from "@site/src/components/anime/susume/SusumeEntry";
 import { useAnimeLabelsStatus, useAnimeRecordsState } from "@site/src/utils/anime/animeStore";
 import { ANIME_TAG_QUERY, susumeDefOfTag, susumePath } from "@site/src/utils/anime/tags";
 import {
@@ -19,10 +21,11 @@ import {
     groupRecords,
     parseFilters,
     serializeFilters,
-    STATUS_OPTIONS,
 } from "@site/src/utils/anime/filters";
+import { WatchStatus } from "@site/src/utils/anime/types";
 import { usePersistent } from "@site/src/utils/hook/usePersistent";
 import { runListTransition, useListFlip } from "@site/src/utils/anime/listMotion";
+import BlogWithCats from "@site/src/components/BlogWithCats";
 import styles from "./AnimeIndexPage.module.css";
 
 const SKELETON_COUNT = 12;
@@ -52,6 +55,9 @@ function legacySusumeTarget (search: string): string | null {
  * .agents/notes/implemented/feature/2026-11-01-anime-share-on-index.md
  * 2026-11-04 tag 重构: 顶部三张推荐分类大入口卡 (物凄い / ロリ / シスコン, 封面拼贴 + 数量, 进 /anime/susume/<slug>);
  * 标签只读人工标注 data/labels (utils/anime/tags.ts), 普通九项标注仍走 ?tag= 筛选; 旧式 ?tag=物凄い 等跳到专属页 (见 legacySusumeTarget).
+ * 「系列」视图 (?fold=series): 筛选仍按单季, 命中的季按系列聚成一张 SeriesCard, 分组 / 排序用 utils/anime/series.ts 的 groupSeries.
+ * 2026-11-06 第三版: 页头是标题 + 一行等宽副标 + 下划线式子导航 (全部 / おすすめ 三类 / キャラ / 关系图), 去掉胶囊按钮、渐变字与光晕; 状态计数只留在工具栏里.
+ * /anime/kyara 路由由 plugins/kyara-gallery-plugin.mjs 注册.
  */
 export default function AnimeIndexPage (): React.ReactNode {
     const { siteConfig } = useDocusaurusContext();
@@ -84,10 +90,19 @@ export default function AnimeIndexPage (): React.ReactNode {
     const filtered = React.useMemo(() => applyFilters(records, filters), [records, filters]);
     const counts = React.useMemo(() => facetCounts(records, filters), [records, filters]);
     const groups = React.useMemo(() => groupRecords(filtered, filters.sort), [filtered, filters.sort]);
+    const { byId: seriesById } = useAnimeSeries(records);
+    const seriesGroups = React.useMemo(
+        () => (filters.fold === "series" ? groupSeries(seriesHits(filtered, seriesById), filters.sort) : []),
+        [filters.fold, filters.sort, filtered, seriesById],
+    );
+    const seriesShown = React.useMemo(
+        () => (filters.fold === "series" ? seriesGroups.reduce((n, g) => n + g.items.length, 0) : undefined),
+        [filters.fold, seriesGroups],
+    );
 
     // 不走 View Transition 的变化 (不支持的浏览器、后退 / 前进) 用 FLIP 兜底
     const listRef = React.useRef<HTMLDivElement | null>(null);
-    useListFlip(listRef, groups);
+    useListFlip(listRef, filters.fold === "series" ? seriesGroups : groups);
 
     const toggleTag = React.useCallback((tag: string) => {
         setFilters({
@@ -158,6 +173,27 @@ export default function AnimeIndexPage (): React.ReactNode {
                 </div>
             </div>
         );
+    } else if (filters.fold === "series") {
+        content = seriesGroups.map((g) => (
+            <section key={g.key} className={styles.group} aria-labelledby={g.label ? `g-${g.key}` : undefined}>
+                {g.label && (
+                    <h2 id={`g-${g.key}`} className={styles.groupTitle}>
+                        {g.label}<span className={styles.groupCount}>{g.items.length} 个系列</span>
+                    </h2>
+                )}
+                <ul className={listClass}>
+                    {g.items.map((h) => (
+                        <SeriesCard
+                            key={h.series.key}
+                            hit={h}
+                            view={view}
+                            activeTags={filters.tags}
+                            onTagClick={toggleTag}
+                        />
+                    ))}
+                </ul>
+            </section>
+        ));
     } else {
         content = groups.map((g) => (
             <section key={g.key} className={styles.group} aria-labelledby={g.label ? `g-${g.key}` : undefined}>
@@ -183,23 +219,23 @@ export default function AnimeIndexPage (): React.ReactNode {
 
     return (
         <Layout title="アニメ" description="HXLoLi 的追番记录: 按观看状态、标签、年份、评分组合筛选">
+            {/* 两侧立绘藏在正文墙后, 与系列页 / 博客文章页同一套 (墙宽 1200) */}
+            <BlogWithCats contentWidth={1200}>
             <main className={styles.page}>
                 <header className={styles.header}>
                     <h1 className={styles.title}>追番记录</h1>
-                    <div className={styles.links}>
-                        <Link to="/anime/graph">番剧关系图 →</Link>
-                    </div>
+                    <p className={styles.titleSub}>
+                        BanGuMi 收藏{records.length > 0 && <> · <b>{records.length}</b> 部 · 看过 <b>{statusTotals.get(WatchStatus.WATCHED) ?? 0}</b> · 在看 <b>{statusTotals.get(WatchStatus.WATCHING) ?? 0}</b></>}
+                    </p>
                 </header>
-                <SusumeEntryCards records={records} labelsStatus={labelsStatus} />
-
-                {records.length > 0 && (
-                    <ul className={styles.stats} aria-label="各状态部数">
-                        <li>共 <b>{records.length}</b> 部</li>
-                        {STATUS_OPTIONS.map((o) => (
-                            <li key={o.value}>{o.label} <b>{statusTotals.get(o.value) ?? 0}</b></li>
-                        ))}
-                    </ul>
-                )}
+                <nav className={styles.subnav} aria-label="番剧页面">
+                    <Link to="/anime" aria-current="page">全部</Link>
+                    <span className={styles.subnavSep} aria-hidden />
+                    <SusumeEntry records={records} labelsStatus={labelsStatus} countClass={styles.subnavCount} />
+                    <span className={styles.subnavSep} aria-hidden />
+                    <Link to="/anime/kyara">キャラ</Link>
+                    <Link to="/anime/graph" className={styles.subnavEnd}>关系图 →</Link>
+                </nav>
 
                 <FilterBar
                     filters={filters}
@@ -210,6 +246,7 @@ export default function AnimeIndexPage (): React.ReactNode {
                     view={view}
                     onViewChange={setView}
                     onShare={openShare}
+                    seriesShown={seriesShown}
                 />
 
                 <dialog
@@ -225,6 +262,7 @@ export default function AnimeIndexPage (): React.ReactNode {
 
                 <div ref={listRef} className={styles.results}>{content}</div>
             </main>
+            </BlogWithCats>
         </Layout>
     );
 }

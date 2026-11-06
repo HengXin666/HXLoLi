@@ -1,6 +1,8 @@
 /*
  * 番剧库卡片: 海报 tile 与列表 row 两种密度. 颜色走 Infima 变量, 暗色站点上用半透明白做层次.
  * content-visibility 让屏幕外的卡片跳过布局与绘制, 160 张一次渲染也不卡.
+ * 2026-11-06 第三版: 封面 4px 圆角 + 1px 描边, 悬停只加深描边并显出简介 (实色遮罩); 不上浮、不发光、不放大.
+ *   徽章是深灰底小方块, 评分等宽白字, 进度条 2px 主色实条; 去掉金色评分、按状态着色的徽章和所有渐变.
  * .agents/notes/implemented/feature/2026-11-01-anime-page-refactor.md
  */
 
@@ -18,10 +20,34 @@
     position: relative;
     display: block;
     aspect-ratio: 2 / 3;
-    border-radius: 12px;
+    border-radius: 4px;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.06);
+    background: color-mix(in srgb, var(--ifm-font-color-base) 6%, transparent);
     outline-offset: 3px;
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--ifm-font-color-base) 9%, transparent);
+    transition: box-shadow 0.15s ease;
+}
+
+.cover:hover,
+.cover:focus-visible {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--ifm-font-color-base) 45%, transparent);
+}
+
+/* 悬停遮罩 (实色): 承载简介 (.peek) */
+.cover::after {
+    content: "";
+    position: absolute;
+    inset: 40% 0 0;
+    background: rgba(10, 10, 12, 0.82);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.cover:hover::after,
+.cover:focus-visible::after {
+    opacity: 1;
+    inset: 0;
 }
 
 .cover img {
@@ -29,13 +55,6 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.35s ease, filter 0.35s ease;
-}
-
-.cover:hover img,
-.cover:focus-visible img {
-    transform: scale(1.04);
-    filter: brightness(0.55);
 }
 
 .badge {
@@ -43,13 +62,13 @@
     top: 8px;
     left: 8px;
     padding: 1px 8px;
-    border-radius: 999px;
-    font-size: 12px;
-    line-height: 20px;
-    font-weight: 600;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(6px);
+    border-radius: 3px;
+    font-size: 11px;
+    line-height: 18px;
+    font-weight: 500;
+    color: #f2f2f2;
+    background: rgba(12, 12, 14, 0.78);
+    z-index: 2;
 }
 
 .row .badge {
@@ -57,24 +76,28 @@
     flex: none;
 }
 
-.sWatching { background: rgba(255, 136, 255, 0.85); color: #2b0b2b; }
-.sWatched { background: rgba(80, 200, 140, 0.8); color: #062417; }
-.sWish { background: rgba(110, 170, 255, 0.85); color: #071a33; }
-.sHold { background: rgba(240, 190, 80, 0.85); color: #2e2104; }
-.sDropped { background: rgba(160, 160, 160, 0.8); color: #1a1a1a; }
+/* 状态徽章第三版: 一律深灰底白字, 不按状态换彩色; 只有"在看"用主色字, 其余靠文字区分 */
+.sWatching { color: var(--ifm-color-primary); }
+.sWatched,
+.sWish,
+.sHold,
+.sDropped { color: #f2f2f2; }
+.row .sWatched,
+.row .sWish,
+.row .sHold,
+.row .sDropped { color: var(--ifm-font-color-base); background: color-mix(in srgb, var(--ifm-font-color-base) 8%, transparent); }
 
 .score {
     position: absolute;
     top: 8px;
     right: 8px;
     padding: 1px 7px;
-    border-radius: 999px;
-    font-size: 12px;
-    line-height: 20px;
-    color: #ffd76a;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(6px);
+    border-radius: 3px;
+    font: 600 11px/18px var(--ifm-font-family-monospace);
+    color: #f2f2f2;
+    background: rgba(12, 12, 14, 0.78);
     font-variant-numeric: tabular-nums;
+    z-index: 2;
 }
 
 .row .score {
@@ -98,6 +121,8 @@
     transform: translateY(6px);
     transition: opacity 0.25s ease, transform 0.25s ease;
     pointer-events: none;
+    z-index: 2;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 .cover:hover .peek,
@@ -108,9 +133,9 @@
 
 .progress {
     display: block;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.12);
-    border-radius: 999px;
+    height: 2px;
+    background: color-mix(in srgb, var(--ifm-font-color-base) 12%, transparent);
+    border-radius: 0;
     overflow: hidden;
 }
 
@@ -120,16 +145,19 @@
     right: 0;
     bottom: 0;
     border-radius: 0;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.35);
 }
 
 .progress > span {
     display: block;
     height: 100%;
+    border-radius: inherit;
     background: var(--ifm-color-primary);
 }
 
 .body {
-    padding: 8px 2px 0;
+    padding: 10px 2px 0;
     min-width: 0;
 }
 
@@ -155,7 +183,7 @@
     gap: 6px;
     margin-top: 2px;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.55);
+    color: color-mix(in srgb, var(--ifm-font-color-base) 55%, transparent);
     font-variant-numeric: tabular-nums;
 }
 
@@ -167,11 +195,11 @@
 }
 
 .tag {
-    padding: 0 7px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 0 8px;
+    border-radius: 3px;
+    border: 1px solid color-mix(in srgb, var(--ifm-font-color-base) 14%, transparent);
     background: transparent;
-    color: rgba(255, 255, 255, 0.72);
+    color: color-mix(in srgb, var(--ifm-font-color-base) 72%, transparent);
     font-size: 11.5px;
     line-height: 20px;
     cursor: pointer;
@@ -179,14 +207,13 @@
 }
 
 .tag:hover {
-    border-color: var(--ifm-color-primary);
-    color: var(--ifm-color-primary);
+    border-color: color-mix(in srgb, var(--ifm-font-color-base) 40%, transparent);
+    color: var(--ifm-font-color-base);
 }
 
 .tag[aria-pressed="true"] {
-    border-color: var(--ifm-color-primary);
-    background: rgba(255, 136, 255, 0.16);
-    color: var(--ifm-color-primary);
+    border-color: var(--ifm-font-color-base);
+    color: var(--ifm-font-color-base);
 }
 
 /* ---------- 列表 ---------- */
@@ -196,7 +223,7 @@
     grid-template-columns: 64px 1fr;
     gap: 14px;
     padding: 12px 4px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    border-bottom: 1px solid color-mix(in srgb, var(--ifm-font-color-base) 7%, transparent);
     content-visibility: auto;
     contain-intrinsic-size: auto 120px;
 }
@@ -204,9 +231,14 @@
 .rowCover {
     display: block;
     aspect-ratio: 2 / 3;
-    border-radius: 8px;
+    border-radius: 3px;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.06);
+    background: color-mix(in srgb, var(--ifm-font-color-base) 6%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--ifm-font-color-base) 9%, transparent);
+}
+
+.row:last-child {
+    border-bottom: 0;
 }
 
 .rowCover img {
@@ -250,7 +282,7 @@
     flex-wrap: wrap;
     gap: 4px 12px;
     font-size: 12.5px;
-    color: rgba(255, 255, 255, 0.55);
+    color: color-mix(in srgb, var(--ifm-font-color-base) 55%, transparent);
     font-variant-numeric: tabular-nums;
 }
 
@@ -269,7 +301,7 @@
     margin: 2px 0 0;
     font-size: 13px;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.78);
+    color: color-mix(in srgb, var(--ifm-font-color-base) 78%, transparent);
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -277,22 +309,27 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .cover,
+    .cover::after,
     .cover img,
     .peek {
         transition: none;
+    }
+
+    .cover:hover,
+    .cover:focus-visible {
+        transform: none;
     }
 }
 
 /* 推荐分类徽章 (物凄い / ロリ / シスコン): 链到 /anime/susume/<slug>, 不是筛选按钮. 2026-11-04 tag 重构 */
 .susumeTag {
-    border-color: rgba(255, 196, 64, 0.55);
-    background: rgba(255, 196, 64, 0.12);
-    color: #ffd27a;
+    border-color: color-mix(in srgb, var(--ifm-font-color-base) 35%, transparent);
+    color: var(--ifm-font-color-base);
     font-weight: 600;
 }
 
 .susumeTag:hover {
     text-decoration: none;
-    border-color: #ffc440;
-    color: #ffc440;
+    border-color: var(--ifm-font-color-base);
 }

@@ -19,11 +19,6 @@
   align-items: start;
   font-size: 15px;
   line-height: 1.6;
-  /* 点阵底纹: 纯 CSS, 0 字节资源, 只铺在页面顶部 */
-  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 24px 24px;
-  background-position: 0 0;
-  -webkit-mask-image: none;
 }
 
 /* ---------- 左栏 ---------- */
@@ -40,41 +35,32 @@
 
 .card {
   border: 1px solid var(--hx-line);
-  border-radius: 16px;
+  border-radius: 6px;
   background: var(--ifm-background-color);
   overflow: hidden;
-  padding-bottom: 16px;
-}
-
-/* 头图: 1441x755 的原图按 320 宽显示 = 168px 高, 换成 640w / 960w 的 webp */
-.banner {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1441 / 755;
-  object-fit: cover;
-  border-bottom: 1px solid var(--hx-line);
+  padding: 16px 0;
 }
 
 .identity {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: -28px 16px 0;
-  position: relative;
+  margin: 0 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hx-line);
 }
 
+/* 头像: 方形小圆角 + 1px 边, 不再压在横幅上 */
 .avatar {
   flex: none;
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
-  border: 2px solid var(--ifm-background-color);
-  background: var(--ifm-background-color);
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  border: 1px solid var(--hx-line);
   object-fit: cover;
 }
 
-.identity > div { padding-top: 32px; min-width: 0; }
+.identity > div { min-width: 0; }
 
 .name {
   margin: 0;
@@ -86,7 +72,7 @@
 
 .tagline {
   margin: 2px 0 0;
-  font-size: 12px;
+  font: 12px/1.4 var(--ifm-font-family-monospace);
   color: var(--hx-faint);
   white-space: nowrap;
   overflow: hidden;
@@ -133,7 +119,7 @@
   gap: 1px;
   margin: 16px 16px 0;
   border: 1px solid var(--hx-line);
-  border-radius: 10px;
+  border-radius: 4px;
   overflow: hidden;
   background: var(--hx-line);
 }
@@ -305,144 +291,102 @@
 .feedAll { display: inline-block; margin-top: 10px; font-size: 13px; }
 
 /*
- * ---------- "更多 · 展开趋势图": 赋能动画 ----------
- * 不是 display 瞬切: 外层 grid-template-rows 0fr -> 1fr 做高度过渡 (不用量高度),
- * 里层用 clip-path 从按钮所在的顶边向下"充能"展开, 同时一道主色光带自上而下扫过一次, 内容从模糊到清晰;
- * 折线本身再由 recharts 从左往右画出来. 合计约 700ms. 减弱动效下全部关掉, 直接显示.
+ * ---------- "展开趋势图": 一个文字按钮 + 高度展开 ----------
+ * 外层 grid-template-rows 0fr -> 1fr 做高度过渡 (不用量高度), 里层淡入. 不加光带 / 模糊 / 渐变底.
  */
 .magicBtn {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin-top: 16px;
-  padding: 6px 14px 6px 8px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 136, 255, 0.35);
-  background: linear-gradient(90deg, rgba(255, 136, 255, 0.12), rgba(94, 231, 255, 0.08));
-  color: var(--ifm-font-color-base);
+  padding: 4px 0;
+  border: 0;
+  border-bottom: 1px solid var(--hx-line);
+  background: none;
+  color: var(--hx-muted);
   font-size: 13px;
   cursor: pointer;
-  overflow: hidden;
-  transition: border-color 200ms var(--hx-ease), box-shadow 200ms var(--hx-ease);
+  transition: color 150ms var(--hx-ease), border-color 150ms var(--hx-ease);
 }
-.magicBtn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.25) 50%, transparent 70%);
-  transform: translateX(-120%);
-  transition: transform 600ms var(--hx-ease);
-}
-.magicBtn:hover { border-color: var(--ifm-color-primary); box-shadow: 0 0 18px rgba(255, 136, 255, 0.25); }
-.magicBtn:hover::after { transform: translateX(120%); }
+.magicBtn:hover { color: var(--ifm-color-primary); border-color: var(--ifm-color-primary); }
 .magicBtn:focus-visible { outline: 2px solid var(--ifm-color-primary); outline-offset: 2px; }
-.magicGlyph {
-  display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
-  background: rgba(255, 136, 255, 0.18); color: var(--ifm-color-primary);
-  transition: transform 400ms var(--hx-ease);
-}
-.magicBtn[data-open='true'] .magicGlyph { transform: rotate(-12deg) scale(1.1); }
+.magicGlyph { display: inline-grid; place-items: center; color: inherit; }
 
 .magic {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 520ms var(--hx-ease);
+  transition: grid-template-rows 240ms var(--hx-ease);
 }
 .magic[data-open='true'] { grid-template-rows: 1fr; }
 .magicInner {
-  position: relative;
   min-height: 0;
   overflow: hidden;
-  clip-path: inset(0 0 100% 0 round 12px);
   opacity: 0;
-  filter: blur(6px) saturate(1.6);
-  transition: clip-path 620ms var(--hx-ease), opacity 360ms var(--hx-ease), filter 620ms var(--hx-ease);
+  transition: opacity 240ms var(--hx-ease);
 }
-.magic[data-open='true'] .magicInner {
-  clip-path: inset(0 0 0 0 round 12px);
-  opacity: 1;
-  filter: none;
-  margin-top: 16px;
-}
-/* 光带: 展开时自上而下扫过一次 */
-.magicInner::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -40%;
-  height: 40%;
-  pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(255, 136, 255, 0.22) 45%, rgba(94, 231, 255, 0.18) 55%, transparent);
-  opacity: 0;
-}
-.magic[data-open='true'] .magicInner::after { animation: hxCharge 700ms var(--hx-ease) 80ms 1 both; }
+.magic[data-open='true'] .magicInner { opacity: 1; margin-top: 16px; }
 
-@keyframes hxCharge {
-  0% { top: -40%; opacity: 0; }
-  20% { opacity: 1; }
-  100% { top: 110%; opacity: 0; }
-}
+/*
+ * 在追的番 (HomeAnime): 与"最近更新"同一种写法, 不套面板.
+ * 计数是一行文字 (dt 小字 + dd 等宽数字, 中间 1px 竖线), 列表是 1px 分隔的行, 页脚放标签与"全部追番".
+ */
+.anime { display: flex; flex-direction: column; gap: 12px; }
+.animeSkeleton { min-height: 360px; border-top: 1px solid var(--hx-line); border-bottom: 1px solid var(--hx-line); }
+.animeStats { display: flex; flex-wrap: wrap; margin: 0; }
+.animeStats > div { display: flex; align-items: baseline; gap: 6px; padding: 0 14px; border-left: 1px solid var(--hx-line); }
+.animeStats > div:first-child { padding-left: 0; border-left: 0; }
+.animeStats dt { font-size: 12px; color: var(--hx-faint); }
+.animeStats dd { margin: 0; font: 600 15px/1.4 var(--ifm-font-family-monospace); font-variant-numeric: tabular-nums; }
+.animeStats > div:first-child dd { color: var(--ifm-color-primary); }
 
-/* 在追的番 (HomeAnime): 状态计数一行 + 在看封面 + 标签入口 */
-.anime { display: flex; flex-direction: column; gap: 16px; }
-.animeSkeleton { min-height: 300px; border-radius: 12px; background: rgba(255, 255, 255, 0.04); }
-.animeStats {
+.animeList { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hx-line); }
+.animeList li { border-bottom: 1px solid var(--hx-line); }
+.animeRow {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 1px;
-  margin: 0;
-  border: 1px solid var(--hx-line);
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--hx-line);
-}
-.animeStat { background: var(--ifm-background-color); padding: 8px 12px; }
-.animeStat dd { margin: 0; font: 600 20px/1.2 var(--ifm-font-family-monospace); font-variant-numeric: tabular-nums; }
-.animeStat dt { font-size: 11px; color: var(--hx-faint); }
-.animeStat:first-child dd { color: var(--ifm-color-primary); }
-.animeCovers {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: 36px minmax(0, 1fr) 140px 36px 84px;
+  align-items: center;
   gap: 12px;
-}
-.animeCover { display: flex; flex-direction: column; gap: 4px; color: var(--ifm-font-color-base); text-decoration: none !important; }
-.animeCover img {
-  width: 100%;
-  aspect-ratio: 12 / 17;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid var(--hx-line);
-  background: rgba(255, 255, 255, 0.04);
-  transition: border-color 150ms var(--hx-ease), transform 150ms var(--hx-ease);
-}
-.animeCover:hover img { border-color: var(--ifm-color-primary); transform: translateY(-2px); }
-.animeCover:hover .animeName { color: var(--ifm-color-primary); }
-.animeName { font-size: 12px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.animeMeta { font: 11px/1.3 var(--ifm-font-family-monospace); color: var(--hx-faint); }
-.animeTags { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-.animeTags .label { margin-right: 2px; }
-.animeTagHot {
-  padding: 1px 8px;
-  border: 1px solid var(--ifm-color-primary);
-  border-radius: 999px;
-  font-size: 12px;
-  line-height: 18px;
-  color: var(--ifm-color-primary);
-  background: rgba(255, 136, 255, 0.12);
+  padding: 8px 4px;
+  color: var(--ifm-font-color-base);
   text-decoration: none !important;
+  transition: background-color 150ms var(--hx-ease), padding-left 150ms var(--hx-ease);
 }
-.animeTagCount { margin-left: 4px; font-family: var(--ifm-font-family-monospace); opacity: 0.6; }
-.animeAll { margin-left: auto; font-size: 13px; }
+.animeRow:hover { background: var(--hx-surface); padding-left: 8px; }
+.animeRow:hover .animeName { color: var(--ifm-color-primary); }
+.animeThumb {
+  width: 36px;
+  height: 51px;
+  object-fit: cover;
+  border-radius: 3px;
+  border: 1px solid var(--hx-line);
+  background: var(--ifm-color-emphasis-100);
+}
+.animeTitle { display: grid; min-width: 0; line-height: 1.35; }
+.animeName { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 150ms var(--hx-ease); }
+.animeOrig { font-size: 12px; color: var(--hx-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.animeProg { display: flex; align-items: center; gap: 8px; }
+.animeBar { flex: 1; height: 2px; background: var(--hx-line); }
+.animeBar > span { display: block; height: 100%; background: var(--ifm-color-primary); }
+.animeEps, .animeScore, .animeDate { font: 12px/1 var(--ifm-font-family-monospace); color: var(--hx-faint); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.animeEps { min-width: 40px; text-align: right; }
+.animeScore { text-align: right; color: var(--ifm-font-color-base); }
+.animeDate { text-align: right; }
+
+.animeFoot { display: flex; align-items: baseline; gap: 16px; }
+.animeFoot .feedAll { margin: 0 0 0 auto; white-space: nowrap; }
+.animeTags { display: flex; flex-wrap: wrap; gap: 4px 14px; min-width: 0; }
+.animeTag, .animeTagHot {
+  font-size: 13px;
+  color: var(--hx-muted);
+  text-decoration: none !important;
+  transition: color 150ms var(--hx-ease);
+}
+.animeTag:hover { color: var(--ifm-color-primary); }
+.animeTagHot { color: var(--ifm-color-primary); }
+.animeTagCount { margin-left: 4px; font: 11px/1 var(--ifm-font-family-monospace); color: var(--hx-faint); }
 
 @media (prefers-reduced-motion: reduce) {
-  .magic, .magicInner, .magicBtn, .magicBtn::after, .magicGlyph { transition: none; }
-  .magicInner { filter: none; }
-  .magic[data-open='true'] .magicInner::after { animation: none; }
+  .magic, .magicInner, .magicBtn { transition: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -453,7 +397,6 @@
 @media (max-width: 996px) {
   .page { grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 16px 16px 48px; }
   .aside { position: static; max-height: none; overflow: visible; }
-  .banner { aspect-ratio: auto; height: 160px; }
   .toc { display: none; }
   .main { gap: 40px; }
   .head { flex-direction: column; gap: 4px; }
@@ -461,6 +404,18 @@
   .notes a { grid-template-columns: minmax(0, 1fr) auto; }
   .noteCat { display: none; }
   .stackRow { grid-template-columns: minmax(0, 1fr); gap: 4px; }
-  .animeStats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .animeCovers { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .animeStats { row-gap: 4px; }
+  .animeRow { grid-template-columns: 36px minmax(0, 1fr) auto; }
+  .animeProg { grid-column: 2; grid-row: 2; }
+  .animeScore { grid-column: 3; grid-row: 1; }
+  .animeDate { display: none; }
+  .animeThumb { grid-row: span 2; }
+  .animeFoot { flex-direction: column; gap: 8px; }
+  .animeFoot .feedAll { margin-left: 0; }
+}
+
+/* 2026-11-06: 首页包进 BlogWithCats 墙 (同系列页), 墙自带 20px 内边距与底色, 这里只留内部间距 */
+:global(.blog-content) > .page {
+  max-width: none;
+  padding: 16px 8px 24px;
 }

@@ -5,6 +5,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useIsBrowser from "@docusaurus/useIsBrowser";
 import Link from "@docusaurus/Link";
+import BlogWithCats from "@site/src/components/BlogWithCats";
 import { PageMetadata } from "@docusaurus/theme-common";
 import { FaCodeBranch, FaExternalLinkAlt, FaShareAlt, FaStar } from "react-icons/fa";
 import { useActorMap, useAnimeRecordsState } from "@site/src/utils/anime/animeStore";
@@ -17,6 +18,7 @@ import Tooltip from "@site/src/components/common/Tooltip";
 import ZoomImage from "@site/src/components/common/ZoomImage";
 import HXGiscus from "@site/src/components/Giscus";
 import useQuery from "@site/src/utils/url/useQuery";
+import { AnimeSeries, mainSeasons, seasonCount, seasonLabel, useAnimeSeries } from "@site/src/utils/anime/series";
 import styles from "./AnimeDetailPage.module.css";
 import { loadAnimeOverlayEditor } from "@site/src/components/home/lazyChunks";
 import { CharacterMenuAnime, CharacterMenuScope, useCharacterMenuTrigger } from "@site/src/components/anime/CharacterMenu/CharacterContextMenu";
@@ -159,6 +161,34 @@ function Hero ({ record, coverUrl }: { record: ANiMeRecord; coverUrl: string }):
                 </div>
             </div>
         </header>
+    );
+}
+
+// ---------------------------------------------------------------- 所属系列
+
+/**
+ * 所属系列导航 (「系列」视图的回路): "某某系列 · 第 2 季 / 共 3 季" 链到 /anime/series, 加上一季 / 下一季. 单季系列不渲染.
+ */
+function SeriesNav ({ series, id }: { series: AnimeSeries | undefined; id: number }): React.ReactElement | null {
+    if (!series || series.seasons.length < 2) return null;
+    const idx = series.seasons.findIndex((s) => s.record.anime_data.id === id);
+    if (idx < 0) return null;
+    const cur = series.seasons[idx];
+    const main = mainSeasons(series);
+    const order = cur.kind === "main" ? main : series.seasons;
+    const pos = order.indexOf(cur);
+    const prev = pos > 0 ? order[pos - 1] : null;
+    const next = pos >= 0 && pos < order.length - 1 ? order[pos + 1] : null;
+    return (
+        <nav className={styles.seriesNav} aria-label="所属系列">
+            <Link to={`/anime/series?id=${series.key}`} className={styles.seriesNavTitle}>
+                {series.title} · {seasonLabel(cur)}<span className={styles.muted}> / 共 {seasonCount(series)} 季</span>
+            </Link>
+            <span className={styles.seriesNavSteps}>
+                {prev && <Link to={`/anime/details?id=${prev.record.anime_data.id}`}>‹ {seasonLabel(prev)}</Link>}
+                {next && <Link to={`/anime/details?id=${next.record.anime_data.id}`}>{seasonLabel(next)} ›</Link>}
+            </span>
+        </nav>
     );
 }
 
@@ -485,6 +515,7 @@ export default function AnimeDetailPage (): React.ReactElement {
     const record = validId ? records.find((r) => r.anime_data.id === Number(id)) : undefined;
     const libraryIds = React.useMemo(() => new Set(records.map((r) => r.anime_data.id)), [records]);
     const similar = React.useMemo(() => (record ? similarRecords(record, records) : []), [record, records]);
+    const { byId: seriesById } = useAnimeSeries(records);
 
     if (!record && (!isBrowser || (validId && status === "loading"))) {
         return (
@@ -547,8 +578,11 @@ export default function AnimeDetailPage (): React.ReactElement {
         <>
             <PageMetadata title={a.name_cn || a.name} description={a.short_summary || a.summary} />
             <Layout title={a.name_cn || a.name}>
+                {/* 两侧立绘藏在正文墙后, 与系列页同一套 (墙宽 1200) */}
+                <BlogWithCats contentWidth={1200}>
                 <div className={styles.shell}>
                     <Link to="/anime" className={styles.backLink}>← 番剧库</Link>
+                    <SeriesNav series={seriesById.get(a.id)} id={a.id} />
                     <Hero record={record} coverUrl={coverUrl} />
 
                     {comment && (
@@ -613,6 +647,7 @@ export default function AnimeDetailPage (): React.ReactElement {
                         </div>
                     </div>
                 </div>
+                </BlogWithCats>
             </Layout>
         </>
     );

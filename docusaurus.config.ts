@@ -289,6 +289,8 @@ const plugins: PluginConfig[] = [
   // 番剧本人标注 overlay 的写入通道: 只在 docusaurus start 下往 dev server 挂 PUT/DELETE, build 时什么都不做
   // 决策记录挂在 plugins/anime-overlay-plugin.mjs 顶部
   require('./plugins/anime-overlay-plugin.mjs'),
+  // kyara 角色配图: 扫描 static/img/kyara 注册 /anime/kyara/{name} + dev 写入通道 (决策记录挂在插件入口)
+  require('./plugins/kyara-gallery-plugin.mjs'),
   // ai-docs 标签索引: 构建期把标签/笔记元数据落盘到 data/aiDocTags.ts
   // 供 /knowledge-base/tags 的拼音索引与标签详情页使用 (中文分组见 src/utils/tags/pinyin.ts)
   [
