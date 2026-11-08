@@ -1,0 +1,14 @@
+[
+ {"id": "bag-02",
+  "answer": "不能保证。\"国内随身行李统一 20 × 40 × 55 厘米\" 已不是全国统一规则: 这个尺寸出自 1996 年国内运输规则 (随身物品每位旅客 5 公斤为限, 每人一件, 每件不超过 20 × 40 × 55 厘米), 该规则已被 2021-09-01 起施行的《公共航空运输旅客服务管理规定》废止 (第六十五条), 改为由各承运人在运输总条件中自定非托运行李的尺寸、重量与数量。民航局航旅指南现行写法仍是国内航班随身行李总重不超过 5 公斤、每件不超过 20 × 40 × 55 厘米, 但具体承运人可能更小。反例: 首都航空经济舱只能随身一件, 每件 7 公斤为限, 体积不超过 20 × 30 × 40 厘米 (公务舱才是每件 5 公斤、两件、每件不超过 20 × 40 × 55 厘米), 且随身行李须能放进前排座位下或封闭行李架。按 20 × 40 × 55 买的包坐首都航空经济舱就会超尺寸。另外部分航司还有重量限制, 通常从 5 kg 起。建议: 不要默认 20 × 40 × 55, 按所乘航司、舱位的运输总条件核对尺寸、重量和件数。",
+  "status": "answered",
+  "sources": ["life/bag/pitfall-domestic-size-not-uniform", "life/bag/caac-1996-domestic-rule", "life/bag/caac-2021-carrier-sets-limits", "life/bag/caac-guide-domestic", "life/bag/capital-airlines-economy", "life/bag/capital-airlines-business", "life/bag/capital-airlines-under-seat", "life/bag/carryon-weight-from-5kg"]},
+ {"id": "bag-08",
+  "answer": "claim_lint.py 的规则是: 每个声明词必须带上它的测法, 否则报一条; 退出码 = 未带测法的声明条数。三类声明: 防水 (waterproof/weatherproof/water-resistant/防水/防泼水) 需带 IP 等级、IEC 60529 或 mm/kPa 数值; 容量 (如 20L) 需带 ASTM F2153; 面料强度 (如 1000D/denier/旦) 需带 ASTM D5034 或 N 值。卡片记录的实测 (2026-11-09, Python 3.12, 对 peakdesign_everyday_backpack.txt): 报 2 条 —— 防水 (页面写 \"two weatherproof UltraZips\" 但没给 IP/IEC 60529/mm/kPa) 和容量 (写了升数但没注明 ASTM F2153), 退出码 2。用法: python3 kb/raw/2026-11-08-bag/claim_lint.py < 商品页文本.txt。退出码非 0 时逐条找商家要测法。(注: 结果取决于你保存的文本内容, 卡片实测的是上述文件。)",
+  "status": "answered",
+  "sources": ["life/bag/merchant-claim-lint", "life/bag/claim-lint-rules"]},
+ {"id": "skill-08",
+  "answer": "卡片记录的实测 (2026-11-09, Python 3.12, 对 check/AI-Animation-Skill): 报两条, 退出码 1 (有 E 级命中即为 1)。1) [E] name-dir: name='science-content-ppt' 与目录名 'AI-Animation-Skill' 不一致 (规范要求一致)。2) [W] abs-path: 正文写死绝对路径 /home/mt/桌面/AI_Animation.html, 换一台机器就失效。修法: (1) 让 name 与目录名一致, 且两者都满足规范: 1 到 64 字符, 只含小写字母、数字与连字符, 不以连字符开头结尾, 不含连续连字符 —— 目录名 AI-Animation-Skill 含大写字母本身也不合规, 所以要把目录和 name 改成同一个小写连字符名字 (例如都改成 science-content-ppt, 或都改成 ai-animation-skill)。(2) 把正文里的 /home/... 绝对路径改成相对路径或参数。命令: python3 kb/raw/2026-11-08-skill/check/skill_lint.py <skill-dir>。",
+  "status": "answered",
+  "sources": ["cs/skill/skill-lint-script", "cs/skill/name-format"]}
+]

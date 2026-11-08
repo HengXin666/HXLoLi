@@ -1,0 +1,5 @@
+{"items":[
+{"id":"bag-02","verdict":"正确","reason":"命中全部 3 个 keypoint: 尺寸出自 1996 年规则, 该规则被 2021-09-01 新规定废止、改由承运人自定, 以及首都航空经济舱 20×30×40 反例; 没有与 gold 冲突的断言 (未写出'第三十七条'条号, 但已讲明来源规则)。"},
+{"id":"bag-08","verdict":"部分","reason":"命中防水需 IP/IEC 60529/mm/kPa、容量需 ASTM F2153、退出码=未带测法条数=2, 以及原文 'two weatherproof UltraZips'; 但没写出商家原文标的 20L / 30L (只说'写了升数'), keypoint 1 只覆盖一半; 没有错误断言。"},
+{"id":"skill-08","verdict":"正确","reason":"命中全部 4 个 keypoint: name 须与目录名一致且只含小写字母数字连字符, E 级 name-dir, W 级 abs-path 换机器失效, 有 E 级时退出码为 1; 修法与 gold 一致, 没有冲突断言。"}
+]}

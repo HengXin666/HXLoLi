@@ -1,0 +1,14 @@
+[
+ {
+  "id": "bag-02",
+  "q": "网上很多攻略说国内航班随身行李统一是 20 × 40 × 55 厘米, 我按这个尺寸买包, 坐任何一家国内航司都没问题吗?"
+ },
+ {
+  "id": "bag-08",
+  "q": "我把 Peak Design Everyday Backpack 官网描述存成文本, 想用目录里的 claim_lint.py 查它的宣传话术. 它会报哪几条? 退出码是多少?"
+ },
+ {
+  "id": "skill-08",
+  "q": "我从 GitHub 拿了一个社区 skill: 目录叫 AI-Animation-Skill, SKILL.md 里 name 写的是 science-content-ppt, 正文还把默认输出路径写成 /home/mt/桌面/AI_Animation.html. 用 check/skill_lint.py 体检会报什么? 该怎么修?"
+ }
+]
