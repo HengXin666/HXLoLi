@@ -1,0 +1,546 @@
+{
+  "bag": [
+    {
+      "id": "bag-01",
+      "q": "我有一台 16 寸 MacBook Pro (M5 Pro), 下个月坐首都航空经济舱出差, 只想带一个电脑包上飞机不托运. 电脑本身塞进他家经济舱随身行李的尺寸和重量限制够不够? 包该挑多大?",
+      "covered": true,
+      "gold": "首都航空运输总条件规定经济舱随身一件, 每件不超过 7 kg, 体积不超过 20 × 30 × 40 cm, 且须能放进前排座位下或封闭行李架. 16 寸 MacBook Pro 本体为 35.57 × 24.81 × 1.68 cm, 2.14/2.15 kg, 本体放得进这个尺寸 (长边余约 4.4 cm, 短边余约 5.2 cm), 但余量不大; 包的外形整体 (连同电脑与其他物品) 都不能超过 20 × 30 × 40 cm, 总重不超 7 kg. 注意不能套用航旅指南的 20 × 40 × 55 cm, 首都航空经济舱比它小.",
+      "keypoints": [
+        {
+          "fact": "首都航空经济舱: 一件, 7 kg, 不超过 20 × 30 × 40 cm, 须能放进前排座位下或封闭行李架",
+          "ref": "material.md#L24"
+        },
+        {
+          "fact": "16 寸 MacBook Pro 宽 35.57 cm, 深 24.81 cm, 高 1.68 cm, 重约 2.14/2.15 kg",
+          "ref": "material.md#L15"
+        },
+        {
+          "fact": "首都航空经济舱上限比航旅指南的 20 × 40 × 55 cm 小, 不能套用通用口径",
+          "ref": "material.md#L57"
+        }
+      ]
+    },
+    {
+      "id": "bag-02",
+      "q": "网上很多攻略说国内航班随身行李统一是 20 × 40 × 55 厘米, 我按这个尺寸买包, 坐任何一家国内航司都没问题吗?",
+      "covered": true,
+      "gold": "不一定. 20 × 40 × 55 cm 出自 1996 年国内运输规则, 该规则已被 2021-09-01 起施行的《公共航空运输旅客服务管理规定》废止, 现在随身行李的尺寸、重量、数量由各承运人在运输总条件中自定. 民航局航旅指南仍写每件不超过 20 × 40 × 55 cm, 但个别航司更严, 例如首都航空经济舱只允许 20 × 30 × 40 cm. 应以所乘航司的运输总条件为准.",
+      "keypoints": [
+        {
+          "fact": "20 × 40 × 55 cm 来自 1996 年规则第三十七条",
+          "ref": "material.md#L22"
+        },
+        {
+          "fact": "1996 年规则已被 2021-09-01 施行的新规定废止, 尺寸改由承运人在运输总条件中自定",
+          "ref": "material.md#L23"
+        },
+        {
+          "fact": "反例: 首都航空经济舱上限 20 × 30 × 40 cm, 比航旅指南写法小",
+          "ref": "material.md#L57"
+        }
+      ]
+    },
+    {
+      "id": "bag-03",
+      "q": "包的吊牌写着符合 IATA Cabin OK 尺寸 (55 × 35 × 20 cm), 是不是就能保证所有航司都让我带进客舱?",
+      "covered": true,
+      "gold": "不能保证. IATA 明确说 Cabin OK 的 55 × 35 × 20 cm 是建议尺寸, 不是最大尺寸, 最大尺寸由各航司自定; 随身行李上限因航司、舱等、机型而异. IATA 给的通用参考是许多航司最大 56 × 45 × 25 cm (含轮子与把手), 且部分航司另有重量限制 (通常从 5 kg 起). 以具体航司规定为准.",
+      "keypoints": [
+        {
+          "fact": "Cabin OK 55 × 35 × 20 cm 是建议尺寸不是最大尺寸, 最大尺寸由各航司自定",
+          "ref": "material.md#L21"
+        },
+        {
+          "fact": "上限因航司/舱等/机型而异; IATA 通用参考 56 × 45 × 25 cm, 部分航司有重量限制 (通常 5 kg 起)",
+          "ref": "material.md#L20"
+        },
+        {
+          "fact": "'符合 IATA 尺寸' 不等于 '一定能带上飞机'",
+          "ref": "material.md#L54"
+        }
+      ]
+    },
+    {
+      "id": "bag-04",
+      "q": "我想买个标着 TSA checkpoint friendly 的电脑包, 去美国出差过安检时就不用把电脑拿出来了吧? 我没有 PreCheck.",
+      "covered": true,
+      "gold": "不能这么指望. TSA 现行页面要求把笔记本电脑从包里取出单独放一个筐过 X 光, 只有 TSA PreCheck 旅客不需要取出; 你没有 PreCheck, 就要取出. checkpoint friendly 是 TSA 2008 年的设计准则 (专门只放电脑、能完全展开平放的隔层, 隔层内外上下无金属按扣/拉链/扣具, 无口袋, 只放电脑), 准则本身就保留了 TSA 对任何包重检的权利, 不保证省掉取电脑这一步.",
+      "keypoints": [
+        {
+          "fact": "TSA 现行要求取出电脑单独过 X 光; PreCheck 旅客不需要取出",
+          "ref": "material.md#L29"
+        },
+        {
+          "fact": "2008 年 checkpoint friendly 准则内容 (独立可平放隔层, 无金属件, 无口袋, 只放电脑), 且 TSA 保留重检权",
+          "ref": "material.md#L30"
+        },
+        {
+          "fact": "checkpoint friendly 设计不保证省掉取电脑这一步",
+          "ref": "material.md#L55"
+        }
+      ]
+    },
+    {
+      "id": "bag-05",
+      "q": "两款通勤背包都标 25L, 其中一款外侧有两个大网兜水壶袋. 按背包容量的标准测法, 这两个网兜算不算进这 25L? 两款的 25L 能直接对比吗?",
+      "covered": true,
+      "gold": "按 ASTM F2153, 没有被面料完全包围的区域不计入容量, 网兜、水壶袋、压缩袋口袋都不算. 该标准还区分 '未扩展容量' 与 '扩展容量' 两个值, 目的是让容积可以用一致方法比较. 所以只有两家都按 ASTM F2153 测、且说明是哪一个值时才能直接比; 商品页只写 '25L' 不说测法时无法确认 (另外该标准不适用于小于 4 L 的容量).",
+      "keypoints": [
+        {
+          "fact": "ASTM F2153 不计入未被面料完全包围的区域: 网兜、水壶袋、压缩袋口袋",
+          "ref": "material.md#L9"
+        },
+        {
+          "fact": "F2153 定义 '未扩展容量' 与 '扩展容量' 两个值",
+          "ref": "material.md#L7"
+        },
+        {
+          "fact": "F2153 的目的是提供一致的容积比较方法",
+          "ref": "material.md#L8"
+        }
+      ]
+    },
+    {
+      "id": "bag-06",
+      "q": "同样标 16 寸电脑仓, 我的 Lenovo Legion Pro 7i 16 寸 (第 9 代) 和同事的 16 寸 MacBook Pro 实际外形差多少? 买包时该看什么数而不是看 '16 寸'?",
+      "covered": true,
+      "gold": "'16 寸' 是屏幕对角线 (Apple 规格页屏幕尺寸按标准矩形的对角线测量; Legion 屏幕对角线 16.0 英寸), 不是机身尺寸. Legion Pro 7i (16'', 9) 机身宽 363.5 mm, 深 262.1 mm, 厚 21.95 到 25.9 mm; 16 寸 MacBook Pro 宽 35.57 cm, 深 24.81 cm, 高 1.68 cm. Legion 宽约多 0.8 cm, 深约多 1.4 cm, 厚约多 0.5 到 0.9 cm. 买包应拿电脑仓的内部长宽厚与机身实测尺寸比, 不看英寸标称.",
+      "keypoints": [
+        {
+          "fact": "屏幕尺寸按对角线测量",
+          "ref": "material.md#L14"
+        },
+        {
+          "fact": "Legion Pro 7i (16'', 9): 363.5 × 262.1 mm, 厚 21.95 到 25.9 mm, 屏幕对角线 16.0 英寸",
+          "ref": "material.md#L16"
+        },
+        {
+          "fact": "16 寸 MacBook Pro: 35.57 × 24.81 × 1.68 cm",
+          "ref": "material.md#L15"
+        }
+      ]
+    },
+    {
+      "id": "bag-07",
+      "q": "一款包写 1680D 弹道尼龙, 另一款写 1000D Cordura. 是不是 D 数越大面料越耐磨抗撕? 要比结实程度该看什么?",
+      "covered": true,
+      "gold": "不是. 旦尼尔只是纱线线密度 (每 9000 m 纱线的克数, den = 9 × tex), 不直接代表面料强度; 同一个旦数也不代表同一块布, 有经验资料显示标称 1000 d Cordura 的面料实测克重从 325 到 560 gsm 不等. 结实程度要看另测的强度指标, 例如按 ASTM D5034 抓样法测的断裂强力; 抓样法结果与条样法之间没有简单换算关系.",
+      "keypoints": [
+        {
+          "fact": "旦尼尔定义: 每 9000 m 纱线的克数, den = 9 × tex (只是线密度)",
+          "ref": "material.md#L40"
+        },
+        {
+          "fact": "同一旦数不代表同一块布: 1000 d Cordura 实测 325 到 560 gsm (T3 线索)",
+          "ref": "material.md#L53"
+        },
+        {
+          "fact": "强度用 ASTM D5034 抓样法另测, 与条样法无简单关系",
+          "ref": "material.md#L41"
+        }
+      ]
+    },
+    {
+      "id": "bag-08",
+      "q": "我把 Peak Design Everyday Backpack 官网描述存成文本, 想用目录里的 claim_lint.py 查它的宣传话术. 它会报哪几条? 退出码是多少?",
+      "covered": true,
+      "gold": "会报 2 条, 退出码 2: (1) 防水: 'weatherproof' 出现 1 次, 但没有 IP 代码/IEC 60529/静水压 mm 或 kPa 之类的测法; (2) 容量: '20L' '30L' 出现 2 次, 但没有 ASTM F2153. 不会报军规、适配尺寸、面料强度 (文本里没有这些声明).",
+      "keypoints": [
+        {
+          "fact": "商家原文标 20L / 30L, 写 'two weatherproof UltraZips'",
+          "ref": "material.md#L49"
+        },
+        {
+          "fact": "防水声明需要 IP 代码/IEC 60529/mm 或 kPa 测法, 否则报一条",
+          "ref": "claim_lint.py#L8-L9"
+        },
+        {
+          "fact": "容量声明需要 ASTM F2153, 否则报一条",
+          "ref": "claim_lint.py#L12-L13"
+        },
+        {
+          "fact": "退出码 = 未带测法的声明条数, 此处为 2",
+          "ref": "claim_lint.py#L2"
+        }
+      ]
+    },
+    {
+      "id": "bag-09",
+      "q": "我是体重 75 kg 的成年人, 每天背电脑包通勤, 包连电脑总重最多压到多少公斤比较合适?",
+      "covered": false,
+      "gold": "原件未覆盖: 原件只有儿童与青少年的背包负重比例 (AAP 10% 到 20%, AAOS 15%, NSC 转述 5% 到 10%), 没有针对成人的 T1/T2 负重占体重比例建议值. 正确表现是说明查不到成人标准, 不应把儿童比例套用成成人的具体公斤数.",
+      "keypoints": []
+    },
+    {
+      "id": "bag-10",
+      "q": "电脑仓的衬垫至少要多厚、底部悬空 (false bottom) 离地要多高, 包掉地上时电脑才不会摔坏?",
+      "covered": false,
+      "gold": "原件未覆盖: 没有任何关于电脑仓衬垫厚度、悬空底离地高度与跌落保护关系的标准或可复核测试数据; MIL-STD-810H 也只读了 Foreword, 未读 Method 516 (冲击) 细节. 正确表现是说明没有依据, 不给具体毫米数.",
+      "keypoints": []
+    }
+  ],
+  "crawler": [
+    {
+      "id": "crawler-01",
+      "q": "我用 httpx.AsyncClient 把 500 个 URL 一次性 asyncio.gather 出去, 目标站没挂, 但后面一大半请求报 PoolTimeout. 原因是什么, 代码该怎么改?",
+      "covered": true,
+      "gold": "httpx 连接池默认 max_connections=100, 且默认对所有操作有 5 秒超时, 其中 pool 超时是从池里拿连接的最长等待. 一次 gather 几百个请求, 超出 100 个的请求在池外排队等连接, 等超过 pool 超时就抛 PoolTimeout (实测 700 个打 1 秒延迟服务: 198 成功、502 PoolTimeout). 改法: 外面套 asyncio.Semaphore 把并发限在池大小内 (Semaphore(100) 后 700 个全成功, 7.8s); 也可像骨架脚本那样用 httpx.Timeout(10.0, pool=None) 让排队请求不因等连接超时, 并让 Limits(max_connections=...) 与信号量一致.",
+      "keypoints": [
+        {
+          "fact": "连接池默认 max_connections=100, max_keepalive_connections=20",
+          "ref": "material.md#L21"
+        },
+        {
+          "fact": "默认 5 秒超时; pool 超时是从连接池拿连接的最长等待",
+          "ref": "material.md#L20"
+        },
+        {
+          "fact": "实测无信号量 gather 700 个出现 502 个 PoolTimeout, 套 Semaphore(100) 后全成功",
+          "ref": "material.md#L24"
+        },
+        {
+          "fact": "骨架: Semaphore + Timeout(10.0, pool=None) + Limits(max_connections=concurrency)",
+          "ref": "crawl_skeleton.py#L36-L39"
+        }
+      ]
+    },
+    {
+      "id": "crawler-02",
+      "q": "我的 requests 爬虫跑在定时任务里, 偶尔某个请求卡住十几分钟不动, 也不报错. 为什么? timeout 应该怎么写?",
+      "covered": true,
+      "gold": "requests 默认不设超时 (timeout 默认 None), 不显式传 timeout 时请求可以挂几分钟甚至更久. 要显式传 timeout: 单个数值同时作用于 connect 与 read, 也可以传 (connect, read) 元组分开设. 注意 connect 超时按每个 IP 地址计, 域名有多个地址 (如 IPv4 + IPv6) 时总等待会成倍放大, 且 connect/read 超时都不是整个请求的挂钟时间.",
+      "keypoints": [
+        {
+          "fact": "requests 默认不设超时, 不传 timeout 会挂很久",
+          "ref": "material.md#L7"
+        },
+        {
+          "fact": "单值作用于 connect 与 read, 也可传元组分开设",
+          "ref": "material.md#L7"
+        },
+        {
+          "fact": "connect 超时按每个 IP 计, 多地址会成倍放大; 都不是挂钟时间",
+          "ref": "material.md#L8"
+        },
+        {
+          "fact": "实测 timeout 默认 None",
+          "ref": "material.md#L14"
+        }
+      ]
+    },
+    {
+      "id": "crawler-03",
+      "q": "我开了 32 个线程共用一个 requests.Session 爬同一个站, 日志一直刷 'Connection pool is full, discarding connection'. 这会让请求失败吗? 怎么消掉?",
+      "covered": true,
+      "gold": "不会让请求失败, 但说明连接没被复用. requests 默认 DEFAULT_POOLSIZE = 10, 线程数超过池大小时多出的连接用完被丢弃. 实测 32 线程共用默认 Session, 请求全部成功但出现 22 次该警告; 挂一个 HTTPAdapter(pool_maxsize=32) (与线程数一致) 后警告为 0 次.",
+      "keypoints": [
+        {
+          "fact": "默认 DEFAULT_POOLSIZE = 10",
+          "ref": "material.md#L14"
+        },
+        {
+          "fact": "实测 32 线程默认 Session 请求都成功, 但出现 22 次该警告",
+          "ref": "material.md#L15"
+        },
+        {
+          "fact": "把 pool_maxsize 调到 32 后为 0 次",
+          "ref": "material.md#L15"
+        }
+      ]
+    },
+    {
+      "id": "crawler-04",
+      "q": "我用 scrapy startproject 新建项目爬一个站, 发现大概一秒才出一个请求, 远低于我以为的默认并发 16. 是哪些设置在起作用? 调快之前要注意什么?",
+      "covered": true,
+      "gold": "startproject 生成的 settings 里 CONCURRENT_REQUESTS_PER_DOMAIN = 1 (全局 fallback 才是 8), DOWNLOAD_DELAY = 1 秒 (fallback 0), 再叠加 DOWNLOAD_DELAY_JITTER 默认 0.5, 即每次延迟在 ±50% 内随机; 响应时间小于 DOWNLOAD_DELAY 时该域实际并发就是 1. CONCURRENT_REQUESTS = 16 是全局上限, 对单个域不起主导作用. 另外 startproject 默认 ROBOTSTXT_OBEY = True. 调快时注意礼貌与被封风险 (官方避免被封建议包括 DOWNLOAD_DELAY 2 秒或以上).",
+      "keypoints": [
+        {
+          "fact": "CONCURRENT_REQUESTS_PER_DOMAIN: startproject 里是 1, fallback 8",
+          "ref": "material.md#L38"
+        },
+        {
+          "fact": "DOWNLOAD_DELAY startproject 里是 1 秒, JITTER 0.5 即 ±50%; 响应比延迟快时该域实际并发为 1",
+          "ref": "material.md#L39"
+        },
+        {
+          "fact": "CONCURRENT_REQUESTS 默认 16",
+          "ref": "material.md#L37"
+        }
+      ]
+    },
+    {
+      "id": "crawler-05",
+      "q": "我给 httpx.Client 加了 http2=True, 怎么确认请求真的走了 HTTP/2? 需要额外装什么吗?",
+      "covered": true,
+      "gold": "需要 pip install httpx[http2] 并设 http2=True; 只有服务端也支持 HTTP/2 时才会真走, 否则回落 HTTP/1.1. 用 response.http_version 查实际协议. httpx 默认关闭 HTTP/2, 原因是官方认为 HTTP/1.1 实现更成熟.",
+      "keypoints": [
+        {
+          "fact": "需要 pip install httpx[http2] 并 http2=True",
+          "ref": "material.md#L22"
+        },
+        {
+          "fact": "只有服务端支持才会真走 HTTP/2, 用 response.http_version 查",
+          "ref": "material.md#L22"
+        },
+        {
+          "fact": "开了 http2=True 不等于走 HTTP/2, 服务端不支持就回落 HTTP/1.1",
+          "ref": "material.md#L73"
+        }
+      ]
+    },
+    {
+      "id": "crawler-06",
+      "q": "服务器上设了 https_proxy 环境变量, 同一台机器上 requests 脚本能走代理, 换成 aiohttp 写的爬虫却直连了. 怎么让 aiohttp 也走环境变量里的代理?",
+      "covered": true,
+      "gold": "aiohttp 默认不读环境变量代理, 要在 ClientSession 上设 trust_env=True. requests 则在未被覆盖时会读 http_proxy / https_proxy / no_proxy, 所以两者表现不同.",
+      "keypoints": [
+        {
+          "fact": "aiohttp 默认不读环境变量代理, 需要 trust_env=True",
+          "ref": "material.md#L30"
+        },
+        {
+          "fact": "requests 读 http_proxy / https_proxy / no_proxy 环境变量",
+          "ref": "material.md#L13"
+        }
+      ]
+    },
+    {
+      "id": "crawler-07",
+      "q": "目标页的数据是 JS 渲染出来的, Scrapy 抓到的 HTML 里没有. 我打算在 parse 回调里直接起一个 playwright-python 浏览器去渲染, 这样做行吗?",
+      "covered": true,
+      "gold": "不推荐. Scrapy 官方建议先找数据源: 用浏览器 Network 面板找到真正返回数据的请求并复现 (可用 Request.from_curl()), 实在难复现且不在乎速度时才用无头浏览器. 在回调里直接用 playwright-python 会绕过大部分 Scrapy 组件 (中间件、去重等), 官方推荐用 scrapy-playwright: 它是一个下载处理器, 只处理 meta 里带 playwright 键的请求, 其他请求仍走普通下载器, 需要 asyncio reactor.",
+      "keypoints": [
+        {
+          "fact": "先找数据源并复现请求 (Request.from_curl), 难复现且不在乎速度才用无头浏览器",
+          "ref": "material.md#L47"
+        },
+        {
+          "fact": "回调里直接用 playwright-python 会绕过中间件、去重, 推荐 scrapy-playwright",
+          "ref": "material.md#L49"
+        },
+        {
+          "fact": "scrapy-playwright 只处理 meta 带 playwright 键的请求, 需要 asyncio reactor",
+          "ref": "material.md#L59"
+        }
+      ]
+    },
+    {
+      "id": "crawler-08",
+      "q": "我把 requests 换成 curl_cffi, 用了 impersonate=\"chrome124\" 模仿浏览器指纹, 还是被一个用 Akamai 的站拦. 是我版本写错了还是这条路本身不够?",
+      "covered": true,
+      "gold": "主要是这条路本身不够: curl_cffi 模仿的是浏览器的 TLS/JA3 与 HTTP/2 指纹, 只解决这一层; curl_cffi README 自己 (赞助商段落, 广告性质) 也写着对 Akamai / DataDome / Kasada / Incapsula 这类现代反爬还需要另外的 token. 版本方面: 'chrome124' 是固定版本写法, impersonate=\"chrome\" 会跟随库更新到最新版本, 也可用 curl-cffi update 在不升级库的情况下拉新指纹, 但这不能替代反爬 token.",
+      "keypoints": [
+        {
+          "fact": "指纹模仿只解决 TLS/HTTP2 这一层; Akamai 等还需另外的 token (README 赞助商段, 仅作线索)",
+          "ref": "material.md#L72"
+        },
+        {
+          "fact": "impersonate=\"chrome\" 跟随最新, chrome124 固定版本",
+          "ref": "material.md#L65"
+        },
+        {
+          "fact": "curl-cffi update 可不升级库拉新指纹",
+          "ref": "material.md#L67"
+        }
+      ]
+    },
+    {
+      "id": "crawler-09",
+      "q": "aiohttp 怎么开启 HTTP/2? 我想让 aiohttp 爬虫像 httpx 那样走 h2.",
+      "covered": false,
+      "gold": "原件未覆盖: 没有找到 aiohttp 官方关于 HTTP/2 的陈述; '不支持 HTTP/2' 只出现在 curl_cffi README 的对比表 (第三方说法), 原件正文未采用. 正确表现是说查不到 aiohttp 官方说法, 不给具体开启方法或断言.",
+      "keypoints": []
+    },
+    {
+      "id": "crawler-10",
+      "q": "用 curl_cffi impersonate=\"chrome\" 能不能直接过 Cloudflare 的 5 秒盾 / Turnstile 验证?",
+      "covered": false,
+      "gold": "原件未覆盖: 原件没有对任何真实带反爬的站点做测试, 没有 '某指纹被某厂商拦截/放行' 的一手数据, 也没提 Cloudflare. 只有 README 广告段说仅 TLS 指纹对现代反爬不够. 正确表现是说不确定, 不给能过/不能过的具体断言.",
+      "keypoints": []
+    }
+  ],
+  "skill": [
+    {
+      "id": "skill-01",
+      "q": "我想把新 skill 的 name 写成 Claude-PDF-Helper, 放在 skills/pdf/ 目录下. 这个名字有什么问题, 该怎么改?",
+      "covered": true,
+      "gold": "有多处问题: name 只能含小写字母、数字与连字符 (1 到 64 字符, 不以连字符开头结尾, 无连续连字符), 大写不行; 不能含保留词 claude / anthropic; 必须与父目录名一致 (目录是 pdf, name 却不是); 命名建议动名词形式, 避免 helper / utils 这类空名. 可改为如 processing-pdfs 并把目录也命名为 processing-pdfs.",
+      "keypoints": [
+        {
+          "fact": "name 1 到 64 字符, 仅小写字母数字与连字符, 须与父目录名一致",
+          "ref": "material.md#L17"
+        },
+        {
+          "fact": "不能含保留词 anthropic / claude",
+          "ref": "material.md#L17"
+        },
+        {
+          "fact": "建议动名词命名如 processing-pdfs, 避免 helper / utils",
+          "ref": "material.md#L19"
+        }
+      ]
+    },
+    {
+      "id": "skill-02",
+      "q": "我在 Claude Code 里给一个部署 skill 加了 disable-model-invocation: true, 但 description 里仍写了一堆 'Use this skill when...' 的触发词. 这些触发词还起作用吗? 这个 skill 以后要上传到 claude.ai 会有问题吗?",
+      "covered": true,
+      "gold": "不起作用: disable-model-invocation: true 时 description 不进上下文, 只能由用户用 /name 调用 (反过来 user-invocable: false 是只有 Claude 能调). 上传 claude.ai / Skills API 或用 package_skill.py 打包只接受规范内 6 个字段 (name, description, license, compatibility, metadata, allowed-tools), disable-model-invocation 是 Claude Code 专有字段, 多出的字段会硬报错 'Unexpected key(s) in SKILL.md frontmatter', 上传前要去掉.",
+      "keypoints": [
+        {
+          "fact": "disable-model-invocation: true 时 description 不进上下文, 只能用户 /name 调用",
+          "ref": "material.md#L32"
+        },
+        {
+          "fact": "claude.ai / Skills API / package_skill.py 只接受规范内 6 个字段, 多出字段报 Unexpected key(s)",
+          "ref": "material.md#L20"
+        },
+        {
+          "fact": "规范字段: 必填 name, description; 可选 license, compatibility, metadata, allowed-tools",
+          "ref": "material.md#L16"
+        }
+      ]
+    },
+    {
+      "id": "skill-03",
+      "q": "我的 SKILL.md 已经写到 800 多行了, 里面有财务、销售、法务三块规则. 该怎么拆?",
+      "covered": true,
+      "gold": "SKILL.md 正文建议少于 500 行, 接近时拆文件. 按领域拆参考文件 (如 reference/finance.md, reference/sales.md, reference/legal.md), 让无关领域不占上下文; 引用保持离 SKILL.md 只深一层, 不要嵌套引用 (否则 Claude 可能用 head -100 预览而读不全); 超过 100 行的参考文件顶部放目录. 参考文件在被读之前不占上下文.",
+      "keypoints": [
+        {
+          "fact": "SKILL.md 正文 < 500 行, 接近时拆文件",
+          "ref": "material.md#L49"
+        },
+        {
+          "fact": "引用只深一层, 嵌套时可能只 head -100 预览",
+          "ref": "material.md#L50"
+        },
+        {
+          "fact": "超过 100 行的参考文件顶部放目录",
+          "ref": "material.md#L51"
+        },
+        {
+          "fact": "按领域拆参考文件, 无关领域零占用",
+          "ref": "material.md#L52"
+        }
+      ]
+    },
+    {
+      "id": "skill-04",
+      "q": "在 Claude Code 长会话里, 前面调用过的 skill 在自动压缩 (auto-compact) 之后好像不再遵守其中后半部分的规则了. 为什么? 怎么写能缓解?",
+      "covered": true,
+      "gold": "自动压缩后, 每个 skill 只重新附上最近一次调用的前 5000 token, 所有 skill 合计不超过 25000 token, 从最近调用的开始填, 旧 skill 可能整个被丢. 所以靠后的内容可能丢失. 缓解: 重要指令放在 SKILL.md 靠前处; 每次都必须成立的规则移进 hook. 另外 skill 内容是跨轮常驻的消息, 应写成持续生效的指令而非一次性步骤.",
+      "keypoints": [
+        {
+          "fact": "压缩后每个 skill 只重附最近一次调用的前 5000 token, 合计 25000, 旧 skill 可能被丢",
+          "ref": "material.md#L57"
+        },
+        {
+          "fact": "重要指令放靠前处; 必须每次成立的规则移进 hook",
+          "ref": "material.md#L58"
+        },
+        {
+          "fact": "skill 作为消息跨轮常驻, 要写成持续生效的指令",
+          "ref": "material.md#L56"
+        }
+      ]
+    },
+    {
+      "id": "skill-05",
+      "q": "我要给自己 skill 的 description 做触发评测: 准备多少条查询, 正负例怎么配, 每条跑几次, 触发率多少算触发?",
+      "covered": true,
+      "gold": "约 20 条查询, 其中 8 到 10 条应触发、8 到 10 条不应触发, 负例要选与 skill 共享关键词的近似请求. 每条跑 3 次算触发率, 默认阈值 0.5 (20 × 3 = 60 次调用). 改描述时按约 60% 训练 / 40% 验证划分, 只用训练集失败来改, 按验证集通过率选最佳版本, 通常 5 轮足够.",
+      "keypoints": [
+        {
+          "fact": "约 20 条, 8 到 10 应触发 + 8 到 10 不应触发, 负例选共享关键词的近似请求",
+          "ref": "material.md#L69"
+        },
+        {
+          "fact": "每条跑 3 次, 阈值 0.5, 共 60 次调用",
+          "ref": "material.md#L70"
+        },
+        {
+          "fact": "训练 60% / 验证 40%, 只用训练集失败改, 按验证集选, 通常 5 轮",
+          "ref": "material.md#L71"
+        }
+      ]
+    },
+    {
+      "id": "skill-06",
+      "q": "我在 Claude Code 里装了一百多个 skill, 发现有些 skill 明明描述写得很清楚却从不自动触发. 会不会是描述被截掉或压根没进列表? 具体限制是多少?",
+      "covered": true,
+      "gold": "可能. Claude Code 列表里每个 skill 的 description 与 when_to_use 合计截断于 1536 字符 (可用 skillListingMaxDescChars 修改); skill 列表整体预算为上下文窗口的 1%, 超出时先丢最少被调用的 skill 的描述, 名字始终保留. 所以描述写长或 skill 太多时, 冷门 skill 可能只剩名字而无法按描述匹配. 关键用例宜放在描述前面.",
+      "keypoints": [
+        {
+          "fact": "description + when_to_use 截断于 1536 字符, 可用 skillListingMaxDescChars 改",
+          "ref": "material.md#L30"
+        },
+        {
+          "fact": "列表整体预算为上下文窗口 1%, 超出时先丢最少被调用 skill 的描述, 名字保留",
+          "ref": "material.md#L30"
+        },
+        {
+          "fact": "关键用例与触发词放前面, 描述被缩短时仍能匹配 (Codex 文档建议)",
+          "ref": "material.md#L28"
+        }
+      ]
+    },
+    {
+      "id": "skill-07",
+      "q": "我写了个 PDF 处理 skill, 描述里明明写了 'read PDF', 可用户说 '帮我读一下这个 PDF' 时它不触发. 是描述写坏了吗? 描述应该怎么写?",
+      "covered": true,
+      "gold": "不一定是描述的问题: agent 通常只为自己独立做不好的任务去查 skill, 一步就能完成的简单请求 (如 'read this PDF') 即使描述完全匹配也可能不触发. 描述写法: 用第三人称 (它被注入系统提示, 人称不一致会导致发现问题), 用 'Use this skill when...' 祈使句、聚焦用户意图, 可以写得 pushy, 把用户没点名领域的情形也列进去. 不要把失败查询里的具体关键词直接塞进描述, 那是过拟合.",
+      "keypoints": [
+        {
+          "fact": "一步就能完成的请求 (如 read this PDF) 即使描述匹配也可能不触发",
+          "ref": "material.md#L29"
+        },
+        {
+          "fact": "description 写第三人称, 因为被注入系统提示",
+          "ref": "material.md#L26"
+        },
+        {
+          "fact": "用 'Use this skill when...' 祈使句, 聚焦用户意图, 可写得 pushy",
+          "ref": "material.md#L27"
+        }
+      ]
+    },
+    {
+      "id": "skill-08",
+      "q": "我从 GitHub 拿了一个社区 skill: 目录叫 AI-Animation-Skill, SKILL.md 里 name 写的是 science-content-ppt, 正文还把默认输出路径写成 /home/mt/桌面/AI_Animation.html. 用 check/skill_lint.py 体检会报什么? 该怎么修?",
+      "covered": true,
+      "gold": "skill_lint.py 会报一条 E 级 name-dir (name 'science-content-ppt' 与目录名 'AI-Animation-Skill' 不一致, 规范要求一致) 和一条 W 级 abs-path (正文写死绝对路径 /home/mt/桌面/AI_Animation.html, 换机器就失效); 因有 E 级, 退出码为 1. 其余为 I 级信息 (description 190 字符, 正文 236 行 < 500, 直接引用 0 个存在的文件). 修法: 把目录改名为 science-content-ppt (目录名也须是合法 name, AI-Animation-Skill 含大写不合格), 并把输出路径改为相对路径或由用户指定.",
+      "keypoints": [
+        {
+          "fact": "name 必须与父目录名一致, 且只含小写字母数字与连字符",
+          "ref": "material.md#L17"
+        },
+        {
+          "fact": "lint 对 name 与目录名不一致报 E 级 name-dir",
+          "ref": "check/skill_lint.py#L65-L66"
+        },
+        {
+          "fact": "正文绝对路径报 W 级 abs-path, 换机器失效",
+          "ref": "check/skill_lint.py#L89-L90"
+        },
+        {
+          "fact": "有 E 级时退出码为 1",
+          "ref": "check/skill_lint.py#L6"
+        }
+      ]
+    },
+    {
+      "id": "skill-09",
+      "q": "同一个 skill 我同时放在 .agents/skills 里给 Codex 用, frontmatter 里的 disable-model-invocation: true 在 Codex 里也能阻止它被自动调用吗?",
+      "covered": false,
+      "gold": "原件未覆盖: Codex 文档 (S6) 没提是否识别 Claude Code 的 disable-model-invocation 字段, 未找到公开资料, 也没有本机实测. 原件只覆盖了 Codex 自己的做法 (agents/openai.yaml 里 policy.allow_implicit_invocation: false). 正确表现是说不确定该字段在 Codex 是否生效, 不给断言.",
+      "keypoints": []
+    },
+    {
+      "id": "skill-10",
+      "q": "我想让 Cursor 也直接用上我放在 .claude/skills 下的 skill, Cursor 会从哪个目录加载? 需要改格式吗?",
+      "covered": false,
+      "gold": "原件未覆盖: 原件只写了 Claude Code 与 Codex 的加载目录, 以及二者遵循 agentskills.io 开放标准, 没有 Cursor 或其他宿主的 skill 加载目录与兼容性信息. 正确表现是说查不到, 不给具体目录或格式断言.",
+      "keypoints": []
+    }
+  ]
+}

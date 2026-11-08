@@ -1,0 +1,110 @@
+[
+ {
+  "id": "crawler-01",
+  "answer": "原因: httpx 连接池默认 max_connections=100 (max_keepalive_connections=20, keepalive_expiry=5), 并且 httpx 有单独的 pool 超时 (从连接池拿连接的最长等待, 默认对网络操作强制约 5 秒超时). 一次性 gather 500 个, 只有约 100 个拿到连接, 其余在池外排队等连接, 等超过 pool 超时就抛 PoolTimeout, 不是目标站的问题. 资料实测: AsyncClient 默认配置 gather 700 个打 1 秒延迟服务, 198 个成功, 502 个 PoolTimeout (个数只当量级参考); 套 Semaphore(100) 后 700 个全成功. (对比: aiohttp 超出 limit 的请求会排队而不抛池超时, 所以从 aiohttp 换到 httpx 时尤其要补信号量.)\n改法: 1) 外面套 asyncio.Semaphore, 信号量不超过 max_connections; 2) limits = httpx.Limits(max_connections=concurrency) 与信号量对齐; 3) timeout = httpx.Timeout(10.0, pool=None), 让在信号量后排队的请求不会因等连接超时; 4) gather 用 return_exceptions=True 并逐个检查结果里的异常. 资料里的骨架 (httpx + Semaphore + Timeout(10.0, pool=None) + 抖动延迟) concurrency=100 跑 700 个全 ok. 也可以用 httpx.Limits 调大 max_connections.",
+  "status": "answered",
+  "sources": [
+   "cs/crawler/httpx-gather-pooltimeout",
+   "cs/crawler/httpx-pool-limits-default",
+   "cs/crawler/httpx-four-timeouts",
+   "cs/crawler/httpx-default-timeout-5s",
+   "cs/crawler/httpx-pool-none-behind-semaphore",
+   "cs/crawler/httpx-crawl-skeleton",
+   "cs/crawler/aiohttp-gather-queues"
+  ]
+ },
+ {
+  "id": "crawler-02",
+  "answer": "原因: requests 默认不设超时 (实测 requests 2.34.2 timeout 默认 None), 不显式传 timeout 时请求可以挂几分钟甚至更久, 也不会报错.\n写法: 每个 requests 调用都显式传 timeout. 单值 (如 timeout=10) 同时作用于 connect 和 read; 也可传元组分开设, 如 timeout=(connect秒数, read秒数).\n注意: connect 超时按每个 IP 地址计, 域名有多个地址 (如 IPv4+IPv6) 时实际总等待会成倍放大; connect/read 超时都不是挂钟时间, 估算最坏等待要按 IP 个数放大. 如何给整个请求设硬性的总挂钟时限: 资料查不到.",
+  "status": "answered",
+  "sources": [
+   "cs/crawler/requests-default-no-timeout",
+   "cs/crawler/requests-defaults-measured",
+   "cs/crawler/requests-connect-timeout-per-ip"
+  ]
+ },
+ {
+  "id": "crawler-03",
+  "answer": "不会让请求失败. 资料实测: 32 线程共用一个默认 Session 打同一主机, 请求都成功, 但出现 22 次 'Connection pool is full, discarding connection'. 原因是 requests 默认连接池大小 DEFAULT_POOLSIZE = 10, 小于线程数, 多出来的连接用完后被丢弃 (不放回池复用).\n消掉: 给 Session 挂一个 HTTPAdapter(pool_maxsize=32) (调到线程数), 例如 s.mount('https://', HTTPAdapter(pool_maxsize=32)); 实测调到 32 后警告为 0 次. 改完再看日志确认无该警告.",
+  "status": "answered",
+  "sources": [
+   "cs/crawler/requests-pool-full-threads",
+   "cs/crawler/requests-defaults-measured",
+   "cs/crawler/requests-session-reuse"
+  ]
+ },
+ {
+  "id": "crawler-04",
+  "answer": "起作用的设置 (Scrapy 2.20): CONCURRENT_REQUESTS 全局默认确实是 16, 但 startproject 生成的 settings 里 CONCURRENT_REQUESTS_PER_DOMAIN = 1 (全局 fallback 是 8), DOWNLOAD_DELAY = 1 秒 (fallback 0), 再叠加 DOWNLOAD_DELAY_JITTER 默认 0.5, 即延迟在 ±50% 内随机. 响应时间小于 DOWNLOAD_DELAY 时该域实际并发就是 1, 所以单站大约一秒一个请求. 另外 startproject 里 ROBOTSTXT_OBEY = True (fallback False), 会遵守 robots.txt.\n调快前注意: 1) 设了 DOWNLOAD_DELAY 时, 只调高 CONCURRENT_REQUESTS_PER_DOMAIN 不能提速, 要一起看 DOWNLOAD_DELAY; 2) 对目标站的压力与被封风险: 资料建议避免被封时首选 USER_AGENT 表明身份, DOWNLOAD_DELAY 2 秒或以上等; 结果时有时无多是目标服务器过载或封禁; 3) 同进程跑多个 crawler 时并发与礼貌设置按 crawler 各算一份, 会成倍放大负载; 4) 若用 scrapy-playwright, PLAYWRIGHT_MAX_PAGES_PER_CONTEXT 默认等于 CONCURRENT_REQUESTS, 调并发要一起看浏览器页数. 建议在项目 settings 里显式写这些值.",
+  "status": "answered",
+  "sources": [
+   "cs/crawler/scrapy-concurrent-requests",
+   "cs/crawler/scrapy-per-domain-startproject",
+   "cs/crawler/scrapy-download-delay",
+   "cs/crawler/scrapy-delay-caps-concurrency",
+   "cs/crawler/scrapy-robotstxt-obey",
+   "cs/crawler/scrapy-avoid-getting-banned",
+   "cs/crawler/scrapy-intermittent-is-server",
+   "cs/crawler/scrapy-multi-crawler-load",
+   "cs/crawler/scrapy-playwright-settings"
+  ]
+ },
+ {
+  "id": "crawler-05",
+  "answer": "需要额外装: pip install httpx[http2] (HTTP/2 默认关闭, 原因是 HTTP/1.1 实现更成熟). 开了 http2=True 不等于真走 HTTP/2, 服务端不支持就回落 HTTP/1.1. 确认方法: 看 response.http_version 得到实际使用的协议 (如 'HTTP/2' 或 'HTTP/1.1').",
+  "status": "answered",
+  "sources": [
+   "cs/crawler/httpx-http2-not-guaranteed"
+  ]
+ },
+ {
+  "id": "crawler-06",
+  "answer": "aiohttp 默认不读环境变量里的代理 (requests 则默认读 http_proxy / https_proxy / no_proxy, 所以 requests 脚本能走代理). 让 aiohttp 也走: 创建 ClientSession 时传 trust_env=True, 例如 aiohttp.ClientSession(trust_env=True). 注意: 开启后若也要访问本地服务, 资料提到有环境变量代理时 trust_env=True 的客户端 (资料实测的是 httpx/requests) 会把 127.0.0.1 请求也送去代理, 可设 NO_PROXY=127.0.0.1.",
+  "status": "answered",
+  "sources": [
+   "cs/crawler/aiohttp-trust-env-proxy",
+   "cs/crawler/requests-proxies-env-override",
+   "cs/crawler/httpx-trust-env-localhost"
+  ]
+ },
+ {
+  "id": "crawler-07",
+  "answer": "不推荐. 在 Scrapy 回调里直接用 playwright-python 会绕过大部分 Scrapy 组件 (中间件、去重等), 官方推荐用 scrapy-playwright: 它是一个下载处理器, 只处理 meta 里带 playwright 键的请求, 其余仍走普通下载器; 需要 asyncio reactor (Windows 上 Playwright 必须跑在另一个线程的 ProactorEventLoop). 可用 PLAYWRIGHT_ABORT_REQUEST 丢弃不需要的资源, PLAYWRIGHT_MAX_PAGES_PER_CONTEXT 默认等于 CONCURRENT_REQUESTS.\n另外, 官方更推荐先找数据源: 在浏览器 Network 面板找到数据请求并复现 (可用 Request.from_curl()), 实在难复现且不在乎速度时才用无头浏览器. 每个浏览器安装还要占几百 MB 磁盘.",
+  "status": "answered",
+  "sources": [
+   "cs/crawler/scrapy-no-direct-playwright",
+   "cs/crawler/scrapy-playwright-meta-key",
+   "cs/crawler/scrapy-playwright-windows",
+   "cs/crawler/scrapy-playwright-settings",
+   "cs/crawler/scrapy-dynamic-find-data-source",
+   "cs/crawler/playwright-browser-disk"
+  ]
+ },
+ {
+  "id": "crawler-08",
+  "answer": "主要是这条路本身不够, 不是版本写法错. impersonate=\"chrome124\" 是合法写法, 表示固定版本 (可复现指纹); impersonate=\"chrome\" 则跟随库更新到最新版本; 也可用 `curl-cffi update` 在不升级库的情况下拉取新指纹. 但指纹模仿只解决 TLS/HTTP2 这一层, 对 Akamai / DataDome / Kasada / Incapsula 这类现代反爬, 还需要另外的 token, 只换指纹库不指望能过 (注: 资料对这条标为 B 级, 来源带广告性质, 仅作线索). 具体如何拿到 Akamai 所需的 token: 资料查不到.",
+  "status": "answered",
+  "sources": [
+   "cs/crawler/curl-cffi-fingerprint-not-enough",
+   "cs/crawler/curl-cffi-impersonate-pin",
+   "cs/crawler/curl-cffi-update-fingerprints",
+   "cs/crawler/curl-cffi-tls-impersonate"
+  ]
+ },
+ {
+  "id": "crawler-09",
+  "answer": "查不到. 资料中没有 aiohttp 开启 HTTP/2 的方法或 aiohttp 是否支持 HTTP/2 的信息 (资料里只写了 httpx 用 pip install httpx[http2] + http2=True, 以及 curl_cffi 支持 HTTP/2).",
+  "status": "not_found",
+  "sources": []
+ },
+ {
+  "id": "crawler-10",
+  "answer": "Cloudflare 5 秒盾 / Turnstile 能否用 curl_cffi 通过: 资料查不到 (资料没有提到 Cloudflare 或 Turnstile). 资料能给的相关信息: curl_cffi 可模仿浏览器的 TLS/JA3 与 HTTP/2 指纹, impersonate=\"chrome\" 跟随库更新到最新版本; 但指纹模仿只解决 TLS/HTTP2 这一层, 资料举例 Akamai / DataDome / Kasada / Incapsula 这类反爬还需要另外的 token (B 级线索). 能否推广到 Cloudflare: 查不到.",
+  "status": "partial",
+  "sources": [
+   "cs/crawler/curl-cffi-tls-impersonate",
+   "cs/crawler/curl-cffi-impersonate-pin",
+   "cs/crawler/curl-cffi-fingerprint-not-enough"
+  ]
+ }
+]

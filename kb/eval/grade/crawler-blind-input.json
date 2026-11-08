@@ -1,0 +1,340 @@
+{
+ "questions": [
+  {
+   "id": "crawler-01",
+   "q": "我用 httpx.AsyncClient 把 500 个 URL 一次性 asyncio.gather 出去, 目标站没挂, 但后面一大半请求报 PoolTimeout. 原因是什么, 代码该怎么改?",
+   "covered": true,
+   "gold": "httpx 连接池默认 max_connections=100, 且默认对所有操作有 5 秒超时, 其中 pool 超时是从池里拿连接的最长等待. 一次 gather 几百个请求, 超出 100 个的请求在池外排队等连接, 等超过 pool 超时就抛 PoolTimeout (实测 700 个打 1 秒延迟服务: 198 成功、502 PoolTimeout). 改法: 外面套 asyncio.Semaphore 把并发限在池大小内 (Semaphore(100) 后 700 个全成功, 7.8s); 也可像骨架脚本那样用 httpx.Timeout(10.0, pool=None) 让排队请求不因等连接超时, 并让 Limits(max_connections=...) 与信号量一致.",
+   "keypoints": [
+    {
+     "fact": "连接池默认 max_connections=100, max_keepalive_connections=20",
+     "ref": "material.md#L21"
+    },
+    {
+     "fact": "默认 5 秒超时; pool 超时是从连接池拿连接的最长等待",
+     "ref": "material.md#L20"
+    },
+    {
+     "fact": "实测无信号量 gather 700 个出现 502 个 PoolTimeout, 套 Semaphore(100) 后全成功",
+     "ref": "material.md#L24"
+    },
+    {
+     "fact": "骨架: Semaphore + Timeout(10.0, pool=None) + Limits(max_connections=concurrency)",
+     "ref": "crawl_skeleton.py#L36-L39"
+    }
+   ]
+  },
+  {
+   "id": "crawler-02",
+   "q": "我的 requests 爬虫跑在定时任务里, 偶尔某个请求卡住十几分钟不动, 也不报错. 为什么? timeout 应该怎么写?",
+   "covered": true,
+   "gold": "requests 默认不设超时 (timeout 默认 None), 不显式传 timeout 时请求可以挂几分钟甚至更久. 要显式传 timeout: 单个数值同时作用于 connect 与 read, 也可以传 (connect, read) 元组分开设. 注意 connect 超时按每个 IP 地址计, 域名有多个地址 (如 IPv4 + IPv6) 时总等待会成倍放大, 且 connect/read 超时都不是整个请求的挂钟时间.",
+   "keypoints": [
+    {
+     "fact": "requests 默认不设超时, 不传 timeout 会挂很久",
+     "ref": "material.md#L7"
+    },
+    {
+     "fact": "单值作用于 connect 与 read, 也可传元组分开设",
+     "ref": "material.md#L7"
+    },
+    {
+     "fact": "connect 超时按每个 IP 计, 多地址会成倍放大; 都不是挂钟时间",
+     "ref": "material.md#L8"
+    },
+    {
+     "fact": "实测 timeout 默认 None",
+     "ref": "material.md#L14"
+    }
+   ]
+  },
+  {
+   "id": "crawler-03",
+   "q": "我开了 32 个线程共用一个 requests.Session 爬同一个站, 日志一直刷 'Connection pool is full, discarding connection'. 这会让请求失败吗? 怎么消掉?",
+   "covered": true,
+   "gold": "不会让请求失败, 但说明连接没被复用. requests 默认 DEFAULT_POOLSIZE = 10, 线程数超过池大小时多出的连接用完被丢弃. 实测 32 线程共用默认 Session, 请求全部成功但出现 22 次该警告; 挂一个 HTTPAdapter(pool_maxsize=32) (与线程数一致) 后警告为 0 次.",
+   "keypoints": [
+    {
+     "fact": "默认 DEFAULT_POOLSIZE = 10",
+     "ref": "material.md#L14"
+    },
+    {
+     "fact": "实测 32 线程默认 Session 请求都成功, 但出现 22 次该警告",
+     "ref": "material.md#L15"
+    },
+    {
+     "fact": "把 pool_maxsize 调到 32 后为 0 次",
+     "ref": "material.md#L15"
+    }
+   ]
+  },
+  {
+   "id": "crawler-04",
+   "q": "我用 scrapy startproject 新建项目爬一个站, 发现大概一秒才出一个请求, 远低于我以为的默认并发 16. 是哪些设置在起作用? 调快之前要注意什么?",
+   "covered": true,
+   "gold": "startproject 生成的 settings 里 CONCURRENT_REQUESTS_PER_DOMAIN = 1 (全局 fallback 才是 8), DOWNLOAD_DELAY = 1 秒 (fallback 0), 再叠加 DOWNLOAD_DELAY_JITTER 默认 0.5, 即每次延迟在 ±50% 内随机; 响应时间小于 DOWNLOAD_DELAY 时该域实际并发就是 1. CONCURRENT_REQUESTS = 16 是全局上限, 对单个域不起主导作用. 另外 startproject 默认 ROBOTSTXT_OBEY = True. 调快时注意礼貌与被封风险 (官方避免被封建议包括 DOWNLOAD_DELAY 2 秒或以上).",
+   "keypoints": [
+    {
+     "fact": "CONCURRENT_REQUESTS_PER_DOMAIN: startproject 里是 1, fallback 8",
+     "ref": "material.md#L38"
+    },
+    {
+     "fact": "DOWNLOAD_DELAY startproject 里是 1 秒, JITTER 0.5 即 ±50%; 响应比延迟快时该域实际并发为 1",
+     "ref": "material.md#L39"
+    },
+    {
+     "fact": "CONCURRENT_REQUESTS 默认 16",
+     "ref": "material.md#L37"
+    }
+   ]
+  },
+  {
+   "id": "crawler-05",
+   "q": "我给 httpx.Client 加了 http2=True, 怎么确认请求真的走了 HTTP/2? 需要额外装什么吗?",
+   "covered": true,
+   "gold": "需要 pip install httpx[http2] 并设 http2=True; 只有服务端也支持 HTTP/2 时才会真走, 否则回落 HTTP/1.1. 用 response.http_version 查实际协议. httpx 默认关闭 HTTP/2, 原因是官方认为 HTTP/1.1 实现更成熟.",
+   "keypoints": [
+    {
+     "fact": "需要 pip install httpx[http2] 并 http2=True",
+     "ref": "material.md#L22"
+    },
+    {
+     "fact": "只有服务端支持才会真走 HTTP/2, 用 response.http_version 查",
+     "ref": "material.md#L22"
+    },
+    {
+     "fact": "开了 http2=True 不等于走 HTTP/2, 服务端不支持就回落 HTTP/1.1",
+     "ref": "material.md#L73"
+    }
+   ]
+  },
+  {
+   "id": "crawler-06",
+   "q": "服务器上设了 https_proxy 环境变量, 同一台机器上 requests 脚本能走代理, 换成 aiohttp 写的爬虫却直连了. 怎么让 aiohttp 也走环境变量里的代理?",
+   "covered": true,
+   "gold": "aiohttp 默认不读环境变量代理, 要在 ClientSession 上设 trust_env=True. requests 则在未被覆盖时会读 http_proxy / https_proxy / no_proxy, 所以两者表现不同.",
+   "keypoints": [
+    {
+     "fact": "aiohttp 默认不读环境变量代理, 需要 trust_env=True",
+     "ref": "material.md#L30"
+    },
+    {
+     "fact": "requests 读 http_proxy / https_proxy / no_proxy 环境变量",
+     "ref": "material.md#L13"
+    }
+   ]
+  },
+  {
+   "id": "crawler-07",
+   "q": "目标页的数据是 JS 渲染出来的, Scrapy 抓到的 HTML 里没有. 我打算在 parse 回调里直接起一个 playwright-python 浏览器去渲染, 这样做行吗?",
+   "covered": true,
+   "gold": "不推荐. Scrapy 官方建议先找数据源: 用浏览器 Network 面板找到真正返回数据的请求并复现 (可用 Request.from_curl()), 实在难复现且不在乎速度时才用无头浏览器. 在回调里直接用 playwright-python 会绕过大部分 Scrapy 组件 (中间件、去重等), 官方推荐用 scrapy-playwright: 它是一个下载处理器, 只处理 meta 里带 playwright 键的请求, 其他请求仍走普通下载器, 需要 asyncio reactor.",
+   "keypoints": [
+    {
+     "fact": "先找数据源并复现请求 (Request.from_curl), 难复现且不在乎速度才用无头浏览器",
+     "ref": "material.md#L47"
+    },
+    {
+     "fact": "回调里直接用 playwright-python 会绕过中间件、去重, 推荐 scrapy-playwright",
+     "ref": "material.md#L49"
+    },
+    {
+     "fact": "scrapy-playwright 只处理 meta 带 playwright 键的请求, 需要 asyncio reactor",
+     "ref": "material.md#L59"
+    }
+   ]
+  },
+  {
+   "id": "crawler-08",
+   "q": "我把 requests 换成 curl_cffi, 用了 impersonate=\"chrome124\" 模仿浏览器指纹, 还是被一个用 Akamai 的站拦. 是我版本写错了还是这条路本身不够?",
+   "covered": true,
+   "gold": "主要是这条路本身不够: curl_cffi 模仿的是浏览器的 TLS/JA3 与 HTTP/2 指纹, 只解决这一层; curl_cffi README 自己 (赞助商段落, 广告性质) 也写着对 Akamai / DataDome / Kasada / Incapsula 这类现代反爬还需要另外的 token. 版本方面: 'chrome124' 是固定版本写法, impersonate=\"chrome\" 会跟随库更新到最新版本, 也可用 curl-cffi update 在不升级库的情况下拉新指纹, 但这不能替代反爬 token.",
+   "keypoints": [
+    {
+     "fact": "指纹模仿只解决 TLS/HTTP2 这一层; Akamai 等还需另外的 token (README 赞助商段, 仅作线索)",
+     "ref": "material.md#L72"
+    },
+    {
+     "fact": "impersonate=\"chrome\" 跟随最新, chrome124 固定版本",
+     "ref": "material.md#L65"
+    },
+    {
+     "fact": "curl-cffi update 可不升级库拉新指纹",
+     "ref": "material.md#L67"
+    }
+   ]
+  },
+  {
+   "id": "crawler-09",
+   "q": "aiohttp 怎么开启 HTTP/2? 我想让 aiohttp 爬虫像 httpx 那样走 h2.",
+   "covered": false,
+   "gold": "原件未覆盖: 没有找到 aiohttp 官方关于 HTTP/2 的陈述; '不支持 HTTP/2' 只出现在 curl_cffi README 的对比表 (第三方说法), 原件正文未采用. 正确表现是说查不到 aiohttp 官方说法, 不给具体开启方法或断言.",
+   "keypoints": []
+  },
+  {
+   "id": "crawler-10",
+   "q": "用 curl_cffi impersonate=\"chrome\" 能不能直接过 Cloudflare 的 5 秒盾 / Turnstile 验证?",
+   "covered": false,
+   "gold": "原件未覆盖: 原件没有对任何真实带反爬的站点做测试, 没有 '某指纹被某厂商拦截/放行' 的一手数据, 也没提 Cloudflare. 只有 README 广告段说仅 TLS 指纹对现代反爬不够. 正确表现是说不确定, 不给能过/不能过的具体断言.",
+   "keypoints": []
+  }
+ ],
+ "answers": {
+  "X": [
+   {
+    "id": "crawler-01",
+    "answer": "原因: httpx 连接池默认 max_connections=100 (max_keepalive_connections=20, keepalive_expiry=5), 并且 httpx 有单独的 pool 超时 (从连接池拿连接的最长等待, 默认对网络操作强制约 5 秒超时). 一次性 gather 500 个, 只有约 100 个拿到连接, 其余在池外排队等连接, 等超过 pool 超时就抛 PoolTimeout, 不是目标站的问题. 资料实测: AsyncClient 默认配置 gather 700 个打 1 秒延迟服务, 198 个成功, 502 个 PoolTimeout (个数只当量级参考); 套 Semaphore(100) 后 700 个全成功. (对比: aiohttp 超出 limit 的请求会排队而不抛池超时, 所以从 aiohttp 换到 httpx 时尤其要补信号量.)\n改法: 1) 外面套 asyncio.Semaphore, 信号量不超过 max_connections; 2) limits = httpx.Limits(max_connections=concurrency) 与信号量对齐; 3) timeout = httpx.Timeout(10.0, pool=None), 让在信号量后排队的请求不会因等连接超时; 4) gather 用 return_exceptions=True 并逐个检查结果里的异常. 资料里的骨架 (httpx + Semaphore + Timeout(10.0, pool=None) + 抖动延迟) concurrency=100 跑 700 个全 ok. 也可以用 httpx.Limits 调大 max_connections.",
+    "status": "answered"
+   },
+   {
+    "id": "crawler-02",
+    "answer": "原因: requests 默认不设超时 (实测 requests 2.34.2 timeout 默认 None), 不显式传 timeout 时请求可以挂几分钟甚至更久, 也不会报错.\n写法: 每个 requests 调用都显式传 timeout. 单值 (如 timeout=10) 同时作用于 connect 和 read; 也可传元组分开设, 如 timeout=(connect秒数, read秒数).\n注意: connect 超时按每个 IP 地址计, 域名有多个地址 (如 IPv4+IPv6) 时实际总等待会成倍放大; connect/read 超时都不是挂钟时间, 估算最坏等待要按 IP 个数放大. 如何给整个请求设硬性的总挂钟时限: 资料查不到.",
+    "status": "answered"
+   },
+   {
+    "id": "crawler-03",
+    "answer": "不会让请求失败. 资料实测: 32 线程共用一个默认 Session 打同一主机, 请求都成功, 但出现 22 次 'Connection pool is full, discarding connection'. 原因是 requests 默认连接池大小 DEFAULT_POOLSIZE = 10, 小于线程数, 多出来的连接用完后被丢弃 (不放回池复用).\n消掉: 给 Session 挂一个 HTTPAdapter(pool_maxsize=32) (调到线程数), 例如 s.mount('https://', HTTPAdapter(pool_maxsize=32)); 实测调到 32 后警告为 0 次. 改完再看日志确认无该警告.",
+    "status": "answered"
+   },
+   {
+    "id": "crawler-04",
+    "answer": "起作用的设置 (Scrapy 2.20): CONCURRENT_REQUESTS 全局默认确实是 16, 但 startproject 生成的 settings 里 CONCURRENT_REQUESTS_PER_DOMAIN = 1 (全局 fallback 是 8), DOWNLOAD_DELAY = 1 秒 (fallback 0), 再叠加 DOWNLOAD_DELAY_JITTER 默认 0.5, 即延迟在 ±50% 内随机. 响应时间小于 DOWNLOAD_DELAY 时该域实际并发就是 1, 所以单站大约一秒一个请求. 另外 startproject 里 ROBOTSTXT_OBEY = True (fallback False), 会遵守 robots.txt.\n调快前注意: 1) 设了 DOWNLOAD_DELAY 时, 只调高 CONCURRENT_REQUESTS_PER_DOMAIN 不能提速, 要一起看 DOWNLOAD_DELAY; 2) 对目标站的压力与被封风险: 资料建议避免被封时首选 USER_AGENT 表明身份, DOWNLOAD_DELAY 2 秒或以上等; 结果时有时无多是目标服务器过载或封禁; 3) 同进程跑多个 crawler 时并发与礼貌设置按 crawler 各算一份, 会成倍放大负载; 4) 若用 scrapy-playwright, PLAYWRIGHT_MAX_PAGES_PER_CONTEXT 默认等于 CONCURRENT_REQUESTS, 调并发要一起看浏览器页数. 建议在项目 settings 里显式写这些值.",
+    "status": "answered"
+   },
+   {
+    "id": "crawler-05",
+    "answer": "需要额外装: pip install httpx[http2] (HTTP/2 默认关闭, 原因是 HTTP/1.1 实现更成熟). 开了 http2=True 不等于真走 HTTP/2, 服务端不支持就回落 HTTP/1.1. 确认方法: 看 response.http_version 得到实际使用的协议 (如 'HTTP/2' 或 'HTTP/1.1').",
+    "status": "answered"
+   },
+   {
+    "id": "crawler-06",
+    "answer": "aiohttp 默认不读环境变量里的代理 (requests 则默认读 http_proxy / https_proxy / no_proxy, 所以 requests 脚本能走代理). 让 aiohttp 也走: 创建 ClientSession 时传 trust_env=True, 例如 aiohttp.ClientSession(trust_env=True). 注意: 开启后若也要访问本地服务, 资料提到有环境变量代理时 trust_env=True 的客户端 (资料实测的是 httpx/requests) 会把 127.0.0.1 请求也送去代理, 可设 NO_PROXY=127.0.0.1.",
+    "status": "answered"
+   },
+   {
+    "id": "crawler-07",
+    "answer": "不推荐. 在 Scrapy 回调里直接用 playwright-python 会绕过大部分 Scrapy 组件 (中间件、去重等), 官方推荐用 scrapy-playwright: 它是一个下载处理器, 只处理 meta 里带 playwright 键的请求, 其余仍走普通下载器; 需要 asyncio reactor (Windows 上 Playwright 必须跑在另一个线程的 ProactorEventLoop). 可用 PLAYWRIGHT_ABORT_REQUEST 丢弃不需要的资源, PLAYWRIGHT_MAX_PAGES_PER_CONTEXT 默认等于 CONCURRENT_REQUESTS.\n另外, 官方更推荐先找数据源: 在浏览器 Network 面板找到数据请求并复现 (可用 Request.from_curl()), 实在难复现且不在乎速度时才用无头浏览器. 每个浏览器安装还要占几百 MB 磁盘.",
+    "status": "answered"
+   },
+   {
+    "id": "crawler-08",
+    "answer": "主要是这条路本身不够, 不是版本写法错. impersonate=\"chrome124\" 是合法写法, 表示固定版本 (可复现指纹); impersonate=\"chrome\" 则跟随库更新到最新版本; 也可用 `curl-cffi update` 在不升级库的情况下拉取新指纹. 但指纹模仿只解决 TLS/HTTP2 这一层, 对 Akamai / DataDome / Kasada / Incapsula 这类现代反爬, 还需要另外的 token, 只换指纹库不指望能过 (注: 资料对这条标为 B 级, 来源带广告性质, 仅作线索). 具体如何拿到 Akamai 所需的 token: 资料查不到.",
+    "status": "answered"
+   },
+   {
+    "id": "crawler-09",
+    "answer": "查不到. 资料中没有 aiohttp 开启 HTTP/2 的方法或 aiohttp 是否支持 HTTP/2 的信息 (资料里只写了 httpx 用 pip install httpx[http2] + http2=True, 以及 curl_cffi 支持 HTTP/2).",
+    "status": "not_found"
+   },
+   {
+    "id": "crawler-10",
+    "answer": "Cloudflare 5 秒盾 / Turnstile 能否用 curl_cffi 通过: 资料查不到 (资料没有提到 Cloudflare 或 Turnstile). 资料能给的相关信息: curl_cffi 可模仿浏览器的 TLS/JA3 与 HTTP/2 指纹, impersonate=\"chrome\" 跟随库更新到最新版本; 但指纹模仿只解决 TLS/HTTP2 这一层, 资料举例 Akamai / DataDome / Kasada / Incapsula 这类反爬还需要另外的 token (B 级线索). 能否推广到 Cloudflare: 查不到.",
+    "status": "partial"
+   }
+  ],
+  "Y": [
+   {
+    "id": "crawler-01",
+    "answer": "查不到. 资料只说 httpx 支持同步/异步 API, 下载层负责连接池、超时、异步并发等 (2.1 表格), 没有讲 PoolTimeout 的原因, 也没有给出连接池上限或并发控制的改法.",
+    "status": "not_found"
+   },
+   {
+    "id": "crawler-02",
+    "answer": "查不到. 资料只说 requests 适合同步脚本, 超时属于下载层职责 (2.1 表格), 没有讲请求为什么会无限卡住, 也没有讲 timeout 参数怎么写.",
+    "status": "not_found"
+   },
+   {
+    "id": "crawler-03",
+    "answer": "查不到. 资料没有讲 requests.Session 多线程共用、'Connection pool is full' 警告的含义, 以及调整连接池大小的方法.",
+    "status": "not_found"
+   },
+   {
+    "id": "crawler-04",
+    "answer": "能答的部分: 资料说 Scrapy 属于调度层, 负责 URL 队列、去重、限速、失败重试等, 有 Settings 组件 (0x01 表格, 2.1). 调快之前: 资料在下载层一节提到, 遇到访问限制时应先确认目标站点的授权、服务条款、robots 约束和采集频率边界 (原文是讲 curl_cffi/访问限制的语境). 查不到: 具体是哪些设置让请求变成约一秒一个 (设置名、默认值、startproject 模板里的配置), 以及怎么调.",
+    "status": "partial"
+   },
+   {
+    "id": "crawler-05",
+    "answer": "查不到. 资料只确认 httpx 支持 HTTP/1.1 和 HTTP/2, 没有讲怎么确认请求真的走了 HTTP/2, 也没有讲需要额外安装什么.",
+    "status": "not_found"
+   },
+   {
+    "id": "crawler-06",
+    "answer": "查不到. 资料只把代理列为下载层职责, 没有讲 aiohttp 是否读取 https_proxy 环境变量, 也没有讲怎么配置.",
+    "status": "not_found"
+   },
+   {
+    "id": "crawler-07",
+    "answer": "能答的部分: 资料建议先看页面真实数据是否来自 XHR/Fetch API, 如果是, 优先复现接口请求, 不要立刻上浏览器自动化; 浏览器层成本最高, 最容易引入稳定性和资源占用问题, 应当作最后手段. 如果确认必须用真实浏览器, Playwright 是新项目的优先评估项, Python API 同时支持 sync 和 async. 另外 Crawlee for Python 覆盖 HTTP-only 和 browser-based 爬取, 可作为希望两者共用框架时的调研选项. 查不到: 在 Scrapy 的 parse 回调里直接起 playwright-python 浏览器是否可行、会有什么问题、该用什么集成方式.",
+    "status": "partial"
+   },
+   {
+    "id": "crawler-08",
+    "answer": "能答的部分: 资料说 curl_cffi 是较特殊的下载层工具, 常用于需要 libcurl/curl-impersonate 能力的场景, 不应当成为默认选项; 遇到访问限制时, 应先确认目标站点的授权、服务条款、robots 约束和采集频率边界. 查不到: impersonate=\"chrome124\" 这个写法是否正确、可用的版本名, 以及对 Akamai 的效果和这条路是否足够.",
+    "status": "partial"
+   },
+   {
+    "id": "crawler-09",
+    "answer": "查不到. 资料只说 aiohttp 是 asyncio 生态的成熟 HTTP client/server, 明确写支持 HTTP/2 的是 httpx; 没有讲 aiohttp 能否或怎么开启 HTTP/2.",
+    "status": "not_found"
+   },
+   {
+    "id": "crawler-10",
+    "answer": "查不到. 资料没有讲 curl_cffi 对 Cloudflare 5 秒盾或 Turnstile 的效果; 只说 curl_cffi 不应作为默认选项, 遇到访问限制应先确认授权、服务条款、robots 和频率边界.",
+    "status": "not_found"
+   }
+  ],
+  "Z": [
+   {
+    "id": "crawler-01",
+    "status": "answered",
+    "answer": "原因: httpx 默认连接上限总 100 (保活 20), 默认超时是 5 秒无活动且包含 pool 等待. 一次性 gather 时所有请求同时抢 100 个连接, 排在后面几波的请求等连接超过 5 秒就被抛 PoolTimeout (文中实测 700 个请求 198 成功、502 个 PoolTimeout). 改法: 并发交给 asyncio.Semaphore 控制, 并让排队不计超时: timeout = httpx.Timeout(10.0, pool=None); limits = httpx.Limits(max_connections=concurrency); 用 async with httpx.AsyncClient(timeout=timeout, limits=limits, follow_redirects=True) 建 client, 每个请求在 async with sem: 里发出 (可加 delay+抖动), 最后 asyncio.gather(..., return_exceptions=True). 文中实测默认配置 + Semaphore(100) 跑 700 个全成功 (7.8 秒); concurrency=100, delay=0 也全成功 (9.0 秒). 整体速率约为 concurrency / (delay + 响应时间)."
+   },
+   {
+    "id": "crawler-02",
+    "status": "partial",
+    "answer": "原因: requests 默认 timeout=None, 也不重试; 不传 timeout 会无限期挂住, 文档原话是挂几分钟或更久. 写法: 每个请求都要显式传 timeout 参数. 注意 connect 超时按每个 IP 分别算, 域名有 IPv4 和 IPv6 两个地址且都不响应时实际等待会翻倍. 需要重试要自己挂 HTTPAdapter(max_retries=urllib3.util.Retry(total=..., backoff_factor=..., status_forcelist=[...])). 查不到: timeout 参数的具体写法 (如 connect/read 分开的形式) 和推荐取值, 资料未给出."
+   },
+   {
+    "id": "crawler-03",
+    "status": "partial",
+    "answer": "不会让请求失败. requests 默认每主机连接池 10; 文中实测 32 线程共用默认 Session 发 320 个请求, 全部 200, 只出现 22 次 pool is full 警告. 超载时 requests 照常成功, 只是超出池大小的连接用完即丢 (discard). 怎么消掉该警告: 查不到, 资料没有给出调整连接池大小或消除警告的方法."
+   },
+   {
+    "id": "crawler-04",
+    "status": "answered",
+    "answer": "startproject 模板生成的 settings.py 很保守: CONCURRENT_REQUESTS=16 (总并发), 但 CONCURRENT_REQUESTS_PER_DOMAIN=1 (全局 fallback 是 8), DOWNLOAD_DELAY=1 (fallback 0, 每域两次请求最小间隔秒数), DOWNLOAD_DELAY_JITTER=0.5 (实际延迟在 0.5~1.5 倍间随机), 另有 ROBOTSTXT_OBEY=True、DOWNLOAD_TIMEOUT=180. 只抓一个站时就是约每秒 1 个请求; 响应时间短于 DOWNLOAD_DELAY 时该域实际并发就是 1, CONCURRENT_REQUESTS=16 只有多域名时才用得满 (单站 10 万页约 27.8 小时). 调快前注意: (1) 同进程跑多个 crawler 时并发、延迟、AutoThrottle 按 crawler 各算一份, 同一 spider 跑两份就是两倍压力, 官方建议要更快就在单个 crawler 上调高 CONCURRENT_REQUESTS; (2) 若用 scrapy-playwright, PLAYWRIGHT_MAX_PAGES_PER_CONTEXT 默认等于 CONCURRENT_REQUESTS, 会跟着变; (3) 速率与 IP 是反爬识别的第一层, Scrapy 文档避免被封的建议是先用 USER_AGENT 表明身份, 其次降速 (2 秒以上)、换 IP."
+   },
+   {
+    "id": "crawler-05",
+    "status": "answered",
+    "answer": "需要额外装: 先 pip install httpx[http2], 再在 client 上设 http2=True (httpx 的 HTTP/2 默认关闭). 服务端不支持时会自动回落到 HTTP/1.1, 所以要用 response.http_version 确认实际走的是哪个协议."
+   },
+   {
+    "id": "crawler-06",
+    "status": "answered",
+    "answer": "aiohttp 默认不读环境变量里的代理, 需要设置 trust_env=True 才会读 (requests 和 httpx 默认都读, httpx 默认 trust_env=True). 资料未给出更多代码细节."
+   },
+   {
+    "id": "crawler-07",
+    "status": "answered",
+    "answer": "不行. Scrapy 官方文档说在回调里直接调 playwright-python 会绕过中间件、去重等大部分组件. 应走 scrapy-playwright: settings.py 里设 DOWNLOAD_HANDLERS = {\"https\": \"scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler\"}, TWISTED_REACTOR = \"twisted.internet.asyncioreactor.AsyncioSelectorReactor\", 可用 PLAYWRIGHT_ABORT_REQUEST 屏蔽图片等资源; spider 里只有 meta={\"playwright\": True} 的请求走浏览器, 其余仍走普通下载器. 另外上浏览器前建议先去 Network 面板找 XHR/fetch 数据源直接复现 (可用 Request.from_curl()); 即使用浏览器, 也优先用 page.expect_response 截接口响应, 最后才解析渲染后的 DOM."
+   },
+   {
+    "id": "crawler-08",
+    "status": "partial",
+    "answer": "资料倾向于是这条路本身不够, 但证据较弱: curl_cffi 的指纹模仿只管 TLS/JA3 和 HTTP/2 这一层; curl_cffi README 赞助商段落写着对 Akamai / DataDome / Kasada / Incapsula 只做 TLS 指纹不够 (作者注明这是广告, 只当反例线索). 下一层是 JS 挑战与 token, 需要浏览器或第三方服务. 关于版本: 写 \"chrome124\" 是固定版本指纹, 不写版本号 (impersonate=\"chrome\") 则跟随库更新到最新指纹; 指纹会旧, 可用 curl-cffi update 不升级库拉新指纹. 查不到: 固定版本指纹是否会被目标站拒掉, 资料明说没找到一手数据 [不确定]; 你这个站被拦的具体原因也无法从资料判断."
+   },
+   {
+    "id": "crawler-09",
+    "status": "not_found",
+    "answer": "查不到. 资料只介绍了 httpx 开 HTTP/2 的方法 (pip install httpx[http2] + http2=True), 没有任何关于 aiohttp 开启 HTTP/2 的内容."
+   },
+   {
+    "id": "crawler-10",
+    "status": "partial",
+    "answer": "资料没有提到 Cloudflare、5 秒盾或 Turnstile, 针对它们能否通过: 查不到. 资料只给出一般框架: curl_cffi impersonate 只模仿 TLS/JA3 和 HTTP/2 指纹这一层; JS 挑战与 token 属于更后一层, 要靠浏览器或第三方服务处理. 排查时一次只换一层, 哪层开始稳定拿到数据就停."
+   }
+  ]
+ }
+}

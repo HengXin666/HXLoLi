@@ -1,0 +1,170 @@
+{
+ "items": [
+  {
+   "id": "crawler-01",
+   "X": {
+    "verdict": "正确",
+    "reason": "4 个要点全答到 (100/20 池上限, 5 秒及 pool 超时, 502 PoolTimeout 与 Semaphore(100) 全成功, 骨架 Timeout(10.0,pool=None)+Limits), 无冲突."
+   },
+   "Y": {
+    "verdict": "查不到",
+    "reason": "声明资料未讲 PoolTimeout 原因与改法, 未答出任何要点."
+   },
+   "Z": {
+    "verdict": "正确",
+    "reason": "4 个要点全答到; 附加的 delay=0 跑 9.0 秒、速率公式无法对照 gold 核实, 但与 gold 不冲突."
+   }
+  },
+  {
+   "id": "crawler-02",
+   "X": {
+    "verdict": "正确",
+    "reason": "默认 None、单值/元组写法、按 IP 计且非挂钟时间全答到."
+   },
+   "Y": {
+    "verdict": "查不到",
+    "reason": "声明没讲卡住原因与 timeout 写法, 未答出要点."
+   },
+   "Z": {
+    "verdict": "部分",
+    "reason": "答到默认 None 与按 IP 计, 但声明查不到元组写法, 也没提非挂钟时间; 无错误断言."
+   }
+  },
+  {
+   "id": "crawler-03",
+   "X": {
+    "verdict": "正确",
+    "reason": "DEFAULT_POOLSIZE=10、22 次警告、pool_maxsize=32 后 0 次全答到."
+   },
+   "Y": {
+    "verdict": "查不到",
+    "reason": "声明资料没讲该警告与池大小调整."
+   },
+   "Z": {
+    "verdict": "部分",
+    "reason": "答到池大小 10 与 22 次警告且请求成功, 但声明查不到消除方法, 漏 pool_maxsize=32 后 0 次."
+   }
+  },
+  {
+   "id": "crawler-04",
+   "X": {
+    "verdict": "正确",
+    "reason": "PER_DOMAIN=1/fallback 8、DOWNLOAD_DELAY=1+JITTER 0.5、实际并发 1、CONCURRENT_REQUESTS=16 全答到, 礼貌/被封注意点与 gold 一致."
+   },
+   "Y": {
+    "verdict": "查不到",
+    "reason": "只有 Scrapy 职责泛述, 明确说查不到具体设置, 未答出任何要点."
+   },
+   "Z": {
+    "verdict": "正确",
+    "reason": "三个要点全答到, 附加注意点 (多 crawler 叠加、2 秒以上降速) 与 gold 不冲突."
+   }
+  },
+  {
+   "id": "crawler-05",
+   "X": {
+    "verdict": "正确",
+    "reason": "httpx[http2]+http2=True、服务端不支持回落、用 response.http_version 确认全答到."
+   },
+   "Y": {
+    "verdict": "查不到",
+    "reason": "声明资料没讲如何确认与额外安装."
+   },
+   "Z": {
+    "verdict": "正确",
+    "reason": "三个要点全答到."
+   }
+  },
+  {
+   "id": "crawler-06",
+   "X": {
+    "verdict": "正确",
+    "reason": "aiohttp 需 trust_env=True、requests 读 http_proxy/https_proxy/no_proxy 均答到."
+   },
+   "Y": {
+    "verdict": "查不到",
+    "reason": "声明资料没讲 aiohttp 是否读环境变量代理."
+   },
+   "Z": {
+    "verdict": "正确",
+    "reason": "答到 aiohttp 需 trust_env=True 及 requests 默认读环境代理, 与 gold 一致."
+   }
+  },
+  {
+   "id": "crawler-07",
+   "X": {
+    "verdict": "正确",
+    "reason": "先找数据源 (Request.from_curl)、回调直接用会绕过中间件/去重、scrapy-playwright 只处理 meta playwright 键且需 asyncio reactor 全答到."
+   },
+   "Y": {
+    "verdict": "部分",
+    "reason": "答到先复现接口请求、浏览器作最后手段 (要点1), 但声明查不到在回调里直接起浏览器的问题与 scrapy-playwright 集成方式; 无错误断言."
+   },
+   "Z": {
+    "verdict": "正确",
+    "reason": "三个要点全答到 (含 meta playwright 与 asyncio reactor 配置), \"不行\"与 gold\"不推荐\"方向一致."
+   }
+  },
+  {
+   "id": "crawler-08",
+   "X": {
+    "verdict": "正确",
+    "reason": "只解决 TLS/HTTP2 层且 Akamai 等需另外 token (标为线索)、chrome 跟随最新/chrome124 固定、curl-cffi update 全答到."
+   },
+   "Y": {
+    "verdict": "查不到",
+    "reason": "只有\"不应作默认选项\"等泛述, 声明查不到版本写法与对 Akamai 的效果, 未答出要点."
+   },
+   "Z": {
+    "verdict": "正确",
+    "reason": "三个要点全答到并标明 README 广告性质, 无冲突断言."
+   }
+  },
+  {
+   "id": "crawler-09",
+   "X": {
+    "verdict": "正确拒答",
+    "reason": "明确说查不到 aiohttp 开启 HTTP/2 的方法, 只附 httpx/curl_cffi 相关事实, 未越界."
+   },
+   "Y": {
+    "verdict": "正确拒答",
+    "reason": "明确说没讲 aiohttp 能否或怎么开启 HTTP/2, 未给具体断言."
+   },
+   "Z": {
+    "verdict": "正确拒答",
+    "reason": "明确说查不到, 只附 httpx 的开启方法, 未越界."
+   }
+  },
+  {
+   "id": "crawler-10",
+   "X": {
+    "verdict": "正确拒答",
+    "reason": "明确说资料未提 Cloudflare/Turnstile、能否通过查不到, 附带的指纹只管一层属资料内事实."
+   },
+   "Y": {
+    "verdict": "正确拒答",
+    "reason": "明确说资料没讲对 Cloudflare 的效果, 未给能过/不能过断言."
+   },
+   "Z": {
+    "verdict": "正确拒答",
+    "reason": "明确说查不到能否通过, 只给分层的一般框架, 未断言能过或不能过."
+   }
+  }
+ ],
+ "summary": {
+  "X": {
+   "正确": 8,
+   "正确拒答": 2
+  },
+  "Y": {
+   "查不到": 7,
+   "部分": 1,
+   "正确拒答": 2
+  },
+  "Z": {
+   "正确": 6,
+   "部分": 2,
+   "正确拒答": 2
+  }
+ }
+}

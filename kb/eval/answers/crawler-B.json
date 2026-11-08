@@ -1,0 +1,22 @@
+[
+ {"id":"crawler-01","status":"answered","sources":["B.md L42 表格 httpx 行","B.md L59-70 超载时各自怎么坏","B.md L72-108 骨架与会炸的写法","B.md L110"],
+  "answer":"原因: httpx 默认连接上限总 100 (保活 20), 默认超时是 5 秒无活动且包含 pool 等待. 一次性 gather 时所有请求同时抢 100 个连接, 排在后面几波的请求等连接超过 5 秒就被抛 PoolTimeout (文中实测 700 个请求 198 成功、502 个 PoolTimeout). 改法: 并发交给 asyncio.Semaphore 控制, 并让排队不计超时: timeout = httpx.Timeout(10.0, pool=None); limits = httpx.Limits(max_connections=concurrency); 用 async with httpx.AsyncClient(timeout=timeout, limits=limits, follow_redirects=True) 建 client, 每个请求在 async with sem: 里发出 (可加 delay+抖动), 最后 asyncio.gather(..., return_exceptions=True). 文中实测默认配置 + Semaphore(100) 跑 700 个全成功 (7.8 秒); concurrency=100, delay=0 也全成功 (9.0 秒). 整体速率约为 concurrency / (delay + 响应时间)."},
+ {"id":"crawler-02","status":"partial","sources":["B.md L41 表格 requests 行","B.md L46-48","B.md L55 TIP"],
+  "answer":"原因: requests 默认 timeout=None, 也不重试; 不传 timeout 会无限期挂住, 文档原话是挂几分钟或更久. 写法: 每个请求都要显式传 timeout 参数. 注意 connect 超时按每个 IP 分别算, 域名有 IPv4 和 IPv6 两个地址且都不响应时实际等待会翻倍. 需要重试要自己挂 HTTPAdapter(max_retries=urllib3.util.Retry(total=..., backoff_factor=..., status_forcelist=[...])). 查不到: timeout 参数的具体写法 (如 connect/read 分开的形式) 和推荐取值, 资料未给出."},
+ {"id":"crawler-03","status":"partial","sources":["B.md L41 表格 requests 行","B.md L61-68 超载表与结论"],
+  "answer":"不会让请求失败. requests 默认每主机连接池 10; 文中实测 32 线程共用默认 Session 发 320 个请求, 全部 200, 只出现 22 次 pool is full 警告. 超载时 requests 照常成功, 只是超出池大小的连接用完即丢 (discard). 怎么消掉该警告: 查不到, 资料没有给出调整连接池大小或消除警告的方法."},
+ {"id":"crawler-04","status":"answered","sources":["B.md L44 表格 Scrapy 行","B.md L115-127 Scrapy 的模板很保守","B.md L135-136 TIP","B.md L174","B.md L189-196"],
+  "answer":"startproject 模板生成的 settings.py 很保守: CONCURRENT_REQUESTS=16 (总并发), 但 CONCURRENT_REQUESTS_PER_DOMAIN=1 (全局 fallback 是 8), DOWNLOAD_DELAY=1 (fallback 0, 每域两次请求最小间隔秒数), DOWNLOAD_DELAY_JITTER=0.5 (实际延迟在 0.5~1.5 倍间随机), 另有 ROBOTSTXT_OBEY=True、DOWNLOAD_TIMEOUT=180. 只抓一个站时就是约每秒 1 个请求; 响应时间短于 DOWNLOAD_DELAY 时该域实际并发就是 1, CONCURRENT_REQUESTS=16 只有多域名时才用得满 (单站 10 万页约 27.8 小时). 调快前注意: (1) 同进程跑多个 crawler 时并发、延迟、AutoThrottle 按 crawler 各算一份, 同一 spider 跑两份就是两倍压力, 官方建议要更快就在单个 crawler 上调高 CONCURRENT_REQUESTS; (2) 若用 scrapy-playwright, PLAYWRIGHT_MAX_PAGES_PER_CONTEXT 默认等于 CONCURRENT_REQUESTS, 会跟着变; (3) 速率与 IP 是反爬识别的第一层, Scrapy 文档避免被封的建议是先用 USER_AGENT 表明身份, 其次降速 (2 秒以上)、换 IP."},
+ {"id":"crawler-05","status":"answered","sources":["B.md L113 TIP"],
+  "answer":"需要额外装: 先 pip install httpx[http2], 再在 client 上设 http2=True (httpx 的 HTTP/2 默认关闭). 服务端不支持时会自动回落到 HTTP/1.1, 所以要用 response.http_version 确认实际走的是哪个协议."},
+ {"id":"crawler-06","status":"answered","sources":["B.md L39-43 表格 读环境变量代理 列","B.md L50-52"],
+  "answer":"aiohttp 默认不读环境变量里的代理, 需要设置 trust_env=True 才会读 (requests 和 httpx 默认都读, httpx 默认 trust_env=True). 资料未给出更多代码细节."},
+ {"id":"crawler-07","status":"answered","sources":["B.md L17-35 先看数据在哪","B.md L140-174 动态页"],
+  "answer":"不行. Scrapy 官方文档说在回调里直接调 playwright-python 会绕过中间件、去重等大部分组件. 应走 scrapy-playwright: settings.py 里设 DOWNLOAD_HANDLERS = {\"https\": \"scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler\"}, TWISTED_REACTOR = \"twisted.internet.asyncioreactor.AsyncioSelectorReactor\", 可用 PLAYWRIGHT_ABORT_REQUEST 屏蔽图片等资源; spider 里只有 meta={\"playwright\": True} 的请求走浏览器, 其余仍走普通下载器. 另外上浏览器前建议先去 Network 面板找 XHR/fetch 数据源直接复现 (可用 Request.from_curl()); 即使用浏览器, 也优先用 page.expect_response 截接口响应, 最后才解析渲染后的 DOM."},
+ {"id":"crawler-08","status":"partial","sources":["B.md L185-222 被拦了就一层一层换"],
+  "answer":"资料倾向于是这条路本身不够, 但证据较弱: curl_cffi 的指纹模仿只管 TLS/JA3 和 HTTP/2 这一层; curl_cffi README 赞助商段落写着对 Akamai / DataDome / Kasada / Incapsula 只做 TLS 指纹不够 (作者注明这是广告, 只当反例线索). 下一层是 JS 挑战与 token, 需要浏览器或第三方服务. 关于版本: 写 \"chrome124\" 是固定版本指纹, 不写版本号 (impersonate=\"chrome\") 则跟随库更新到最新指纹; 指纹会旧, 可用 curl-cffi update 不升级库拉新指纹. 查不到: 固定版本指纹是否会被目标站拒掉, 资料明说没找到一手数据 [不确定]; 你这个站被拦的具体原因也无法从资料判断."},
+ {"id":"crawler-09","status":"not_found","sources":["B.md 全文 (仅 L113 提到 httpx 的 HTTP/2)"],
+  "answer":"查不到. 资料只介绍了 httpx 开 HTTP/2 的方法 (pip install httpx[http2] + http2=True), 没有任何关于 aiohttp 开启 HTTP/2 的内容."},
+ {"id":"crawler-10","status":"partial","sources":["B.md L187-222 被拦了就一层一层换"],
+  "answer":"资料没有提到 Cloudflare、5 秒盾或 Turnstile, 针对它们能否通过: 查不到. 资料只给出一般框架: curl_cffi impersonate 只模仿 TLS/JA3 和 HTTP/2 指纹这一层; JS 挑战与 token 属于更后一层, 要靠浏览器或第三方服务处理. 排查时一次只换一层, 哪层开始稳定拿到数据就停."}
+]

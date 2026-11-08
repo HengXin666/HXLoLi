@@ -1,0 +1,344 @@
+{
+ "questions": [
+  {
+   "id": "skill-01",
+   "q": "我想把新 skill 的 name 写成 Claude-PDF-Helper, 放在 skills/pdf/ 目录下. 这个名字有什么问题, 该怎么改?",
+   "covered": true,
+   "gold": "有多处问题: name 只能含小写字母、数字与连字符 (1 到 64 字符, 不以连字符开头结尾, 无连续连字符), 大写不行; 不能含保留词 claude / anthropic; 必须与父目录名一致 (目录是 pdf, name 却不是); 命名建议动名词形式, 避免 helper / utils 这类空名. 可改为如 processing-pdfs 并把目录也命名为 processing-pdfs.",
+   "keypoints": [
+    {
+     "fact": "name 1 到 64 字符, 仅小写字母数字与连字符, 须与父目录名一致",
+     "ref": "material.md#L17"
+    },
+    {
+     "fact": "不能含保留词 anthropic / claude",
+     "ref": "material.md#L17"
+    },
+    {
+     "fact": "建议动名词命名如 processing-pdfs, 避免 helper / utils",
+     "ref": "material.md#L19"
+    }
+   ]
+  },
+  {
+   "id": "skill-02",
+   "q": "我在 Claude Code 里给一个部署 skill 加了 disable-model-invocation: true, 但 description 里仍写了一堆 'Use this skill when...' 的触发词. 这些触发词还起作用吗? 这个 skill 以后要上传到 claude.ai 会有问题吗?",
+   "covered": true,
+   "gold": "不起作用: disable-model-invocation: true 时 description 不进上下文, 只能由用户用 /name 调用 (反过来 user-invocable: false 是只有 Claude 能调). 上传 claude.ai / Skills API 或用 package_skill.py 打包只接受规范内 6 个字段 (name, description, license, compatibility, metadata, allowed-tools), disable-model-invocation 是 Claude Code 专有字段, 多出的字段会硬报错 'Unexpected key(s) in SKILL.md frontmatter', 上传前要去掉.",
+   "keypoints": [
+    {
+     "fact": "disable-model-invocation: true 时 description 不进上下文, 只能用户 /name 调用",
+     "ref": "material.md#L32"
+    },
+    {
+     "fact": "claude.ai / Skills API / package_skill.py 只接受规范内 6 个字段, 多出字段报 Unexpected key(s)",
+     "ref": "material.md#L20"
+    },
+    {
+     "fact": "规范字段: 必填 name, description; 可选 license, compatibility, metadata, allowed-tools",
+     "ref": "material.md#L16"
+    }
+   ]
+  },
+  {
+   "id": "skill-03",
+   "q": "我的 SKILL.md 已经写到 800 多行了, 里面有财务、销售、法务三块规则. 该怎么拆?",
+   "covered": true,
+   "gold": "SKILL.md 正文建议少于 500 行, 接近时拆文件. 按领域拆参考文件 (如 reference/finance.md, reference/sales.md, reference/legal.md), 让无关领域不占上下文; 引用保持离 SKILL.md 只深一层, 不要嵌套引用 (否则 Claude 可能用 head -100 预览而读不全); 超过 100 行的参考文件顶部放目录. 参考文件在被读之前不占上下文.",
+   "keypoints": [
+    {
+     "fact": "SKILL.md 正文 < 500 行, 接近时拆文件",
+     "ref": "material.md#L49"
+    },
+    {
+     "fact": "引用只深一层, 嵌套时可能只 head -100 预览",
+     "ref": "material.md#L50"
+    },
+    {
+     "fact": "超过 100 行的参考文件顶部放目录",
+     "ref": "material.md#L51"
+    },
+    {
+     "fact": "按领域拆参考文件, 无关领域零占用",
+     "ref": "material.md#L52"
+    }
+   ]
+  },
+  {
+   "id": "skill-04",
+   "q": "在 Claude Code 长会话里, 前面调用过的 skill 在自动压缩 (auto-compact) 之后好像不再遵守其中后半部分的规则了. 为什么? 怎么写能缓解?",
+   "covered": true,
+   "gold": "自动压缩后, 每个 skill 只重新附上最近一次调用的前 5000 token, 所有 skill 合计不超过 25000 token, 从最近调用的开始填, 旧 skill 可能整个被丢. 所以靠后的内容可能丢失. 缓解: 重要指令放在 SKILL.md 靠前处; 每次都必须成立的规则移进 hook. 另外 skill 内容是跨轮常驻的消息, 应写成持续生效的指令而非一次性步骤.",
+   "keypoints": [
+    {
+     "fact": "压缩后每个 skill 只重附最近一次调用的前 5000 token, 合计 25000, 旧 skill 可能被丢",
+     "ref": "material.md#L57"
+    },
+    {
+     "fact": "重要指令放靠前处; 必须每次成立的规则移进 hook",
+     "ref": "material.md#L58"
+    },
+    {
+     "fact": "skill 作为消息跨轮常驻, 要写成持续生效的指令",
+     "ref": "material.md#L56"
+    }
+   ]
+  },
+  {
+   "id": "skill-05",
+   "q": "我要给自己 skill 的 description 做触发评测: 准备多少条查询, 正负例怎么配, 每条跑几次, 触发率多少算触发?",
+   "covered": true,
+   "gold": "约 20 条查询, 其中 8 到 10 条应触发、8 到 10 条不应触发, 负例要选与 skill 共享关键词的近似请求. 每条跑 3 次算触发率, 默认阈值 0.5 (20 × 3 = 60 次调用). 改描述时按约 60% 训练 / 40% 验证划分, 只用训练集失败来改, 按验证集通过率选最佳版本, 通常 5 轮足够.",
+   "keypoints": [
+    {
+     "fact": "约 20 条, 8 到 10 应触发 + 8 到 10 不应触发, 负例选共享关键词的近似请求",
+     "ref": "material.md#L69"
+    },
+    {
+     "fact": "每条跑 3 次, 阈值 0.5, 共 60 次调用",
+     "ref": "material.md#L70"
+    },
+    {
+     "fact": "训练 60% / 验证 40%, 只用训练集失败改, 按验证集选, 通常 5 轮",
+     "ref": "material.md#L71"
+    }
+   ]
+  },
+  {
+   "id": "skill-06",
+   "q": "我在 Claude Code 里装了一百多个 skill, 发现有些 skill 明明描述写得很清楚却从不自动触发. 会不会是描述被截掉或压根没进列表? 具体限制是多少?",
+   "covered": true,
+   "gold": "可能. Claude Code 列表里每个 skill 的 description 与 when_to_use 合计截断于 1536 字符 (可用 skillListingMaxDescChars 修改); skill 列表整体预算为上下文窗口的 1%, 超出时先丢最少被调用的 skill 的描述, 名字始终保留. 所以描述写长或 skill 太多时, 冷门 skill 可能只剩名字而无法按描述匹配. 关键用例宜放在描述前面.",
+   "keypoints": [
+    {
+     "fact": "description + when_to_use 截断于 1536 字符, 可用 skillListingMaxDescChars 改",
+     "ref": "material.md#L30"
+    },
+    {
+     "fact": "列表整体预算为上下文窗口 1%, 超出时先丢最少被调用 skill 的描述, 名字保留",
+     "ref": "material.md#L30"
+    },
+    {
+     "fact": "关键用例与触发词放前面, 描述被缩短时仍能匹配 (Codex 文档建议)",
+     "ref": "material.md#L28"
+    }
+   ]
+  },
+  {
+   "id": "skill-07",
+   "q": "我写了个 PDF 处理 skill, 描述里明明写了 'read PDF', 可用户说 '帮我读一下这个 PDF' 时它不触发. 是描述写坏了吗? 描述应该怎么写?",
+   "covered": true,
+   "gold": "不一定是描述的问题: agent 通常只为自己独立做不好的任务去查 skill, 一步就能完成的简单请求 (如 'read this PDF') 即使描述完全匹配也可能不触发. 描述写法: 用第三人称 (它被注入系统提示, 人称不一致会导致发现问题), 用 'Use this skill when...' 祈使句、聚焦用户意图, 可以写得 pushy, 把用户没点名领域的情形也列进去. 不要把失败查询里的具体关键词直接塞进描述, 那是过拟合.",
+   "keypoints": [
+    {
+     "fact": "一步就能完成的请求 (如 read this PDF) 即使描述匹配也可能不触发",
+     "ref": "material.md#L29"
+    },
+    {
+     "fact": "description 写第三人称, 因为被注入系统提示",
+     "ref": "material.md#L26"
+    },
+    {
+     "fact": "用 'Use this skill when...' 祈使句, 聚焦用户意图, 可写得 pushy",
+     "ref": "material.md#L27"
+    }
+   ]
+  },
+  {
+   "id": "skill-08",
+   "q": "我从 GitHub 拿了一个社区 skill: 目录叫 AI-Animation-Skill, SKILL.md 里 name 写的是 science-content-ppt, 正文还把默认输出路径写成 /home/mt/桌面/AI_Animation.html. 用 check/skill_lint.py 体检会报什么? 该怎么修?",
+   "covered": true,
+   "gold": "skill_lint.py 会报一条 E 级 name-dir (name 'science-content-ppt' 与目录名 'AI-Animation-Skill' 不一致, 规范要求一致) 和一条 W 级 abs-path (正文写死绝对路径 /home/mt/桌面/AI_Animation.html, 换机器就失效); 因有 E 级, 退出码为 1. 其余为 I 级信息 (description 190 字符, 正文 236 行 < 500, 直接引用 0 个存在的文件). 修法: 把目录改名为 science-content-ppt (目录名也须是合法 name, AI-Animation-Skill 含大写不合格), 并把输出路径改为相对路径或由用户指定.",
+   "keypoints": [
+    {
+     "fact": "name 必须与父目录名一致, 且只含小写字母数字与连字符",
+     "ref": "material.md#L17"
+    },
+    {
+     "fact": "lint 对 name 与目录名不一致报 E 级 name-dir",
+     "ref": "check/skill_lint.py#L65-L66"
+    },
+    {
+     "fact": "正文绝对路径报 W 级 abs-path, 换机器失效",
+     "ref": "check/skill_lint.py#L89-L90"
+    },
+    {
+     "fact": "有 E 级时退出码为 1",
+     "ref": "check/skill_lint.py#L6"
+    }
+   ]
+  },
+  {
+   "id": "skill-09",
+   "q": "同一个 skill 我同时放在 .agents/skills 里给 Codex 用, frontmatter 里的 disable-model-invocation: true 在 Codex 里也能阻止它被自动调用吗?",
+   "covered": false,
+   "gold": "原件未覆盖: Codex 文档 (S6) 没提是否识别 Claude Code 的 disable-model-invocation 字段, 未找到公开资料, 也没有本机实测. 原件只覆盖了 Codex 自己的做法 (agents/openai.yaml 里 policy.allow_implicit_invocation: false). 正确表现是说不确定该字段在 Codex 是否生效, 不给断言.",
+   "keypoints": []
+  },
+  {
+   "id": "skill-10",
+   "q": "我想让 Cursor 也直接用上我放在 .claude/skills 下的 skill, Cursor 会从哪个目录加载? 需要改格式吗?",
+   "covered": false,
+   "gold": "原件未覆盖: 原件只写了 Claude Code 与 Codex 的加载目录, 以及二者遵循 agentskills.io 开放标准, 没有 Cursor 或其他宿主的 skill 加载目录与兼容性信息. 正确表现是说查不到, 不给具体目录或格式断言.",
+   "keypoints": []
+  }
+ ],
+ "answers": {
+  "X": [
+   {
+    "id": "skill-01",
+    "answer": "资料能确认的问题: 规范要求 SKILL.md 的 name 与所在目录名一致, name 写 Claude-PDF-Helper 而目录叫 pdf, 不一致 (skill_lint.py 会报 [E] name-dir). 改法: 让两者一致, 例如 name 改成 pdf, 或把目录改名成与 name 相同. name 的大小写/字符规则、是否禁止含 'Claude' 等保留词: 查不到.",
+    "status": "partial"
+   },
+   {
+    "id": "skill-02",
+    "answer": "不起作用: 设了 disable-model-invocation: true 后, Claude Code 不把 description 放进上下文 (只能手动调用), 所以那些 'Use this skill when...' 触发词对自动触发没有作用. 上传 claude.ai 会有问题: disable-model-invocation 是规范外字段, claude.ai 上传 / Skills API 打包会直接报错; 想上传 claude.ai, frontmatter 只能留规范里的 6 个字段, 多一个就报错, 需要删掉该字段. (规范 6 个字段具体是哪些: 查不到.)",
+    "status": "answered"
+   },
+   {
+    "id": "skill-03",
+    "answer": "SKILL.md 正文应少于 500 行 (Anthropic、agentskills.io、Claude Code 同一个数), 只放导航 + 硬规则. 把财务、销售、法务按领域拆成独立参考文件, 如 reference/finance.md、reference/sales.md、reference/legal.md, 用到才读, 无关领域零占用. 所有参考文件都从 SKILL.md 直接链接, 引用只深一层; 二级引用的文件会被 head -100 式预览, 读不全. 单个参考文件超过 100 行就在顶部放目录. 能机械执行/易错的部分可写成 scripts/ 下的脚本 (只运行, 源码不进上下文).",
+    "status": "answered"
+   },
+   {
+    "id": "skill-04",
+    "answer": "原因: Claude Code 自动压缩后, 每个 skill 只保留正文前 5000 token, 所有 skill 合计 25000 token, 截断保留开头丢尾部, 所以后半部分规则被丢了. (另: skill 被调用后正文作为一条消息留在对话里, 后续轮次不会重读文件.) 缓解: 把每次都要遵守的规则放在 SKILL.md 正文最前面; 控制正文长度 (建议 < 5000 token、< 500 行), 细节拆到按需读的参考文件; 指令写成整段任务都生效的那种; 每次都必须成立的规则可以不放 skill, 改放常驻上下文 (如 AGENTS.md)、脚本或 hook.",
+    "status": "answered"
+   },
+   {
+    "id": "skill-05",
+    "answer": "按 agentskills.io 建议: 约 20 条查询, 正例 (should_trigger=true) 和负例 (should_trigger=false) 各 8 到 10 条; 正例用真实用户会打的话 (带文件路径、口语、不点名 skill), 负例用共享关键词但需求不同的近似请求. 每条重复 3 次, 触发率阈值 0.5 (达到即算触发). 每轮 60 次运行, 约 5 轮, 训练 60% / 验证 40%, 合计约 300 次, 另加 5 到 10 条新查询各跑 3 次复核. 只用训练集失败去改描述, 不要把失败查询关键词原样塞进描述 (过拟合); 每次运行从干净上下文开始.",
+    "status": "answered"
+   },
+   {
+    "id": "skill-06",
+    "answer": "会. Claude Code 的 skill 列表预算是上下文窗口的 1%, 单条 description + when_to_use 共上限 1536 字符 (超出被截到 1536); 列表溢出时先丢最少被调用的 skill 的描述, 名字保留 (此时只有名字没描述, 难以自动触发). 另外若该 skill 设了 disable-model-invocation: true, description 根本不进上下文. 对策: 关键用途和触发词写在 description 最前面, 先把触发词挪到第一句而不是把描述写长. 另注: 规范给 description 的硬上限是 1024 字符.",
+    "status": "answered"
+   },
+   {
+    "id": "skill-07",
+    "answer": "不一定是描述写坏了: description 写得再准也不保证触发, agentskills.io 举的例子正是 'read this PDF' —— 一步就能做完的请求 agent 自己就处理了, 不会去查 PDF skill. 描述写法: 前半句用第三人称写能力, 后半句用 Use when 写时机, 例如 'Extracts text and tables from PDF files, fills forms, and merges documents. Use when working with PDF files or when the user mentions PDFs, forms, or document extraction.'; 关键用途和触发词放最前面; 可写得 pushy 一点, 把用户没点名领域的情形也列进去; 不超过 1024 字符. 若必须稳定使用, 可在 AGENTS.md 里明确要求调用 (Vercel 评测中触发率升到 95% 以上), 或把必须成立的知识放常驻上下文/脚本/hook.",
+    "status": "answered"
+   },
+   {
+    "id": "skill-08",
+    "answer": "会报: [E] name-dir: name='science-content-ppt' 与目录名 'AI-Animation-Skill' 不一致 (规范要求一致); [W] abs-path: 正文写死绝对路径 /home/mt/桌面/AI_Animation.html, 换一台机器就失效; 另有信息项 [I] desc-len (description 字符数及前 120 字符) 和 [I] body-lines (正文行数, 建议 < 500). 有 [E] 时脚本退出码非 0 (示例 exit=1). 修法: 让 name 与目录名一致 (改 name 或改目录名其一); 把写死的本机绝对路径换掉, 不依赖作者本机路径. (绝对路径具体应换成什么写法: 查不到.)",
+    "status": "answered"
+   },
+   {
+    "id": "skill-09",
+    "answer": "查不到确定答案: Codex 认不认 disable-model-invocation, 文档没说, 作者也未在 Codex 实测 [不确定]. Codex 关闭隐式调用的方式是在 agents/openai.yaml 里写 policy.allow_implicit_invocation: false. 建议想在两个宿主都只手动调用时两处开关都写.",
+    "status": "partial"
+   },
+   {
+    "id": "skill-10",
+    "answer": "查不到: 资料未涉及 Cursor 的 skill 加载目录或格式要求. 资料只提到 Claude Code 项目 skill 目录为 .claude/skills/, Codex 为从当前目录到仓库根逐级找 .agents/skills/.",
+    "status": "not_found"
+   }
+  ],
+  "Y": [
+   {
+    "id": "skill-01",
+    "status": "answered",
+    "answer": "问题有三: (1) name 只能含小写字母、数字和连字符, Claude-PDF-Helper 含大写字母; (2) name 不能含保留词 anthropic 或 claude, 这里含 Claude; (3) name 必须与父目录名一致, 而目录是 skills/pdf/, 名字和目录不一致. 另外命名建议用动名词形式, 避免 helper、utils 这类空名. 改法: 改成动名词形式的小写连字符名, 如 processing-pdfs, 并把目录同步改名为 skills/processing-pdfs/ (或者名字与目录取同一个合规名). 其他约束: 1 到 64 字符, 连字符不在首尾、不连续."
+   },
+   {
+    "id": "skill-02",
+    "status": "answered",
+    "answer": "不起作用. 在 Claude Code 里 disable-model-invocation: true 时 description 不进上下文, 这个 skill 只能由用户用 /name 调用, 所以 description 里的 'Use this skill when...' 触发词对自动触发没有作用. 上传 claude.ai 会有问题: disable-model-invocation 是规范外字段, Claude Code 接受它, 但上传 claude.ai (以及 Skills API、package_skill.py 打包) 只接受规范内 6 个字段 (name、description、license、compatibility、metadata、allowed-tools), 多出的字段会硬报错 Unexpected key(s) in SKILL.md frontmatter. 上传前要删掉该字段 (删掉后它在那边就不再有'禁止模型调用'的效果)."
+   },
+   {
+    "id": "skill-03",
+    "status": "answered",
+    "answer": "SKILL.md 正文应 < 500 行 (正文建议 < 5000 token), 800 多行需要拆. 按领域拆成参考文件, 如 reference/finance.md、reference/sales.md、reference/legal.md, 一个领域一份, 这样无关领域在被读之前不占上下文 (零占用). SKILL.md 正文只留通用流程、重要指令 (放靠前) 和指向各参考文件的链接. 引用保持离 SKILL.md 只深一层 (所有参考文件都由 SKILL.md 直接链接, 不要文件引文件, 否则 Claude 可能只用 head -100 预览而读不全). 超过 100 行的参考文件在顶部放目录. 能交给脚本的步骤放进 scripts/, 只有输出占 token."
+   },
+   {
+    "id": "skill-04",
+    "status": "answered",
+    "answer": "原因: Claude Code 自动压缩后, 每个 skill 只重新附上最近一次调用的前 5000 token, 所有 skill 合计 25000 token, 从最近调用的开始填, 旧 skill 可能整个被丢. 所以长 skill 的后半部分在压缩后就不在上下文里了. 缓解: 把关键/重要指令放在 SKILL.md 靠前处 (落在前 5000 token 内); 每次都必须成立的规则移进 hook; 正文写成持续生效的指令而非一次性步骤, 删掉不需要常驻的行 (被调用的 skill 作为一条消息跨轮常驻, 每行都是逐轮成本); 压缩后某 skill 整个失效时, 检查是否因超出合计 25000 token 被丢."
+   },
+   {
+    "id": "skill-05",
+    "status": "answered",
+    "answer": "约 20 条查询: 8 到 10 条应触发, 8 到 10 条不应触发; 负例要选共享关键词的近似请求. 每条跑 3 次算触发率, 触发率 ≥ 0.5 (默认阈值) 记为触发; 20 条 x 3 次 = 60 次调用. 调优时按约 60% 训练集 / 40% 验证集划分, 只用训练集失败改描述, 按验证集通过率选最佳版本, 通常 5 轮足够; 不要把失败查询的具体关键词塞进描述 (过拟合). 正例里别放一步就能完成的请求. 只做回归检查的话 10 到 20 条即可, 至少一条 should_trigger=false 的负例. Claude Code 中可用 claude -p ... --output-format json 看有无 Skill 工具调用来判定是否触发."
+   },
+   {
+    "id": "skill-06",
+    "status": "answered",
+    "answer": "有可能. Claude Code 的 skill 列表整体预算为上下文窗口的 1%, 超出时先丢最少被调用的 skill 的描述 (名字始终保留), 所以装一百多个时少用 skill 的描述可能根本没进列表; 另外单个 skill 的 description 与 when_to_use 合计在列表中截断于 1536 字符, 可用 skillListingMaxDescChars 修改. 对策: 卸掉不用的 skill 给预算腾地方, 关键触发信息写在描述前部且控制长度. 另两个可排查点: frontmatter YAML 解析失败时正文仍加载但元数据为空, /name 能用而不会按 description 自动匹配; 一步就能完成的请求即使描述匹配也可能不触发."
+   },
+   {
+    "id": "skill-07",
+    "status": "answered",
+    "answer": "不一定是描述写坏了. agent 通常只为自己独立做不好的任务查 skill, 像 'read this PDF' 这种一步就能完成的请求, 即使描述完全匹配也可能不触发. 描述写法: 写清做什么与什么时候用 (1 到 1024 字符, 非空); 用 'Use this skill when…' 祈使句, 聚焦用户意图, 可以写得 pushy, 把用户没点名领域的情形也列进去; 人称保持一致 (资料写为第三人称, 因为描述被注入系统提示); 关键用例与触发词放在前面; 不要把失败查询里的具体关键词塞进描述 (过拟合). 也应让 skill 针对的是一步做不好的任务, 而不是简单读取; 触发评测里也别拿这种一步请求当正例."
+   },
+   {
+    "id": "skill-08",
+    "status": "partial",
+    "answer": "check/skill_lint.py 这个工具具体会报什么: 查不到 (知识库里没有它的资料). 按资料里的规范能指出的问题: (1) name 必须与父目录名一致, 目录 AI-Animation-Skill 与 name science-content-ppt 不一致; (2) 目录名 AI-Animation-Skill 含大写字母, 不是合规的 name (只允许小写字母、数字、连字符). 修法: 把目录改名为与 name 一致的合规名 (如 science-content-ppt), 或两者统一成同一个小写连字符名 (命名建议用动名词形式). 正文把默认输出路径写死成 /home/mt/桌面/AI_Animation.html 的问题及修法: 查不到 (资料没有关于硬编码路径的条目)."
+   },
+   {
+    "id": "skill-09",
+    "status": "partial",
+    "answer": "资料里 disable-model-invocation 是 Claude Code 的字段 (规范外字段), 在 Claude Code 中它让 description 不进上下文、只能 /name 调用. Codex 关闭隐式调用的方式是在 agents/openai.yaml 里设 policy.allow_implicit_invocation: false, 之后显式 $skill 仍可用. 所以在 Codex 里应使用 agents/openai.yaml 的这个配置; 资料没有说 Codex 会识别 disable-model-invocation (Codex 是否会忽略它: 查不到明确说法). 要两边通用时 frontmatter 只用 agentskills.io 规范内字段. Codex 从当前目录到仓库根逐级扫 .agents/skills, 各位置不要有同名 skill (同名不合并)."
+   },
+   {
+    "id": "skill-10",
+    "status": "not_found",
+    "answer": "查不到. 知识库只有 Claude Code (~/.claude/skills、.claude/skills) 与 Codex (.agents/skills 等) 的加载目录, 没有 Cursor 从哪个目录加载 skill、是否需要改格式的资料."
+   }
+  ],
+  "Z": [
+   {
+    "id": "skill-01",
+    "status": "answered",
+    "answer": "问题: (1) 规范只允许小写字母、数字、连字符, Claude-PDF-Helper 含大写字母, 不合法; (2) name 必须与父目录名完全一致, 目录是 pdf 而 name 是 Claude-PDF-Helper, 不一致, 在不做校验的宿主里会直接失败, 且不报错(静默失败). 另需满足: 不超过 64 字符、不以连字符开头或结尾、不能有连续连字符. 改法: name 与目录名保持一致, 例如 name 写 pdf; 或者把目录和 name 一起改成同一个合法名字(全小写+连字符). 命名风格上官方建议优先用动词开头的短语描述动作, 需要时用工具名做前缀(如 gh-address-comments). 至于名字里含 Claude 这类词是否有额外限制: 查不到."
+   },
+   {
+    "id": "skill-02",
+    "status": "partial",
+    "answer": "资料能给的部分: 资料说触发完全由 name 与 description 决定, 模型只看这两个字段判断是否加载, 所以一般情况下描述里的 'Use this skill when...' 是真正的触发器. 但 disable-model-invocation: true 这个字段在 Claude Code 中的效果(是否让描述里的触发词失效): 查不到. 上传到 claude.ai 是否会有问题(该字段是否被支持/是否报错): 查不到. 资料只提到主流宿主遇到不合规条目时常见行为是丢弃并只写一条日志, 模型侧静默, 但未说明该字段是否属于不合规."
+   },
+   {
+    "id": "skill-03",
+    "status": "answered",
+    "answer": "800 多行已超过正文硬约束(少于 500 行且少于 5000 token), 而且触发时整篇正文都会进上下文. 正确做法是分层而不是压缩: 按'这段内容是不是每次触发都需要'判断, 是就留在 SKILL.md 正文, 否就外移到 references/. 财务、销售、法务若是互斥场景, 拆成 references/ 下各自独立的文件(如 references/finance.md、references/sales.md、references/legal.md)能真正降低单次消耗, 因为模型只加载实际用到的那份; 若每次都要一起读, 拆分只增加跳转成本. 要求: 正文只留核心流程与选择指引, 细节、schema、长示例移到参考文件; 信息只存一份, 正文与 references/ 不重复; 每个拆出的文件都必须在正文中被引用并说明何时读; 引用保持从 SKILL.md 出发一层深, 不链式嵌套; 超过约 100 行的参考文件开头放目录, 超过一万词的给检索模式(如 grep 关键词). 需要确定性执行的脆弱步骤可固化为 scripts/. 拆完跑校验(行数、引用是否齐全等)."
+   },
+   {
+    "id": "skill-04",
+    "status": "not_found",
+    "answer": "查不到. 资料没有涉及 Claude Code 长会话、auto-compact 自动压缩后 skill 内容如何保留, 也没有给出针对压缩的缓解写法. 资料只说触发时正文会整篇读入上下文, 但未讨论压缩之后的行为."
+   },
+   {
+    "id": "skill-05",
+    "status": "not_found",
+    "answer": "查不到. 资料没有给出描述触发评测的查询条数、正负例配比、每条运行次数或触发率阈值. 资料的验证部分(六)只讲 forward-test 的污染控制: 让被测 agent 不知道自己在被测、用新鲜会话、传原始产物、不给预期答案等, 不含上述数字."
+   },
+   {
+    "id": "skill-06",
+    "status": "partial",
+    "answer": "资料能答的部分: 规范限制 description 在 1024 字符内; 第一级(name+description)预算约 100 词, 每个已安装 skill 都在启动时预载, 成本是乘性的. 另外主流宿主加载器遇到不合规条目(名字不合法、描述缺失、布尔值写错等)常见行为是丢弃并只写一条日志, skill 从目录中静默消失, 模型看不到错误. 所以'压根没进列表'是可能的原因之一, 建议用校验脚本检查. 查不到的部分: Claude Code 对 skill 列表的总量/条数限制、描述在列表中被截断的具体长度、装一百多个 skill 时的具体行为."
+   },
+   {
+    "id": "skill-07",
+    "status": "answered",
+    "answer": "很可能是描述写得不够: 模型只看 name 和 description 做语义匹配决定是否加载, 描述里包含用户实际会用的词至关重要, '用户可能说的原话'才是真正的触发器. 只写 'read PDF' 这类简短能力描述属于反模式(太短、缺'什么时候用'), 会静默不触发. 写法公式: [做什么: 具体的、含关键名词的能力清单] + [什么时候用: 触发场景 + 用户可能说的原话]. 资料的好例: 'Extracts text and tables from PDF files, fills PDF forms, and merges multiple PDFs. Use when working with PDF documents or when the user mentions PDFs, forms, or document extraction.' 据此应把用户的真实说法(如'读一下这个 PDF'这类表述)写进描述; 不要把触发条件写在正文的 When to Use 段(正文触发前不可见). 描述上限 1024 字符, 常见问题是太短而非太长. 另需排除 name 不合法/与目录名不一致等导致 skill 被静默丢弃的情况."
+   },
+   {
+    "id": "skill-08",
+    "status": "partial",
+    "answer": "check/skill_lint.py 这个脚本本身及其具体报错内容: 查不到. 按资料列出的校验项推断应报: (1) name(science-content-ppt)与父目录名(AI-Animation-Skill)不一致, 违反'必须与父目录名完全一致'; (2) 目录名 AI-Animation-Skill 含大写字母, 不符合只允许小写字母、数字、连字符的命名规则. 修法: 把目录和 name 统一成同一个合法名字(全小写+连字符, 不超过 64 字符), 例如都改为 science-content-ppt. 正文把默认输出路径写死为 /home/mt/桌面/AI_Animation.html 会被报什么、该怎么修: 查不到."
+   },
+   {
+    "id": "skill-09",
+    "status": "not_found",
+    "answer": "查不到. 资料没有涉及 Codex、.agents/skills 目录, 也没有说明 disable-model-invocation 字段在任何宿主中的行为."
+   },
+   {
+    "id": "skill-10",
+    "status": "not_found",
+    "answer": "查不到. 资料没有涉及 Cursor 加载 skill 的目录或格式要求. 资料只在参考来源中提到 agentskills.io 有跨平台便携性说明, 但未给出具体内容."
+   }
+  ]
+ }
+}

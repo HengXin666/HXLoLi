@@ -1,7 +1,8 @@
 # 概念表. key: {aliases: [...], parent: <key 或 null>}
 # 作者维护; AI 新概念写进 concepts.proposed.yaml 等合并.
+# 2026-11-09: 下面第二批 (标 AI 提议) 是抽卡时按原件小节加的, 待作者确认.
 
-# --- 计算机 ---
+# --- 计算机: Python 爬虫 ---
 Python爬虫: {aliases: [爬虫, crawler, web scraping], parent: null}
 requests: {aliases: [python-requests], parent: Python爬虫}
 httpx: {aliases: [], parent: Python爬虫}
@@ -11,13 +12,30 @@ Playwright: {aliases: [scrapy-playwright, 无头浏览器], parent: Python爬虫
 curl_cffi: {aliases: [TLS指纹], parent: Python爬虫}
 HTTP超时: {aliases: [timeout, 超时], parent: Python爬虫}
 连接池: {aliases: [connection pool, pool], parent: Python爬虫}
+重试: {aliases: [retry, retries], parent: Python爬虫}            # AI 提议
+代理: {aliases: [proxy, proxies], parent: Python爬虫}            # AI 提议
+HTTP2: {aliases: [HTTP/2, h2], parent: Python爬虫}               # AI 提议
+并发控制: {aliases: [并发, 限流, concurrency, Semaphore], parent: Python爬虫}  # AI 提议
+反爬: {aliases: [anti-bot, 封禁, 指纹], parent: Python爬虫}      # AI 提议
+动态页面: {aliases: [JS渲染, XHR, 接口抓取], parent: Python爬虫} # AI 提议
+
+# --- 计算机: Agent Skill ---
 AgentSkill: {aliases: [Agent Skill, SKILL.md, skill], parent: null}
 Skill触发: {aliases: [description, 触发评测], parent: AgentSkill}
 Skill正文: {aliases: [渐进加载, progressive disclosure], parent: AgentSkill}
+Skill结构: {aliases: [目录结构, references, scripts], parent: AgentSkill}      # AI 提议
+Skill元数据: {aliases: [frontmatter, name, 命名], parent: AgentSkill}          # AI 提议
+Skill生命周期: {aliases: [加载, 运行期, Claude Code], parent: AgentSkill}      # AI 提议
+Skill宿主: {aliases: [宿主目录, Codex, 安装位置], parent: AgentSkill}          # AI 提议
+Skill评测: {aliases: [输出评测, eval, 验证], parent: AgentSkill}               # AI 提议
 
-# --- 生活 ---
+# --- 生活: 电脑包 ---
 电脑包: {aliases: [背包, 双肩包, laptop bag], parent: null}
 随身行李: {aliases: [登机箱, carry-on, 行李尺寸], parent: 电脑包}
 背包容量: {aliases: [容量, ASTM F2153, 升数], parent: 电脑包}
 面料: {aliases: [旦尼尔, denier, Cordura], parent: 电脑包}
 安检: {aliases: [TSA, checkpoint friendly], parent: 电脑包}
+电脑尺寸: {aliases: [笔记本尺寸, 屏幕尺寸], parent: 电脑包}       # AI 提议
+防护等级: {aliases: [IP代码, 防水, 军规, MIL-STD-810], parent: 电脑包}  # AI 提议
+背负: {aliases: [负重, 肩带, 背包重量], parent: 电脑包}           # AI 提议
+商家宣称: {aliases: [营销话术, 商品描述], parent: 电脑包}         # AI 提议

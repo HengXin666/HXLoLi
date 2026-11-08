@@ -1,0 +1,88 @@
+[
+ {
+  "id": "crawler-01",
+  "answer": "查不到. 资料只说 httpx 支持同步/异步 API, 下载层负责连接池、超时、异步并发等 (2.1 表格), 没有讲 PoolTimeout 的原因, 也没有给出连接池上限或并发控制的改法.",
+  "status": "not_found",
+  "sources": [
+   "OLD.md L60",
+   "OLD.md L72"
+  ]
+ },
+ {
+  "id": "crawler-02",
+  "answer": "查不到. 资料只说 requests 适合同步脚本, 超时属于下载层职责 (2.1 表格), 没有讲请求为什么会无限卡住, 也没有讲 timeout 参数怎么写.",
+  "status": "not_found",
+  "sources": [
+   "OLD.md L60",
+   "OLD.md L70"
+  ]
+ },
+ {
+  "id": "crawler-03",
+  "answer": "查不到. 资料没有讲 requests.Session 多线程共用、'Connection pool is full' 警告的含义, 以及调整连接池大小的方法.",
+  "status": "not_found",
+  "sources": []
+ },
+ {
+  "id": "crawler-04",
+  "answer": "能答的部分: 资料说 Scrapy 属于调度层, 负责 URL 队列、去重、限速、失败重试等, 有 Settings 组件 (0x01 表格, 2.1). 调快之前: 资料在下载层一节提到, 遇到访问限制时应先确认目标站点的授权、服务条款、robots 约束和采集频率边界 (原文是讲 curl_cffi/访问限制的语境). 查不到: 具体是哪些设置让请求变成约一秒一个 (设置名、默认值、startproject 模板里的配置), 以及怎么调.",
+  "status": "partial",
+  "sources": [
+   "OLD.md L39",
+   "OLD.md L62",
+   "OLD.md L76"
+  ]
+ },
+ {
+  "id": "crawler-05",
+  "answer": "查不到. 资料只确认 httpx 支持 HTTP/1.1 和 HTTP/2, 没有讲怎么确认请求真的走了 HTTP/2, 也没有讲需要额外安装什么.",
+  "status": "not_found",
+  "sources": [
+   "OLD.md L72"
+  ]
+ },
+ {
+  "id": "crawler-06",
+  "answer": "查不到. 资料只把代理列为下载层职责, 没有讲 aiohttp 是否读取 https_proxy 环境变量, 也没有讲怎么配置.",
+  "status": "not_found",
+  "sources": [
+   "OLD.md L60"
+  ]
+ },
+ {
+  "id": "crawler-07",
+  "answer": "能答的部分: 资料建议先看页面真实数据是否来自 XHR/Fetch API, 如果是, 优先复现接口请求, 不要立刻上浏览器自动化; 浏览器层成本最高, 最容易引入稳定性和资源占用问题, 应当作最后手段. 如果确认必须用真实浏览器, Playwright 是新项目的优先评估项, Python API 同时支持 sync 和 async. 另外 Crawlee for Python 覆盖 HTTP-only 和 browser-based 爬取, 可作为希望两者共用框架时的调研选项. 查不到: 在 Scrapy 的 parse 回调里直接起 playwright-python 浏览器是否可行、会有什么问题、该用什么集成方式.",
+  "status": "partial",
+  "sources": [
+   "OLD.md 2.1 L66",
+   "OLD.md 2.5 L98",
+   "OLD.md L94",
+   "OLD.md 0x03 L144"
+  ]
+ },
+ {
+  "id": "crawler-08",
+  "answer": "能答的部分: 资料说 curl_cffi 是较特殊的下载层工具, 常用于需要 libcurl/curl-impersonate 能力的场景, 不应当成为默认选项; 遇到访问限制时, 应先确认目标站点的授权、服务条款、robots 约束和采集频率边界. 查不到: impersonate=\"chrome124\" 这个写法是否正确、可用的版本名, 以及对 Akamai 的效果和这条路是否足够.",
+  "status": "partial",
+  "sources": [
+   "OLD.md 2.2 L76"
+  ]
+ },
+ {
+  "id": "crawler-09",
+  "answer": "查不到. 资料只说 aiohttp 是 asyncio 生态的成熟 HTTP client/server, 明确写支持 HTTP/2 的是 httpx; 没有讲 aiohttp 能否或怎么开启 HTTP/2.",
+  "status": "not_found",
+  "sources": [
+   "OLD.md L72",
+   "OLD.md L74"
+  ]
+ },
+ {
+  "id": "crawler-10",
+  "answer": "查不到. 资料没有讲 curl_cffi 对 Cloudflare 5 秒盾或 Turnstile 的效果; 只说 curl_cffi 不应作为默认选项, 遇到访问限制应先确认授权、服务条款、robots 和频率边界.",
+  "status": "not_found",
+  "sources": [
+   "OLD.md L76"
+  ]
+ }
+]

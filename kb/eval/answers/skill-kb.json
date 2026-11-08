@@ -1,0 +1,112 @@
+[
+ {
+  "id": "skill-01",
+  "status": "answered",
+  "sources": [
+   "cs/skill/name-format",
+   "cs/skill/name-reserved-words",
+   "cs/skill/naming-gerund"
+  ],
+  "answer": "问题有三: (1) name 只能含小写字母、数字和连字符, Claude-PDF-Helper 含大写字母; (2) name 不能含保留词 anthropic 或 claude, 这里含 Claude; (3) name 必须与父目录名一致, 而目录是 skills/pdf/, 名字和目录不一致. 另外命名建议用动名词形式, 避免 helper、utils 这类空名. 改法: 改成动名词形式的小写连字符名, 如 processing-pdfs, 并把目录同步改名为 skills/processing-pdfs/ (或者名字与目录取同一个合规名). 其他约束: 1 到 64 字符, 连字符不在首尾、不连续."
+ },
+ {
+  "id": "skill-02",
+  "status": "answered",
+  "sources": [
+   "cs/skill/claude-code-invocation-control",
+   "cs/skill/nonspec-fields-hard-error",
+   "cs/skill/frontmatter-fields"
+  ],
+  "answer": "不起作用. 在 Claude Code 里 disable-model-invocation: true 时 description 不进上下文, 这个 skill 只能由用户用 /name 调用, 所以 description 里的 'Use this skill when...' 触发词对自动触发没有作用. 上传 claude.ai 会有问题: disable-model-invocation 是规范外字段, Claude Code 接受它, 但上传 claude.ai (以及 Skills API、package_skill.py 打包) 只接受规范内 6 个字段 (name、description、license、compatibility、metadata、allowed-tools), 多出的字段会硬报错 Unexpected key(s) in SKILL.md frontmatter. 上传前要删掉该字段 (删掉后它在那边就不再有'禁止模型调用'的效果)."
+ },
+ {
+  "id": "skill-03",
+  "status": "answered",
+  "sources": [
+   "cs/skill/body-under-500-lines",
+   "cs/skill/split-references-by-domain",
+   "cs/skill/references-one-level-deep",
+   "cs/skill/reference-toc-over-100",
+   "cs/skill/references-no-cost-until-read",
+   "cs/skill/three-tier-loading",
+   "cs/skill/claude-code-instructions-upfront-hooks"
+  ],
+  "answer": "SKILL.md 正文应 < 500 行 (正文建议 < 5000 token), 800 多行需要拆. 按领域拆成参考文件, 如 reference/finance.md、reference/sales.md、reference/legal.md, 一个领域一份, 这样无关领域在被读之前不占上下文 (零占用). SKILL.md 正文只留通用流程、重要指令 (放靠前) 和指向各参考文件的链接. 引用保持离 SKILL.md 只深一层 (所有参考文件都由 SKILL.md 直接链接, 不要文件引文件, 否则 Claude 可能只用 head -100 预览而读不全). 超过 100 行的参考文件在顶部放目录. 能交给脚本的步骤放进 scripts/, 只有输出占 token."
+ },
+ {
+  "id": "skill-04",
+  "status": "answered",
+  "sources": [
+   "cs/skill/claude-code-compaction-reattach",
+   "cs/skill/claude-code-instructions-upfront-hooks",
+   "cs/skill/claude-code-skill-persists"
+  ],
+  "answer": "原因: Claude Code 自动压缩后, 每个 skill 只重新附上最近一次调用的前 5000 token, 所有 skill 合计 25000 token, 从最近调用的开始填, 旧 skill 可能整个被丢. 所以长 skill 的后半部分在压缩后就不在上下文里了. 缓解: 把关键/重要指令放在 SKILL.md 靠前处 (落在前 5000 token 内); 每次都必须成立的规则移进 hook; 正文写成持续生效的指令而非一次性步骤, 删掉不需要常驻的行 (被调用的 skill 作为一条消息跨轮常驻, 每行都是逐轮成本); 压缩后某 skill 整个失效时, 检查是否因超出合计 25000 token 被丢."
+ },
+ {
+  "id": "skill-05",
+  "status": "answered",
+  "sources": [
+   "cs/skill/trigger-eval-query-set",
+   "cs/skill/trigger-eval-3-runs",
+   "cs/skill/trigger-train-val-split",
+   "cs/skill/small-eval-with-negative",
+   "cs/skill/one-step-tasks-not-triggered",
+   "cs/skill/trigger-no-keyword-stuffing",
+   "cs/skill/claude-p-trigger-check"
+  ],
+  "answer": "约 20 条查询: 8 到 10 条应触发, 8 到 10 条不应触发; 负例要选共享关键词的近似请求. 每条跑 3 次算触发率, 触发率 ≥ 0.5 (默认阈值) 记为触发; 20 条 x 3 次 = 60 次调用. 调优时按约 60% 训练集 / 40% 验证集划分, 只用训练集失败改描述, 按验证集通过率选最佳版本, 通常 5 轮足够; 不要把失败查询的具体关键词塞进描述 (过拟合). 正例里别放一步就能完成的请求. 只做回归检查的话 10 到 20 条即可, 至少一条 should_trigger=false 的负例. Claude Code 中可用 claude -p ... --output-format json 看有无 Skill 工具调用来判定是否触发."
+ },
+ {
+  "id": "skill-06",
+  "status": "answered",
+  "sources": [
+   "cs/skill/claude-code-listing-budget",
+   "cs/skill/claude-code-desc-1536",
+   "cs/skill/yaml-parse-fail-empty-metadata",
+   "cs/skill/one-step-tasks-not-triggered"
+  ],
+  "answer": "有可能. Claude Code 的 skill 列表整体预算为上下文窗口的 1%, 超出时先丢最少被调用的 skill 的描述 (名字始终保留), 所以装一百多个时少用 skill 的描述可能根本没进列表; 另外单个 skill 的 description 与 when_to_use 合计在列表中截断于 1536 字符, 可用 skillListingMaxDescChars 修改. 对策: 卸掉不用的 skill 给预算腾地方, 关键触发信息写在描述前部且控制长度. 另两个可排查点: frontmatter YAML 解析失败时正文仍加载但元数据为空, /name 能用而不会按 description 自动匹配; 一步就能完成的请求即使描述匹配也可能不触发."
+ },
+ {
+  "id": "skill-07",
+  "status": "answered",
+  "sources": [
+   "cs/skill/one-step-tasks-not-triggered",
+   "cs/skill/description-imperative-pushy",
+   "cs/skill/description-third-person",
+   "cs/skill/description-length",
+   "cs/skill/trigger-no-keyword-stuffing",
+   "cs/skill/codex-frontload-triggers"
+  ],
+  "answer": "不一定是描述写坏了. agent 通常只为自己独立做不好的任务查 skill, 像 'read this PDF' 这种一步就能完成的请求, 即使描述完全匹配也可能不触发. 描述写法: 写清做什么与什么时候用 (1 到 1024 字符, 非空); 用 'Use this skill when…' 祈使句, 聚焦用户意图, 可以写得 pushy, 把用户没点名领域的情形也列进去; 人称保持一致 (资料写为第三人称, 因为描述被注入系统提示); 关键用例与触发词放在前面; 不要把失败查询里的具体关键词塞进描述 (过拟合). 也应让 skill 针对的是一步做不好的任务, 而不是简单读取; 触发评测里也别拿这种一步请求当正例."
+ },
+ {
+  "id": "skill-08",
+  "status": "partial",
+  "sources": [
+   "cs/skill/name-format",
+   "cs/skill/naming-gerund",
+   "cs/skill/no-time-sensitive-info"
+  ],
+  "answer": "check/skill_lint.py 这个工具具体会报什么: 查不到 (知识库里没有它的资料). 按资料里的规范能指出的问题: (1) name 必须与父目录名一致, 目录 AI-Animation-Skill 与 name science-content-ppt 不一致; (2) 目录名 AI-Animation-Skill 含大写字母, 不是合规的 name (只允许小写字母、数字、连字符). 修法: 把目录改名为与 name 一致的合规名 (如 science-content-ppt), 或两者统一成同一个小写连字符名 (命名建议用动名词形式). 正文把默认输出路径写死成 /home/mt/桌面/AI_Animation.html 的问题及修法: 查不到 (资料没有关于硬编码路径的条目)."
+ },
+ {
+  "id": "skill-09",
+  "status": "partial",
+  "sources": [
+   "cs/skill/codex-disable-implicit",
+   "cs/skill/claude-code-invocation-control",
+   "cs/skill/nonspec-fields-hard-error",
+   "cs/skill/hosts-share-open-standard",
+   "cs/skill/codex-skill-dirs"
+  ],
+  "answer": "资料里 disable-model-invocation 是 Claude Code 的字段 (规范外字段), 在 Claude Code 中它让 description 不进上下文、只能 /name 调用. Codex 关闭隐式调用的方式是在 agents/openai.yaml 里设 policy.allow_implicit_invocation: false, 之后显式 $skill 仍可用. 所以在 Codex 里应使用 agents/openai.yaml 的这个配置; 资料没有说 Codex 会识别 disable-model-invocation (Codex 是否会忽略它: 查不到明确说法). 要两边通用时 frontmatter 只用 agentskills.io 规范内字段. Codex 从当前目录到仓库根逐级扫 .agents/skills, 各位置不要有同名 skill (同名不合并)."
+ },
+ {
+  "id": "skill-10",
+  "status": "not_found",
+  "sources": [],
+  "answer": "查不到. 知识库只有 Claude Code (~/.claude/skills、.claude/skills) 与 Codex (.agents/skills 等) 的加载目录, 没有 Cursor 从哪个目录加载 skill、是否需要改格式的资料."
+ }
+]

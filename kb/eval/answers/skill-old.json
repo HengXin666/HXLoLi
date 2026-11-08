@@ -1,0 +1,80 @@
+[
+ {
+  "id": "skill-01",
+  "status": "answered",
+  "sources": [
+   "OLD.md 五、命名 (L183-193)"
+  ],
+  "answer": "问题: (1) 规范只允许小写字母、数字、连字符, Claude-PDF-Helper 含大写字母, 不合法; (2) name 必须与父目录名完全一致, 目录是 pdf 而 name 是 Claude-PDF-Helper, 不一致, 在不做校验的宿主里会直接失败, 且不报错(静默失败). 另需满足: 不超过 64 字符、不以连字符开头或结尾、不能有连续连字符. 改法: name 与目录名保持一致, 例如 name 写 pdf; 或者把目录和 name 一起改成同一个合法名字(全小写+连字符). 命名风格上官方建议优先用动词开头的短语描述动作, 需要时用工具名做前缀(如 gh-address-comments). 至于名字里含 Claude 这类词是否有额外限制: 查不到."
+ },
+ {
+  "id": "skill-02",
+  "status": "partial",
+  "sources": [
+   "OLD.md 二、触发工程 (L74-128)",
+   "0x01 核心结论 第3条 (L35)"
+  ],
+  "answer": "资料能给的部分: 资料说触发完全由 name 与 description 决定, 模型只看这两个字段判断是否加载, 所以一般情况下描述里的 'Use this skill when...' 是真正的触发器. 但 disable-model-invocation: true 这个字段在 Claude Code 中的效果(是否让描述里的触发词失效): 查不到. 上传到 claude.ai 是否会有问题(该字段是否被支持/是否报错): 查不到. 资料只提到主流宿主遇到不合规条目时常见行为是丢弃并只写一条日志, 模型侧静默, 但未说明该字段是否属于不合规."
+ },
+ {
+  "id": "skill-03",
+  "status": "answered",
+  "sources": [
+   "OLD.md 一、上下文预算 (L51-72)",
+   "四、正文怎么写 第2-5条 (L163-177)",
+   "八、完整工作流 (L250-266)"
+  ],
+  "answer": "800 多行已超过正文硬约束(少于 500 行且少于 5000 token), 而且触发时整篇正文都会进上下文. 正确做法是分层而不是压缩: 按'这段内容是不是每次触发都需要'判断, 是就留在 SKILL.md 正文, 否就外移到 references/. 财务、销售、法务若是互斥场景, 拆成 references/ 下各自独立的文件(如 references/finance.md、references/sales.md、references/legal.md)能真正降低单次消耗, 因为模型只加载实际用到的那份; 若每次都要一起读, 拆分只增加跳转成本. 要求: 正文只留核心流程与选择指引, 细节、schema、长示例移到参考文件; 信息只存一份, 正文与 references/ 不重复; 每个拆出的文件都必须在正文中被引用并说明何时读; 引用保持从 SKILL.md 出发一层深, 不链式嵌套; 超过约 100 行的参考文件开头放目录, 超过一万词的给检索模式(如 grep 关键词). 需要确定性执行的脆弱步骤可固化为 scripts/. 拆完跑校验(行数、引用是否齐全等)."
+ },
+ {
+  "id": "skill-04",
+  "status": "not_found",
+  "sources": [],
+  "answer": "查不到. 资料没有涉及 Claude Code 长会话、auto-compact 自动压缩后 skill 内容如何保留, 也没有给出针对压缩的缓解写法. 资料只说触发时正文会整篇读入上下文, 但未讨论压缩之后的行为."
+ },
+ {
+  "id": "skill-05",
+  "status": "not_found",
+  "sources": [],
+  "answer": "查不到. 资料没有给出描述触发评测的查询条数、正负例配比、每条运行次数或触发率阈值. 资料的验证部分(六)只讲 forward-test 的污染控制: 让被测 agent 不知道自己在被测、用新鲜会话、传原始产物、不给预期答案等, 不含上述数字."
+ },
+ {
+  "id": "skill-06",
+  "status": "partial",
+  "sources": [
+   "OLD.md 一、上下文预算 表格 (L55-61)",
+   "二、推论三 (L126-128)",
+   "七、把规则变成代码 (L227-231)"
+  ],
+  "answer": "资料能答的部分: 规范限制 description 在 1024 字符内; 第一级(name+description)预算约 100 词, 每个已安装 skill 都在启动时预载, 成本是乘性的. 另外主流宿主加载器遇到不合规条目(名字不合法、描述缺失、布尔值写错等)常见行为是丢弃并只写一条日志, skill 从目录中静默消失, 模型看不到错误. 所以'压根没进列表'是可能的原因之一, 建议用校验脚本检查. 查不到的部分: Claude Code 对 skill 列表的总量/条数限制、描述在列表中被截断的具体长度、装一百多个 skill 时的具体行为."
+ },
+ {
+  "id": "skill-07",
+  "status": "answered",
+  "sources": [
+   "OLD.md 二、触发工程 (L74-128)"
+  ],
+  "answer": "很可能是描述写得不够: 模型只看 name 和 description 做语义匹配决定是否加载, 描述里包含用户实际会用的词至关重要, '用户可能说的原话'才是真正的触发器. 只写 'read PDF' 这类简短能力描述属于反模式(太短、缺'什么时候用'), 会静默不触发. 写法公式: [做什么: 具体的、含关键名词的能力清单] + [什么时候用: 触发场景 + 用户可能说的原话]. 资料的好例: 'Extracts text and tables from PDF files, fills PDF forms, and merges multiple PDFs. Use when working with PDF documents or when the user mentions PDFs, forms, or document extraction.' 据此应把用户的真实说法(如'读一下这个 PDF'这类表述)写进描述; 不要把触发条件写在正文的 When to Use 段(正文触发前不可见). 描述上限 1024 字符, 常见问题是太短而非太长. 另需排除 name 不合法/与目录名不一致等导致 skill 被静默丢弃的情况."
+ },
+ {
+  "id": "skill-08",
+  "status": "partial",
+  "sources": [
+   "OLD.md 五、命名 (L183-193)",
+   "七、把规则变成代码 检查项表 (L233-244)"
+  ],
+  "answer": "check/skill_lint.py 这个脚本本身及其具体报错内容: 查不到. 按资料列出的校验项推断应报: (1) name(science-content-ppt)与父目录名(AI-Animation-Skill)不一致, 违反'必须与父目录名完全一致'; (2) 目录名 AI-Animation-Skill 含大写字母, 不符合只允许小写字母、数字、连字符的命名规则. 修法: 把目录和 name 统一成同一个合法名字(全小写+连字符, 不超过 64 字符), 例如都改为 science-content-ppt. 正文把默认输出路径写死为 /home/mt/桌面/AI_Animation.html 会被报什么、该怎么修: 查不到."
+ },
+ {
+  "id": "skill-09",
+  "status": "not_found",
+  "sources": [],
+  "answer": "查不到. 资料没有涉及 Codex、.agents/skills 目录, 也没有说明 disable-model-invocation 字段在任何宿主中的行为."
+ },
+ {
+  "id": "skill-10",
+  "status": "not_found",
+  "sources": [],
+  "answer": "查不到. 资料没有涉及 Cursor 加载 skill 的目录或格式要求. 资料只在参考来源中提到 agentskills.io 有跨平台便携性说明, 但未给出具体内容."
+ }
+]

@@ -21,6 +21,28 @@
   "连接池": "连接池",
   "connection pool": "连接池",
   "pool": "连接池",
+  "重试": "重试",
+  "retry": "重试",
+  "retries": "重试",
+  "代理": "代理",
+  "proxy": "代理",
+  "proxies": "代理",
+  "http2": "HTTP2",
+  "http/2": "HTTP2",
+  "h2": "HTTP2",
+  "并发控制": "并发控制",
+  "并发": "并发控制",
+  "限流": "并发控制",
+  "concurrency": "并发控制",
+  "semaphore": "并发控制",
+  "反爬": "反爬",
+  "anti-bot": "反爬",
+  "封禁": "反爬",
+  "指纹": "反爬",
+  "动态页面": "动态页面",
+  "js渲染": "动态页面",
+  "xhr": "动态页面",
+  "接口抓取": "动态页面",
   "agentskill": "AgentSkill",
   "agent skill": "AgentSkill",
   "skill.md": "AgentSkill",
@@ -31,6 +53,26 @@
   "skill正文": "Skill正文",
   "渐进加载": "Skill正文",
   "progressive disclosure": "Skill正文",
+  "skill结构": "Skill结构",
+  "目录结构": "Skill结构",
+  "references": "Skill结构",
+  "scripts": "Skill结构",
+  "skill元数据": "Skill元数据",
+  "frontmatter": "Skill元数据",
+  "name": "Skill元数据",
+  "命名": "Skill元数据",
+  "skill生命周期": "Skill生命周期",
+  "加载": "Skill生命周期",
+  "运行期": "Skill生命周期",
+  "claude code": "Skill生命周期",
+  "skill宿主": "Skill宿主",
+  "宿主目录": "Skill宿主",
+  "codex": "Skill宿主",
+  "安装位置": "Skill宿主",
+  "skill评测": "Skill评测",
+  "输出评测": "Skill评测",
+  "eval": "Skill评测",
+  "验证": "Skill评测",
   "电脑包": "电脑包",
   "背包": "电脑包",
   "双肩包": "电脑包",
@@ -49,8 +91,1957 @@
   "cordura": "面料",
   "安检": "安检",
   "tsa": "安检",
-  "checkpoint friendly": "安检"
+  "checkpoint friendly": "安检",
+  "电脑尺寸": "电脑尺寸",
+  "笔记本尺寸": "电脑尺寸",
+  "屏幕尺寸": "电脑尺寸",
+  "防护等级": "防护等级",
+  "ip代码": "防护等级",
+  "防水": "防护等级",
+  "军规": "防护等级",
+  "mil-std-810": "防护等级",
+  "背负": "背负",
+  "负重": "背负",
+  "肩带": "背负",
+  "背包重量": "背负",
+  "商家宣称": "商家宣称",
+  "营销话术": "商家宣称",
+  "商品描述": "商家宣称"
  },
- "concepts": {},
- "cards": {}
+ "concepts": {
+  "aiohttp": [
+   "cs/crawler/aiohttp-connector-limit",
+   "cs/crawler/aiohttp-default-timeout",
+   "cs/crawler/aiohttp-gather-queues",
+   "cs/crawler/aiohttp-graceful-shutdown",
+   "cs/crawler/aiohttp-reuse-session",
+   "cs/crawler/aiohttp-trust-env-proxy",
+   "cs/crawler/scrapy-asyncio-aiohttp-mode"
+  ],
+  "连接池": [
+   "cs/crawler/aiohttp-connector-limit",
+   "cs/crawler/aiohttp-gather-queues",
+   "cs/crawler/aiohttp-reuse-session",
+   "cs/crawler/httpx-four-timeouts",
+   "cs/crawler/httpx-gather-pooltimeout",
+   "cs/crawler/httpx-pool-limits-default",
+   "cs/crawler/requests-defaults-measured",
+   "cs/crawler/requests-pool-full-threads",
+   "cs/crawler/requests-session-reuse",
+   "cs/crawler/requests-stream-release-conn"
+  ],
+  "并发控制": [
+   "cs/crawler/aiohttp-connector-limit",
+   "cs/crawler/aiohttp-gather-queues",
+   "cs/crawler/httpx-crawl-skeleton",
+   "cs/crawler/httpx-gather-pooltimeout",
+   "cs/crawler/httpx-pool-none-behind-semaphore",
+   "cs/crawler/requests-blocking-only",
+   "cs/crawler/requests-pool-full-threads",
+   "cs/crawler/scrapy-concurrent-requests",
+   "cs/crawler/scrapy-delay-caps-concurrency",
+   "cs/crawler/scrapy-download-delay",
+   "cs/crawler/scrapy-multi-crawler-load",
+   "cs/crawler/scrapy-per-domain-startproject",
+   "cs/crawler/scrapy-playwright-settings"
+  ],
+  "HTTP超时": [
+   "cs/crawler/aiohttp-default-timeout",
+   "cs/crawler/httpx-crawl-skeleton",
+   "cs/crawler/httpx-default-timeout-5s",
+   "cs/crawler/httpx-four-timeouts",
+   "cs/crawler/httpx-pool-none-behind-semaphore",
+   "cs/crawler/requests-connect-timeout-per-ip",
+   "cs/crawler/requests-default-no-timeout",
+   "cs/crawler/requests-defaults-measured",
+   "cs/crawler/scrapy-download-timeout"
+  ],
+  "代理": [
+   "cs/crawler/aiohttp-trust-env-proxy",
+   "cs/crawler/httpx-trust-env-localhost",
+   "cs/crawler/requests-proxies-env-override",
+   "cs/crawler/scrapy-default-middlewares"
+  ],
+  "curl_cffi": [
+   "cs/crawler/curl-cffi-api",
+   "cs/crawler/curl-cffi-fingerprint-not-enough",
+   "cs/crawler/curl-cffi-impersonate-pin",
+   "cs/crawler/curl-cffi-speed-claim",
+   "cs/crawler/curl-cffi-tls-impersonate",
+   "cs/crawler/curl-cffi-update-fingerprints"
+  ],
+  "requests": [
+   "cs/crawler/curl-cffi-api",
+   "cs/crawler/httpx-trust-env-localhost",
+   "cs/crawler/requests-blocking-only",
+   "cs/crawler/requests-connect-timeout-per-ip",
+   "cs/crawler/requests-default-no-timeout",
+   "cs/crawler/requests-defaults-measured",
+   "cs/crawler/requests-pool-full-threads",
+   "cs/crawler/requests-proxies-env-override",
+   "cs/crawler/requests-retry-httpadapter",
+   "cs/crawler/requests-session-reuse",
+   "cs/crawler/requests-stream-release-conn"
+  ],
+  "HTTP2": [
+   "cs/crawler/curl-cffi-api",
+   "cs/crawler/curl-cffi-tls-impersonate",
+   "cs/crawler/httpx-http2-not-guaranteed"
+  ],
+  "反爬": [
+   "cs/crawler/curl-cffi-fingerprint-not-enough",
+   "cs/crawler/curl-cffi-impersonate-pin",
+   "cs/crawler/curl-cffi-tls-impersonate",
+   "cs/crawler/curl-cffi-update-fingerprints",
+   "cs/crawler/playwright-headless-shell",
+   "cs/crawler/playwright-network-stack-headers",
+   "cs/crawler/scrapy-align-headers-with-curl",
+   "cs/crawler/scrapy-avoid-getting-banned",
+   "cs/crawler/scrapy-intermittent-is-server"
+  ],
+  "httpx": [
+   "cs/crawler/httpx-crawl-skeleton",
+   "cs/crawler/httpx-default-timeout-5s",
+   "cs/crawler/httpx-four-timeouts",
+   "cs/crawler/httpx-gather-pooltimeout",
+   "cs/crawler/httpx-http2-not-guaranteed",
+   "cs/crawler/httpx-pool-limits-default",
+   "cs/crawler/httpx-pool-none-behind-semaphore",
+   "cs/crawler/httpx-trust-env-localhost"
+  ],
+  "Playwright": [
+   "cs/crawler/playwright-browser-disk",
+   "cs/crawler/playwright-expect-response",
+   "cs/crawler/playwright-headless-shell",
+   "cs/crawler/playwright-network-stack-headers",
+   "cs/crawler/playwright-route-abort-images",
+   "cs/crawler/scrapy-dynamic-find-data-source",
+   "cs/crawler/scrapy-no-direct-playwright",
+   "cs/crawler/scrapy-playwright-meta-key",
+   "cs/crawler/scrapy-playwright-settings",
+   "cs/crawler/scrapy-playwright-windows"
+  ],
+  "动态页面": [
+   "cs/crawler/playwright-expect-response",
+   "cs/crawler/scrapy-dynamic-find-data-source"
+  ],
+  "重试": [
+   "cs/crawler/requests-defaults-measured",
+   "cs/crawler/requests-retry-httpadapter",
+   "cs/crawler/scrapy-default-middlewares"
+  ],
+  "Scrapy": [
+   "cs/crawler/scrapy-align-headers-with-curl",
+   "cs/crawler/scrapy-asyncio-aiohttp-mode",
+   "cs/crawler/scrapy-avoid-getting-banned",
+   "cs/crawler/scrapy-concurrent-requests",
+   "cs/crawler/scrapy-default-middlewares",
+   "cs/crawler/scrapy-delay-caps-concurrency",
+   "cs/crawler/scrapy-download-delay",
+   "cs/crawler/scrapy-download-timeout",
+   "cs/crawler/scrapy-dupefilter",
+   "cs/crawler/scrapy-dynamic-find-data-source",
+   "cs/crawler/scrapy-intermittent-is-server",
+   "cs/crawler/scrapy-jobdir-resume",
+   "cs/crawler/scrapy-multi-crawler-load",
+   "cs/crawler/scrapy-no-direct-playwright",
+   "cs/crawler/scrapy-per-domain-startproject",
+   "cs/crawler/scrapy-playwright-meta-key",
+   "cs/crawler/scrapy-playwright-settings",
+   "cs/crawler/scrapy-playwright-windows",
+   "cs/crawler/scrapy-robotstxt-obey"
+  ],
+  "Skill评测": [
+   "cs/skill/assertions-after-first-run",
+   "cs/skill/claude-code-eval-tools",
+   "cs/skill/claude-p-trigger-check",
+   "cs/skill/codex-exec-json-check",
+   "cs/skill/drop-always-pass-assertions",
+   "cs/skill/eval-clean-context",
+   "cs/skill/eval-first",
+   "cs/skill/small-eval-with-negative",
+   "cs/skill/trigger-eval-3-runs",
+   "cs/skill/trigger-eval-query-set",
+   "cs/skill/trigger-no-keyword-stuffing",
+   "cs/skill/trigger-train-val-split",
+   "cs/skill/two-instance-testing",
+   "cs/skill/vercel-agents-md-index",
+   "cs/skill/vercel-skill-never-invoked",
+   "cs/skill/vercel-unused-skill-hurts",
+   "cs/skill/with-vs-without-skill"
+  ],
+  "Skill正文": [
+   "cs/skill/body-concise",
+   "cs/skill/body-no-format-limit",
+   "cs/skill/body-under-500-lines",
+   "cs/skill/checklist-feedback-loop",
+   "cs/skill/claude-code-instructions-upfront-hooks",
+   "cs/skill/claude-code-skill-persists",
+   "cs/skill/codex-progressive-disclosure",
+   "cs/skill/consistent-terminology",
+   "cs/skill/degrees-of-freedom",
+   "cs/skill/instruction-strength-conflict",
+   "cs/skill/no-time-sensitive-info",
+   "cs/skill/one-default-escape-hatch",
+   "cs/skill/reasoning-over-always-never",
+   "cs/skill/reference-toc-over-100",
+   "cs/skill/references-no-cost-until-read",
+   "cs/skill/references-one-level-deep",
+   "cs/skill/scripts-cost-output-only",
+   "cs/skill/scripts-handle-errors",
+   "cs/skill/scripts-run-or-read",
+   "cs/skill/three-tier-loading"
+  ],
+  "Skill生命周期": [
+   "cs/skill/claude-code-compaction-reattach",
+   "cs/skill/claude-code-context-fork",
+   "cs/skill/claude-code-instructions-upfront-hooks",
+   "cs/skill/claude-code-skill-persists"
+  ],
+  "Skill宿主": [
+   "cs/skill/claude-code-context-fork",
+   "cs/skill/claude-code-desc-1536",
+   "cs/skill/claude-code-eval-tools",
+   "cs/skill/claude-code-invocation-control",
+   "cs/skill/claude-code-listing-budget",
+   "cs/skill/claude-code-paths-field",
+   "cs/skill/claude-code-skill-dirs",
+   "cs/skill/claude-p-trigger-check",
+   "cs/skill/codex-disable-implicit",
+   "cs/skill/codex-exec-json-check",
+   "cs/skill/codex-frontload-triggers",
+   "cs/skill/codex-listing-budget",
+   "cs/skill/codex-max-context-tokens",
+   "cs/skill/codex-progressive-disclosure",
+   "cs/skill/codex-skill-dirs",
+   "cs/skill/hosts-share-open-standard",
+   "cs/skill/nonspec-fields-hard-error",
+   "cs/skill/yaml-parse-fail-empty-metadata"
+  ],
+  "Skill触发": [
+   "cs/skill/claude-code-desc-1536",
+   "cs/skill/claude-code-invocation-control",
+   "cs/skill/claude-code-listing-budget",
+   "cs/skill/claude-code-paths-field",
+   "cs/skill/claude-p-trigger-check",
+   "cs/skill/codex-disable-implicit",
+   "cs/skill/codex-frontload-triggers",
+   "cs/skill/codex-listing-budget",
+   "cs/skill/codex-max-context-tokens",
+   "cs/skill/description-imperative-pushy",
+   "cs/skill/description-is-trigger",
+   "cs/skill/description-length",
+   "cs/skill/description-third-person",
+   "cs/skill/one-step-tasks-not-triggered",
+   "cs/skill/small-eval-with-negative",
+   "cs/skill/trigger-eval-3-runs",
+   "cs/skill/trigger-eval-query-set",
+   "cs/skill/trigger-no-keyword-stuffing",
+   "cs/skill/trigger-train-val-split",
+   "cs/skill/vercel-agents-md-index",
+   "cs/skill/vercel-must-invoke-wording",
+   "cs/skill/vercel-skill-never-invoked",
+   "cs/skill/vercel-unused-skill-hurts",
+   "cs/skill/vercel-vertical-actions",
+   "cs/skill/yaml-parse-fail-empty-metadata"
+  ],
+  "Skill元数据": [
+   "cs/skill/claude-code-paths-field",
+   "cs/skill/description-length",
+   "cs/skill/frontmatter-fields",
+   "cs/skill/name-format",
+   "cs/skill/name-reserved-words",
+   "cs/skill/naming-gerund",
+   "cs/skill/nonspec-fields-hard-error",
+   "cs/skill/yaml-parse-fail-empty-metadata"
+  ],
+  "Skill结构": [
+   "cs/skill/dir-structure",
+   "cs/skill/reference-toc-over-100",
+   "cs/skill/references-no-cost-until-read",
+   "cs/skill/references-one-level-deep",
+   "cs/skill/scripts-cost-output-only",
+   "cs/skill/scripts-handle-errors",
+   "cs/skill/scripts-run-or-read",
+   "cs/skill/split-references-by-domain"
+  ],
+  "AgentSkill": [
+   "cs/skill/hosts-share-open-standard",
+   "cs/skill/vercel-vertical-actions"
+  ],
+  "背负": [
+   "life/bag/backpack-straps-heavy-center",
+   "life/bag/carryon-weight-from-5kg",
+   "life/bag/kids-backpack-load-ratio",
+   "life/bag/pitfall-load-ratio-inconsistent"
+  ],
+  "随身行李": [
+   "life/bag/caac-2021-carrier-sets-limits",
+   "life/bag/caac-guide-domestic",
+   "life/bag/caac-guide-international",
+   "life/bag/capital-airlines-business",
+   "life/bag/capital-airlines-economy",
+   "life/bag/capital-airlines-under-seat",
+   "life/bag/carryon-weight-from-5kg",
+   "life/bag/iata-cabin-ok-not-max",
+   "life/bag/iata-carryon-reference-size",
+   "life/bag/pitfall-domestic-size-not-uniform",
+   "life/bag/pitfall-iata-size-not-guarantee"
+  ],
+  "背包容量": [
+   "life/bag/capacity-below-4l",
+   "life/bag/capacity-compare-same-method",
+   "life/bag/capacity-excludes-open-pockets",
+   "life/bag/capacity-two-values"
+  ],
+  "安检": [
+   "life/bag/checkpoint-friendly-compartment",
+   "life/bag/checkpoint-friendly-no-metal",
+   "life/bag/checkpoint-friendly-no-pockets",
+   "life/bag/pitfall-checkpoint-friendly-still-remove",
+   "life/bag/tsa-remove-laptop"
+  ],
+  "面料": [
+   "life/bag/denier-definition",
+   "life/bag/fabric-grab-test",
+   "life/bag/grab-vs-strip-no-simple-relation",
+   "life/bag/pitfall-denier-not-same-fabric"
+  ],
+  "防护等级": [
+   "life/bag/ip-code-two-digits",
+   "life/bag/mil-std-810h-tailored-report",
+   "life/bag/pitfall-mil-std-not-pass-fail"
+  ],
+  "电脑尺寸": [
+   "life/bag/legion-pro-7i-16-dimensions",
+   "life/bag/macbook-pro-16-dimensions",
+   "life/bag/screen-size-is-diagonal"
+  ],
+  "商家宣称": [
+   "life/bag/merchant-claim-lint",
+   "life/bag/pitfall-mil-std-not-pass-fail"
+  ]
+ },
+ "cards": {
+  "cs/crawler/aiohttp-connector-limit": {
+   "conclusion": "`TCPConnector(limit=...)` 默认总连接 100, `limit_per_host` 默认 0 即不按主机限",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "aiohttp",
+    "连接池",
+    "并发控制"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/aiohttp-connector-limit.md"
+  },
+  "cs/crawler/aiohttp-default-timeout": {
+   "conclusion": "aiohttp 实测默认 `ClientTimeout(total=300, sock_connect=30, ...)`",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "aiohttp",
+    "HTTP超时"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/aiohttp-default-timeout.md"
+  },
+  "cs/crawler/aiohttp-gather-queues": {
+   "conclusion": "aiohttp 默认配置 gather 700 个打 1 秒延迟服务全部成功, 超出 limit 的请求排队等待, 没有抛池超时",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "aiohttp",
+    "并发控制",
+    "连接池"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/aiohttp-gather-queues.md"
+  },
+  "cs/crawler/aiohttp-graceful-shutdown": {
+   "conclusion": "aiohttp 关闭 session 后底层连接不会立即关, 带 SSL 时文档建议等约 250ms",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "aiohttp"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/aiohttp-graceful-shutdown.md"
+  },
+  "cs/crawler/aiohttp-reuse-session": {
+   "conclusion": "aiohttp 的 `ClientSession` 持有 cookie 存储与连接池, 应复用同一个 session",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "aiohttp",
+    "连接池"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/aiohttp-reuse-session.md"
+  },
+  "cs/crawler/aiohttp-trust-env-proxy": {
+   "conclusion": "aiohttp 默认不读环境变量代理, 需要 `trust_env=True`",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "aiohttp",
+    "代理"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/aiohttp-trust-env-proxy.md"
+  },
+  "cs/crawler/curl-cffi-api": {
+   "conclusion": "curl_cffi 提供与 requests 相似的 API 与 `AsyncSession`, 支持 HTTP/2、HTTP/3、websocket",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "curl_cffi",
+    "requests",
+    "HTTP2"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/curl-cffi-api.md"
+  },
+  "cs/crawler/curl-cffi-fingerprint-not-enough": {
+   "conclusion": "指纹模仿只解决 TLS/HTTP2 这一层, Akamai / DataDome / Kasada / Incapsula 还要另外的 token",
+   "type": "pitfall",
+   "tier": "B",
+   "concepts": [
+    "curl_cffi",
+    "反爬"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/curl-cffi-fingerprint-not-enough.md"
+  },
+  "cs/crawler/curl-cffi-impersonate-pin": {
+   "conclusion": "`impersonate=\"chrome\"` 跟随库更新到最新版本, `chrome124` 这种写法则固定版本",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "curl_cffi",
+    "反爬"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/curl-cffi-impersonate-pin.md"
+  },
+  "cs/crawler/curl-cffi-speed-claim": {
+   "conclusion": "curl_cffi「比 requests/httpx 快很多」为项目自述, 未复核",
+   "type": "pitfall",
+   "tier": "B",
+   "concepts": [
+    "curl_cffi"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/curl-cffi-speed-claim.md"
+  },
+  "cs/crawler/curl-cffi-tls-impersonate": {
+   "conclusion": "curl_cffi 可模仿浏览器的 TLS/JA3 与 HTTP/2 指纹, 纯 Python 客户端 (httpx / requests) 做不到",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "curl_cffi",
+    "反爬",
+    "HTTP2"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/curl-cffi-tls-impersonate.md"
+  },
+  "cs/crawler/curl-cffi-update-fingerprints": {
+   "conclusion": "可用 `curl-cffi update` 在不升级库的情况下拉取新指纹",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "curl_cffi",
+    "反爬"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/curl-cffi-update-fingerprints.md"
+  },
+  "cs/crawler/httpx-crawl-skeleton": {
+   "conclusion": "侧车骨架 (httpx + Semaphore + `Timeout(10.0, pool=None)` + 抖动延迟) 700 个全 ok",
+   "type": "cmd",
+   "tier": "A",
+   "concepts": [
+    "httpx",
+    "并发控制",
+    "HTTP超时"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/httpx-crawl-skeleton.md"
+  },
+  "cs/crawler/httpx-default-timeout-5s": {
+   "conclusion": "httpx 默认对一切网络操作强制超时, 网络无活动 5 秒抛 `TimeoutException`",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "httpx",
+    "HTTP超时"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/httpx-default-timeout-5s.md"
+  },
+  "cs/crawler/httpx-four-timeouts": {
+   "conclusion": "httpx 区分 connect / read / write / pool 四种超时, pool 超时是从连接池拿连接的最长等待",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "httpx",
+    "HTTP超时",
+    "连接池"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/httpx-four-timeouts.md"
+  },
+  "cs/crawler/httpx-gather-pooltimeout": {
+   "conclusion": "`AsyncClient` 默认配置下 gather 700 个请求, 502 个 `PoolTimeout`, 套 `Semaphore(100)` 后 700 个全成功",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "httpx",
+    "并发控制",
+    "连接池"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/httpx-gather-pooltimeout.md"
+  },
+  "cs/crawler/httpx-http2-not-guaranteed": {
+   "conclusion": "httpx 开了 `http2=True` 不等于走 HTTP/2, 服务端不支持就回落 HTTP/1.1",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "httpx",
+    "HTTP2"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/httpx-http2-not-guaranteed.md"
+  },
+  "cs/crawler/httpx-pool-limits-default": {
+   "conclusion": "httpx 连接池默认 `max_connections=100`, `max_keepalive_connections=20`, `keepalive_expiry=5`",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "httpx",
+    "连接池"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/httpx-pool-limits-default.md"
+  },
+  "cs/crawler/httpx-pool-none-behind-semaphore": {
+   "conclusion": "pool=None 时在信号量后面排队的请求不会因为等连接而超时",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "httpx",
+    "HTTP超时",
+    "并发控制"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/httpx-pool-none-behind-semaphore.md"
+  },
+  "cs/crawler/httpx-trust-env-localhost": {
+   "conclusion": "有环境变量代理时 httpx 与 requests 默认 `trust_env=True` 会把 localhost 请求也送去代理",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "httpx",
+    "requests",
+    "代理"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/httpx-trust-env-localhost.md"
+  },
+  "cs/crawler/playwright-browser-disk": {
+   "conclusion": "每个浏览器安装后占几百 MB 磁盘, 示例 chromium 281M",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Playwright"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/playwright-browser-disk.md"
+  },
+  "cs/crawler/playwright-expect-response": {
+   "conclusion": "Playwright 可监听页面发出的全部请求与响应, 可用 `page.expect_response(\"**/api/...\")` 在点击后等到某个接口的响应",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Playwright",
+    "动态页面"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/playwright-expect-response.md"
+  },
+  "cs/crawler/playwright-headless-shell": {
+   "conclusion": "Playwright 默认无头模式用的是 chromium headless shell, 与 Chrome 的 new headless 不同, 行为会有差异",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Playwright",
+    "反爬"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/playwright-headless-shell.md"
+  },
+  "cs/crawler/playwright-network-stack-headers": {
+   "conclusion": "`Cookie`、`Host`、`Sec-Fetch-*` 等请求头由浏览器网络栈在发送前附加, route 处理函数看不到也改不了",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Playwright",
+    "反爬"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/playwright-network-stack-headers.md"
+  },
+  "cs/crawler/playwright-route-abort-images": {
+   "conclusion": "`page.route(...)` 可拦截、修改、`abort()` 请求, 例如按 `resource_type == \"image\"` 丢掉图片",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Playwright"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/playwright-route-abort-images.md"
+  },
+  "cs/crawler/requests-blocking-only": {
+   "conclusion": "默认 Transport Adapter 下 requests 不提供任何非阻塞 IO, 文档把 httpx 等列为异步替代",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "requests",
+    "并发控制"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/requests-blocking-only.md"
+  },
+  "cs/crawler/requests-connect-timeout-per-ip": {
+   "conclusion": "requests 的 connect 超时按每个 IP 地址计, 域名有多个地址时实际总等待会成倍放大",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "requests",
+    "HTTP超时"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/requests-connect-timeout-per-ip.md"
+  },
+  "cs/crawler/requests-default-no-timeout": {
+   "conclusion": "requests 默认不设超时, 不显式传 `timeout` 时请求可以挂几分钟甚至更久",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "requests",
+    "HTTP超时"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/requests-default-no-timeout.md"
+  },
+  "cs/crawler/requests-defaults-measured": {
+   "conclusion": "requests 2.34.2 实测 `timeout` 默认 None, `DEFAULT_POOLSIZE = 10`, `DEFAULT_RETRIES = 0`",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "requests",
+    "HTTP超时",
+    "连接池",
+    "重试"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/requests-defaults-measured.md"
+  },
+  "cs/crawler/requests-pool-full-threads": {
+   "conclusion": "32 线程共用一个默认 Session 打同一主机, 出现 22 次 `Connection pool is full, discarding connection`, `pool_maxsize` 调到 32 后为 0 次",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "requests",
+    "连接池",
+    "并发控制"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/requests-pool-full-threads.md"
+  },
+  "cs/crawler/requests-proxies-env-override": {
+   "conclusion": "`session.proxies` 可能被环境变量代理覆盖, 不覆盖时 requests 读 `http_proxy` / `https_proxy` / `no_proxy`",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "requests",
+    "代理"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/requests-proxies-env-override.md"
+  },
+  "cs/crawler/requests-retry-httpadapter": {
+   "conclusion": "requests 默认不重试失败连接, 要重试需挂 `HTTPAdapter(max_retries=urllib3.util.Retry(...))`",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "requests",
+    "重试"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/requests-retry-httpadapter.md"
+  },
+  "cs/crawler/requests-session-reuse": {
+   "conclusion": "对同一主机多次请求用 `Session`, 它复用 urllib3 连接池并跨请求保存 cookie",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "requests",
+    "连接池"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/requests-session-reuse.md"
+  },
+  "cs/crawler/requests-stream-release-conn": {
+   "conclusion": "`stream=True` 时只有读完 body 或调用 `close` 才把连接还给池",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "requests",
+    "连接池"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/requests-stream-release-conn.md"
+  },
+  "cs/crawler/scrapy-align-headers-with-curl": {
+   "conclusion": "若 curl 能拿到数据而 Scrapy 拿不到, 先把 Scrapy 请求的 UA / headers 对齐 curl",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Scrapy",
+    "反爬"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-align-headers-with-curl.md"
+  },
+  "cs/crawler/scrapy-asyncio-aiohttp-mode": {
+   "conclusion": "`TWISTED_REACTOR_ENABLED=False` 时直接用 asyncio 事件循环, 默认 http/https 下载器换成 aiohttp 实现, 该模式标为实验性",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Scrapy",
+    "aiohttp"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-asyncio-aiohttp-mode.md"
+  },
+  "cs/crawler/scrapy-avoid-getting-banned": {
+   "conclusion": "避免被封首选用 `USER_AGENT` 表明身份, 其次轮换 UA、禁用 cookie、`DOWNLOAD_DELAY` 2 秒或以上等",
+   "type": "decide",
+   "tier": "B",
+   "concepts": [
+    "Scrapy",
+    "反爬"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-avoid-getting-banned.md"
+  },
+  "cs/crawler/scrapy-concurrent-requests": {
+   "conclusion": "Scrapy 2.20 的 `CONCURRENT_REQUESTS` 默认 16",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Scrapy",
+    "并发控制"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-concurrent-requests.md"
+  },
+  "cs/crawler/scrapy-default-middlewares": {
+   "conclusion": "Scrapy 默认下载中间件链含 robots.txt、重试、重定向、cookie、代理、HTTP 缓存等",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Scrapy",
+    "重试",
+    "代理"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-default-middlewares.md"
+  },
+  "cs/crawler/scrapy-delay-caps-concurrency": {
+   "conclusion": "响应时间小于 DOWNLOAD_DELAY 时该域实际并发为 1",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Scrapy",
+    "并发控制"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-delay-caps-concurrency.md"
+  },
+  "cs/crawler/scrapy-download-delay": {
+   "conclusion": "`DOWNLOAD_DELAY` 在 startproject 里是 1 秒, fallback 0, 叠加 `DOWNLOAD_DELAY_JITTER` 默认 0.5",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Scrapy",
+    "并发控制"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-download-delay.md"
+  },
+  "cs/crawler/scrapy-download-timeout": {
+   "conclusion": "Scrapy 的 `DOWNLOAD_TIMEOUT` 默认 180 秒",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Scrapy",
+    "HTTP超时"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-download-timeout.md"
+  },
+  "cs/crawler/scrapy-dupefilter": {
+   "conclusion": "默认 `RFPDupeFilter` 按规范化后的 url + method + body 去重, 大规模抓取可换 `DiskDupeFilter`",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "Scrapy"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-dupefilter.md"
+  },
+  "cs/crawler/scrapy-dynamic-find-data-source": {
+   "conclusion": "动态加载的内容官方推荐先找到数据源, 实在难复现且不在乎速度时才用无头浏览器",
+   "type": "decide",
+   "tier": "B",
+   "concepts": [
+    "Scrapy",
+    "动态页面",
+    "Playwright"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-dynamic-find-data-source.md"
+  },
+  "cs/crawler/scrapy-intermittent-is-server": {
+   "conclusion": "结果时有时无时, 问题多在目标服务器 (过载或封禁), 换库解决不了",
+   "type": "pitfall",
+   "tier": "B",
+   "concepts": [
+    "Scrapy",
+    "反爬"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-intermittent-is-server.md"
+  },
+  "cs/crawler/scrapy-jobdir-resume": {
+   "conclusion": "Scrapy 用 `JOBDIR` 保存抓取状态以暂停与恢复",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Scrapy"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-jobdir-resume.md"
+  },
+  "cs/crawler/scrapy-multi-crawler-load": {
+   "conclusion": "同进程跑多个 crawler 时并发与礼貌设置按 crawler 各算一份, 会成倍放大对目标站的负载",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Scrapy",
+    "并发控制"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-multi-crawler-load.md"
+  },
+  "cs/crawler/scrapy-no-direct-playwright": {
+   "conclusion": "在 Scrapy 回调里直接用 playwright-python 会绕过大部分 Scrapy 组件, 官方推荐 scrapy-playwright",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Scrapy",
+    "Playwright"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-no-direct-playwright.md"
+  },
+  "cs/crawler/scrapy-per-domain-startproject": {
+   "conclusion": "`CONCURRENT_REQUESTS_PER_DOMAIN` 在 `startproject` 生成的 settings 里是 1, 全局 fallback 是 8",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Scrapy",
+    "并发控制"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-per-domain-startproject.md"
+  },
+  "cs/crawler/scrapy-playwright-meta-key": {
+   "conclusion": "scrapy-playwright 只处理 `meta` 里带 `playwright` 键的请求, 其余仍走普通下载器, 需要 asyncio reactor",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Playwright",
+    "Scrapy"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-playwright-meta-key.md"
+  },
+  "cs/crawler/scrapy-playwright-settings": {
+   "conclusion": "`PLAYWRIGHT_MAX_PAGES_PER_CONTEXT` 默认等于 `CONCURRENT_REQUESTS`, `PLAYWRIGHT_ABORT_REQUEST` 可按谓词丢弃资源请求",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Playwright",
+    "Scrapy",
+    "并发控制"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-playwright-settings.md"
+  },
+  "cs/crawler/scrapy-playwright-windows": {
+   "conclusion": "Windows 上 Playwright 必须跑在另一个线程的 ProactorEventLoop, 因为 asyncio reactor 要 SelectorEventLoop",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Playwright",
+    "Scrapy"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-playwright-windows.md"
+  },
+  "cs/crawler/scrapy-robotstxt-obey": {
+   "conclusion": "`ROBOTSTXT_OBEY` 在 startproject 里是 True, fallback False",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Scrapy"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/crawler/scrapy-robotstxt-obey.md"
+  },
+  "cs/skill/assertions-after-first-run": {
+   "conclusion": "用例从 2 到 3 个开始, 断言在看过第一轮输出后再写, 能用脚本查的断言用脚本",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/assertions-after-first-run.md"
+  },
+  "cs/skill/body-concise": {
+   "conclusion": "默认假设模型已经很聪明, 只写它不知道的, 每段问 \"这段配得上它的 token 吗\"",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/body-concise.md"
+  },
+  "cs/skill/body-no-format-limit": {
+   "conclusion": "规范对正文没有格式限制, 推荐写步骤、输入输出示例、边界情况",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/body-no-format-limit.md"
+  },
+  "cs/skill/body-under-500-lines": {
+   "conclusion": "SKILL.md 正文 < 500 行, 接近时拆文件",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/body-under-500-lines.md"
+  },
+  "cs/skill/checklist-feedback-loop": {
+   "conclusion": "复杂流程给可复制的 checklist, 质量关键任务加 \"跑校验 -> 修 -> 再跑\" 的反馈环",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/checklist-feedback-loop.md"
+  },
+  "cs/skill/claude-code-compaction-reattach": {
+   "conclusion": "Claude Code 自动压缩后, 每个 skill 只重新附上最后一次调用的前 5000 token, 所有 skill 合计 25000 token, 旧 skill 可能整个被丢",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Skill生命周期"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/claude-code-compaction-reattach.md"
+  },
+  "cs/skill/claude-code-context-fork": {
+   "conclusion": "Claude Code 里 `context: fork` 让 skill 在子 agent 里跑, 子 agent 看不到对话历史",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "Skill生命周期",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/claude-code-context-fork.md"
+  },
+  "cs/skill/claude-code-desc-1536": {
+   "conclusion": "Claude Code: description 与 `when_to_use` 合计在列表中截断于 1536 字符, 可用 `skillListingMaxDescChars` 改",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/claude-code-desc-1536.md"
+  },
+  "cs/skill/claude-code-eval-tools": {
+   "conclusion": "Claude Code 提供 `claude plugin eval` (插件 skill) 与 skill-creator 插件 (evals/evals.json, 盲 A/B, 描述调优)",
+   "type": "cmd",
+   "tier": "A",
+   "concepts": [
+    "Skill评测",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/claude-code-eval-tools.md"
+  },
+  "cs/skill/claude-code-instructions-upfront-hooks": {
+   "conclusion": "Claude Code 里重要指令放在 SKILL.md 靠前处, 每次都必须成立的规则移进 hook",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "Skill生命周期",
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/claude-code-instructions-upfront-hooks.md"
+  },
+  "cs/skill/claude-code-invocation-control": {
+   "conclusion": "Claude Code: `disable-model-invocation: true` 时 description 不进上下文, 只能用户 `/name` 调用, `user-invocable: false` 时只有 Claude 能调",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/claude-code-invocation-control.md"
+  },
+  "cs/skill/claude-code-listing-budget": {
+   "conclusion": "Claude Code 列表整体预算为上下文窗口的 1%, 超出时先丢最少被调用的 skill 的描述, 名字始终保留",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/claude-code-listing-budget.md"
+  },
+  "cs/skill/claude-code-paths-field": {
+   "conclusion": "Claude Code 的 `paths` 字段可把自动激活限制到匹配的文件",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill宿主",
+    "Skill元数据"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/claude-code-paths-field.md"
+  },
+  "cs/skill/claude-code-skill-dirs": {
+   "conclusion": "Claude Code 个人 skill 在 `~/.claude/skills/<name>/SKILL.md`, 项目 skill 在 `.claude/skills/<name>/SKILL.md`",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/claude-code-skill-dirs.md"
+  },
+  "cs/skill/claude-code-skill-persists": {
+   "conclusion": "Claude Code 被调用的 skill 作为一条消息进入对话并跨轮常驻, 每一行都是逐轮成本, 要写成持续生效的指令",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill生命周期",
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/claude-code-skill-persists.md"
+  },
+  "cs/skill/claude-p-trigger-check": {
+   "conclusion": "Claude Code 可用 `claude -p` 加 `--output-format json` 检查有无 `Skill` 工具调用来判定是否触发",
+   "type": "cmd",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill评测",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/claude-p-trigger-check.md"
+  },
+  "cs/skill/codex-disable-implicit": {
+   "conclusion": "Codex 在 `agents/openai.yaml` 里设 `policy.allow_implicit_invocation: false` 关闭隐式调用, 显式 `$skill` 仍可用",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/codex-disable-implicit.md"
+  },
+  "cs/skill/codex-exec-json-check": {
+   "conclusion": "Codex 可用 `codex exec --json` 拿 JSONL 事件流写确定性检查",
+   "type": "cmd",
+   "tier": "A",
+   "concepts": [
+    "Skill评测",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/codex-exec-json-check.md"
+  },
+  "cs/skill/codex-frontload-triggers": {
+   "conclusion": "Codex 隐式匹配依赖 description, 把关键用例与触发词放在前面, 以便描述被缩短时仍能匹配",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/codex-frontload-triggers.md"
+  },
+  "cs/skill/codex-listing-budget": {
+   "conclusion": "Codex 初始 skill 列表默认最多占上下文窗口 2%, 窗口未知时 8000 字符, 超出时先缩短描述, 仍超就省略部分 skill 并告警",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/codex-listing-budget.md"
+  },
+  "cs/skill/codex-max-context-tokens": {
+   "conclusion": "Codex 的 `skills.max_context_tokens` 最多可设 10000 token",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/codex-max-context-tokens.md"
+  },
+  "cs/skill/codex-progressive-disclosure": {
+   "conclusion": "Codex 也是先给 name + description (外加文件路径), 决定使用时再读完整 SKILL.md",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill宿主",
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/codex-progressive-disclosure.md"
+  },
+  "cs/skill/codex-skill-dirs": {
+   "conclusion": "Codex 从当前目录到仓库根逐级扫 `.agents/skills`, 另有 `$HOME/.agents/skills`、`/etc/codex/skills`, 同名不合并",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/codex-skill-dirs.md"
+  },
+  "cs/skill/consistent-terminology": {
+   "conclusion": "术语全篇统一",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/consistent-terminology.md"
+  },
+  "cs/skill/degrees-of-freedom": {
+   "conclusion": "自由度按任务脆弱程度定: 多解任务给文字指引, 有偏好模式给伪代码或带参数脚本, 易错且要求一致的操作给精确脚本",
+   "type": "decide",
+   "tier": "B",
+   "concepts": [
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/degrees-of-freedom.md"
+  },
+  "cs/skill/description-imperative-pushy": {
+   "conclusion": "description 用祈使句 \"Use this skill when…\", 聚焦用户意图, 可以写得 pushy, 把用户没点名领域的情形也列进去",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill触发"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/description-imperative-pushy.md"
+  },
+  "cs/skill/description-is-trigger": {
+   "conclusion": "description 是隐式触发的主要机制, 从可能 100+ 个 skill 里选",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill触发"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/description-is-trigger.md"
+  },
+  "cs/skill/description-length": {
+   "conclusion": "`description` 1 到 1024 字符, 非空, 写清做什么与什么时候用",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill元数据",
+    "Skill触发"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/description-length.md"
+  },
+  "cs/skill/description-third-person": {
+   "conclusion": "description 写第三人称, 因为它被注入系统提示, 人称不一致会导致发现问题",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill触发"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/description-third-person.md"
+  },
+  "cs/skill/dir-structure": {
+   "conclusion": "skill 是一个至少含 `SKILL.md` 的目录, 可选 `scripts/` `references/` `assets/`",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill结构"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/dir-structure.md"
+  },
+  "cs/skill/drop-always-pass-assertions": {
+   "conclusion": "两组都总是通过的断言要删, 它们只是抬高通过率",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/drop-always-pass-assertions.md"
+  },
+  "cs/skill/eval-clean-context": {
+   "conclusion": "每次运行要从干净上下文开始, 写 skill 时残留的上下文会掩盖指令缺口",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/eval-clean-context.md"
+  },
+  "cs/skill/eval-first": {
+   "conclusion": "先写评测再写大量文档: 无 skill 跑代表任务记录失败, 建 3 个场景, 测基线, 只写刚好够过的指令",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/eval-first.md"
+  },
+  "cs/skill/frontmatter-fields": {
+   "conclusion": "规范必填 `name` 与 `description`, 可选 `license` `compatibility` `metadata` `allowed-tools` (实验性)",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill元数据"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/frontmatter-fields.md"
+  },
+  "cs/skill/hosts-share-open-standard": {
+   "conclusion": "Claude Code 与 Codex 二者都遵循 agentskills.io 开放标准",
+   "type": "decide",
+   "tier": "B",
+   "concepts": [
+    "Skill宿主",
+    "AgentSkill"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/hosts-share-open-standard.md"
+  },
+  "cs/skill/instruction-strength-conflict": {
+   "conclusion": "指令强度建议互相冲突: S1 允许把 \"always filter\" 改成 \"MUST filter\", S4 建议解释原因而不是写 ALWAYS/NEVER",
+   "type": "decide",
+   "tier": "B",
+   "concepts": [
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/instruction-strength-conflict.md"
+  },
+  "cs/skill/name-format": {
+   "conclusion": "`name` 1 到 64 字符, 只含小写字母数字与连字符, 不以连字符开头结尾, 不含连续连字符, 与父目录名一致",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill元数据"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/name-format.md"
+  },
+  "cs/skill/name-reserved-words": {
+   "conclusion": "`name` 不能含保留词 `anthropic` `claude`, 不能含 XML 标签",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill元数据"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/name-reserved-words.md"
+  },
+  "cs/skill/naming-gerund": {
+   "conclusion": "命名建议动名词形式 (`processing-pdfs`), 避免 `helper` `utils` 这类空名",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill元数据"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/naming-gerund.md"
+  },
+  "cs/skill/no-time-sensitive-info": {
+   "conclusion": "避免时间敏感信息, 旧做法放进 \"old patterns\" 折叠段",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/no-time-sensitive-info.md"
+  },
+  "cs/skill/nonspec-fields-hard-error": {
+   "conclusion": "Claude Code 接受规范外字段, 上传 claude.ai、Skills API、`package_skill.py` 打包只接受规范内 6 个字段, 多出的硬报错",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Skill元数据",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/nonspec-fields-hard-error.md"
+  },
+  "cs/skill/one-default-escape-hatch": {
+   "conclusion": "不要并列给太多选项, 给一个默认加一个逃生口",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/one-default-escape-hatch.md"
+  },
+  "cs/skill/one-step-tasks-not-triggered": {
+   "conclusion": "agent 通常只为自己独立做不好的任务查 skill, 一步就能完成的请求即使描述完全匹配也可能不触发",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Skill触发"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/one-step-tasks-not-triggered.md"
+  },
+  "cs/skill/reasoning-over-always-never": {
+   "conclusion": "推理型指令比 ALWAYS/NEVER 式硬指令更可靠, 规则越加通过率越平, 可以试着删指令",
+   "type": "decide",
+   "tier": "B",
+   "concepts": [
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/reasoning-over-always-never.md"
+  },
+  "cs/skill/reference-toc-over-100": {
+   "conclusion": "超过 100 行的参考文件顶部放目录",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill正文",
+    "Skill结构"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/reference-toc-over-100.md"
+  },
+  "cs/skill/references-no-cost-until-read": {
+   "conclusion": "参考文件、数据在被读前不占上下文",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill结构",
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/references-no-cost-until-read.md"
+  },
+  "cs/skill/references-one-level-deep": {
+   "conclusion": "引用保持离 SKILL.md 只深一层, 嵌套引用时 Claude 可能用 `head -100` 预览而读不全",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Skill正文",
+    "Skill结构"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/references-one-level-deep.md"
+  },
+  "cs/skill/scripts-cost-output-only": {
+   "conclusion": "脚本通过 bash 运行, 内容不进上下文, 只有输出占 token",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill结构",
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/scripts-cost-output-only.md"
+  },
+  "cs/skill/scripts-handle-errors": {
+   "conclusion": "脚本要自己处理错误而不是甩给模型, 常量要写理由 (不要 voodoo constants)",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill正文",
+    "Skill结构"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/scripts-handle-errors.md"
+  },
+  "cs/skill/scripts-run-or-read": {
+   "conclusion": "写清是 \"运行脚本\" 还是 \"读脚本当参考\"",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill正文",
+    "Skill结构"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/scripts-run-or-read.md"
+  },
+  "cs/skill/small-eval-with-negative": {
+   "conclusion": "小规模 10 到 20 条提示即可抓回归, 至少放一条 should_trigger=false 的负例",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill触发",
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/small-eval-with-negative.md"
+  },
+  "cs/skill/split-references-by-domain": {
+   "conclusion": "按领域拆参考文件 (`reference/finance.md` `reference/sales.md`), 让无关领域零占用",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill结构"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/split-references-by-domain.md"
+  },
+  "cs/skill/three-tier-loading": {
+   "conclusion": "三层加载: 元数据启动时为所有 skill 载入, 正文在激活时整份载入, 资源文件只在需要时读",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill正文"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/three-tier-loading.md"
+  },
+  "cs/skill/trigger-eval-3-runs": {
+   "conclusion": "每条跑 3 次算触发率, 0.5 为默认阈值, 20 条 x 3 次 = 60 次调用",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/trigger-eval-3-runs.md"
+  },
+  "cs/skill/trigger-eval-query-set": {
+   "conclusion": "触发评测约 20 条查询, 8 到 10 条应触发, 8 到 10 条不应触发, 负例要选共享关键词的近似请求",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/trigger-eval-query-set.md"
+  },
+  "cs/skill/trigger-no-keyword-stuffing": {
+   "conclusion": "不要把失败查询里的具体关键词塞进描述, 那是过拟合",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/trigger-no-keyword-stuffing.md"
+  },
+  "cs/skill/trigger-train-val-split": {
+   "conclusion": "训练集约 60% / 验证集约 40%, 只用训练集失败来改描述, 按验证集通过率选最佳版本, 通常 5 轮足够",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "Skill触发",
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/trigger-train-val-split.md"
+  },
+  "cs/skill/two-instance-testing": {
+   "conclusion": "用一个 Claude 实例写 skill, 另一个全新实例拿它干真活, 观察它读文件的路径与漏掉的规则",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/two-instance-testing.md"
+  },
+  "cs/skill/vercel-agents-md-index": {
+   "conclusion": "据 Vercel, 在 AGENTS.md 里明确要求调用后触发率 95%+, 而 8KB 压缩文档索引直接放进 AGENTS.md 达 100%",
+   "type": "decide",
+   "tier": "B",
+   "concepts": [
+    "Skill触发",
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/vercel-agents-md-index.md"
+  },
+  "cs/skill/vercel-must-invoke-wording": {
+   "conclusion": "据 Vercel, \"You MUST invoke the skill\" 让 agent 先读文档、锚定文档写法、漏掉项目上下文, \"先探索项目再调用\" 结果更好",
+   "type": "pitfall",
+   "tier": "B",
+   "concepts": [
+    "Skill触发"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/vercel-must-invoke-wording.md"
+  },
+  "cs/skill/vercel-skill-never-invoked": {
+   "conclusion": "据 Vercel, 给 Next.js 16 文档做成 skill, 56% 的评测用例里 skill 从未被调用, 通过率 53% 与无文档基线相同",
+   "type": "pitfall",
+   "tier": "B",
+   "concepts": [
+    "Skill触发",
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/vercel-skill-never-invoked.md"
+  },
+  "cs/skill/vercel-unused-skill-hurts": {
+   "conclusion": "据 Vercel, 未被使用的 skill 留在环境里, Test 指标反而从 63% 降到 58%",
+   "type": "pitfall",
+   "tier": "B",
+   "concepts": [
+    "Skill触发",
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/vercel-unused-skill-hurts.md"
+  },
+  "cs/skill/vercel-vertical-actions": {
+   "conclusion": "据 Vercel, skill 更适合用户显式触发的纵向动作 (升级、迁移), 通用框架知识走被动上下文",
+   "type": "decide",
+   "tier": "B",
+   "concepts": [
+    "Skill触发",
+    "AgentSkill"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/vercel-vertical-actions.md"
+  },
+  "cs/skill/with-vs-without-skill": {
+   "conclusion": "每个用例跑 \"有 skill\" 与 \"无 skill (或旧版本)\" 两组, 比较通过率增量与 token、时间开销",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "Skill评测"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/with-vs-without-skill.md"
+  },
+  "cs/skill/yaml-parse-fail-empty-metadata": {
+   "conclusion": "Claude Code 在 YAML 解析失败时仍加载正文但元数据为空, `/name` 能用而 Claude 无法按 description 匹配",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "Skill元数据",
+    "Skill触发",
+    "Skill宿主"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/yaml-parse-fail-empty-metadata.md"
+  },
+  "life/bag/backpack-straps-heavy-center": {
+   "conclusion": "AAP 与 AAOS 共同建议: 宽而有衬垫的双肩带, 两条肩带都用, 重物靠近背部中央",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "背负"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/backpack-straps-heavy-center.md"
+  },
+  "life/bag/caac-2021-carrier-sets-limits": {
+   "conclusion": "2021-09-01 起施行的规定废止了 1996 年规则, 改为承运人在运输总条件中明确非托运行李的尺寸、重量与数量",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "随身行李"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/caac-2021-carrier-sets-limits.md"
+  },
+  "life/bag/caac-guide-domestic": {
+   "conclusion": "民航局航旅指南现行写法: 国内航班随身行李总重不要超过 5 公斤, 每件不超过 20 × 40 × 55 厘米",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "随身行李"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/caac-guide-domestic.md"
+  },
+  "life/bag/caac-guide-international": {
+   "conclusion": "民航局航旅指南: 国际航班通常总重不超过 7 公斤",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "随身行李"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/caac-guide-international.md"
+  },
+  "life/bag/capacity-below-4l": {
+   "conclusion": "ASTM F2153 不适用于小于 4 L 的容量",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "背包容量"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/capacity-below-4l.md"
+  },
+  "life/bag/capacity-compare-same-method": {
+   "conclusion": "ASTM F2153 的目的是让厂商与消费者有一致的方法比较包的容积",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "背包容量"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/capacity-compare-same-method.md"
+  },
+  "life/bag/capacity-excludes-open-pockets": {
+   "conclusion": "ASTM F2153 不计入没有被面料完全包围的区域: 网兜、水壶袋、压缩袋口袋",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "背包容量"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/capacity-excludes-open-pockets.md"
+  },
+  "life/bag/capacity-two-values": {
+   "conclusion": "ASTM F2153 给背包及相关包袋定义并标准化 \"未扩展容量\" 与 \"扩展容量\" 两个值",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "背包容量"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/capacity-two-values.md"
+  },
+  "life/bag/capital-airlines-business": {
+   "conclusion": "首都航空运输总条件: 公务舱每件 5 公斤, 两件, 每件不超过 20 × 40 × 55 厘米",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "随身行李"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/capital-airlines-business.md"
+  },
+  "life/bag/capital-airlines-economy": {
+   "conclusion": "首都航空运输总条件: 经济舱旅客随身一件, 每件 7 公斤为限, 体积不超过 20 × 30 × 40 厘米",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "随身行李"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/capital-airlines-economy.md"
+  },
+  "life/bag/capital-airlines-under-seat": {
+   "conclusion": "首都航空随身行李须能放进前排座位下或封闭行李架",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "随身行李"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/capital-airlines-under-seat.md"
+  },
+  "life/bag/carryon-weight-from-5kg": {
+   "conclusion": "部分航司另有重量限制, 通常从 5 kg 起",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "随身行李",
+    "背负"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/carryon-weight-from-5kg.md"
+  },
+  "life/bag/checkpoint-friendly-compartment": {
+   "conclusion": "TSA 2008 年 \"checkpoint friendly\" 准则: 有专门只放电脑的隔层, 该隔层能完全展开平放在传送带上",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "安检"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/checkpoint-friendly-compartment.md"
+  },
+  "life/bag/checkpoint-friendly-no-metal": {
+   "conclusion": "checkpoint friendly 准则: 隔层内、下、上没有金属按扣、拉链、扣具",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "安检"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/checkpoint-friendly-no-metal.md"
+  },
+  "life/bag/checkpoint-friendly-no-pockets": {
+   "conclusion": "checkpoint friendly 准则: 隔层内外没有口袋, 隔层里只放电脑",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "安检"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/checkpoint-friendly-no-pockets.md"
+  },
+  "life/bag/denier-definition": {
+   "conclusion": "旦尼尔 (denier) 的定义是每 9000 m 纱线的克数, 换算为 den = 9 × tex",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "面料"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/denier-definition.md"
+  },
+  "life/bag/fabric-grab-test": {
+   "conclusion": "织物断裂强力用 ASTM D5034 抓样法 (grab test) 测定",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "面料"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/fabric-grab-test.md"
+  },
+  "life/bag/grab-vs-strip-no-simple-relation": {
+   "conclusion": "抓样法结果与条样法之间没有简单关系, 取决于织物类型与结构变量",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "面料"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/grab-vs-strip-no-simple-relation.md"
+  },
+  "life/bag/iata-cabin-ok-not-max": {
+   "conclusion": "IATA Cabin OK 尺寸 55 × 35 × 20 cm 是 \"建议尺寸, 不是最大尺寸\", 最大尺寸由各航司自定",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "随身行李"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/iata-cabin-ok-not-max.md"
+  },
+  "life/bag/iata-carryon-reference-size": {
+   "conclusion": "IATA 给的通用参考是许多航司采用最大 56 × 45 × 25 cm (含轮子与把手), 上限因航司、舱等、机型而异",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "随身行李"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/iata-carryon-reference-size.md"
+  },
+  "life/bag/ip-code-two-digits": {
+   "conclusion": "IP 代码由两位数字组成: 第一位表示防固体 (0 到 6), 第二位表示防液体 (0 到 9), 完整测试条件见 IEC 60529",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "防护等级"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/ip-code-two-digits.md"
+  },
+  "life/bag/kids-backpack-load-ratio": {
+   "conclusion": "儿童与青少年背包负重: AAP 写不超过体重 10% 到 20%, AAOS 2026 新闻稿写一般准则不超过 15%",
+   "type": "decide",
+   "tier": "A",
+   "concepts": [
+    "背负"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/kids-backpack-load-ratio.md"
+  },
+  "life/bag/legion-pro-7i-16-dimensions": {
+   "conclusion": "Lenovo Legion Pro 7i 屏幕对角线 16.0 英寸, 宽 363.5 mm, 深 262.1 mm, 厚 21.95 mm (最薄) 到 25.9 mm (最厚)",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "电脑尺寸"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/legion-pro-7i-16-dimensions.md"
+  },
+  "life/bag/macbook-pro-16-dimensions": {
+   "conclusion": "16 英寸 MacBook Pro (M5 Pro / M5 Max) 宽 35.57 cm, 深 24.81 cm, 高 1.68 cm, 重 2.14 / 2.15 kg",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "电脑尺寸"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/macbook-pro-16-dimensions.md"
+  },
+  "life/bag/merchant-claim-lint": {
+   "conclusion": "电脑包商品页声明检查: 每个声明词必须带上它的测法, 否则报一条",
+   "type": "cmd",
+   "tier": "B",
+   "concepts": [
+    "商家宣称"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/merchant-claim-lint.md"
+  },
+  "life/bag/mil-std-810h-tailored-report": {
+   "conclusion": "MIL-STD-810H 除 Method 528 外, 各测试方法不得被笼统引用, 剪裁与偏离的理由要写进测试报告",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "防护等级"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/mil-std-810h-tailored-report.md"
+  },
+  "life/bag/pitfall-checkpoint-friendly-still-remove": {
+   "conclusion": "\"checkpoint friendly\" 设计不保证省掉取电脑这一步: 2008 年准则本身就保留重检权",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "安检"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/pitfall-checkpoint-friendly-still-remove.md"
+  },
+  "life/bag/pitfall-denier-not-same-fabric": {
+   "conclusion": "同一个旦尼尔标号不能代表同一块布: 标称 \"1000 d Cordura\" 的面料实测克重从 325 gsm 到 560 gsm 不等 (T3, 只当线索)",
+   "type": "pitfall",
+   "tier": "B",
+   "concepts": [
+    "面料"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/pitfall-denier-not-same-fabric.md"
+  },
+  "life/bag/pitfall-domestic-size-not-uniform": {
+   "conclusion": "\"国内随身行李 20 × 40 × 55 厘米\" 已不是全国统一规则, 首都航空经济舱上限是 20 × 30 × 40 厘米",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "随身行李"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/pitfall-domestic-size-not-uniform.md"
+  },
+  "life/bag/pitfall-iata-size-not-guarantee": {
+   "conclusion": "\"符合 IATA 尺寸\" 不等于 \"一定能带上飞机\": IATA 明说 Cabin OK 不是最大尺寸, 而各航司上限各不相同",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "随身行李"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/pitfall-iata-size-not-guarantee.md"
+  },
+  "life/bag/pitfall-load-ratio-inconsistent": {
+   "conclusion": "背负比例建议不一致: AAP 页 10% 到 20%, AAOS 15%, NSC 转述 AAP 为 5% 到 10%, 三者都针对儿童",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "背负"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/pitfall-load-ratio-inconsistent.md"
+  },
+  "life/bag/pitfall-mil-std-not-pass-fail": {
+   "conclusion": "\"MIL-STD-810 测试过\" 不是单一的通过 / 不通过结论: 方法须剪裁, 剪裁参数写在测试报告里",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "防护等级",
+    "商家宣称"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/pitfall-mil-std-not-pass-fail.md"
+  },
+  "life/bag/screen-size-is-diagonal": {
+   "conclusion": "Apple 规格页的屏幕尺寸 (14.2 / 16.2 英寸) 按标准矩形的对角线测量",
+   "type": "measure",
+   "tier": "A",
+   "concepts": [
+    "电脑尺寸"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/screen-size-is-diagonal.md"
+  },
+  "life/bag/tsa-remove-laptop": {
+   "conclusion": "TSA 现行页面: 请把笔记本电脑从包里取出, 单独放进一个筐过 X 光, TSA PreCheck 旅客不需要取出",
+   "type": "check",
+   "tier": "A",
+   "concepts": [
+    "安检"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/tsa-remove-laptop.md"
+  }
+ }
 }
