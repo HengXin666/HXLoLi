@@ -353,6 +353,7 @@
    "cs/skill/name-reserved-words",
    "cs/skill/naming-gerund",
    "cs/skill/nonspec-fields-hard-error",
+   "cs/skill/skill-lint-script",
    "cs/skill/yaml-parse-fail-empty-metadata"
   ],
   "Skill结构": [
@@ -363,6 +364,7 @@
    "cs/skill/scripts-cost-output-only",
    "cs/skill/scripts-handle-errors",
    "cs/skill/scripts-run-or-read",
+   "cs/skill/skill-lint-script",
    "cs/skill/split-references-by-domain"
   ],
   "AgentSkill": [
@@ -376,6 +378,7 @@
    "life/bag/pitfall-load-ratio-inconsistent"
   ],
   "随身行李": [
+   "life/bag/caac-1996-domestic-rule",
    "life/bag/caac-2021-carrier-sets-limits",
    "life/bag/caac-guide-domestic",
    "life/bag/caac-guide-international",
@@ -401,6 +404,11 @@
    "life/bag/pitfall-checkpoint-friendly-still-remove",
    "life/bag/tsa-remove-laptop"
   ],
+  "商家宣称": [
+   "life/bag/claim-lint-rules",
+   "life/bag/merchant-claim-lint",
+   "life/bag/pitfall-mil-std-not-pass-fail"
+  ],
   "面料": [
    "life/bag/denier-definition",
    "life/bag/fabric-grab-test",
@@ -416,10 +424,6 @@
    "life/bag/legion-pro-7i-16-dimensions",
    "life/bag/macbook-pro-16-dimensions",
    "life/bag/screen-size-is-diagonal"
-  ],
-  "商家宣称": [
-   "life/bag/merchant-claim-lint",
-   "life/bag/pitfall-mil-std-not-pass-fail"
   ]
  },
  "cards": {
@@ -1540,6 +1544,17 @@
    "stale": false,
    "path": "kb/cards/cs/skill/scripts-run-or-read.md"
   },
+  "cs/skill/skill-lint-script": {
+   "conclusion": "skill_lint.py 体检一个 skill 目录, 有 E 级命中时退出码为 1",
+   "type": "cmd",
+   "tier": "B",
+   "concepts": [
+    "Skill结构",
+    "Skill元数据"
+   ],
+   "stale": false,
+   "path": "kb/cards/cs/skill/skill-lint-script.md"
+  },
   "cs/skill/small-eval-with-negative": {
    "conclusion": "小规模 10 到 20 条提示即可抓回归, 至少放一条 should_trigger=false 的负例",
    "type": "check",
@@ -1711,6 +1726,16 @@
    "stale": false,
    "path": "kb/cards/life/bag/backpack-straps-heavy-center.md"
   },
+  "life/bag/caac-1996-domestic-rule": {
+   "conclusion": "每件体积不得超过 20 × 40 × 55 厘米出自 1996 年国内运输规则, 该规则已被 2021-09-01 起施行的规定废止",
+   "type": "pitfall",
+   "tier": "A",
+   "concepts": [
+    "随身行李"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/caac-1996-domestic-rule.md"
+  },
   "life/bag/caac-2021-carrier-sets-limits": {
    "conclusion": "2021-09-01 起施行的规定废止了 1996 年规则, 改为承运人在运输总条件中明确非托运行李的尺寸、重量与数量",
    "type": "decide",
@@ -1851,6 +1876,16 @@
    ],
    "stale": false,
    "path": "kb/cards/life/bag/checkpoint-friendly-no-pockets.md"
+  },
+  "life/bag/claim-lint-rules": {
+   "conclusion": "每个声明词必须带上它的测法: 防水 IEC 60529 或 mm/kPa, 容量 ASTM F2153, 面料强度 ASTM D5034",
+   "type": "check",
+   "tier": "B",
+   "concepts": [
+    "商家宣称"
+   ],
+   "stale": false,
+   "path": "kb/cards/life/bag/claim-lint-rules.md"
   },
   "life/bag/denier-definition": {
    "conclusion": "旦尼尔 (denier) 的定义是每 9000 m 纱线的克数, 换算为 den = 9 × tex",
