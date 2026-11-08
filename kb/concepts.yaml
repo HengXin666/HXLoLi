@@ -1,0 +1,23 @@
+# 概念表. key: {aliases: [...], parent: <key 或 null>}
+# 作者维护; AI 新概念写进 concepts.proposed.yaml 等合并.
+
+# --- 计算机 ---
+Python爬虫: {aliases: [爬虫, crawler, web scraping], parent: null}
+requests: {aliases: [python-requests], parent: Python爬虫}
+httpx: {aliases: [], parent: Python爬虫}
+aiohttp: {aliases: [], parent: Python爬虫}
+Scrapy: {aliases: [scrapy], parent: Python爬虫}
+Playwright: {aliases: [scrapy-playwright, 无头浏览器], parent: Python爬虫}
+curl_cffi: {aliases: [TLS指纹], parent: Python爬虫}
+HTTP超时: {aliases: [timeout, 超时], parent: Python爬虫}
+连接池: {aliases: [connection pool, pool], parent: Python爬虫}
+AgentSkill: {aliases: [Agent Skill, SKILL.md, skill], parent: null}
+Skill触发: {aliases: [description, 触发评测], parent: AgentSkill}
+Skill正文: {aliases: [渐进加载, progressive disclosure], parent: AgentSkill}
+
+# --- 生活 ---
+电脑包: {aliases: [背包, 双肩包, laptop bag], parent: null}
+随身行李: {aliases: [登机箱, carry-on, 行李尺寸], parent: 电脑包}
+背包容量: {aliases: [容量, ASTM F2153, 升数], parent: 电脑包}
+面料: {aliases: [旦尼尔, denier, Cordura], parent: 电脑包}
+安检: {aliases: [TSA, checkpoint friendly], parent: 电脑包}
