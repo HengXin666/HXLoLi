@@ -262,6 +262,15 @@ const aiDocsSidebar = [
               "icon": "default-icons/ai-folder.svg",
               "tags": []
             }
+          },
+          {
+            "type": "doc",
+            "id": "AI/Agent-Harness/评测Harness为什么会逼出作弊与外包/index",
+            "label": "评测Harness为什么会逼出作弊与外包",
+            "customProps": {
+              "icon": "default-icons/ai-doc.svg",
+              "tags": []
+            }
           }
         ],
         "customProps": {

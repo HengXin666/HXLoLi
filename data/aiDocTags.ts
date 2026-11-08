@@ -1203,5 +1203,5 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "tags": []
     }
   ],
-  "generatedAt": "2026-11-03T13:32:26.548Z"
+  "generatedAt": "2026-11-08T06:25:41.775Z"
 };
