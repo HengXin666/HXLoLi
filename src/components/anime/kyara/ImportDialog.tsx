@@ -2,33 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { hxEase, useHxReducedMotion } from "@site/src/components/anime/ui";
 import { kyaraResolvers } from "@site/src/utils/kyara/resolvers";
-import type { useKyaraLocal } from "@site/src/utils/kyara/localStore";
-import type { KyaraImage, KyaraImportItem, KyaraSourceResolver } from "@site/src/utils/kyara/types";
+import type { KyaraImage, KyaraImportItem, KyaraLocalStore, KyaraSourceResolver } from "@site/src/utils/kyara/types";
+import type { KyaraDevModule } from "./devChunks";
 import { useDialogFocus } from "./Lightbox";
 import styles from "./Kyara.module.css";
-
-export type KyaraLocalApi = ReturnType<typeof useKyaraLocal>;
-
-/**
- * dev-only 写入通道 (plugins/kyara-gallery-plugin.mjs): JSON / 二进制体 + X-HX-Kyara 头, dev server 只认 localhost.
- * 生产构建里 serverWritable = false, 调用方不会走到这里.
- */
-export async function kyaraDev (name: string, path: string, init: RequestInit = {}): Promise<Response> {
-    const headers = new Headers(init.headers);
-    headers.set("X-HX-Kyara", "1");
-    const res = await fetch(`/__hx/kyara/${encodeURIComponent(name)}/${path}`, { ...init, headers });
-    if (!res.ok) {
-        let msg = `${res.status} ${res.statusText}`;
-        try {
-            const j = (await res.json()) as { error?: string };
-            if (j?.error) msg = j.error;
-        } catch {
-            /* 非 JSON 错误体, 用状态行 */
-        }
-        throw new Error(msg);
-    }
-    return res;
-}
 
 type Target = "local" | "repo";
 
@@ -45,7 +22,10 @@ const splitUrls = (text: string): string[] =>
 
 interface Props {
     name: string;
-    local: KyaraLocalApi;
+    /** 本地库 (IndexedDB) */
+    store: KyaraLocalStore;
+    /** 本机 dev 下的仓库写入能力; 线上为 null */
+    dev: KyaraDevModule | null;
     onClose: () => void;
     /** 粘贴进面板的链接, 预填到输入框 */
     initialText?: string;
@@ -55,10 +35,10 @@ interface Props {
 
 /**
  * 从链接导入: 粘贴多行 URL -> 逐条匹配解析器 (pixiv / x / direct) -> 预览 (标题可改) -> 确认.
- * 浏览器里 pixiv 会被 CORS / Referer 挡住: dev 下交给服务端 POST /__hx/kyara/{name}/import, 线上只提示去本机 dev 导入.
+ * 浏览器里 pixiv 会被 CORS / Referer 挡住: dev 下交给服务端导入 (devChunks), 线上提示先把图存下来再拖进本地.
  * x / 直链能在浏览器里拿到就进本地 IndexedDB; 拿不到 (CORS) 且在 dev 下, 同样回落到服务端导入.
  */
-export default function ImportDialog ({ name, local, onClose, initialText = "", onRepoImported }: Props): React.ReactElement {
+export default function ImportDialog ({ name, store, dev, onClose, initialText = "", onRepoImported }: Props): React.ReactElement {
     const reduced = useHxReducedMotion();
     const ref = React.useRef<HTMLDivElement>(null);
     const [text, setText] = React.useState(initialText);
@@ -87,9 +67,9 @@ export default function ImportDialog ({ name, local, onClose, initialText = "", 
         const done = await Promise.all(initial.map(async (row): Promise<Row> => {
             if (row.state === "error") return row;
             if (row.resolver === "pixiv") {
-                return local.serverWritable
+                return dev
                     ? { ...row, state: "server" }
-                    : { ...row, state: "error", error: "pixiv 在浏览器里会被 Referer 挡住, 请在本机 dev 下导入" };
+                    : { ...row, state: "error", error: "pixiv 的原图不允许在网页里直接下载. 先在 pixiv 上保存图片, 再拖进本地面板." };
             }
             const resolver = kyaraResolvers.find((x: KyaraSourceResolver) => x.id === row.resolver)!;
             try {
@@ -97,7 +77,7 @@ export default function ImportDialog ({ name, local, onClose, initialText = "", 
                 if (items.length === 0) return { ...row, state: "error", error: "这条链接里没有图片" };
                 return { ...row, state: "ok", items };
             } catch (e) {
-                if (local.serverWritable) return { ...row, state: "server" };
+                if (dev) return { ...row, state: "server" };
                 return { ...row, state: "error", error: `浏览器里拿不到: ${(e as Error).message || "网络或跨域限制"}` };
             }
         }));
@@ -121,20 +101,14 @@ export default function ImportDialog ({ name, local, onClose, initialText = "", 
         try {
             const toLocal = target === "local" ? ready.filter((r) => r.state === "ok").flatMap((r) => r.items) : [];
             if (toLocal.length > 0) {
-                const added = await local.store.add(name, toLocal);
+                const added = await store.add(name, toLocal);
                 localAdded = added.length;
             }
             // 服务端导入: pixiv / 浏览器拿不到的链接, 以及选了「写进仓库」时的全部链接
-            const toServer = ready.filter((r) => r.state === "server" || target === "repo");
+            const toServer = dev ? ready.filter((r) => r.state === "server" || target === "repo") : [];
             for (const r of toServer) {
                 try {
-                    const res = await kyaraDev(name, "import", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ url: r.url }),
-                    });
-                    const got = (await res.json()) as KyaraImage | KyaraImage[];
-                    repoAdded.push(...(Array.isArray(got) ? got : [got]));
+                    repoAdded.push(...(await dev!.kyaraRepo.importUrl(name, r.url)));
                 } catch (e) {
                     errors.push(`${r.url}: ${(e as Error).message}`);
                 }
@@ -189,7 +163,7 @@ export default function ImportDialog ({ name, local, onClose, initialText = "", 
                     <button type="button" className={styles.btn} onClick={parse} disabled={!!busy || text.trim() === ""}>
                         {busy === "parse" ? "解析中…" : "解析"}
                     </button>
-                    {local.serverWritable && (
+                    {dev && (
                         <fieldset className={styles.segment} aria-label="导入到">
                             {(["local", "repo"] as Target[]).map((k) => (
                                 <label key={k} data-on={target === k ? "true" : undefined}>
@@ -211,7 +185,7 @@ export default function ImportDialog ({ name, local, onClose, initialText = "", 
                                     <span className={styles.previewState}>
                                         {r.state === "pending" && "解析中…"}
                                         {r.state === "ok" && `${r.items.length} 张`}
-                                        {r.state === "server" && "交给本机 dev 下载"}
+                                        {r.state === "server" && "由本机 dev 服务下载进仓库"}
                                         {r.state === "error" && "无法导入"}
                                     </span>
                                 </div>
@@ -239,7 +213,7 @@ export default function ImportDialog ({ name, local, onClose, initialText = "", 
                 {notice && <p className={styles.dialogNotice} role="status">{notice}</p>}
 
                 <footer className={styles.dialogFoot}>
-                    <span className={styles.dim}>文件会按下一个序号命名为 NNN-标题@作者.ext</span>
+                    <span className={styles.dim}>{target === "repo" && dev ? "按下一个序号写进仓库, 命名为 NNN-标题@作者.ext" : "存进这个浏览器的本地画集, 排在已有图片之后"}</span>
                     <button type="button" className={styles.btnGhost} onClick={onClose} disabled={!!busy}>取消</button>
                     <button type="button" className={styles.btnPrimary} onClick={commit} disabled={!!busy || count === 0}>
                         {busy === "commit" ? "导入中…" : `导入 ${count} 项`}

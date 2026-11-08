@@ -1,5 +1,5 @@
 /*
- * キャラ 角色配图页 (/anime/kyara, /anime/kyara/{name}) — HX おすすめ Glass 同款.
+ * キャラ 角色画集 (/anime/kyara, /anime/kyara/{name}, /anime/kyara/local) — HX おすすめ Glass 同款, 产品页式布局.
  * 颜色只取 --hx-* 令牌与 --kyara-accent (角色 accent, 缺省 --hx-accent), 派生一律 color-mix; 不写死 hex / rgba.
  * 断点: ≤996 (Docusaurus 移动端) / ≤640.
  */
@@ -46,83 +46,6 @@
     font-size: 12.5px;
 }
 
-/* ---------- 面包屑 ---------- */
-.crumbs {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    font-size: 13px;
-    color: var(--hx-text-dim);
-    margin-bottom: 14px;
-}
-
-.crumbs a {
-    color: inherit;
-}
-
-.crumbs a:hover {
-    color: var(--kyara-accent);
-    text-decoration: none;
-}
-
-.crumbs [aria-current] {
-    color: var(--hx-text);
-    font-weight: 600;
-}
-
-/* ---------- Hero: 首图大幅模糊铺底 + accent 光晕 ---------- */
-.heroWrap {
-    position: relative;
-    border-radius: var(--hx-radius-xl);
-    overflow: hidden;
-    isolation: isolate;
-}
-
-.heroBg {
-    position: absolute;
-    inset: -40px;
-    z-index: -1;
-    background-image: var(--kyara-bg), var(--hx-mesh);
-    background-size: cover;
-    background-position: center 30%;
-    filter: blur(36px) saturate(130%);
-    opacity: 0.42;
-    pointer-events: none;
-}
-
-.heroBg::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(60% 80% at 85% 10%, var(--kyara-tint), transparent 70%),
-        linear-gradient(to bottom, transparent 40%, var(--hx-surface-0));
-}
-
-.heroTools {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.heroLink {
-    font-size: 13px;
-    color: var(--hx-text-dim);
-    padding: 6px 12px;
-    border-radius: var(--hx-radius-pill);
-    border: 1px solid var(--hx-border);
-    background: var(--hx-surface-glass);
-    backdrop-filter: var(--hx-glass-blur);
-    transition: color var(--hx-dur-fast), border-color var(--hx-dur-fast);
-}
-
-.heroLink:hover {
-    color: var(--kyara-accent);
-    border-color: var(--kyara-ring);
-    text-decoration: none;
-}
 
 /* 本地模式开关 */
 .localSwitch {
@@ -172,19 +95,6 @@
     transform: translateX(14px);
 }
 
-/* ---------- 工具条 / 区块 ---------- */
-.toolbar {
-    position: sticky;
-    top: calc(var(--ifm-navbar-height) + 8px);
-    z-index: 5;
-    display: flex;
-    justify-content: center;
-    margin: 18px 0 8px;
-}
-
-.gallery {
-    margin-top: 22px;
-}
 
 /* ---------- 等高行画廊 (按序号从左到右、从上到下, 每张按原比例伸缩, 行内等高) ---------- */
 .masonry {
@@ -348,169 +258,6 @@
     background: color-mix(in srgb, var(--hx-gold) 85%, black);
 }
 
-/* ---------- 空态 ---------- */
-.empty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 24px 0;
-}
-
-.emptyNeko {
-    width: 120px;
-    height: auto;
-    animation: kyaraFloat 3.2s var(--hx-ease-out) infinite alternate;
-}
-
-@keyframes kyaraFloat {
-    to {
-        transform: translateY(-6px);
-    }
-}
-
-/* ---------- 索引页 bento ---------- */
-.bento {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-auto-rows: 1fr;
-    gap: var(--hx-gutter);
-}
-
-.bentoCell {
-    min-width: 0;
-}
-
-.bentoCell[data-big] {
-    grid-column: span 2;
-    grid-row: span 2;
-}
-
-.kyaraCard {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    min-height: 260px;
-    border-radius: var(--hx-radius-lg);
-    overflow: hidden;
-    border: 1px solid var(--hx-border);
-    background: var(--hx-surface-1);
-    color: var(--hx-text);
-    transition:
-        transform var(--hx-dur-med) var(--hx-ease-out),
-        box-shadow var(--hx-dur-med) var(--hx-ease-out),
-        border-color var(--hx-dur-med);
-}
-
-.kyaraCard:hover,
-.kyaraCard:focus-visible {
-    transform: var(--hx-lift);
-    box-shadow: var(--hx-shadow-md);
-    border-color: color-mix(in srgb, var(--kyara-accent) 55%, transparent);
-    text-decoration: none;
-    color: var(--hx-text);
-}
-
-.kyaraCover {
-    position: absolute;
-    inset: 0;
-    display: block;
-}
-
-.kyaraCover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.coverEmpty {
-    display: grid;
-    place-items: center;
-    height: 100%;
-    font-family: var(--hx-font-round);
-    font-size: 48px;
-    color: var(--hx-text-faint);
-    background: var(--hx-mesh), var(--hx-surface-2);
-}
-
-.kyaraMeta {
-    position: relative;
-    margin-top: auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 4px 10px;
-    padding: 40px 14px 14px;
-    color: white;
-    background: linear-gradient(to top, var(--kyara-scrim), transparent);
-}
-
-.kyaraName {
-    width: 100%;
-    font-family: var(--hx-font-round);
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 1.25;
-}
-
-.bentoCell[data-big] .kyaraName {
-    font-size: clamp(22px, 2.6vw, 30px);
-}
-
-.kyaraWork {
-    font-size: 12.5px;
-    opacity: 0.85;
-}
-
-.kyaraCount {
-    margin-left: auto;
-    font-size: 12.5px;
-    padding: 1px 8px;
-    border-radius: var(--hx-radius-pill);
-    background: color-mix(in srgb, var(--kyara-accent) 70%, transparent);
-}
-
-.newCard {
-    height: 100%;
-    min-height: 260px;
-    border-style: dashed;
-}
-
-.newForm {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    height: 100%;
-    padding: 18px;
-    justify-content: center;
-}
-
-.newForm label {
-    font-family: var(--hx-font-round);
-    font-weight: 800;
-    font-size: 18px;
-}
-
-.newForm input {
-    font: inherit;
-    padding: 8px 12px;
-    border-radius: var(--hx-radius-md);
-    border: 1px solid var(--hx-border-strong);
-    background: var(--hx-surface-0);
-    color: var(--hx-text);
-}
-
-.newPlus {
-    display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 22px;
-    color: var(--hx-accent);
-    background: var(--hx-accent-soft);
-}
 
 /* ---------- 按钮 ---------- */
 .btn,
@@ -1110,106 +857,6 @@
     margin-right: auto;
 }
 
-/* ---------- 断点 ---------- */
-@media (max-width: 996px) {
-    .localGrid {
-        grid-template-columns: 1fr;
-    }
-
-    .bento {
-        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    }
-
-    .lbStage {
-        padding: 0 12px;
-    }
-
-    .lbNav {
-        top: auto;
-        bottom: 8px;
-        margin-top: 0;
-    }
-}
-
-@media (max-width: 640px) {
-    .page {
-        padding-top: 12px;
-    }
-
-    .masonry { gap: 8px; }
-
-    /* 触屏没有 hover: 标题常驻 */
-    .caption {
-        transform: none;
-        opacity: 1;
-        padding: 20px 8px 6px;
-    }
-
-    .capAuthor,
-    .caption .srcIcon {
-        display: none;
-    }
-
-    .bento {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
-
-    .bentoCell[data-big] {
-        grid-row: span 1;
-    }
-
-    .kyaraCard,
-    .newCard {
-        min-height: 200px;
-    }
-
-    .lbThumb {
-        width: 44px;
-        height: 44px;
-    }
-
-    .dialog {
-        padding: 16px;
-    }
-}
-
-/* ---------- 减少动效: 全部瞬时 ---------- */
-@media (prefers-reduced-motion: reduce) {
-    .tileBtn,
-    .tileImg,
-    .caption,
-    .kyaraCard,
-    .switchThumb,
-    .switchTrack,
-    .dropzone,
-    .lbThumb,
-    .lbClose,
-    .btn,
-    .btnGhost,
-    .btnPrimary {
-        transition: none;
-    }
-
-    .tileBtn:hover,
-    .tileBtn:focus-visible,
-    .kyaraCard:hover,
-    .kyaraCard:focus-visible,
-    .btnPrimary:hover:not(:disabled) {
-        transform: none;
-    }
-
-    .tileBtn:hover .tileImg,
-    .lbClose:hover:not(:disabled),
-    .dropzone[data-over],
-    .lbThumb[aria-current="true"] {
-        transform: none;
-    }
-
-    .emptyNeko {
-        animation: none;
-    }
-}
 
 /* ---------- 还没有图时的上墙说明 (KyaraGuide): 目录示意 + 三种上墙方式 ---------- */
 .guide {
@@ -1308,4 +955,1244 @@
 
 @media (max-width: 996px) {
     .guide { grid-template-columns: 1fr; }
+}
+
+/* ======================================================================
+ * 产品页式布局 (2 页共用): 面包屑 / 索引页头 / Spotlight / 统计 / 角色卡 / 角色页首屏 / 画廊区 / 同作品 / 翻页 / 本地操作台
+ * ====================================================================== */
+
+.page {
+    padding-top: 18px;
+    padding-bottom: 120px;
+}
+
+.crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin: 0 0 18px;
+    font-size: 13px;
+    color: var(--hx-text-faint);
+}
+
+.crumbs a {
+    color: var(--hx-text-dim);
+    text-decoration: none;
+}
+
+.crumbs a:hover {
+    color: var(--kyara-accent);
+}
+
+.crumbs [aria-current] {
+    color: var(--hx-text);
+    font-weight: 600;
+}
+
+.localTag {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    padding: 1px 8px;
+    border-radius: var(--hx-radius-pill);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--kyara-accent);
+    background: var(--kyara-tint);
+    border: 1px solid var(--kyara-ring);
+    vertical-align: middle;
+}
+
+.section {
+    margin-top: clamp(36px, 6vw, 64px);
+}
+
+.filterRow {
+    margin: 4px 0 18px;
+}
+
+/* ---------- 索引页头 ---------- */
+.indexHead {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.indexTitle {
+    margin: 4px 0 6px;
+    font-family: var(--hx-font-round);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+}
+
+.indexTitle span {
+    margin-left: 14px;
+    font-size: 0.42em;
+    font-weight: 600;
+    color: var(--hx-text-faint);
+    letter-spacing: 0.12em;
+}
+
+.indexSub {
+    margin: 0;
+    color: var(--hx-text-dim);
+    max-width: var(--hx-measure);
+}
+
+/* ---------- Spotlight 主视觉 ---------- */
+.spot {
+    --kyara-tint: color-mix(in srgb, var(--kyara-accent) 14%, transparent);
+    --kyara-ring: color-mix(in srgb, var(--kyara-accent) 55%, transparent);
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--hx-radius-xl);
+    border: 1px solid var(--hx-border);
+    background: var(--hx-surface-1);
+    box-shadow: var(--hx-shadow-md);
+    isolation: isolate;
+    transition: border-color 0.9s var(--hx-ease-out);
+}
+
+.spotBack {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.spotBack::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(120% 90% at 85% 40%, color-mix(in srgb, var(--kyara-accent) 30%, transparent), transparent 60%),
+        linear-gradient(90deg, var(--hx-surface-1) 30%, color-mix(in srgb, var(--hx-surface-1) 55%, transparent) 62%, transparent);
+    transition: background 0.9s var(--hx-ease-out);
+}
+
+.spotBlur {
+    position: absolute;
+    inset: -40px;
+    width: calc(100% + 80px);
+    height: calc(100% + 80px);
+    object-fit: cover;
+    filter: blur(40px) saturate(140%);
+    opacity: 0.55;
+}
+
+.spotInner {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    align-items: center;
+    gap: clamp(16px, 4vw, 48px);
+    min-height: clamp(320px, 42vw, 460px);
+    padding: clamp(22px, 4vw, 48px);
+}
+
+.spotBody {
+    position: relative;
+    z-index: 1;
+}
+
+.spotKicker {
+    margin: 0 0 10px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--hx-text-faint);
+    font-variant-numeric: tabular-nums;
+}
+
+.spotKicker span {
+    color: var(--kyara-accent);
+    font-weight: 700;
+}
+
+.spotName {
+    margin: 0;
+    font-family: var(--hx-font-round);
+    font-size: clamp(30px, 4.6vw, 56px);
+    font-weight: 800;
+    line-height: 1.05;
+}
+
+.spotAlt {
+    margin: 6px 0 0;
+    color: var(--hx-text-faint);
+    letter-spacing: 0.06em;
+}
+
+.spotMeta {
+    margin: 16px 0 22px;
+    color: var(--hx-text-dim);
+}
+
+.spotMeta b {
+    color: var(--hx-text);
+    font-size: 1.15em;
+}
+
+.spotFigure {
+    position: relative;
+    height: clamp(280px, 38vw, 420px);
+}
+
+.spotFrame {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.spotFrame a {
+    display: block;
+    height: 100%;
+}
+
+.spotImg {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: var(--hx-radius-lg);
+    box-shadow:
+        0 30px 60px -20px color-mix(in srgb, var(--kyara-accent) 45%, transparent),
+        var(--hx-shadow-lg);
+    border: 1px solid color-mix(in srgb, var(--hx-surface-0) 60%, transparent);
+}
+
+.spotArrows,
+.stageArrows {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    gap: 6px;
+    z-index: 2;
+}
+
+.spotArrow {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--hx-border);
+    background: var(--hx-surface-glass);
+    backdrop-filter: var(--hx-glass-blur);
+    color: var(--hx-text);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color var(--hx-dur-fast), color var(--hx-dur-fast), transform var(--hx-dur-fast) var(--hx-ease-out);
+}
+
+.spotArrow:hover {
+    color: var(--kyara-accent);
+    border-color: var(--kyara-ring);
+    transform: translateY(-1px);
+}
+
+.spotDots {
+    position: absolute;
+    left: clamp(22px, 4vw, 48px);
+    bottom: 18px;
+    display: flex;
+    gap: 6px;
+}
+
+.spotDot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--hx-radius-pill);
+    background: color-mix(in srgb, var(--hx-text) 22%, transparent);
+    cursor: pointer;
+    transition: width var(--hx-dur-med) var(--hx-ease-out), background var(--hx-dur-med);
+}
+
+.spotDot[aria-current="true"] {
+    width: 26px;
+    background: var(--kyara-accent);
+}
+
+/* 自动轮换进度线: 每次换格重新挂载, 6s 走完 */
+.spotProgress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    transform-origin: left;
+    background: var(--kyara-accent);
+    opacity: 0.7;
+    animation: kyaraProgress 6s linear both;
+    pointer-events: none;
+}
+
+@keyframes kyaraProgress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+
+/* ---------- 统计 ---------- */
+.specs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 20px 0;
+    border: 1px solid var(--hx-border);
+    border-radius: var(--hx-radius-lg);
+    background: var(--hx-surface-1);
+    overflow: hidden;
+}
+
+.specs[data-wide] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 18px;
+}
+
+.spec {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2px;
+    padding: 14px 16px;
+}
+
+.spec + .spec {
+    border-left: 1px solid var(--hx-border);
+}
+
+.spec dd {
+    margin: 0;
+    font-family: var(--hx-font-round);
+    font-size: clamp(20px, 2.4vw, 28px);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    color: var(--hx-text);
+}
+
+.spec dt {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--hx-text-faint);
+}
+
+/* ---------- 作品分组 + 角色卡 ---------- */
+.workSection + .workSection {
+    margin-top: 34px;
+}
+
+.workHead {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--hx-border);
+}
+
+.workTitle {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.workCount {
+    color: var(--hx-text-faint);
+    font-size: 13px;
+}
+
+.workLink {
+    margin-left: auto;
+    font-size: 13px;
+    color: var(--hx-text-dim);
+    text-decoration: none;
+}
+
+.workLink:hover {
+    color: var(--hx-accent);
+}
+
+.cardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(180px, 210px);
+    gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+}
+
+.strip > * {
+    scroll-snap-align: start;
+}
+
+.card {
+    --kyara-ring: color-mix(in srgb, var(--kyara-accent) 55%, transparent);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--hx-radius-lg);
+    border: 1px solid var(--hx-border);
+    background: var(--hx-surface-1);
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    transition:
+        transform var(--hx-dur-med) var(--hx-ease-out),
+        box-shadow var(--hx-dur-med) var(--hx-ease-out),
+        border-color var(--hx-dur-med);
+}
+
+.card:hover,
+.card:focus-visible {
+    color: inherit;
+    text-decoration: none;
+    transform: var(--hx-lift);
+    border-color: var(--kyara-ring);
+    box-shadow:
+        0 18px 40px -18px color-mix(in srgb, var(--kyara-accent) 55%, transparent),
+        var(--hx-shadow-md);
+}
+
+.cardMedia {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--kyara-accent) 10%, var(--hx-surface-2));
+}
+
+.cardImg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity 0.7s var(--hx-ease-out), transform 1.4s var(--hx-ease-out);
+}
+
+.cardImg[data-on] {
+    opacity: 1;
+}
+
+.card:hover .cardImg[data-on],
+.card:focus-visible .cardImg[data-on] {
+    transform: scale(1.06);
+}
+
+.cardEmpty,
+.stageEmpty {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: var(--hx-font-round);
+    font-size: 22px;
+    letter-spacing: 0.2em;
+    color: color-mix(in srgb, var(--kyara-accent) 55%, var(--hx-text-faint));
+}
+
+.cardBadge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 2px 8px;
+    border-radius: var(--hx-radius-pill);
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    background: color-mix(in srgb, var(--kyara-accent) 85%, black);
+}
+
+.cardDots {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 4px;
+}
+
+.cardDots i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: color-mix(in srgb, white 55%, transparent);
+    transition: background var(--hx-dur-med);
+}
+
+.cardDots i[data-on] {
+    background: white;
+}
+
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px 12px;
+    border-top: 1px solid var(--hx-border);
+}
+
+.cardName {
+    font-weight: 700;
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cardWork {
+    font-size: 12px;
+    color: var(--hx-text-faint);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cardCount {
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--hx-text-dim);
+}
+
+.cardCount b {
+    color: var(--kyara-accent);
+}
+
+.newCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 260px;
+    padding: 16px;
+    border-radius: var(--hx-radius-lg);
+    border: 1.5px dashed var(--hx-border-strong);
+    background: transparent;
+    color: var(--hx-text-dim);
+    font: inherit;
+    cursor: pointer;
+    transition: border-color var(--hx-dur-fast), color var(--hx-dur-fast), background var(--hx-dur-fast);
+}
+
+.newCard:hover {
+    border-color: var(--kyara-ring);
+    color: var(--kyara-accent);
+    background: var(--kyara-tint);
+}
+
+.newCard small {
+    color: var(--hx-text-faint);
+}
+
+.newPlus {
+    font-size: 30px;
+    line-height: 1;
+}
+
+.emptyBlock {
+    display: grid;
+    gap: 18px;
+}
+
+.emptyActions {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+/* ---------- 角色页首屏 ---------- */
+.product {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(20px, 3.5vw, 44px);
+    align-items: start;
+    min-height: 200px;
+}
+
+.stage {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+.stageMain {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    max-height: 78vh;
+    border-radius: var(--hx-radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--hx-border);
+    background: color-mix(in srgb, var(--kyara-accent) 8%, var(--hx-surface-2));
+    box-shadow:
+        0 30px 70px -30px color-mix(in srgb, var(--kyara-accent) 55%, transparent),
+        var(--hx-shadow-md);
+    isolation: isolate;
+}
+
+.stageBlur {
+    position: absolute;
+    inset: -30px;
+    width: calc(100% + 60px);
+    height: calc(100% + 60px);
+    object-fit: cover;
+    filter: blur(28px) saturate(130%);
+    opacity: 0.6;
+    z-index: -1;
+}
+
+.stageBtn {
+    position: absolute;
+    inset: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+}
+
+.stageImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.stageCaption {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    right: 100px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: var(--hx-radius-pill);
+    background: var(--hx-surface-glass);
+    backdrop-filter: var(--hx-glass-blur);
+    font-size: 13px;
+    pointer-events: none;
+    width: fit-content;
+    max-width: calc(100% - 112px);
+}
+
+.stageCaption .seq {
+    position: static;
+}
+
+.stageTitle {
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.stageMain .spotProgress {
+    z-index: 2;
+}
+
+.stageThumbs {
+    display: flex;
+    gap: 8px;
+    margin: 0;
+    padding: 2px 2px 6px;
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.stageThumb {
+    width: 60px;
+    height: 60px;
+    flex: none;
+    padding: 0;
+    border-radius: var(--hx-radius-md);
+    border: 2px solid transparent;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--hx-surface-2);
+    opacity: 0.6;
+    transition: opacity var(--hx-dur-fast), border-color var(--hx-dur-fast);
+}
+
+.stageThumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.stageThumb:hover {
+    opacity: 1;
+}
+
+.stageThumb[aria-current="true"] {
+    opacity: 1;
+    border-color: var(--kyara-accent);
+}
+
+.info {
+    position: sticky;
+    top: calc(var(--ifm-navbar-height, 60px) + 20px);
+    display: flex;
+    flex-direction: column;
+    padding: 6px 0;
+}
+
+.infoKicker {
+    margin: 0 0 8px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--kyara-accent);
+    font-weight: 700;
+}
+
+.infoTitle {
+    margin: 0;
+    font-family: var(--hx-font-round);
+    font-size: clamp(32px, 4.4vw, 54px);
+    font-weight: 800;
+    line-height: 1.05;
+}
+
+.infoAlt {
+    margin: 8px 0 0;
+    color: var(--hx-text-faint);
+    letter-spacing: 0.06em;
+}
+
+.infoFrom {
+    margin: 14px 0 0;
+    color: var(--hx-text-dim);
+}
+
+.infoFrom a {
+    color: var(--kyara-accent);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.infoFrom a:hover {
+    text-decoration: underline;
+}
+
+.artists {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 22px;
+}
+
+.artistChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px 3px 3px;
+    border-radius: var(--hx-radius-pill);
+    border: 1px solid var(--hx-border);
+    background: var(--hx-surface-1);
+    color: var(--hx-text-dim);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color var(--hx-dur-fast), color var(--hx-dur-fast), background var(--hx-dur-fast);
+}
+
+.artistChip small {
+    color: var(--hx-text-faint);
+    font-variant-numeric: tabular-nums;
+}
+
+.artistChip:hover,
+.artistChip[aria-pressed="true"] {
+    border-color: var(--kyara-ring);
+    color: var(--kyara-accent);
+    background: var(--kyara-tint);
+}
+
+.artistInitial {
+    width: 22px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    background: color-mix(in srgb, var(--kyara-accent) 80%, var(--hx-text));
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.actions a {
+    text-decoration: none;
+}
+
+/* ---------- 上一位 / 下一位 ---------- */
+.pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: clamp(36px, 6vw, 64px);
+}
+
+.pagerCard {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: var(--hx-radius-lg);
+    border: 1px solid var(--hx-border);
+    background: var(--hx-surface-1);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color var(--hx-dur-fast), transform var(--hx-dur-fast) var(--hx-ease-out);
+}
+
+.pagerCard[data-dir="next"] {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+.pagerCard:hover {
+    color: inherit;
+    text-decoration: none;
+    border-color: color-mix(in srgb, var(--kyara-accent) 55%, transparent);
+    transform: translateY(-2px);
+}
+
+.pagerCard img,
+.pagerEmpty {
+    width: 56px;
+    height: 56px;
+    flex: none;
+    border-radius: var(--hx-radius-md);
+    object-fit: cover;
+    background: color-mix(in srgb, var(--kyara-accent) 12%, var(--hx-surface-2));
+}
+
+.pagerCard span {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.pagerCard small {
+    color: var(--hx-text-faint);
+    font-size: 12px;
+}
+
+.pagerCard b {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ---------- 本地操作台 (吸底) + 抽屉 ---------- */
+.dock {
+    position: sticky;
+    bottom: 16px;
+    z-index: 20;
+    margin-top: 40px;
+}
+
+.dockInner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px 10px 16px;
+    border-radius: var(--hx-radius-xl);
+    border: 1px solid var(--kyara-ring);
+    background: var(--hx-surface-glass);
+    backdrop-filter: var(--hx-glass-blur);
+    box-shadow: var(--hx-shadow-lg);
+    transition: border-color var(--hx-dur-fast), background var(--hx-dur-fast);
+}
+
+.dock[data-over] .dockInner {
+    border-style: dashed;
+    background: var(--kyara-tint);
+}
+
+.dockLabel {
+    font-size: 13px;
+    color: var(--hx-text-dim);
+}
+
+.dockLabel .localTag {
+    margin: 0 8px 0 0;
+}
+
+.dockLabel b {
+    color: var(--hx-text);
+}
+
+.dockActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dockNotice {
+    position: absolute;
+    left: 16px;
+    bottom: calc(100% + 8px);
+    margin: 0;
+    padding: 6px 12px;
+    border-radius: var(--hx-radius-pill);
+    font-size: 13px;
+    background: var(--hx-surface-0);
+    border: 1px solid var(--hx-border);
+    box-shadow: var(--hx-shadow-sm);
+}
+
+.dockNotice[data-kind="error"] {
+    color: var(--ifm-color-danger);
+}
+
+.drawerLayer {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+}
+
+.drawer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(520px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px;
+    overflow-y: auto;
+    background: var(--hx-surface-0);
+    border-left: 1px solid var(--hx-border);
+    box-shadow: var(--hx-shadow-lg);
+}
+
+.drawer .segment {
+    margin: 0;
+    align-self: flex-start;
+}
+
+.drawerBody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.segment button {
+    padding: 4px 12px;
+    border: 0;
+    border-radius: var(--hx-radius-pill);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background var(--hx-dur-fast), color var(--hx-dur-fast);
+}
+
+.segment button[data-on] {
+    background: var(--kyara-accent);
+    color: white;
+}
+
+.repoTools {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.metaForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 12px;
+}
+
+.metaForm label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--hx-text-faint);
+}
+
+.metaForm input {
+    font: inherit;
+    font-size: 14px;
+    padding: 7px 10px;
+    border-radius: var(--hx-radius-md);
+    border: 1px solid var(--hx-border-strong);
+    background: var(--hx-surface-0);
+    color: var(--hx-text);
+}
+
+.metaForm input:focus-visible {
+    outline: none;
+    box-shadow: var(--hx-focus);
+}
+
+.metaForm input[readonly] {
+    color: var(--hx-text-faint);
+    background: var(--hx-surface-1);
+}
+
+.metaWide {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.metaForm label.metaWide {
+    flex-direction: column;
+}
+
+[data-small] {
+    padding: 3px 10px !important;
+    font-size: 12px !important;
+    white-space: nowrap;
+}
+
+[data-danger="true"] {
+    color: var(--ifm-color-danger) !important;
+    border-color: color-mix(in srgb, var(--ifm-color-danger) 50%, transparent) !important;
+}
+
+.btnPrimary,
+.btnGhost,
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+}
+
+a.btnPrimary:hover {
+    color: white;
+    text-decoration: none;
+}
+
+/* ---------- 断点 ---------- */
+@media (max-width: 996px) {
+    .spotInner {
+        grid-template-columns: 1fr;
+        min-height: 0;
+        padding-bottom: 48px;
+    }
+
+    .spotFigure {
+        order: -1;
+        height: clamp(240px, 60vw, 360px);
+    }
+
+    .spotBack::after {
+        background:
+            radial-gradient(120% 80% at 50% 20%, color-mix(in srgb, var(--kyara-accent) 30%, transparent), transparent 60%),
+            linear-gradient(0deg, var(--hx-surface-1) 35%, color-mix(in srgb, var(--hx-surface-1) 40%, transparent));
+    }
+
+    .product {
+        grid-template-columns: 1fr;
+    }
+
+    .info {
+        position: static;
+    }
+
+    .stageMain {
+        max-height: 70vh;
+    }
+
+    .specs[data-wide] {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .specs[data-wide] .spec:nth-child(3) {
+        border-left: 0;
+    }
+
+    .specs[data-wide] .spec:nth-child(n + 3) {
+        border-top: 1px solid var(--hx-border);
+    }
+
+    .lbStage {
+        padding: 0 12px;
+    }
+
+    .lbNav {
+        top: auto;
+        bottom: 8px;
+        margin-top: 0;
+    }
+
+    .guide {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .page {
+        padding-top: 12px;
+    }
+
+    .indexHead {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .indexTitle span {
+        display: block;
+        margin: 6px 0 0;
+    }
+
+    .masonry {
+        gap: 8px;
+    }
+
+    /* 触屏没有 hover: 标题常驻 */
+    .caption {
+        transform: none;
+        opacity: 1;
+        padding: 20px 8px 6px;
+    }
+
+    .capAuthor,
+    .caption .srcIcon {
+        display: none;
+    }
+
+    .cardGrid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .newCard {
+        min-height: 200px;
+    }
+
+    .stageMain {
+        aspect-ratio: 3 / 4;
+        border-radius: var(--hx-radius-lg);
+    }
+
+    .stageCaption {
+        display: none;
+    }
+
+    .stageThumb {
+        width: 48px;
+        height: 48px;
+    }
+
+    .pager {
+        grid-template-columns: 1fr;
+    }
+
+    .dock {
+        bottom: 8px;
+    }
+
+    .dockLabel {
+        width: 100%;
+    }
+
+    .dockActions .btn,
+    .dockActions .btnGhost,
+    .dockActions .btnPrimary {
+        padding: 6px 10px;
+    }
+
+    .metaForm {
+        grid-template-columns: 1fr;
+    }
+
+    .lbThumb {
+        width: 44px;
+        height: 44px;
+    }
+
+    .dialog {
+        padding: 16px;
+    }
+}
+
+/* ---------- 减少动效: 全部瞬时 ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .tileBtn,
+    .tileImg,
+    .caption,
+    .card,
+    .cardImg,
+    .spot,
+    .spotBack::after,
+    .spotDot,
+    .spotArrow,
+    .stageThumb,
+    .artistChip,
+    .pagerCard,
+    .newCard,
+    .dockInner,
+    .switchThumb,
+    .switchTrack,
+    .dropzone,
+    .lbThumb,
+    .lbClose,
+    .btn,
+    .btnGhost,
+    .btnPrimary {
+        transition: none;
+    }
+
+    .tileBtn:hover,
+    .tileBtn:focus-visible,
+    .card:hover,
+    .card:focus-visible,
+    .pagerCard:hover,
+    .spotArrow:hover,
+    .btnPrimary:hover:not(:disabled) {
+        transform: none;
+    }
+
+    .tileBtn:hover .tileImg,
+    .card:hover .cardImg[data-on],
+    .card:focus-visible .cardImg[data-on],
+    .lbClose:hover:not(:disabled),
+    .dropzone[data-over],
+    .lbThumb[aria-current="true"] {
+        transform: none;
+    }
+
+    .spotProgress {
+        display: none;
+    }
 }

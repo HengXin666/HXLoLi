@@ -48,9 +48,24 @@ export function nextKyaraSeq(images: { seq: number }[]): number {
     return images.reduce((m, i) => Math.max(m, i.seq), 0) + 1;
 }
 
-/** 角色目录名 = URL 段: 允许中日文, 不许路径分隔符 / 控制字符 / 以点开头, 最长 64 */
+/** 保留段: /anime/kyara/local 是纯本地角色页的路由 */
+export const KYARA_RESERVED_NAMES: readonly string[] = ["local"];
+
+/** 角色目录名 = URL 段: 允许中日文, 不许路径分隔符 / 控制字符 / 以点开头 / 保留段, 最长 64 */
 export function isValidKyaraName(name: string): boolean {
-    return name.length > 0 && name.length <= 64 && !/[/\\\u0000-\u001f\u007f]/.test(name) && !name.startsWith(".");
+    return name.length > 0 && name.length <= 64 && !/[/\\\u0000-\u001f\u007f]/.test(name) && !name.startsWith(".") && !KYARA_RESERVED_NAMES.includes(name.toLowerCase());
+}
+
+/** 由显示名推目录名: 去掉 / \\ ? # % 与控制字符, 去开头的点, 空白压成一个, 截到 64; 推不出返回空串 */
+export function kyaraNameFrom(displayName: string): string {
+    const s = displayName
+        .replace(/[/\\?#%\u0000-\u001f\u007f]/g, "")
+        .replace(/\s+/g, " ")
+        .trim()
+        .replace(/^\.+/, "")
+        .slice(0, 64)
+        .trim();
+    return isValidKyaraName(s) ? s : "";
 }
 
 /** 从 Content-Type 或 URL 推扩展名, 推不出返回 null */

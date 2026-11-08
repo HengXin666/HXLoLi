@@ -1,8 +1,7 @@
 /*
- * 推荐页 (susume), 第二版 2026-11-06: 首页 (src/components/home/page.module.css) 的语汇.
- * 只有 1px 细线、8 / 10 / 12px 圆角、等宽数字、150ms 悬停; 分类色只用在小圆点和当前分段上.
- * 页面骨架 (纸面 / 页头 / 节标题) 在 ../stage/stage.module.css.
- * .agents/notes/implemented/feature/2026-11-06-anime-susume-neko-redesign.md
+ * 推荐页 (susume): 按番名 A-Z 连着排的封面墙, 封面格复用首页 HomeAnime 的 AnimeCoverGrid (样式在 home/page.module.css).
+ * 这里只剩页面间距、分类切换、空状态和错误条.
+ * 页面骨架 (墙 / 页头 / 节标题) 在 ../stage/stage.module.css.
  */
 
 .page {
@@ -16,7 +15,6 @@
 .section { margin-top: 48px; }
 .section:first-of-type { margin-top: 32px; }
 
-.lede { margin: -8px 0 16px; font-size: 13px; color: var(--su-faint); }
 .none { margin: 0; padding: 16px 0; border-top: 1px solid var(--su-line); border-bottom: 1px solid var(--su-line); font-size: 13px; color: var(--su-faint); }
 .headLink { color: inherit; text-decoration: none !important; }
 .headLink:hover { color: var(--ifm-color-primary); }
@@ -46,126 +44,10 @@
 .tabOn { background: var(--ifm-color-emphasis-200); color: var(--ifm-font-color-base); }
 .tabCount { font: 11px/1 var(--ifm-font-family-monospace); color: var(--su-faint); }
 
-/* ---------- 前三: 三张等宽封面卡 ---------- */
-.tops {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
-}
-.top {
-    display: grid;
-    grid-template-columns: 112px minmax(0, 1fr);
-    gap: 14px;
-    align-items: start;
-    min-width: 0;
-    padding: 12px;
-    border: 1px solid var(--su-line);
-    border-radius: 12px;
-}
-.topCover { display: block; }
-.topCover img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 12 / 17;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid var(--su-line);
-    background: var(--su-surface);
-    transition: border-color 150ms var(--su-ease), transform 150ms var(--su-ease);
-}
-.topCover:hover img { border-color: var(--ifm-color-primary); transform: translateY(-2px); }
-.topBody { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.topRank { color: var(--stage-accent, var(--su-faint)); }
-.topTitle {
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1.4;
-    color: var(--ifm-font-color-base);
-    text-decoration: none !important;
-    transition: color 150ms var(--su-ease);
-}
-.topTitle:hover { color: var(--ifm-color-primary); }
-.original { font-size: 12px; color: var(--su-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.review {
-    margin: 4px 0 0;
-    padding-left: 10px;
-    border-left: 2px solid var(--su-line);
-    font-size: 13px;
-    line-height: 1.65;
-    color: var(--su-muted);
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
+/* ---------- 封面墙: 格子本身是首页的 .animeCovers (home/page.module.css), 这里只管与页头的间距 ---------- */
+.wall { margin-top: 32px; }
 
-/* ---------- 元信息 ---------- */
-.meta {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 6px;
-    font: 11px/1.4 var(--ifm-font-family-monospace);
-    font-variant-numeric: tabular-nums;
-    color: var(--su-faint);
-}
-.meta i { font-style: normal; opacity: 0.6; }
-.metaRate { color: var(--ifm-color-primary); }
-
-/* ---------- 第 4 名起: 细线列表 ---------- */
-.rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--su-line); }
-.rows li { border-bottom: 1px solid var(--su-line); }
-.row {
-    display: grid;
-    grid-template-columns: 28px 36px minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 4px;
-    color: var(--ifm-font-color-base);
-    text-decoration: none !important;
-    transition: background-color 150ms var(--su-ease), padding-left 150ms var(--su-ease);
-}
-.row:hover { background: var(--su-surface); padding-left: 8px; }
-.row:hover .rowTitle { color: var(--ifm-color-primary); }
-.rowRank { text-align: right; }
-.rowThumb { width: 36px; height: 51px; object-fit: cover; border-radius: 4px; border: 1px solid var(--su-line); }
-.rowText { display: flex; flex-direction: column; min-width: 0; }
-.rowTitle { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 150ms var(--su-ease); }
-.rowReview { font-size: 12px; color: var(--su-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-/* ---------- 封面行 (首页在追的番) ---------- */
-.covers {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 12px;
-}
-.cover { display: flex; flex-direction: column; gap: 4px; color: var(--ifm-font-color-base); text-decoration: none !important; }
-.cover img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 12 / 17;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid var(--su-line);
-    background: var(--su-surface);
-    transition: border-color 150ms var(--su-ease), transform 150ms var(--su-ease);
-}
-.cover:hover img { border-color: var(--ifm-color-primary); transform: translateY(-2px); }
-.cover:hover .coverName { color: var(--ifm-color-primary); }
-.coverName { font-size: 12px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-/* ---------- 面板 / 错误 / 口径 / 骨架 ---------- */
-.panel { border: 1px solid var(--su-line); border-radius: 12px; background: var(--su-surface); padding: 16px; }
-.panelTitle { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
-.panelText { margin: 0; font-size: 13px; line-height: 1.65; color: var(--su-muted); }
-
+/* ---------- 错误 ---------- */
 .error {
     display: flex;
     align-items: center;
@@ -180,24 +62,6 @@
     color: var(--su-muted);
 }
 .textBtn { border: 0; background: none; padding: 0; font-size: 13px; color: var(--ifm-color-primary); cursor: pointer; }
-
-.rule { margin: 0; font-size: 13px; line-height: 1.65; color: var(--su-muted); }
-
-.skeleton { aspect-ratio: 12 / 17; border-radius: 8px; background: var(--su-surface); border: 1px solid var(--su-line); }
-.coverSkeleton { height: 200px; border-radius: 8px; background: var(--su-surface); }
-
-/* /anime 顶部入口: 第三版并入页面子导航 (AnimeIndexPage.module.css 的 .subnav), 这里不再有样式. */
-
-@media (max-width: 996px) {
-    .covers { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .tops { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-}
-
-@media (max-width: 640px) {
-    .top { grid-template-columns: 88px minmax(0, 1fr); }
-    .row { grid-template-columns: 24px 36px minmax(0, 1fr); }
-    .row > .meta { grid-column: 3; }
-}
 
 @media (prefers-reduced-motion: reduce) {
     .page * { transition: none !important; }

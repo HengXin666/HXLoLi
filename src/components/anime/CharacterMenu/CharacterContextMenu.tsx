@@ -1,5 +1,8 @@
 import React, { useCallback, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
 import ReactDOM from "react-dom";
+import Link from "@docusaurus/Link";
+import { useHistory } from "@docusaurus/router";
+import { AnimatePresence } from "framer-motion";
 import { FloatingLayer } from "@site/src/components/common/Tooltip";
 import { useDevService } from "@site/src/components/DevTools/useDevService";
 import { isLocalDev } from "@site/src/utils/cdn/linkJsDelivr";
@@ -9,10 +12,17 @@ import {
     CharacterPromptInput,
     PROMPT_SEPARATOR,
 } from "@site/src/utils/anime/characterPrompt";
+import { findKyaraForCharacter, kyaraForSubject, kyaraHref, useKyaraCatalog } from "@site/src/utils/kyara/link";
+import { linkLocalCharacterSubject } from "@site/src/utils/kyara/localStore";
+import type { KyaraIndexEntry } from "@site/src/utils/kyara/types";
+import NewKyaraDialog, { type NewKyaraSeed } from "@site/src/components/anime/kyara/NewKyaraDialog";
+import { useKyaraDev } from "@site/src/components/anime/kyara/devChunks";
 import styles from "./CharacterContextMenu.module.css";
 
 /** 番剧这一侧的信息, 由详情页的角色区提供一次 */
 export interface CharacterMenuAnime {
+    /** Bangumi 条目 id: 新建 kyara 画集时记进 bangumiSubjectIds, 查看时补进已有画集 */
+    id?: number;
     name: string;
     originalName?: string;
     coverUrl: string;
@@ -29,7 +39,7 @@ export interface CharacterMenuTarget {
     relation?: string;
 }
 
-type MenuAction = "peek" | "standalone" | "download" | "copyUrl" | "openOriginal";
+type MenuAction = "kyara" | "kyaraNew" | "peek" | "standalone" | "download" | "copyUrl" | "openOriginal";
 
 interface MenuItem {
     action: MenuAction;
@@ -37,9 +47,11 @@ interface MenuItem {
     hint?: string;
     /** 开发者用途, 只在本地模式出现 */
     dev?: boolean;
+    /** kyara 画集项, 与其余项之间有分隔线 */
+    kyara?: boolean;
 }
 
-/** 菜单项的唯一清单: 本地模式全显示, 网站模式过滤掉 dev 项 */
+/** 菜单项的唯一清单: 本地模式全显示, 网站模式过滤掉 dev 项. kyara 画集项按角色动态插在最前 */
 const MENU_ITEMS: readonly MenuItem[] = [
     { action: "peek", label: "复制探头立绘提示词", hint: "左右两份", dev: true },
     { action: "standalone", label: "复制角色独立立绘提示词", hint: "透明底" },
@@ -62,6 +74,8 @@ interface OpenState {
 interface MenuContextValue {
     open: (state: OpenState) => void;
     isOpenFor: (id: number) => boolean;
+    /** 该 Bangumi 角色已有的 kyara 画集 (仓库, 或本地模式开启时的本地画集) */
+    kyaraFor: (id: number) => KyaraIndexEntry | null;
 }
 
 const MenuContext = React.createContext<MenuContextValue | null>(null);
@@ -118,7 +132,7 @@ async function downloadImage (url: string, name: string): Promise<"saved" | "ope
     }
 }
 
-/** 本地模式 = isLocalDev() || dev-edit-server health 探测通过. 两套都是仓里已有的判定 */
+/** 开发者本地模式 (只管探头立绘等开发者菜单项) = isLocalDev() || dev-edit-server health 探测通过; 与 kyara 的本地模式是两回事 */
 function useLocalMode (): boolean {
     const { ready } = useDevService();
     const [localHost, setLocalHost] = useState(false);
@@ -137,6 +151,10 @@ function useLocalMode (): boolean {
  */
 export function CharacterMenuScope ({ anime, children }: { anime: CharacterMenuAnime; children: React.ReactNode }): React.ReactElement {
     const local = useLocalMode();
+    const history = useHistory();
+    const kyara = useKyaraCatalog();
+    const kyaraDev = useKyaraDev();
+    const [creating, setCreating] = useState<NewKyaraSeed | null>(null);
     const [state, setState] = useState<OpenState | null>(null);
     const [toast, setToast] = useState<{ text: string; key: number } | null>(null);
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
@@ -146,11 +164,18 @@ export function CharacterMenuScope ({ anime, children }: { anime: CharacterMenuA
     const uid = useId().replace(/:/g, "");
     const menuId = `hx-charmenu-${uid}`;
 
-    // 网站模式去掉开发者项; 没有 Bangumi 原图地址的角色不显示"打开原图"
-    const items = useMemo(
-        () => MENU_ITEMS.filter((it) => (local || !it.dev) && (it.action !== "openOriginal" || !!state?.target.imageFallbackUrl)),
-        [local, state],
-    );
+    const kyaraFor = useCallback((id: number) => findKyaraForCharacter(kyara.entries, id), [kyara.entries]);
+    const kyaraHit = state ? kyaraFor(state.target.id) : null;
+
+    // 网站模式去掉开发者项; 没有 Bangumi 原图地址的角色不显示"打开原图";
+    // 已有画集才显示「查看 kyara 画集」, kyara 本地模式开启且还没有画集时显示「以此新建」
+    const items = useMemo(() => {
+        const base = MENU_ITEMS.filter((it) => (local || !it.dev) && (it.action !== "openOriginal" || !!state?.target.imageFallbackUrl));
+        const head: MenuItem[] = kyaraHit
+            ? [{ action: "kyara", label: "查看 kyara 画集", hint: kyaraHit.local ? "本地" : `${kyaraHit.count} 张`, kyara: true }]
+            : kyara.localOn ? [{ action: "kyaraNew", label: "以此新建 kyara 画集", hint: "本地模式", kyara: true }] : [];
+        return [...head, ...base];
+    }, [local, state, kyaraHit, kyara.localOn]);
 
     const stateRef = useRef<OpenState | null>(null);
     stateRef.current = state;
@@ -172,7 +197,8 @@ export function CharacterMenuScope ({ anime, children }: { anime: CharacterMenuA
     const ctx = useMemo<MenuContextValue>(() => ({
         open: (next) => setState(next),
         isOpenFor: (id) => state?.target.id === id,
-    }), [state]);
+        kyaraFor,
+    }), [state, kyaraFor]);
 
     // 打开后焦点进第一项; 点外部 / 滚动 / resize 关闭
     useEffect(() => {
@@ -211,6 +237,30 @@ export function CharacterMenuScope ({ anime, children }: { anime: CharacterMenuA
             characterImageFallbackUrl: t.imageFallbackUrl,
             relation: t.relation,
         };
+        if (action === "kyara") {
+            const hit = kyaraFor(t.id);
+            close(false);
+            if (!hit) return;
+            // 从另一季的详情页打开: 把这一季补进画集的关联条目 (本地静默写库, 仓库只在本机 dev 下写 kyara.json)
+            const sid = anime.id;
+            if (sid && !(hit.meta.bangumiSubjectIds ?? []).includes(sid)) {
+                const ids = [...(hit.meta.bangumiSubjectIds ?? []), sid];
+                if (hit.local) void linkLocalCharacterSubject(hit.meta.name, sid).catch(() => undefined);
+                else if (kyaraDev) void kyaraDev.kyaraRepo.putMeta(hit.meta.name, { bangumiSubjectIds: ids }).catch(() => undefined);
+            }
+            history.push(kyaraHref(hit));
+            return;
+        }
+        if (action === "kyaraNew") {
+            close(false);
+            setCreating({
+                displayName: t.name,
+                work: anime.name,
+                bangumiCharacterId: t.id,
+                ...(anime.id ? { bangumiSubjectIds: [anime.id] } : {}),
+            });
+            return;
+        }
         close(true);
         if (action === "openOriginal") {
             window.open(t.imageFallbackUrl || t.imageUrl, "_blank", "noopener,noreferrer");
@@ -232,7 +282,7 @@ export function CharacterMenuScope ({ anime, children }: { anime: CharacterMenuA
         const what = action === "peek" ? "探头立绘提示词 (左右两份)" : action === "standalone" ? "角色独立立绘提示词" : "角色图片链接";
         showToast(ok ? `已复制${what}` : "复制失败: 浏览器拒绝了剪贴板权限");
         if (state.trigger.isConnected) state.trigger.focus({ preventScroll: true });
-    }, [state, anime, close, showToast]);
+    }, [state, anime, close, showToast, kyaraFor, kyaraDev, history]);
 
     const onMenuKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
         const list = itemRefs.current.slice(0, items.length).filter((x): x is HTMLButtonElement => !!x);
@@ -275,7 +325,7 @@ export function CharacterMenuScope ({ anime, children }: { anime: CharacterMenuA
             </div>
             {items.map((it, i) => (
                 <React.Fragment key={it.action}>
-                    {i > 0 && items[i - 1].dev && !it.dev && <div role="separator" className={styles.sep} />}
+                    {i > 0 && ((items[i - 1].dev && !it.dev) || (items[i - 1].kyara && !it.kyara)) && <div role="separator" className={styles.sep} />}
                     <button
                         type="button"
                         role="menuitem"
@@ -283,6 +333,7 @@ export function CharacterMenuScope ({ anime, children }: { anime: CharacterMenuA
                         ref={(el) => { itemRefs.current[i] = el; }}
                         className={styles.item}
                         data-dev={it.dev ? "true" : undefined}
+                        data-kyara={it.kyara ? "true" : undefined}
                         onClick={() => void run(it.action)}
                     >
                         <span className={styles.label}>{it.label}</span>
@@ -326,11 +377,40 @@ export function CharacterMenuScope ({ anime, children }: { anime: CharacterMenuA
                     arrow={false}
                 />
             )}
+            <AnimatePresence>
+                {creating && (
+                    <NewKyaraDialog key="kyara-new" seed={creating} entries={kyara.entries} dev={kyaraDev} onClose={() => setCreating(null)} />
+                )}
+            </AnimatePresence>
             {toast && typeof document !== "undefined" && ReactDOM.createPortal(
                 <div key={toast.key} role="status" aria-live="polite" className={styles.toast}>{toast.text}</div>,
                 document.body,
             )}
         </MenuContext.Provider>
+    );
+}
+
+/** 角色卡上的「キャラ」徽标: 该角色已有画集时才出现, 点了直接进画集 (不用右键也能发现) */
+export function CharacterKyaraBadge ({ id }: { id: number }): React.ReactElement | null {
+    const ctx = useContext(MenuContext);
+    const hit = ctx?.kyaraFor(id) ?? null;
+    if (!hit) return null;
+    return (
+        <Link to={kyaraHref(hit)} className={styles.kyaraBadge} title={`${hit.meta.displayName} 的画集 · ${hit.count} 张`}>
+            キャラ
+        </Link>
+    );
+}
+
+/** 详情页角色区标题旁的入口: 这部番已有画集的角色数, 跳到 kyara 索引并预选该作品 */
+export function KyaraSubjectLink ({ subjectId }: { subjectId: number }): React.ReactElement | null {
+    const { entries } = useKyaraCatalog();
+    const list = kyaraForSubject(entries, subjectId);
+    if (list.length === 0) return null;
+    return (
+        <Link to={`/anime/kyara#work-${subjectId}`} className={styles.kyaraLink}>
+            キャラ画集 · {list.length} 位 →
+        </Link>
     );
 }
 

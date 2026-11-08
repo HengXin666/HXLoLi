@@ -30,6 +30,7 @@ function progress (r: ANiMeRecord): string {
  * 标签计数走 countTags (本站标签表 + user_status.tags), 点标签进 /anime?tag=..., 萝莉排第一并高亮.
  * 不画分布图: 160 部里看过占 134, 状态分布画出来就是一根长条, 一行数字说得更清楚, 也不用再拉一份 recharts.
  * .agents/notes/implemented/feature/2026-11-01-anime-tags-and-home-anime.md
+ * .agents/notes/implemented/feature/2026-11-06-home-plain-profile-and-anime.md
  */
 export default function HomeAnime (): React.ReactElement {
     const { siteConfig } = useDocusaurusContext();

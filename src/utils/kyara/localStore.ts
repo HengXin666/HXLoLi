@@ -1,20 +1,24 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import type { KyaraData, KyaraImage, KyaraImportItem, KyaraLocalStore } from "./types";
-import { compareKyaraImages, formatKyaraFilename, isValidKyaraName, kyaraExtOf, nextKyaraSeq, parseKyaraFilename } from "./filename";
+import type { KyaraImage, KyaraImportItem, KyaraIndexEntry, KyaraLocalCharacter, KyaraLocalStore, KyaraMeta } from "./types";
+import { formatKyaraFilename, isValidKyaraName, kyaraExtOf, parseKyaraFilename } from "./filename";
 import { resolveKyaraUrl } from "./resolvers";
 
-// 本地模式: 浏览器 IndexedDB 库 `hx-kyara`, 线上也能用.
-//   - images 仓 (keyPath "key" = `${name}/${id}`) 存 Blob 与元数据, order 仓 (keyPath "name") 存每个角色的本地顺序.
+// 本地模式: 浏览器 IndexedDB 库 `hx-kyara`, 线上与 dev 都可用.
+//   - images 仓 (keyPath "key" = `${name}/${id}`) 存 Blob 与元数据, order 仓 (keyPath "name") 存每个角色的本地顺序,
+//     characters 仓 (keyPath "name") 登记纯本地角色 (仓库里还没有目录的角色), 索引页与右键菜单据此列出它们.
 //   - 本地条目的序号不落库, 由 "仓库最大序号 + 本地位次" 推算, 所以永远排在仓库图片之后, exportZip / 写进仓库时用的就是这个序号.
-//   - dev (NODE_ENV=development 且本机 host) 下 serverWritable = true, 可经 plugins/kyara-gallery-plugin.mjs 的写入通道直接落盘.
+//   - 开关只有一个 localStorage 键 MODE_KEY, 全站共用; 同标签页经自定义事件、跨标签页经 storage 事件同步.
+//   - 写入仓库的 dev 通道不在这里, 见 src/components/anime/kyara/devChunks.ts (生产构建里整段被裁掉).
 
 const DB_NAME = "hx-kyara";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const IMAGES = "images";
 const ORDER = "order";
-const ENABLED_KEY = "hx-kyara-local-enabled";
-const KYARA_HEADER = "X-HX-Kyara";
+const CHARACTERS = "characters";
+const MODE_KEY = "hx-kyara-local";
+const LEGACY_MODE_KEYS = ["hx-kyara-local-enabled", "hx-kyara-local-index"];
+const MODE_EVENT = "hx-kyara-local-mode";
+const DATA_EVENT = "hx-kyara-local-data";
 
 interface LocalRow {
     key: string;
@@ -36,7 +40,7 @@ function hasIdb(): boolean {
 
 let dbPromise: Promise<IDBDatabase> | null = null;
 function openDb(): Promise<IDBDatabase> {
-    if (!hasIdb()) return Promise.reject(new Error("当前环境没有 IndexedDB"));
+    if (!hasIdb()) return Promise.reject(new Error("当前浏览器不支持 IndexedDB"));
     if (!dbPromise) {
         dbPromise = new Promise<IDBDatabase>((resolve, reject) => {
             const req = indexedDB.open(DB_NAME, DB_VERSION);
@@ -44,9 +48,15 @@ function openDb(): Promise<IDBDatabase> {
                 const db = req.result;
                 if (!db.objectStoreNames.contains(IMAGES)) db.createObjectStore(IMAGES, { keyPath: "key" }).createIndex("byName", "name");
                 if (!db.objectStoreNames.contains(ORDER)) db.createObjectStore(ORDER, { keyPath: "name" });
+                if (!db.objectStoreNames.contains(CHARACTERS)) db.createObjectStore(CHARACTERS, { keyPath: "name" });
             };
-            req.onsuccess = () => resolve(req.result);
+            req.onsuccess = () => {
+                const db = req.result;
+                db.onversionchange = () => { db.close(); dbPromise = null; };
+                resolve(db);
+            };
             req.onerror = () => { dbPromise = null; reject(req.error); };
+            req.onblocked = () => { dbPromise = null; reject(new Error("本地库被其他标签页占用, 关掉旧标签页后重试")); };
         });
     }
     return dbPromise;
@@ -64,6 +74,11 @@ function newId(): string {
     const c = (globalThis as any).crypto;
     if (c && typeof c.randomUUID === "function") return c.randomUUID().replace(/-/g, "").slice(0, 12);
     return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+}
+
+/** 通知同页其他订阅者 (索引页列表、右键菜单、角色页) 本地数据变了 */
+function emitData(name: string): void {
+    if (typeof window !== "undefined") window.dispatchEvent(new CustomEvent(DATA_EVENT, { detail: { name } }));
 }
 
 async function readRows(name: string): Promise<LocalRow[]> {
@@ -147,6 +162,7 @@ export function kyaraLocalFilename(img: KyaraImage): string {
 }
 
 // ── 最小 zip (STORE, 不压缩; 图片本身已压缩) ──
+// ── 最小 zip (STORE, 不压缩; 图片本身已压缩) ──
 const CRC_TABLE = (() => {
     const t = new Uint32Array(256);
     for (let n = 0; n < 256; n++) {
@@ -196,6 +212,18 @@ async function buildZip(entries: { name: string; blob: Blob }[]): Promise<Blob> 
     return new Blob([...parts, ...central, end.buffer], { type: "application/zip" });
 }
 
+/** kyara.json 的内容: 只留有值的白名单字段 */
+export function kyaraMetaJson(meta: Partial<KyaraMeta>): Record<string, unknown> {
+    const out: Record<string, unknown> = {};
+    if (meta.displayName) out.displayName = meta.displayName;
+    if (meta.work) out.work = meta.work;
+    if (Number.isInteger(meta.bangumiCharacterId)) out.bangumiCharacterId = meta.bangumiCharacterId;
+    if (meta.bangumiSubjectIds && meta.bangumiSubjectIds.length > 0) out.bangumiSubjectIds = meta.bangumiSubjectIds;
+    if (meta.accent) out.accent = meta.accent;
+    if (meta.cover) out.cover = meta.cover;
+    return out;
+}
+
 /**
  * IndexedDB 版本地库. staticBase = 仓库里该角色的最大序号, 本地条目从 staticBase+1 往后排.
  * src 用 blob: URL; urls 由调用方 (useKyaraLocal) 统一回收.
@@ -230,6 +258,7 @@ export function createKyaraLocalStore(getStaticBase: (name: string) => number = 
             for (const r of rows) tx.objectStore(IMAGES).put(r);
             await txDone(tx);
             await writeOrder(name, [...before.map((r) => r.id), ...rows.map((r) => r.id)]);
+            emitData(name);
             return list(name);
         },
         async remove(name, file) {
@@ -243,6 +272,7 @@ export function createKyaraLocalStore(getStaticBase: (name: string) => number = 
             const u = urls?.get(row.key);
             if (u) { URL.revokeObjectURL(u); urls?.delete(row.key); }
             await writeOrder(name, rows.filter((r) => r !== row).map((r) => r.id));
+            emitData(name);
         },
         async reorder(name, files) {
             const rows = await readRows(name);
@@ -250,125 +280,239 @@ export function createKyaraLocalStore(getStaticBase: (name: string) => number = 
             const picked = files.map((f) => byFile.get(f)).filter((r): r is LocalRow => !!r);
             const rest = rows.filter((r) => !picked.includes(r));
             await writeOrder(name, [...picked, ...rest].map((r) => r.id));
+            emitData(name);
         },
-        async exportZip(name) {
+        async exportZip(name, meta) {
             const base = getStaticBase(name);
             const rows = await readRows(name);
-            return buildZip(rows.map((r, i) => ({ name: kyaraLocalFilename(toImage(r, base + i + 1, "")), blob: r.blob })));
+            const entries = rows.map((r, i) => ({ key: localFile(r), name: kyaraLocalFilename(toImage(r, base + i + 1, "")), blob: r.blob }));
+            const out: { name: string; blob: Blob }[] = entries.map(({ name: n, blob }) => ({ name: n, blob }));
+            if (meta) {
+                const cover = meta.cover ? entries.find((e) => e.key === meta.cover)?.name ?? meta.cover : undefined;
+                const json = kyaraMetaJson({ ...meta, cover });
+                if (Object.keys(json).length > 0) {
+                    out.push({ name: "kyara.json", blob: new Blob([`${JSON.stringify(json, null, 2)}\n`], { type: "application/json" }) });
+                }
+            }
+            return buildZip(out);
         },
     };
 }
 
-// ── dev 写入通道 (plugins/kyara-gallery-plugin.mjs), 只在本机 dev 下可用 ──
+// ── 纯本地角色 (characters 仓) ──
 
-function devServerAvailable(): boolean {
-    if (process.env.NODE_ENV !== "development" || typeof window === "undefined") return false;
-    const h = window.location.hostname;
-    return h === "localhost" || h === "127.0.0.1" || h === "[::1]" || h === "::1";
+export async function listLocalCharacters(): Promise<KyaraLocalCharacter[]> {
+    if (!hasIdb()) return [];
+    const db = await openDb();
+    const tx = db.transaction(CHARACTERS, "readonly");
+    const all = await reqP<KyaraLocalCharacter[]>(tx.objectStore(CHARACTERS).getAll());
+    return all.sort((a, b) => a.displayName.localeCompare(b.displayName, "zh"));
 }
 
-async function devJson<T>(url: string, init: RequestInit): Promise<T> {
-    const res = await fetch(url, init);
-    const data = await res.json().catch(() => ({ ok: false, error: `HTTP ${res.status}` }));
-    if (!res.ok || !data?.ok) throw new Error(data?.error || `HTTP ${res.status}`);
-    return data as T;
+export async function getLocalCharacter(name: string): Promise<KyaraLocalCharacter | null> {
+    if (!hasIdb()) return null;
+    const db = await openDb();
+    const tx = db.transaction(CHARACTERS, "readonly");
+    return (await reqP<KyaraLocalCharacter | undefined>(tx.objectStore(CHARACTERS).get(name))) ?? null;
 }
 
-/** dev 下的仓库写入: import (服务端解析 + 下载, pixiv 走这里), putFile (本地文件提交), reorder (重排序号) */
-export const kyaraServer = {
-    importUrl(name: string, url: string): Promise<{ ok: true; images: KyaraImage[] }> {
-        return devJson(`/__hx/kyara/${encodeURIComponent(name)}/import`, {
-            method: "POST", headers: { "Content-Type": "application/json", [KYARA_HEADER]: "1" }, body: JSON.stringify({ url }),
-        });
-    },
-    putFile(name: string, filename: string, blob: Blob): Promise<{ ok: true; image: KyaraImage }> {
-        return devJson(`/__hx/kyara/${encodeURIComponent(name)}/file/${encodeURIComponent(filename)}`, {
-            method: "PUT", headers: { "Content-Type": blob.type || "application/octet-stream", [KYARA_HEADER]: "1" }, body: blob,
-        });
-    },
-    reorder(name: string, order: string[]): Promise<{ ok: true; images: KyaraImage[] }> {
-        return devJson(`/__hx/kyara/${encodeURIComponent(name)}/reorder`, {
-            method: "POST", headers: { "Content-Type": "application/json", [KYARA_HEADER]: "1" }, body: JSON.stringify({ order }),
-        });
-    },
-};
-
-/** 把本地条目逐个写进仓库 (dev), 成功的从本地库删掉; 返回写入后的仓库条目 */
-export async function commitKyaraLocal(name: string, store: KyaraLocalStore): Promise<KyaraImage[]> {
-    const done: KyaraImage[] = [];
-    for (const img of await store.list(name)) {
-        const blob = await (await fetch(img.src)).blob();
-        const r = await kyaraServer.putFile(name, kyaraLocalFilename(img), blob);
-        done.push(r.image);
-        await store.remove(name, img.file);
-    }
-    return done;
+/** 新建或更新纯本地角色; 新建时 createdAt 取当前时间 */
+export async function putLocalCharacter(c: Omit<KyaraLocalCharacter, "createdAt"> & { createdAt?: string }): Promise<KyaraLocalCharacter> {
+    if (!isValidKyaraName(c.name)) throw new Error(`角色名不合法: ${c.name}`);
+    const prev = await getLocalCharacter(c.name);
+    const row: KyaraLocalCharacter = { ...prev, ...c, displayName: c.displayName || c.name, createdAt: prev?.createdAt ?? c.createdAt ?? new Date().toISOString() };
+    const db = await openDb();
+    const tx = db.transaction(CHARACTERS, "readwrite");
+    tx.objectStore(CHARACTERS).put(row);
+    await txDone(tx);
+    emitData(c.name);
+    return row;
 }
 
-/** 解析一条链接并加入本地库; pixiv 在浏览器里拿不到会抛 code=node-only 的错误, 由 UI 提示去 dev 下导入 */
+/** 删除纯本地角色及其全部本地图 */
+export async function removeLocalCharacter(name: string): Promise<void> {
+    const rows = hasIdb() ? await readRows(name) : [];
+    const db = await openDb();
+    const tx = db.transaction([CHARACTERS, IMAGES, ORDER], "readwrite");
+    tx.objectStore(CHARACTERS).delete(name);
+    for (const r of rows) tx.objectStore(IMAGES).delete(r.key);
+    tx.objectStore(ORDER).delete(name);
+    await txDone(tx);
+    emitData(name);
+}
+
+/** 给本地角色补一个关联条目 (从另一季的详情页打开时), 已有则不动 */
+export async function linkLocalCharacterSubject(name: string, subjectId: number): Promise<void> {
+    const c = await getLocalCharacter(name);
+    if (!c || (c.bangumiSubjectIds ?? []).includes(subjectId)) return;
+    await putLocalCharacter({ ...c, bangumiSubjectIds: [...(c.bangumiSubjectIds ?? []), subjectId] });
+}
+
+/** 解析一条链接并加入本地库; pixiv 在浏览器里拿不到会抛 code=node-only 的错误 */
 export async function importKyaraLinkLocal(name: string, url: string, store: KyaraLocalStore): Promise<KyaraImage[]> {
     return store.add(name, await resolveKyaraUrl(url));
 }
 
+// ── hooks ──
+
+function readMode(): boolean {
+    try {
+        const ls = window.localStorage;
+        const v = ls.getItem(MODE_KEY);
+        if (v !== null) return v === "1";
+        // 兼容早先分开存的两个键: 任一为 1 视为开启, 迁移到 MODE_KEY 后清掉
+        const on = LEGACY_MODE_KEYS.some((k) => ls.getItem(k) === "1");
+        ls.setItem(MODE_KEY, on ? "1" : "0");
+        for (const k of LEGACY_MODE_KEYS) ls.removeItem(k);
+        return on;
+    } catch {
+        return false;
+    }
+}
+
+/** 本地模式开关: 全站一个键, SSR / 首帧为 false, 挂载后读 localStorage; 各处实例同步 */
+export function useKyaraLocalMode(): [boolean, (v: boolean) => void] {
+    const [on, setOn] = useState(false);
+    useEffect(() => {
+        setOn(readMode());
+        const sync = (): void => setOn(readMode());
+        const onStorage = (e: StorageEvent): void => { if (e.key === MODE_KEY) sync(); };
+        window.addEventListener(MODE_EVENT, sync);
+        window.addEventListener("storage", onStorage);
+        return () => {
+            window.removeEventListener(MODE_EVENT, sync);
+            window.removeEventListener("storage", onStorage);
+        };
+    }, []);
+    const set = useCallback((v: boolean) => {
+        setOn(v);
+        try { window.localStorage.setItem(MODE_KEY, v ? "1" : "0"); } catch { /* 隐私模式 */ }
+        window.dispatchEvent(new Event(MODE_EVENT));
+    }, []);
+    return [on, set];
+}
+
+/** 订阅本地数据变化 (name 省略 = 任意角色) */
+function useLocalDataTick(name?: string): number {
+    const [tick, setTick] = useState(0);
+    useEffect(() => {
+        const on = (e: Event): void => {
+            const n = (e as CustomEvent<{ name: string }>).detail?.name;
+            if (!name || n === name) setTick((t) => t + 1);
+        };
+        window.addEventListener(DATA_EVENT, on);
+        return () => window.removeEventListener(DATA_EVENT, on);
+    }, [name]);
+    return tick;
+}
+
+export interface KyaraLocalApi {
+    /** 是否在读写本地库 (本地模式开启, 或这是纯本地角色) */
+    active: boolean;
+    images: KyaraImage[];
+    store: KyaraLocalStore;
+    /** 纯本地角色的登记信息; 仓库角色为 null */
+    character: KyaraLocalCharacter | null;
+    loaded: boolean;
+}
+
 /**
- * 角色页的本地模式状态. enabled 存 localStorage (全站一个开关); images 只含本地条目, 序号接在仓库条目之后.
- * 仓库最大序号从插件输出的运行时清单 `${baseUrl}kyara/data/{name}.json` 读; 读不到按 0.
+ * 角色页的本地数据. active 为 false 时不读库, images 为空.
+ * staticMax = 仓库里该角色的最大序号, 本地条目接着往后排.
  */
-export function useKyaraLocal(name: string): { enabled: boolean; setEnabled(v: boolean): void; images: KyaraImage[]; store: KyaraLocalStore; serverWritable: boolean } {
-    const { siteConfig } = useDocusaurusContext();
-    const baseUrl = siteConfig.baseUrl;
-    const [enabled, setEnabledState] = useState(false);
+export function useKyaraLocal(name: string, active: boolean, staticMax: number): KyaraLocalApi {
     const [images, setImages] = useState<KyaraImage[]>([]);
-    const [serverWritable, setServerWritable] = useState(false);
-    const baseRef = useRef<Map<string, number>>(new Map());
+    const [character, setCharacter] = useState<KyaraLocalCharacter | null>(null);
+    const [loaded, setLoaded] = useState(false);
+    const baseRef = useRef(staticMax);
+    baseRef.current = staticMax;
     const urlsRef = useRef<Map<string, string>>(new Map());
+    const tick = useLocalDataTick(name);
+
+    const store = useMemo(() => createKyaraLocalStore(() => baseRef.current, urlsRef.current), []);
 
     useEffect(() => {
-        try { setEnabledState(window.localStorage.getItem(ENABLED_KEY) === "1"); } catch { /* 隐私模式 */ }
-        setServerWritable(devServerAvailable());
-    }, []);
-
-    const setEnabled = useCallback((v: boolean) => {
-        setEnabledState(v);
-        try { window.localStorage.setItem(ENABLED_KEY, v ? "1" : "0"); } catch { /* 隐私模式 */ }
-    }, []);
-
-    const raw = useMemo(() => createKyaraLocalStore((n) => baseRef.current.get(n) ?? 0, urlsRef.current), []);
-    const refresh = useCallback(async () => {
-        try { setImages(await raw.list(name)); } catch { setImages([]); }
-    }, [raw, name]);
-
-    // 包一层: 任何写操作后刷新 images
-    const store = useMemo<KyaraLocalStore>(() => ({
-        list: raw.list,
-        exportZip: raw.exportZip,
-        async add(n, files) { const r = await raw.add(n, files); if (n === name) await refresh(); return r; },
-        async remove(n, file) { await raw.remove(n, file); if (n === name) await refresh(); },
-        async reorder(n, files) { await raw.reorder(n, files); if (n === name) await refresh(); },
-    }), [raw, name, refresh]);
-
-    useEffect(() => {
-        if (!enabled) { setImages([]); return; }
+        if (!active || !hasIdb()) {
+            setImages([]);
+            setCharacter(null);
+            setLoaded(true);
+            return undefined;
+        }
         let alive = true;
         (async () => {
-            if (!baseRef.current.has(name)) {
-                try {
-                    const res = await fetch(`${baseUrl}kyara/data/${encodeURIComponent(name)}.json`);
-                    const data: KyaraData | null = res.ok ? await res.json() : null;
-                    baseRef.current.set(name, data ? nextKyaraSeq([...data.images].sort(compareKyaraImages)) - 1 : 0);
-                } catch {
-                    baseRef.current.set(name, 0);
-                }
+            try {
+                const [imgs, c] = await Promise.all([store.list(name), getLocalCharacter(name)]);
+                if (alive) { setImages(imgs); setCharacter(c); }
+            } catch {
+                if (alive) { setImages([]); setCharacter(null); }
+            } finally {
+                if (alive) setLoaded(true);
             }
-            if (alive) await refresh();
         })();
         return () => { alive = false; };
-    }, [enabled, name, baseUrl, refresh]);
+    }, [active, name, staticMax, store, tick]);
 
     useEffect(() => () => {
         for (const u of urlsRef.current.values()) URL.revokeObjectURL(u);
         urlsRef.current.clear();
     }, []);
 
-    return { enabled, setEnabled, images, store, serverWritable };
+    return { active, images, store, character, loaded };
+}
+
+/** 本地角色 → 索引条目 (封面 / 预览是 blob: URL, 由 useKyaraLocalCharacters 回收) */
+function entryOf(c: KyaraLocalCharacter, imgs: KyaraImage[]): KyaraIndexEntry {
+    const cover = (c.cover && imgs.find((i) => i.file === c.cover)?.src) || imgs[0]?.src || null;
+    return {
+        meta: {
+            name: c.name, displayName: c.displayName,
+            ...(c.work ? { work: c.work } : {}),
+            ...(c.bangumiCharacterId ? { bangumiCharacterId: c.bangumiCharacterId } : {}),
+            ...(c.bangumiSubjectIds?.length ? { bangumiSubjectIds: c.bangumiSubjectIds } : {}),
+            ...(c.accent ? { accent: c.accent } : {}),
+        },
+        count: imgs.length,
+        cover,
+        authors: new Set(imgs.map((i) => i.author).filter(Boolean)).size,
+        previews: imgs.slice(0, 4).map((i) => i.src),
+        local: true,
+    };
+}
+
+/** 本地模式开启时列出全部纯本地角色 (带封面与张数); 关闭时为空 */
+export function useKyaraLocalCharacters(active: boolean): { characters: KyaraIndexEntry[]; loaded: boolean } {
+    const [characters, setCharacters] = useState<KyaraIndexEntry[]>([]);
+    const [loaded, setLoaded] = useState(false);
+    const urlsRef = useRef<Map<string, string>>(new Map());
+    const tick = useLocalDataTick();
+    const store = useMemo(() => createKyaraLocalStore(() => 0, urlsRef.current), []);
+
+    useEffect(() => {
+        if (!active || !hasIdb()) {
+            setCharacters([]);
+            setLoaded(true);
+            return undefined;
+        }
+        let alive = true;
+        (async () => {
+            try {
+                const list = await listLocalCharacters();
+                const out: KyaraIndexEntry[] = [];
+                for (const c of list) out.push(entryOf(c, await store.list(c.name)));
+                if (alive) setCharacters(out);
+            } catch {
+                if (alive) setCharacters([]);
+            } finally {
+                if (alive) setLoaded(true);
+            }
+        })();
+        return () => { alive = false; };
+    }, [active, store, tick]);
+
+    useEffect(() => () => {
+        for (const u of urlsRef.current.values()) URL.revokeObjectURL(u);
+        urlsRef.current.clear();
+    }, []);
+
+    return { characters, loaded };
 }

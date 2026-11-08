@@ -1,4 +1,4 @@
-# Agent Note: 番剧详情角色立绘右键菜单: 复制生图提示词 / 下载角色图
+# Agent Note: 番剧详情角色立绘右键菜单: kyara 画集 / 复制生图提示词 / 下载角色图
 
 Status: implemented
 
@@ -12,14 +12,16 @@ Decision-ID: anime-character-context-menu
 
 ## Problem
 
-番剧详情页的角色图是 `<a class=charImg>` 上的 background-image, 浏览器原生右键菜单里没有"另存图片", 访客拿不到角色图. 站长本人给两侧探头立绘生图时, 要手动拼番剧封面、番剧名、角色名、角色图 URL 与构图要求, 每次都重抄一遍, 左右两个朝向的方向词还容易写反. 要求: 自绘菜单 (不是原生菜单), 键盘可操作, 点外部关闭, 触屏长按可触发; 开发者用途的探头提示词只在本地模式出现, 网站模式只给纯角色那条与拿图; 提示词模板集中一处; 深浅两套主题; 不用原生 alert.
+番剧详情页的角色图是 `<a class=charImg>` 上的 background-image, 浏览器原生右键菜单里没有"另存图片", 访客拿不到角色图. 站长本人给两侧探头立绘生图时, 要手动拼番剧封面、番剧名、角色名、角色图 URL 与构图要求, 每次都重抄一遍, 左右两个朝向的方向词还容易写反. 番剧角色与 kyara 角色画集之间也没有入口: 访客不知道哪个角色有画集, 站长想给某个角色开画集时还要手抄名字和 Bangumi id. 要求: 自绘菜单 (不是原生菜单), 键盘可操作, 点外部关闭, 触屏长按可触发; 开发者用途的探头提示词只在本地模式出现, 网站模式只给纯角色那条与拿图; 提示词模板集中一处; 深浅两套主题; 不用原生 alert.
 
 ## Decision
 
 - 模板: `src/utils/anime/characterPrompt.ts` 是纯函数模块 (不 import 任何东西), 导出 `buildPeekPrompt(input, side)`、`buildCharacterPrompt(input)`、`buildAllPrompts(input) -> { left, right, character }`, 以及 `PEEK_POSE` / `PEEK_NEGATIVE` / `CHARACTER_NEGATIVE` / `PROMPT_SEPARATOR`. 探头两份在正文里逐行写出番剧名、角色名、角色图片 URL、番剧封面 URL (参考图) 与姿势描述, 构图写明"从上往下俯探身子、半身出画、身体朝内、竖直裁切线在内侧", 左侧朝右 / 裁切线在右边缘, 右侧朝左 / 裁切线在左边缘. 末尾附负面清单, 抄自 `.agents/research/catgirl-genprompt.md` 第 6 节. 纯角色那份不含探头构图, 只要透明底全身立绘.
 - 菜单: `src/components/anime/CharacterMenu/CharacterContextMenu.tsx` 导出 `CharacterMenuScope` (一个详情页一个菜单实例、一次本地模式判定) 与 `useCharacterMenuTrigger(target)` (挂在角色图上的 contextmenu / 长按 / click 拦截与类名). 定位复用 `common/Tooltip` 导出的 `FloatingLayer`, 指针位置用一个 0x0 的 fixed 点当锚点; 键盘菜单键 / Shift+F10 触发时贴着角色图下方. WAI-ARIA menu 模式: 焦点进第一项, 上下 / Home / End 移动, Enter / 空格执行, Esc 与 Tab 关闭并把焦点还给角色图; 点外部、滚动、resize 关闭. 触屏 500ms 长按 (移动超过 10px 取消), 长按后的那次 click 被拦下, 不会跳去 bgm.tv; `-webkit-touch-callout: none` 关掉 iOS 的系统长按菜单. 结果用页内 toast (role=status) 提示.
-- 菜单项: 本地模式 = 复制探头立绘提示词 (左右两份合一次复制) / 复制角色独立立绘提示词 / 下载角色图 / 复制角色图片链接 / 打开 Bangumi 原图. 网站模式去掉第一项, 其余照旧.
-- 本地模式判定 = `isLocalDev()` (`src/utils/cdn/linkJsDelivr.ts`) `||` `useDevService().ready` (`src/components/DevTools/useDevService.ts`), 两套都是仓里已有的; 不新增第三种. `isLocalDev()` 在 effect 里读, SSR 与首帧按网站模式.
+- kyara 画集项 (插在最前, 与其余项之间有分隔线): 该角色已有画集 (按 Bangumi 角色 id 匹配仓库画集, kyara 本地模式开启时也算本地画集) 才出现「查看 kyara 画集」, hint 为张数或「本地」, 点击跳到画集页; 若当前番剧条目不在画集的 `bangumiSubjectIds` 里, 顺手补上 (本地画集写 IndexedDB, 仓库画集只在本机 dev 下经写入通道写 kyara.json). 还没有画集且 kyara 本地模式开启时出现「以此新建 kyara 画集」, 打开 `src/components/anime/kyara/NewKyaraDialog.tsx`, 预填角色名 (`name_cn`, 没有时原名)、作品名、角色 id 与番剧 id; 线上建成本地画集, 本机 dev 下可选直接建到仓库. 画集数据经 `src/utils/kyara/link.ts` 的 `useKyaraCatalog` 取得 (插件 globalData + 本地库), 不额外请求.
+- 角色卡与角色区: `CharacterKyaraBadge` 在已有画集的角色名旁显示「キャラ」徽标 (直接进画集), `KyaraSubjectLink` 在「角色」标题旁显示这部番已有画集的角色数, 跳到 `/anime/kyara#work-{id}`. `CharacterMenuAnime` 多一个 `id` (番剧条目 id), 由 `src/pages/anime/details.tsx` 传入.
+- 开发者菜单项: 本地模式 = 复制探头立绘提示词 (左右两份合一次复制) / 复制角色独立立绘提示词 / 下载角色图 / 复制角色图片链接 / 打开 Bangumi 原图. 网站模式去掉第一项, 其余照旧.
+- 开发者本地模式判定 (只管探头提示词那一项, 与 kyara 的本地模式开关是两回事) = `isLocalDev()` (`src/utils/cdn/linkJsDelivr.ts`) `||` `useDevService().ready` (`src/components/DevTools/useDevService.ts`), 两套都是仓里已有的; 不新增第三种. `isLocalDev()` 在 effect 里读, SSR 与首帧按网站模式.
 - 下载: CDN 允许跨域, fetch 成 blob 后用 `<a download>` 存成 `<角色名>.jpg`; 失败时新开标签页打开图片.
 - 视觉: 深色沿用 Tooltip 的半透明深色卡片, 选项尺寸 / 圆角 / 粉色 14% 高亮与 `common/Tooltip/Select` 一致; 亮色主题在本组件的 css module 里换成白底浅描边, 主题色文字压暗为 `#8c4b8c`.
 - 校验: `src/components/anime/CharacterMenu/characterPrompt.check.mjs` 用仓库自带的 typescript 转译模板模块后逐条断言, `node src/components/anime/CharacterMenu/characterPrompt.check.mjs` 退出码 0 为通过, `--print` 打印三份全文.
@@ -31,10 +33,13 @@ Decision-ID: anime-character-context-menu
 - 把 `<a>` 换成 `<img>` 让原生菜单能存图: 最强理由是零 JS. 否决: 仍拿不到提示词, 也不能区分本地 / 网站模式; 还会改动详情页角色卡布局 (另一篇 note 管).
 - 引入 Radix ContextMenu: 可访问性现成. 否决: 新增依赖, 且仓里已有 FloatingLayer 定位层.
 - 只用 `useDevService` 判定: 否决, `docusaurus start` 不一定同时起 dev-edit-server, 只在 localhost 开站时也要算本地模式.
+- kyara 入口用开发者本地模式判定 (`isLocalDev`): 最强理由是复用现成判定. 否决: kyara 本地模式在线上也要能用, 它有自己的开关 (`useKyaraLocalMode`); 混用会让线上访客永远看不到「以此新建」.
+- 菜单里总是显示「查看 kyara 画集」, 没有画集时跳到空页: 最强理由是入口固定好找. 否决: 点进去是空页, 用户要求只在画集存在时才显示.
 
 ## Consequences
 
 - `src/components/anime/CharacterMenu/CharacterContextMenu.module.css` 是非 AST 资源, 需人工核对.
 - 详情页每个页面多一次 `http://localhost:3310/health` 探测 (与 DevTools 已有探测相同), 生产站上必然失败, 结果是网站模式.
 - 生产构建里"复制探头立绘提示词"的文案仍在产物中 (运行时过滤, 不是构建期裁切), 只是不显示; 它不含任何写入通道, 不需要 NODE_ENV 死分支.
+- 详情页多读一次插件 globalData (已在首屏数据里) 和本地库 (仅 kyara 本地模式开启时), 不增加网络请求.
 - 详细说明、成品提示词与验证记录: `.agents/research/anime-character-context-menu.md`.

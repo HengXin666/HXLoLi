@@ -30,6 +30,20 @@
     isolation: isolate;
 }
 
+/* StagePaper 的墙内正文: 墙本身 (底色 / 圆角 / 1px 边 / 两侧阴影 / 20px 内边距) 由 BlogWithCats 的 .blog-content 给, 这里只补内边距与字号 */
+.sheet {
+    --st-line: var(--ifm-color-emphasis-200);
+    --st-faint: var(--ifm-color-emphasis-600);
+    --st-muted: var(--ifm-color-emphasis-700);
+    --st-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    padding: 4px 20px 36px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+@media (max-width: 996px) {
+    .sheet { padding: 0 0 32px; }
+}
+
 /* 旧版的点阵 / 光晕伪元素一律不画 */
 .paper::before,
 .paper::after { content: none !important; display: none !important; }
@@ -110,7 +124,7 @@
     overflow: hidden;
     background: var(--st-line);
 }
-.stat { background: var(--ifm-background-color); padding: 8px 12px; }
+.stat { background: var(--hx-wall-bg, var(--ifm-background-color)); padding: 8px 12px; }
 .stat dd {
     margin: 0;
     font: 600 18px/1.2 var(--ifm-font-family-monospace);

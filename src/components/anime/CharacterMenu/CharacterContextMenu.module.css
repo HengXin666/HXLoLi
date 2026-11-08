@@ -177,3 +177,51 @@
         animation: none;
     }
 }
+
+/* kyara 画集: 菜单项强调色 + 角色卡徽标 + 角色区标题旁的入口 */
+.item[data-kyara] .label {
+    color: var(--hx-accent);
+    font-weight: 600;
+}
+
+.kyaraBadge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 6px;
+    padding: 0 7px;
+    border-radius: var(--hx-radius-pill);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: 0.06em;
+    color: var(--hx-accent);
+    background: var(--hx-accent-soft);
+    border: 1px solid var(--hx-accent-ring);
+    text-decoration: none;
+    vertical-align: middle;
+    transition: background var(--hx-dur-fast), color var(--hx-dur-fast);
+}
+
+.kyaraBadge:hover {
+    color: white;
+    background: var(--hx-accent);
+    text-decoration: none;
+}
+
+.kyaraLink {
+    margin-left: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--hx-accent);
+    text-decoration: none;
+}
+
+.kyaraLink:hover {
+    text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .kyaraBadge {
+        transition: none;
+    }
+}

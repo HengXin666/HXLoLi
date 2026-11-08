@@ -327,8 +327,9 @@
 .magic[data-open='true'] .magicInner { opacity: 1; margin-top: 16px; }
 
 /*
- * 在追的番 (HomeAnime): 与"最近更新"同一种写法, 不套面板.
- * 计数是一行文字 (dt 小字 + dd 等宽数字, 中间 1px 竖线), 列表是 1px 分隔的行, 页脚放标签与"全部追番".
+ * 在追的番 (HomeAnime): 外层套 .panel 面板. 从上到下是 6 格计数 (记录 + 5 种状态, 1px 分格, 等宽数字, 记录用主色),
+ * 最近更新进度的 6 张在看封面格 (.animeCovers / .animeCover, 悬停描主色边并上浮 2px),
+ * 常显的标签行 (前 10 个标签, 萝莉高亮) 与"全部追番". 996px 以下计数和封面都改 3 列.
  */
 .anime { display: flex; flex-direction: column; gap: 16px; }
 .animeSkeleton { min-height: 300px; border-radius: 12px; background: rgba(255, 255, 255, 0.04); }

@@ -146,6 +146,7 @@ function seasonChip (head: string, watched: number, total: number, status: Watch
  * 评分为各季 Bangumi 分区间, 链到 /anime/series?id=<系列 key>. 筛选按单季算, 只命中部分季时标 "命中 x/N 季".
  * data-anime-id 填系列 key, 接入现有筛选切换过渡 (utils/anime/listMotion.ts).
  * .agents/notes/implemented/feature/2026-11-05-anime-series-fold.md
+ * 推荐分类徽章不带悬停提示: .agents/notes/implemented/feature/2026-11-08-anime-susume-wall.md
  */
 export default function SeriesCard ({ hit, view, activeTags, onTagClick }: SeriesCardProps): React.ReactElement {
     const { series, hits } = hit;
@@ -177,7 +178,7 @@ export default function SeriesCard ({ hit, view, activeTags, onTagClick }: Serie
         const susume = susumeDefOfTag(t);
         if (susume) {
             return (
-                <Link key={t} to={susumePath(susume)} className={`${posterStyles.tag} ${posterStyles.susumeTag}`} title={`推荐分类「${t}」: 去专属页`}>
+                <Link key={t} to={susumePath(susume)} className={`${posterStyles.tag} ${posterStyles.susumeTag}`}>
                     ★{t}
                 </Link>
             );

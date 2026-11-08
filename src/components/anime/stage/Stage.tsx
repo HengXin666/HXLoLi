@@ -1,10 +1,11 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import { motion, useReducedMotion } from "framer-motion";
+import { SideCats } from "@site/src/components/BlogWithCats";
 import styles from "./stage.module.css";
 
 /*
- * 番剧专题页 (susume 推荐 / kyara 角色配图) 共用的页面骨架.
+ * 番剧专题页的页面骨架: kyara 角色配图用全套; susume 推荐页 2026-11-08 起照搬番剧库, 只用这里的 StagePaper 当墙.
  * 2026-11-06 第二版: 照首页 (src/components/home/page.module.css) 的语汇重做 ——
  * 1px 细线、12 / 16px 圆角、20px 节标题 + 右侧灰色说明、等宽数字、150ms 悬停, 不要封面墙 / 光晕 / 点阵 / 逐字弹入 / 舞台里的猫娘.
  * 正文是一张有左右边线的「纸」(paperClass), 与两侧探头立绘的留白分开, 学博客文章页的正文 / 侧栏分界.
@@ -14,8 +15,32 @@ export const EASE: [number, number, number, number] = [0.2, 0.8, 0.2, 1];
 
 const cx = (...xs: (string | false | null | undefined)[]): string => xs.filter(Boolean).join(" ");
 
-/** 正文纸面: 加在页面 main 上, 左右 1px 边线 + 实底, 与两侧立绘区分开 */
+/** 正文纸面: 加在页面 main 上, 左右 1px 边线 + 实底, 与两侧立绘区分开 (kyara 仍在用; susume 已改用 StagePaper) */
 export const paperClass = styles.paper;
+
+/** 正文墙宽, 与系列页 / 番剧详情 / 番剧库的 BlogWithCats contentWidth 一致 */
+export const PAPER_WIDTH = 1200;
+
+/**
+ * 正文墙 + 两侧墙后探头立绘, 与系列页 (src/pages/anime/series.tsx) 完全同一套: BlogWithCats pair 变体, 墙宽 1200.
+ * 2026-11-06 晚: susume 原来只挂 paperClass, 立绘走 RouteCats 的兜底 gutter, 墙选择器 'main .container' 量不到纸,
+ * 只能按 1140 / 1320 推算 —— 纸实际 1180, 立绘离纸要么隔一条缝要么压边, 宽度上限 260 也比系列页 (380, 藏进墙后) 小一圈, 两侧比例不对.
+ * 取舍记在 StageHero 上方引用的 note (StagePaper 一节).
+ */
+export function StagePaper ({ className, style, children }: { className?: string; style?: React.CSSProperties; children: React.ReactNode }): React.ReactElement {
+    // 2026-11-06 21:1x: 不再用 BlogWithCats 的默认导出 (SusumeHubPage 报 Element type is invalid / undefined),
+    // 直接按 BlogWithCats 的 DOM 结构展开, 只用已在 share.tsx 验证过的具名导出 SideCats; 结构不变, pair 立绘照样找 .blog-content 当墙.
+    return (
+        <div className="blog-container">
+            <SideCats contentWidth={PAPER_WIDTH} />
+            <div className="blog-content-wrapper" style={{ maxWidth: PAPER_WIDTH }}>
+                <div className="blog-content">
+                    <main className={cx(styles.sheet, className)} style={style}>{children}</main>
+                </div>
+            </div>
+        </div>
+    );
+}
 
 export function useCalm (): boolean {
     return useReducedMotion() === true;
@@ -59,7 +84,7 @@ export interface StageStat { label: string; value: number | null; decimals?: num
 export interface StageHeroProps {
     /** 面包屑: [文字, 链接?], 最后一项不带链接 */
     crumbs: [string, string?][];
-    kicker: React.ReactNode;
+    kicker?: React.ReactNode;
     title: string;
     romaji?: string;
     sub?: React.ReactNode;
@@ -91,7 +116,7 @@ export function StageHero (p: StageHeroProps): React.ReactElement {
             </nav>
             <div className={styles.heroRow}>
                 <div className={styles.heroMain}>
-                    <p className={styles.kicker}>{p.kicker}</p>
+                    {p.kicker && <p className={styles.kicker}>{p.kicker}</p>}
                     <h1 className={styles.title}>
                         {p.title}
                         {p.romaji && <span className={styles.romaji}>{p.romaji}</span>}

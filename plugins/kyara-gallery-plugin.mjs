@@ -2,18 +2,21 @@
  * Docusaurus plugin: kyara 角色配图.
  *
  * 加载原理: static/img/kyara/{name}/NNN-标题@作者.ext, 按序号数值升序 (同序号按文件名), 不合规的文件跳过并 warn;
- * 可选 static/img/kyara/{name}/kyara.json = { displayName?, work?, bangumiCharacterId?, accent?, cover? }.
+ * 可选 static/img/kyara/{name}/kyara.json = { displayName?, work?, bangumiCharacterId?, bangumiSubjectIds?, accent?, cover? }.
  *
  * - contentLoaded: 扫描目录, createData 产出每个角色的 KyaraData 与总 KyaraIndex, addRoute:
  *     /anime/kyara          → @site/src/components/anime/kyara/KyaraIndexPage  (modules { index })
  *     /anime/kyara/{name}   → @site/src/components/anime/kyara/KyaraPage       (modules { kyara })
- *   Docusaurus 的 src/pages 不支持动态段, 所以角色页由插件逐个注册.
+ *     /anime/kyara/local    → @site/src/components/anime/kyara/KyaraLocalPage  (纯本地角色, ?name=, 客户端渲染)
+ *   Docusaurus 的 src/pages 不支持动态段, 所以角色页由插件逐个注册. setGlobalData 给番剧详情页 / 右键菜单一份角色清单.
  * - 运行时清单 (本地模式用): build 时 postBuild 写 kyara/index.json 与 kyara/data/{name}.json; dev 下由中间件现读现算.
  * - getPathsToWatch: static/img/kyara/**, 放图后 dev 自动重扫.
  * - dev-only 写入通道 (防跨站规则照 anime-overlay-plugin: 只认本机 Host + X-HX-Kyara: 1 头, 自定义头会触发 CORS 预检):
  *     POST /__hx/kyara/{name}/import            { url }       → 解析 (pixiv / x / 直链) → 下载 → 按下一个序号落盘
  *     PUT  /__hx/kyara/{name}/file/{filename}   二进制体      → 本地文件提交到仓库 (已存在回 409, ?overwrite=1 覆盖)
  *     POST /__hx/kyara/{name}/reorder           { order }     → 按给定顺序重写序号 (先改临时名再改正式名)
+ *     DELETE /__hx/kyara/{name}/file/{filename}               → 删除一张
+ *     PUT  /__hx/kyara/{name}/meta              { ...kyara.json 字段 } → 合并写 kyara.json (目录不存在时创建, null 表示删掉该字段)
  *
  * 命名规则与解析器和前端共用 src/utils/kyara/filename.ts / resolvers.ts (Node 原生 type stripping 直接 import .ts).
  * CLI scripts/kyara-import.mjs 复用这里导出的 importKyaraUrl / scanKyara.
@@ -131,6 +134,10 @@ export function scanKyaraCharacter(siteDir, baseUrl, name, warn = () => {}) {
   const meta = { name, displayName: typeof raw.displayName === 'string' && raw.displayName ? raw.displayName : name };
   if (typeof raw.work === 'string' && raw.work) meta.work = raw.work;
   if (Number.isInteger(raw.bangumiCharacterId)) meta.bangumiCharacterId = raw.bangumiCharacterId;
+  if (Array.isArray(raw.bangumiSubjectIds)) {
+    const ids = [...new Set(raw.bangumiSubjectIds.filter((x) => Number.isInteger(x) && x > 0))];
+    if (ids.length > 0) meta.bangumiSubjectIds = ids;
+  }
   if (typeof raw.accent === 'string' && raw.accent) meta.accent = raw.accent;
   if (typeof raw.cover === 'string' && raw.cover) {
     const hit = images.find((i) => i.file === raw.cover);
@@ -159,13 +166,16 @@ export function scanKyara(siteDir, baseUrl, warn = () => {}) {
       meta: c.meta,
       count: c.images.length,
       cover: c.meta.cover ?? c.images[0]?.src ?? null,
+      authors: new Set(c.images.map((i) => i.author).filter(Boolean)).size,
+      previews: c.images.slice(0, 4).map((i) => i.src),
     })),
   };
   return { characters, index };
 }
 
+// 路由 path 用原文: react-router 拿 decodeURI 后的 pathname 去匹配, 编码过的 path 永远对不上
 function routeOf(baseUrl, name) {
-  return name === undefined ? `${baseUrl}anime/kyara` : `${baseUrl}anime/kyara/${encodeURIComponent(name)}`;
+  return name === undefined ? `${baseUrl}anime/kyara` : `${baseUrl}anime/kyara/${name}`;
 }
 
 // ── 写盘 ──
@@ -270,6 +280,54 @@ export async function reorderKyara(siteDir, baseUrl, name, order) {
   });
 }
 
+const META_KEYS = ['displayName', 'work', 'bangumiCharacterId', 'bangumiSubjectIds', 'accent', 'cover'];
+
+/** 校验一份 kyara.json 补丁: 只收白名单字段, 类型不对回 400; 值为 null 表示删掉该字段 */
+function checkMetaPatch(body) {
+  if (!body || typeof body !== 'object' || Array.isArray(body)) throw Object.assign(new Error('需要 JSON 对象'), { status: 400 });
+  const out = {};
+  for (const [k, v] of Object.entries(body)) {
+    if (!META_KEYS.includes(k)) throw Object.assign(new Error(`不认识的字段: ${k}`), { status: 400 });
+    if (v === null) { out[k] = null; continue; }
+    const ok = k === 'bangumiCharacterId' ? Number.isInteger(v) && v > 0
+      : k === 'bangumiSubjectIds' ? Array.isArray(v) && v.every((x) => Number.isInteger(x) && x > 0)
+      : typeof v === 'string' && v.length <= 200;
+    if (!ok) throw Object.assign(new Error(`字段类型不对: ${k}`), { status: 400 });
+    out[k] = k === 'bangumiSubjectIds' ? [...new Set(v)] : v;
+  }
+  return out;
+}
+
+/** 合并写 kyara.json; 目录不存在时创建 (新建角色) */
+export async function putKyaraMeta(siteDir, baseUrl, name, patch) {
+  assertName(name);
+  const clean = checkMetaPatch(patch);
+  return withLock(name, () => {
+    const dir = path.join(kyaraDirOf(siteDir), name);
+    fs.mkdirSync(dir, { recursive: true });
+    const cur = readMetaJson(dir, () => {});
+    const next = { ...cur };
+    for (const [k, v] of Object.entries(clean)) {
+      if (v === null || v === '') delete next[k];
+      else next[k] = v;
+    }
+    writeAtomic(path.join(dir, 'kyara.json'), Buffer.from(`${JSON.stringify(next, null, 2)}\n`, 'utf8'));
+    return scanKyaraCharacter(siteDir, baseUrl, name);
+  });
+}
+
+/** 删除一张图 (文件名必须合规且在目录里) */
+export async function deleteKyaraFile(siteDir, baseUrl, name, filename) {
+  assertName(name);
+  if (!parseKyaraFilename(filename) || filename !== path.basename(filename)) throw Object.assign(new Error(`文件名不合规: ${filename}`), { status: 400 });
+  return withLock(name, () => {
+    const file = path.join(kyaraDirOf(siteDir), name, filename);
+    if (!fs.existsSync(file)) throw Object.assign(new Error(`不存在: ${filename}`), { status: 404 });
+    fs.unlinkSync(file);
+    return scanKyaraCharacter(siteDir, baseUrl, name)?.images ?? [];
+  });
+}
+
 // ── dev 中间件 ──
 
 function isLocalHost(host) {
@@ -334,6 +392,18 @@ export default function kyaraGalleryPlugin(context) {
       const image = await putKyaraFile(siteDir, baseUrl, name, filename, buf, /(^|&)overwrite=1(&|$)/.test(query));
       return send(res, 200, { ok: true, image });
     }
+    if (req.method === 'DELETE' && action === 'file' && seg.length === 3) {
+      const filename = safeDecode(seg[2]);
+      if (!filename) return send(res, 400, { ok: false, error: '文件名不合法' });
+      const images = await deleteKyaraFile(siteDir, baseUrl, name, filename);
+      return send(res, 200, { ok: true, images });
+    }
+    if (req.method === 'PUT' && action === 'meta' && seg.length === 2) {
+      if (!String(req.headers['content-type'] ?? '').startsWith('application/json')) return send(res, 415, { ok: false, error: '需要 application/json' });
+      const body = JSON.parse((await readBody(req, MAX_JSON)).toString('utf8'));
+      const kyara = await putKyaraMeta(siteDir, baseUrl, name, body);
+      return send(res, 200, { ok: true, kyara });
+    }
     if (req.method === 'POST' && action === 'reorder' && seg.length === 2) {
       if (!String(req.headers['content-type'] ?? '').startsWith('application/json')) return send(res, 415, { ok: false, error: '需要 application/json' });
       const body = JSON.parse((await readBody(req, MAX_JSON)).toString('utf8'));
@@ -376,17 +446,24 @@ export default function kyaraGalleryPlugin(context) {
       return scanKyara(siteDir, baseUrl, warn);
     },
     async contentLoaded({ content, actions }) {
-      const { createData, addRoute } = actions;
+      const { createData, addRoute, setGlobalData } = actions;
+      setGlobalData({ characters: content.index.characters });
       // 页面组件属于路 4 (src/components/anime/kyara/), 还没落盘时不注册路由, 免得整站编译失败
       const hasPage = (base) => ['.tsx', '.jsx', '.ts', '.js'].some((ext) => fs.existsSync(path.join(siteDir, 'src', 'components', 'anime', 'kyara', base + ext)));
-      if (!hasPage('KyaraIndexPage') || !hasPage('KyaraPage')) {
-        warn('src/components/anime/kyara/KyaraIndexPage|KyaraPage 不存在, 暂不注册 /anime/kyara 路由 (数据与写入通道照常)');
+      if (!hasPage('KyaraIndexPage') || !hasPage('KyaraPage') || !hasPage('KyaraLocalPage')) {
+        warn('src/components/anime/kyara/KyaraIndexPage|KyaraPage|KyaraLocalPage 不存在, 暂不注册 /anime/kyara 路由 (数据与写入通道照常)');
         return;
       }
       const indexPath = await createData('kyara-index.json', JSON.stringify(content.index));
       addRoute({
         path: routeOf(baseUrl),
         component: '@site/src/components/anime/kyara/KyaraIndexPage',
+        modules: { index: indexPath },
+        exact: true,
+      });
+      addRoute({
+        path: `${routeOf(baseUrl)}/local`,
+        component: '@site/src/components/anime/kyara/KyaraLocalPage',
         modules: { index: indexPath },
         exact: true,
       });

@@ -21,7 +21,7 @@ import useQuery from "@site/src/utils/url/useQuery";
 import { AnimeSeries, mainSeasons, seasonCount, seasonLabel, useAnimeSeries } from "@site/src/utils/anime/series";
 import styles from "./AnimeDetailPage.module.css";
 import { loadAnimeOverlayEditor } from "@site/src/components/home/lazyChunks";
-import { CharacterMenuAnime, CharacterMenuScope, useCharacterMenuTrigger } from "@site/src/components/anime/CharacterMenu/CharacterContextMenu";
+import { CharacterKyaraBadge, CharacterMenuAnime, CharacterMenuScope, KyaraSubjectLink, useCharacterMenuTrigger } from "@site/src/components/anime/CharacterMenu/CharacterContextMenu";
 
 /**
  * 本人标注编辑器: 只在 dev 下有 (生产构建里 loader 是 null, 整块不渲染).
@@ -137,7 +137,7 @@ function Hero ({ record, coverUrl }: { record: ANiMeRecord; coverUrl: string }):
                             {tags.map((tag) => {
                                 const susume = susumeDefOfTag(tag);
                                 return susume ? (
-                                    <Link key={tag} to={susumePath(susume)} className={styles.susumeBadge} title={`${susume.subtitle}: 进入「${tag}」专属页`}>
+                                    <Link key={tag} to={susumePath(susume)} className={styles.susumeBadge}>
                                         ★ {tag}
                                     </Link>
                                 ) : (
@@ -339,7 +339,7 @@ function ActorCard ({ actor, cvTo }: { actor: Actor; cvTo: string }): React.Reac
 }
 
 /**
- * 一张角色卡. 角色图挂着右键 / 长按菜单 (复制生图提示词、下载角色图), 本地模式多出开发者用途的探头立绘提示词.
+ * 一张角色卡. 角色图挂着右键 / 长按菜单 (kyara 画集、复制生图提示词、下载角色图), 开发者本地模式多出探头立绘提示词; 已有画集的角色名旁有「キャラ」徽标.
  * .agents/notes/implemented/feature/2026-11-03-anime-character-context-menu.md
  */
 function CharacterCard ({ char, actorMap }: { char: Character; actorMap: Map<number, Actor> }): React.ReactElement {
@@ -380,6 +380,7 @@ function CharacterCard ({ char, actorMap }: { char: Character; actorMap: Map<num
                 <p className={styles.charName}>{char.name_cn || char.name}</p>
                 {char.name_cn && char.name !== char.name_cn && <p className={styles.charOrig}>{char.name}</p>}
                 <span className={`${styles.roleBadge} ${char.relation === "主角" ? styles.roleMain : ""}`}>{char.relation}</span>
+                <CharacterKyaraBadge id={char.id} />
                 {actors.length > 0 && (
                     <p className={styles.charCv}>
                         CV{" "}
@@ -501,6 +502,7 @@ function Section ({ id, title, children, extra }: { id: string; title: string; c
  * Hero 改为主题色卡片 (封面 2:3 定宽 220px, 虚化封面只剩淡光晕), 标题 / 原名 / 元信息三级层次.
  * .agents/notes/implemented/feature/2026-11-01-anime-detail-redesign.md
  * .agents/notes/implemented/feature/2026-11-01-anime-detail-sidebar-and-hero.md
+ * 推荐分类徽章不带悬停提示: .agents/notes/implemented/feature/2026-11-08-anime-susume-wall.md
  */
 export default function AnimeDetailPage (): React.ReactElement {
     const query = useQuery();
@@ -568,6 +570,7 @@ export default function AnimeDetailPage (): React.ReactElement {
     const comment = (record.user_status.comment ?? "").trim();
     const sections = SECTIONS.filter((s) => s.id !== "similar" || similar.length > 0);
     const menuAnime: CharacterMenuAnime = {
+        id: a.id,
         name: a.name_cn || a.name,
         originalName: a.name,
         coverUrl,
@@ -612,7 +615,7 @@ export default function AnimeDetailPage (): React.ReactElement {
                                 <Episodes record={record} />
                             </Section>
 
-                            <Section id="characters" title="角色" extra={<span className={styles.muted}>{a.characters.length} 个</span>}>
+                            <Section id="characters" title="角色" extra={<><span className={styles.muted}>{a.characters.length} 个</span><KyaraSubjectLink subjectId={a.id} /></>}>
                                 <Characters record={record} actorMap={actorMap} anime={menuAnime} />
                             </Section>
 

@@ -1,4 +1,4 @@
-# Agent Note: kyara 角色配图页 UI (/anime/kyara, /anime/kyara/{name}), 与 susume 同款
+# Agent Note: kyara 角色画集页 UI (/anime/kyara, /anime/kyara/{name}, /anime/kyara/local), 产品页式, 与 susume 同一设计语言
 
 Status: implemented
 
@@ -7,31 +7,40 @@ Decision-ID: anime-kyara-pages
 ## Code
 
 - `src/components/anime/kyara/KyaraPage.tsx`
+- `src/components/anime/kyara/dev/DevRepoTools.tsx`
 
 ## Problem
 
-1. 番剧区需要一套按角色给图片配图的页面: 用户把图放进 `static/img/kyara/{name}/001-标题@作者.png` 就按序号顺序渲染, 也能在浏览器本地攒图, 并从 pixiv / x.com 链接导入.
-2. 新页面必须和重构后的 susume 同一套视觉与动效语言 (HX おすすめ Glass: 粉色主调、猫娘、日系圆体、bento、framer-motion 入场), 不能另起一套.
-3. 数据层 (扫描、路由、解析器、IndexedDB、dev 写入通道) 由另一路 (`src/utils/kyara/`, `plugins/kyara-gallery-plugin.mjs`) 负责, 原子组件由 `src/components/anime/ui/` 负责; 本决策只做页面, 两边都只按冻结契约引用.
+1. 番剧区需要一套按角色展示配图的页面: 图放进 `static/img/kyara/{name}/001-标题@作者.png` 就按序号渲染; 访客也能在浏览器本地给角色配图 (新建角色、拖图、粘贴、从 pixiv / x.com 链接导入、排序、导出 zip), 部署版与 dev 行为一致, 本机 dev 下额外能写进仓库.
+2. 页面要像产品页: 有主视觉与轮换图片, 按番剧分组展示角色, 主题色随角色变化, UI 与 UX 连贯; 沿用 HX おすすめ Glass (`src/components/anime/ui/DESIGN.md`) 的令牌与动效, 不另起一套.
+3. 画面上只描述当下, 不出现历史 / 变更类文案; 目录约定之类给站长看的说明不出现在线上.
+4. 数据层 (扫描、路由、globalData、IndexedDB、dev 写入通道) 归 `src/utils/kyara/` 与插件 (另一篇 note `anime-kyara-gallery`), 本决策只做页面并按其契约引用.
 
 ## Decision
 
-1. 目录 `src/components/anime/kyara/` 六个文件, 同目录兄弟均是本决策的代码端, 由 `KyaraPage.tsx` 的默认导出代表:
-   - `KyaraPage.tsx`: 路由组件, 收插件注入的 `kyara: KyaraData`; 主体抽成 `KyaraView` 供索引页的「新角色」视图复用. 结构 = 面包屑 → `HxHero` (kicker `キャラ · {work}`, 计数「N 张」, 光晕取 `--kyara-accent`, 背后一层首图大幅模糊铺底, 右上本地模式开关) → `HxPills` 全部 / 仓库 / 本地 → CSS columns 瀑布流 (按 `w/h` 预留 `aspect-ratio` 防跳动, 左上序号章 `001`, 悬浮浮出 `title · @作者` 与来源图标) → `Lightbox`. 本地条目排在仓库条目之后.
-   - `Lightbox.tsx`: `role="dialog"` + `aria-modal`, 与缩略图共享 `layoutId` (`kyara-{source}:{file}`) 放大; ←/→ 翻页, Esc 关闭, 触屏左右拖动翻页; 底部胶片条; 来源链接与原图链接; 打开时锁滚动、焦点困在框内、关闭还焦点 (`useDialogFocus`, 导入框复用). 同文件导出 `SourceIcon` / `seqLabel` / `ratioOf` / `keyOf` / `cssVars` 小工具, 避免页面与灯箱循环引用.
-   - `LocalPanel.tsx`: 本地模式面板 (`HxCard`): 拖拽区 / 选择文件 / 全局粘贴 (图片直接入库, 粘贴链接则打开导入框预填), framer `Reorder` 拖拽排序 (松手才 `store.reorder` 落库), 导出 zip, dev 下「写进仓库」= 逐张 `PUT /__hx/kyara/{name}/file/{NNN-标题@作者.ext}` (序号接在仓库最大序号之后, 文件名用 `formatKyaraFilename`), 成功后从本地移除.
-   - `ImportDialog.tsx`: `role="dialog"`, 多行链接 → 用 `kyaraResolvers` 逐条匹配 (pixiv / x / direct) → 预览 (标题可改) → 确认. pixiv 在浏览器里会被 Referer / CORS 挡住, dev 下交给 `POST /__hx/kyara/{name}/import`, 线上提示去本机 dev; x / 直链浏览器拿得到就进 IndexedDB, 拿不到且在 dev 下回落服务端. dev 下可选「写进仓库」. 同文件导出 `kyaraDev` (带 `X-HX-Kyara` 头的 dev 请求).
-   - `KyaraIndexPage.tsx`: `/anime/kyara` 角色 bento 网格 (封面 + 名字 + 作品 + 张数, 首个角色 2×2), 数据优先用插件注入的 `index`, 否则运行时拉 `/kyara/index.json`; 骨架 / 错误重试 / 空态 (猫娘 + 命名说明) 三态. 本地模式开关 (localStorage `hx-kyara-local-index`) 打开后末尾出现「＋ 新角色」卡, 提交到 `?new={name}` 渲染纯本地 `KyaraView` (仓库里还没有目录, 没有静态路由).
-   - `Kyara.module.css`: 颜色只用 `--hx-*` 令牌与 `--kyara-accent`, 派生一律 `color-mix`, 不写 hex / rgba 字面量; 断点 ≤996 / ≤640 (触屏标题常驻); `prefers-reduced-motion: reduce` 全部瞬时.
-2. 类型只从 `@site/src/utils/kyara/types` 引入, 函数从 `filename` / `resolvers` / `localStore` 引入, 不在本目录重定义契约.
+1. `src/components/anime/kyara/` (代表文件 `KyaraPage.tsx`, 同目录兄弟都是本决策的代码端):
+   - `KyaraIndexPage.tsx`: 页头 (标题 + 本地模式开关) → `Spotlight` 主视觉 → 四格统计 (角色 / 配图 / 画师 / 作品) → 作品筛选 `HxPills` + 按番剧分组的角色卡 (分组锚点 `work-{subjectId}`, 详情页入口带 hash 进来时预选). 本地模式开启时并入本地角色并在末尾放「＋ 新角色」. 空态面向访客, 只引导开启本地模式.
+   - `KyaraPage.tsx`: 路由组件 + `KyaraView` (与本地页共用). 首屏左 7 / 右 5: 左 `ImageStage` (封面打头的主图交叉淡入 + 胶片条, 点开灯箱), 右侧 kicker / 大标题 / 原名 / 「出自《作品》」(有条目 id 时链到番剧详情) / 三格规格 / 画师 chip (点了过滤画廊) / 操作 (看全部、Bangumi 角色页、本地模式开关); 下面依次是画廊、同作品角色横滑卡、上一位 / 下一位. dev 写盘后先用 dev 清单的最新内容, 热重扫后回到 props.
+   - `KyaraLocalPage.tsx`: `/anime/kyara/local?name=`, 主体用 `BrowserOnly` 渲染 (静态构建里没有本地角色, 避免水合不一致); 同名仓库角色存在时 `Redirect`; 本机 dev 下刚建到仓库还没路由的角色先读 dev 清单渲染并轮询, 路由出现后跳过去.
+   - `Spotlight.tsx`: `useRotation` (6s 自动轮换; 悬停 / 聚焦 / 标签页隐藏 / reduced-motion 暂停) + `Spotlight` (索引主视觉, 主题色随当前角色) + `ImageStage` (角色页主图).
+   - `KyaraCard.tsx`: 3:4 角色卡, 悬停或聚焦时在前 4 张图之间轮换 (那时才加载后几张); 同文件导出 `LocalSwitch`.
+   - `Gallery.tsx`: 等高行瀑布 (按序号左到右, w/h 预留比例) + 画师过滤; `Lightbox.tsx` 灯箱与小工具不变.
+   - `LocalDrawer.tsx`: 本地模式操作台 = 吸底工具栏 (张数 / 添加 / 从链接导入 / 导出 zip / dev 写进仓库 / 管理) + 侧抽屉 (本地图排序删除、纯本地角色的资料与删除、dev 下「仓库」页签); 全局粘贴与拖放入库.
+   - `ImportDialog.tsx`: 多行链接解析导入; pixiv 在浏览器拿不到时线上给出替代做法, dev 下交给服务端导入. `NewKyaraDialog.tsx`: 新建画集 (显示名 → 目录名默认取显示名去掉非法字符 → 作品), 线上建成本地角色, dev 可选直接建到仓库; 目录名撞车时同一 Bangumi 角色直接打开, 否则提示换名. 右键菜单「以此新建」复用它.
+   - `devLoader.js` + `devLoader.d.ts` + `devChunks.ts`: dev 专属模块只经 `process.env.NODE_ENV === 'development'` 常量分支 `import()`, 生产构建判死分支; `useKyaraDev()` 只在本机 host 返回模块.
+   - `Kyara.module.css`: 颜色只用 `--hx-*` 与 `--kyara-accent`, 派生用 `color-mix`; 断点 ≤996 / ≤640; reduced-motion 下全部瞬时, 不显示轮换进度线.
+2. `src/components/anime/kyara/dev/` (代表文件 `DevRepoTools.tsx`): 只在 dev 包里. `devClient.ts` 封装写入通道 (import / putFile / deleteFile / reorder / putMeta / 读 dev 清单) 与「本地图写进仓库」; `DevRepoTools.tsx` 是仓库管理 (编辑 kyara.json、拖拽重排序号、设封面、两次确认删除); `KyaraGuide.tsx` 是目录约定说明, 只在 dev 下出现.
+3. 目录名默认取中文名 (`name_cn`, 没有时原名): 读者看中文, 地址与目录一眼可读, 与文件名里的中文标题一致; 匹配靠 Bangumi 角色 id, 不依赖目录名.
 
 ## Alternatives considered
 
-- 什么都不做: 最强理由是零风险, 不增加页面. 否决: 用户明确要求 kyara 配图页, 且要与 susume 同款.
-- 复用现有 `AnimeShareBoard` 或番剧库海报网格渲染配图: 现成、风格接近. 否决: 海报网格是固定 2:3 封面比例, 插画横竖混排会被裁掉; 也没有序号、作者、来源与灯箱.
-- 用 JS 计算的 masonry (按列高分配): 顺序更接近"按行". 否决: CSS columns 零脚本、SSR 稳定, 且按 w/h 预留比例后不跳动; 顺序按列向下读, 序号章明确标出顺序.
-- 灯箱用第三方库 (yet-another-react-lightbox 等): 功能齐. 否决: 新增依赖, 且无法与缩略图共享 framer `layoutId`, 视觉也要再覆盖一遍.
+- 什么都不做: 最强理由是零风险. 否决: 部署版本地模式不可用 (开关与读库条件对不上, 本地角色刷新即消失), 页面观感也不满足产品页要求.
+- 复用现有 `StageHero` 页头: 最强理由是与 susume 结构一致. 否决: 它是纯文字页头, 承载不了主视觉轮换与产品式两栏首屏; 面包屑、统计等语汇照搬它的样式.
+- 首屏用 JS masonry 或第三方轮播 (Swiper 等): 最强理由是功能齐. 否决: 新增依赖, 且无法与灯箱共享 framer `layoutId`; framer `AnimatePresence` 已够用.
+- 本地操作台常驻在首屏: 最强理由是一眼可见. 否决: 挤占产品式首屏, 访客视图与本地视图首屏不一致; 改为吸底工具栏 + 抽屉.
 
 ## Consequences
 
-依赖 `src/components/anime/ui/` (路 0) 与 `src/utils/kyara/` (路 3) 按契约落地; 在它们落盘之前, 本目录的 tsc 会报找不到模块. 「写进仓库」要求插件的 PUT 通道在角色目录不存在时自行创建目录. 页面入口 (`/anime` 到 `/anime/kyara` 的链接) 由收口路添加. 页面效果由用户在 `localhost:3000/HXLoLi/anime/kyara` 与 `/anime/kyara/<示例>` 上以 1440 / 1024 / 390 三档宽度、亮暗各看一次.
+- 页面效果由用户在 1440 / 1024 / 390 三档宽度、亮暗各看一次; reduced-motion 下不自动轮换.
+- `src/components/anime/kyara/Kyara.module.css` 是非 AST 资源, 改动需人工核对.
+- 生产构建产物里 `grep -rE "__hx/kyara|X-HX-Kyara" build/` 为空; 本地模式代码 (IndexedDB) 在产物中, 这是预期.

@@ -61,7 +61,6 @@ export default function PosterCard ({ record, view, activeTags, onTagClick }: Po
                     key={t}
                     to={susumePath(susume)}
                     className={`${styles.tag} ${styles.susumeTag}`}
-                    title={`推荐分类「${t}」: 去专属页`}
                 >
                     ★{t}
                 </Link>

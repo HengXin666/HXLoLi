@@ -1,6 +1,6 @@
 import React from "react";
 import { Numeral, Rise } from "@site/src/components/anime/stage/Stage";
-import styles from "./Kyara.module.css";
+import styles from "../Kyara.module.css";
 
 const SAMPLE = [
     ["001", "初见", "画师A", "png"],
@@ -9,7 +9,7 @@ const SAMPLE = [
 ];
 
 /**
- * kyara 还没有图时的上墙说明: 左边是目录示意 (文件名即顺序 / 标题 / 作者), 右边三种上墙方式.
+ * 目录约定说明 (只在本机 dev 下出现): 左边是目录示意 (文件名即顺序 / 标题 / 作者), 右边三种上墙方式.
  * 不传 name 时 (索引页) 用示例角色名.
  */
 export default function KyaraGuide ({ name }: { name?: string }): React.ReactElement {
@@ -40,14 +40,14 @@ export default function KyaraGuide ({ name }: { name?: string }): React.ReactEle
                     <Numeral n={2} />
                     <div>
                         <h3>本地模式</h3>
-                        <p>打开右上角「本地模式」, 直接拖图或粘贴. 图只存在这台浏览器里, 可以导出成命名好的 zip.</p>
+                        <p>打开「本地模式」, 直接拖图或粘贴. 图存在这台浏览器里, 可以导出成命名好的 zip, 也能在这里一键写进仓库.</p>
                     </div>
                 </li>
                 <li>
                     <Numeral n={3} />
                     <div>
                         <h3>贴链接导入</h3>
-                        <p>粘贴 pixiv 作品页或 x.com 推文链接, 自动解析出原图、标题和作者; 本机 dev 下还能一键写进仓库.</p>
+                        <p>粘贴 pixiv 作品页或 x.com 推文链接, 自动解析出原图、标题和作者, 可以直接写进仓库.</p>
                     </div>
                 </li>
             </ol>
