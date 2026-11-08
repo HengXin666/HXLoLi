@@ -2,10 +2,10 @@
 """kb: 卡片 + 原件 + 概念索引.
 
 用法:
-  python3 scripts/kb.py lint [卡片路径 ...]   不给路径就检查 kb/cards 全部
-  python3 scripts/kb.py index                 生成 kb/index.json
-  python3 scripts/kb.py find <概念或别名>     按概念查卡 (含子概念), 默认排除 stale
-  python3 scripts/kb.py use <卡片 id>         打印动作, 记一次调用到 kb/.usage.jsonl
+  python3 scripts/kb/kb.py lint [卡片路径 ...]   不给路径就检查 kb/cards 全部
+  python3 scripts/kb/kb.py index                 生成 kb/index.json
+  python3 scripts/kb/kb.py find <概念或别名>     按概念查卡 (含子概念), 默认排除 stale
+  python3 scripts/kb/kb.py use <卡片 id>         打印动作, 记一次调用到 kb/.usage.jsonl
 
 规则见 .hark/plan.md (v3) §3. 本文件实现: C1-C8, M1, P1, S1 (warn). M2 / U1 待补.
 """
@@ -20,7 +20,7 @@ from pathlib import Path
 
 import yaml
 
-REPO = Path(__file__).resolve().parent.parent
+REPO = Path(__file__).resolve().parents[2]
 KB = REPO / "kb"
 CARDS = KB / "cards"
 RAW = KB / "raw"
@@ -362,6 +362,10 @@ def cmd_use(args: list[str]) -> int:
 
 
 def main(argv: list[str]) -> int:
+    """kb 命令入口: lint / index / find / use.
+
+    决策: .agents/notes/implemented/architecture/2026-11-09-kb-cards-raw-concept-index.md
+    """
     cmds = {"lint": cmd_lint, "index": cmd_index, "find": cmd_find, "use": cmd_use}
     if not argv or argv[0] not in cmds:
         print(__doc__)

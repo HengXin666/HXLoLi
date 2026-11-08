@@ -11,7 +11,7 @@ kb/
   index.json               scripts/kb index 生成, 不手改
 ```
 
-命令: `python3 scripts/kb.py lint|index|find|use`.
+命令: `python3 scripts/kb/kb.py lint|index|find|use`.
 
 ## 原件的已知缺口
 
