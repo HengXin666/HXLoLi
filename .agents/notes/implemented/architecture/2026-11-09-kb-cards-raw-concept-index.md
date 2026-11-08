@@ -24,7 +24,7 @@ Decision-ID: kb-cards-raw-concept-index
 - 不再产出 AI 改写稿. 知识的发布单位是**卡**: 一句结论 + 原件逐字摘录 + 一个可执行动作 (检查项 / 命令 / 要作者回答的问题), 正文 ≤ 15 行. 卡类型只许 cmd, check, decide, measure, pitfall, question 六种, 判据是「看第二遍还有没有用」
 - 原件放 `kb/raw/` 进 git, 只读. 作者自己的记录放 `kb/raw/self/`
 - 卡按概念索引, 概念表 `kb/concepts.yaml` 由作者维护, 不按篇组织
-- 「写多错多」写成 `scripts/kb/kb.py lint` 的机械规则: 一卡一句 (C3), 摘录必须是原件逐字子串 (C4), 结论里的数字必须在原件里找到 (C5), 禁用句式 (C7), 自指内容的依据必须全部来自 `raw/self/` (M1), A 档方案卡在作者回答定位问题前只能产出 question 卡 (P1). 全部是正则, 子串和路径判断, 不用 AI 评审
+- 「写多错多」写成 `scripts/kb/kb.py lint` 的机械规则: 一卡一句 (C3), 摘录必须是原件逐字子串 (C4), 结论里的数字必须在原件里找到 (C5), 禁用句式 (C7), 结论里的专名与引文 (反引号, 点号路径, 标识符, 引号内原文) 必须在原件里找到 (C9), 结论里超过 40% 的汉字二元组摘录里没有即视为改写 (C10), 自指内容的依据必须全部来自 `raw/self/` (M1), A 档方案卡在作者回答定位问题前只能产出 question 卡 (P1). 全部是正则, 子串和路径判断, 不用 AI 评审
 - `kb.py` 放在独立子目录 `scripts/kb/`, 不和 `scripts/` 下其他决策的代表文件同目录, 避免兄弟代码互相触发配对
 
 ## Alternatives considered
@@ -37,6 +37,7 @@ Decision-ID: kb-cards-raw-concept-index
 
 - 新增 `kb/` 目录与 `scripts/kb/kb.py`. 现有 hx-note / hx-ai-docs 流程和 45 篇存量暂不改, 等 kb 跑通再定
 - 已知缺口: 迁入的三个试跑主题只有 `material.md` 摘录, 网页原文当时没有落盘, 卡的逐字依据最多追到摘录层. 记在 `kb/README.md`
+- 2026-11-09 用 B 稿切卡试验 (292 张, 结果在 `ai-docs/.hx-staging/kb-lint-trial-20261109/README.md`, 不进 git): 盲审 29 条里, 第一版规则实质拦住 11 条; 加 C9 C10 后 25 条, 只被 C3 拦 2 条, 漏 2 条 (分类错误, 「原件没说」类断言). 代价是 B 稿 74% 的行过不了 C9/C10, 这是有意的: 卡的结论只能贴着摘录写
 - C5 只认阿拉伯数字, 「大半」「多数」这类定性词和中文数字拦不住; C3 的字数按汉字和英文词各算 1
 - M2 (raw/self 只能作者写) 和 U1 (90 天 0 调用进删除候选) 还没实现
 
@@ -47,4 +48,5 @@ python3 scripts/kb/kb.py lint        -> 构造的坏卡命中 C6 C2 C1 C3 C4 C5 
                                         自测时好卡行号标错一行 (L23 应为 L24), C4/C5 拦下
 无 positioning 的 A 档方案卡         -> P1 error; question 卡通过
 python3 scripts/kb/kb.py find 连接池 -> 命中 httpx 卡; find Python爬虫 经父概念展开命中同一卡
+B 稿切卡 292 张 (见 Consequences) -> 盲审 29 条: 实质拦住 25, 仅 C3 2, 漏 2
 ```

@@ -7,7 +7,7 @@
   python3 scripts/kb/kb.py find <概念或别名>     按概念查卡 (含子概念), 默认排除 stale
   python3 scripts/kb/kb.py use <卡片 id>         打印动作, 记一次调用到 kb/.usage.jsonl
 
-规则见 .hark/plan.md (v3) §3. 本文件实现: C1-C8, M1, P1, S1 (warn). M2 / U1 待补.
+规则见 .hark/plan.md (v3) §3. 本文件实现: C1-C10, M1, P1, S1 (warn). M2 / U1 待补.
 """
 from __future__ import annotations
 
@@ -35,6 +35,7 @@ TIERS = {"A", "B", "C"}
 TTL_DAYS = {"A": 90, "B": 180}          # 可用 frontmatter ttl_days 覆盖 (行情/费率写 30)
 MAX_LINES = 15
 MAX_CONCLUSION = 60
+MAX_NOVEL = 0.4                         # C10: 结论里的汉字二元组, 摘录里没有的比例上限
 
 BANNED = ["总之", "综上", "总而言之", "值得注意", "值得一提", "未来", "展望", "不难看出",
           "本质上", "赋能", "深刻", "我们可以看到", "众所周知", "毋庸置疑", "显而易见"]
@@ -42,6 +43,14 @@ SELF_WORDS = ["我", "作者", "本人", "最近", "之前", "以前", "习惯",
 SENT_END = re.compile(r"[。！？!?；;]|\.(?=\s|$)")
 NUM = re.compile(r"\d+(?:\.\d+)?")
 ACTION_ITEM = re.compile(r"^\s*-\s*(\[ \]\s+\S|`[^`]+`|[?？]\s*\S)")
+TOKEN_RES = [
+    re.compile(r"`([^`]+)`"),                                              # 反引号
+    re.compile(r"[A-Za-z_][\w]*(?:\.[A-Za-z_][\w]*)+"),                   # a.b.c
+    re.compile(r"\b[A-Za-z]+_[\w]+"),                                     # snake_case
+    re.compile(r"\b[a-z]+[A-Z]\w*|\b[A-Z][a-z]+[A-Z]\w*"),                # camelCase / CamelCase
+    re.compile(r"\b[A-Za-z]+(?:-[A-Za-z]+)+\b"),                           # 连字符词
+    re.compile(r"「([^」]+)」|\"([^\"]+)\"|“([^”]+)”"),                    # 引号内原文
+]
 SRC_RE = re.compile(r"^(?P<path>[^#]+)(?:#L(?P<a>\d+)(?:-L?(?P<b>\d+))?)?$")
 
 
@@ -61,6 +70,23 @@ class Card:
 def zi(s: str) -> int:
     """按 "字" 计长: 每个汉字算 1, 每个连续的英文/数字/符号词算 1, 空白不算."""
     return len(re.findall(r"[\u3400-\u9fff]|[A-Za-z0-9_.()\[\]%/+-]+|[^\sA-Za-z0-9_.()\[\]%/+-]", s))
+
+
+def cjk_bigrams(s: str) -> set[str]:
+    out = set()
+    for run in re.findall(r"[\u3400-\u9fff]+", s):
+        out |= {run[i:i + 2] for i in range(len(run) - 1)}
+    return out
+
+
+def tokens(s: str) -> set[str]:
+    out = set()
+    for r in TOKEN_RES:
+        for m in r.finditer(s):
+            g = next((x for x in m.groups() if x), None) if m.groups() else m.group(0)
+            if g and len(g.strip()) >= 2:
+                out.add(g.strip())
+    return out
 
 
 def norm(s: str) -> str:
@@ -206,6 +232,21 @@ def lint_card(card: Card, concepts: dict, today: dt.date) -> list[tuple[str, int
         for num in NUM.findall(card.conclusion):
             if not any(re.search(rf"(?<![\d.]){re.escape(num)}(?![\d])", t) for t in texts):
                 err("C5", f"结论里的数字 {num} 在所引原件中找不到", card.conclusion_line)
+
+    # C9 专名与引文必须出自原件: 反引号内容, 点号路径, snake/camel 标识符, 连字符词, 引号内原文
+    if card.conclusion and resolved:
+        for tok in sorted(tokens(card.conclusion)):
+            if not any(norm(tok) in t for t in texts):
+                err("C9", f"结论里的 {tok} 在所引原件中找不到", card.conclusion_line)
+
+    # C10 不许改写: 结论的汉字二元组, 摘录里没有的比例 ≤ MAX_NOVEL
+    if card.conclusion and card.quotes:
+        cb = cjk_bigrams(card.conclusion)
+        if len(cb) >= 4:
+            qb = cjk_bigrams(" ".join(q for _, q in card.quotes))
+            novel = len(cb - qb) / len(cb)
+            if novel > MAX_NOVEL:
+                err("C10", f"结论 {novel:.0%} 的字词摘录里没有 (上限 {MAX_NOVEL:.0%}), 照摘录写, 不要改写", card.conclusion_line)
 
     # C7 禁用句式 (结论 + 动作)
     zone = [(card.conclusion_line, card.conclusion)] + card.action_lines
