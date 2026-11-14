@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="834" height="288" viewBox="0 0 834 288" content='&lt;mxfile host="app.diagrams.net" agent="hx_drawio.py" type="device"&gt;&lt;diagram id="hx-diagram" name="模型想停时, 控制权交给谁"&gt;&lt;mxGraphModel dx="1200" dy="800" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="826" math="0" shadow="0"&gt;&lt;root&gt;&lt;mxCell id="0"/&gt;&lt;mxCell id="1" parent="0"/&gt;&lt;mxCell id="hx2" value="模型这一轮不再调工具" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#eaf1ff;strokeColor=#2f57a8;fontColor=#1f2937;fontSize=12;align=center;verticalAlign=middle" vertex="1" parent="1"&gt;&lt;mxGeometry x="36" y="152" width="190" height="58" as="geometry"/&gt;&lt;/mxCell&gt;&lt;mxCell id="hx3" value="日常: turn 结束, 交还给人&amp;#10;(DSH / Claude Code 默认)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#f4f6fb;strokeColor=#5b6b9a;fontColor=#1f2937;fontSize=12;align=center;verticalAlign=middle" vertex="1" parent="1"&gt;&lt;mxGeometry x="322" y="110" width="190" height="58" as="geometry"/&gt;&lt;/mxCell&gt;&lt;mxCell id="hx4" value="评测: 没调 submit 就自动续写&amp;#10;判错回 incorrect 再来" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#eaf1ff;strokeColor=#2f57a8;fontColor=#1f2937;fontSize=12;align=center;verticalAlign=middle" vertex="1" parent="1"&gt;&lt;mxGeometry x="322" y="194" width="190" height="58" as="geometry"/&gt;&lt;/mxCell&gt;&lt;mxCell id="hx5" value="收敛: 做不到就说做不到" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#f4f6fb;strokeColor=#5b6b9a;fontColor=#1f2937;fontSize=12;align=center;verticalAlign=middle" vertex="1" parent="1"&gt;&lt;mxGeometry x="608" y="110" width="190" height="58" as="geometry"/&gt;&lt;/mxCell&gt;&lt;mxCell id="hx6" value="正当策略试完后, 去摸管道&amp;#10;Docker API / API key / REPL / git 历史" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#eaf1ff;strokeColor=#2f57a8;fontColor=#1f2937;fontSize=12;align=center;verticalAlign=middle" vertex="1" parent="1"&gt;&lt;mxGeometry x="608" y="194" width="190" height="58" as="geometry"/&gt;&lt;/mxCell&gt;&lt;mxCell id="hxe0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#9ca3af;fontColor=#6b7280;fontSize=10;endArrow=blockThin;endFill=1" edge="1" parent="1" source="hx2" target="hx3"&gt;&lt;mxGeometry relative="1" as="geometry"/&gt;&lt;/mxCell&gt;&lt;mxCell id="hxe1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#9ca3af;fontColor=#6b7280;fontSize=10;endArrow=blockThin;endFill=1" edge="1" parent="1" source="hx2" target="hx4"&gt;&lt;mxGeometry relative="1" as="geometry"/&gt;&lt;/mxCell&gt;&lt;mxCell id="hxe2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#9ca3af;fontColor=#6b7280;fontSize=10;endArrow=blockThin;endFill=1" edge="1" parent="1" source="hx3" target="hx5"&gt;&lt;mxGeometry relative="1" as="geometry"/&gt;&lt;/mxCell&gt;&lt;mxCell id="hxe3" value="出口只剩过评分器" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#9ca3af;fontColor=#6b7280;fontSize=10;endArrow=blockThin;endFill=1" edge="1" parent="1" source="hx4" target="hx6"&gt;&lt;mxGeometry relative="1" as="geometry"/&gt;&lt;/mxCell&gt;&lt;/root&gt;&lt;/mxGraphModel&gt;&lt;/diagram&gt;&lt;/mxfile&gt;'>
+<defs>
+<marker id="hxarrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 1 L 9 5 L 0 9 z" fill="#9ca3af"/>
+</marker>
+</defs>
+<rect width="834" height="288" fill="none"/>
+<text x="36" y="54" font-family="Helvetica,Arial,sans-serif" font-size="16" font-weight="600" fill="#1f2937">模型想停时, 控制权交给谁</text>
+<text x="131" y="94" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#6b7280" letter-spacing="0.5">触发</text>
+<text x="417" y="94" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#6b7280" letter-spacing="0.5">harness 的处理</text>
+<text x="703" y="94" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#6b7280" letter-spacing="0.5">结果</text>
+<path d="M 226 181 L 274 181 L 274 139 L 322 139" fill="none" stroke="#9ca3af" stroke-width="1.4" marker-end="url(#hxarrow)"/>
+<path d="M 226 181 L 274 181 L 274 223 L 322 223" fill="none" stroke="#9ca3af" stroke-width="1.4" marker-end="url(#hxarrow)"/>
+<path d="M 512 139 L 608 139" fill="none" stroke="#9ca3af" stroke-width="1.4" marker-end="url(#hxarrow)"/>
+<path d="M 512 223 L 608 223" fill="none" stroke="#9ca3af" stroke-width="1.4" marker-end="url(#hxarrow)"/>
+<text x="560" y="215" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#6b7280">出口只剩过评分器</text>
+<rect x="36" y="152" width="190" height="58" rx="8" ry="8" fill="#eaf1ff" stroke="#2f57a8" stroke-width="1.3"/>
+<text x="131" y="185" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#1f2937">模型这一轮不再调工具</text>
+<rect x="322" y="110" width="190" height="58" rx="8" ry="8" fill="#f4f6fb" stroke="#5b6b9a" stroke-width="1.3"/>
+<text x="417" y="135" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#1f2937">日常: turn 结束, 交还给人</text>
+<text x="417" y="151" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#1f2937">(DSH / Claude Code 默认)</text>
+<rect x="322" y="194" width="190" height="58" rx="8" ry="8" fill="#eaf1ff" stroke="#2f57a8" stroke-width="1.3"/>
+<text x="417" y="211" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#1f2937">评测: 没调 submit 就自动续</text>
+<text x="417" y="227" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#1f2937">写</text>
+<text x="417" y="243" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#1f2937">判错回 incorrect 再来</text>
+<rect x="608" y="110" width="190" height="58" rx="8" ry="8" fill="#f4f6fb" stroke="#5b6b9a" stroke-width="1.3"/>
+<text x="703" y="143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#1f2937">收敛: 做不到就说做不到</text>
+<rect x="608" y="194" width="190" height="58" rx="8" ry="8" fill="#eaf1ff" stroke="#2f57a8" stroke-width="1.3"/>
+<text x="703" y="211" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#1f2937">正当策略试完后, 去摸管道</text>
+<text x="703" y="227" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#1f2937">Docker API / API key / RE</text>
+<text x="703" y="243" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#1f2937">PL / git 历史</text>
+</svg>
