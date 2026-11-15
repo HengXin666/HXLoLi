@@ -7,13 +7,15 @@ import { recordsOfSusume, susumePath } from "@site/src/utils/anime/tags";
 
 /**
  * 番剧首页 /anime 子导航里的推荐分类: 四个分类 (名字 + 数量), 放在 "全部" 与 "キャラ" 之间.
- * 只输出链接 (名字 + 数量, 不带悬停提示), 样式由页面的子导航决定. susume 分类页也用同一条子导航, current 标出当前分类.
+ * 只输出链接 (名字 + 数量, 不带悬停提示), 样式由页面的子导航决定. search 是要带过去的筛选 (切 tab 不重置筛选). susume 分类页也用同一条子导航, current 标出当前分类.
  */
-export default function SusumeEntry ({ records, labelsStatus, countClass, current }: {
+export default function SusumeEntry ({ records, labelsStatus, countClass, current, search = "" }: {
     records: readonly ANiMeRecord[];
     labelsStatus: AnimeLabelsStatus;
     countClass?: string;
     current?: AnimeSusumeKey;
+    /** 拼在每个分类链接后的查询串 (带 "?"), 用来把当前筛选带过去; 见 useSusume.ts 的 carryFilterSearch */
+    search?: string;
 }): React.ReactElement {
     const counts = React.useMemo(
         () => ANIME_SUSUME_DEFS.map((def) => ({ def, count: recordsOfSusume(records, def).length })),
@@ -25,7 +27,7 @@ export default function SusumeEntry ({ records, labelsStatus, countClass, curren
     return (
         <>
             {counts.map(({ def, count }) => (
-                <Link key={def.key} to={susumePath(def)} aria-current={def.key === current ? "page" : undefined}>
+                <Link key={def.key} to={`${susumePath(def)}${search}`} aria-current={def.key === current ? "page" : undefined}>
                     {def.display}
                     <span className={countClass}>{loading ? "…" : count}</span>
                 </Link>

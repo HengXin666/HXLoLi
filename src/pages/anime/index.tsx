@@ -1,6 +1,5 @@
 import React from "react";
 import Layout from "@theme/Layout";
-import Link from "@docusaurus/Link";
 import { useHistory, useLocation } from "@docusaurus/router";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { useBaseUrlUtils } from "@docusaurus/useBaseUrl";
@@ -9,8 +8,8 @@ import SeriesCard from "@site/src/components/anime/AnimeCard/SeriesCard";
 import { groupSeries, seriesHits, useAnimeSeries } from "@site/src/utils/anime/series";
 import { FilterBar } from "@site/src/components/anime/Tag/FilterBar";
 import AnimeShareBoard from "@site/src/components/anime/AnimeShareBoard";
-import SusumeEntry from "@site/src/components/anime/susume/SusumeEntry";
-import { useAnimeLabelsStatus, useAnimeRecordsState } from "@site/src/utils/anime/animeStore";
+import { AnimeSubnav } from "@site/src/components/anime/susume/parts";
+import { useAnimeRecordsState } from "@site/src/utils/anime/animeStore";
 import { ANIME_TAG_QUERY, susumeDefOfTag, susumePath } from "@site/src/utils/anime/tags";
 import {
     activeConditions,
@@ -57,6 +56,7 @@ function legacySusumeTarget (search: string): string | null {
  * 标签只读人工标注 data/labels (utils/anime/tags.ts), 普通九项标注仍走 ?tag= 筛选; 旧式 ?tag=物凄い 等跳到专属页 (见 legacySusumeTarget).
  * 「系列」视图 (?fold=series): 筛选仍按单季, 命中的季按系列聚成一张 SeriesCard, 分组 / 排序用 utils/anime/series.ts 的 groupSeries.
  * 2026-11-06 第三版: 页头是标题 + 一行等宽副标 + 下划线式子导航 (全部 / おすすめ 三类 / キャラ / 关系图), 去掉胶囊按钮、渐变字与光晕; 状态计数只留在工具栏里.
+ * 子导航 (AnimeSubnav from="index") 切到推荐分类时带上当前筛选, 不再一切 tab 就重置 (2026-11-15).
  * /anime/kyara 路由由 plugins/kyara-gallery-plugin.mjs 注册.
  */
 export default function AnimeIndexPage (): React.ReactNode {
@@ -64,7 +64,6 @@ export default function AnimeIndexPage (): React.ReactNode {
     const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl);
     const location = useLocation();
     const history = useHistory();
-    const labelsStatus = useAnimeLabelsStatus();
     const { withBaseUrl } = useBaseUrlUtils();
 
     const legacyTarget = legacySusumeTarget(location.search);
@@ -228,14 +227,8 @@ export default function AnimeIndexPage (): React.ReactNode {
                         BanGuMi 收藏{records.length > 0 && <> · <b>{records.length}</b> 部 · 看过 <b>{statusTotals.get(WatchStatus.WATCHED) ?? 0}</b> · 在看 <b>{statusTotals.get(WatchStatus.WATCHING) ?? 0}</b></>}
                     </p>
                 </header>
-                <nav className={styles.subnav} aria-label="番剧页面">
-                    <Link to="/anime" aria-current="page">全部</Link>
-                    <span className={styles.subnavSep} aria-hidden />
-                    <SusumeEntry records={records} labelsStatus={labelsStatus} countClass={styles.subnavCount} />
-                    <span className={styles.subnavSep} aria-hidden />
-                    <Link to="/anime/kyara">キャラ</Link>
-                    <Link to="/anime/graph" className={styles.subnavEnd}>关系图 →</Link>
-                </nav>
+                {/* 切到推荐分类时带上当前筛选 / 排序 / 系列视图 (见 useSusume.ts 的 carryFilterSearch) */}
+                <AnimeSubnav records={records} current="all" from="index" />
 
                 <FilterBar
                     filters={filters}

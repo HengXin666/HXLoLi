@@ -33,22 +33,8 @@
     box-shadow: 0 0 0 1px color-mix(in srgb, var(--ifm-font-color-base) 45%, transparent);
 }
 
-/* 悬停遮罩 (实色): 承载简介 (.peek) */
-.cover::after {
-    content: "";
-    position: absolute;
-    inset: 40% 0 0;
-    background: rgba(10, 10, 12, 0.82);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-.cover:hover::after,
-.cover:focus-visible::after {
-    opacity: 1;
-    inset: 0;
-}
+/* 悬停遮罩: 不再用 ::after 把整张封面盖黑 (没有短评时只剩一块黑, 有短评也把海报全遮掉);
+ * 遮罩就是 .peek 自己的实色底, 只贴在封面下部、高度随文字, 没有短评就不渲染 .peek. 2026-11-15 */
 
 .cover img {
     width: 100%;
@@ -109,20 +95,23 @@
 
 .peek {
     position: absolute;
-    inset: auto 10px 16px 10px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px 10px 14px;
+    background: rgba(10, 10, 12, 0.82);
     font-size: 12.5px;
     line-height: 1.5;
     color: #fff;
-    display: -webkit-box;
-    -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
     opacity: 0;
     transform: translateY(6px);
     transition: opacity 0.25s ease, transform 0.25s ease;
     pointer-events: none;
     z-index: 2;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .cover:hover .peek,
@@ -310,7 +299,6 @@
 
 @media (prefers-reduced-motion: reduce) {
     .cover,
-    .cover::after,
     .cover img,
     .peek {
         transition: none;

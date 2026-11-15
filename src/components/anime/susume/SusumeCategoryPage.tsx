@@ -28,6 +28,7 @@ import styles from "@site/src/pages/anime/AnimeIndexPage.module.css";
  * 筛选切换走 listMotion 的 View Transitions, 不支持时 FLIP 兜底. 视图密度与番剧库共用一个本地键.
  * 和番剧库唯一的不同: 默认排序是「名称」, 一面 A-Z 墙连着排, 不分组、不分字母段.
  * 画面上不放名次、观后感说明、旧名提示. 没有分享按钮.
+ * 子导航切到其他分类 / 「全部」时带上当前筛选 (AnimeSubnav from="susume", 换算见 useSusume.ts 的 carryFilterSearch).
  * .agents/notes/implemented/feature/2026-11-08-anime-susume-wall.md
  */
 export default function SusumeCategoryPage ({ susume }: { susume: AnimeSusumeKey }): React.ReactElement {
@@ -150,7 +151,7 @@ export default function SusumeCategoryPage ({ susume }: { susume: AnimeSusumeKey
                         おすすめ{!data.loading && <> · <b>{records.length}</b> 部</>}
                     </p>
                 </header>
-                <AnimeSubnav records={data.all} current={susume} />
+                <AnimeSubnav records={data.all} current={susume} from="susume" />
 
                 <FilterBar
                     filters={filters}

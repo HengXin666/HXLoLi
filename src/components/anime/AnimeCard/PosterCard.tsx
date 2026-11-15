@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import { ANiMeRecord, WatchStatus } from "@site/src/utils/anime/types";
-import { getRecordTags, susumeDefOfTag, susumePath } from "@site/src/utils/anime/tags";
+import { getRecordReview, getRecordTags, susumeDefOfTag, susumePath } from "@site/src/utils/anime/tags";
 import { normalEpisodeCount, statusLabel } from "@site/src/utils/anime/filters";
 import { toAnimeCdnUrl } from "@site/src/utils/cdn/linkJsDelivr";
 import styles from "./PosterCard.module.css";
@@ -39,6 +39,8 @@ function progressOf (record: ANiMeRecord): { ratio: number; text: string } {
  * 番剧库的一张卡, 同一份数据两种密度: 海报 (2:3 封面 + 状态角标 / 评分 / 进度条, 悬停或聚焦时浮出短评)
  * 与列表行 (小封面 + 名称 / 进度 / 评分 / 标签 / 短评一行). 整卡不是一个大链接: 封面与标题链到详情,
  * 标签是独立按钮 (点了加进当前筛选), 避免链接里套按钮.
+ * 悬停浮出的短评 = getRecordReview (标注的一句话观后感优先, 其次追番短评); 没有短评就不出遮罩, 只加深描边,
+ * 不再出现整张封面变黑却没有字的情况 (2026-11-15).
  * 标签只读人工标注 (data/labels, 见 utils/anime/tags.ts); 未标注不显示. 推荐分类 (物凄い / ロリ / シスコン) 渲染成徽章链接,
  * 点了进 /anime/susume/<slug> 专属页, 不加进筛选; 普通标注仍是筛选按钮.
  * data-anime-id 供筛选切换过渡定位卡片: .agents/notes/implemented/feature/2026-11-01-anime-filter-motion.md
@@ -52,6 +54,7 @@ export default function PosterCard ({ record, view, activeTags, onTagClick }: Po
     const tags = getRecordTags(record);
     const shownTags = view === "grid" ? tags.slice(0, 3) : tags;
     const year = (anime_data.date ?? "").slice(0, 4);
+    const review = getRecordReview(record);
 
     const tagButtons = shownTags.map((t) => {
         const susume = susumeDefOfTag(t);
@@ -105,7 +108,7 @@ export default function PosterCard ({ record, view, activeTags, onTagClick }: Po
                         <span>{text}</span>
                     </div>
                     <div className={styles.progress} aria-hidden><span style={{ width: `${ratio * 100}%` }} /></div>
-                    {user_status.comment && <p className={styles.rowComment}>{user_status.comment}</p>}
+                    {review && <p className={styles.rowComment}>{review}</p>}
                     {tagButtons.length > 0 && <div className={styles.tags}>{tagButtons}</div>}
                 </div>
             </li>
@@ -118,7 +121,7 @@ export default function PosterCard ({ record, view, activeTags, onTagClick }: Po
                 <img src={toAnimeCdnUrl(`/data/anime/${anime_data.id}.jpg`)} alt="" loading="lazy" decoding="async" />
                 {badge}
                 {score}
-                {user_status.comment && <span className={styles.peek}>{user_status.comment}</span>}
+                {review && <span className={styles.peek}>{review}</span>}
                 <span className={styles.progress} aria-hidden><span style={{ width: `${ratio * 100}%` }} /></span>
             </Link>
             <div className={styles.body}>

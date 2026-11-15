@@ -23,6 +23,7 @@ Decision-ID: anime-susume-wall
 4. 总览 (`SusumeHubPage.tsx`): 番剧库同款页头与子导航, 每个分类一节 (番剧库的分组标题 + 数量), 节内是按番名 A-Z 的前 12 张海报密度 `PosterCard`, 超过 12 部时节尾「全部 N 部 →」. 卡片上的普通标签点了去 `/anime?tag=` 筛选. 「评分最高」整节删除.
 5. 画面上的说明 / 旧名一律不显示: 删掉 `SusumeEntry` 链接的 `title={def.subtitle}`、详情页 (`details.tsx`) 徽章的「妹控: 进入「シスコン」专属页」、`SeriesCard` / `PosterCard` 徽章的「推荐分类「…」: 去专属页」; 页面 meta description 是「HXLoLi 的推荐: 分类名」. `data/animeTags.ts` 的 `subtitle` / `rule` 字段保留 (是 labelVocab.json 的镜像), 只是不再渲染.
 6. `useSusume.ts` 只剩每类的记录 (按番名) 与三态; 删掉 `SUSUME_COPY`、`SusumePick`、首字母分组、`backdrop`. `susume.module.css` 不再被引用.
+7. 2026-11-15 站长反馈 "选了系列剧、按某种排序, 换到另一个 tab 全部重置": 子导航切 tab 带上当前筛选. 番剧库与分类页都用 `parts.tsx` 的 `AnimeSubnav` (番剧库 `current="all" from="index"`, 分类页 `from="susume"`, 总览不传 `from`, 因为它没有筛选), 「全部」与各分类链接拼上 `useSusume.ts` 的 `carryFilterSearch` 算出的查询串. 两边默认排序不同, 不直接拷查询串, 而是按来源页解析成完整状态再按目标页序列化, 画面上是什么排序过去还是什么排序 (所以从番剧库默认的「最近更新」进分类页会是 `sort=update`, 不是分类页默认的名称). 去番剧库时丢掉推荐分类标签, 免得触发首页旧链接跳转.
 
 ## Alternatives considered
 
@@ -32,6 +33,9 @@ Decision-ID: anime-susume-wall
 - 按首字母分段 + 吸顶 A-Z 跳转条 (11-08 13:08 做过一版): 番多时好翻. 否决: 站长要一面连贯的墙.
 - 复用首页「在追的番」的封面格 (11-08 13:50 做过一版): 改动小. 否决: 站长要番剧库那样的交互和动效, 封面格只有悬停描边.
 - 把番剧库页面抽成带 scope 参数的组件, susume 只传分类: 没有重复代码. 否决 (暂缓): 要改 `src/pages/anime/index.tsx` 和它挂着的几篇 note, 分享、旧链接跳转等逻辑 susume 用不上; 现在是照着番剧库写一份, 两边改交互时要一起改.
+
+- 切 tab 只带「单部·系列」和排序, 不带搜索 / 状态 / 标签: 换分类后不容易筛空. 否决: 站长说的是 "这些内容全部给我重置了", 要的是筛选整体跟着走; 筛空时页面本来就有"去掉 X, 有 N 部"的一键撤销.
+- 筛选存 localStorage 跨页共享: 不用改链接. 否决: 筛选状态一直以 URL 为准 (可分享、可后退), 存本地会和地址栏打架.
 
 ## Consequences
 

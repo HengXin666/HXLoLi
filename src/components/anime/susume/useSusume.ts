@@ -2,7 +2,7 @@ import React from "react";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { ANIME_SUSUME_DEFS, type AnimeSusumeDef, type AnimeSusumeKey } from "@site/data/animeTags";
 import { useAnimeLabelsStatus, useAnimeRecordsState } from "@site/src/utils/anime/animeStore";
-import { recordsOfSusume, susumePath } from "@site/src/utils/anime/tags";
+import { recordsOfSusume, susumeDefOfTag, susumePath } from "@site/src/utils/anime/tags";
 import { DEFAULT_FILTERS, parseFilters, serializeFilters, type AnimeFilters } from "@site/src/utils/anime/filters";
 import type { ANiMeRecord } from "@site/src/utils/anime/types";
 
@@ -75,4 +75,21 @@ export function serializeSusumeFilters (f: AnimeFilters): string {
     const p = new URLSearchParams(serializeFilters({ ...f, sort: f.sort === "name" ? DEFAULT_FILTERS.sort : f.sort }));
     if (f.sort === DEFAULT_FILTERS.sort) p.set("sort", f.sort);
     return p.toString();
+}
+
+/** 子导航两端: 番剧库 (/anime, 默认排序「最近更新」) 与推荐分类页 (/anime/susume/<slug>, 默认排序「名称」) */
+export type AnimeListKind = "index" | "susume";
+
+/**
+ * 在「全部」与各推荐分类之间切换时带上当前筛选 (搜索 / 状态 / 标签 / 年份 / 评分 / 排序 / 单部·系列),
+ * 不然一切 tab 全部回到默认. 两边默认排序不同, 所以不能直接拷查询串: 先按来源页解析成完整状态,
+ * 再按目标页序列化, 画面上是什么排序过去还是什么排序.
+ * 去番剧库时丢掉推荐分类标签 (ロリ 等), 否则会触发首页的旧链接跳转又弹回分类页.
+ * 返回带 "?" 的查询串, 没有条件时返回空串.
+ */
+export function carryFilterSearch (search: string, from: AnimeListKind, to: AnimeListKind): string {
+    const f = from === "susume" ? parseSusumeFilters(search) : parseFilters(search);
+    const next: AnimeFilters = to === "index" ? { ...f, tags: f.tags.filter((t) => !susumeDefOfTag(t)) } : f;
+    const out = to === "susume" ? serializeSusumeFilters(next) : serializeFilters(next);
+    return out ? `?${out.replace(/%2C/g, ",")}` : "";
 }
