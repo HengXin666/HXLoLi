@@ -534,17 +534,38 @@ const aiDocsSidebar = [
     "collapsed": true,
     "items": [
       {
-        "type": "doc",
-        "id": "生活/电脑包选购指标/index",
-        "label": "电脑包选购指标",
+        "type": "category",
+        "label": "购物",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "doc",
+            "id": "生活/购物/电脑包选购指标/index",
+            "label": "电脑包选购指标",
+            "customProps": {
+              "icon": "icons/ai-briefcase.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "生活/购物/手机选购指标/index",
+            "label": "手机选购指标",
+            "customProps": {
+              "icon": "icons/ai-smartphone.svg",
+              "tags": []
+            }
+          }
+        ],
         "customProps": {
-          "icon": "default-icons/ai-doc.svg",
+          "icon": "icons/ai-shopping-bag.svg",
           "tags": []
         }
       }
     ],
     "customProps": {
-      "icon": "default-icons/ai-folder.svg",
+      "icon": "icons/ai-coffee.svg",
       "tags": []
     }
   },
