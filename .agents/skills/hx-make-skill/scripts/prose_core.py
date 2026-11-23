@@ -9,12 +9,14 @@ import re
 from pathlib import Path
 
 FULLWIDTH_TO_ASCII = {
-    '\uFF0C': ',', '\u3002': '.', '\uFF1F': '?', '\uFF01': '!',
+    # 中文句号 。 是允许的 (2026-11-22 用户定), 不在这里; 其余全角标点仍判违规
+    '\uFF0C': ',', '\uFF1F': '?', '\uFF01': '!',
     '\uFF1A': ':', '\uFF1B': ';', '\u201C': '"', '\u201D': '"',
     '\uFF08': '(', '\uFF09': ')',
 }
-TERMINAL_BANNED = set('.,;:!') | {chr(0xFF0C), chr(0x3002), chr(0xFF1B), chr(0xFF1A), chr(0xFF01)}
-TERMINAL_ALLOWED = {'?', chr(0xFF1F)}
+TERMINAL_BANNED = set('.,;:!') | {chr(0xFF0C), chr(0xFF1B), chr(0xFF1A), chr(0xFF01)}
+# 。 和 ? 一样可以收句, 行末出现不算折行也不算 P3
+TERMINAL_ALLOWED = {'?', chr(0xFF1F), chr(0x3002)}
 NEEDS_SPACE = set(',.?!:;')
 LIST_RE = re.compile(r'^\s*(?:[-*+]|\d+[.)])\s')
 SKIP_RE = re.compile(r'^\s*(?:```|~~~|    |\t|<)')

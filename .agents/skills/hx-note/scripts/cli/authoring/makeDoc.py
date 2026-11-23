@@ -15,7 +15,7 @@ for _p in (Path(__file__).resolve().parents[1], Path(__file__).resolve().parents
     sys.path.insert(0, str(_p))
 
 from authoring.makedoc_meta import (DEFAULT_AUTHOR, clean_meta,  # noqa: E402
-                                    get_project_model, infer_title, parse_skills,
+                                    get_project_model, normalize_model, infer_title, parse_skills,
                                     parse_tags)
 from authoring.makedoc_template import (build_doc,  # noqa: E402
                                         new_hxid, read_existing_hxid)
@@ -24,6 +24,15 @@ from authoring.makedoc_template import (build_doc,  # noqa: E402
 # Agent Notes: 流程型 skill 用「步骤 = 文件夹 = index.md + impl/」组织; 沉淀必须产出可复用物
 # 
 # 
+
+def _canonical_model(raw: str) -> str:
+    """登记表里有就写规范 id; 表外取值原样写, 交给 doctor 拦 (见 shared/models.toml)"""
+    hit = normalize_model(raw)
+    if hit is None:
+        print(f"warn: model {raw!r} 不在 shared/models.toml, doctor 会拦", file=sys.stderr)
+        return clean_meta(raw)
+    return hit[0]
+
 def parse_args(argv: list[str]) -> argparse.Namespace:
     """Agent Notes
     .agents/notes/implemented/architecture/2026-09-26-skill-steps-as-template-method.md
@@ -58,8 +67,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         default=get_project_model(),
         help=(
             "AI model written to frontmatter. Prefer passing this explicitly; "
-            "otherwise makeDoc.py tries HX_AI_DOCS_MODEL/CODEX_MODEL/etc, "
-            "then optional config.toml fallback."
+            "otherwise makeDoc.py tries HX_AI_DOCS_MODEL/CODEX_MODEL/etc. "
+            "The value is normalized against shared/models.toml."
         ),
     )
     parser.add_argument(
@@ -112,7 +121,7 @@ def main(argv: list[str] | None = None) -> int:
         hxid=hxid,
         title=title,
         created_at=clean_meta(args.date),
-        model=clean_meta(args.model),
+        model=_canonical_model(args.model),
         skills=parse_skills(args.skills),
         author=clean_meta(args.author),
         tags=parse_tags(args.tags),

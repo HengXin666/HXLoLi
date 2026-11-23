@@ -1,0 +1,52 @@
+# frontmatter `model` 字段的唯一取值表. makeDoc 写入前按 aliases 归一, doctor 拒绝表外取值
+# 新增模型: 加一个 [[model]] 块. 推理强度后缀 (-low / -medium / -high / -xhigh) 不用单独登记
+# legacy = true 的取值只给存量用, 新笔记写它会被 doctor 拦
+
+[[model]]
+id = "gpt-5"
+aliases = ["GPT-5"]
+
+[[model]]
+id = "gpt-5-codex"
+aliases = ["GPT-5 Codex", "gpt5-codex"]
+
+[[model]]
+id = "gpt-5.5"
+aliases = ["GPT-5.5"]
+
+[[model]]
+id = "gpt-6"
+aliases = ["GPT-6"]
+
+[[model]]
+id = "gpt-6.1-sol"
+aliases = ["GPT-6.1-Sol"]
+
+[[model]]
+id = "deepseek-v4-flash"
+aliases = ["DeepSeek-V4-Flash"]
+
+[[model]]
+id = "deepseek-v4.1-flash"
+aliases = ["DeepSeek-V4.1-Flash"]
+
+[[model]]
+id = "deepseek-v4-pro"
+aliases = ["DeepSeek-V4-Pro"]
+
+[[model]]
+id = "hark"
+aliases = ["Hark"]
+note = "Hark 按任务路由底层模型, 会话内拿不到具体型号, 只能记到路由层"
+
+[[model]]
+id = "codex"
+aliases = ["Codex"]
+legacy = true
+note = "存量只记了产品名, 型号已无法追溯"
+
+[[model]]
+id = "unknown"
+aliases = ["Unknown", ""]
+legacy = true
+note = "存量没记模型. 新笔记不许再写"

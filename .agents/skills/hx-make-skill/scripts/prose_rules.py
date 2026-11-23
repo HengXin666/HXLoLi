@@ -5,9 +5,9 @@ Every skill produced with hx-make-skill inherits this gate, so its own text arti
 Rule statement and rationale: references/prose-rules.md
 
 Checks:
-  P1 fullwidth   -- , 。 ？ ！ ： ； “ ” must not appear
+  P1 fullwidth   -- ， ？ ！ ： ； “ ” （ ） must not appear; the Chinese full stop 。 is allowed
   P2 spacing     -- , . ? ! : ; needs one following space unless nothing follows
-  P3 terminal    -- a prose line must not end with . , ; : ! (only ? may close a sentence)
+  P3 terminal    -- a prose line must not end with . , ; : ! (only ? or 。 may close a sentence)
   P4 wrap        -- a sentence broken across two lines
   P5 lead        -- a prose line must not start with a break mark
   P6 damage      -- `X. **` before a closing **, `/. x` in a path, a run of spaces between CJK
@@ -124,11 +124,11 @@ def scan(text: str) -> list[tuple[int, str, str]]:
             last = tail[-1]
             if idx < end - 1:
                 # A paragraph is one line. Every continuation line is a hard wrap unless it
-                # legitimately closes a sentence of its own, which only `?` can do.
+                # legitimately closes a sentence of its own, which only `?` or `。` can do.
                 if last not in TERMINAL_ALLOWED:
                     out.append((idx + 1, 'P4', 'hard wrap: the paragraph continues on the next line'))
             elif last in TERMINAL_BANNED:
-                out.append((idx + 1, 'P3', 'line ends with ' + repr(last) + '; only ? may close a sentence'))
+                out.append((idx + 1, 'P3', 'line ends with ' + repr(last) + '; only ? or 。 may close a sentence'))
             if tail.lstrip()[:1] in TERMINAL_BANNED:
                 out.append((idx + 1, 'P5', 'line starts with a break mark; merge it into the previous line'))
     return sorted(out)
@@ -215,6 +215,8 @@ def _needs_space(left: str, right: str) -> bool:
     """A mark's trailing space (rule 2) is mandatory; two CJK runs join bare."""
     if not left or not right:
         return False
+    if left[-1] == chr(0x3002):
+        return False  # 中文句号后不补空格
     if left[-1] in TERMINAL_BANNED or left[-1] in TERMINAL_ALLOWED:
         return True
     if CJK_RE.search(left[-1]) is not None:

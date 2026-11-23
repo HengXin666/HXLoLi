@@ -8,6 +8,7 @@
 |---|---|---|
 | 步骤 6 动笔前 | 读作者真文样本, 照着语气先写引入 | `impl/exemplars.md` |
 | 步骤 6 动笔前 | 读一遍已积累的好/坏表达 | `hx_voice.py samples` |
+| 步骤 6 动笔前 | 从语气档案挑 2 到 3 条手法照着写 (status 每次会摘要列出) | `ai-docs/.hx-voice-profile.md` |
 | 步骤 3 / 6 写完后 | 静态检测 | `hx_voice.py lint --profile atom\|article` |
 | 步骤 7 盲审后 | 把新发现的表达写回语料库 | `hx_voice.py learn` |
 
@@ -26,3 +27,9 @@
 ## 语料库
 
 `ai-docs/.hx-voice.toml`. **扩展方式**: 新 AI 味规则 = 用 `hx_voice.py learn --bad` 追加一条(带 `--pattern` 会升级成 lint 的 E 级规则, 这才是让一次盲审变成永久拦截的开关)
+
+## 语气档案
+
+`ai-docs/.hx-voice-profile.md`. 语料库管**措辞** (哪个词能用), 档案管**手法** (作者怎么推理、怎么停顿、情绪从哪来). 按维度分 docs 体 / 情绪手法 / blog 体, 每条带频率和两处原文出处, 外加 ai-docs 现存指纹的反例表. 知识稿默认 docs 体
+
+**扩展方式**: 加一条手法之前先在 `docs/` 或 `blog/` 里找到两处原文; 找不到两处就不加. 只出现一次的是个例, 写进档案就会变成新的模仿指纹. 档案不进 lint: 它是启发, 不是判据 (理由同语料库, 见 voice-corpus-forced-injection 那篇 note)

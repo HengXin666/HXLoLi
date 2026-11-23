@@ -1,6 +1,7 @@
 """推进阶段的子命令: init (开流程) 与 done (标记完成并过闸门)。"""
 from __future__ import annotations
 
+import re
 from datetime import date
 from pathlib import Path
 
@@ -9,20 +10,61 @@ from flow.flow_core import (BY_KEY, BY_NUM, DIVERGENT_MARK, GOAL, STAGES, Flow,
 from flow.flow_read import goal_gate, print_status, read_answer_card
 from lib.sources_core import KINDS, breadth_report
 
-VISUALS = ("drawio", "截图", "生图", "表格", "代码")
+
+
+PERSONA = "ai-docs/.hx-persona.md"
+NO_LINK = "画像无关联:"
+
+
+def persona_anchors(text: str) -> set[str]:
+    """Agent Notes
+    .agents/notes/implemented/architecture/2026-11-08-migration-anchored-to-persona.md
+    """
+    names = set(re.findall(r"^- \*\*([^*]{2,40})\*\*", text, re.M))
+    names |= {t.split("  tags:")[0].strip()
+              for t in re.findall(r"^- `\d{4}-\d\d-\d\d` ([^\[\n]{4,60})", text, re.M)}
+    for tags in re.findall(r"^- 高频 tag: (.+)$", text, re.M):
+        names |= {re.sub(r"×\d+$", "", t).strip() for t in tags.split(",")}
+    return {n for n in names if len(n) >= 2}
+
+
+def migration_gate(div: Path, persona: Path) -> str:
+    """算子三至少一行落在画像条目上, 或明写 `画像无关联: 原因`. 空串表示通过"""
+    text = div.read_text(encoding="utf-8")
+    m = re.search(r"^## 算子三.*?(?=^## |\Z)", text, re.M | re.S)
+    sec = m.group(0) if m else ""
+    hit = re.search(re.escape(NO_LINK) + r"\s*(\S.{6,})", sec)
+    if hit:
+        return ""
+    if not persona.is_file():
+        return ("缺作者画像 " + PERSONA + "; 先跑 hx_persona.py build, "
+                "再把算子三的迁移目标落到画像里的具体项目或方向上")
+    names = persona_anchors(persona.read_text(encoding="utf-8"))
+    if any(n in sec for n in names):
+        return ""
+    return ("算子三没有一行迁移到画像里的条目. 迁移目标写成画像 0x01/0x02 里的具体名字, "
+            "并给检查动作; 确实无关就写一行 `" + NO_LINK + " <为什么>`")
 
 
 def storyboard_gate(path: Path) -> str:
-    """分镜每行 | 0xNN | 标题 | 主视觉 | ...; 主视觉必须是 VISUALS 之一。空串表示通过。"""
+    """分镜每行 `- 0xNN | 标题 | 要证明的一句话 | 图 | 出处`; 只要求那句话非空。空串表示通过。
+    图不再必填 (2026-11-08 撤掉「每段主视觉」, 见 note rules-feed-forward-gates-confirm)。
+    旧格式 `| 0xNN | ... |` 仍认, 那时第 4 格是要证明的话。"""
     if not path.is_file():
         return "缺 source/storyboard.md  步骤 6 先出分镜再写正文 (assets/storyboard-template.md)"
-    rows = [[c.strip() for c in ln.strip().strip("|").split("|")]
-            for ln in path.read_text(encoding="utf-8").splitlines()
-            if ln.lstrip().startswith("| 0x")]
+    rows = []
+    for ln in path.read_text(encoding="utf-8").splitlines():
+        t = ln.strip()
+        if t.startswith("- 0x"):
+            c = [x.strip() for x in t[2:].split("|")]
+            rows.append((c[0], c[2] if len(c) > 2 else ""))
+        elif t.startswith("| 0x"):
+            c = [x.strip() for x in t.strip("|").split("|")]
+            rows.append((c[0], c[3] if len(c) > 3 else ""))
     if len(rows) < 3:
         return "分镜只有 %d 段, 要求 3 到 6 段" % len(rows)
-    bad = [r[0] for r in rows if len(r) < 4 or not any(v in r[2] for v in VISUALS) or not r[3]]
-    return ("这些段没有填主视觉或它要证明的话: " + ", ".join(bad)) if bad else ""
+    bad = [k for k, claim in rows if not claim or claim.startswith("<")]
+    return ("这些段没写要证明的那句话: " + ", ".join(bad)) if bad else ""
 
 
 def cmd_init(args) -> int:
@@ -132,6 +174,9 @@ def cmd_done(args) -> int:
                 "  每条的'结论'格必须以 %s 开头, 并在'判据/去向'格给出可查的动作。"
                 % (n, detail or "先把四个算子各跑一次", DIVERGENT_MARK)
                 + "\n  确实无可发散结构时加 --force 并在 --note 里写明原因")
+        why = migration_gate(div, root / PERSONA)
+        if why:
+            raise SystemExit("error: " + why + "\n  做法: steps/3-atom/impl/divergence.md 算子三")
 
     f.data.setdefault("done", [])
     if key not in f.data["done"]:

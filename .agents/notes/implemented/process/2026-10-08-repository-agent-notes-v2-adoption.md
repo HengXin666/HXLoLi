@@ -10,6 +10,7 @@ Decision-ID: repository-agent-notes-v2-adoption
 - `.agents/skills/hx-agent-notes/scripts/lib/glob.ts`
 - `.agents/skills/hx-agent-notes/scripts/triage/note-triage.py`
 - `src/components/AIDocHeader/index.tsx`
+- `src/components/BlogWithCats/index.tsx`
 - `src/components/DevTools/InlineEditor.tsx`
 - `src/components/DrawIoPage/index.tsx`
 - `src/components/Giscus/index.tsx`

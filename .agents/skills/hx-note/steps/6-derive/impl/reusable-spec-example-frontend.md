@@ -12,13 +12,11 @@
 
 ## 第二层: 契约
 
-| 契约 | 具体值 | 判据 (会失败) |
-|---|---|---|
-| 类型检查 | `tsc --noEmit` 必须零错误 | 退出码非 0 |
-| UI 门禁 | `check-ui-rules.mjs` | 退出码非 0 |
-| 格式检查 | prettier `--check` | 退出码非 0 |
-| 颜色唯一来源 | 语义 token, 组件里禁 hex / rgb | 门禁规则 `no-hex-color` |
-| 组件唯一来源 | `lucide-react` 图标 + 本库基础件, 禁第二套 UI 库 | 门禁规则 `no-other-ui-kit` |
+- **类型检查**: 具体值: `tsc --noEmit` 必须零错误; 判据 (会失败): 退出码非 0
+- **UI 门禁**: 具体值: `check-ui-rules.mjs`; 判据 (会失败): 退出码非 0
+- **格式检查**: 具体值: prettier `--check`; 判据 (会失败): 退出码非 0
+- **颜色唯一来源**: 具体值: 语义 token, 组件里禁 hex / rgb; 判据 (会失败): 门禁规则 `no-hex-color`
+- **组件唯一来源**: 具体值: `lucide-react` 图标 + 本库基础件, 禁第二套 UI 库; 判据 (会失败): 门禁规则 `no-other-ui-kit`
 
 **门禁脚本必须放在仓库里并被 `package.json` 的 `scripts` 引用**, 不能只写在文档里  实测踩过: `components/HX-UI` 的 `package.json` 引用了 `check-ui-rules.mjs`, 而那个文件**不存在**, 于是 `npm run build` 一直是失败的, 而文字规范看起来完好无损
 
@@ -48,13 +46,11 @@ src/index.ts      唯一导出面
 
 ### UI 库 (只有一个来源)
 
-| 层 | 用什么 | 说明 |
-|---|---|---|
-| 基础件 | `radix-ui` 无样式原语 | 弹层 / 下拉 / 选择器 / 开关的可访问性由它兜住 |
-| 变体 | `class-variance-authority` | 每个组件的 variant 与尺寸**只有这一处定义** |
-| 类名合并 | `tailwind-merge` | 只在组件内部用, 页面里不许出现 |
-| 图标 | `lucide-react` | 一套, 不混 Iconify |
-| 动效 | `motion` | 只在挂载/退场用, 不做持续动画 |
+- **基础件**: 用什么: `radix-ui` 无样式原语; 说明: 弹层 / 下拉 / 选择器 / 开关的可访问性由它兜住
+- **变体**: 用什么: `class-variance-authority`; 说明: 每个组件的 variant 与尺寸**只有这一处定义**
+- **类名合并**: 用什么: `tailwind-merge`; 说明: 只在组件内部用, 页面里不许出现
+- **图标**: 用什么: `lucide-react`; 说明: 一套, 不混 Iconify
+- **动效**: 用什么: `motion`; 说明: 只在挂载/退场用, 不做持续动画
 
 样式走 `Tailwind 4` + `class-variance-authority`, 不用 CSS Module, 不用内联 style (动态尺寸除外). **颜色只在 `tokens.css` 里定义一次**, 组件写 `bg-card / text-muted-foreground`
 
@@ -74,15 +70,13 @@ src/index.ts      唯一导出面
 
 ## 第四层: 偏好 (写法习惯)
 
-| 偏好 | 写成可检查的形式 |
-|---|---|
-| 组件必须显式类型 | `tsconfig.json` 开 `strict: true` + `noUnusedLocals`; 实测本仓 `components/HX-UI` 与 `components/HX-VettaMirror` 仍是 `strict: false`  这是**当前的不一致**, 新项目一律开 |
-| props 必须有 interface | 导出组件的 props 必须具名 interface, 不许内联对象字面量类型 |
-| 导出函数显式返回类型 | `JSX.Element` 之类也要写, 不靠推断 |
-| 注释只写"为什么" | 写清某行类名/某个 hack 的**来源与原因**; 不写"设置状态"这种复述 |
-| **每个页面有自己的 URL 路径** | 一个根组件用 `useState` 切页面 = 违反. 判据: 路由表里能查到每个可见页面的条目; 分享链接能直达 |
-| 路径一律绝对别名 | `@/` 开头, 禁止 `../`. 判据: 门禁加一条正则拦相对回溯 |
-| 格式化统一 | prettier `.prettierrc.json` 全文入仓 + `prettier --write` 命令 |
+- **组件必须显式类型**: 写成可检查的形式: `tsconfig.json` 开 `strict: true` + `noUnusedLocals`; 实测本仓 `components/HX-UI` 与 `components/HX-VettaMirror` 仍是 `strict: false`  这是**当前的不一致**, 新项目一律开
+- **props 必须有 interface**: 写成可检查的形式: 导出组件的 props 必须具名 interface, 不许内联对象字面量类型
+- **导出函数显式返回类型**: 写成可检查的形式: `JSX.Element` 之类也要写, 不靠推断
+- **注释只写"为什么"**: 写成可检查的形式: 写清某行类名/某个 hack 的**来源与原因**; 不写"设置状态"这种复述
+- **每个页面有自己的 URL 路径**: 写成可检查的形式: 一个根组件用 `useState` 切页面 = 违反. 判据: 路由表里能查到每个可见页面的条目; 分享链接能直达
+- **路径一律绝对别名**: 写成可检查的形式: `@/` 开头, 禁止 `../`. 判据: 门禁加一条正则拦相对回溯
+- **格式化统一**: 写成可检查的形式: prettier `.prettierrc.json` 全文入仓 + `prettier --write` 命令
 
 ### 为什么"每个页面一个路径"要写进规格
 
@@ -92,21 +86,17 @@ src/index.ts      唯一导出面
 
 ## 第五层: 可直接拷走的件
 
-| 件 | 本仓的真实位置 | 怎么被复用 |
-|---|---|---|
-| 令牌 | `components/HX-UI` 的 `tokens.css` | 拷过去即用, 零依赖 |
-| 桥接层 | `components/HX-UI` 的 `src/styles.css` | 要 `bg-primary/10` 这类写法时再叠 |
-| 门禁脚本 | `check-ui-rules.mjs` | 拷到新项目 `scripts/` |
-| 骨架组件 | `AppFrame` / `SidebarNav` | 直接 import, 不重写 |
-| 复现件 | 单文件 `.html` 或 `.tsx` | 正文里内嵌, 读者点开就能看到 |
+- **令牌**: 本仓的真实位置: `components/HX-UI` 的 `tokens.css`; 怎么被复用: 拷过去即用, 零依赖
+- **桥接层**: 本仓的真实位置: `components/HX-UI` 的 `src/styles.css`; 怎么被复用: 要 `bg-primary/10` 这类写法时再叠
+- **门禁脚本**: 本仓的真实位置: `check-ui-rules.mjs`; 怎么被复用: 拷到新项目 `scripts/`
+- **骨架组件**: 本仓的真实位置: `AppFrame` / `SidebarNav`; 怎么被复用: 直接 import, 不重写
+- **复现件**: 本仓的真实位置: 单文件 `.html` 或 `.tsx`; 怎么被复用: 正文里内嵌, 读者点开就能看到
 
 **复现件必须与笔记同目录.** 实测踩过: 复现件放在笔记仓库之外的独立包里, 正文只写一句路径, 读者点不进去, agent 也无法从笔记恢复它
 
 ## 形态一字段的对照 (写规格时最容易漏的)
 
-| 只写这段 | 读者会得到 |
-|---|---|
-| "用全套语义化变量, 每个组件都要有类型" | 能懂, 但搭不出来 |
-| 上面这张表 + 骨架代码 + 门禁脚本 | 能照着搭出同样的东西 |
+- **"用全套语义化变量, 每个组件都要有类型"**: 读者会得到: 能懂, 但搭不出来
+- **上面这组契约 + 骨架代码 + 门禁脚本**: 读者会得到: 能照着搭出同样的东西
 
 差别不在文字质量, 在**有没有把可执行件摆出来**

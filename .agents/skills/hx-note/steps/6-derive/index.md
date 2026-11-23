@@ -8,7 +8,7 @@
 
 ## 产物
 
-- `source/storyboard.md`  分镜, **先于正文写**. 格式 `../../assets/storyboard-template.md`. 每段一个主视觉, 写清它要证明的一句话
+- `source/storyboard.md`  分镜, **先于正文写**. 格式 `../../assets/storyboard-template.md`. 每段写清它要证明的一句话; 需要结构图的段标明画什么图
 - `index.md`, 结构按模板 (默认「兴趣&展望」); 它引用的图与侧车**与它同目录**. 素材是一套可照做的做法时, 额外产出 `impl/reusable-spec.md` 的第五层那几件(骨架 / 令牌 / 门禁脚本 / 复现件 / 演示页)  这些是侧车, 不是第三份知识产物
 
 ## 实现
@@ -29,11 +29,11 @@
 
 ## 写作顺序 (不许倒过来)
 
-先图后字. 旧顺序是先写完正文再找地方配图, 结果图只能重复文字已经讲完的东西
+先定每段要证明什么, 再决定哪几段需要结构图. 没有结构要讲的段只写字, 不为凑视觉补图、补表、补代码
 
-1. **分镜**: 写 `source/storyboard.md`, 每个 `## 0xNN` 先定主视觉 (drawio / 截图 / 生图 / 表格 / 代码) 与它要证明的一句话. 分镜给人看过再往下
+1. **分镜**: 写 `source/storyboard.md`, 每个 `## 0xNN` 写一句它要证明的话, 有结构要讲的段再标明图 (架构图 / 流程图 / 截图). 分镜给人看过再往下
 2. **仿写引入**: 读 `../../shared/voice/impl/exemplars.md` 的作者真文, 照着语气只写引入段
-3. **逐段落字**: 每段先放主视觉, 再写接住它的一两句话. 预算是可数的, 见 `../../templates/interest-outlook.md` 的槽位表
+3. **逐段落字**: 有图的段先放图, 再写接住它的一两句话. 动笔前读 `hx_flow.py status` 打出的「写前规则」, lint 就按那份清单查
 
 动笔前要拿到**三样**输入
 
@@ -55,7 +55,7 @@
 uv run .agents/skills/hx-note/scripts/cli/voice/hx_voice.py lint <index.md> --profile article
 ```
 
-**零 E 级命中**才推进. E 级里包括 `section-visual` (某段没有主视觉) 与超过 5 行的表格; `text-ratio` 是 W 级, 命中时在 `.hx-mitemite.md` 写明为什么这段只能用字讲
+**零 E 级命中**才推进. 查的条目就是 status「写前规则」那份清单, 包括 markdown 表格 (一张都不许) 与单段超过 150 字
 
 `done derive` 另查 `source/storyboard.md` 存在
 

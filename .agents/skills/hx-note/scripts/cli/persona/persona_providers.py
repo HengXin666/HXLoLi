@@ -122,11 +122,15 @@ def collect_voice(ctx: Ctx) -> Section:
             break
     return Section("voice", True, lines)
 
+BOT_COMMIT_RE = re.compile(r"^\S+ (\[LoLi-Bot\]|Merge (branch|pull request) )")
+
+# Agent Notes: 迁移算子以作者画像为输入, done atom 查锚点
+# .agents/notes/implemented/architecture/2026-11-08-migration-anchored-to-persona.md
 def collect_git(ctx: Ctx) -> Section:
     try:
         out = subprocess.run(
             ["git", "log", f"--since={ctx.since.isoformat()}", "--pretty=%ad %s",
-             "--date=short", "-n", "40"],
+             "--date=short", "-n", "120"],
             cwd=ctx.root, capture_output=True, text=True, timeout=20,
         )
     except (OSError, subprocess.SubprocessError) as exc:
@@ -134,7 +138,9 @@ def collect_git(ctx: Ctx) -> Section:
     if out.returncode != 0:
         first = (out.stderr or "").strip().splitlines()
         return Section("git", False, note=f"git log 失败: {first[0] if first else '未知原因'}")
-    lines = [f"- {ln}" for ln in out.stdout.strip().splitlines() if ln.strip()]
+    # 机器人同步与合并提交占满窗口时, 画像里看不到人做了什么 (实测: 20 条里 11 条是 LoLi-Bot)
+    lines = [f"- {ln}" for ln in out.stdout.strip().splitlines()
+             if ln.strip() and not BOT_COMMIT_RE.search(ln)]
     if not lines:
         return Section("git", False, note=f"{ctx.since} 之后没有提交")
     return Section("git", True, lines[:20])

@@ -45,7 +45,8 @@ def lint_file(path: Path, profile: str, *, allow_table: bool, db: dict) -> FileR
     for rule in RULES:
         if profile not in rule.profiles:
             continue
-        if rule.rid == "table" and allow_table:
+        # article 的 table 是硬红线, --allow-table 只放开别的 profile
+        if rule.rid == "table" and allow_table and profile != "article":
             continue
         if rule.checker:
             limit = PARA_LIMIT[profile] if rule.checker == "long_para" else rule.limit

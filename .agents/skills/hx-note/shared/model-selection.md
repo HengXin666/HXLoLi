@@ -4,10 +4,13 @@
 
 ## 规则
 
-1. **能确定就显式传**: `--model "<当前实际模型名>"`
-2. **不能确定就写 `Unknown`**: 脚本在无法感知真实模型时默认就是 `Unknown`. **禁止**从 `config.toml` 或其他配置文件编造当前会话模型
-3. 环境变量优先级 (`makeDoc.py` 实际读取顺序): `HX_AI_DOCS_MODEL` > `CODEX_MODEL` > `OPENAI_MODEL` > `ANTHROPIC_MODEL` > `CLAUDE_MODEL` > `MODEL`; 推理强度取 `HX_AI_DOCS_MODEL_REASONING_EFFORT` 等; 两者会拼成 `<model>-<effort>`
-4. **不要去翻任何配置文件来推断当前模型.** 脚本读不到就写 `Unknown`  编一个"看起来对"的模型名比留空更坏, 因为它会被当真
+1. **取值只能来自 `shared/models.toml`.** 表里每个模型一个规范 id (全小写, 如 `deepseek-v4-flash`), 加若干别名. `makeDoc.py` 写入前按别名归一, `doctor` 拒绝表外取值. 存量里同一个模型有 `DeepSeek-V4-Flash` 与 `deepseek-v4-flash` 两种写法, 换模型后质量变没变就没法按模型分组比
+2. **能确定就显式传**: `--model "<当前实际模型名>"`. 新模型先在表里加一个 `[[model]]` 块再传
+3. **新笔记不许写 `unknown` 或 `codex`.** 这两个是存量专用取值 (`legacy = true`), doctor 会拦. 读不到真实模型时停下问人类, 不要写一个占位就过
+4. 推理强度后缀 `-low` / `-medium` / `-high` / `-xhigh` 不用登记, 归一时保留
+5. 环境变量优先级 (`makeDoc.py` 实际读取顺序): `HX_AI_DOCS_MODEL` > `CODEX_MODEL` > `OPENAI_MODEL` > `ANTHROPIC_MODEL` > `CLAUDE_MODEL` > `MODEL`; 推理强度取 `HX_AI_DOCS_MODEL_REASONING_EFFORT` 等; 两者会拼成 `<model>-<effort>`
+6. **不要去翻任何配置文件来推断当前模型.** 脚本以前会读一个 `config.toml`, 已删掉: 编一个"看起来对"的模型名比留空更坏, 因为它会被当真
+7. 走 Hark 这类按任务路由的平台时, 会话内拿不到底层型号, 写 `hark`
 
 ## 该用哪个模型来沉淀
 

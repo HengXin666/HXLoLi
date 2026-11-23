@@ -57,7 +57,7 @@ def main(argv=None) -> int:
                     help="文件或目录 (目录递归找 *.md, 也接受 *?[ 通配符)")
     lt.add_argument("--profile", choices=["atom", "article", "blog"],
                     help="不传则按路径段推断 (.hx-info.md -> atom, blog/ -> blog, 其余 article)")
-    lt.add_argument("--allow-table", action="store_true", help="放开 article 的禁表格规则")
+    lt.add_argument("--allow-table", action="store_true", help="放开 atom/blog 的表格规则 (article 禁表格是硬红线, 不受此开关影响)")
     lt.add_argument("--soft", action="store_true", help="只报告, 总是 exit 0")
     lt.add_argument("--json", action="store_true")
     lt.set_defaults(func=cmd_lint)

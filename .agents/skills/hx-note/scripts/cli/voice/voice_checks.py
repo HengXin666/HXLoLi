@@ -71,7 +71,8 @@ def check_long_para(masked: str, limit: int) -> list[tuple[int, str]]:
     for raw in masked.splitlines():
         lineno += 1
         ln = raw.strip()
-        if not ln or ln.startswith(("#", ">", "|", "-", "*", "+")) or re.match(r"^\d+\.", ln):
+        # 列表项要求标记后跟空格: 以 `**粗体**` 开头的是正文段, 不是列表 (2026-11-08 修, 之前整段漏检)
+        if not ln or ln.startswith(("#", ">", "|")) or re.match(r"^(?:[-*+]|\d+\.)\s", ln):
             continue
         n = len(re.sub(r"\s", "", ln))
         if n > limit:
@@ -170,7 +171,7 @@ def check_table(masked: str, limit: int) -> list[tuple[int, str]]:
             rows += 1
             continue
         if rows and rows - 2 > limit:
-            out.append((start, f"一张 {rows - 2} 行数据的表格 (上限 {limit})"))
+            out.append((start, f"一张 {rows - 2} 行数据的表格" + ("" if limit < 0 else f" (上限 {limit})")))
         rows = 0
     return out
 

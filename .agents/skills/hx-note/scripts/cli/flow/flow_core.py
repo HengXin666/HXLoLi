@@ -62,7 +62,7 @@ STAGES: tuple[Stage, ...] = (
     Stage(5, "place", "定路径 + 建目录 + 初始化 index.md 模板 (跑 hx_flow.py place)",
           "hx-note 阶段 5 (shared/hxloli-md.md)", (),
           "target_dir 已记录, index.md 模板已生成, .hx-info.md 已搬进去"),
-    Stage(6, "derive", "先出分镜, 再按模板派生 index.md: 仿写引入 + 图先行的正文",
+    Stage(6, "derive", "先出分镜, 再按模板派生 index.md: 仿写引入 + 正文 (先读 status 打出的写前规则)",
           "hx-note 阶段 6 (layering.md + templates/)", ("source/storyboard.md", "index.md"),
           "hx_voice.py lint --profile article 零 E 级命中"),
     Stage(7, "review", "人类评审 + AI 味盲审 (sub-agent, 只给 index.md)",

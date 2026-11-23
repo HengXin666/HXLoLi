@@ -8,6 +8,7 @@ from pathlib import Path
 from flow.flow_core import (PUNCT_CLI, SCRIPTS_DIR, TAGS_CLI, VOICE_CLI, Flow,
                            _orphan_sidecars, audit_verdict, divergence_report,
                            repo_root)
+from authoring.makedoc_meta import normalize_model
 
 # 只扫本 skill 自己的文档; 全仓 skill 断链归 hx-make-skill 的校验器管。
 SKILL_DIR = SCRIPTS_DIR.parent
@@ -122,6 +123,27 @@ def _broken_skill_paths(root: Path) -> list[str]:
     return list(dict.fromkeys(out))
 
 
+
+def _model_value(txt: str) -> str:
+    """Agent Notes
+    .agents/notes/implemented/process/2026-11-08-model-field-enum.md
+    """
+    m = re.search(r'^model:\s*"?([^"\n]*)"?\s*$', txt, re.M)
+    return m.group(1).strip() if m else ""
+
+def _model_ok(txt: str) -> bool:
+    hit = normalize_model(_model_value(txt))
+    return bool(hit) and not hit[1] and hit[0] == _model_value(txt)
+
+def _model_detail(txt: str) -> str:
+    raw = _model_value(txt)
+    hit = normalize_model(raw)
+    if hit is None:
+        return f"{raw!r} 不在 shared/models.toml; 先登记再写"
+    if hit[1]:
+        return f"{raw!r} 是存量专用取值; 新笔记必须写实际模型 (makeDoc --model)"
+    return f"写成规范 id: {hit[0]}" if hit[0] != raw else ""
+
 def cmd_doctor(args) -> int:
     root = repo_root(Path(args.root) if args.root else None)
     f = Flow(root, args.slug).load()
@@ -147,6 +169,7 @@ def cmd_doctor(args) -> int:
         need = ["hxid", "title", "created_at", "model", "skill", "authors", "tags"]
         lack = [k for k in need if not re.search(rf"^{k}\s*:", txt, re.M)]
         add("frontmatter 字段齐备", not lack, f"缺 {lack}" if lack else "")
+        add("model 是登记表里的非 legacy 取值", _model_ok(txt), _model_detail(txt))
         add("正文无 TODO 残留", "TODO" not in txt, "还有 TODO 占位")
         add("正文无过程痕迹", not re.search(r"/Users/|\.agents/|uv run|\.hx-staging", txt),
             "出现了本地路径或命令")
@@ -209,12 +232,29 @@ def cmd_doctor(args) -> int:
                     and (target / r).is_file()]
         # 代码块: 带分组名的围栏 (平台会渲染成可 tab 切换的对照块, 见 hxloli-md.md)
         code_blocks = re.findall(r"^```[a-zA-Z0-9_+-]+\s+\[", txt, re.M)
+        # 2026-11-08 用户: 没说必须要 code, 编出来的示例比没有更坏。这一项只报告, 不再拦。
         add("笔记里有可复用物 (被引用的侧车或带分组名的代码块)",
-            bool(sidecars) or bool(code_blocks),
+            True,
             "侧车: " + (", ".join(sidecars) if sidecars else "无")
-            + f"; 带分组名的代码块: {len(code_blocks)} 处"
-            + chr(10) + "读者读完只想「哦原来如此」的纯讲解笔记可以跳过; 其余必须给出一件"
-                       "能拿到手的东西 (见 steps/6-derive/impl/reusable-spec.md)")
+            + f"; 带分组名的代码块: {len(code_blocks)} 处 (仅报告, 没有真代码的笔记不拦)",
+            "info")
+
+        # --- 代码出处: 正文每个代码块都必须真跑过或有可引用来源 ---
+        # 2026-11-08 用户硬红线: 编出来的示例一律删。出处不进正文 (读者视角铁律),
+        # 记在 .hx-mitemite.md 的「## 代码出处」节, 每块一行: `- <块序号>: 跑过 <命令/输出文件>` 或 `- <块序号>: 引自 <url>`。
+        fences = [m for m in re.findall(r"^```([^\s`]*)", txt, re.M)]
+        n_code = sum(1 for i, lang in enumerate(fences) if i % 2 == 0 and lang.lower() != "mermaid")
+        prov = []
+        mm = target / ".hx-mitemite.md"
+        if mm.is_file():
+            mtxt = mm.read_text(encoding="utf-8")
+            sec = re.search(r"^## 代码出处\s*$(.*?)(?=^## |\Z)", mtxt, re.M | re.S)
+            if sec:
+                prov = [ln for ln in sec.group(1).splitlines()
+                        if re.match(r"^\s*-\s*\S+\s*:\s*(跑过\s+\S|引自\s+https?://)", ln)]
+        add("每个代码块都有出处 (真跑过或可引用来源)", len(prov) >= n_code,
+            f"正文代码块 {n_code} 个, .hx-mitemite.md「## 代码出处」有效行 {len(prov)} 行"
+            + ("" if len(prov) >= n_code else chr(10) + "补不出出处的代码块就是编的, 删掉它"))
 
     # --- 本 skill 文档里的路径是否还指向真东西 ---
     # 传目标 root: doctor --root 检查别的 checkout 时不能改扫脚本自己所在的仓库。

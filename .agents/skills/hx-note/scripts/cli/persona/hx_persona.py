@@ -50,7 +50,7 @@ def cmd_build(args) -> int:
     # 写入前的守卫: 画像含"最近在做什么项目", 不能进公开仓。它的家是私有仓,
     # 通过 setup-private 映射成符号链接。没跑过就会在公开仓新建真文件, 所以拦一道。
     # (see )
-    if not out_path.is_symlink() and not out_path.is_file():
+    if args.out is None and not out_path.is_symlink() and not out_path.is_file():
         print(
             "error: 画像应写入私有仓, 但映射还没建立。\n"
             "  预期路径是符号链接: ai-docs/.hx-persona.md -> ../HXLoLi-imouto/ai-docs/.hx-persona.md\n"

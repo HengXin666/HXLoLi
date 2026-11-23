@@ -53,18 +53,6 @@ def _format_model(model: str, reasoning_effort: str | None = None) -> str:
 
     return f"{model}{suffix}"
 
-def _read_codex_toml(config_path: Path) -> str:
-    try:
-        data = tomllib.loads(config_path.read_text(encoding="utf-8"))
-    except Exception:
-        return ""
-
-    model = data.get("model")
-    if not model:
-        return ""
-
-    return _format_model(str(model), data.get("model_reasoning_effort"))
-
 def _first_env(keys: tuple[str, ...]) -> str:
     for key in keys:
         value = os.getenv(key)
@@ -79,30 +67,44 @@ def get_env_model() -> str:
 
     return _format_model(model, _first_env(REASONING_EFFORT_ENV_KEYS))
 
-def find_project_model_config() -> Path | None:
-    current = Path.cwd().resolve()
+MODEL_REGISTRY = Path(__file__).resolve().parents[3] / "shared" / "models.toml"
+EFFORT_SUFFIXES = ("-low", "-medium", "-high", "-xhigh")
 
-    while True:
-        candidate = current / ".agents" / "skills" / "hx-note 的步骤 2" / "config.toml"
-        if candidate.is_file():
-            return candidate
 
-        if current.parent == current:
-            return None
+def load_model_registry(path: Path = MODEL_REGISTRY) -> list[dict]:
+    """Agent Notes
+    .agents/notes/implemented/process/2026-11-08-model-field-enum.md
+    """
+    try:
+        return tomllib.loads(path.read_text(encoding="utf-8")).get("model", [])
+    except (OSError, tomllib.TOMLDecodeError):
+        return []
 
-        current = current.parent
+def normalize_model(raw: str, registry: list[dict] | None = None) -> tuple[str, bool] | None:
+    """把任意写法归一成登记表里的 id, 返回 (取值, 是否 legacy). 表外取值返回 None"""
+    reg = registry if registry is not None else load_model_registry()
+    value = clean_meta(raw)
+    effort = ""
+    for suf in EFFORT_SUFFIXES:
+        if value.lower().endswith(suf):
+            value, effort = value[: -len(suf)], suf
+            break
+    for item in reg:
+        names = [item["id"], *item.get("aliases", [])]
+        if any(value.lower() == n.lower() for n in names):
+            return item["id"] + effort, bool(item.get("legacy", False))
+    return None
 
 def get_project_model() -> str:
+    """只认环境变量. 读不到就是 unknown, 由 doctor 拦下逼人显式传 --model
+
+    以前会去翻 config.toml, 那正是 model-selection.md 禁止的「编一个看起来对的模型名」
+    """
     env_model = get_env_model()
-    if env_model:
-        return env_model
-
-    config_path = find_project_model_config()
-    if config_path is None:
-        return "Unknown"
-
-    model = _read_codex_toml(config_path)
-    return model or "Unknown"
+    if not env_model:
+        return "unknown"
+    hit = normalize_model(env_model)
+    return hit[0] if hit else env_model
 
 def strip_order_prefix(name: str) -> str:
     return clean_meta(re.sub(r"^\d+[-_]", "", name))

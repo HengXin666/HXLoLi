@@ -49,6 +49,23 @@ def voice_corpus_lines(root: Path) -> list[str]:
     return out
 
 
+def voice_profile_lines(root: Path) -> list[str]:
+    """Agent Notes
+    .agents/notes/implemented/architecture/2026-11-08-voice-profile-dimension-layer.md
+
+    只摘每条手法的编号、名字与频率. 原文证据留在档案里, 全量注入太长没人看
+    """
+    path = root / 'ai-docs' / '.hx-voice-profile.md'
+    if not path.is_file():
+        return []
+    out: list[str] = []
+    for line in path.read_text(encoding='utf-8').splitlines():
+        cells = [c.strip() for c in line.strip().strip('|').split('|')]
+        if len(cells) >= 3 and re.fullmatch(r'[DBE]\d+', cells[0]):
+            out.append('    ' + cells[0] + ' ' + cells[1][:40] + '  (' + cells[2][:24] + ')')
+    return out
+
+
 def print_status(f: Flow) -> None:
     cur = f.current()
     done = f.done_set()
@@ -59,6 +76,12 @@ def print_status(f: Flow) -> None:
     if corpus:
         print('┌─ 表达语料 (改稿前扫一眼; 详见 ai-docs/.hx-voice.toml)')
         for line in corpus:
+            print('│' + line)
+        print('└' + '─' * 62)
+    profile = voice_profile_lines(f.root)
+    if profile:
+        print('┌─ 语气档案 (挑 2 到 3 条照着写; 原文证据见 ai-docs/.hx-voice-profile.md)')
+        for line in profile:
             print('│' + line)
         print('└' + '─' * 62)
     print(f"# 沉淀流程  slug={f.slug}  kind={f.data.get('kind')}")
@@ -79,6 +102,13 @@ def print_status(f: Flow) -> None:
     print(f"当前只做这一件事 -> 阶段 {cur.num} `{cur.key}`")
     print("=" * 64)
     print(f"  做什么  : {cur.what}")
+    # 写前规则: 动笔的两步先把规则全文端出来, 闸门事后按同一份清单核对, 不搞突袭。
+    prof = {"atom": "atom", "derive": "article"}.get(cur.key)
+    if prof:
+        from voice.voice_rules import writing_rules
+        print(f"  写前规则 (lint / doctor 事后按这份清单核对, 先读再写):")
+        for i, rule in enumerate(writing_rules(prof), 1):
+            print(f"      {i}. {rule}")
     print(f"  加载    : {cur.skill}")
     print(f"  过关条件: {cur.exit_check}")
     if cur.artifacts:

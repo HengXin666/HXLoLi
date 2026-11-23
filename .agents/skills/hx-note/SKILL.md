@@ -66,25 +66,29 @@ $F doctor --slug "<slug>"        # 步骤 9: 全部交付闸门
 
 | 能力 | 契约 | 被谁用 |
 |---|---|---|
-| **voice** 去 AI 味与盲审 (含作者真文样本) | `shared/voice/index.md` | 步骤 3 / 6 / 7 / 8 |
+| **voice** 去 AI 味与盲审 (含作者真文样本与语气档案) | `shared/voice/index.md` | 步骤 3 / 6 / 7 / 8 |
 | 平台 markdown 语法 (含演示页两种形态) | `shared/hxloli-md.md` | 步骤 6 写正文前读一次, 决定用哪种内嵌 |
 | 产出物清单与本地联动 | `shared/pipeline.md` | 步骤 9 |
-| 该用哪个模型 | `shared/model-selection.md` | 任何一步要传 `--model` 时 |
+| 该用哪个模型, `model` 字段能写什么 | `shared/model-selection.md` (取值表 `shared/models.toml`) | 任何一步要传 `--model` 时 |
 
 ## 红线 (任何步骤都不得违反)
 
+- **写作规则先给后查.** 阶段 3 / 6 动笔前, `status` 会打印「写前规则」全文 (来源 `voice_rules.writing_rules`), lint / doctor 只按同一份清单核对. 新写作规则必须进这份清单, 不许只做成事后闸门; 过程类检查 (有没有问人类、发散够不够) 仍是闸门. 见 note `2026-11-08-rules-feed-forward-gates-confirm`
+- **ai-docs 笔记禁用 markdown 表格, 禁止大段文本** (2026-11-08 用户定; skill 内各文档已同步清掉「用表格」的写法). 对照写成短句或分点, 结构关系画图. 单段上限 150 字 (作者 blog 段长 p95). `hx_voice.py lint --profile article` 两条都是 E 级
+- **代码只放真的.** 正文代码块必须真跑过或引自可查来源, 出处逐块记在 `.hx-mitemite.md` 的「## 代码出处」, `doctor` 会拦; 编出来的示例一律删. 没有真代码就不放, 笔记不因此被拦
+- **配图只画结构.** 只留架构图 / 流程图 / 截图这类讲清结构或事实的图; 装饰性、跟论点无关的图全撤. 该有的架构图用生图模型真的画出来 (见 `steps/6-derive/impl/media.md`)
 - **责任在人类.** 方向由人类把握, 你只辅助. 禁止自作主张开始沉淀, 禁止替人类拍板
 - **先出阶段性成果再反问.** 有半成品再问, 不要问空问题. 一次只问一题, 附推荐答案
 - **用户意图要先定位再动手.** 用户的话指代的是对话里前面的内容, 他在和人说话而不是填表. 收到「这个不行」时先把「这个」解析成具体对象并复述确认, 再改
 - **读者视角铁律.** `index.md` 只写面向读者的内容. 生成过程、工具链、本地路径、验证步骤、provenance、审核提示一律不进正文; 审核要点只写进 `.hx-mitemite.md`
 - **需求必须有可判定的验收条款.** 阶段 1 的 `source/goal.md` 里, 每条 `G` 都要写清"怎么算满足"  出现可执行动作 (查/跑/测/数/看, 或具体文件名与命令). 写不出检查动作的是愿望, 进"背景"一节. **需求只活在对话里 = 上下文一压缩就没了.** `done intake` 会拦; `cover` 会在后面暴露"哪条需求从没被实现过"
 - **一次只问一题.** 阶段 4 的对齐是**对话**, 不是问卷. 把 8 题带长理由一次性抛出去, 人类只会扫读或照抄推荐 (实测原话: 「他就让我在那里乱说」). 做法见 `steps/4-align/impl/grill.md`
-- **先发散再落盘.** 素材是一套做法/规范/实现时, 步骤 3 必须**先**跑四个发散算子(`steps/3-atom/impl/divergence.md`) 产出 `source/divergence.md`, 再写 `.hx-info.md`. **不跑就会退化成复述**  模型读素材的默认行为就是换一种说法讲一遍. 闸门是硬的: `done atom` 在发散记录少于 4 条带判据产出时直接拒绝推进
+- **先发散再落盘.** 素材是一套做法/规范/实现时, 步骤 3 必须**先**跑四个发散算子(`steps/3-atom/impl/divergence.md`) 产出 `source/divergence.md`, 再写 `.hx-info.md`. **不跑就会退化成复述**  模型读素材的默认行为就是换一种说法讲一遍. 迁移算子的输入是作者画像 (`hx_persona.py show`): 不给作者语境, 迁移只能写成空话. 闸门是硬的: `done atom` 在发散记录少于 4 条带判据产出、或算子三没落到画像条目也没写 `画像无关联:` 时直接拒绝推进
 - **审核必须真的发生.** 出完题要跑 `hx_flow.py brief --slug <slug>` 并把那一屏**贴进对话**  答题卡在点开头目录里, 人类看不见它. **推荐答案不是答案**: 它写在问题里让人能否决, 不是人类的答复. 未答的题会让 `done align` 直接拒绝推进
-- **不臆造.** 查不到就说查不到; 无法确认的标 `[不确定]`; 不确定当前模型时 frontmatter 写`Unknown`. **画像里找不到真实关联时如实说找不到**  编造的共鸣比没有共鸣更伤
+- **不臆造.** 查不到就说查不到; 无法确认的标 `[不确定]`; `model` 只能写 `shared/models.toml` 里的取值, 不确定当前模型时停下问人类, 不写 `unknown` 占位. **画像里找不到真实关联时如实说找不到**  编造的共鸣比没有共鸣更伤
 - **不跳盲审.** 步骤 7 与 8 各用一个**新鲜的** sub-agent, 且**顺序不可换** (先味道、后保真): 改文风会动句子, 动句子就可能带偏事实. 协议见 `shared/voice/impl/blind-audit.md`
-- **知识产物只有两份; 但必须带能运行的件.** 事实源 `.hx-info.md` 与阅读稿 `index.md`, 只此两份. **这不等于"只能有两个文件"**  与 `index.md` **同目录**的侧车(`*-deck.tsx` 内联演示页 / `*.html` / `*.drawio.svg` / 复现件) 是笔记的一部分, 照常产出. 实测后果: 把这条读成"产物上限 2"时, 笔记会退化成纯散文  读者读完懂了原理, 却拿不到任何能照做的东西. 见 `steps/6-derive/impl/reusable-spec.md`
-- **一份写不出可运行件的笔记, 参考价值是零.** 判据是机械的: `index.md` 里至少有一个带分组名的代码块, 或一个同目录侧车, 且它被一句话引进了论点. `doctor` 会拦 (见 `steps/9-land/impl/gates.md`)
+- **知识产物只有两份; 有真的可运行件就带上.** 事实源 `.hx-info.md` 与阅读稿 `index.md`, 只此两份. **这不等于"只能有两个文件"**  与 `index.md` **同目录**的侧车(`*-deck.tsx` 内联演示页 / `*.html` / `*.drawio.svg` / 复现件) 是笔记的一部分, 照常产出. 实测后果: 把这条读成"产物上限 2"时, 笔记会退化成纯散文  读者读完懂了原理, 却拿不到任何能照做的东西. 见 `steps/6-derive/impl/reusable-spec.md`
+- **可运行件有就给, 没有不硬造.** 有真跑过的代码或复现件时, 用一句话把它引进论点; `doctor` 只报告有没有, 不拦 (2026-11-08 起). 为过闸门编出来的示例比没有更坏
 - **仓库干净靠"位置", 不靠"数量".** 探索、克隆、试跑、装依赖一律在临时目录(`/tmp/hx-<用途>-<slug>/`), 不在 `ai-docs/` 下留"成品项目目录". 学外部项目时**一个字节都不改它**  要试就在副本上试. 见 `steps/2-collect/impl/repo.md`
 
 ## 脚本
@@ -120,13 +124,13 @@ steps/2-collect/impl/layout.json
 
 | 文件 | 是什么, 什么时候读 |
 |---|---|
-| `templates/interest-outlook.md` | 默认文章结构: 写作顺序 (分镜, 仿写引入, 图先行) 与可数的槽位预算 |
+| `templates/interest-outlook.md` | 默认文章结构: 写作顺序 (分镜, 仿写引入, 逐段写) 与槽位 |
 | `templates/problem-solution.md` | 踩坑复盘结构, 素材是一段调试过程时用 |
 | `templates/reusable-spec.md` | 照做型规格: 骨架 / 库 / 分层 / 写法偏好 / 可拷走的件 |
 | `templates/_registry.md` | 模板索引; 加一个模板文件即在此登记 |
 | `assets/info-template.md` | `.hx-info.md` 的骨架, 阶段 3 用 |
 | `assets/divergence-template.md` | 发散记录格式; 算子见 `steps/3-atom/impl/divergence.md` |
-| `assets/storyboard-template.md` | 分镜格式, 阶段 6 先于正文写; 每段一个主视觉 |
+| `assets/storyboard-template.md` | 分镜格式, 阶段 6 先于正文写; 每段一句要证明的话, 图选填 |
 | `assets/goal-template.md` | 目标与验收契约; 需求唯一事实源, 阶段 1 起由 `grill.md` 锐化术语 |
 | `assets/voice-audit-prompt.md` | 味道盲审的 prompt, 阶段 7 用 |
 | `assets/fidelity-audit-prompt.md` | 保真盲审的 prompt, 阶段 8 用 |
