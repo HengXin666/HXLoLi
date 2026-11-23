@@ -164,6 +164,17 @@ async function checkFile (file) {
         else if (!ALLOWED.includes(tag)) errs.push(`未注册的组件 <${tag}>, 可用: ${ALLOWED.join(', ')}`);
     }
 
+    // 2b. 带正文的块组件, 开闭标签和正文之间要空行.
+    // 提交钩子 hx_voice fix 会把"被折行的段落"合并成一行, 把 </Evidence> 吸到正文行尾, MDX 就编译不过.
+    for (const m of fence.matchAll(/^<(Evidence|Boundary|Red|Gold)\b[^\n]*[^/]>\n(?!\n)/gm)) {
+        const no = fence.slice(0, m.index).split('\n').length + offset;
+        errs.push(`第 ${no} 行: <${m[1]}> 开标签后要空一行再写正文, 闭标签前也要空一行 (否则提交钩子合并折行会弄坏 MDX)`);
+    }
+    for (const m of fence.matchAll(/[^\n]\n<\/(Evidence|Boundary)>/g)) {
+        const no = fence.slice(0, m.index).split('\n').length + offset;
+        errs.push(`第 ${no} 行: </${m[1]}> 前要空一行`);
+    }
+
     // 6. 表格
     proseLines(body).forEach(({ line, no }) => {
         if (/^\s*\|.*\|\s*$/.test(line) && /^\s*\|?\s*:?-{3,}/.test(body.split('\n')[no] || '')) errs.push(`第 ${no + offset} 行: 不允许 Markdown 表格`);

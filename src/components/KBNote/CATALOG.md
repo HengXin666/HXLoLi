@@ -154,6 +154,7 @@ whenever you're correcting your agent, think about how you can make that a deter
 - 正文每段不超过 100 字, 超了拆段或改成列表
 - 不写 Markdown 表格, 要对照就用 `<Compare>`, 要列数字就用 `<Stats>`, 一组可比的数用 `<Chart>`
 - 不写 HTML 标签, 不传 `style` / `className`
+- 块组件包正文时 (比如 `<Evidence>`), 开标签和闭标签各自单独一行, 和正文之间各空一行. 提交钩子会合并折行, 不空行就会把闭标签吸到正文行尾, MDX 编译失败
 
 ## Red / Gold: 行内标注
 

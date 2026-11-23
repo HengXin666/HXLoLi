@@ -35,7 +35,10 @@ why="同一套规则, 换个模型写出来的东西就不一样. 规则越写�
 做够次数之后, review 要盯的东西越来越少. 她说到某一天发现没什么可审了, <Gold>大多数 PR 直接让 Agent 自己合</Gold>
 
 <Evidence source="Lauren Tan, All Code Is Slop" at="3:12">
-whenever you're correcting your agent, think about how you can make that a deterministic check instead of adding another line to your rules or your agents.md</Evidence>
+
+whenever you're correcting your agent, think about how you can make that a deterministic check instead of adding another line to your rules or your agents.md
+
+</Evidence>
 
 ## 代码库是下一个 Agent 的范本
 
