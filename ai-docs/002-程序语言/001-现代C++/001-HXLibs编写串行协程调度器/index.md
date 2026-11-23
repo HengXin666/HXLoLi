@@ -2,7 +2,7 @@
 hxid: "hx-5d296b49"
 title: "HXLibs 协程串行调度器探索"
 created_at: "2026-06-04"
-model: "Unknown"
+model: "unknown"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
 tags: ["C++", "协程", "异步任务"]
@@ -86,26 +86,33 @@ bool await_suspend(std::coroutine_handle<> co) const noexcept {
 ### start(): 链式调度核心
 
 ```cpp
-Task<> start() {
+coroutine::Task<> start() {
     auto [task, co] = std::move(_q.front());
     _q.pop();
-    co_await task;                // 执行任务 → 从此处恢复时, 任务已完成
-    co.resume();                  // 调度点分裂①: 恢复被挂起的调用者
-    --_runCnt;
-    if (_q.empty()) co_return;    // 队列空, 结束链式调度
-    // 启动下一个后台任务  这就是分裂点②
+    co_await task;
+    // 核心原因: 内部 start 的 task 是 const&, 而外部被析构了, 导致不继续
+    // 导致协程无法恢复, 因为 RootTask 是协程完毕才释放, 导致无法被释放了
+    // 需要定制调度所有权: 现在 BTask 所有权在 _btoq, 当它完成时会自动删除 _it 元素
+    // 从而触发 ~BTask(), 从而 RAII; 即便任务没有完成, 依旧因为 _btoq 的析构. 而析构, 以防内存泄漏
+    using namespace meta::fixed_string_literals;
     _btoq.insert(_btoq.end(), [this, co]() -> BackgroundTask {
-        co_await start();         // 递归链式调用
+        log::RaiiLog<"里面"_fs> _{};
+        co.resume();
+        --_runCnt; // 不能在 resume() 后使用 _q.pop(), 会导致玄学段错误 (MSVC)
+        if (_q.empty()) {
+            co_return;
+        }
+        co_await start();
     }())->via(_btoq).detach();
 }
 ```
 
 ### v1 的问题
 
-1. **依赖 EventLoop** — `serial()` 结尾有 `co_await _loop.makeTimer().yield()`, 耦合了事件循环
-2. **`_runCnt` 语义模糊** — 用计数器做布尔量的事情, 意图不清晰
-3. **BackgroundTask 太重** — 为了 RAII 引入了完整的 promise_type + task 类型, 增加了概念负担
-4. **析构不安全** — 如果 `_btoq` 在协程运行中被清空, `BackgroundPromise::final_suspend()` 中注释掉的 `_btoq->erase(_it)` 暗示了这里有过问题
+1. **依赖 EventLoop**: `serial()` 结尾有 `co_await _loop.makeTimer().yield()`, 耦合了事件循环
+2. **`_runCnt` 语义模糊**: 用计数器做布尔量的事情, 意图不清晰
+3. **BackgroundTask 太重**: 为了 RAII 引入了完整的 promise_type + task 类型, 增加了概念负担
+4. **析构不安全**: 如果 `_btoq` 在协程运行中被清空, `BackgroundPromise::final_suspend()` 中注释掉的 `_btoq->erase(_it)` 暗示了这里有过问题
 
 ## 0x02 v3: `SerialExecutorPro` — 尝试用 SerialTask 简化
 
@@ -145,8 +152,8 @@ co_await _loop.makeTimer().yield();
 
 从代码的 `@todo 一个废弃的方案` 可以看出这不是最终选择. 推测原因:
 
-1. **SerialTask 复用 `ExitAwaiter`** 导致语义复杂 — `ExitAwaiter` 的 `await_suspend` 会记录 `_previous`, 这对于链式调度是多余的
-2. **依然依赖 EventLoop** — `yield()` 没有被移除
+1. **SerialTask 复用 `ExitAwaiter`** 导致语义复杂: `ExitAwaiter` 的 `await_suspend` 会记录 `_previous`, 这对于链式调度是多余的
+2. **依然依赖 EventLoop**: `yield()` 没有被移除
 3. **`.via().detach()` 链式调用** 在 `start()` 中出现了两次, 使用模式不一致
 
 不过 v3 贡献了关键改进: **`shared_ptr<State>`** 管理内部状态, 解决了 v1 中 `_btoq` 所有权混乱的问题.
@@ -164,14 +171,19 @@ v2 保留了 v3 的 `shared_ptr<State>`, 但将 `start()` 恢复为返回 `Task<
 ```cpp
 struct State {
     bool isRun{};
-    std::queue<std::tuple<Task<> const&, std::coroutine_handle<>>> q;
+    // 传递引用, 防止其因为析构引发的 段错误
+    std::queue<std::tuple<coroutine::Task<> const&, std::coroutine_handle<>>> q;
+    // SerialTask 运行队列
     std::list<SerialTask::HandleType> runList;
 };
 
-const std::shared_ptr<State> _runList = std::make_shared<State>();
+const std::shared_ptr<State> _runList = std::make_shared<State>(
+    State{false, {}, {}});
 ```
 
-这是 v2 最关键的架构决策: **State 的生命周期与 SerialExecutor 对象解耦**. 即使 `SerialExecutor` 被移动/销毁, 只要还有 `shared_ptr<State>` 存活, 正在运行的串行链就不会段错误. `clear()` 在析构函数中安全地销毁所有悬挂的协程句柄.
+这是 v2 最关键的架构决策: **State 的生命周期与 SerialExecutor 对象解耦**.
+
+即使 `SerialExecutor` 被移动/销毁, 只要还有 `shared_ptr<State>` 存活, 正在运行的串行链就不会段错误. `clear()` 在析构函数中安全地销毁所有悬挂的协程句柄.
 
 ### SerialTask: 更轻量的 RAII
 
@@ -196,13 +208,11 @@ struct SerialTask {
 
 ### 对比 v1 的改进
 
-| 维度 | v1 | v2 |
-|------|----|----|
-| 运行标记 | `_runCnt` 计数器 | `isRun` 布尔 |
-| 状态所有权 | `_btoq` (裸 list) | `shared_ptr<State>` |
-| EventLoop | 需要 | 不需要 |
-| 后台任务析构 | `BackgroundTask::~BackgroundTask()` | `SerialTask::promise_type::final_suspend()` 自清理 |
-| `clear()` 安全性 | 仅清空队列 | 清空队列 + 手动 destroy runList 中所有句柄 |
+- 运行标记: v1 用 `_runCnt` 计数器, v2 用 `isRun` 布尔.
+- 状态所有权: v1 是 `_btoq` (裸 list), v2 是 `shared_ptr<State>`.
+- EventLoop: v1 需要, v2 不需要.
+- 后台任务析构: v1 靠 `BackgroundTask::~BackgroundTask()`, v2 靠 `SerialTask::promise_type::final_suspend()` 自清理.
+- `clear()` 安全性: v1 仅清空队列, v2 清空队列 + 手动 destroy runList 中所有句柄.
 
 ### start() 的链式调度
 
@@ -266,13 +276,7 @@ std::queue<std::tuple<Task<> const&, std::coroutine_handle<>>> _q;
 
 ### 为什么 v1 需要 BackgroundTask
 
-v1 中 `start()` 递归调用自身创建了新的协程帧:
-
-```cpp
-_btoq.insert(_btoq.end(), [this, co]() -> BackgroundTask {
-    co_await start();
-}())->via(_btoq).detach();
-```
+v1 中 `start()` 递归调用自身创建了新的协程帧, 就是上文 `start()` 里插进 `_btoq` 的那个 lambda.
 
 这个 lambda 创建了一个协程帧, 它必须有所有者. `_btoq` (list of `BackgroundTask`) 就是这个角色  每个 `BackgroundTask` 持有一个 `coroutine_handle`, 析构时 `destroy()`.
 
@@ -298,22 +302,15 @@ v1 的 `start()` 中有注释:
 --_runCnt; // 不能在 resume() 后使用 _q.pop(), 会导致玄学段错误 (MSVC)
 ```
 
-这是因为 `co.resume()` 之后, 被恢复的协程可能立刻再次调用 `serial()` → 修改 `_q`. 如果此时继续使用 `_q.pop()` 或访问 `_q`, 会产生数据竞争或 use-after-move. v2 通过局部变量捕获 `_runList` 的 shared_ptr 副本解决了此问题.
+这是因为 `co.resume()` 之后, 被恢复的协程可能立刻再次调用 `serial()` → 修改 `_q`.
+
+如果此时继续使用 `_q.pop()` 或访问 `_q`, 会产生数据竞争或 use-after-move. v2 通过局部变量捕获 `_runList` 的 shared_ptr 副本解决了此问题.
 
 ### 坑 3: whenAny + 串行调度的组合
 
 用户明确指出:
 
 > "如果是 whenAny, 后面退出了, 内部还有在 co_await 的, 就会 free 野指针了"
-
-```cpp
-// 危险场景:
-co_await whenAny(
-    serialExecutor.serial(someTask),  // 内部持有 someTask 的引用
-    timeoutTask                       // 超时先触发
-);
-// whenAny 返回 → serialExecutor 中的 Task 引用悬空
-```
 
 v2 的 `clear()` 可以清理队列, 但 **AIO task 没有取消机制**  如果 `co_await` 已经在异步 I/O 中, 无法撤销. 用户提到需要用超时取消模式处理, 这属于后续优化方向.
 
@@ -348,11 +345,13 @@ v1 的 `BackgroundPromise::final_suspend()` 中有一行被注释掉的代码:
 
 ## 0x08 调度点视角还能走多远
 
-把三轮迭代放在一起看, 会发现真正被解决的从来不是"怎么排队", 而是**生命周期的归属**: 队列持有外部任务的引用, 调度器自己创建的链式任务又必须有主, 而协程帧的析构时机由 promise 决定. 调度点这个概念之所以好用, 是因为它把"控制流在哪里"与"对象活到什么时候"绑成了同一个问题.
+把三轮迭代放在一起看, 会发现真正被解决的是**生命周期的归属**: 队列持有外部任务的引用, 调度器自己创建的链式任务又必须有主, 而协程帧的析构时机由 promise 决定. 调度点这个概念之所以好用, 是因为它把"控制流在哪里"与"对象活到什么时候"绑成了同一个问题.
 
 **事实层面**, 当前实现仍是严格 FIFO、无取消机制的版本: `clear()` 能清空队列, 却无法撤销已经进入异步 I/O 的 `co_await`; `whenAny` 提前退出时内部仍持有引用这条路径依然危险. 这些在源码注释与测试用例里都有对应痕迹, 不是推测.
 
-**个人判断**, 这类调度器的下一个坎不在调度算法, 而在**取消语义**: 一旦引入协作式取消, 调度点就不止"分裂"这一个去向, 而是多出"被撤销"这第二种, 整套生命周期契约都要重写一遍. 更长远地看, 如果标准库的 sender/receiver 模型在编译器端足够成熟, 手写 executor 的价值会从"实现调度"退回到"适配调度"到那时, 今天这套调度点心智模型反而更容易迁移, 因为它描述的本来就不是具体 API, 而是控制流与所有权的关系.
+**个人判断**, 这类调度器的下一个坎是**取消语义**: 一旦引入协作式取消, 调度点就不止"分裂"这一个去向, 而是多出"被撤销"这第二种, 整套生命周期契约都要重写一遍.
+
+更长远地看, 如果标准库的 sender/receiver 模型在编译器端足够成熟, 手写 executor 的价值会从"实现调度"退回到"适配调度"到那时, 今天这套调度点心智模型反而更容易迁移, 因为它描述的本来就是控制流与所有权的关系, 与具体 API 无关.
 
 ## 0x09 参考来源
 

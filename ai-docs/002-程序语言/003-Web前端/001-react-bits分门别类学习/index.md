@@ -12,13 +12,15 @@ tags: ["react", "前端", "前端动画", "组件库"]
 
 > [!NOTE]
 >
-> 一个动效组件库值得学的地方, 通常不在于它提供了哪些效果, 而在于它怎么让 134 个组件各自被找得到、装得上、换得掉. 如果换成你来组织一份「可复制源码」的组件集合, 会用一份元数据表同时驱动文档、registry 和 AI 索引, 还是给四种技术栈各维护一套?
+> 一个动效组件库值得学的地方, 通常是它怎么让 134 个组件各自被找得到、装得上、换得掉, 提供了哪些效果倒在其次. 如果换成你来组织一份「可复制源码」的组件集合, 会用一份元数据表同时驱动文档、registry 和 AI 索引, 还是给四种技术栈各维护一套?
 
-[PPT #ppt](overview-ppt.html) — react-bits 分类地图、依赖成本与落地路径总览.
+[PPT #ppt](overview-ppt.html): react-bits 分类地图、依赖成本与落地路径总览.
 
 ## 0x00 背景
 
-`react-bits` 是一个面向 React 的动效组件源码库, 不是传统意义上 `npm install` 后直接 import 的运行时组件库. 它的核心价值是把一批视觉表达强、可复制、可按技术栈选择的组件组织成注册表, 再通过文档站、预览、代码面板、shadcn/jsrepo CLI 和 MCP 使用流串起来.
+`react-bits` 是一个面向 React 的动效组件源码库, 不是传统意义上 `npm install` 后直接 import 的运行时组件库.
+
+它的核心价值是把一批视觉表达强、可复制、可按技术栈选择的组件组织成注册表, 再通过文档站、预览、代码面板、shadcn/jsrepo CLI 和 MCP 使用流串起来.
 
 本次学习基于 GitHub 仓库当前快照:
 
@@ -27,7 +29,7 @@ tags: ["react", "前端", "前端动画", "组件库"]
 - 提交时间: `2026-06-24T10:06:16+03:00`
 - 学习时间: `2026-07-04`
 
-这篇笔记的目的不是把 134 个组件逐个翻译一遍, 而是建立一张可复用的分类地图:
+这篇笔记的目的是建立一张可复用的分类地图, 不逐个翻译 134 个组件:
 
 - 想给页面标题加记忆点时, 应该先看 `TextAnimations`.
 - 想增强交互反馈或进入/悬停/鼠标跟随时, 应该先看 `Animations`.
@@ -58,7 +60,9 @@ tags: ["react", "前端", "前端动画", "组件库"]
 
 ### 2.1 产品形态
 
-`react-bits` 的 README 把它描述为“animated React components”集合, 特点包括 `130+` 组件、四种实现变体、可手动复制、可 CLI 安装. 源码里实际统计到 `134` 个组件, 全部都在 `src/constants/Information.js` 的 `componentMetadata` 中登记.
+`react-bits` 的 README 把它描述为“animated React components”集合, 特点包括 `130+` 组件、四种实现变体、可手动复制、可 CLI 安装.
+
+源码里实际统计到 `134` 个组件, 全部都在 `src/constants/Information.js` 的 `componentMetadata` 中登记.
 
 它的产品闭环可以概括为:
 
@@ -77,12 +81,10 @@ flowchart LR
 
 ### 2.2 四大分类总览
 
-| 分类 | 数量 | 主要用途 | 优先学习场景 |
-|---|---:|---|---|
-| `TextAnimations` | 23 | 文字进入、滚动、打字、扰动、聚焦、计数等 | 标题、slogan、章节开场、数字指标 |
-| `Animations` | 30 | 鼠标反馈、进入/离开、悬停、边框、路径、粒子等 | 小范围交互动效, 强调动作反馈 |
-| `Components` | 36 | 卡片、导航、画廊、dock、stepper、profile 等完整 UI 片段 | 直接复用一个可见模块 |
-| `Backgrounds` | 45 | shader, canvas, 3D, 粒子, 网格, 光效等背景 | 首屏、展示区块、视觉氛围 |
+- `TextAnimations` (23 个): 文字进入、滚动、打字、扰动、聚焦、计数等. 优先用在标题、slogan、章节开场、数字指标.
+- `Animations` (30 个): 鼠标反馈、进入/离开、悬停、边框、路径、粒子等. 优先用在小范围交互动效, 强调动作反馈.
+- `Components` (36 个): 卡片、导航、画廊、dock、stepper、profile 等完整 UI 片段. 优先用在直接复用一个可见模块.
+- `Backgrounds` (45 个): shader, canvas, 3D, 粒子, 网格, 光效等背景. 优先用在首屏、展示区块、视觉氛围.
 
 ### 2.3 TextAnimations
 
@@ -147,12 +149,10 @@ flowchart LR
 
 每个组件默认都有 4 个变体:
 
-| 变体 | 路径 | 适用场景 |
-|---|---|---|
-| `JS-CSS` | `src/content/<Category>/<Name>` | 普通 React + CSS 项目 |
-| `JS-TW` | `src/tailwind/<Category>/<Name>` | JavaScript + Tailwind 项目 |
-| `TS-CSS` | `src/ts-default/<Category>/<Name>` | TypeScript + CSS 项目 |
-| `TS-TW` | `src/ts-tailwind/<Category>/<Name>` | TypeScript + Tailwind 项目 |
+- `JS-CSS`: 路径 `src/content/<Category>/<Name>`, 适合普通 React + CSS 项目.
+- `JS-TW`: 路径 `src/tailwind/<Category>/<Name>`, 适合 JavaScript + Tailwind 项目.
+- `TS-CSS`: 路径 `src/ts-default/<Category>/<Name>`, 适合 TypeScript + CSS 项目.
+- `TS-TW`: 路径 `src/ts-tailwind/<Category>/<Name>`, 适合 TypeScript + Tailwind 项目.
 
 `jsrepo.config.ts` 会把 `componentMetadata` 展开成 registry item. 对于普通组件, registry 文件直接指向对应变体目录. 对 `Lanyard` 这类带额外资源的组件, 配置里有特殊处理, 显式包含 `.glb`, 图片和 CSS/source 文件.
 
@@ -186,14 +186,12 @@ npx jsrepo@latest add https://reactbits.dev/r/<Component>-<LANG>-<STYLE>
 
 从 `src/constants/code/**` 的 `dependencies` 字段统计:
 
-| 依赖 | 出现次数 | 用途倾向 |
-|---|---:|---|
-| `ogl` | 30 | WebGL shader, 背景和高级视觉 |
-| `gsap` | 24 | timeline, scroll trigger, imperative animation |
-| `three` | 20 | 3D, canvas, model/background |
-| `motion` | 18 | 声明式动效, enter/exit/stagger |
-| `@react-three/fiber` | 6 | React 方式管理 three 场景 |
-| `@react-three/drei` | 5 | R3F 常用辅助工具 |
+- `ogl` 出现 30 次: WebGL shader, 背景和高级视觉.
+- `gsap` 出现 24 次: timeline, scroll trigger, imperative animation.
+- `three` 出现 20 次: 3D, canvas, model/background.
+- `motion` 出现 18 次: 声明式动效, enter/exit/stagger.
+- `@react-three/fiber` 出现 6 次: React 方式管理 three 场景.
+- `@react-three/drei` 出现 5 次: R3F 常用辅助工具.
 
 少量组件还会使用 `postprocessing`, `@gsap/react`, `@react-three/rapier`, `@use-gesture/react`, `face-api.js`, `gl-matrix`, `lenis`, `lucide-react`, `maath`, `mathjs`, `meshline`.
 
@@ -203,26 +201,22 @@ npx jsrepo@latest add https://reactbits.dev/r/<Component>-<LANG>-<STYLE>
 
 关键路径:
 
-| 路径 | 作用 |
-|---|---|
-| `src/constants/Information.js` | 组件元数据总表, 包含分类、名称、描述、文档 URL、视频地址 |
-| `src/constants/Categories.js` | 文档侧栏分类和展示顺序 |
-| `src/constants/Components.js` | 路由 slug 到 demo 组件的 lazy import 映射 |
-| `src/demo/<Category>/<Name>Demo.jsx` | 预览页, 包含 Preview, Customize, Props, Dependencies, Code |
-| `src/constants/code/<Category>/<name>Code.js` | raw 源码、依赖和 usage 示例 |
-| `src/content`, `src/tailwind`, `src/ts-default`, `src/ts-tailwind` | 四套组件源码 |
-| `public/r/*.json` | shadcn/jsrepo 可拉取的 registry item |
-| `public/llms.txt` | 给 AI agent 读取的组件索引 |
+- `src/constants/Information.js`: 组件元数据总表, 包含分类、名称、描述、文档 URL、视频地址.
+- `src/constants/Categories.js`: 文档侧栏分类和展示顺序.
+- `src/constants/Components.js`: 路由 slug 到 demo 组件的 lazy import 映射.
+- `src/demo/<Category>/<Name>Demo.jsx`: 预览页, 包含 Preview, Customize, Props, Dependencies, Code.
+- `src/constants/code/<Category>/<name>Code.js`: raw 源码、依赖和 usage 示例.
+- `src/content`, `src/tailwind`, `src/ts-default`, `src/ts-tailwind`: 四套组件源码.
+- `public/r/*.json`: shadcn/jsrepo 可拉取的 registry item.
+- `public/llms.txt`: 给 AI agent 读取的组件索引.
 
 ### 2.11 Creative Tools
 
 除了组件, 项目还有 `src/tools` 下的三个工具:
 
-| 工具 | 作用 |
-|---|---|
-| `Background Studio` | 浏览、调参、导出背景效果 |
-| `Shape Magic` | 生成带内圆角连接的 blob/shape, 可导出 SVG, React 或 clip-path |
-| `Texture Lab` | 对图片/视频做噪声、dithering、halftone、ASCII 等纹理效果 |
+- `Background Studio`: 浏览、调参、导出背景效果.
+- `Shape Magic`: 生成带内圆角连接的 blob/shape, 可导出 SVG, React 或 clip-path.
+- `Texture Lab`: 对图片/视频做噪声、dithering、halftone、ASCII 等纹理效果.
 
 这些工具说明 `react-bits` 不只是“组件清单”, 还试图变成面向视觉创作的前端工作台. 对 `HXLoLi` 来说, 可借鉴的是: 当某类内容需要反复配置参数时, 可以提供一个可视化实验台, 而不是只写静态文档.
 
@@ -233,7 +227,7 @@ npx jsrepo@latest add https://reactbits.dev/r/<Component>-<LANG>-<STYLE>
 3. SSR 边界: 项目本身是 Vite SPA. 如果搬到 Docusaurus/Next, 要注意 `window`, `document`, canvas, WebGL 和动态 import.
 4. 维护边界: 复制源码后, 上游不会自动升级. 后续 bugfix 要人工追踪.
 5. License 边界: `MIT + Commons Clause` 允许在应用、网站或产品中使用, 但限制售卖、再授权或再分发组件本身.
-6. 一致性边界: 四变体策略很强, 但维护成本高. 如果本项目借鉴, 建议先只沉淀一种主技术栈版本.
+6. 一致性边界: 四变体策略很强, 但维护成本高. 如果本项目借鉴, 建议先只收录一种主技术栈版本.
 
 ### 2.13 对 HXLoLi 的落地建议
 
@@ -252,11 +246,19 @@ npx jsrepo@latest add https://reactbits.dev/r/<Component>-<LANG>-<STYLE>
 
 ## 0x03 拓展升华展望
 
-把这份分类地图看完会发现, `react-bits` 最值得借鉴的并不是那 134 个效果, 而是它把"一堆可复制源码"组织成一份可查询、可安装、可被机器读取的资产的方式. 往上收一层: 当内容的体量超过一个人能记住的规模时, 决定复用效率的就不再是内容本身, 而是它的索引结构.
+把这份分类地图看完会发现, `react-bits` 最值得借鉴的是它把"一堆可复制源码"组织成一份可查询、可安装、可被机器读取的资产的方式. 往上收一层: 当内容的体量超过一个人能记住的规模时, 决定复用效率的就变成了它的索引结构.
 
-**事实层面** … 这个仓库的快照有明确的形态: 一个集中式 `componentMetadata` 同时驱动文档侧栏、预览页、`jsrepo.config.ts` 生成的 registry JSON 和 `public/llms.txt` 索引; 每个组件维护 JS-CSS、JS-TW、TS-CSS、TS-TW 四个变体; 依赖集中在 `ogl`(30)、`gsap`(24)、`three`(20)、`motion`(18) 四个包上. 它本身是 Vite SPA, 复制走的源码不会随上游自动升级, 而 License 是 `MIT + Commons Clause`, 限制的是售卖、再授权与再分发组件本身, 不限制在应用或网站中使用.
+**事实层面** … 这个仓库的快照有明确的形态: 一个集中式 `componentMetadata` 同时驱动文档侧栏、预览页、`jsrepo.config.ts` 生成的 registry JSON 和 `public/llms.txt` 索引.
 
-**个人判断** … 动效组件库接下来会从"效果集合"变成"元数据驱动的工作流", 真正稀缺的能力是让 AI agent 也能读懂这份索引  `llms.txt` 这类入口的出现已经在印证这一点. 但四变体全量维护对个人知识库或博客并不划算: 它把上游的兼容性成本按技术栈数量成倍放大, 而绝大多数项目只会用到其中一种. 更现实的策略是只沉淀一条主技术栈版本, 再用可审计的搬运记录保留上游 commit 与本地改动  上游停更时, 这份记录才是你能自己接手的前提. 反过来, 如果只是为了"看起来更炫"而引入 shader 与 3D 背景, 那么代价会以移动端性能和可读性的形式, 从视觉层转移到阅读体验上.
+每个组件维护 JS-CSS、JS-TW、TS-CSS、TS-TW 四个变体; 依赖集中在 `ogl`(30)、`gsap`(24)、`three`(20)、`motion`(18) 四个包上.
+
+它本身是 Vite SPA, 复制走的源码不会随上游自动升级, 而 License 是 `MIT + Commons Clause`, 限制的是售卖、再授权与再分发组件本身, 不限制在应用或网站中使用.
+
+**个人判断** … 动效组件库接下来会从"效果集合"变成"元数据驱动的工作流", 真正稀缺的能力是让 AI agent 也能读懂这份索引  `llms.txt` 这类入口的出现已经在印证这一点.
+
+但四变体全量维护对个人知识库或博客并不划算: 它把上游的兼容性成本按技术栈数量成倍放大, 而绝大多数项目只会用到其中一种. 更现实的策略是只收录一条主技术栈版本, 再用可审计的搬运记录保留上游 commit 与本地改动  上游停更时, 这份记录才是你能自己接手的前提.
+
+反过来, 如果只是为了"看起来更炫"而引入 shader 与 3D 背景, 那么代价会以移动端性能和可读性的形式, 从视觉层转移到阅读体验上.
 
 ## 0x04 参考来源
 

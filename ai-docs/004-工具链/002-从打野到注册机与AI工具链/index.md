@@ -2,7 +2,7 @@
 hxid: "hx-7a153a11"
 title: "从打野到注册机: 一条真实项目工具链的工程化学习"
 created_at: "2026-08-02"
-model: "GPT-5 Codex"
+model: "gpt-5-codex"
 skill: ["hx-docs-sediment"]
 authors: "Heng_Xin"
 tags: ["AI工具", "逆向工程", "Codex", "MCP"]
@@ -12,14 +12,16 @@ tags: ["AI工具", "逆向工程", "Codex", "MCP"]
 
 > [!NOTE]
 > 一次注册流程的练习, 为什么会走到浏览器自动化、邮箱池、代理网关、FastAPI 封装, 最后停在 Codex 与 Skills 上?
-> 因为真正被复用的从来不是"注册机"这个目标, 而是逐层补齐契约的方法: 谁给输入、谁持有状态、失败由谁负责、证据留在哪里.
+> 因为真正被复用的是逐层补齐契约的方法: 谁给输入、谁持有状态、失败由谁负责、证据留在哪里.
 > 这条帖子把资源搜集、协议探查、账号与网络出口、服务封装和 AI 工具串成了一条连续链路  本文沿着它走一遍, 并对每个仓库做一次输入输出的核验.
 
 ## 0x00 背景
 
-本文沉淀 Discord 论坛帖子《个人常用项目推荐(打野到注册机一条龙, 简易教程)》. 帖子发表于 2026-07-01, 作者为 `𝑏𝑎𝑖𝑞𝑖_𝑞𝑎𝑞`, 所在服务器为 `KYL`, 论坛频道为 `🌐-各类教程-chatgpt🚀`.
+本文整理自 Discord 论坛帖子《个人常用项目推荐(打野到注册机一条龙, 简易教程)》. 帖子发表于 2026-07-01, 作者为 `𝑏𝑎𝑖𝑞𝑖_𝑞𝑎𝑞`, 所在服务器为 `KYL`, 论坛频道为 `🌐-各类教程-chatgpt🚀`.
 
-原帖的主题不是“推荐几个 GitHub 项目”这么简单. 作者沿着自己的实际使用路径, 把资源搜集、协议探查、浏览器自动化、邮箱、代理、注册流程、服务封装和 AI 工具串成一条连续的工程链. 前半段看起来像是在解决一个具体的注册流程, 后半段则把同一种“找现成能力并组织起来”的方法迁移到了 Codex、Skills 和逆向实验室.
+原帖的主题不是“推荐几个 GitHub 项目”这么简单. 作者沿着自己的实际使用路径, 把资源搜集、协议探查、浏览器自动化、邮箱、代理、注册流程、服务封装和 AI 工具串成一条连续的工程链.
+
+前半段看起来像是在解决一个具体的注册流程, 后半段则把同一种“找现成能力并组织起来”的方法迁移到了 Codex、Skills 和逆向实验室.
 
 为了保留原汁原味的学习心流, 本文先按原帖叙事阅读, 再做事实核验, 不把它改写成脱离上下文的安全摘要或库选型排行榜.
 
@@ -40,24 +42,15 @@ tags: ["AI工具", "逆向工程", "Codex", "MCP"]
 
 这篇帖子真正展示的是一条逐层补齐契约的工具链:
 
-```text
-项目搜集
-  -> 目标与协议探查
-  -> 浏览器路线 / 协议路线
-  -> 邮箱与验证码输入
-  -> IP / 代理与节点管理
-  -> 注册流程模板
-  -> HTTP 服务封装
-  -> Codex 约束
-  -> Skills 反问与反馈
-  -> ReverseLab 知识路由与 MCP
-```
+![从项目搜集到 ReverseLab 知识路由与 MCP 的逐层工具链 ##w800##](toolchain-contract-chain.png)
+
+下文 0x02 按这条链的顺序逐级展开.
 
 可以迁移的核心经验有五条:
 
 1. 不要从“我要写一个注册机”直接跳到代码. 先把目标拆成输入、状态、外部依赖、输出和失败恢复.
 2. “打野”本质上是能力发现和能力拼装. 一个仓库的价值要放回前后调用链中判断.
-3. 协议自动化和浏览器自动化不是谁取代谁, 而是两种观测粒度不同的实现路线: 前者靠请求契约, 后者靠页面状态与真实交互.
+3. 协议自动化和浏览器自动化是两种观测粒度不同、可以并存的实现路线: 前者靠请求契约, 后者靠页面状态与真实交互.
 4. AI 工程的瓶颈不只是生成代码. `ponytail` 约束重复实现, `mattpocock/skills` 约束目标澄清、共享语言和反馈循环, `open-reverselab` 约束知识与工具的路由.
 5. 任何推荐都要带证据和版本. 作者的使用感受、README 的自我描述、当前源码和 GitHub 维护状态不能混成一个事实.
 
@@ -65,23 +58,23 @@ tags: ["AI工具", "逆向工程", "Codex", "MCP"]
 
 ### 2.1 13 个编号步骤与 15 个仓库
 
-下表先恢复原帖的叙事顺序. 并列仓库保留在同一个工程节点中, 但不会因为它们在同一行就把能力误认为相同.
+下面先恢复原帖的叙事顺序. 并列仓库保留在同一个工程节点中, 但不会因为它们在同一条里就把能力误认为相同.
 
-| 步骤 | 仓库 | 原文中的位置 | 输入 -> 输出 |
-| --- | --- | --- | --- |
-| 1 | [MasterAlanLab/Register](https://github.com/MasterAlanLab/Register) | “打野”的资源入口和注册相关脚本汇总 | 公开项目与资源线索 -> 可继续追踪的工具入口 |
-| 2 | [chenyme/grok2api](https://github.com/chenyme/grok2api) | Grok API / 多账号网关 | 上游账号、凭据、客户端请求和出口配置 -> OpenAI/Anthropic 兼容 API、管理台和账号状态 |
-| 3 | [GALIAIS/CTF-Sandbox-Orchestrator](https://github.com/GALIAIS/CTF-Sandbox-Orchestrator) | 探查、抓包和技能路由 | 授权沙盒中的目标信号、附件、流量或题目类型 -> 对应专项 Skill 和实验路径 |
-| 4 | [LoseNine/ruyipage](https://github.com/LoseNine/ruyipage) | 浏览器自动化路线 | URL、页面动作、浏览器上下文和网络事件 -> 页面状态、请求/响应观测和自动化结果 |
-| 5 | [ydddp/mail-hub](https://github.com/ydddp/mail-hub) | 邮箱聚合和验证码输入 | 邮箱渠道配置、目标域名和收件箱请求 -> 统一收件箱、邮件、验证码或验证链接 |
-| 6 | [MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo) + [Resinat/Resin](https://github.com/Resinat/Resin) | 原文意图是 IP / 代理管理; 当前事实中 Resin 接收节点订阅并提供代理入口, mihomo 接收 UID/语言并输出游戏数据模型 | Resin: 节点订阅、代理节点和业务会话标识 -> 代理入口、健康状态、粘性路由和可观测数据; mihomo: UID/语言 -> Pydantic 模型 |
-| 7 | [GuangYiDing/cfspider](https://github.com/GuangYiDing/cfspider) + [baiqigo/baiqi-cf-worker-mihomo](https://github.com/baiqigo/baiqi-cf-worker-mihomo) | Cloudflare Worker 和节点分发 | Cloudflare 配置、UUID、KV 和节点来源 -> Worker 地址、VLESS/Mihomo 订阅和节点列表 |
-| 8 | [baiqigo/baiqi-register-template](https://github.com/baiqigo/baiqi-register-template) | 注册流程模板 | 抓包得到的流程、邮箱/打码/代理适配器和配置 -> 结构化运行结果、导入对象和日志 |
-| 9 | [fastapi/fastapi](https://github.com/fastapi/fastapi) | 服务封装和反向代理 | Python 类型声明、路由和内部流程 -> HTTP/ASGI 服务、OpenAPI 文档和上层调用接口 |
-| 10 | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | Codex 的最小实现约束 | 编码任务、现有调用链和约束 -> 更小的实现、最小验证和较少的重复代码 |
-| 11 | [mattpocock/skills](https://github.com/mattpocock/skills) | 反问、共享语言和工程反馈 | 模糊需求、领域术语、代码库和反馈 -> 明确问题、ADR、TDD 切片和可复用工作流 |
-| 12 | [basketikun/chatgpt2api](https://github.com/basketikun/chatgpt2api) | 协议适配、图像服务和资源管理 | 授权测试账号、官网协议请求和图片任务 -> OpenAI 兼容图像 API、Web 面板、存储和账号状态 |
-| 13 | [LING71671/open-reverselab](https://github.com/LING71671/open-reverselab) | 逆向知识库、MCP 和实验室自动化 | 授权样本、board 信号和分析任务 -> 知识路由、工具映射、exports 和报告 |
+1. [MasterAlanLab/Register](https://github.com/MasterAlanLab/Register): “打野”的资源入口和注册相关脚本汇总. 输入 -> 输出: 公开项目与资源线索 -> 可继续追踪的工具入口.
+2. [chenyme/grok2api](https://github.com/chenyme/grok2api): Grok API / 多账号网关. 输入 -> 输出: 上游账号、凭据、客户端请求和出口配置 -> OpenAI/Anthropic 兼容 API、管理台和账号状态.
+3. [GALIAIS/CTF-Sandbox-Orchestrator](https://github.com/GALIAIS/CTF-Sandbox-Orchestrator): 探查、抓包和技能路由. 输入 -> 输出: 授权沙盒中的目标信号、附件、流量或题目类型 -> 对应专项 Skill 和实验路径.
+4. [LoseNine/ruyipage](https://github.com/LoseNine/ruyipage): 浏览器自动化路线. 输入 -> 输出: URL、页面动作、浏览器上下文和网络事件 -> 页面状态、请求/响应观测和自动化结果.
+5. [ydddp/mail-hub](https://github.com/ydddp/mail-hub): 邮箱聚合和验证码输入. 输入 -> 输出: 邮箱渠道配置、目标域名和收件箱请求 -> 统一收件箱、邮件、验证码或验证链接.
+6. [MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo) + [Resinat/Resin](https://github.com/Resinat/Resin): 原文意图是 IP / 代理管理; 当前事实中 Resin 接收节点订阅并提供代理入口, mihomo 接收 UID/语言并输出游戏数据模型.
+    - Resin 输入 -> 输出: 节点订阅、代理节点和业务会话标识 -> 代理入口、健康状态、粘性路由和可观测数据.
+    - mihomo 输入 -> 输出: UID/语言 -> Pydantic 模型.
+7. [GuangYiDing/cfspider](https://github.com/GuangYiDing/cfspider) + [baiqigo/baiqi-cf-worker-mihomo](https://github.com/baiqigo/baiqi-cf-worker-mihomo): Cloudflare Worker 和节点分发. 输入 -> 输出: Cloudflare 配置、UUID、KV 和节点来源 -> Worker 地址、VLESS/Mihomo 订阅和节点列表.
+8. [baiqigo/baiqi-register-template](https://github.com/baiqigo/baiqi-register-template): 注册流程模板. 输入 -> 输出: 抓包得到的流程、邮箱/打码/代理适配器和配置 -> 结构化运行结果、导入对象和日志.
+9. [fastapi/fastapi](https://github.com/fastapi/fastapi): 服务封装和反向代理. 输入 -> 输出: Python 类型声明、路由和内部流程 -> HTTP/ASGI 服务、OpenAPI 文档和上层调用接口.
+10. [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail): Codex 的最小实现约束. 输入 -> 输出: 编码任务、现有调用链和约束 -> 更小的实现、最小验证和较少的重复代码.
+11. [mattpocock/skills](https://github.com/mattpocock/skills): 反问、共享语言和工程反馈. 输入 -> 输出: 模糊需求、领域术语、代码库和反馈 -> 明确问题、ADR、TDD 切片和可复用工作流.
+12. [basketikun/chatgpt2api](https://github.com/basketikun/chatgpt2api): 协议适配、图像服务和资源管理. 输入 -> 输出: 授权测试账号、官网协议请求和图片任务 -> OpenAI 兼容图像 API、Web 面板、存储和账号状态.
+13. [LING71671/open-reverselab](https://github.com/LING71671/open-reverselab): 逆向知识库、MCP 和实验室自动化. 输入 -> 输出: 授权样本、board 信号和分析任务 -> 知识路由、工具映射、exports 和报告.
 
 这里的两个核验警报很重要:
 
@@ -94,7 +87,7 @@ tags: ["AI工具", "逆向工程", "Codex", "MCP"]
 
 第 1 步的 `Register` 更像一个资源目录, 不是链路中的核心服务. 这一步教的是发现能力: 先判断别人已经解决了哪些问题, 再决定哪些地方值得自己实现. 但资源目录也最容易失真, 因为它同时混入主观推荐、外部服务链接和已经停止更新的脚本.
 
-第 2 步的 `grok2api` 把“资源入口”变成了一个较清晰的工程边界: 它不是单一脚本, 而是一个带 React 管理端的 Go 网关, 将账号、模型、密钥、出口、路由、审计和媒体能力分开. 学习重点从“找到一个 API”变成“观察一个多 Provider 网关如何管理状态和失败”.
+第 2 步的 `grok2api` 把“资源入口”变成了一个较清晰的工程边界: 它是一个带 React 管理端的 Go 网关, 将账号、模型、密钥、出口、路由、审计和媒体能力分开. 学习重点从“找到一个 API”变成“观察一个多 Provider 网关如何管理状态和失败”.
 
 #### 2.2.2 探查和浏览器是两个观测面
 
@@ -108,15 +101,7 @@ tags: ["AI工具", "逆向工程", "Codex", "MCP"]
 
 第 5 步的 `mail-hub` 把邮箱从某一个供应商的细节中抽出来. 它对上提供统一 REST API、自动轮询和验证码提取, 对下连接多个邮件渠道、Outlook/IMAP 账号池和自定义 REST/GraphQL provider.
 
-这一步的学习重点不是“如何拿验证码”, 而是外部输入如何进入状态机:
-
-```text
-acquire inbox
-  -> wait for message
-  -> extract code or link
-  -> hand result to the flow
-  -> release / mark success or failure
-```
+这一步的学习重点是外部输入如何进入状态机: acquire inbox -> wait for message -> extract code or link -> hand result to the flow -> release / mark success or failure.
 
 这种接口一旦稳定, 上层流程就不需要知道邮件来自哪个 provider. 同样的思想也会出现在代理和打码适配器中.
 
@@ -155,21 +140,13 @@ output/<channel>/<run_id>/
 
 第 9 步的 FastAPI 并不负责“注册”本身. 它的作用是把内部流程封装成可调用的 HTTP 服务, 让 CLI、Worker、管理端或其他 AI 工具通过稳定的 API 接入.
 
-到这里, 前半段的主题完成了一次提升:
-
-```text
-零散脚本
-  -> 外部依赖适配器
-  -> 可观察的状态机
-  -> 可复用 Channel
-  -> HTTP 服务边界
-```
+到这里, 前半段的主题完成了一次提升: 零散脚本 -> 外部依赖适配器 -> 可观察的状态机 -> 可复用 Channel -> HTTP 服务边界.
 
 ### 2.3 从业务链路转向 AI 工具链
 
 #### 2.3.1 Ponytail: 先问“这段代码是否需要存在”
 
-第 10 步不是换一个 API, 而是把前半段积累的工程习惯施加给 AI Agent. `ponytail` 的阶梯顺序是:
+第 10 步把前半段积累的工程习惯施加给 AI Agent. `ponytail` 的阶梯顺序是:
 
 ```text
 YAGNI
@@ -192,38 +169,27 @@ YAGNI
 - 代码没有反馈, 所以补静态检查、浏览器验证和 TDD.
 - 系统不断变复杂, 所以用领域建模、ADR 和架构治理约束变化.
 
-这与本文的答题卡流程直接对应: 方向没有闭环时只问一个上游问题, 用户回答后再进入下一个依赖问题. 反问不是拖延, 而是把隐含约束变成可复查的接口.
+这与本文的答题卡流程直接对应: 方向没有闭环时只问一个上游问题, 用户回答后再进入下一个依赖问题. 反问把隐含约束变成可复查的接口.
 
 #### 2.3.3 ChatGPT2API: 协议适配和资源管理的综合例子
 
 第 12 步的 `chatgpt2api` 将官网协议逆向整理、OpenAI 兼容图像 API、Web 面板、图片任务、存储和账号资源管理放在一起. 它把“一个协议适配器”推进到可运行服务, 也把账号、代理、额度、任务状态和持久化带来的工程复杂度暴露出来.
 
-这里最适合学习的不是复制某个官网协议, 而是观察以下边界如何协作:
-
-```text
-兼容 API
-  -> 任务与媒体服务
-  -> 上游协议适配
-  -> 账号/额度状态
-  -> 存储与代理运行时
-```
+这里最适合学习的是观察以下边界如何协作: 兼容 API -> 任务与媒体服务 -> 上游协议适配 -> 账号/额度状态 -> 存储与代理运行时.
 
 仓库 README 自身已经声明授权、条款和禁止批量滥用的边界. 因此本文只把它作为协议适配和服务工程案例, 不把账号池或官网接口扩写成可滥用教程.
 
 #### 2.3.4 ReverseLab: 从工具链升级为可路由的学习环境
 
-第 13 步的 `open-reverselab` 把前面所有经验再抽象一层. 它不是把逆向工具简单堆在一个目录里, 而是用 board、case、KB、tools、scripts、exports、reports 组织工作, 用目录约定让 Agent 能恢复上下文.
+第 13 步的 `open-reverselab` 把前面所有经验再抽象一层. 它用 board、case、KB、tools、scripts、exports、reports 组织工作, 用目录约定让 Agent 能恢复上下文.
 
-它的核心数据流是:
+它的核心数据流, README 原文写作:
 
 ```text
-Signal
-  -> kb_router(board=...)
-  -> kb_read_file
-  -> attack / analysis chain
-  -> MCP tool mapping
-  -> evidence in exports / reports
+Signal → kb_router(board=) → kb_read_file → Attack chain → MCP tool mapping → Execution
 ```
+
+证据按 `AI-USAGE.md` 的约定落盘到 `exports/<board>/`、`notes/<board>/` 和 `reports/<board>/`.
 
 到这里, 原帖的主题完成闭环: 前半段是在拼装一个业务工具链, 后半段是在拼装一个能帮助自己继续学习和实现的 Agent 工具链.
 
@@ -231,23 +197,66 @@ Signal
 
 以下是 2026-08-02 的 GitHub API 快照. 星标、Fork、更新时间会变化; “维护判断”只依据当前 API 元数据、默认分支、README 和目录结构, 不等于我已经在生产环境运行过这些项目.
 
-| # | 仓库 / 最新 commit | 角色核验: 输入 -> 输出 | 主要依赖或外部边界 | 维护判断 |
-| --- | --- | --- | --- | --- |
-| 1 | [MasterAlanLab/register](https://github.com/MasterAlanLab/register) / [79a1f0b](https://github.com/MasterAlanLab/register/commit/79a1f0b0a1e83403a3e62f9d8f41602890122758) | 公开资源和注册脚本线索 -> 汇总 README | 无明确运行时依赖; 资源指向多个外部服务 | README 明示脚本不再更新; 912 stars / 350 forks, 适合作为发现入口, 不适合作为稳定依赖 |
-| 2 | [chenyme/grok2api](https://github.com/chenyme/grok2api) / [0901045](https://github.com/chenyme/grok2api/commit/090104504b403d65675a01dab9c92b3a235ee832) | 上游 Provider 账号、凭据、API 请求和出口 -> OpenAI/Anthropic 兼容响应、管理台和审计状态 | Go 后端、React 管理端、SQLite/PostgreSQL、Memory/Redis、Docker; 依赖上游服务条款 | 2026-08-01 仍有更新, 6,931 stars / 2,133 forks, 活跃但外部 Provider 变化风险高 |
-| 3 | [GALIAIS/CTF-Sandbox-Orchestrator](https://github.com/GALIAIS/CTF-Sandbox-Orchestrator) / [bf07172](https://github.com/GALIAIS/CTF-Sandbox-Orchestrator/commit/bf07172369015201c48a449596a9d7e725a3057f) | 授权沙盒信号和附件 -> 总控路由、专项 Skill 和 references | Markdown `SKILL.md`、`agents/openai.yaml` 和 Agent/Skill 运行时; 具体工具按板块安装 | 2026-03-30 最近代码推送, 198 stars / 37 forks; 专项方向完整, 使用前应检查版本和工具覆盖 |
-| 4 | [LoseNine/ruyipage](https://github.com/LoseNine/ruyipage) / [5d22e8a](https://github.com/LoseNine/ruyipage/commit/5d22e8a4d6b289389f4c8ee46745c1a123f8c752) | URL、浏览器动作、Firefox 上下文和网络事件 -> 页面结果、请求/响应捕获和浏览器状态 | Python、Firefox、WebDriver BiDi; async 路线可用 `greenlet` / `websockets`; 需要本地浏览器运行时 | 2026-08-01 仍有更新, 1,820 stars / 205 forks; 过检测能力属于作者声明, 不应当作独立验证结论 |
-| 5 | [ydddp/mail-hub](https://github.com/ydddp/mail-hub) / [4fafa33](https://github.com/ydddp/mail-hub/commit/4fafa33bce63cb8e4815483076b98b1a6fe225ae) | 渠道配置、收件箱请求和目标域名 -> 统一邮件、验证码/链接、渠道和配额状态 | Node.js 18+、TypeScript、Docker/PM2、SQLite 数据; 依赖外部邮件 provider 和凭据 | 2026-08-01 仍有更新, 73 stars / 8 forks; 功能明确但供应商可用性和合规边界需要自行验证 |
-| 6 | [MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo) / [008b91b](https://github.com/MetaCubeX/mihomo/commit/008b91bfe8c0e2daca0ab69061efd9ea1ad71bd2) | UID、语言 -> Honkai: Star Rail Pydantic 解析模型 | Python、Pydantic、`api.mihomo.me` | 2026-08-01 仍有更新, 32,855 stars / 4,318 forks; 当前实际角色与原帖代理/IP 位置不一致, 是链接核验警报 |
-| 7 | [Resinat/Resin](https://github.com/Resinat/Resin) / [9b8ef8e](https://github.com/Resinat/Resin/commit/9b8ef8e5cf83071fbac4de29bd7187268b9cff7b) | 订阅 URL、节点列表、平台筛选和会话身份 -> HTTP/SOCKS5/反向代理、粘性路由、健康和审计数据 | Go、Docker、Clash/sing-box/URI 节点格式、持久化状态 | 2026-08-01 仍有更新, 1,932 stars / 305 forks; 代理网关角色与原帖位置相符 |
-| 8 | [GuangYiDing/cfspider](https://github.com/GuangYiDing/cfspider) / [c2e8b05](https://github.com/GuangYiDing/cfspider/commit/c2e8b05b1a73ce9902b34c547565bebb879adc5b) | Cloudflare API 配置、Worker 参数和请求 -> Worker 代理对象、Python 请求/浏览器辅助能力和节点池 | Python、Cloudflare Workers、VLESS; 依赖 Cloudflare 账户和部署配置 | 最近代码推送为 2026-01-26, 38 stars / 7 forks; 低活跃小项目, 需要先审计脚本、权限和部署风险 |
-| 9 | [baiqigo/baiqi-cf-worker-mihomo](https://github.com/baiqigo/baiqi-cf-worker-mihomo) / [e36453b](https://github.com/baiqigo/baiqi-cf-worker-mihomo/commit/e36453bedf61fbcb78763eedf55b3056867f308a) | UUID、ADMIN/KEY、KV 和 preferred-IP 来源 -> `/mihomo` 与 `/sub` 订阅响应 | Cloudflare Worker、KV、Wrangler、VLESS/WS/TLS; 需要自己管理密钥和 UUID | 最近代码推送为 2026-06-25, 59 stars / 10 forks; 定位是清理后的发布副本, 不应提交真实凭据 |
-| 10 | [baiqigo/baiqi-register-template](https://github.com/baiqigo/baiqi-register-template) / [4791c6a](https://github.com/baiqigo/baiqi-register-template/commit/4791c6a0cb877abbd50a1ed843a6c468e9f2bb4f) | Channel flow、邮箱/验证码/代理适配器、count 和配置 -> `results.json`、`accounts_for_import.jsonl`、`run.log` | Python、`requirements.txt`; 默认可用 mock/none/fake protocol, 接入外部服务才增加外部依赖 | 最近代码推送为 2026-06-25, 54 stars / 10 forks; 适合作为本地状态机教学模板 |
-| 11 | [fastapi/fastapi](https://github.com/fastapi/fastapi) / [95f8322](https://github.com/fastapi/fastapi/commit/95f8322ee1dcda7ceace7b1c4f6c9915b36d748f) | Python 类型声明和路由处理 -> ASGI HTTP 服务、OpenAPI 和 JSON Schema | Starlette、Pydantic、ASGI server; 标准 Python 类型提示 | 2026-08-01 仍有更新, 101,137 stars / 9,718 forks; 成熟的服务边界基础设施 |
-| 12 | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) / [16f2980](https://github.com/DietrichGebert/ponytail/commit/16f29800fd2681bdf24f3eb4ccffe38be3baec6b) | 编码任务、现有调用链和约束 -> 最小实现、最小检查和较短 diff | Agent Skill、规则文件、Codex/Claude 等插件和 Node lifecycle hooks | 2026-07-15 最近代码推送, 93,470 stars / 5,133 forks; 活跃且影响面大, README benchmark 是作者实验结果 |
-| 13 | [mattpocock/skills](https://github.com/mattpocock/skills) / [2ab9580](https://github.com/mattpocock/skills/commit/2ab958093e83e0ec752e6c1c5932da465bf23e0c) | 模糊需求、领域术语、仓库上下文和反馈 -> grilling、shared language、ADR、TDD 和架构反馈 | Markdown Skill、ADR/docs、Agent CLI; TDD 需要项目自己的公共 seam 和测试运行时 | 2026-07-31 最近代码推送, 198,850 stars / 17,132 forks; 活跃, 适合借鉴工作流而不是照抄目录 |
-| 14 | [basketikun/chatgpt2api](https://github.com/basketikun/chatgpt2api) / [dc105e5](https://github.com/basketikun/chatgpt2api/commit/dc105e51bd486bd75c8ef4f74be4bc4724bdfc33) | 授权协议请求、图片任务、账号和存储配置 -> OpenAI 兼容图片 API、Web UI、任务和账号状态 | Python/uv、Docker; JSON/SQLite/PostgreSQL/Git 存储; WARP/Privoxy/FlareSolverr 可选 | 2026-07-29 最近代码推送, 5,493 stars / 1,490 forks; 功能活跃但官网协议、账号和条款风险必须单独评估 |
-| 15 | [LING71671/open-reverselab](https://github.com/LING71671/open-reverselab) / [b6522eb](https://github.com/LING71671/open-reverselab/commit/b6522ebb402be8d53161ae8fe70995b060f8b79f) | board 信号、授权样本和分析任务 -> KB 路由、MCP 工具调用、exports、notes 和 reports | Python >=3.10、uv、`mcp>=1.2.0,<2`、`pycryptodome`; Android/PE/CTF 工具按板块可选 | 2026-08-01 仍有更新, 954 stars / 244 forks; 结构活跃, 但 README 的 178 篇与 GitHub description 的 197 篇统计不一致 |
+1. [MasterAlanLab/register](https://github.com/MasterAlanLab/register) / [79a1f0b](https://github.com/MasterAlanLab/register/commit/79a1f0b0a1e83403a3e62f9d8f41602890122758)
+    - 角色核验: 公开资源和注册脚本线索 -> 汇总 README.
+    - 主要依赖或外部边界: 无明确运行时依赖; 资源指向多个外部服务.
+    - 维护判断: README 明示脚本不再更新; 912 stars / 350 forks, 适合作为发现入口, 不适合作为稳定依赖.
+2. [chenyme/grok2api](https://github.com/chenyme/grok2api) / [0901045](https://github.com/chenyme/grok2api/commit/090104504b403d65675a01dab9c92b3a235ee832)
+    - 角色核验: 上游 Provider 账号、凭据、API 请求和出口 -> OpenAI/Anthropic 兼容响应、管理台和审计状态.
+    - 主要依赖或外部边界: Go 后端、React 管理端、SQLite/PostgreSQL、Memory/Redis、Docker; 依赖上游服务条款.
+    - 维护判断: 2026-08-01 仍有更新, 6,931 stars / 2,133 forks, 活跃但外部 Provider 变化风险高.
+3. [GALIAIS/CTF-Sandbox-Orchestrator](https://github.com/GALIAIS/CTF-Sandbox-Orchestrator) / [bf07172](https://github.com/GALIAIS/CTF-Sandbox-Orchestrator/commit/bf07172369015201c48a449596a9d7e725a3057f)
+    - 角色核验: 授权沙盒信号和附件 -> 总控路由、专项 Skill 和 references.
+    - 主要依赖或外部边界: Markdown `SKILL.md`、`agents/openai.yaml` 和 Agent/Skill 运行时; 具体工具按板块安装.
+    - 维护判断: 2026-03-30 最近代码推送, 198 stars / 37 forks; 专项方向完整, 使用前应检查版本和工具覆盖.
+4. [LoseNine/ruyipage](https://github.com/LoseNine/ruyipage) / [5d22e8a](https://github.com/LoseNine/ruyipage/commit/5d22e8a4d6b289389f4c8ee46745c1a123f8c752)
+    - 角色核验: URL、浏览器动作、Firefox 上下文和网络事件 -> 页面结果、请求/响应捕获和浏览器状态.
+    - 主要依赖或外部边界: Python、Firefox、WebDriver BiDi; async 路线可用 `greenlet` / `websockets`; 需要本地浏览器运行时.
+    - 维护判断: 2026-08-01 仍有更新, 1,820 stars / 205 forks; 过检测能力属于作者声明, 不应当作独立验证结论.
+5. [ydddp/mail-hub](https://github.com/ydddp/mail-hub) / [4fafa33](https://github.com/ydddp/mail-hub/commit/4fafa33bce63cb8e4815483076b98b1a6fe225ae)
+    - 角色核验: 渠道配置、收件箱请求和目标域名 -> 统一邮件、验证码/链接、渠道和配额状态.
+    - 主要依赖或外部边界: Node.js 18+、TypeScript、Docker/PM2、SQLite 数据; 依赖外部邮件 provider 和凭据.
+    - 维护判断: 2026-08-01 仍有更新, 73 stars / 8 forks; 功能明确但供应商可用性和合规边界需要自行验证.
+6. [MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo) / [008b91b](https://github.com/MetaCubeX/mihomo/commit/008b91bfe8c0e2daca0ab69061efd9ea1ad71bd2)
+    - 角色核验: UID、语言 -> Honkai: Star Rail Pydantic 解析模型.
+    - 主要依赖或外部边界: Python、Pydantic、`api.mihomo.me`.
+    - 维护判断: 2026-08-01 仍有更新, 32,855 stars / 4,318 forks; 当前实际角色与原帖代理/IP 位置不一致, 是链接核验警报.
+7. [Resinat/Resin](https://github.com/Resinat/Resin) / [9b8ef8e](https://github.com/Resinat/Resin/commit/9b8ef8e5cf83071fbac4de29bd7187268b9cff7b)
+    - 角色核验: 订阅 URL、节点列表、平台筛选和会话身份 -> HTTP/SOCKS5/反向代理、粘性路由、健康和审计数据.
+    - 主要依赖或外部边界: Go、Docker、Clash/sing-box/URI 节点格式、持久化状态.
+    - 维护判断: 2026-08-01 仍有更新, 1,932 stars / 305 forks; 代理网关角色与原帖位置相符.
+8. [GuangYiDing/cfspider](https://github.com/GuangYiDing/cfspider) / [c2e8b05](https://github.com/GuangYiDing/cfspider/commit/c2e8b05b1a73ce9902b34c547565bebb879adc5b)
+    - 角色核验: Cloudflare API 配置、Worker 参数和请求 -> Worker 代理对象、Python 请求/浏览器辅助能力和节点池.
+    - 主要依赖或外部边界: Python、Cloudflare Workers、VLESS; 依赖 Cloudflare 账户和部署配置.
+    - 维护判断: 最近代码推送为 2026-01-26, 38 stars / 7 forks; 低活跃小项目, 需要先审计脚本、权限和部署风险.
+9. [baiqigo/baiqi-cf-worker-mihomo](https://github.com/baiqigo/baiqi-cf-worker-mihomo) / [e36453b](https://github.com/baiqigo/baiqi-cf-worker-mihomo/commit/e36453bedf61fbcb78763eedf55b3056867f308a)
+    - 角色核验: UUID、ADMIN/KEY、KV 和 preferred-IP 来源 -> `/mihomo` 与 `/sub` 订阅响应.
+    - 主要依赖或外部边界: Cloudflare Worker、KV、Wrangler、VLESS/WS/TLS; 需要自己管理密钥和 UUID.
+    - 维护判断: 最近代码推送为 2026-06-25, 59 stars / 10 forks; 定位是清理后的发布副本, 不应提交真实凭据.
+10. [baiqigo/baiqi-register-template](https://github.com/baiqigo/baiqi-register-template) / [4791c6a](https://github.com/baiqigo/baiqi-register-template/commit/4791c6a0cb877abbd50a1ed843a6c468e9f2bb4f)
+    - 角色核验: Channel flow、邮箱/验证码/代理适配器、count 和配置 -> `results.json`、`accounts_for_import.jsonl`、`run.log`.
+    - 主要依赖或外部边界: Python、`requirements.txt`; 默认可用 mock/none/fake protocol, 接入外部服务才增加外部依赖.
+    - 维护判断: 最近代码推送为 2026-06-25, 54 stars / 10 forks; 适合作为本地状态机教学模板.
+11. [fastapi/fastapi](https://github.com/fastapi/fastapi) / [95f8322](https://github.com/fastapi/fastapi/commit/95f8322ee1dcda7ceace7b1c4f6c9915b36d748f)
+    - 角色核验: Python 类型声明和路由处理 -> ASGI HTTP 服务、OpenAPI 和 JSON Schema.
+    - 主要依赖或外部边界: Starlette、Pydantic、ASGI server; 标准 Python 类型提示.
+    - 维护判断: 2026-08-01 仍有更新, 101,137 stars / 9,718 forks; 成熟的服务边界基础设施.
+12. [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) / [16f2980](https://github.com/DietrichGebert/ponytail/commit/16f29800fd2681bdf24f3eb4ccffe38be3baec6b)
+    - 角色核验: 编码任务、现有调用链和约束 -> 最小实现、最小检查和较短 diff.
+    - 主要依赖或外部边界: Agent Skill、规则文件、Codex/Claude 等插件和 Node lifecycle hooks.
+    - 维护判断: 2026-07-15 最近代码推送, 93,470 stars / 5,133 forks; 活跃且影响面大, README benchmark 是作者实验结果.
+13. [mattpocock/skills](https://github.com/mattpocock/skills) / [2ab9580](https://github.com/mattpocock/skills/commit/2ab958093e83e0ec752e6c1c5932da465bf23e0c)
+    - 角色核验: 模糊需求、领域术语、仓库上下文和反馈 -> grilling、shared language、ADR、TDD 和架构反馈.
+    - 主要依赖或外部边界: Markdown Skill、ADR/docs、Agent CLI; TDD 需要项目自己的公共 seam 和测试运行时.
+    - 维护判断: 2026-07-31 最近代码推送, 198,850 stars / 17,132 forks; 活跃, 适合借鉴工作流而不是照抄目录.
+14. [basketikun/chatgpt2api](https://github.com/basketikun/chatgpt2api) / [dc105e5](https://github.com/basketikun/chatgpt2api/commit/dc105e51bd486bd75c8ef4f74be4bc4724bdfc33)
+    - 角色核验: 授权协议请求、图片任务、账号和存储配置 -> OpenAI 兼容图片 API、Web UI、任务和账号状态.
+    - 主要依赖或外部边界: Python/uv、Docker; JSON/SQLite/PostgreSQL/Git 存储; WARP/Privoxy/FlareSolverr 可选.
+    - 维护判断: 2026-07-29 最近代码推送, 5,493 stars / 1,490 forks; 功能活跃但官网协议、账号和条款风险必须单独评估.
+15. [LING71671/open-reverselab](https://github.com/LING71671/open-reverselab) / [b6522eb](https://github.com/LING71671/open-reverselab/commit/b6522ebb402be8d53161ae8fe70995b060f8b79f)
+    - 角色核验: board 信号、授权样本和分析任务 -> KB 路由、MCP 工具调用、exports、notes 和 reports.
+    - 主要依赖或外部边界: Python >=3.10、uv、`mcp>=1.2.0,<2`、`pycryptodome`; Android/PE/CTF 工具按板块可选.
+    - 维护判断: 2026-08-01 仍有更新, 954 stars / 244 forks; 结构活跃, 但 README 的 178 篇与 GitHub description 的 197 篇统计不一致.
 
 ## 0x04 三个重点项目的源码级学习
 
@@ -260,13 +269,7 @@ Signal
 - [`skills/ponytail-review/SKILL.md`](https://github.com/DietrichGebert/ponytail/blob/16f29800fd2681bdf24f3eb4ccffe38be3baec6b/skills/ponytail-review/SKILL.md): 只审查过度工程化, 不把正确性和安全问题混进“删代码”结论.
 - [`.codex-plugin/plugin.json`](https://github.com/DietrichGebert/ponytail/blob/16f29800fd2681bdf24f3eb4ccffe38be3baec6b/.codex-plugin/plugin.json): 将规则、Skills 和 lifecycle hooks 接入 Codex.
 
-最值得迁移的是顺序, 不是口号:
-
-```text
-先完整理解问题和调用链
-  -> 再从 YAGNI 开始逐级寻找现成能力
-  -> 最后只写第一处真正需要自实现的代码
-```
+最值得迁移的是顺序, 不是口号: 先完整理解问题和调用链 -> 再从 YAGNI 开始逐级寻找现成能力 -> 最后只写第一处真正需要自实现的代码.
 
 它还给出了一个重要的负面定义: “最小”不等于删除校验、错误处理、安全、无障碍和必要测试. 这对本文尤其重要, 因为注册流程、账号状态、外部输入和网络请求恰好都处在信任边界上.
 
@@ -283,12 +286,10 @@ README 的 benchmark 声称在真实 FastAPI + React 仓库、12 个 feature tas
 
 它解决的是 AI 工程中的四种熵:
 
-| 熵的来源 | 对应机制 | 学习结果 |
-| --- | --- | --- |
-| 目标含糊 | grilling | 先闭环上游约束, 再做下游设计 |
-| 术语分裂 | shared language / `CONTEXT.md` | 人、Agent、代码里的名字对齐 |
-| 没有反馈 | TDD、类型检查、浏览器验证 | 每个垂直切片都有可观察结果 |
-| 结构腐化 | ADR、领域建模、架构治理 | 让变化留下决策记录, 而不是只留下代码 |
+- 目标含糊: 对应 grilling, 学习结果是先闭环上游约束, 再做下游设计.
+- 术语分裂: 对应 shared language / `CONTEXT.md`, 学习结果是人、Agent、代码里的名字对齐.
+- 没有反馈: 对应 TDD、类型检查、浏览器验证, 学习结果是每个垂直切片都有可观察结果.
+- 结构腐化: 对应 ADR、领域建模、架构治理, 学习结果是让变化留下决策记录, 而不是只留下代码.
 
 这套方法的关键在顺序: 先把最上游的目标定下来  保留原文主题与心流, 再逐层确认核验范围与深挖对象, 最后才进入大规模事实调研; 每一轮只保留一个依赖最上游的问题, 答完才继续往下走.
 
@@ -302,7 +303,7 @@ README 的 benchmark 声称在真实 FastAPI + React 仓库、12 个 feature tas
 - [`boards/ctf-website/AI-USAGE.md`](https://github.com/LING71671/open-reverselab/blob/b6522ebb402be8d53161ae8fe70995b060f8b79f/boards/ctf-website/AI-USAGE.md): 进入具体板块后的进一步路由.
 - [`ReverseLabToolsMCP/pyproject.toml`](https://github.com/LING71671/open-reverselab/blob/b6522ebb402be8d53161ae8fe70995b060f8b79f/tools/skills/mcp/ReverseLabToolsMCP/pyproject.toml): MCP 依赖边界 `mcp>=1.2.0,<2` 和 `pycryptodome`.
 
-它的关键不是工具数量, 而是让 Agent 在每次任务中都回答同一组问题:
+它的关键是让 Agent 在每次任务中都回答同一组问题:
 
 1. 这是什么板块, 当前信号是什么?
 2. 哪一篇 KB 文章先提供假设和方法?
@@ -315,29 +316,20 @@ README 宣称 178 篇知识库文章和 100+ MCP 工具, GitHub API 的 descript
 
 ## 0x05 与 HXLoLi 的对应关系
 
-HXLoLi 已经有一部分相同的思想, 但组织方式还没有完全变成 ReverseLab 那样的 board/case/KB/tools 路由系统. 可对照已有的 [obsidian-second-brain 全解](../../003-AI/004-记忆/003-obsidian-second-brain/index.md "hxid:hx-a953a087"), 以及当前这套 `hx-to-ai-docs` 与它各个 `hx-docs-*` 子技能组成的沉淀流程.
+HXLoLi 已经有一部分相同的思想, 但组织方式还没有完全变成 ReverseLab 那样的 board/case/KB/tools 路由系统. 可对照已有的 [obsidian-second-brain 全解](../../003-AI/006-记忆/003-obsidian-second-brain/index.md "hxid:hx-a953a087"), 以及当前这套 `hx-to-ai-docs` 与它各个 `hx-docs-*` 子技能组成的整理入库流程.
 
-| ReverseLab 的概念 | HXLoLi 当前对应物 | 当前状态 |
-| --- | --- | --- |
-| Board | `ai-docs` 的分类目录和文章标签 | 有目录, 还没有统一的信号路由器 |
-| Case | 一篇项目学习笔记、`.hx-mitemite.md` 和阶段性草稿 | 已经能记录一个主题的调研和问答状态 |
-| KB | `ai-docs`、已有项目译注、源码引用 | 有内容, 但来源、置信度和版本快照仍主要靠人工维护 |
-| Tools / MCP | `.agents/skills`、脚本和可用 MCP | 有 Skill 和脚本, 尚未形成统一的 `Signal -> Tool` 映射 |
-| Exports / Reports | 引用、验证章节和最终笔记 | 目前以 Markdown 审计记录为主, 还没有统一证据目录 |
-| Context chain | AGENTS.md、Skill、现有笔记和会话上下文 | 本次已通过 Skill + 答题卡实现一轮轻量路由 |
+- Board: HXLoLi 当前对应物是`ai-docs` 的分类目录和文章标签. 当前状态: 有目录, 还没有统一的信号路由器.
+- Case: HXLoLi 当前对应物是一篇项目学习笔记、`.hx-mitemite.md` 和阶段性草稿. 当前状态: 已经能记录一个主题的调研和问答状态.
+- KB: HXLoLi 当前对应物是`ai-docs`、已有项目译注、源码引用. 当前状态: 有内容, 但来源、置信度和版本快照仍主要靠人工维护.
+- Tools / MCP: HXLoLi 当前对应物是`.agents/skills`、脚本和可用 MCP. 当前状态: 有 Skill 和脚本, 尚未形成统一的 `Signal -> Tool` 映射.
+- Exports / Reports: HXLoLi 当前对应物是引用、验证章节和最终笔记. 当前状态: 目前以 Markdown 审计记录为主, 还没有统一证据目录.
+- Context chain: HXLoLi 当前对应物是AGENTS.md、Skill、现有笔记和会话上下文. 当前状态: 本次已通过 Skill + 答题卡实现一轮轻量路由.
 
-这条帖子对 HXLoLi 最有价值的不是引入某个具体注册项目, 而是提供了一套可以继续实现的学习闭环:
+这条帖子对 HXLoLi 最有价值的是提供了一套可以继续实现的学习闭环:
 
-```text
-用户主题
-  -> 一个上游澄清问题
-  -> 原文路径保真
-  -> 项目输入/输出/依赖核验
-  -> 最新 commit 和状态快照
-  -> 源码深挖
-  -> HXLoLi 迁移判断
-  -> 可追溯的结论与证据
-```
+![HXLoLi 从用户主题到可追溯结论与证据的学习闭环 ##w800##](hxloli-learning-loop.png)
+
+下面的迁移建议按这条闭环展开.
 
 具体迁移建议:
 
@@ -356,14 +348,14 @@ HXLoLi 已经有一部分相同的思想, 但组织方式还没有完全变成 R
 
 - 默认分支、描述、许可证、stars、forks、open issues、`updated_at` 和最近代码推送时间.
 - README、目录结构、入口文件、依赖文件和三个重点项目的关键 Skill/规则文件.
-- 当前默认分支的最新 commit URL, 已在仓库表和源码深挖章节中关联.
+- 当前默认分支的最新 commit URL, 已在仓库核验清单和源码深挖章节中关联.
 
 没有把作者的主观评分、README 的营销表述或“过检测”声明当成独立运行结论. 没有对第三方真实注册流程、验证码平台、风控策略或官网私有协议进行实操验证.
 
 
 ## 0x07 总结
 
-读完这条从“打野”到注册机、再到 AI 工具链的路径, 真正需要带走的不是某一个站点的注册脚本, 而是三个连续的问题:
+读完这条从“打野”到注册机、再到 AI 工具链的路径, 真正需要带走的是三个连续的问题:
 
 - 你能否在每个工具节点说清楚它接收什么、产出什么、依赖什么、失败后谁负责?
 - 你在让 Agent 写代码之前, 是否先用一个足够小但真正关键的问题把目标、术语和边界对齐?
@@ -373,18 +365,26 @@ HXLoLi 已经有一部分相同的思想, 但组织方式还没有完全变成 R
 
 ## 0x08 拓展升华展望
 
-把这条链路放到更长的时间尺度上看, 它真正的产出不是某个能用的脚本, 而是一套"把现成能力组织成可维护工作流"的方法: 先发现能力, 再从源码核验契约, 最后把契约组织成 Agent 能复用的路由.
+把这条链路放到更长的时间尺度上看, 它真正的产出是一套"把现成能力组织成可维护工作流"的方法: 先发现能力, 再从源码核验契约, 最后把契约组织成 Agent 能复用的路由.
 
-**事实层面** … 这条链路里每个节点都能被降解成输入、输出、依赖与失败恢复: 资源目录负责发现, 协议与浏览器是两种观测粒度, 邮箱与代理把外部输入变成稳定接口, 注册模板用 Channel 把流程与渠道解耦, FastAPI 提供 HTTP 边界, ponytail 约束实现规模, mattpocock/skills 约束目标、术语与反馈, open-reverselab 用目录约定把知识、工具与证据路由起来. 需要说明的是, 本文只依据默认分支、README、源码结构、维护信息与最新 commit 做仓库级核验, 没有对第三方真实注册流程、验证码平台、风控策略或官网私有协议做实操验证, 也没有把作者的主观评分或 README 的营销表述当成独立结论.
+**事实层面** … 这条链路里每个节点都能被降解成输入、输出、依赖与失败恢复: 资源目录负责发现, 协议与浏览器是两种观测粒度, 邮箱与代理把外部输入变成稳定接口, 注册模板用 Channel 把流程与渠道解耦.
 
-**个人判断** … 我倾向于认为, 接下来被复用的会是"契约 + 路由"而不是任何单个工具: 仓库、协议和站点都会变, 但每个节点说得清输入输出、失败有归属、证据能回放这件事不会变. 同样可以预期的是, Agent 工作流会继续从"更聪明的提示词"转向"更清晰的边界"  什么时候该反问、什么时候该查证、什么时候该停下来让人拍板, 这些判断会逐渐沉淀成 Skills 与规则文件, 而不是留在某一次会话里. 反过来说, 一条链路里只要还有节点说不清失败的归属, 它就仍然是一次演示, 而不是一件工程.
+FastAPI 提供 HTTP 边界, ponytail 约束实现规模, mattpocock/skills 约束目标、术语与反馈, open-reverselab 用目录约定把知识、工具与证据路由起来.
+
+需要说明的是, 本文只依据默认分支、README、源码结构、维护信息与最新 commit 做仓库级核验, 没有对第三方真实注册流程、验证码平台、风控策略或官网私有协议做实操验证, 也没有把作者的主观评分或 README 的营销表述当成独立结论.
+
+**个人判断** … 接下来被复用的会是"契约 + 路由", 单个工具都会过时: 仓库、协议和站点都会变, 但每个节点说得清输入输出、失败有归属、证据能回放这件事不会变.
+
+同样可以预期的是, Agent 工作流会继续从"更聪明的提示词"转向"更清晰的边界"  什么时候该反问、什么时候该查证、什么时候该停下来让人拍板, 这些判断会逐渐写进 Skills 与规则文件, 不再只留在某一次会话里.
+
+反过来说, 一条链路里只要还有节点说不清失败的归属, 它就仍然是一次演示, 而不是一件工程.
 
 ## 0x09 参考来源
 
-- [Discord 原文: 个人常用项目推荐(打野到注册机一条龙, 简易教程)](https://discord.com/channels/1325587675314520175/1521896780805968013/1521896780805968013) — 作者 𝑏𝑎𝑖𝑞𝑖_𝑞𝑎𝑞, 2026-07-01 发布于 KYL 服务器的 🌐-各类教程-chatgpt🚀 频道; 本文 0x02 的叙事顺序与 13 个编号步骤均据此.
-- [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) — 最小实现阶梯与 Skill 原文, 4.1 节全部结论的证据来源.
-- [mattpocock/skills](https://github.com/mattpocock/skills) — grilling、shared language、TDD 与 ADR 四类机制的文件原文, 对应 4.2 节.
-- [LING71671/open-reverselab](https://github.com/LING71671/open-reverselab) — board / KB / MCP 路由与目录约定, 4.3 节据此拆解.
-- [baiqigo/baiqi-register-template](https://github.com/baiqigo/baiqi-register-template) — `channels/<name>` 抽象与 `fake_protocol` 本地假链路, 2.2.5 节的状态机样本.
-- [Resinat/Resin](https://github.com/Resinat/Resin) 与 [MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo) — 代理层的角色核验; 后者当前实际角色是游戏数据模型, 正是 2.2.4 节那条链接与角色不一致警报的来源.
-- 其余 10 个仓库的完整核验 (默认分支、最新 commit、依赖边界与维护判断) 见上文 0x03 仓库级验证表, 每一项都带 commit 链接.
+- [Discord 原文: 个人常用项目推荐(打野到注册机一条龙, 简易教程)](https://discord.com/channels/1325587675314520175/1521896780805968013/1521896780805968013) : 作者 𝑏𝑎𝑖𝑞𝑖_𝑞𝑎𝑞, 2026-07-01 发布于 KYL 服务器的 🌐-各类教程-chatgpt🚀 频道; 本文 0x02 的叙事顺序与 13 个编号步骤均据此.
+- [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) : 最小实现阶梯与 Skill 原文, 4.1 节全部结论的证据来源.
+- [mattpocock/skills](https://github.com/mattpocock/skills) : grilling、shared language、TDD 与 ADR 四类机制的文件原文, 对应 4.2 节.
+- [LING71671/open-reverselab](https://github.com/LING71671/open-reverselab) : board / KB / MCP 路由与目录约定, 4.3 节据此拆解.
+- [baiqigo/baiqi-register-template](https://github.com/baiqigo/baiqi-register-template) : `channels/<name>` 抽象与 `fake_protocol` 本地假链路, 2.2.5 节的状态机样本.
+- [Resinat/Resin](https://github.com/Resinat/Resin) 与 [MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo) : 代理层的角色核验; 后者当前实际角色是游戏数据模型, 正是 2.2.4 节那条链接与角色不一致警报的来源.
+- 其余 10 个仓库的完整核验 (默认分支、最新 commit、依赖边界与维护判断) 见上文 0x03 仓库级验证清单, 每一项都带 commit 链接.

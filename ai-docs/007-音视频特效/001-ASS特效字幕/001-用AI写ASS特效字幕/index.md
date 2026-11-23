@@ -2,7 +2,7 @@
 hxid: "hx-90a907a3"
 title: "用 AI 写 ASS 特效字幕: 一套可照做的规格"
 created_at: "2026-09-29"
-model: "Unknown"
+model: "unknown"
 skill: ["hx-note"]
 authors: "Heng_Xin"
 tags: ["AI工具", "工程实践", "评测"]

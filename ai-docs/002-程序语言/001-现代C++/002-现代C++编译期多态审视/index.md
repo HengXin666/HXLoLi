@@ -2,7 +2,7 @@
 hxid: "hx-99d2d08b"
 title: "现代C++编译期多态审视"
 created_at: "2026-07-04"
-model: "GPT-5"
+model: "gpt-5"
 skill: ["hx-look-video"]
 authors: "Heng_Xin"
 tags: ["C++", "编译期多态", "工程实践"]
@@ -17,7 +17,7 @@ tags: ["C++", "编译期多态", "工程实践"]
 
 ## 0x00 这篇视频真正要回答什么?
 
-视频讨论的不是一句粗暴的「以后别写 `virtual`」, 而是一个更有工程价值的问题:
+视频没有粗暴地说一句「以后别写 `virtual`」. 它讨论的是一个更有工程价值的问题:
 
 > 当程序的类型集合、接口约束和调度路径能够在编译期表达时, 是否还需要把多态性推迟到运行期?
 
@@ -69,36 +69,11 @@ tags: ["C++", "编译期多态", "工程实践"]
 - `00:01:31` 讲到更静态的描述能提前暴露错误.
 - `00:01:59` 讲到静态描述能给编译器更多优化机会.
 
-这不是说间接访问一定错误, 而是说如果业务并不需要运行期开放性, 那么动态分发就是被过早引入的复杂度.
+间接访问不一定错误. 问题在于: 如果业务并不需要运行期开放性, 那么动态分发就是被过早引入的复杂度.
 
 ## 0x03 用 `concept` 绑定接口
 
-视频第一组例子是「接口绑定」. 传统写法大概是:
-
-```cpp
-struct FooInterface {
-    virtual ~FooInterface() = default;
-    virtual int func() = 0;
-};
-
-struct Foo : FooInterface {
-    int func() override;
-};
-```
-
-C++20 的表达方式可以是:
-
-```cpp
-template <class T>
-concept FooLike = requires(T value) {
-    { value.func() } -> std::same_as<int>;
-};
-
-template <FooLike T>
-int use(T const& value) {
-    return value.func();
-}
-```
+视频第一组例子是「接口绑定」: 传统写法用纯虚基类表达接口, C++20 改用 `concept` / `requires` 表达.
 
 这带来的变化:
 
@@ -122,27 +97,9 @@ int use(T const& value) {
 
 第二组例子处理「一个对象内部持有某种实现」.
 
-传统虚函数版本通常持有 `std::unique_ptr<Base>` 或 `Base&`. 非虚版本可以让宿主类型参数化:
+传统虚函数版本通常持有 `std::unique_ptr<Base>` 或 `Base&`. 非虚版本可以让宿主类型参数化.
 
-```cpp
-template <FooLike T>
-class Holder {
-public:
-    explicit Holder(T value)
-        : value_(std::move(value)) {}
-
-    int run() {
-        return value_.func();
-    }
-
-private:
-    T value_;
-};
-
-Holder holder{Foo{}};
-```
-
-借助 CTAD, 使用方不需要手写 `Holder<Foo>`. 类型在构造时确定, 后续就不再改变.
+借助 CTAD, 使用方不需要手写模板实参. 类型在构造时确定, 后续就不再改变.
 
 视频在 `00:09:58` 到 `00:10:20` 讲这个思路, 并在 `00:10:38` 附近补上 concept 约束, 让模板参数不仅能被推导, 还必须满足接口契约.
 
@@ -153,30 +110,9 @@ Holder holder{Foo{}};
 
 ## 0x05 `std::variant` 只适合封闭的运行期选择
 
-视频没有否认运行期配置. 它给出的现代 C++ 方案是:
+视频没有否认运行期配置. 它给出的现代 C++ 方案是让持有者保存一个 `std::variant<Ts...>`.
 
-```cpp
-template <FooLike... Ts>
-class RuntimeHolder {
-public:
-    template <class T>
-        requires SameAsAny<std::remove_cvref_t<T>, Ts...>
-    void set(T&& value) {
-        value_ = std::forward<T>(value);
-    }
-
-    int run() {
-        return std::visit([](auto& value) {
-            return value.func();
-        }, value_);
-    }
-
-private:
-    std::variant<Ts...> value_;
-};
-```
-
-这里的重点不是 `variant` 很神奇, 而是它表达了一个封闭集合: 运行时可以在 `Ts...` 里切换, 但不能出现列表之外的类型.
+`variant` 的重点在于它表达了一个封闭集合: 运行时可以在 `Ts...` 里切换, 但不能出现列表之外的类型.
 
 视频在 `00:11:45` 之后引入类型列表和 `variant`, `00:12:29` 讲到直接赋一个 variant 不接受的类型会产生很难看的模板错误, 所以后续用类似 `SameAsAny` 的 concept 把错误前移为约束失败.
 
@@ -192,29 +128,7 @@ private:
 
 第三类问题是异构集合.
 
-传统方案:
-
-```cpp
-std::vector<std::unique_ptr<Base>> objects;
-```
-
-静态多态方案:
-
-```cpp
-template <FooLike... Ts>
-class Store {
-public:
-    template <class T>
-        requires SameAsAny<std::remove_cvref_t<T>, Ts...>
-    void push(T&& value) {
-        auto& bucket = std::get<std::vector<std::remove_cvref_t<T>>>(items_);
-        bucket.push_back(std::forward<T>(value));
-    }
-
-private:
-    std::tuple<std::vector<Ts>...> items_;
-};
-```
+传统方案是 `std::vector<std::unique_ptr<Base>>`, 静态多态方案是按类型分桶.
 
 视频在 `00:23:37` 之后把每种类型分别存在一个 `vector<T>` 中, 即 `tuple<vector<Ts>...>`. 它在 `00:25:23` 之后强调, 如果每种类型都有很多对象, 这种结构有很好的静态局部性, 编译器也能更深入理解操作.
 
@@ -277,39 +191,11 @@ private:
 
 虚函数方案能统一存成 `vector<unique_ptr<DeviceInterface>>`, 但静态函数 `find` 不能成为虚接口的一部分. 视频在 `00:42:57` 到 `00:43:16` 明确指出这个限制.
 
-C++20 方案可以把静态发现函数也放入 concept:
-
-```cpp
-template <class T>
-concept Device = requires(T device, Environment& env) {
-    { T::find(env) } -> std::same_as<std::vector<T>>;
-    { device.update() } -> std::same_as<void>;
-};
-```
-
-然后用类型列表约束设备管理器:
-
-```cpp
-template <Device... Ts>
-class DeviceManager {
-public:
-    explicit DeviceManager(Environment& env)
-        : devices_(find_all<Ts...>(env)) {}
-
-    void update() {
-        std::apply([](auto&... buckets) {
-            (update_bucket(buckets), ...);
-        }, devices_);
-    }
-
-private:
-    std::tuple<std::vector<Ts>...> devices_;
-};
-```
+C++20 方案可以把静态发现函数也放入 concept, 再用类型列表约束设备管理器.
 
 视频在 `00:47:01` 之后说明, concept 能约束 `update`, 也能约束静态 `find`. 这是纯虚接口很难自然表达的地方.
 
-但 `DeviceManager` 的访问顺序变成类型列表顺序, 不是设备发现顺序. 视频在 `00:49:49` 之后指出: 这可能是优点, 也可能是缺点. 如果某些设备更重要, 可以把它的类型放前面; 如果真实发现顺序有语义, 这种结构就要谨慎.
+但设备管理器的访问顺序变成类型列表顺序, 不是设备发现顺序. 视频在 `00:49:49` 之后指出: 这可能是优点, 也可能是缺点. 如果某些设备更重要, 可以把它的类型放前面; 如果真实发现顺序有语义, 这种结构就要谨慎.
 
 ## 0x0A 我会怎么在 HXLibs / 现代 C++ 项目里使用这套思路?
 
@@ -365,15 +251,25 @@ private:
 
 ## 0x0D 概要
 
-如果一个系统的类型集合本来就是封闭的, 为什么还要把接口检查、对象布局和调用目标都推迟到运行期? C++20 的 `concept`、CTAD、`variant` 和参数包展开让我们可以把很多「多态」重新表达为编译期事实. 但这不是对 `virtual` 的道德审判, 而是一种边界识别: 当动态性是业务事实时, `virtual` 仍然清晰; 当动态性只是历史写法时, 现代 C++ 给了我们更静态、更可优化、更早失败的选择.
+如果一个系统的类型集合本来就是封闭的, 为什么还要把接口检查、对象布局和调用目标都推迟到运行期? C++20 的 `concept`、CTAD、`variant` 和参数包展开让我们可以把很多「多态」重新表达为编译期事实.
+
+但这是一种边界识别, 并非对 `virtual` 的道德审判: 当动态性是业务事实时, `virtual` 仍然清晰; 当动态性只是历史写法时, 现代 C++ 给了我们更静态、更可优化、更早失败的选择.
 
 ## 0x0E 拓展升华展望
 
-把 `concept`、CTAD、`variant` 和分桶容器放在一起看, 它们其实在回答同一个问题: 一个对象的**类型**什么时候才算真正确定. 运行期多态把答案推到调用发生的那一刻, 编译期多态则要求你在写代码的时候就把答案交出来. 围绕"是否还需要 `virtual`"的争论, 本质上是这个答案的归属权之争.
+把 `concept`、CTAD、`variant` 和分桶容器放在一起看, 它们其实在回答同一个问题: 一个对象的**类型**什么时候才算真正确定. 运行期多态把答案推到调用发生的那一刻, 编译期多态则要求你在写代码的时候就把答案交出来.
 
-**事实层面** … 语言演进正在持续扩大"编译期确定"能表达的范围: C++20 带来了 concept 与 `std::variant`, 而 P2300(`std::execution`)、P2900(contracts)与 P2996(静态反射)都已进入 C++26  当反射可用之后, 今天需要手写元编程才能完成的"按类型列表生成分桶存储并自动展开访问", 有相当一部分可以交给编译器生成. 与此同时, `virtual` 在 ABI 边界上的地位并未动摇: 动态库、插件与跨语言脚本层依然依赖它, 而去虚拟化也仍然依赖优化器能看见真实调用目标.
+围绕"是否还需要 `virtual`"的争论, 本质上是这个答案的归属权之争.
 
-**个人判断** … 接下来被淘汰的不会是 `virtual`, 而是"用 `virtual` 去表达一个本来封闭的类型集合"这种习惯. 当反射与契约把样板成本压下去, 编译期多态的门槛会从"写得出模板"转到"说清类型集合的边界"  它会更像一次架构判断, 而不是一次编码技巧. 反过来说, 如果一套范式让可读性和编译时间同时恶化, 而团队里没人读得懂模板报错, 那它只是把技术债从运行期挪到了维护期. 分界线始终是同一句话: 动态性是业务事实, 就保留动态边界; 动态性只是历史写法, 才值得静态化.
+**事实层面** … 语言演进正在持续扩大"编译期确定"能表达的范围: C++20 带来了 concept 与 `std::variant`, 而 P2300(`std::execution`)、P2900(contracts)与 P2996(静态反射)都已进入 C++26.
+
+反射可用之后, 今天需要手写元编程才能完成的"按类型列表生成分桶存储并自动展开访问", 有相当一部分可以交给编译器生成.
+
+与此同时, `virtual` 在 ABI 边界上的地位并未动摇: 动态库、插件与跨语言脚本层依然依赖它, 而去虚拟化也仍然依赖优化器能看见真实调用目标.
+
+**个人判断** … 接下来被淘汰的不会是 `virtual`, 而是"用 `virtual` 去表达一个本来封闭的类型集合"这种习惯. 当反射与契约把样板成本压下去, 编译期多态的门槛会从"写得出模板"转到"说清类型集合的边界"  它会更像一次架构判断, 而不是一次编码技巧.
+
+反过来说, 如果一套范式让可读性和编译时间同时恶化, 而团队里没人读得懂模板报错, 那它只是把技术债从运行期挪到了维护期. 分界线始终是同一句话: 动态性是业务事实, 就保留动态边界; 动态性只是历史写法, 才值得静态化.
 
 ## 0x0F 参考来源
 

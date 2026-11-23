@@ -2,7 +2,7 @@
 hxid: "hx-c797eff3"
 title: "C++20协程原理与应用"
 created_at: "2026-09-24"
-model: "Unknown"
+model: "unknown"
 skill: ["hx-to-ai-docs", "hx-docs-derive"]
 authors: "Heng_Xin"
 tags: ["C++", "协程", "异步任务"]

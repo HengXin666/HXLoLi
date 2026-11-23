@@ -33,7 +33,9 @@ open-vetta 的主色配得好看, 但可迁移的是那份 259 行的 `apps/desk
 
 ## 0x01 颜色只能有一个来源
 
-颜色只允许来自 `@theme inline` 暴露出的语义 token 类. 它的 alpha 变体也只放行固定十档: `/5 /10 /15 /20 /25 /30 /40 /50 /60 /70 /80`. 被点名的禁止项是 hex、`rgb()`、`hsl()`, 以及 Tailwind 默认调色盘里的那一整组原色.
+颜色只允许来自 `@theme inline` 暴露出的语义 token 类. 它的 alpha 变体也只放行固定十档: `/5 /10 /15 /20 /25 /30 /40 /50 /60 /70 /80`.
+
+被点名的禁止项是 hex、`rgb()`、`hsl()`, 以及 Tailwind 默认调色盘里的那一整组原色.
 
 固定档位的价值在跨组件一致性. `bg-primary/10` 在导航选中块、标签、卡片强调态里是同一个值. 十处界面片段的透明层次天然对齐. 随手写个 `/37` 就把这条毁了.
 
@@ -70,7 +72,9 @@ open-vetta 的主色配得好看, 但可迁移的是那份 259 行的 `apps/desk
 
 hover 只换边框颜色和背景透明度两件事. 不加阴影、不放大、不平移超过 2px.
 
-那阴影用在哪? 白名单制. Popover、Dropdown、Dialog 允许 `shadow-md` 或 `shadow-lg`; 拖拽中的元素用 `shadow-lg`; Toast 与浮动条用 `shadow-md`; 普通卡片、列表项、grid 卡一律没有. 规范还专门否决了主色发光阴影, 把 `shadow-[0_4px_16px_-6px_var(--primary)]` 这种写法点名写进了禁止项.
+那阴影用在哪? 白名单制. Popover、Dropdown、Dialog 允许 `shadow-md` 或 `shadow-lg`; 拖拽中的元素用 `shadow-lg`; Toast 与浮动条用 `shadow-md`.
+
+普通卡片、列表项、grid 卡一律没有. 规范还专门否决了主色发光阴影, 把 `shadow-[0_4px_16px_-6px_var(--primary)]` 这种写法点名写进了禁止项.
 
 被选中的元素怎么表达? 用 ring, 不用阴影:
 
@@ -78,16 +82,26 @@ hover 只换边框颜色和背景透明度两件事. 不加阴影、不放大、
 className="ring-1 ring-inset ring-primary/30 bg-primary/10 border-primary/40"
 ```
 
-线条全局统一 1px 是配套的硬约束. 禁止 `border-2`、`ring-2`、`outline-2` 及以上, 也禁止 `border-[Npx]` 这类任意值. 想加重分隔就去改颜色深度, 把 `border-border/40` 提到 `border-border`, 不许通过加粗线条来强调.
+线条全局统一 1px 是配套的硬约束. 禁止 `border-2`、`ring-2`、`outline-2` 及以上, 也禁止 `border-[Npx]` 这类任意值.
+
+想加重分隔就去改颜色深度, 把 `border-border/40` 提到 `border-border`, 不许通过加粗线条来强调.
 
 > [!TIP]
 > 我在复现时踩过一次: 统计卡想突出, 就用主色实底画了一整块. 结果四个卡片互相抢眼, 版面直接被压垮. 原设计里主色做大面积的地方只有主操作按钮一处. 统计卡的强调是 1px 主色边框加 10% 叠色, 再让数字转主色, 视觉权重足够, 但不占面积. 这一条没写在规范的字面上, 是从"主色只做小面积点缀"这个整体倾向推出来的.
 
 ## 0x03 形状与密度的分档
 
-圆角按元素角色分五档, 其中四档由 `--radius` 一个变量派生. 这四档具体是 `calc(var(--radius) - 4px)`、`calc(var(--radius) - 2px)`、原值和 `calc(var(--radius) + 4px)`, 而 `--radius` 取 `0.5rem`. 卡片面板 `rounded-xl`; 列表项、输入框、常规按钮 `rounded-lg` 或 `rounded-md`; 高度不超过 9 的小 chip 也是 `rounded-lg`; pill、标签、segmented control、圆形图标按钮 `rounded-full`; Hero 或超大装饰容器才允许 `rounded-2xl`, 且只一处. `rounded-3xl` 及以上被禁止. 改一个变量就能整站改圆角手感.
+圆角按元素角色分五档, 其中四档由 `--radius` 一个变量派生.
 
-字号只放行七档, 从 `text-[10px]` 到 `text-[15px]`, 再加 `text-[20px]+` 专供统计数字. 间距按容器角色给死: 紧凑列表项 `px-3 py-2.5`, 标准卡片 `px-3.5 pt-3 pb-3`, 页面外层 `px-8`, Popover 内菜单项 `px-2.5 py-1.5`.
+这四档具体是 `calc(var(--radius) - 4px)`、`calc(var(--radius) - 2px)`、原值和 `calc(var(--radius) + 4px)`, 而 `--radius` 取 `0.5rem`. 卡片面板 `rounded-xl`.
+
+列表项、输入框、常规按钮 `rounded-lg` 或 `rounded-md`; 高度不超过 9 的小 chip 也是 `rounded-lg`.
+
+pill、标签、segmented control、圆形图标按钮 `rounded-full`; Hero 或超大装饰容器才允许 `rounded-2xl`, 且只一处. `rounded-3xl` 及以上被禁止. 改一个变量就能整站改圆角手感.
+
+字号只放行七档, 从 `text-[10px]` 到 `text-[15px]`, 再加 `text-[20px]+` 专供统计数字.
+
+间距按容器角色给死: 紧凑列表项 `px-3 py-2.5`, 标准卡片 `px-3.5 pt-3 pb-3`, 页面外层 `px-8`, Popover 内菜单项 `px-2.5 py-1.5`.
 
 网格列数不写死, 一律自适应:
 
@@ -118,7 +132,9 @@ stagger            0.04 ~ 0.06         delayChildren <= 0.15
 
 spring 参数也是固定值, 不给"看情况"的余地. 入场 `{ stiffness: 280~320, damping: 26 }`, 按钮交互 `{ stiffness: 380, damping: 22 }`.
 
-单独拎出来说 `transition-all`. 它被禁的理由是会把没预料到的属性一起拉长. 焦点圈、边框颜色、布局尺寸本来该瞬时切换, 被它一网打尽之后全被拖成渐变色. 这是"廉价动画感"最常见的来源. 规范给按钮和链接写了一条全局规则, 只过渡三个颜色属性, 各 0.15s: `color`、`background-color`、`border-color`. 输入框更窄, 只过渡其中的两个.
+单独拎出来说 `transition-all`. 它被禁的理由是会把没预料到的属性一起拉长. 焦点圈、边框颜色、布局尺寸本来该瞬时切换, 被它一网打尽之后全被拖成渐变色. 这是"廉价动画感"最常见的来源.
+
+规范给按钮和链接写了一条全局规则, 只过渡三个颜色属性, 各 0.15s: `color`、`background-color`、`border-color`. 输入框更窄, 只过渡其中的两个.
 
 ## 0x05 「进行中」指示动画为什么不能写 CSS 关键帧
 
@@ -184,7 +200,9 @@ import { Button, Card, ContextBar } from "./src/index";
 
 组件按上游的实现思路重写了一遍. `Button` 用 cva 定义 variant 与八档尺寸, 内边距由子元素决定 (`has-data-[icon=inline-end]:pr-2`), 传图标时不用手调.
 
-`Dialog` 的宽度用单条 `max-w-[min(24rem,calc(100%-2rem))]`, 而不是 `max-w` 加 `sm:max-w` 组合. 上游注释写明了原因: `twMerge` 会把 `sm:max-w-sm` 留在结果里, 在 sm 断点反过来盖掉使用方传进来的 `max-w-lg`.
+`Dialog` 的宽度用单条 `max-w-[min(24rem,calc(100%-2rem))]`, 而不是 `max-w` 加 `sm:max-w` 组合.
+
+上游注释写明了原因: `twMerge` 会把 `sm:max-w-sm` 留在结果里, 在 sm 断点反过来盖掉使用方传进来的 `max-w-lg`.
 
 跑起来看:
 
@@ -200,7 +218,9 @@ npm run dev      # http://localhost:5273, 右上是亮暗切换
 
 ## 0x07 桌面端那几条单独放
 
-macOS 式的 overlay 滚动条默认全透明. 只在该容器被 hover 或获得焦点时才显形. 它始终占 8px 宽度, 所以不引起布局跳动. 窗口拖拽区靠 `-webkit-app-region: drag` 配内部的 `.no-drag` 反向声明. 光标和 `caret-color` 也一并收进 token.
+macOS 式的 overlay 滚动条默认全透明. 只在该容器被 hover 或获得焦点时才显形. 它始终占 8px 宽度, 所以不引起布局跳动.
+
+窗口拖拽区靠 `-webkit-app-region: drag` 配内部的 `.no-drag` 反向声明. 光标和 `caret-color` 也一并收进 token.
 
 它们都依赖宿主能力, 所以我在包里单独开了 `src/desktop/` 一组, 靠根元素上的 `data-platform` 标记生效. 纯 Web 环境不打这个标记, 这一组规则全部不命中:
 
@@ -213,7 +233,9 @@ macOS 式的 overlay 滚动条默认全透明. 只在该容器被 hover 或获�
 }
 ```
 
-里面最值得抄的是毛玻璃侧边栏的一个坑. 毛玻璃会透出背后桌面的明暗, 而 `--accent` 通常是不透明实色. 底色跟着桌面走、选中块纹丝不动, 背后亮的那一段底色就会被抬得比选中块还亮. 高亮与底色的明暗关系当场反转, 看起来像选中背景消失了. 解法是把侧边栏子树内的 `--accent` 换成半透明叠加色. 写成"在当前合成底色上再压 10% 前景色", 背后黑白都成立.
+里面最值得抄的是毛玻璃侧边栏的一个坑. 毛玻璃会透出背后桌面的明暗, 而 `--accent` 通常是不透明实色. 底色跟着桌面走、选中块纹丝不动, 背后亮的那一段底色就会被抬得比选中块还亮.
+
+高亮与底色的明暗关系当场反转, 看起来像选中背景消失了. 解法是把侧边栏子树内的 `--accent` 换成半透明叠加色. 写成"在当前合成底色上再压 10% 前景色", 背后黑白都成立.
 
 > [!TIP]
 > 这套东西的底层机制其实只有一条: `@theme inline` 把 CSS 变量桥接成 Tailwind 工具类. 上游把主题能力明确分成三档, 分别是配置式外观 (只换 surface 装饰)、组件替换 (只换某个局部组件)、整区接管 (接管完整区域并复用 Theme SDK). 三档刻意不混进同一个 API, 主题在 manifest 里逐个 slot 声明能力, 不是整个界面全给. 本次抽出来的只有 token 与组件分层这一层, 那套主题运行时没有搬. 两者之间是有契约关系的, 拆开只搬一半就得自己承担这半边的稳定性. 上游为 Apache-2.0, 允许商用、修改与再分发, 复现时保留版权与许可声明.
@@ -222,7 +244,9 @@ macOS 式的 overlay 滚动条默认全透明. 只在该容器被 hover 或获�
 
 前面讲的都是"应该长什么样". 这一节是"用什么搭出来", 缺了它就只能看着规范猜.
 
-**基础件层只有七个直接依赖**. 这是最值得抄的一条: `radix-ui`(无样式交互原语)、`class-variance-authority`、`clsx` 与 `tailwind-merge`(类名合并)、`lucide-react`、`react-day-picker`、`vaul`. 整套按钮、对话框、下拉、开关都建在这七个之上, 没有第二个组件库.
+**基础件层只有七个直接依赖**. 这是最值得抄的一条: `radix-ui`(无样式交互原语)、`class-variance-authority`、`clsx` 与 `tailwind-merge`(类名合并)、`lucide-react`、`react-day-picker`、`vaul`.
+
+整套按钮、对话框、下拉、开关都建在这七个之上, 没有第二个组件库.
 
 **样式链是 Tailwind 4 + Vite 插件**:
 
@@ -240,24 +264,34 @@ plugins: [react(), tailwindcss()]
 @plugin "@iconify/tailwind4";
 ```
 
-**图标是 Iconify + 单一 collection**. 写法 `icon-[solar--<name>-linear]`, 数据包 `@iconify-json/solar`, 由 `@iconify/tailwind4` 按需生成. 有个坑要提前知道. 导航项的图标名存在**数据字符串**里, Tailwind 扫不到. 必须在 CSS 里显式登记:
+**图标是 Iconify + 单一 collection**. 写法 `icon-[solar--<name>-linear]`, 数据包 `@iconify-json/solar`, 由 `@iconify/tailwind4` 按需生成.
+
+有个坑要提前知道. 导航项的图标名存在**数据字符串**里, Tailwind 扫不到. 必须在 CSS 里显式登记:
 
 ```css [技术栈-图标登记]
 /* 少了这几行, 图标不生成、界面出现空位, 而且不报任何错 */
-@source inline("icon-[solar--chat-round-line-linear]");
+@source inline("icon-[solar--ruler-pen-linear]");
 @source inline("icon-[solar--widget-2-linear]");
 ```
 
-**shadcn 是拷代码进仓库用的**, 不是运行期依赖. 仓库带 `components.json`, 里面锁定了 `style: "radix-nova"`、`baseColor: "neutral"`、`iconLibrary: "lucide"`; `aliases.ui` 指向仓库内的目录, 说明组件是拷进来再改的.
+**shadcn 是拷代码进仓库用的**, 不是运行期依赖. 仓库带 `components.json`, 里面锁定了 `style: "radix-nova"`、`baseColor: "neutral"`、`iconLibrary: "lucide"`.
+
+`aliases.ui` 指向仓库内的目录, 说明组件是拷进来再改的.
 
 **字体走系统栈**, 不引外部字体: `-apple-system, "SF Pro Text", "SF Pro Display", "Helvetica Neue"`. 仓库虽然装了 Geist, 主界面样式表里并没有引用它.
 
-**UI 实现层另外还用到** `motion`(动效)、`react-virtuoso`(长列表虚拟化)、`react-markdown` 一族(消息区 Markdown 与公式)、`shiki` 与 `@codemirror/*`(代码高亮)、`@lobehub/icons-static-svg`(模型厂标).
+**UI 实现层另外还用到**:
+
+- `motion`(动效)
+- `react-virtuoso`(长列表虚拟化)
+- `react-markdown` 一族(消息区 Markdown 与公式)
+- `shiki` 与 `@codemirror/*`(代码高亮)
+- `@lobehub/icons-static-svg`(模型厂标)
 
 **宿主层**才是大头, 但那层与观感无关: `jotai`、`@tanstack/react-router`、`i18next`、`@xterm/xterm`、`@lexical/react`、`mermaid`、`@xyflow/react`、`three`、`gsap`. 复刻观感不需要它们.
 
 > [!TIP]
-> 有个反直觉的点: 这三个包**都不发布**, `package.json` 的 `main` 直接指向 `./src/index.ts`. 所以你不能 `npm install` 它们, 只能拷源码加别名解析. 我一开始就是想装包, 结果发现 npm 上根本没有.
+> 注意: 这三个包**都不发布**, `package.json` 的 `main` 直接指向 `./src/index.ts`. 所以你不能 `npm install` 它们, 只能拷源码加别名解析. 我一开始就是想装包, 结果发现 npm 上根本没有.
 >
 > 拷完之后还有个坑: `theme-ui` 的 `exports` 有 30 个子路径, 从 `index.ts` 整体导入会把整棵依赖树(shiki / codemirror / three)拉进产物, 实测 **487 KB 涨到 10.8 MB**. 要深导入到具体文件.
 
@@ -265,26 +299,15 @@ plugins: [react(), tailwindcss()]
 
 前面几节讲的都是「它长什么样」. 这一节是「怎么拿到一模一样的」, 也是我走过弯路的结论.
 
-先把结论放前面: **自己拼外壳永远只能做到像**. 我试过 vendor 上游组件加手写宿主, 成品里只有 6.7% 的元素真出自上游, 交互和对齐全对不上. 原因很硬: renderer 里有 523 处 `window.vetta.*` 调用 (plugins / session / agentTeams / fs / config 等等), 数据面根本造不全.
+先把结论放前面: **自己拼外壳永远只能做到像**. 我试过 vendor 上游组件加手写宿主, 成品里只有 6.7% 的元素真出自上游, 交互和对齐全对不上.
 
-真正可行的是驱动官方构建本身:
+原因很硬: renderer 里有 523 处 `window.vetta.*` 调用 (plugins / session / agentTeams / fs / config 等等), 数据面根本造不全.
 
-```bash [一比一-三步]
-# 1. 装 bun, 装上游依赖, 起官方应用
-cd ref/open-vetta/apps/desktop && bun install && bun run dev
-
-# 2. Electron 开发模式默认开着远程调试端口
-ss -ltn | grep 9223
-
-# 3. 用 CDP 连上去, 它就是一个可编程的真窗口
-node scripts/capture-app.mjs captures
-```
+真正可行的是驱动官方构建本身.
 
 [Vetta 界面展厅 #ppt ##w100%##](ui-gallery.html)
 
 上面这份展厅里的 17 屏全部截自那个真应用, 不是我重绘的. 左侧可点分组, 方向键翻页, 放大能看清每个控件的间距与描边.
-
-采集脚本留在 `scripts/capture-app.mjs`, 想更新素材重跑一条命令即可.
 
 ## 0x0A 设置页: 布局与动效的样板间
 
@@ -294,13 +317,20 @@ node scripts/capture-app.mjs captures
 
 ```tsx [设置页-外壳]
 <div className="relative flex min-h-0 w-full flex-1 overflow-hidden">
-  {/* 竖线不到底, 底部留 44px, 所以它是"浮着的分隔"而不是把页面切成两半 */}
-  <div className={"pointer-events-none absolute top-0 bottom-11 w-px bg-border " +
-                  (narrow ? "left-14" : "left-[200px]")} />
-  <SettingsSidebar model={model} />
-  <SettingsContent>{content}</SettingsContent>
+	<div
+		className={cn(
+			"pointer-events-none absolute top-0 bottom-11 w-px bg-border",
+			model.narrow ? "left-14" : "left-[200px]",
+		)}
+	/>
+	<SettingsSidebar model={model} />
+	<SettingsContent fill={fillContent} rootClassName={contentSurfaceRootClassName}>
+		{content}
+	</SettingsContent>
 </div>
 ```
+
+竖线不到底, 底部留 44px (`bottom-11`), 所以它是"浮着的分隔"而不是把页面切成两半.
 
 **两级导航的"展开"是选中态的表现, 不是独立状态**:
 
@@ -311,7 +341,9 @@ const expanded = expandable && (activeTab === item.key || activeParentKey === it
 
 这一行省掉了整整一类 bug: 只要不存"展开状态", 就不会出现"选中项藏在一个收起的组里".
 
-**内容区定版心靠 max-width, 不靠栅格**. 每页都是 `mx-auto w-full max-w-[680px] px-8`. 版心 680, 左右各 32 留白. 页标题 `text-[20px] font-bold`, 分区之间统一 `mb-6`, 标题与内容 `mb-3`. 整页只有一个间距尺度在重复, 所以扫视时不会被打断.
+**内容区定版心靠 max-width, 不靠栅格**. 每页都是 `mx-auto w-full max-w-[680px] px-8`. 版心 680, 左右各 32 留白.
+
+页标题 `text-[20px] font-bold`, 分区之间统一 `mb-6`, 标题与内容 `mb-3`. 整页只有一个间距尺度在重复, 所以扫视时不会被打断.
 
 **选中态只改 1px 边框色, 绝不叠 ring**:
 
@@ -361,4 +393,4 @@ element.animate(
 >
 > 所以想核对这一屏, 只能跑它的桌面应用 (`bun run dev`), 不能像新会话页那样做成网页预览.
 
-设计系统真正的分水岭不在配色多少, 而在有没有一条让颜色只有一个来源的桥. 桥在, 换皮才只是改变量.
+设计系统真正的分水岭在有没有一条让颜色只有一个来源的桥, 配色多少是次要的. 桥在, 换皮才只是改变量.
