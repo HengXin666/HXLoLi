@@ -31,38 +31,38 @@ const HXGiscus: React.FC<{ term?: string, description?: string }> = ({ term: pro
     }
     const finalTerm = propTerm || calculatedTerm;
 
+    // 使用 useEffect 强制劫持 meta 标签 (放在组件顶层: 写在 BrowserOnly 的回调里会让 hooks 顺序在首帧和之后不一致, React 报 Rules of Hooks 错)
+    useEffect(() => {
+        // 先设置为未准备好, 卸载旧的 Giscus
+        setIsReady(false);
+
+        // 1. 找到页面上的 meta description
+        let metaDesc = document.querySelector("meta[name='description']");
+
+        // 2. 如果没找到(有时候 Docusaurus 还没生成), 就自己造一个
+        if (!metaDesc) {
+            metaDesc = document.createElement('meta');
+            metaDesc.setAttribute('name', 'description');
+            document.head.appendChild(metaDesc);
+        }
+
+        // 3. 【核心步骤】强制修改它的内容!
+        // 优先使用传入的 description, 否则使用通用文案, 防止 Giscus 抓取正文第一段
+        const contentToSet = description || `欢迎在 ${finalTerm} 留下你的评论`;
+        metaDesc.setAttribute('content', contentToSet);
+
+        // 4. 稍微延迟一下, 确保 DOM 生效后再渲染 Giscus
+        // (虽然 React 的 setState 是异步的, 但这里的 timeout 能解决大部分竞态问题)
+        const timer = setTimeout(() => {
+            setIsReady(true);
+        }, 50);
+
+        return () => clearTimeout(timer);
+    }, [finalTerm, description]); // 当路径或描述变化时重新执行
+
     return (
         <BrowserOnly fallback={<div>Loading Comments...</div>}>
             {() => {
-                // 使用 useEffect 强制劫持 meta 标签
-                useEffect(() => {
-                    // 先设置为未准备好, 卸载旧的 Giscus
-                    setIsReady(false);
-
-                    // 1. 找到页面上的 meta description
-                    let metaDesc = document.querySelector("meta[name='description']");
-
-                    // 2. 如果没找到(有时候 Docusaurus 还没生成), 就自己造一个
-                    if (!metaDesc) {
-                        metaDesc = document.createElement('meta');
-                        metaDesc.setAttribute('name', 'description');
-                        document.head.appendChild(metaDesc);
-                    }
-
-                    // 3. 【核心步骤】强制修改它的内容!
-                    // 优先使用传入的 description, 否则使用通用文案, 防止 Giscus 抓取正文第一段
-                    const contentToSet = description || `欢迎在 ${finalTerm} 留下你的评论`;
-                    metaDesc.setAttribute('content', contentToSet);
-
-                    // 4. 稍微延迟一下, 确保 DOM 生效后再渲染 Giscus
-                    // (虽然 React 的 setState 是异步的, 但这里的 timeout 能解决大部分竞态问题)
-                    const timer = setTimeout(() => {
-                        setIsReady(true);
-                    }, 50);
-
-                    return () => clearTimeout(timer);
-                }, [finalTerm, description]); // 当路径或描述变化时重新执行
-
                 // 如果还没准备好(正在修改 meta), 就不渲染 Giscus
                 if (!isReady) return <div style={{ paddingTop: 50 }}>Updating metadata...</div>;
 
