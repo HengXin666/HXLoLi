@@ -9,6 +9,7 @@ import remarkMath from 'remark-math'; // 数学渲染
 // noteReferencesRemark 是 remark 侧 (把每篇自己那份注入成方框的 props)。
 // 必须走同一条 import  require 与 import 同一个 .mjs 会各自实例化一份模块状态。
 import noteReferencesPlugin, { noteReferencesRemark } from './plugins/note-references-plugin.mjs';
+import rehypeKbSections from './plugins/rehype-kb-sections.mjs'; // 知识库正文按 h2 分节
 
 // 基础路径, 末尾不带 '/'
 // 通过环境变量 DEPLOY_TARGET 来区分部署目标:
@@ -321,6 +322,7 @@ const plugins: PluginConfig[] = [
       sidebarPath: './sidebarsAiDocs.ts',
       remarkPlugins: [remarkGithubAlerts, remarkMath, noteReferencesRemark],
       rehypePlugins: [
+        rehypeKbSections,
         [
           rehypeKatex,
           {

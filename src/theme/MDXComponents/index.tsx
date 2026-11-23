@@ -1,5 +1,6 @@
 import MDXComponents from '@theme-original/MDXComponents';
 import NoteReferences from '@site/src/components/NoteReferences';
+import { kbNoteComponents } from '@site/src/components/KBNote';
 
 /**
  * 站点自己的 MDX 组件表。
@@ -23,6 +24,12 @@ const components = {
      * (see )
      */
     NoteReferences,
+    /**
+     * 知识库笔记组件 (Lead / Stats / Layers / Fork / Flow / Compare / Evidence / Apply / Boundary / Figure / Chart).
+     * 只在 frontmatter 写了 `mdx: { format: mdx }` 的笔记里生效; 普通 .md 仍是 CommonMark.
+     * 范例: src/components/KBNote/CATALOG.md, 检查: scripts/check-kb-note.mjs
+     */
+    ...kbNoteComponents,
 };
 
 export default components;
