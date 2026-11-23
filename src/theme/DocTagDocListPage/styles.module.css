@@ -1,459 +1,185 @@
 /* ============================================================
-   ai-docs 标签详情页 (/knowledge-base/tags/<tag>)
-   swizzle 自 @theme/DocTagDocListPage  卡片网格 + 相关标签, 见 index.tsx。
-   与总览页共用同一套配色变量 (见 DocTagsListPage/styles.module.css 的说明)。
+   ai-docs 单个标签页 (/knowledge-base/tags/<tag>)
+   swizzle 自 @theme/DocTagDocListPage, 结构见 index.tsx.
+   2026-11-22: 改成博客首页的视觉语言, 与 DocTagsListPage 同一套令牌:
+   无极光/网格/渐变, 1px 淡边, 粉色唯一强调, 日期等宽. 卡片只有底色, 不叠线.
    ============================================================ */
 
 .page {
-  position: relative;
-  /* 页面由内容插件的 DocsRoot 提供 Layout, 这里只需撑起内容区;
-     用 100vh 会把页脚推出一屏之外, 短标签页还留一大片空场。 */
+  --fg: var(--ifm-font-color-base);
+  --pk: var(--ifm-color-primary);
+  --line: var(--ifm-color-emphasis-200);
+  --muted: var(--ifm-color-emphasis-700);
+  --faint: var(--ifm-color-emphasis-600);
+  --tint: color-mix(in srgb, var(--fg) 3%, transparent);
+  --mono: var(--ifm-font-family-monospace);
   min-height: 62vh;
-  padding: 2.5rem 1.25rem 5rem;
-  overflow: hidden;
-  isolation: isolate;
+  padding: 48px 1.25rem 80px;
 }
+:global([data-theme='light']) .page { --pk: var(--ifm-color-primary-darkest); }
 
-.aurora {
-  position: absolute;
-  inset: -20% -10% auto;
-  height: 60vh;
-  z-index: -2;
-  pointer-events: none;
-  background:
-    radial-gradient(42% 55% at 20% 20%, rgba(255, 0, 255, 0.14), transparent 70%),
-    radial-gradient(38% 48% at 76% 14%, rgba(0, 229, 255, 0.15), transparent 72%);
-  filter: blur(6px);
-}
+.aurora,
+.grid { display: none; }
 
-.grid {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.28;
-  background-image:
-    linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
-  background-size: 46px 46px;
-  mask-image: linear-gradient(180deg, #000 0%, transparent 58%);
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 58%);
-}
+/* 探头页的「正文墙」会贴着 .inner 画底板, 内容留内边距 */
+.inner { max-width: 1120px; margin: 0 auto; padding: 24px 40px 40px; }
 
-.inner {
-  position: relative;
-  max-width: 1120px;
-  margin: 0 auto;
-}
-
-/* ---------------- 顶部导航 ---------------- */
+/* ---------------- 面包屑: 返回 + 同组标签 ---------------- */
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.4rem;
-  margin-bottom: 1.4rem;
+  gap: 4px;
+  margin-bottom: 32px;
 }
-
-.backLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.28rem 0.72rem;
-  border: 1px solid rgba(0, 229, 255, 0.25);
-  border-radius: 999px;
-  background: rgba(0, 229, 255, 0.07);
-  color: #7fe6ff;
-  font-size: 0.78rem;
-  text-decoration: none;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-
-.backLink:hover {
-  color: #e6f7ff;
-  text-decoration: none;
-  border-color: rgba(0, 229, 255, 0.55);
-  background: rgba(0, 229, 255, 0.13);
-  transform: translateX(-2px);
-}
-
+.backLink,
 .siblingLink {
-  padding: 0.24rem 0.6rem;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.025);
-  color: #8f9aae;
-  font-size: 0.74rem;
-  text-decoration: none;
-  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-}
-
-.siblingLink:hover {
-  color: #e6f7ff;
-  text-decoration: none;
-  border-color: rgba(0, 229, 255, 0.35);
-  background: rgba(0, 229, 255, 0.08);
-}
-
-/* ---------------- Hero ---------------- */
-.hero {
-  margin-bottom: 2rem;
-}
-
-.kicker {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  margin: 0 0 0.6rem;
-  padding: 0.24rem 0.68rem;
-  border: 1px solid rgba(255, 0, 255, 0.25);
+  gap: 6px;
+  padding: 3px 10px;
   border-radius: 999px;
-  background: rgba(255, 0, 255, 0.07);
-  color: #ffb3ff;
-  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-size: 12px;
+  text-decoration: none !important;
+  transition: color 150ms ease, background-color 150ms ease;
+}
+.backLink { margin-right: 8px; border: 1px solid var(--line); color: var(--fg); }
+.backLink:hover,
+.siblingLink:hover { background: var(--tint); color: var(--pk); }
+
+/* ---------------- 页头 ---------------- */
+.hero { margin-bottom: 32px; }
+.kicker {
+  margin: 0 0 12px;
+  color: var(--faint);
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-
 .title {
-  margin: 0 0 0.55rem;
-  font-size: clamp(1.9rem, 4.6vw, 2.7rem);
-  font-weight: 800;
+  margin: 0 0 8px;
+  color: var(--ifm-heading-color);
+  font-size: 32px;
+  font-weight: 700;
   letter-spacing: -0.02em;
-  overflow-wrap: anywhere;
-  background: linear-gradient(120deg, #ff8aff 0%, #7fe6ff 55%, #00e5ff 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
-
 .subtitle {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.45rem;
-  max-width: 70ch;
+  align-items: baseline;
+  gap: 6px;
   margin: 0;
-  color: #8f9aae;
-  font-size: 0.9rem;
-  line-height: 1.7;
+  color: var(--muted);
+  font-size: 14px;
 }
-
-.subtitle strong {
-  color: #d7f5ff;
-}
-
+.subtitle strong { color: var(--fg); font-family: var(--mono); font-weight: 600; }
 .pinyinHint {
-  padding: 0.1rem 0.45rem;
-  border: 1px solid rgba(0, 229, 255, 0.2);
-  border-radius: 6px;
-  background: rgba(0, 229, 255, 0.06);
-  color: #7fe6ff;
-  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--tint);
+  color: var(--faint);
+  font: 12px/1.6 var(--mono);
 }
-
-.dot {
-  color: rgba(143, 154, 174, 0.6);
-}
-
-.aliases {
-  margin: 0.7rem 0 0;
-  color: #6f7a8c;
-  font-size: 0.78rem;
-}
-
+.dot { color: var(--faint); }
+.aliases { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
 .aliasChip {
-  display: inline-block;
-  margin-left: 0.35rem;
-  padding: 0.1rem 0.48rem;
-  border: 1px dashed rgba(255, 255, 255, 0.14);
+  padding: 1px 8px;
+  border: 1px solid var(--line);
   border-radius: 999px;
-  color: #9aa5b8;
-  font-size: 0.72rem;
+  color: var(--faint);
+  font-size: 12px;
 }
 
-/* ---------------- 卡片网格 ---------------- */
+/* ---------------- 笔记卡片 ---------------- */
 .cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
 }
-
 .card {
-  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  padding: 1.1rem 1.15rem 1.15rem;
-  border: 1px solid rgba(0, 229, 255, 0.12);
-  border-radius: 14px;
-  background:
-    linear-gradient(160deg, rgba(0, 229, 255, 0.045), rgba(255, 0, 255, 0.02)),
-    rgba(9, 13, 22, 0.72);
-  overflow: hidden;
-  transition: border-color 0.24s ease, transform 0.24s ease, box-shadow 0.24s ease;
-  transform: translateZ(0);
+  gap: 8px;
+  padding: 16px 18px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: var(--tint);
+  transition: border-color 150ms ease;
 }
-
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(0, 229, 255, 0.65), rgba(255, 0, 255, 0.5), transparent);
-  opacity: 0.55;
-  transition: opacity 0.24s ease;
-}
-
-.card:hover {
-  border-color: rgba(0, 229, 255, 0.35);
-  transform: translateY(-3px);
-  box-shadow:
-    0 14px 34px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(0, 229, 255, 0.08);
-}
-
-.card:hover::before {
-  opacity: 1;
-}
-
+.card:hover { border-color: color-mix(in srgb, var(--pk) 45%, transparent); }
 .cardTop {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 0.6rem;
-  min-height: 1.2rem;
-  font-size: 0.72rem;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--faint);
+  font-size: 11px;
 }
-
-.cardDate {
-  padding: 0.1rem 0.45rem;
-  border-radius: 5px;
-  background: rgba(0, 229, 255, 0.09);
-  color: #7fe6ff;
-  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
-  letter-spacing: 0.02em;
-}
-
+.cardDate { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .cardCategory {
   display: inline-flex;
   align-items: center;
-  gap: 0.32rem;
-  max-width: 60%;
+  gap: 4px;
+  min-width: 0;
   overflow: hidden;
-  color: #6f7a8c;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
-.cardTitle {
-  margin: 0;
-  font-size: 1.04rem;
-  font-weight: 650;
-  line-height: 1.45;
-}
-
-.cardTitle a {
-  color: #e6f7ff;
-  text-decoration: none;
-  transition: color 0.2s ease, text-shadow 0.2s ease;
-}
-
-.cardTitle a:hover {
-  color: #7fe6ff;
-  text-decoration: none;
-  text-shadow: 0 0 12px rgba(0, 229, 255, 0.35);
-}
-
+.cardTitle { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.45; }
+.cardTitle a { color: var(--ifm-heading-color); text-decoration: none !important; }
+.cardTitle a:hover { color: var(--pk); }
 .cardDesc {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  overflow: hidden;
   margin: 0;
-  color: #8f9aae;
-  font-size: 0.82rem;
-  line-height: 1.7;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-
-.cardTags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.32rem;
-  margin-top: auto;
-  padding-top: 0.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.045);
-}
-
+.cardTags { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: auto; padding-top: 4px; }
 .cardTag {
-  padding: 0.1rem 0.46rem;
-  border: 1px solid rgba(255, 0, 255, 0.18);
-  border-radius: 999px;
-  background: rgba(255, 0, 255, 0.06);
-  color: rgba(244, 179, 255, 0.9);
-  font-size: 0.7rem;
-  text-decoration: none;
-  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  color: var(--faint);
+  font-size: 12px;
+  text-decoration: none !important;
 }
-
-a.cardTag:hover {
-  color: #ffffff;
-  text-decoration: none;
-  border-color: rgba(255, 0, 255, 0.5);
-  background: rgba(255, 0, 255, 0.14);
-}
+a.cardTag:hover { color: var(--pk); }
 
 /* ---------------- 相关标签 ---------------- */
-.relatedSection {
-  margin-top: 2.6rem;
-}
-
+.relatedSection { margin-top: 48px; }
 .sectionTitle {
   display: flex;
   align-items: baseline;
-  gap: 0.6rem;
-  margin: 0 0 0.9rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(0, 229, 255, 0.1);
-  color: #e6f7ff;
-  font-size: 1.12rem;
-  font-weight: 650;
+  gap: 12px;
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 600;
 }
-
-.sectionHint {
-  color: #6f7a8c;
-  font-size: 0.72rem;
-  font-weight: 400;
-}
-
-.relatedList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-}
-
+.sectionHint { color: var(--faint); font-size: 12px; font-weight: 400; }
+.relatedList { display: flex; flex-wrap: wrap; gap: 8px; }
 .relatedChip {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.3rem 0.36rem 0.3rem 0.72rem;
-  border: 1px solid rgba(0, 229, 255, 0.2);
+  gap: 6px;
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(0, 229, 255, 0.06);
-  color: #a9dcf0;
-  font-size: 0.84rem;
-  text-decoration: none;
-  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  color: var(--muted);
+  font-size: 13px;
+  text-decoration: none !important;
+  transition: border-color 150ms ease, color 150ms ease;
 }
+.relatedChip:hover { border-color: var(--pk); color: var(--pk); }
+.relatedHits { color: var(--faint); font: 11px/1 var(--mono); }
 
-.relatedChip:hover {
-  color: #ffffff;
-  text-decoration: none;
-  border-color: rgba(0, 229, 255, 0.55);
-  background: rgba(0, 229, 255, 0.14);
-  transform: translateY(-2px);
-}
+.empty { padding: 48px 0; color: var(--muted); text-align: center; }
 
-.relatedHits {
-  padding: 0.02rem 0.36rem;
-  border-radius: 999px;
-  background: rgba(0, 229, 255, 0.18);
-  color: #d7f5ff;
-  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
-  font-size: 0.68rem;
-}
-
-.empty {
-  padding: 2.5rem 1rem;
-  color: #8f9aae;
-  text-align: center;
-}
-
-/* ---------------- 亮色主题兜底 ---------------- */
-:global([data-theme='light']) .title {
-  background: linear-gradient(120deg, #a300a3 0%, #0a94b5 55%, #047d94 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-:global([data-theme='light']) .kicker {
-  border-color: rgba(163, 0, 163, 0.28);
-  background: rgba(163, 0, 163, 0.07);
-  color: #8b008b;
-}
-
-:global([data-theme='light']) .subtitle,
-:global([data-theme='light']) .cardDesc,
-:global([data-theme='light']) .cardCategory,
-:global([data-theme='light']) .aliases,
-:global([data-theme='light']) .sectionHint,
-:global([data-theme='light']) .empty {
-  color: #4a5568;
-}
-
-:global([data-theme='light']) .card {
-  border-color: rgba(4, 125, 148, 0.16);
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 6px 20px rgba(15, 40, 60, 0.07);
-}
-
-:global([data-theme='light']) .cardTitle a {
-  color: #12263a;
-}
-
-:global([data-theme='light']) .cardTitle a:hover {
-  color: #047d94;
-}
-
-:global([data-theme='light']) .cardDate {
-  background: rgba(4, 125, 148, 0.1);
-  color: #056b82;
-}
-
-:global([data-theme='light']) .backLink {
-  border-color: rgba(4, 125, 148, 0.3);
-  background: rgba(4, 125, 148, 0.08);
-  color: #056b82;
-}
-
-:global([data-theme='light']) .siblingLink {
-  border-color: rgba(4, 125, 148, 0.16);
-  background: rgba(4, 125, 148, 0.04);
-  color: #46586f;
-}
-
-:global([data-theme='light']) .relatedChip {
-  border-color: rgba(4, 125, 148, 0.24);
-  background: rgba(4, 125, 148, 0.07);
-  color: #21627a;
-}
-
-:global([data-theme='light']) .aurora {
-  opacity: 0.42;
-}
-
-:global([data-theme='light']) .grid {
-  opacity: 0.16;
-}
-
-/* ---------------- 移动端 ---------------- */
 @media (max-width: 768px) {
-  .page {
-    padding: 1.8rem 0.9rem 3.5rem;
-  }
-
-  .cardGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .cardCategory {
-    max-width: 50%;
-  }
+  .inner { padding: 20px 16px 28px; }
+  .page { padding: 28px 12px 56px; }
+  .cardGrid { grid-template-columns: minmax(0, 1fr); }
 }
-

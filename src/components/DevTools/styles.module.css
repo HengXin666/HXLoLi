@@ -14,36 +14,36 @@
   gap: 0.55rem;
   width: 100%;
   padding: 0.55rem 0.9rem;
-  border: 1px solid rgba(255, 200, 87, 0.45);
-  border-radius: 10px;
-  background: rgba(255, 200, 87, 0.08);
-  color: #f2c14e;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--ifm-font-color-base) 2.5%, transparent);
+  color: var(--ifm-color-primary);
   font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
   text-align: left;
   transition: background 0.15s, border-color 0.15s;
 }
-.mitemiteBar:hover { background: rgba(255, 200, 87, 0.15); border-color: rgba(255, 200, 87, 0.75); }
+.mitemiteBar:hover { background: color-mix(in srgb, var(--ifm-font-color-base) 5%, transparent); border-color: var(--ifm-color-primary); }
 .mitemiteBarOpen {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  background: rgba(255, 200, 87, 0.13);
+  background: color-mix(in srgb, var(--ifm-font-color-base) 5%, transparent);
 }
 .mitemiteChevron { flex-shrink: 0; transition: transform 0.15s; }
 .mitemiteBarMeta {
   margin-left: auto;
   font-weight: 400;
   font-size: 0.7rem;
-  color: #8892a4;
+  color: var(--ifm-color-emphasis-600);
   white-space: nowrap;
 }
 .mitemiteCount {
   font-size: 0.72rem;
   font-weight: 500;
-  color: #9fd8e8;
-  background: rgba(0, 229, 255, 0.12);
-  border: 1px solid rgba(0, 229, 255, 0.3);
+  color: var(--ifm-color-emphasis-700);
+  background: transparent;
+  border: 1px solid var(--ifm-color-emphasis-300);
   padding: 1px 9px;
   border-radius: 999px;
   white-space: nowrap;
@@ -51,11 +51,11 @@
 
 /* 展开后的内容区 */
 .mitemiteBody {
-  border: 1px solid rgba(255, 200, 87, 0.45);
+  border: 1px solid var(--ifm-color-emphasis-300);
   border-top: none;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  background: rgba(255, 200, 87, 0.03);
+  background: none;
   padding: 0.8rem 1rem 1rem;
 }
 .mitemiteBodyHead {
@@ -66,31 +66,31 @@
   margin-bottom: 0.7rem;
   flex-wrap: wrap;
 }
-.mitemiteBodyTitle { font-size: 0.78rem; color: #8892a4; }
+.mitemiteBodyTitle { font-size: 0.78rem; color: var(--ifm-color-emphasis-600); }
 .mitemiteActions { display: inline-flex; align-items: center; gap: 0.5rem; }
-.mitemiteSaved { color: #00ff41; font-size: 0.78rem; }
-.mitemiteErr { color: #ff5470; font-size: 0.78rem; }
+.mitemiteSaved { color: var(--ifm-color-success); font-size: 0.78rem; }
+.mitemiteErr { color: var(--ifm-color-danger); font-size: 0.78rem; }
 .mitemiteIconBtn {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   padding: 0.28rem 0.6rem;
   border-radius: 6px;
-  border: 1px solid rgba(0, 229, 255, 0.3);
-  background: rgba(0, 229, 255, 0.08);
-  color: #9fd8e8;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: transparent;
+  color: var(--ifm-color-emphasis-700);
   font-size: 0.78rem;
   cursor: pointer;
   transition: background 0.15s;
 }
-.mitemiteIconBtn:hover { background: rgba(0, 229, 255, 0.18); }
+.mitemiteIconBtn:hover { background: var(--ifm-color-emphasis-300); }
 .mitemiteIconBtn:disabled { opacity: 0.5; cursor: not-allowed; }
-.mitemiteLoading { color: #8892a4; font-size: 0.82rem; padding: 0.5rem 0; }
+.mitemiteLoading { color: var(--ifm-color-emphasis-600); font-size: 0.82rem; padding: 0.5rem 0; }
 .mitemiteEmpty {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  color: #8892a4;
+  color: var(--ifm-color-emphasis-600);
   font-size: 0.84rem;
   padding: 0.4rem 0;
 }
@@ -100,25 +100,25 @@
   width: 100%;
   min-height: 240px;
   resize: vertical;
-  background: rgba(2, 6, 23, 0.9);
-  border: 1px solid rgba(255, 200, 87, 0.3);
+  background: var(--ifm-background-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 8px;
-  color: #e6edf3;
+  color: var(--ifm-font-color-base);
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 0.82rem;
   line-height: 1.55;
   padding: 0.7rem 0.8rem;
   outline: none;
 }
-.mitemiteTextarea:focus { border-color: rgba(255, 200, 87, 0.7); }
+.mitemiteTextarea:focus { border-color: var(--ifm-color-primary); }
 /* ---- 展开后的逐题盒子: 每个问题一个独立边框 ---- */
 .mitemiteBlocks { display: flex; flex-direction: column; gap: 0.9rem; }
 .mitemiteBlock {
-  border: 1.5px solid rgba(255, 200, 87, 0.5);
+  border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 10px;
-  background: rgba(10, 16, 32, 0.55);
+  background: color-mix(in srgb, var(--ifm-font-color-base) 2.5%, transparent);
   padding: 0.7rem 0.85rem 0.85rem;
-  box-shadow: 0 1px 0 rgba(255, 200, 87, 0.08) inset;
+  box-shadow: none;
 }
 .mitemiteBlockHead {
   display: flex;
@@ -127,33 +127,33 @@
   gap: 0.5rem;
   padding-bottom: 0.45rem;
   margin-bottom: 0.5rem;
-  border-bottom: 1px dashed rgba(255, 200, 87, 0.25);
+  border-bottom: 1px dashed var(--ifm-color-emphasis-300);
 }
 .mitemiteBlockTitle { display: inline-flex; align-items: center; gap: 0.5rem; }
 .mitemiteSeq {
   font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #1a1206;
-  background: #f2c14e;
+  color: var(--ifm-background-color);
+  background: var(--ifm-color-primary);
   padding: 1px 9px;
   border-radius: 999px;
 }
-.mitemiteHash { font-size: 0.7rem; color: #8892a4; font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; }
+.mitemiteHash { font-size: 0.7rem; color: var(--ifm-color-emphasis-600); font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; }
 .mitemiteAnswered {
   font-size: 0.7rem;
-  color: #00ff41;
-  border: 1px solid rgba(0, 255, 65, 0.4);
-  background: rgba(0, 255, 65, 0.08);
+  color: var(--ifm-color-success);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: transparent;
   padding: 1px 8px;
   border-radius: 999px;
   white-space: nowrap;
 }
 .mitemitePendingTag {
   font-size: 0.7rem;
-  color: #f2c14e;
-  border: 1px solid rgba(255, 200, 87, 0.45);
-  background: rgba(255, 200, 87, 0.08);
+  color: var(--ifm-color-primary);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: color-mix(in srgb, var(--ifm-color-primary) 8%, transparent);
   padding: 1px 8px;
   border-radius: 999px;
   white-space: nowrap;
@@ -163,110 +163,109 @@
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #00e5ff;
+  color: var(--ifm-color-primary);
   text-transform: uppercase;
   margin-top: 0.1rem;
 }
-.mitemiteQBody { font-size: 0.86rem; color: #e6edf3; line-height: 1.7; }
-.mitemiteQBody strong { color: #f2c14e; }
-.mitemiteQBody code { background: rgba(0, 229, 255, 0.12); color: #9fd8e8; padding: 0 4px; border-radius: 4px; font-size: 0.8em; }
+.mitemiteQBody { font-size: 0.86rem; color: var(--ifm-font-color-base); line-height: 1.7; }
+.mitemiteQBody strong { color: var(--ifm-color-primary); }
+.mitemiteQBody code { background: transparent; color: var(--ifm-color-emphasis-700); padding: 0 4px; border-radius: 4px; font-size: 0.8em; }
 .mitemiteALabel {
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #00ff41;
+  color: var(--ifm-color-success);
   text-transform: uppercase;
   margin-top: 0.5rem;
 }
-.mitemiteABody { font-size: 0.86rem; color: #c9d1d9; line-height: 1.7; }
-.mitemiteABody code { background: rgba(0, 255, 65, 0.1); color: #7ee2a8; padding: 0 4px; border-radius: 4px; font-size: 0.8em; }
+.mitemiteABody { font-size: 0.86rem; color: var(--ifm-font-color-base); line-height: 1.7; }
+.mitemiteABody code { background: transparent; color: var(--ifm-color-success); padding: 0 4px; border-radius: 4px; font-size: 0.8em; }
 .mitemiteAPending {
   font-size: 0.82rem;
-  color: #8892a4;
+  color: var(--ifm-color-emphasis-600);
   font-style: italic;
-  background: rgba(255, 200, 87, 0.05);
-  border: 1px dashed rgba(255, 200, 87, 0.3);
+  background: color-mix(in srgb, var(--ifm-color-primary) 5%, transparent);
+  border: 1px dashed var(--ifm-color-emphasis-300);
   border-radius: 6px;
   padding: 0.45rem 0.6rem;
 }
 
-/* ---- VS Code 跳转工具条 ---- */
+/* ---- VS Code 跳转工具条 (2026-11-22 改成首页风格: 细线, 中性色, 粉色只给悬停) ---- */
 .vscodeBar {
+  --v-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px 12px;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid rgba(0, 229, 255, 0.18);
-  border-radius: 10px;
-  background: linear-gradient(90deg, rgba(0, 229, 255, 0.06), rgba(255, 0, 255, 0.05));
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--ifm-font-color-base) 2.5%, transparent);
 }
 .wysiwygLabel {
-  font-size: 0.78rem;
-  color: #8892a4;
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ifm-color-emphasis-600);
   white-space: nowrap;
 }
 .wysiwygBtn {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.32rem 0.7rem;
-  border-radius: 7px;
-  border: 1px solid rgba(0, 229, 255, 0.35);
-  background: rgba(0, 229, 255, 0.1);
-  color: #9fd8e8;
-  font-size: 0.8rem;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: none;
+  color: var(--ifm-font-color-base);
+  font-size: 13px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: border-color 150ms var(--v-ease), color 150ms var(--v-ease);
 }
-.wysiwygBtn:hover { background: rgba(0, 229, 255, 0.22); }
-.wysiwygBtn.vscode {
-  border-color: rgba(0, 130, 255, 0.5);
-  background: rgba(0, 122, 255, 0.12);
-  color: #6cb6ff;
-}
-.wysiwygBtn.vscode:hover { background: rgba(0, 122, 255, 0.25); }
+.wysiwygBtn:hover { border-color: var(--ifm-color-primary); color: var(--ifm-color-primary); }
+/* .vscode 不再单独上色, 跟其它按钮一样 */
+.wysiwygBtn:focus-visible { outline: 2px solid var(--ifm-color-primary); outline-offset: 1px; }
 .wysiwygBtn:disabled { opacity: 0.55; cursor: not-allowed; }
-.wysiwygStatus { font-size: 0.76rem; color: #8892a4; }
-.wysiwygStatus.ok { color: #00ff41; }
-.wysiwygStatus.err { color: #ff5470; }
+.wysiwygStatus { font-size: 12px; color: var(--ifm-color-emphasis-600); }
+.wysiwygStatus.ok { color: var(--ifm-color-primary); }
+.wysiwygStatus.err { color: var(--ifm-color-danger); }
 
 /* ---- 选中文字右键 -> VS Code 跳转菜单 ---- */
-.vscodeHint { font-size: 0.74rem; color: #8892a4; }
+.vscodeHint { font-size: 12px; color: var(--ifm-color-emphasis-600); }
 .vscMenu {
   position: fixed;
   z-index: 9999;
   min-width: 170px;
-  background: rgba(4, 10, 26, 0.98);
-  border: 1px solid rgba(0, 229, 255, 0.4);
-  border-radius: 9px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
   padding: 4px;
-  font-size: 0.8rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  background: var(--ifm-background-color);
+  box-shadow: var(--ifm-global-shadow-md);
+  font-size: 13px;
 }
 .vscMenuItem {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   width: 100%;
-  text-align: left;
   padding: 8px 10px;
   border: none;
-  border-radius: 7px;
+  border-radius: 6px;
   background: transparent;
-  color: #e6edf3;
-  cursor: pointer;
-  font-size: 0.8rem;
+  color: var(--ifm-font-color-base);
+  text-align: left;
+  font-size: 13px;
   white-space: nowrap;
+  cursor: pointer;
 }
-.vscMenuItem:hover { background: rgba(0, 229, 255, 0.14); }
+.vscMenuItem:hover { background: color-mix(in srgb, var(--ifm-font-color-base) 5%, transparent); }
 .vscMenuLoc {
-  font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
-  font-size: 0.72rem;
-  color: #9fd8e8;
   margin-left: 2px;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 11px;
+  color: var(--ifm-color-emphasis-600);
 }

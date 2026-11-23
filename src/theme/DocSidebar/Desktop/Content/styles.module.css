@@ -1,3 +1,4 @@
+/* 知识库侧边栏顶部「重建侧边栏」工具栏 (仅本地 dev). 样式跟首页 ghost 按钮一致. */
 .root {
   display: flex;
   flex-direction: column;
@@ -6,40 +7,36 @@
 }
 
 .toolbar {
+  --t-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  padding: 0.45rem 0.6rem 0.2rem;
-  border-bottom: 1px solid rgba(0, 229, 255, 0.12);
-  background: linear-gradient(180deg, rgba(0, 229, 255, 0.06), transparent);
+  gap: 6px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
 }
 
 .rebuildBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
+  gap: 6px;
   width: 100%;
-  padding: 0.42rem 0.6rem;
-  font-size: 0.78rem;
-  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
-  color: #9fdcf0;
-  background: rgba(0, 229, 255, 0.08);
-  border: 1px solid rgba(0, 229, 255, 0.3);
+  height: 32px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+  background: none;
+  border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: border-color 150ms var(--t-ease), color 150ms var(--t-ease);
   user-select: none;
 }
 .rebuildBtn:hover {
-  background: rgba(0, 229, 255, 0.18);
-  border-color: rgba(0, 229, 255, 0.6);
-  color: #e6fbff;
-  box-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
 }
-.rebuildBtn:active {
-  transform: translateY(1px);
-}
+.rebuildBtn:focus-visible { outline: 2px solid var(--ifm-color-primary); outline-offset: 1px; }
 .rebuildBtn:disabled {
   opacity: 0.7;
   cursor: progress;
@@ -47,45 +44,33 @@
 
 .rebuildIcon {
   display: inline-block;
-  font-size: 0.85rem;
+  font-size: 13px;
   line-height: 1;
-}
-.rebuildBtn:hover .rebuildIcon {
-  animation: hx-spin 0.9s linear infinite;
 }
 @keyframes hx-spin {
   to { transform: rotate(360deg); }
 }
-
 .rebuildBusy .rebuildIcon {
   animation: hx-spin 0.8s linear infinite;
 }
 
+/* 状态行: 首页那种小字, 只用文字颜色区分 */
 .status {
-  font-size: 0.72rem;
+  padding: 2px 0;
+  font-size: 12px;
   line-height: 1.4;
-  padding: 0.3rem 0.5rem;
-  border-radius: 6px;
   word-break: break-all;
-  animation: hx-fade-in 0.25s ease;
+  animation: hx-fade-in 150ms ease;
 }
-.statusOk {
-  color: #00ff9d;
-  background: rgba(0, 255, 157, 0.1);
-  border: 1px solid rgba(0, 255, 157, 0.3);
-}
-.statusNochange {
-  color: #8892a4;
-  background: rgba(136, 146, 164, 0.1);
-  border: 1px solid rgba(136, 146, 164, 0.3);
-}
-.statusError {
-  color: #ff5d6c;
-  background: rgba(255, 93, 108, 0.1);
-  border: 1px solid rgba(255, 93, 108, 0.35);
-}
+.statusOk { color: var(--ifm-color-primary); }
+.statusNochange { color: var(--ifm-color-emphasis-600); }
+.statusError { color: var(--ifm-color-danger); }
 
 @keyframes hx-fade-in {
-  from { opacity: 0; transform: translateY(-2px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rebuildBusy .rebuildIcon, .status { animation: none; }
 }

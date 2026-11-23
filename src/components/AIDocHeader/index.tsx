@@ -1,10 +1,8 @@
 import Link from '@docusaurus/Link';
-import { useDoc } from '@docusaurus/plugin-content-docs/client';
+import { useDoc, useSidebarBreadcrumbs } from '@docusaurus/plugin-content-docs/client';
 import { motion } from 'framer-motion';
 import React, { type ReactNode, useMemo } from 'react';
 import {
-  FaCalendarAlt,
-  FaCode,
   FaExternalLinkAlt,
   FaMagic,
   FaRobot,
@@ -13,7 +11,6 @@ import {
 
 import { aiDocTagIndex } from '@site/data/aiDocTags';
 
-import TypewriterText from '../TypewriterText';
 import styles from './styles.module.css';
 
 /**
@@ -28,6 +25,11 @@ const GITHUB_REPO = 'https://github.com/HengXin666/HXLoLi';
 
 export default function AIDocHeader({ className }: AIDocHeaderProps): ReactNode {
   const { frontMatter } = useDoc();
+  // 封面头的分类路径: 取侧边栏面包屑里的分类, 不含当前文档
+  const crumbs = useSidebarBreadcrumbs();
+  const categoryPath = (crumbs ?? [])
+    .filter((item) => item.type === 'category')
+    .map((item) => item.label);
   // 自定义 frontmatter 字段 (Docusaurus 类型未收录)
   const fm = frontMatter as Record<string, unknown>;
 
@@ -64,8 +66,6 @@ export default function AIDocHeader({ className }: AIDocHeaderProps): ReactNode 
   if (!created && !model && !skills?.length && !tags?.length) {
     return null;
   }
-
-  const hasMeta = !!(created || model || skills?.length);
 
   const containerVariants = {
     hidden: { opacity: 0, y: -10 },
@@ -158,25 +158,8 @@ export default function AIDocHeader({ className }: AIDocHeaderProps): ReactNode 
     );
   };
 
-  // 标题行 (纯展示, 不可点击)
-  const titleRow = (
-    <div className={styles.titleRow}>
-      <motion.div
-        className={styles.aiIcon}
-        variants={itemVariants}
-        title="AI 辅助生成内容"
-      >
-        <FaRobot />
-      </motion.div>
-      <TypewriterText
-        text="AI 生成文档"
-        speed={50}
-        className={styles.typewriter}
-        cursorClassName={styles.typewriterCursor}
-      />
-    </div>
-  );
-
+  // 封面头: 左边 小标签 + 分类路径 + 大号等宽日期, 右边 元数据胶囊.
+  // 样式跟首页一致, 见 styles.module.css 顶部说明.
   return (
     <motion.div
       className={`${styles.aiDocHeader}${className ? ` ${className}` : ''}`}
@@ -184,66 +167,49 @@ export default function AIDocHeader({ className }: AIDocHeaderProps): ReactNode 
       initial="hidden"
       animate="visible"
     >
-      <div className={styles.bgGrid} />
-      <div className={styles.metalShine} />
-
-      {hasMeta && (
-        <div className={styles.headerContent}>
-          {titleRow}
-
-          <div className={styles.metaRow}>
-            {created &&
-              renderStaticBadge(
-                styles.dateBadge,
-                <FaCalendarAlt />,
-                created,
-                '文档创建时间',
-              )}
-
-            {model &&
-              renderStaticBadge(
-                styles.modelBadge,
-                <FaRobot />,
-                model,
-                `辅助编辑的 AI 模型: ${model}`,
-              )}
-
-            {skills &&
-              skills.map((skill, idx) =>
-                renderLinkBadge(
-                  styles.skillBadge,
-                  <FaMagic />,
-                  skill,
-                  `查看 Skill 源码: ${skill}`,
-                  skillUrls![idx],
-                  true,
-                ),
-              )}
-
-            {tags?.map((tag) => renderTagBadge(tag))}
+      <div className={styles.cover}>
+        <motion.div className={styles.coverMain} variants={itemVariants}>
+          <div className={styles.kicker} title="AI 辅助生成内容">
+            <FaRobot className={styles.kickerIcon} aria-hidden="true" />
+            <span>AI 生成文档</span>
+            {categoryPath.length > 0 && (
+              <>
+                <span className={styles.kickerSep} aria-hidden="true" />
+                <span className={styles.kickerPath}>{categoryPath.join(' / ')}</span>
+              </>
+            )}
           </div>
+          {created && (
+            <time className={styles.bigDate} dateTime={created} title="文档创建时间">
+              {created}
+            </time>
+          )}
+        </motion.div>
+
+        <div className={styles.metaRow}>
+          {model &&
+            renderStaticBadge(
+              styles.modelBadge,
+              <FaRobot />,
+              model,
+              `辅助编辑的 AI 模型: ${model}`,
+            )}
+
+          {skills &&
+            skills.map((skill, idx) =>
+              renderLinkBadge(
+                styles.skillBadge,
+                <FaMagic />,
+                skill,
+                `查看 Skill 源码: ${skill}`,
+                skillUrls![idx],
+                true,
+              ),
+            )}
+
+          {tags?.map((tag) => renderTagBadge(tag))}
         </div>
-      )}
-
-      {/* 仅标签 (无元数据时) */}
-      {!hasMeta && tags && tags.length > 0 && (
-        <div className={styles.headerContent}>
-          <div className={styles.titleRow}>
-            <motion.div className={styles.aiIcon} variants={itemVariants}>
-              <FaCode />
-            </motion.div>
-            <TypewriterText
-              text="AI 生成文档"
-              speed={50}
-              className={styles.typewriter}
-              cursorClassName={styles.typewriterCursor}
-            />
-          </div>
-          <div className={styles.metaRow}>
-            {tags.map((tag) => renderTagBadge(tag))}
-          </div>
-        </div>
-      )}
+      </div>
     </motion.div>
   );
 }

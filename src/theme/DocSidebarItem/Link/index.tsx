@@ -108,14 +108,21 @@ export default function DocSidebarItemLink ({
                 {...props}>
                 <span className="ai-kb-sidebar-content">
                     <span className="ai-kb-sidebar-main-row">
-                        {iconSrc && (
+                        {iconSrc && (/\/icons\/ai-[^/]+\.svg$/.test(iconSrc) ? (
+                            // 知识库线条图标 (lucide, 由 tag.json 指定): 用 mask 画, 颜色跟随文字, 亮暗主题都能用
+                            <span
+                                className="ai-kb-sidebar-icon ai-kb-sidebar-icon-mask"
+                                style={{ ['--ai-kb-icon' as string]: `url("${iconSrc}")` }}
+                                aria-hidden="true"
+                            />
+                        ) : (
                             <img
                                 className="ai-kb-sidebar-icon"
                                 src={iconSrc}
                                 alt=""
                                 aria-hidden="true"
                             />
-                        )}
+                        ))}
                         <span className="ai-kb-sidebar-text">{label}</span>
                     </span>
                     {tags.length > 0 && (
