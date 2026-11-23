@@ -59,45 +59,45 @@ export const latestBlogs: LatestDoc[] = [
 /** ai-docs/ (路由 /knowledge-base) 下最近的 AI 文章 */
 export const latestAiDocs: LatestDoc[] = [
   {
+    "title": "手机选购指标: 直板和折叠屏怎么打分",
+    "to": "/knowledge-base/生活/购物/手机选购指标/",
+    "date": "2026-11-23",
+    "category": "生活",
+    "description": "<Lead"
+  },
+  {
+    "title": "把 Agent 的纠正变成确定性检查",
+    "to": "/knowledge-base/AI/评测与验证/把Agent的纠正变成确定性检查/",
+    "date": "2026-11-22",
+    "category": "AI",
+    "description": "<Lead"
+  },
+  {
+    "title": "评测Harness为什么会逼出作弊与外包",
+    "to": "/knowledge-base/AI/评测与验证/评测Harness为什么会逼出作弊与外包/",
+    "date": "2026-11-08",
+    "category": "AI",
+    "description": "在 dsh / Claude Code 里, 从没见过 agent 作弊, 也没见它把活外包给别的模型. 试两下就收敛了."
+  },
+  {
     "title": "DeepSeek Harness Super-agent设计探索: 双层架构与事件驱动",
-    "to": "/knowledge-base/AI/Agent-Harness/DSH/Super-agent设计探索双层架构与事件驱动/",
+    "to": "/knowledge-base/AI/Agent架构/Super-agent设计探索双层架构与事件驱动/",
     "date": "2026-11-01",
     "category": "AI",
     "description": "原文给了一个数: 一个人通常只跟得住 3 到 5 个活跃 Session. 我整理它, 是想看清这个上限怎么从人身上挪回系统里."
   },
   {
     "title": "HX-AI-Review 通用 AI CR 方案",
-    "to": "/knowledge-base/AI/HX-AI-Review通用AI-CR方案/",
+    "to": "/knowledge-base/AI/代码审查/HX-AI-Review通用AI-CR方案/",
     "date": "2026-10-28",
     "category": "AI",
     "description": "本文是 HX-AI-Review 下一版 code 审查的实现规格. 以 hx-context-review 0.3.0 为起点, 首个落地版本是 v0.4. 文中 \"AI CR\" 默认指 code "
   },
   {
-    "title": "Pi 能做什么: API、工具并发与 PR Review 实例",
-    "to": "/knowledge-base/AI/Agent-Harness/Pi-PR-Review-Agent/",
-    "date": "2026-10-10",
-    "category": "AI",
-    "description": "我想写个只接收 PR 的审查 Agent, 但还没弄清 Pi 能替我做多少, 尤其是多个工具同时调用的时候."
-  },
-  {
-    "title": "oh-my-pi 的功能与原生调试: 对比 Pi 和 Codex",
+    "title": "oh-my-pi 为什么好用: 把 LSP, 调试和编辑改成 Agent 能用的形状",
     "to": "/knowledge-base/AI/Agent-Harness/oh-my-pi原生调试与代码审查/",
     "date": "2026-10-10",
     "category": "AI",
-    "description": "我对 oh-my-pi 的“原生调试”挺好奇, 想看看 Agent 怎么读变量、验证 review 里的猜测."
-  },
-  {
-    "title": "AI CR 的规则、事故记忆与业务上下文：重点研究 Qodo",
-    "to": "/knowledge-base/AI/Agent架构/AICR规则事故记忆与业务上下文/",
-    "date": "2026-10-09",
-    "category": "AI",
-    "description": "我最近在研究代码质量, 想搭一个 AI CR. 难点是那些只有内部人才知道的事故和业务约束."
-  },
-  {
-    "title": "受控技术中文: 把啰嗦变成可机械检测的判据",
-    "to": "/knowledge-base/工具链/受控技术中文与AI味的机械判据/",
-    "date": "2026-10-06",
-    "category": "工具链",
-    "description": "我之前写过怎么判断自己写的东西有没有AI味, 那篇治的是人称、句长、加粗密度、抽象名词与同体裁对照这几项. 但还有一类问题它治不了: 句子本身太长、用词没信息量、范围说不清含不含端点. 这类问题属于精"
+    "description": "<Lead"
   }
 ];

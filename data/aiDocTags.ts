@@ -43,7 +43,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "label": "AI Agent",
       "slug": "ai-agent",
       "permalink": "/knowledge-base/tags/ai-agent",
-      "count": 19,
+      "count": 21,
       "description": "Agent 系统的设计、架构与工程实践, 不含模型原理本身",
       "parent": "",
       "aliases": [],
@@ -53,7 +53,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "label": "工程实践",
       "slug": "工程实践",
       "permalink": "/knowledge-base/tags/工程实践",
-      "count": 12,
+      "count": 13,
       "description": "可直接复用的工程做法与取舍",
       "parent": "AI Agent",
       "aliases": [
@@ -65,7 +65,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "label": "Harness",
       "slug": "harness",
       "permalink": "/knowledge-base/tags/harness",
-      "count": 5,
+      "count": 7,
       "description": "Agent 运行时/循环/工具调用的实现机制",
       "parent": "AI Agent",
       "aliases": [],
@@ -105,6 +105,16 @@ export const aiDocTagIndex: AiDocTagIndex = {
         "AI逆向"
       ],
       "root": ""
+    },
+    {
+      "label": "评测",
+      "slug": "评测",
+      "permalink": "/knowledge-base/tags/评测",
+      "count": 4,
+      "description": "能力与效果的量化评估",
+      "parent": "工程与工具",
+      "aliases": [],
+      "root": "工程与工具"
     },
     {
       "label": "上下文工程",
@@ -179,16 +189,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "permalink": "/knowledge-base/tags/可复现性",
       "count": 3,
       "description": "结果可被稳定复现",
-      "parent": "工程与工具",
-      "aliases": [],
-      "root": "工程与工具"
-    },
-    {
-      "label": "评测",
-      "slug": "评测",
-      "permalink": "/knowledge-base/tags/评测",
-      "count": 3,
-      "description": "能力与效果的量化评估",
       "parent": "工程与工具",
       "aliases": [],
       "root": "工程与工具"
@@ -296,6 +296,18 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "parent": "C++",
       "aliases": [],
       "root": "编程语言"
+    },
+    {
+      "label": "选购指标",
+      "slug": "选购指标",
+      "permalink": "/knowledge-base/tags/选购指标",
+      "count": 2,
+      "description": "买东西时真正该看的指标",
+      "parent": "生活杂谈",
+      "aliases": [
+        "商品选购"
+      ],
+      "root": "生活杂谈"
     },
     {
       "label": "异步任务",
@@ -482,6 +494,16 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "编程语言"
     },
     {
+      "label": "手机",
+      "slug": "手机",
+      "permalink": "/knowledge-base/tags/手机",
+      "count": 1,
+      "description": "",
+      "parent": "",
+      "aliases": [],
+      "root": ""
+    },
+    {
       "label": "数据面",
       "slug": "数据面",
       "permalink": "/knowledge-base/tags/数据面",
@@ -499,18 +521,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "description": "通勤场景下的取舍",
       "parent": "选购指标",
       "aliases": [],
-      "root": "生活杂谈"
-    },
-    {
-      "label": "选购指标",
-      "slug": "选购指标",
-      "permalink": "/knowledge-base/tags/选购指标",
-      "count": 1,
-      "description": "买东西时真正该看的指标",
-      "parent": "生活杂谈",
-      "aliases": [
-        "商品选购"
-      ],
       "root": "生活杂谈"
     },
     {
@@ -554,6 +564,16 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "parent": "记忆系统",
       "aliases": [],
       "root": "AI Agent"
+    },
+    {
+      "label": "折叠屏",
+      "slug": "折叠屏",
+      "permalink": "/knowledge-base/tags/折叠屏",
+      "count": 1,
+      "description": "",
+      "parent": "",
+      "aliases": [],
+      "root": ""
     },
     {
       "label": "注意力",
@@ -668,10 +688,46 @@ export const aiDocTagIndex: AiDocTagIndex = {
   ],
   "docs": [
     {
-      "id": "AI/Agent-Harness/DSH/Super-agent设计探索双层架构与事件驱动",
+      "id": "生活/购物/手机选购指标",
+      "title": "手机选购指标: 直板和折叠屏怎么打分",
+      "description": "<Lead why=\"参数表上每台都写着旗舰芯片, 大电池, IP68, 到手后有的撑一天, 有的半小时就烫手掉帧\" claim=\"参数表写的是峰值和容量, 日常过的是持续表现. 先按门槛淘汰, 再在最在意的两项里比实测, 最后才看实付价\" use=\"看到任何一台新机, 知道该去哪查哪个数, 多少算及格, 不被发布会话",
+      "permalink": "/knowledge-base/生活/购物/手机选购指标",
+      "date": "2026-11-23",
+      "tags": [
+        "选购指标",
+        "手机",
+        "折叠屏"
+      ]
+    },
+    {
+      "id": "AI/评测与验证/把Agent的纠正变成确定性检查",
+      "title": "把 Agent 的纠正变成确定性检查",
+      "description": "<Lead why=\"同一套规则, 换个模型写出来的东西就不一样. 规则越写越长, 效果还是看模型心情\" claim=\"纠正写成文字, 每个模型理解不同; 写成检查, 谁来都一样\" use=\"拿到一条新纠正时, 知道先往哪里放: 架构, lint, 最后才是文字\" / 来源是 Grok Bot 的 Lauren Tan",
+      "permalink": "/knowledge-base/AI/评测与验证/把Agent的纠正变成确定性检查",
+      "date": "2026-11-22",
+      "tags": [
+        "AI Agent",
+        "Harness",
+        "工程实践"
+      ]
+    },
+    {
+      "id": "AI/评测与验证/评测Harness为什么会逼出作弊与外包",
+      "title": "评测Harness为什么会逼出作弊与外包",
+      "description": "在 dsh / Claude Code 里, 从没见过 agent 作弊, 也没见它把活外包给别的模型. 试两下就收敛了. 0x00 模型想停时谁说了算 模型想停时控制权的两条去向 w800 这是两边的第一个分叉. 日常 harness 把\"不调工具\"当交卷, 评测 harness 当偷懒, 再推一把. 日常没见过作弊",
+      "permalink": "/knowledge-base/AI/评测与验证/评测Harness为什么会逼出作弊与外包",
+      "date": "2026-11-08",
+      "tags": [
+        "AI Agent",
+        "Harness",
+        "评测"
+      ]
+    },
+    {
+      "id": "AI/Agent架构/Super-agent设计探索双层架构与事件驱动",
       "title": "DeepSeek Harness Super-agent设计探索: 双层架构与事件驱动",
-      "description": "原文给了一个数: 一个人通常只跟得住 3 到 5 个活跃 Session. 我整理它, 是想看清这个上限怎么从人身上挪回系统里. 0x00 注意力的上限 现在的 Agent 以一个 Session 为单位, Session 之间互不知道. 同时推进三件事, 就得开三个窗口, 自己记住每个窗口在干嘛. DeepSeek ",
-      "permalink": "/knowledge-base/AI/Agent-Harness/DSH/Super-agent设计探索双层架构与事件驱动",
+      "description": "原文给了一个数: 一个人通常只跟得住 3 到 5 个活跃 Session. 我整理它, 是想看清这个上限怎么从人身上挪回系统里. Super agent 双层架构与事件驱动 图解 ppt w100% 0x00 注意力的上限 现在的 Agent 以一个 Session 为单位, Session 之间互不知道. 同时推进三",
+      "permalink": "/knowledge-base/AI/Agent架构/Super-agent设计探索双层架构与事件驱动",
       "date": "2026-11-01",
       "tags": [
         "AI Agent",
@@ -681,19 +737,29 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "AI/HX-AI-Review通用AI-CR方案",
+      "id": "AI/代码审查/HX-AI-Review通用AI-CR方案",
       "title": "HX-AI-Review 通用 AI CR 方案",
       "description": "本文是 HX AI Review 下一版 code 审查的实现规格. 以 hx context review 0.3.0 为起点, 首个落地版本是 v0.4. 文中 \"AI CR\" 默认指 code 审查 kind=code, 规则 CODE AI ; context 审查是另一种独立审查, 只在共用设施处出现. 0x",
-      "permalink": "/knowledge-base/AI/HX-AI-Review通用AI-CR方案",
+      "permalink": "/knowledge-base/AI/代码审查/HX-AI-Review通用AI-CR方案",
       "date": "2026-10-28",
       "tags": [
         "上下文工程"
       ]
     },
     {
+      "id": "AI/代码审查/Pi-PR-Review-Agent",
+      "title": "Pi 能做什么: API、工具并发与 PR Review 实例",
+      "description": "我想写个只接收 PR 的审查 Agent, 但还没弄清 Pi 能替我做多少, 尤其是多个工具同时调用的时候. 0x00 从能做的东西选入口 拿 Pi 做一个 PR reviewer, 宿主程序先获取 PR, 再给模型几个取证工具. 模型决定读哪个文件, Pi 负责执行工具、把结果放回对话、继续请求模型. 你负责定义“审",
+      "permalink": "/knowledge-base/AI/代码审查/Pi-PR-Review-Agent",
+      "date": "2026-10-10",
+      "tags": [
+        "AI Agent"
+      ]
+    },
+    {
       "id": "AI/Agent-Harness/oh-my-pi原生调试与代码审查",
-      "title": "oh-my-pi 的功能与原生调试: 对比 Pi 和 Codex",
-      "description": "我对 oh my pi 的“原生调试”挺好奇, 想看看 Agent 怎么读变量、验证 review 里的猜测. 0x00 它在 Pi 上加了什么 如果已经在终端里读 diff, 下一步想直接查引用、看诊断、打断点验证一个越界假设, oh my pi 把这些入口接在同一个 coding agent 里. 模型调用 lsp",
+      "title": "oh-my-pi 为什么好用: 把 LSP, 调试和编辑改成 Agent 能用的形状",
+      "description": "<Lead why=\"Agent 基本都能调 LSP, 用起来差距却很大. 差在哪, 看功能列表看不出来\" claim=\"LSP 是给坐在 IDE 前的人设计的. OMP 好用, 是把 Agent 打破的几个前提一个个补上了\" use=\"自己写 agent loop 时知道先做哪条: 写完文件当场拿到这次改动的诊断\" ",
       "permalink": "/knowledge-base/AI/Agent-Harness/oh-my-pi原生调试与代码审查",
       "date": "2026-10-10",
       "tags": [
@@ -701,20 +767,10 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "AI/Agent-Harness/Pi-PR-Review-Agent",
-      "title": "Pi 能做什么: API、工具并发与 PR Review 实例",
-      "description": "我想写个只接收 PR 的审查 Agent, 但还没弄清 Pi 能替我做多少, 尤其是多个工具同时调用的时候. 0x00 从能做的东西选入口 拿 Pi 做一个 PR reviewer, 宿主程序先获取 PR, 再给模型几个取证工具. 模型决定读哪个文件, Pi 负责执行工具、把结果放回对话、继续请求模型. 你负责定义“审",
-      "permalink": "/knowledge-base/AI/Agent-Harness/Pi-PR-Review-Agent",
-      "date": "2026-10-10",
-      "tags": [
-        "AI Agent"
-      ]
-    },
-    {
-      "id": "AI/Agent架构/AICR规则事故记忆与业务上下文",
+      "id": "AI/代码审查/AICR规则事故记忆与业务上下文",
       "title": "AI CR 的规则、事故记忆与业务上下文：重点研究 Qodo",
       "description": "我最近在研究代码质量, 想搭一个 AI CR. 难点是那些只有内部人才知道的事故和业务约束. 0x00 模型没有想到的风险 ScyllaDB 31705 改了 repair 的恢复过程. 采集时仓库有 15785 stars, PR 尚未合并. Qodo 看到持续重试, 建议加一个总上限. 作者回答: “This is",
-      "permalink": "/knowledge-base/AI/Agent架构/AICR规则事故记忆与业务上下文",
+      "permalink": "/knowledge-base/AI/代码审查/AICR规则事故记忆与业务上下文",
       "date": "2026-10-09",
       "tags": [
         "Agent架构",
@@ -723,10 +779,10 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "工具链/受控技术中文与AI味的机械判据",
+      "id": "AI/AI写作/受控技术中文与AI味的机械判据",
       "title": "受控技术中文: 把啰嗦变成可机械检测的判据",
       "description": "我之前写过怎么判断自己写的东西有没有AI味, 那篇治的是人称、句长、加粗密度、抽象名词与同体裁对照这几项. 但还有一类问题它治不了: 句子本身太长、用词没信息量、范围说不清含不含端点. 这类问题属于精度, 不在句式这一层. 后来翻到一套现成的: 简明技术中文 Simplified Technical Chinese .",
-      "permalink": "/knowledge-base/工具链/受控技术中文与AI味的机械判据",
+      "permalink": "/knowledge-base/AI/AI写作/受控技术中文与AI味的机械判据",
       "date": "2026-10-06",
       "tags": [
         "工程实践",
@@ -734,10 +790,10 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "AI/AI视觉验证",
+      "id": "AI/评测与验证/AI视觉验证",
       "title": "AI 做视觉任务时怎么自证结果正确",
       "description": "NOTE AI 做完视觉任务后说\"渲染成功了\", 这句话里有多少是它真看见的? 我调试一个字幕预览时连续误判六次: 其中四次用了一个在正负样本上区分不开的指标, 一次是参数用错, 一次是从有效判据推出了越界结论. 这篇写那个指标的失效机制, 在它失效时该怎么办, 以及阈值具体取多少. 0x00 方框的像素比真字还少 我",
-      "permalink": "/knowledge-base/AI/AI视觉验证",
+      "permalink": "/knowledge-base/AI/评测与验证/AI视觉验证",
       "date": "2026-09-30",
       "tags": [
         "AI Agent",
@@ -817,10 +873,10 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "工具链/怎么判断自己写的东西有没有AI味",
+      "id": "AI/AI写作/怎么判断自己写的东西有没有AI味",
       "title": "怎么判断自己写的东西有没有 AI 味",
       "description": "调教 AI 写笔记有一阵了, 就是不说人话. 已经没有人类了, 到底有没有在说人话? 0x00 先查这句话里有没有人在说话 量之前我以为差在词上. 我以为机器稿爱堆那种很官方的大词. 量完发现, 差的是句子里有没有一个在说话的人. 真人那 215 句里, 「啊」136 次, 「吧」88 次, 「我们」81 次. 再往下",
-      "permalink": "/knowledge-base/工具链/怎么判断自己写的东西有没有AI味",
+      "permalink": "/knowledge-base/AI/AI写作/怎么判断自己写的东西有没有AI味",
       "date": "2026-09-26",
       "tags": [
         "工程实践",
@@ -842,7 +898,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/记忆/Agent-Memory框架选型",
       "title": "Agent Memory 选型指南: 五大范式、评测水分与四个必补动作",
-      "description": "NOTE 同一个记忆框架, 在自家 benchmark 上可以报到 94.4 分 而这个数字来自厂商托管平台的自测. 更麻烦的是: 同一类系统换一套测试脚手架, 分数能相差几十个百分点, 变量既不是模型也不是产品, 而是 谁写的评测代码 . 那么问题就不是\"该买哪个\", 而是: 在一个连分数都不可比的领域里, 选型到底",
+      "description": "NOTE 同一个记忆框架, 在自家 benchmark 上可以报到 94.4 分 而这个数字来自厂商托管平台的自测. 更麻烦的是: 同一类系统换一套测试脚手架, 分数能相差几十个百分点. 模型和产品都没变, 变的是 谁写的评测代码 . 那么该问的是: 在一个连分数都不可比的领域里, 选型到底应该依据什么? 0x00 三",
       "permalink": "/knowledge-base/AI/记忆/Agent-Memory框架选型",
       "date": "2026-09-13",
       "tags": [
@@ -854,8 +910,8 @@ export const aiDocTagIndex: AiDocTagIndex = {
     },
     {
       "id": "AI/记忆/obsidian-second-brain",
-      "title": "obsidian-second-brain 全解: 一个会自我重写的 AI 知识库",
-      "description": "NOTE 你的笔记库在半年后会比今天更聪明吗? 大多数\"第二大脑\"的答案是不会 它们只是一个更整齐的文件柜: 放进去的东西原样躺着, 三个月前的决策和昨天的决策互相矛盾, 而没有任何人知道. obsidian second brain 想换掉这个前提: 知识库不是往里面加东西, 而是围绕新信息重写自己 . 那么, 一个",
+      "title": "obsidian-second-brain 怎么让 AI 自己维护知识库: 三个钩子加一套写给模型的规则",
+      "description": "<Lead why=\"让 AI 长期维护一个笔记库, 难的不是写, 是它每次开会话都忘了上次定下的规矩\" claim=\"它把最要紧的规矩做成了三个钩子, 每次必定执行. 剩下的写成给模型读的规则, 靠模型自觉\" use=\"给自己的知识库或 Agent 定规矩时, 分得清哪条该写成钩子, 哪条写成文字就够\" / 来源是 ",
       "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain",
       "date": "2026-09-13",
       "tags": [
@@ -868,7 +924,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/检索/自建Agent检索栈与凭证治理",
       "title": "自建 Agent 检索栈: 本地化边界、凭证治理与可用性证明",
-      "description": "NOTE 给 Agent 接检索, 最省事的做法永远是\"买一个搜索 API 然后填 key\". 可一旦把约束换成\"尽量完全本地自建\"和\"凭证配置必须体面\", 整个方案的形态就变了 而且变的不只是选型. 更反直觉的是: 决定这套栈能不能长期活下来的, 往往不是检索算法, 而是 token 过期那一刻用户要面对多少摩擦. ",
+      "description": "NOTE 给 Agent 接检索, 最省事的做法永远是\"买一个搜索 API 然后填 key\". 可一旦把约束换成\"尽量完全本地自建\"和\"凭证配置必须体面\", 整个方案的形态就变了 而且变的不只是选型. 决定这套栈能不能长期活下来的, 往往是 token 过期那一刻用户要面对多少摩擦. 那么, 自建的真实边界在哪里, 凭",
       "permalink": "/knowledge-base/AI/检索/自建Agent检索栈与凭证治理",
       "date": "2026-09-11",
       "tags": [
@@ -883,7 +939,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Skill/Agent-Skill编写最佳实践",
       "title": "Agent Skill 编写最佳实践: 上下文预算、触发工程与可证伪的验证",
-      "description": "NOTE 为什么一个精心写好的 skill 会从来不被触发, 而一个写得普通的 skill 却总被误触发? 决定这件事的, 甚至不是它的正文. 更反直觉的是: 命名不合法、描述缺失、正文超预算 这些失败 没有一个会报错 . skill 只是安静地从目录里消失, 而模型既看不到错误, 也分不清\"不存在\"与\"写错了\". 那",
+      "description": "NOTE 为什么一个精心写好的 skill 会从来不被触发, 而一个写得普通的 skill 却总被误触发? 决定这件事的, 甚至不是它的正文. 命名不合法、描述缺失、正文超预算, 这些失败 没有一个会报错 . skill 只是安静地从目录里消失, 而模型既看不到错误, 也分不清\"不存在\"与\"写错了\". 那么, 一份让模",
       "permalink": "/knowledge-base/AI/Skill/Agent-Skill编写最佳实践",
       "date": "2026-09-11",
       "tags": [
@@ -923,7 +979,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Agent-Harness/DSH/DSH预设提示词全解",
       "title": "DeepSeek Harness 提示词全解: 四个预设与每一步投递",
-      "description": "NOTE 同一句\"你好\", 为什么在标准模式和极简模式里会被送出完全不同的请求头? 提示词在那台运行时里不是一段文字, 而是一组按 order 拼装、按预设挂载、按步骤重建的资产. 更反常识的是: 压缩指令不是另写的摘要 system prompt, 而是 追加在回放会话最后的一条 user 消息 只为让这次旁路调用命",
+      "description": "NOTE 同一句\"你好\", 为什么在标准模式和极简模式里会被送出完全不同的请求头? 提示词在那台运行时里是一组按 order 拼装、按预设挂载、按步骤重建的资产. 更反常识的是: 压缩指令是 追加在回放会话最后的一条 user 消息 , 没有另写摘要 system prompt, 只为让这次旁路调用命中 KV 缓存. ",
       "permalink": "/knowledge-base/AI/Agent-Harness/DSH/DSH预设提示词全解",
       "date": "2026-09-06",
       "tags": [
@@ -948,7 +1004,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Agent-Harness/DSH/DSH-Runtime设计思想插件树与事件日志",
       "title": "DeepSeek Harness设计思想: 插件树与事件日志",
-      "description": "NOTE 一个 agent 最贵的时刻, 不是模型答错, 而是它在崩溃重启后 把已经改过的文件又改了一遍 . 要避免这件事, 光有\"聊天记录\"远远不够: 系统必须能回答三个问题 这个能力是谁给的、这次副作用到底发生了没有、模型究竟看见过什么. DeepSeek Harness 把这些归属全部收进两根支柱: 插件树 与 ",
+      "description": "NOTE 一个 agent 最贵的时刻, 是它在崩溃重启后 把已经改过的文件又改了一遍 . 模型答错反倒没那么贵. 要避免这件事, 光有\"聊天记录\"远远不够: 系统必须能回答三个问题 这个能力是谁给的、这次副作用到底发生了没有、模型究竟看见过什么. DeepSeek Harness 把这些归属全部收进两根支柱: 插件树",
       "permalink": "/knowledge-base/AI/Agent-Harness/DSH/DSH-Runtime设计思想插件树与事件日志",
       "date": "2026-09-05",
       "tags": [
@@ -960,7 +1016,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "杂谈/短视频-精神鸦片",
       "title": "短视频=精神鸦片: 用毛选方法论解构注意力成瘾",
-      "description": "NOTE 卸载了又装回来, 明明想早点睡却刷到凌晨三点 — 这真的只是意志力不够吗? 如果让你停不下来的不是手机, 而是一套被反复测试过的刺激设计, 那你该戒的对象又是谁? 0x00 背景 你是否有过这样的经历: 反复卸载短视频 App, 又反复装回来; 越想早点睡, 越是刷到凌晨三点; 遇到一点困难就想放弃, 然后不",
+      "description": "NOTE 卸载了又装回来, 明明想早点睡却刷到凌晨三点. 这真的只是意志力不够吗? 如果让你停不下来的其实是一套被反复测试过的刺激设计, 那你该戒的对象又是谁? 0x00 背景 你是否有过这样的经历: 反复卸载短视频 App, 又反复装回来; 越想早点睡, 越是刷到凌晨三点; 遇到一点困难就想放弃, 然后不自觉点开短视",
       "permalink": "/knowledge-base/杂谈/短视频-精神鸦片",
       "date": "2026-09-04",
       "tags": [
@@ -997,7 +1053,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/AI逆向/多模态AI通用验证码求解服务",
       "title": "用AI从零实现通用验证码求解服务:OhMyCaptcha原理剖析",
-      "description": "NOTE 当\"看懂图片\"这件事从传统 CV 的模板匹配/图像处理, 变成\"直接问多模态大模型\", 验证码求解的架构会简化多少? 代价又是什么? 0x00 背景 原文剖析开源项目 OhMyCaptcha: 用 Playwright + 多模态大模型构建覆盖 19 种验证码类型的自托管求解服务. 它值得被单独拆解的三个理由",
+      "description": "NOTE 当\"看懂图片\"这件事从传统 CV 的模板匹配/图像处理, 变成\"直接问多模态大模型\", 验证码求解的架构会简化多少? 代价又是什么? 0x00 背景 原文剖析开源项目 OhMyCaptcha: 用 Playwright + 多模态大模型构建覆盖 19 种验证码类型的自托管求解服务. 它值得单独拆开看: 它给出",
       "permalink": "/knowledge-base/AI/AI逆向/多模态AI通用验证码求解服务",
       "date": "2026-08-26",
       "tags": [
@@ -1009,7 +1065,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/AI逆向/真实浏览器扩展的验证机制拆解",
       "title": "Infinitoai与Turnstile:一次浏览器验证机制的技术拆解",
-      "description": "NOTE 一个\"会点复选框\"的脚本和一个\"看起来像真人\"的脚本, 差距究竟在哪一层? 是注入时机, 是事件来源, 还是页面状态感知? 0x00 背景 原文以开源项目 Infinitoai 一个 Chrome 扩展 为切入点, 不讲\"怎么一把梭\", 而是拆解 真实浏览器里的扩展为什么比普通脚本更接近真人环境 . 它值得被",
+      "description": "NOTE 一个\"会点复选框\"的脚本和一个\"看起来像真人\"的脚本, 差距究竟在哪一层? 是注入时机, 是事件来源, 还是页面状态感知? 0x00 背景 原文以开源项目 Infinitoai 一个 Chrome 扩展 为切入点, 不讲\"怎么一把梭\", 而是拆解 真实浏览器里的扩展为什么比普通脚本更接近真人环境 . 单独拆这",
       "permalink": "/knowledge-base/AI/AI逆向/真实浏览器扩展的验证机制拆解",
       "date": "2026-08-26",
       "tags": [
@@ -1033,7 +1089,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/AI逆向/Turnstile防御面分析与误判权衡",
       "title": "CloudflareTurnstile防御分析:浏览器信号检测面与误判权衡",
-      "description": "NOTE 如果一个验证组件注定无法 100% 拦截自动化, 那它存在的意义是什么? 是\"绝对正确\", 还是\"把攻击成本抬到不值得\"? 0x00 背景 原文站在防御者视角, 分析 Turnstile 为什么有效、依赖哪些信号、网站在安全与误判之间怎么取舍. 它值得被单独拆解的三个理由: 它是四篇中唯一\"站在对手 防御方 ",
+      "description": "NOTE 如果一个验证组件注定无法 100% 拦截自动化, 那它存在的意义是什么? 是\"绝对正确\", 还是\"把攻击成本抬到不值得\"? 0x00 背景 原文站在防御者视角, 分析 Turnstile 为什么有效、依赖哪些信号、网站在安全与误判之间怎么取舍. 单独拆这篇, 是因为: 它是四篇中唯一\"站在对手 防御方 视角\"",
       "permalink": "/knowledge-base/AI/AI逆向/Turnstile防御面分析与误判权衡",
       "date": "2026-08-26",
       "tags": [
@@ -1074,7 +1130,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "工具链/从打野到注册机与AI工具链",
       "title": "从打野到注册机: 一条真实项目工具链的工程化学习",
-      "description": "NOTE 一次注册流程的练习, 为什么会走到浏览器自动化、邮箱池、代理网关、FastAPI 封装, 最后停在 Codex 与 Skills 上? 因为真正被复用的从来不是\"注册机\"这个目标, 而是逐层补齐契约的方法: 谁给输入、谁持有状态、失败由谁负责、证据留在哪里. 这条帖子把资源搜集、协议探查、账号与网络出口、服务",
+      "description": "NOTE 一次注册流程的练习, 为什么会走到浏览器自动化、邮箱池、代理网关、FastAPI 封装, 最后停在 Codex 与 Skills 上? 因为真正被复用的是逐层补齐契约的方法: 谁给输入、谁持有状态、失败由谁负责、证据留在哪里. 这条帖子把资源搜集、协议探查、账号与网络出口、服务封装和 AI 工具串成了一条连续",
       "permalink": "/knowledge-base/工具链/从打野到注册机与AI工具链",
       "date": "2026-08-02",
       "tags": [
@@ -1099,7 +1155,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "工具链/RTK项目使用说明与Codex本地心得",
       "title": "RTK项目使用说明与Codex本地心得",
-      "description": "NOTE 你喂给 AI 编程助手的每一条 shell 输出, 有多少是它真正需要看见的? 一次全量测试就能刷掉几千 token, 其中大半只是\"通过了\". RTK Rust Token Killer 的答案不是让模型少跑命令, 而是在命令输出进入上下文之前先过滤一层; 但压缩过的输出 不再等于原始事实全集 . 于是真正",
+      "description": "NOTE 你喂给 AI 编程助手的每一条 shell 输出, 有多少是它真正需要看见的? 一次全量测试就能刷掉几千 token, 其中大半只是\"通过了\". RTK Rust Token Killer 的答案是在命令输出进入上下文之前先过滤一层; 但压缩过的输出 不再等于原始事实全集 . 于是真正的问题变成了: 什么时候",
       "permalink": "/knowledge-base/工具链/RTK项目使用说明与Codex本地心得",
       "date": "2026-07-05",
       "tags": [
@@ -1109,10 +1165,10 @@ export const aiDocTagIndex: AiDocTagIndex = {
       ]
     },
     {
-      "id": "生活/电脑包选购指标",
+      "id": "生活/购物/电脑包选购指标",
       "title": "电脑包选购指标",
       "description": "NOTE 为什么商品页上「大容量」「商务」「多功能」「轻便」每一条都挑不出错, 到手却可能塞不进电脑、勒着肩膀、功能多到空包就沉? 如果我根本不知道自己每天要装什么、电脑实际多宽, 那我看的到底是包, 还是一串没人能验证的形容词? 0x00 背景 电脑包很容易被商品标题误导: 「大容量」「商务」「旅行」「多功能」「轻便",
-      "permalink": "/knowledge-base/生活/电脑包选购指标",
+      "permalink": "/knowledge-base/生活/购物/电脑包选购指标",
       "date": "2026-07-05",
       "tags": [
         "选购指标",
@@ -1123,7 +1179,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/多智能体/Multica-agent协作与上下文机制",
       "title": "Multica agent协作与上下文机制",
-      "description": "NOTE 在一个工作区里让一个 agent 去唤起另一个 agent 继续干活, 听起来只需要一句 @ ; 但它最容易长成的却是停不下来的成本循环 谁该被叫醒, 被叫醒时它究竟带着哪些上下文? 更反直觉的是: 决定一次运行的并不是上一条评论, 而是 runtime 为这次触发临时注入的任务 brief. agent 一",
+      "description": "NOTE 在一个工作区里让一个 agent 去唤起另一个 agent 继续干活, 听起来只需要一句 @ ; 但它最容易长成的却是停不下来的成本循环 谁该被叫醒, 被叫醒时它究竟带着哪些上下文? 还有一点: 决定一次运行的是 runtime 为这次触发临时注入的任务 brief. 上一条评论说了什么, 并不决定这次跑什么",
       "permalink": "/knowledge-base/AI/多智能体/Multica-agent协作与上下文机制",
       "date": "2026-07-05",
       "tags": [
@@ -1160,7 +1216,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "程序语言/Python/Python爬虫库选型调研",
       "title": "Python爬虫库选型调研",
-      "description": "NOTE 当准备写一个 Python 爬虫时, 真正需要先回答的问题不是「哪个库最强」, 而是: 目标页面是否静态? 是否需要登录和浏览器交互? 采集规模是否需要调度、重试和持久化? 最终要的是结构化字段, 还是网页正文? 0x00 背景 Python 爬虫生态里常见库很多, 但它们并不在同一个层级竞争: reques",
+      "description": "NOTE 当准备写一个 Python 爬虫时, 真正需要先回答的问题是: 目标页面是否静态? 是否需要登录和浏览器交互? 采集规模是否需要调度、重试和持久化? 最终要的是结构化字段, 还是网页正文? 0x00 背景 Python 爬虫生态里常见库很多, 但它们并不在同一个层级竞争: requests 、 httpx 、",
       "permalink": "/knowledge-base/程序语言/Python/Python爬虫库选型调研",
       "date": "2026-07-04",
       "tags": [
@@ -1172,7 +1228,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "程序语言/Web前端/react-bits分门别类学习",
       "title": "react-bits 分门别类学习",
-      "description": "NOTE 一个动效组件库值得学的地方, 通常不在于它提供了哪些效果, 而在于它怎么让 134 个组件各自被找得到、装得上、换得掉. 如果换成你来组织一份「可复制源码」的组件集合, 会用一份元数据表同时驱动文档、registry 和 AI 索引, 还是给四种技术栈各维护一套? PPT ppt — react bits 分",
+      "description": "NOTE 一个动效组件库值得学的地方, 通常是它怎么让 134 个组件各自被找得到、装得上、换得掉, 提供了哪些效果倒在其次. 如果换成你来组织一份「可复制源码」的组件集合, 会用一份元数据表同时驱动文档、registry 和 AI 索引, 还是给四种技术栈各维护一套? PPT ppt: react bits 分类地图",
       "permalink": "/knowledge-base/程序语言/Web前端/react-bits分门别类学习",
       "date": "2026-07-04",
       "tags": [
@@ -1197,11 +1253,11 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "关于",
       "title": "关于",
-      "description": "TIP 这里是 HXLoLi 的 AI 沉淀知识库. 作者懒得写笔记的时候, 内容会先沉淀在这里, 以免污染正式笔记. 站内笔记按统一的写作规范与工作流起草, 每一篇都经作者复核后才提交 你能读到的内容都经过人工确认, 而非模型的一次性输出. 目标: 减少编写笔记的时间. 非期望: 使用 AI 瞎jb产出.",
+      "description": "TIP 这里是 HXLoLi 用 AI 整理的知识库. 作者懒得写笔记的时候, 内容会先存在这里, 以免污染正式笔记. 站内笔记按统一的写作规范与工作流起草, 每一篇都经作者复核后才提交 你能读到的内容都经过人工确认, 而非模型的一次性输出. 目标: 减少编写笔记的时间. 非期望: 使用 AI 瞎jb产出.",
       "permalink": "/knowledge-base/关于",
       "date": "2026-06-04",
       "tags": []
     }
   ],
-  "generatedAt": "2026-11-08T06:25:41.775Z"
+  "generatedAt": "2026-11-23T14:24:44.834Z"
 };
