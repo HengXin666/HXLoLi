@@ -36,7 +36,7 @@ export interface SusumeData {
  */
 export function useSusumeData (): SusumeData {
     const { siteConfig } = useDocusaurusContext();
-    const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl);
+    const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl, "lite");
     const labelsStatus = useAnimeLabelsStatus();
 
     const lists = React.useMemo(

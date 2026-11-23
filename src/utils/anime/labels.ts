@@ -1,7 +1,7 @@
 import { ANIME_SUSUME_DEFS, ANIME_TAG_ALIASES, ANIME_TAG_DEFS } from "@site/data/animeTags";
 import { ANIME_CDN_TAG } from "@site/data/animeCdnVersion";
 import { GITHUB_CONFIG } from "@site/src/config/github";
-import { reqAnimeByCDN } from "@site/src/utils/cdn/linkJsDelivr";
+import { fetchAnimeDataText } from "@site/src/utils/anime/dataCache";
 
 /**
  * 人工标注 (唯一的 tag 来源): HXLoLi-ANiMe/data/labels/<bgm_subject_id>.json, 一部番一个文件, 未标注 = 没有文件.
@@ -78,8 +78,7 @@ export function parseLabelIndex (file: unknown): Map<number, AnimeLabel> {
 }
 
 async function readJson (path: string): Promise<unknown> {
-    const res = await reqAnimeByCDN(path);
-    return JSON.parse(await res.blob.text());
+    return JSON.parse(await fetchAnimeDataText(path));
 }
 
 function idsFromNames (names: Iterable<string>): number[] {

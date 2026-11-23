@@ -8,7 +8,7 @@ import Link from "@docusaurus/Link";
 import BlogWithCats from "@site/src/components/BlogWithCats";
 import { PageMetadata } from "@docusaurus/theme-common";
 import { FaCodeBranch, FaExternalLinkAlt, FaShareAlt, FaStar } from "react-icons/fa";
-import { useActorMap, useAnimeRecordsState } from "@site/src/utils/anime/animeStore";
+import { useActorMap, useAnimeRecord, useAnimeRecordsState } from "@site/src/utils/anime/animeStore";
 import { toAnimeCdnUrl } from "@site/src/utils/cdn/linkJsDelivr";
 import { Actor, ANiMeRecord, Character, Episode, EpisodeType, Relation, WatchStatus } from "@site/src/utils/anime/types";
 import { ANIME_TAG_QUERY, getRecordTags, susumeDefOfTag, susumePath } from "@site/src/utils/anime/tags";
@@ -94,7 +94,7 @@ function Hero ({ record, coverUrl }: { record: ANiMeRecord; coverUrl: string }):
         <header className={styles.hero} style={{ "--cover": `url("${coverUrl}")` } as React.CSSProperties}>
             <div className={styles.heroGrid}>
                 <div className={styles.coverFrame}>
-                    <ZoomImage src={coverUrl} alt={a.name_cn || a.name} className={styles.cover} />
+                    <ZoomImage src={coverUrl} alt={a.name_cn || a.name} className={styles.cover} fetchPriority="high" decoding="async" />
                 </div>
 
                 <div className={styles.heroHead}>
@@ -426,7 +426,7 @@ function Characters ({ record, actorMap, anime }: { record: ANiMeRecord; actorMa
 function PosterLink ({ id, name, img, inLibrary, sub }: { id: number; name: string; img: string; inLibrary: boolean; sub?: string }): React.ReactElement {
     const body = (
         <>
-            <span className={styles.posterImg} style={{ backgroundImage: `url(${img})` }} />
+            <img className={styles.posterImg} src={img} alt="" loading="lazy" decoding="async" onError={(e) => { e.currentTarget.style.visibility = "hidden"; }} />
             <span className={styles.posterName}>{name}</span>
             {sub && <span className={styles.posterSub}>{sub}</span>}
         </>
@@ -503,18 +503,20 @@ function Section ({ id, title, children, extra }: { id: string; title: string; c
  * .agents/notes/implemented/feature/2026-11-01-anime-detail-redesign.md
  * .agents/notes/implemented/feature/2026-11-01-anime-detail-sidebar-and-hero.md
  * 推荐分类徽章不带悬停提示: .agents/notes/implemented/feature/2026-11-08-anime-susume-wall.md
+ * 按需加载单部记录 + 轻量列表: .agents/notes/implemented/feature/2026-11-23-anime-detail-on-demand.md
  */
 export default function AnimeDetailPage (): React.ReactElement {
     const query = useQuery();
     const id = query.get("id");
     const { siteConfig } = useDocusaurusContext();
     const isBrowser = useIsBrowser();
-    const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl);
+    const validId = !!id && /^\d+$/.test(id);
+    // 本部只拉 record/<id>.json; 全库只要轻量列表 (相似推荐, 系列, 关联条目是否在库里)
+    const { record, status, error, retry } = useAnimeRecord(validId ? Number(id) : null, siteConfig.baseUrl);
+    const { records } = useAnimeRecordsState(siteConfig.baseUrl, "lite");
     const actorMap = useActorMap(siteConfig.baseUrl);
     const notFoundImageUrl = useBaseUrl("/anime/img/misaka-404.png");
 
-    const validId = !!id && /^\d+$/.test(id);
-    const record = validId ? records.find((r) => r.anime_data.id === Number(id)) : undefined;
     const libraryIds = React.useMemo(() => new Set(records.map((r) => r.anime_data.id)), [records]);
     const similar = React.useMemo(() => (record ? similarRecords(record, records) : []), [record, records]);
     const { byId: seriesById } = useAnimeSeries(records);

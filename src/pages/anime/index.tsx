@@ -61,7 +61,7 @@ function legacySusumeTarget (search: string): string | null {
  */
 export default function AnimeIndexPage (): React.ReactNode {
     const { siteConfig } = useDocusaurusContext();
-    const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl);
+    const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl, "lite");
     const location = useLocation();
     const history = useHistory();
     const { withBaseUrl } = useBaseUrlUtils();

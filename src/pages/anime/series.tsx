@@ -647,7 +647,7 @@ export default function AnimeSeriesPage (): React.ReactElement {
     const isBrowser = useIsBrowser();
     const history = useHistory();
     const { withBaseUrl } = useBaseUrlUtils();
-    const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl);
+    const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl, "lite");
     const { byId } = useAnimeSeries(records);
     const [showExtras, setShowExtras] = React.useState(true);
 

@@ -445,7 +445,7 @@ export default function AnimeShareBoard ({ embedded = false }: AnimeShareBoardPr
     const history = useHistory();
     const isBrowser = useIsBrowser();
     const { siteConfig } = useDocusaurusContext();
-    const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl);
+    const { records, status, error, retry } = useAnimeRecordsState(siteConfig.baseUrl, "lite");
 
     // 番单定义与分享者勾选: 只在 URL 变化时重读
     const listSearch = React.useMemo(() => withoutView(location.search), [location.search]);

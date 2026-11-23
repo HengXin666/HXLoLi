@@ -34,7 +34,7 @@ function progress (r: ANiMeRecord): string {
  */
 export default function HomeAnime (): React.ReactElement {
     const { siteConfig } = useDocusaurusContext();
-    const records = useAnimeRecords(siteConfig.baseUrl);
+    const records = useAnimeRecords(siteConfig.baseUrl, "lite");
 
     if (records.length === 0) {
         return <div className={styles.animeSkeleton} aria-busy="true" aria-label="追番记录加载中" />;

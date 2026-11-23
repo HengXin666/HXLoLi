@@ -820,8 +820,7 @@
     aspect-ratio: 2 / 3;
     border-radius: var(--detail-radius-sm);
     background-color: var(--detail-soft);
-    background-size: cover;
-    background-position: center;
+    object-fit: cover;
     box-shadow: 0 0 0 1px var(--detail-border);
     transition: box-shadow 0.15s;
 }
