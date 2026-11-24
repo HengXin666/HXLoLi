@@ -1,0 +1,1124 @@
+<!doctype html>
+<html lang="zh-CN" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DeepSeek Harness Super-agent设计探索: 双层架构与事件驱动</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&amp;display=swap">
+<script>(function(){var d=document.documentElement,t;try{t=localStorage.getItem('hx-viz-theme')}catch(e){}d.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));d.className='';})();</script>
+<style>
+/* HX-TOKENS-BEGIN (inlined verbatim from hx-tokens.css) */
+:root {
+  --ifm-color-primary: #ff88ff;
+  --ifm-color-primary-dark: #ff61ff;
+  --ifm-color-primary-darker: #ff4dff;
+  --ifm-color-primary-darkest: #ff13ff;
+  --ifm-color-primary-light: #ffafff;
+  --ifm-color-primary-lighter: #ffc3ff;
+  --ifm-color-primary-lightest: #fffdff;
+  --ifm-background-color: #ffffff;
+}
+
+[data-theme='dark'] {
+  --ifm-background-color: #121212;
+}
+
+/*
+  === HXLoLi 全局主题令牌 (--hx-*) ===
+  番剧页 / susume 页 / 卡片共用的一套"可爱但克制"的视觉语言: 粉色主调 + 金色推荐 + 半透明层次.
+  组件里不要再写死 rgba(255,255,255,.x) 与圆角 / 曲线, 一律取这里, 亮暗主题各一份.
+  .agents/notes/implemented/feature/2026-11-06-anime-susume-neko-redesign.md
+*/
+:root {
+  --hx-accent: var(--ifm-color-primary);
+  --hx-accent-soft: rgba(255, 136, 255, 0.14);
+  --hx-accent-ring: rgba(255, 136, 255, 0.55);
+  --hx-gold: #e0a020;
+  --hx-gold-soft: rgba(255, 196, 64, 0.16);
+  --hx-susume-monosugoi: #f0a52a;
+  --hx-susume-loli: #ff6fd8;
+  --hx-susume-loligaaru: #c77dff;
+  --hx-susume-imouto: #4fa8ff;
+
+  --hx-surface-0: #ffffff;
+  --hx-surface-1: rgba(20, 10, 30, 0.035);
+  --hx-surface-2: rgba(20, 10, 30, 0.07);
+  --hx-surface-glass: rgba(255, 255, 255, 0.72);
+  --hx-border: rgba(20, 10, 30, 0.10);
+  --hx-border-strong: rgba(20, 10, 30, 0.18);
+  --hx-text: var(--ifm-font-color-base);
+  --hx-text-dim: rgba(20, 10, 30, 0.62);
+  --hx-text-faint: rgba(20, 10, 30, 0.42);
+
+  --hx-radius-sm: 8px;
+  --hx-radius-md: 12px;
+  --hx-radius-lg: 18px;
+  --hx-radius-xl: 24px;
+  --hx-radius-pill: 999px;
+
+  --hx-shadow-sm: 0 2px 8px rgba(40, 0, 50, 0.08);
+  --hx-shadow-md: 0 10px 28px rgba(40, 0, 50, 0.14);
+  --hx-shadow-lg: 0 22px 60px rgba(40, 0, 50, 0.22);
+
+  --hx-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --hx-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --hx-dur-fast: 0.16s;
+  --hx-dur-med: 0.32s;
+  --hx-dur-slow: 0.55s;
+
+  --hx-font-round: "M PLUS Rounded 1c", "Zen Maru Gothic", "PingFang SC", "Hiragino Maru Gothic ProN", "Microsoft YaHei", sans-serif;
+
+  /* 番剧类页面版式与动效令牌 (HX おすすめ Glass), 用法见 src/components/anime/ui/DESIGN.md */
+  --hx-container: 1200px;
+  --hx-gutter: clamp(16px, 3vw, 28px);
+  --hx-glass-blur: blur(14px) saturate(140%);
+  --hx-mesh:
+    radial-gradient(42% 60% at 12% 18%, rgba(255, 136, 255, 0.18), transparent 70%),
+    radial-gradient(38% 55% at 88% 8%, rgba(255, 196, 64, 0.14), transparent 70%),
+    radial-gradient(48% 60% at 62% 100%, rgba(79, 168, 255, 0.12), transparent 70%);
+  --hx-dots: radial-gradient(circle at 1px 1px, var(--hx-border) 1px, transparent 1.5px) 0 0 / 22px 22px;
+  --hx-focus: 0 0 0 3px var(--hx-accent-ring);
+  --hx-lift: translateY(-4px);
+  --hx-stagger: 40ms;
+  --hx-measure: 68ch;
+}
+
+[data-theme='dark'] {
+  --hx-accent-soft: rgba(255, 136, 255, 0.16);
+  --hx-gold: #ffc440;
+  --hx-gold-soft: rgba(255, 196, 64, 0.14);
+  --hx-susume-monosugoi: #ffb84d;
+  --hx-susume-loli: #ff88ff;
+  --hx-susume-loligaaru: #d4a5ff;
+  --hx-susume-imouto: #7cc4ff;
+
+  --hx-surface-0: #17151a;
+  --hx-surface-1: rgba(255, 255, 255, 0.035);
+  --hx-surface-2: rgba(255, 255, 255, 0.07);
+  --hx-surface-glass: rgba(24, 20, 28, 0.72);
+  --hx-border: rgba(255, 255, 255, 0.09);
+  --hx-border-strong: rgba(255, 255, 255, 0.18);
+  --hx-text-dim: rgba(255, 255, 255, 0.64);
+  --hx-text-faint: rgba(255, 255, 255, 0.42);
+
+  --hx-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --hx-shadow-md: 0 10px 28px rgba(0, 0, 0, 0.45);
+  --hx-shadow-lg: 0 22px 60px rgba(0, 0, 0, 0.55);
+
+  --hx-mesh:
+    radial-gradient(42% 60% at 12% 18%, rgba(255, 136, 255, 0.12), transparent 70%),
+    radial-gradient(38% 55% at 88% 8%, rgba(255, 196, 64, 0.08), transparent 70%),
+    radial-gradient(48% 60% at 62% 100%, rgba(124, 196, 255, 0.08), transparent 70%);
+}
+
+/* ===== Markdown 样式 ===== */
+
+/*
+  del/s 删除线内的链接必须显式补线.
+
+  HXLink 用 inline-block 做悬停下划线动画 (src/components/HXLink/index.tsx), 而 inline-block
+
+*/
+/* HX-TOKENS-END */
+
+/* HX-FALLBACK-BEGIN (requested fallbacks; only literals outside the token block) */
+:root{--ifm-font-color-base:#1c1e21}
+[data-theme=dark]{--ifm-font-color-base:#e3e3e3;}
+/* HX-FALLBACK-END */
+/* ===== end of inlined tokens (source file ends inside an open comment, closed above) ===== */
+/* HX-OWN-CSS-BEGIN */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--hx-font-round);color:var(--hx-text);background:var(--hx-surface-0,var(--ifm-background-color));line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;background:var(--hx-mesh);pointer-events:none;z-index:-2}
+body::after{content:"";position:fixed;inset:0;background:var(--hx-dots);opacity:.55;pointer-events:none;z-index:-1}
+a{color:inherit;text-decoration-color:var(--hx-accent);text-underline-offset:3px}
+:focus-visible{outline:none;box-shadow:var(--hx-focus);border-radius:var(--hx-radius-sm)}
+code,pre,.log{font-family:var(--hx-font-round)}
+code{background:var(--hx-surface-2);border-radius:var(--hx-radius-sm);padding:0 .35em;font-size:.9em}
+
+#prog{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--hx-accent);transform-origin:0 50%;transform:scaleX(0);z-index:60;pointer-events:none}
+.tgl{position:fixed;top:12px;right:12px;z-index:50;display:flex;gap:2px;padding:3px;border-radius:var(--hx-radius-pill);background:var(--hx-surface-glass);backdrop-filter:var(--hx-glass-blur);-webkit-backdrop-filter:var(--hx-glass-blur);border:1px solid var(--hx-border);box-shadow:var(--hx-shadow-sm)}
+.tgl button{font:inherit;font-size:.78rem;border:0;cursor:pointer;color:var(--hx-text-dim);background:transparent;padding:3px 12px;border-radius:var(--hx-radius-pill);transition:background var(--hx-dur-fast) var(--hx-ease-out),color var(--hx-dur-fast) var(--hx-ease-out)}
+.tgl button[aria-pressed="true"]{background:var(--hx-accent-soft);color:var(--hx-text);font-weight:700}
+
+.wrap{max-width:var(--hx-container);margin:0 auto;padding:60px var(--hx-gutter) 96px}
+.toc{display:none}
+@media (min-width:1100px){
+  .wrap{display:grid;grid-template-columns:176px minmax(0,1fr);gap:32px}
+  .toc{display:block;position:sticky;top:72px;align-self:start;padding:14px 10px;border-radius:var(--hx-radius-lg);background:var(--hx-surface-glass);backdrop-filter:var(--hx-glass-blur);-webkit-backdrop-filter:var(--hx-glass-blur);border:1px solid var(--hx-border);box-shadow:var(--hx-shadow-sm)}
+}
+.toc .th{font-size:.75rem;color:var(--hx-text-faint);padding:0 10px 6px;letter-spacing:.1em}
+.toc a{display:block;padding:4px 10px;margin:1px 0;border-radius:var(--hx-radius-pill);color:var(--hx-text-dim);text-decoration:none;font-size:.78rem;line-height:1.45;transition:background var(--hx-dur-fast) var(--hx-ease-out),color var(--hx-dur-fast) var(--hx-ease-out)}
+.toc a b{display:block;font-size:.7rem;color:var(--hx-text-faint);font-weight:700}
+.toc a:hover{background:var(--hx-surface-2)}
+.toc a.cur{background:var(--hx-accent-soft);color:var(--hx-text)}
+.toc a.cur b{color:var(--hx-text)}
+main{min-width:0}
+
+.card{background:var(--hx-surface-glass);backdrop-filter:var(--hx-glass-blur);-webkit-backdrop-filter:var(--hx-glass-blur);border:1px solid var(--hx-border);border-radius:var(--hx-radius-xl);box-shadow:var(--hx-shadow-sm);transition:box-shadow var(--hx-dur-med) var(--hx-ease-out)}
+.card:hover{box-shadow:var(--hx-shadow-md)}
+.hero{padding:clamp(20px,4vw,40px)}
+.hero h1{margin:0 0 14px;font-size:clamp(1.35rem,3.2vw,2rem);line-height:1.35;font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.pill{display:inline-flex;align-items:center;padding:2px 12px;border-radius:var(--hx-radius-pill);border:1px solid var(--hx-border);background:var(--hx-surface-1);font-size:.8rem;color:var(--hx-text-dim);transition:transform var(--hx-dur-fast) var(--hx-ease-spring),border-color var(--hx-dur-fast) var(--hx-ease-out)}
+.pill:hover{transform:var(--hx-lift);border-color:var(--hx-accent)}
+.pill.pk{background:var(--hx-accent-soft);border-color:var(--hx-accent-ring);color:var(--hx-text)}
+.meta{font-size:.82rem;color:var(--hx-text-faint);margin:0 0 18px}
+.open{font-size:clamp(1.02rem,2.2vw,1.2rem);margin:0;max-width:var(--hx-measure)}
+.gold{color:var(--hx-gold);font-weight:700;font-variant-numeric:tabular-nums}
+
+.sec{margin-top:28px;padding:clamp(16px,3vw,32px);scroll-margin-top:24px}
+.sec h2{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 18px;font-size:clamp(1.1rem,2.4vw,1.4rem);line-height:1.4}
+.hx{font-size:.75rem;padding:1px 10px;border-radius:var(--hx-radius-pill);background:var(--hx-accent-soft);border:1px solid var(--hx-accent-ring);letter-spacing:.06em;font-weight:700}
+.grid{display:grid;gap:22px}
+@media (min-width:900px){.grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start}.grid.wide{grid-template-columns:minmax(0,1fr)}}
+.say p{margin:0 0 14px;padding-left:14px;border-left:3px solid var(--hx-accent-soft);max-width:var(--hx-measure)}
+.say p:last-child{margin-bottom:0}
+.fig{min-width:0}
+.fig svg{display:block;width:100%;height:auto;overflow:visible}
+.fig .sub{font-size:.78rem;color:var(--hx-text-faint);margin:6px 0 0}
+.stack>*+*{margin-top:18px}
+.note{font-size:.8rem;color:var(--hx-text-dim);margin:14px 0 0;padding:8px 12px;border-radius:var(--hx-radius-md);background:var(--hx-surface-1);border:1px dashed var(--hx-border)}
+
+/* svg */
+svg text{font-family:var(--hx-font-round);fill:var(--hx-text);font-size:15px}
+svg text.s{font-size:13px;fill:var(--hx-text-dim)}
+svg text.h{font-size:12.5px;fill:var(--hx-text-faint);font-weight:700;letter-spacing:.06em}
+svg text.b,svg tspan.b{font-weight:700}
+svg text.g,svg tspan.g{fill:var(--hx-gold);font-weight:700}
+svg text.pk{fill:var(--hx-accent)}
+.box{fill:var(--hx-surface-glass);stroke:var(--hx-border-strong);stroke-width:1.2;rx:var(--hx-radius-md);ry:var(--hx-radius-md)}
+.box.pill{rx:var(--hx-radius-lg);ry:var(--hx-radius-lg)}
+.box.pk{fill:var(--hx-accent-soft);stroke:var(--hx-accent)}
+.box.bl{stroke:var(--hx-susume-imouto)}
+.box.dash{stroke-dasharray:5 4;fill:var(--hx-surface-1)}
+.box.ghost{stroke:var(--hx-border-strong);stroke-dasharray:3 4;fill:transparent}
+.box.zone{fill:transparent;stroke:var(--hx-border);stroke-dasharray:6 5}
+.box.r1{fill:var(--hx-accent-soft);stroke:var(--hx-accent)}
+.box.r2{fill:var(--hx-surface-1);stroke:var(--hx-accent-ring)}
+.box.r3{fill:var(--hx-surface-1);stroke:var(--hx-border-strong)}
+.band{fill:var(--hx-surface-1);stroke:var(--hx-border-strong);stroke-width:1.2}
+.band.pk{fill:var(--hx-accent-soft);stroke:var(--hx-accent)}
+.ln{fill:none;stroke:var(--hx-text-faint);stroke-width:1.6;marker-end:url(#ar);transition:stroke var(--hx-dur-fast) var(--hx-ease-out),stroke-width var(--hx-dur-fast) var(--hx-ease-out)}
+.ln.pk{stroke:var(--hx-accent);marker-end:url(#arp)}
+.ln.bl{stroke:var(--hx-susume-imouto);marker-end:url(#arb)}
+.ln.gd{stroke:var(--hx-gold);marker-end:url(#arg)}
+.ln.dash{stroke-dasharray:4 5}
+.ln.no{marker-end:none}
+.ln.both{marker-start:url(#ars)}
+.ln.sep{stroke:var(--hx-border);stroke-dasharray:3 6;marker-end:none}
+.ln.hot{stroke:var(--hx-accent);stroke-width:2.8;marker-end:url(#arp)}
+.ln.x{stroke:var(--hx-text-faint);marker-end:none}
+.mk{fill:var(--hx-text-faint)}.mkp{fill:var(--hx-accent)}.mkb{fill:var(--hx-susume-imouto)}.mkg{fill:var(--hx-gold)}
+.dotf{fill:var(--hx-text-faint)}
+.dotp{fill:var(--hx-accent)}
+.dotb{fill:var(--hx-susume-imouto)}
+.dotg{fill:var(--hx-gold)}
+.barp{fill:var(--hx-accent-soft);stroke:var(--hx-accent);stroke-width:1.2;rx:var(--hx-radius-sm);ry:var(--hx-radius-sm)}
+.barb{fill:var(--hx-surface-2);stroke:var(--hx-susume-imouto);stroke-width:1.2;rx:var(--hx-radius-sm);ry:var(--hx-radius-sm)}
+.nd{transform-box:fill-box;transform-origin:center;transition:transform var(--hx-dur-fast) var(--hx-ease-spring)}
+.nd:hover{transform:var(--hx-lift)}
+.draw{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset calc(var(--hx-dur-slow)*2) var(--hx-ease-out),stroke var(--hx-dur-fast) var(--hx-ease-out),stroke-width var(--hx-dur-fast) var(--hx-ease-out);transition-delay:calc(var(--hx-stagger)*var(--i,0) + var(--hx-dur-med)),0s,0s}
+.in .draw{stroke-dashoffset:0}
+.dot{fill:var(--hx-accent);stroke:var(--hx-surface-0);stroke-width:1.5}
+.dot.gd{fill:var(--hx-gold)}
+.dot.x{fill:var(--hx-text-faint)}
+.later{opacity:0;transition:opacity var(--hx-dur-med) var(--hx-ease-out)}
+.later.on{opacity:1}
+.vm .box{transition:none}
+.crack{fill:none;stroke:var(--hx-accent);stroke-width:2;opacity:0}
+.in .vm{animation:hxfail calc(var(--hx-dur-slow)*6) var(--hx-ease-out) calc(var(--hx-dur-slow)*2) 1 both}
+.in .crack{animation:hxcrack calc(var(--hx-dur-slow)*6) var(--hx-ease-out) calc(var(--hx-dur-slow)*2) 1 both}
+.in .rebuild{animation:hxpulse calc(var(--hx-dur-slow)*6) var(--hx-ease-out) calc(var(--hx-dur-slow)*2) 1 both}
+@keyframes hxfail{0%{opacity:1}25%{opacity:.25}60%{opacity:.25}100%{opacity:1}}
+@keyframes hxcrack{0%,15%{opacity:0}28%,58%{opacity:1}72%,100%{opacity:0}}
+@keyframes hxpulse{0%,50%{stroke:var(--hx-text-faint);stroke-width:1.6}62%,80%{stroke:var(--hx-accent);stroke-width:3}100%{stroke:var(--hx-text-faint);stroke-width:1.6}}
+
+/* bars */
+.bars{display:grid;gap:16px}
+.bg h4{margin:0 0 6px;font-size:.85rem;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.bg h4 em{font-style:normal;font-weight:400;color:var(--hx-text-dim);font-size:.8rem}
+.br{display:grid;grid-template-columns:7.2em minmax(0,1fr) max-content;gap:10px 12px;align-items:center;font-size:.8rem;color:var(--hx-text-dim);margin:4px 0}
+.tr{height:12px;border-radius:var(--hx-radius-pill);background:var(--hx-surface-2);overflow:hidden}
+.fl{display:block;height:100%;border-radius:var(--hx-radius-pill);background:var(--hx-accent);transform:scaleX(0);transform-origin:0 50%;transition:transform calc(var(--hx-dur-slow)*2.4) var(--hx-ease-out);transition-delay:calc(var(--hx-stagger)*var(--i,0) + var(--hx-dur-med))}
+.fl.bl{background:var(--hx-susume-imouto)}
+.fl.gd{background:var(--hx-gold)}
+.in .fl{transform:scaleX(var(--w))}
+.br>span:first-child{white-space:nowrap}
+.br .v{text-align:left;min-width:4.6em;padding-left:2px;position:relative;z-index:1;color:var(--hx-text);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.78rem;color:var(--hx-text-dim)}
+.legend i{display:inline-block;width:14px;height:8px;border-radius:var(--hx-radius-pill);margin-right:6px;vertical-align:middle;background:var(--hx-accent)}
+.legend i.bl{background:var(--hx-susume-imouto)}
+.kpi{display:inline-flex;align-items:baseline;gap:8px;padding:6px 14px;border-radius:var(--hx-radius-pill);background:var(--hx-gold-soft);font-size:.85rem}
+.kpi .gold{font-size:1.25rem}
+
+/* play */
+.ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 0}
+.btn{font:inherit;font-size:.85rem;font-weight:700;cursor:pointer;color:var(--hx-text);background:var(--hx-accent-soft);border:1px solid var(--hx-accent-ring);border-radius:var(--hx-radius-pill);padding:5px 18px;transition:transform var(--hx-dur-fast) var(--hx-ease-spring),box-shadow var(--hx-dur-fast) var(--hx-ease-out)}
+.btn:hover{transform:var(--hx-lift);box-shadow:var(--hx-shadow-sm)}
+.btn[disabled]{opacity:.5;cursor:default;transform:none}
+.cnt-row{display:flex;flex-wrap:wrap;gap:6px}
+.cnt-row .pill b{color:var(--hx-text);margin-left:4px;font-variant-numeric:tabular-nums}
+.cnt-row .pill.gk{background:var(--hx-gold-soft);color:var(--hx-text)}
+.cnt-row .pill.gk b{color:var(--hx-gold)}
+.log{margin:10px 0 0;padding:10px 14px;min-height:3.2em;border-radius:var(--hx-radius-md);background:var(--hx-surface-1);border:1px solid var(--hx-border);font-size:.76rem;line-height:1.7;white-space:pre-wrap;word-break:break-word;color:var(--hx-text-dim)}
+.log span{display:block;animation:hxin var(--hx-dur-med) var(--hx-ease-out) 1 both}
+@keyframes hxin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.loop{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;font-size:.78rem}
+.loop .pill{font-size:.75rem}
+.loop .ar{color:var(--hx-accent)}
+
+/* 0x09 */
+.costs{display:grid;gap:10px;margin-top:16px}
+.cost{display:grid;grid-template-columns:7.6em minmax(0,1fr);gap:12px;align-items:start;font-size:.88rem}
+.cost .pill{white-space:nowrap;margin-top:2px;justify-self:start}
+.nw{white-space:nowrap}
+.cards{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+.pc{padding:14px 16px;border-radius:var(--hx-radius-lg);border:1px solid var(--hx-border);background:var(--hx-surface-1);font-size:.85rem;transition:transform var(--hx-dur-fast) var(--hx-ease-spring),box-shadow var(--hx-dur-fast) var(--hx-ease-out)}
+.pc:hover{transform:var(--hx-lift);box-shadow:var(--hx-shadow-sm)}
+.pc b{display:block;margin-bottom:4px;font-size:.95rem}
+.close{margin:22px 0 0;padding:14px 18px;border-radius:var(--hx-radius-lg);background:var(--hx-accent-soft);font-weight:700;max-width:var(--hx-measure)}
+h3.mini{font-size:.9rem;margin:22px 0 10px;color:var(--hx-text-dim)}
+
+/* raw */
+details.raw{margin-top:22px;border-top:1px dashed var(--hx-border);padding-top:14px}
+details.raw summary{display:inline-flex;align-items:center;gap:6px;cursor:pointer;list-style:none;font-size:.8rem;font-weight:700;color:var(--hx-text-dim);padding:3px 14px;border-radius:var(--hx-radius-pill);border:1px solid var(--hx-border);background:var(--hx-surface-1);transition:transform var(--hx-dur-fast) var(--hx-ease-spring),color var(--hx-dur-fast) var(--hx-ease-out)}
+details.raw summary::-webkit-details-marker{display:none}
+details.raw summary::before{content:"";width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform var(--hx-dur-fast) var(--hx-ease-out)}
+details.raw[open] summary::before{transform:rotate(45deg)}
+details.raw summary:hover{transform:var(--hx-lift);color:var(--hx-text)}
+.md{font-size:.9rem;color:var(--hx-text);margin-top:12px;overflow-wrap:anywhere}
+.md p,.md ul{max-width:var(--hx-measure);margin:0 0 .9em}
+.md ul{padding-left:1.3em}
+.md li{margin:.2em 0}
+.md .co{border-radius:var(--hx-radius-md);padding:10px 14px;margin:0 0 .9em;max-width:var(--hx-measure)}
+.md .co p{margin:0}
+.md .co.note{background:var(--hx-accent-soft)}
+.md .co.tip{background:var(--hx-gold-soft)}
+.md .co>b{display:block;font-size:.72rem;letter-spacing:.1em;color:var(--hx-text-dim)}
+.md .cap{font-size:.8rem;color:var(--hx-text-dim);padding:8px 12px;border-left:3px solid var(--hx-border-strong)}
+.md figure{margin:0 0 .9em}
+.md figcaption{font-size:.72rem;color:var(--hx-text-faint);margin:0 0 4px}
+.md pre{margin:0;padding:12px 14px;border-radius:var(--hx-radius-md);background:var(--hx-surface-1);border:1px solid var(--hx-border);overflow-x:auto;font-size:.76rem;line-height:1.6}
+.md pre code{background:none;padding:0;font-size:inherit}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(12px);transition:opacity var(--hx-dur-slow) var(--hx-ease-out),transform var(--hx-dur-slow) var(--hx-ease-out);transition-delay:calc(var(--hx-stagger)*var(--i,0))}
+.in .rv{opacity:1;transform:none}
+.nojs .rv{opacity:1;transform:none}
+
+
+/* section rhythm: default text|fig, rev fig|text, wide full-width, bare no card */
+.sec.rev .fig,.sec.figfirst .fig{order:-1}
+@media (min-width:900px){
+  .sec.rev .grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+  .sec.wide .grid{grid-template-columns:minmax(0,1fr)}
+  .sec.wide .say{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px 22px}
+  .sec.wide .say p{margin:0}
+  .sec.wide .fig{width:100%;max-width:820px;margin-inline:auto}
+  .sec.wide .fig svg{max-width:560px;margin-inline:auto}
+}
+.sec.bare,.sec.bare:hover{background:none;border-color:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.sec.bare .say p{border-left-color:var(--hx-gold-soft)}
+@media (max-width:600px){
+  .sec{padding:16px 14px}
+  .cost{grid-template-columns:minmax(0,1fr);gap:4px}
+  .br{grid-template-columns:6.4em minmax(0,1fr) 4.2em;gap:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+  .draw{stroke-dashoffset:0}
+  .fl{transform:scaleX(var(--w))}
+  .crack{opacity:0}
+}
+/* HX-OWN-CSS-END */
+</style>
+</head>
+<body>
+<div id="prog" aria-hidden="true"></div>
+<div class="tgl" role="group" aria-label="深色 / 浅色"><button type="button" data-t="light">浅色</button><button type="button" data-t="dark">深色</button></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0 1 L10 5 L0 9 z"/></marker>
+<marker id="ars" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0 1 L10 5 L0 9 z"/></marker>
+<marker id="arp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkp" d="M0 1 L10 5 L0 9 z"/></marker>
+<marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkb" d="M0 1 L10 5 L0 9 z"/></marker>
+<marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkg" d="M0 1 L10 5 L0 9 z"/></marker>
+</defs></svg>
+
+<div class="wrap">
+<nav class="toc" aria-label="目录"><div class="th">目录</div></nav>
+<main>
+
+<header class="card hero sec0" id="top">
+  <h1 class="rv">DeepSeek Harness Super-agent设计探索: 双层架构与事件驱动</h1>
+  <div class="tags rv"><span class="pill pk">AI Agent</span><span class="pill pk">Harness</span><span class="pill pk">DSH</span><span class="pill pk">多智能体</span></div>
+  <p class="meta rv">Heng_Xin · 2026-11-01</p>
+  <p class="open rv">原文给了一个数: 一个人通常只跟得住 <span class="gold">3 到 5</span> 个活跃 Session.</p>
+</header>
+
+<section class="card sec wide figfirst" id="s0x00" data-k="0x00">
+  <h2><span class="hx">0x00</span>注意力的上限</h2>
+  <div class="grid">
+    <div class="say rv">
+      <p>现在的 Agent 以一个 Session 为单位, Session 之间互不知道.</p>
+      <p>单任务的上限看模型, 多任务的上限看人的注意力.</p>
+      <p>一个 ReAct Loop 满足不了这四条, 所以原文拆了五个模块, 每个模块借一条计算机系统里的老思想</p>
+    </div>
+    <div class="fig rv"><svg id="f00" role="img" aria-label="连续 高效 主动 持久 → 五个模块"></svg></div>
+  </div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="0x00"></div></details>
+</section>
+
+<section class="card sec" id="s0x01" data-k="0x01">
+  <h2><span class="hx">0x01</span>跟着一条 Trigger 走</h2>
+  <div class="grid">
+    <div class="say rv">
+      <p>驱动 Super-agent 的是环境里冒出来的半结构化事件, 原文叫 Trigger: 群聊消息, 邮件与日程提醒, PR 评审评论, CI 结果.</p>
+      <p>它从左边进门, 先过程序准入, 再看所在的 Thread 有没有人订阅, 最后由 Worker 执行, 由 Router 统一回话</p>
+      <div class="ctrl"><button class="btn" type="button" id="play">播放</button></div>
+      <div class="cnt-row ctrl" aria-live="polite">
+        <span class="pill">丢弃<b id="c-drop">0</b></span><span class="pill">直通<b id="c-direct">0</b></span><span class="pill">进 Router<b id="c-router">0</b></span><span class="pill gk">batch=<b id="c-batch">0</b></span>
+      </div>
+      <div class="log" id="log" aria-live="polite"></div>
+      <div class="loop later" id="loop"><span class="pill">m7</span><span class="ar">→</span><span class="pill">task-1 Started</span><span class="ar">→</span><span class="pill">task-1-done</span><span class="ar">→</span><span class="pill pk">worker-2</span></div>
+    </div>
+    <div class="fig rv"><svg id="f01" role="img" aria-label="Trigger 路径"></svg></div>
+  </div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="0x01"></div></details>
+</section>
+
+<section class="card sec rev" id="s0x02" data-k="0x02">
+  <h2><span class="hx">0x02</span>进门: 两级过滤</h2>
+  <div class="grid">
+    <div class="say rv">
+      <p>接进真实群聊和代码平台以后, 事件流是"高噪音, 低触发率"的: 大部分消息跟 Agent 无关.</p>
+      <p>所以先由程序挡一道, 再让模型挡一道.</p>
+      <p>每个来源可以设成三种之一: 仅响应明确请求, 作为候选事件, 直接忽略.</p>
+    </div>
+    <div class="fig rv"><svg id="f02" role="img" aria-label="两级过滤"></svg></div>
+  </div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="0x02"></div></details>
+</section>
+
+<section class="card sec" id="s0x03" data-k="0x03">
+  <h2><span class="hx">0x03</span>已订阅的 Thread 直通</h2>
+  <div class="grid">
+    <div class="say rv">
+      <p>之后同一 Thread 的事件由程序直接送到那个 Worker, Router 不再调工具转发.</p>
+      <p>订阅是多对多的.</p>
+      <p>去掉直通以后, 完成时间基本不变, Router 的决定数多了约 30%, 总读缓存 token 从 2323 万涨到 3177 万 (约 37%).</p>
+    </div>
+    <div class="fig stack rv">
+      <svg id="f03" role="img" aria-label="Thread 与 Worker 多对多"></svg>
+      <div class="bars" id="b03"></div>
+    </div>
+  </div>
+  <p class="note rv">实验是合成负载, 单次约 300 条消息里约 20 条工作请求, 每种方案重复 5 次.</p>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="0x03"></div></details>
+</section>
+
+<section class="card sec wide" id="s0x04" data-k="0x04">
+  <h2><span class="hx">0x04</span>Router: 序点与批处理</h2>
+  <div class="grid">
+    <div class="say rv">
+      <p>双层架构取中间: 常驻的 Router 层承接所有入口的人类交互和全局协调, Worker 层并发干活.</p>
+      <p>Router 推理期间到达的 Trigger 先排队, 下一轮合并进一次 LLM 调用.</p>
+      <p>批处理摊薄的是 Prefill, 也就是输入侧的并行计算; 输出 token 的解码还是按长度串行.</p>
+    </div>
+    <div class="fig stack rv">
+      <svg id="f04" role="img" aria-label="一个 Session ←→ 每条事件新开一个 Session"></svg>
+      <div class="legend"><span><i class="bl"></i>约 1 条/分钟</span><span><i></i>约 40 条/分钟</span></div>
+      <div class="bars" id="b04"></div>
+      <svg id="f04b" role="img" aria-label="Prefill 并行, 解码 串行"></svg>
+    </div>
+  </div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="0x04"></div></details>
+</section>
+
+<section class="card sec rev" id="s0x05" data-k="0x05">
+  <h2><span class="hx">0x05</span>Worker 与异步工具</h2>
+  <div class="grid">
+    <div class="say rv">
+      <p>Worker 在独立上下文里专注一件事, 挂完整的执行工具, 配最强的模型.</p>
+      <p>双层架构让"分不分工"由结构决定, 不看模型临场怎么想.</p>
+      <p>耗时命令或子任务一发起就立即返回"已启动 (Started)", 循环不等; 后台做完, 结果作为一条新事件投回会话</p>
+    </div>
+    <div class="fig stack rv">
+      <svg id="f05" role="img" aria-label="p50 12.4 分钟, p95 15.7 分钟"></svg>
+      <svg id="f05b" role="img" aria-label="同步 run() 与 异步"></svg>
+    </div>
+  </div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="0x05"></div></details>
+</section>
+
+<section class="card sec bare" id="s0x06" data-k="0x06">
+  <h2><span class="hx">0x06</span>上下文按 Cache 管</h2>
+  <div class="grid">
+    <div class="say rv">
+      <p>原文把窗口当 Cache 管, 叫 Inline &amp; Spill: 近期会用的信息 Inline 进来, 超预算或低频的 Spill 出去, 窗内只留引用或摘要.</p>
+      <p>模型于是能顺着引用逐跳展开, 例如 当前消息<span class="nw"> -&gt;</span> 所在 Thread<span class="nw"> -&gt;</span> 相关 Worker Session<span class="nw"> -&gt;</span> 该 Worker 关联的另一个评审 Thread.</p>
+      <p>在 IM 里只说"上周那个方案", 不贴 PR 链接, 当前事件和旧任务之间就没有边可走.</p>
+    </div>
+    <div class="fig stack rv">
+      <svg id="f06" role="img" aria-label="Inline &amp; Spill"></svg>
+      <svg id="f06b" role="img" aria-label="链式召回"></svg>
+    </div>
+  </div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="0x06"></div></details>
+</section>
+
+<section class="card sec rev" id="s0x07" data-k="0x07">
+  <h2><span class="hx">0x07</span>投机执行与按信道回话</h2>
+  <div class="grid">
+    <div class="say rv">
+      <p>主动的另一半是投机执行: 根据环境信号先在后台试, 有价值才交付, 没价值就丢掉, 一声不吭.</p>
+      <p>回话这一步由 Router 统一出口, 按信道带宽定规矩.</p>
+      <p>他们验证过的硬规定是单次回复不超过 <span class="gold">100</span> 词.</p>
+    </div>
+    <div class="fig rv"><svg id="f07" role="img" aria-label="投机执行与按信道回话"></svg></div>
+  </div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="0x07"></div></details>
+</section>
+
+<section class="card sec wide figfirst" id="s0x08" data-k="0x08">
+  <h2><span class="hx">0x08</span>常驻不倒: 存算分离与 Watchdog</h2>
+  <div class="grid">
+    <div class="say rv">
+      <p>第一步把 Agent Loop 的计算放进云端无状态容器, Session 这些持久状态放进数据库.</p>
+      <p>三样东西拆开放以后, 云端的计算容器坏了可以直接换, 状态和用户机器上的环境都不跟着丢.</p>
+      <p>Watchdog 修一个卡死的 Loop, 做法就是扔掉当前计算容器, 从持久状态重建.</p>
+    </div>
+    <div class="fig rv"><svg id="f08" role="img" aria-label="计算, 状态, 执行环境各放哪"></svg></div>
+  </div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="0x08"></div></details>
+</section>
+
+<section class="card sec" id="s0x09" data-k="0x09">
+  <h2><span class="hx">0x09</span>代价与没解决的事</h2>
+  <div class="say rv"><p>下面按"谁来付"列一遍代价.</p></div>
+  <div class="costs rv" id="costs"></div>
+  <h3 class="mini rv">原文第 8 节自己列了四个没解决的问题</h3>
+  <div class="cards rv" id="open"></div>
+  <p class="close rv">我接下来想在侧车里加个计数: 跑满一天, 看有多少比例的 Trigger 根本没进模型.</p>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="0x09"></div></details>
+</section>
+
+</main>
+</div>
+<script type="text/plain" id="src">
+## 0x00 注意力的上限
+
+现在的 Agent 以一个 Session 为单位, Session 之间互不知道. 同时推进三件事, 就得开三个窗口, 自己记住每个窗口在干嘛.
+
+DeepSeek Harness 团队在[《Super-agent 设计探索》](https://www.bilibili.com/opus/1265361021143351318)里把这件事说成: 单任务的上限看模型, 多任务的上限看人的注意力. 给单会话 Agent 加 CLI, MCP 或连接器都绕不开它: 会话还是同步阻塞, 任务一多上下文就混, 本机一离线就停.
+
+他们要的东西叫 Super-agent, 用四个特征定义: 连续 (在 IM 定了方案 A, 转头在 PR 评论里改成 B, 它跟得上), 高效 (不等上一件做完就接下一件), 主动 (自己盯着环境事件, 推进值得处理的事, 不该出声时安静), 持久 (常驻在线, 出错自愈).
+
+一个 ReAct Loop 满足不了这四条, 所以原文拆了五个模块, 每个模块借一条计算机系统里的老思想:
+
+- 双层架构: 支撑连续 + 高效, 借序点, 分层调度.
+- 事件驱动: 支撑主动, 借 Fast Path / Slow Path, Cache 与局部性, 投机执行.
+- 面向人的交互: 支撑连续 + 高效, 借全双工.
+- 计算/状态/环境分离: 支撑持久, 借存算分离.
+- Watchdog: 支撑持久, 借外部 Control Loop.
+
+> [!NOTE]
+> 原文开头就声明: 这是架构思路探讨, 不是 DeepSeek Harness 现有产品功能的介绍. 文末提到的实现插件名在 B 站接口返回里是空的 [不确定], 原文称它是验证路线的原型.
+
+## 0x01 跟着一条 Trigger 走
+
+驱动 Super-agent 的是环境里冒出来的半结构化事件, 原文叫 Trigger: 群聊消息, 邮件与日程提醒, PR 评审评论, CI 结果. 原文把它和人逐条键入的提示词对立起来讲.
+
+下面整篇都跟着一条 Trigger 走. 它从左边进门, 先过程序准入, 再看所在的 Thread 有没有人订阅, 最后由 Worker 执行, 由 Router 统一回话:
+
+![一条 Trigger 的路径: 程序准入丢弃噪音, 已订阅的 Thread 直通 Worker, 未订阅的进 Router 收件箱批量分派, Worker 执行并由 Router 统一回复 ##w800##](trigger-path.drawio.svg)
+
+上图左列管"要不要理它", 中列管"交给谁", 右列管"怎么做, 怎么回". 五个模块里有三个就排在这条路上, 存算分离和 Watchdog 管的是这条路能不能一直开着.
+
+我把这条路写成了一个只用标准库的侧车 [super_agent_sidecar.py](./super_agent_sidecar.py), LLM 用确定性函数代替, `python3 super_agent_sidecar.py` 直接跑. 核心是这段分发:
+
+```python [侧车-分发]
+async def dispatcher(router, workers, stats):
+    while True:
+        t = await DISPATCH_Q.get()
+        if not admit(t):                 # 程序层准入, 不调模型
+            stats["dropped"] += 1
+            continue
+        subs = SUBSCRIPTIONS.get(t.thread_id)
+        if subs:                         # 已订阅: 直通 Worker
+            stats["direct"] += 1
+            for wid in subs:
+                await workers[wid].handle(t)
+        else:                            # 未订阅: 进 Router 收件箱
+            stats["to_router"] += 1
+            await router.inbox.put(t)
+```
+
+```text [侧车-运行输出]
+== 突发: 5 条同时到达
+  [worker-1] m1: 登录页按钮错位, 谁能修一下
+  [worker-2] m3: PR #7 review: 缓存层加个 TTL
+  [worker-3] m5: CI 失败: test_auth 超时
+  [router] 第 1 次调用, batch=4
+== 后续: 同一 Thread 的跟进
+  [worker-1] m6: 顺便把 hover 颜色也改了
+  [worker-2] m7: 发起 task-1 -> Started, 不阻塞
+  [worker-2] task-1-done: task-1 完成: 12 passed
+== 统计
+  丢弃 1, 直通 3, 进 Router 4
+  Router 调用 1 次, 做了 4 个决定
+```
+
+字段名是我自拟的, 原文只给语义. 下面几节按这段输出的顺序讲.
+
+## 0x02 进门: 两级过滤
+
+接进真实群聊和代码平台以后, 事件流是"高噪音, 低触发率"的: 大部分消息跟 Agent 无关. 所以先由程序挡一道, 再让模型挡一道.
+
+程序层按来源, 群组范围, 用户或机器人白名单做确定性准入. 每个来源可以设成三种之一: 仅响应明确请求, 作为候选事件, 直接忽略. 侧车里的 `ADMISSION` 就是这张规则, 机器人发的站会提醒在这里被丢掉, 一次模型都没调.
+
+通过准入的候选事件才交给 LLM, 按提示词里写的策略判断要不要行动. 这一层顺便是个扩展点: 想加一条策略, 用自然语言写进提示词就行.
+
+> [!TIP]
+> 下面是我对照 3.1 与 3.2 两节的归纳, 原文没有合并着说. 白名单和下一节的订阅表是同一个做法: 模型只做第一次判断, 判断结果写成程序状态, 之后由代码执行. 系统能绕开模型的比例, 看有多少判断已经被写成了状态. 反过来, 下面 0x06 的 Inline & Spill 不属于这条规则: 它决定喂多少信息, 不决定绕不绕过模型.
+
+## 0x03 已订阅的 Thread 直通
+
+Thread 是同一个 PR, 同一个 IM 话题, 或同一串往来邮件下的连续事件. Router 看到一个新 Thread 的第一条事件, 建一个 Worker, 让它订阅这个 Thread.
+
+之后同一 Thread 的事件由程序直接送到那个 Worker, Router 不再调工具转发. 侧车输出里 `m6` 和 `m7` 就是这样走的: 没进 Router, 直接到了 worker-1 和 worker-2.
+
+订阅是多对多的. 事件超出任务范围时, Worker 可以退订或交回 Router; 没被订阅的新事件才轮到 Router 判断. Router 仍然看得到所有事件, 只是不再替已订阅的 Thread 做决定.
+
+直通省了什么, 原文 7.1 节做了消融: 去掉直通以后, 完成时间基本不变, Router 的决定数多了约 30%, 总读缓存 token 从 2323 万涨到 3177 万 (约 37%). 实验是合成负载, 单次约 300 条消息里约 20 条工作请求, 每种方案重复 5 次.
+
+所以在这组负载下, 直通不提高完成质量和速度 (完成时间基本不变), 只省了 Router 的 token 和推理开销. 去掉它 Router 峰值负载变高, 但还没碰到单个 Router 的吞吐瓶颈.
+
+## 0x04 Router: 序点与批处理
+
+先看两个极端. 所有事件塞进一个 Session: 上下文最连续, 但一个 ReAct Loop 是串行的, 吞吐低, 几件事的细节搅在一起. 每条事件新开一个 Session: 吞吐最高, 但每个都没有全局上下文, 而且会各自跑去回复用户.
+
+双层架构取中间: 常驻的 Router 层承接所有入口的人类交互和全局协调, Worker 层并发干活. "双层"指逻辑职责, 每层内部可以再有结构.
+
+Router 是全局序点, 协调点和记忆. 它只做交互和分派, 不亲自执行, 原文说它甚至可以不配 Bash. 它也不是 Agent Team 里的 Team Lead: Team Lead 要深入拆一个复杂任务, 推理很重; Router 只管任务之间的关联, 任务常常不复杂, 较轻量的模型能兼顾速度和效果.
+
+突发事件靠批处理扛. Router 推理期间到达的 Trigger 先排队, 下一轮合并进一次 LLM 调用. 侧车里突发 5 条, 丢掉 1 条后剩下 4 条在一次调用里分派完, 就是 `batch=4`.
+
+原文 7.2 节压测了这件事 (Router 调真实模型, Worker 用 Mock): Trigger 到达速率从约 1 条/分钟升到约 40 条/分钟, 平均 batch 从 1.0 升到 2.8, 单次请求从 2.5 秒变成 3.9 秒, 摊到每个决定上的推理时间从 6.4 秒降到 1.6 秒.
+
+> [!TIP]
+> 批处理摊薄的是 Prefill, 也就是输入侧的并行计算; 输出 token 的解码还是按长度串行. 所以这招成立的前提是 Router 每一步"长输入, 短输出". 不配 Bash, 不亲自执行, 都在保这个前提. 我是从 2.1 节两句话反推的, 7.2 节的 2.5 -> 3.9 秒正好对得上.
+
+规模再大, Router 可以内部多层过滤, 或者水平切成多个会话. 切得越细, 并发越高, 分片之间的记忆越断. 这条权衡在全局记忆解决之前一直存在; 按原文的说法, 以他们团队现在的规模, 单个 Router 加直通加链式召回已经够用.
+
+## 0x05 Worker 与异步工具
+
+Worker 在独立上下文里专注一件事, 挂完整的执行工具, 配最强的模型. Worker Session 直接决定任务结果和代码质量. 它的推理和工具调用不往外部信道吐, 只向 Router 汇报.
+
+Worker 之间一般不直接通信. 冲突多半出现在同一个 PR 这种共享环境里, 而订阅同一 Thread 的 Worker 会收到相同事件, 有机会自己发现并解决冲突; 少数跨任务协同由 Router 中转. Worker 内部再开 Subagent 或者本身就是一个 Agent Team, Router 都不用知道.
+
+分工交给结构还是交给提示词, 7.1 节有对照. 同样是约 300 条消息, 约 20 条工作请求, 重复 5 次:
+
+- Super-agent (双层架构): p50 12.4 分钟, p95 15.7 分钟.
+- 单 Session + Subagent, 中性提示: 5 次里 0 次委派, 全在主 Session 里做并被新消息打断, p95 29.5 分钟.
+- 单 Session + Subagent, 优先委派提示: 5 次里 4 次委派, 变快但仍慢于 Super-agent; 剩下 1 次模型觉得活"很小"自己做了, 拖出长尾.
+
+中性提示原文是 "Use a subagent for a piece of work when appropriate...". 双层架构让"分不分工"由结构决定, 不看模型临场怎么想. 代价是多个独立会话, 单次实验的读缓存 token 比单 Session 高.
+
+会话本身也要能边干边听. 经典 ReAct Loop 发起一次同步 `run()` 就阻塞到工具返回, 中间来了新消息也没法理. 原文 4.1 节的异步版本是: 耗时命令或子任务一发起就立即返回"已启动 (Started)", 循环不等; 后台做完, 结果作为一条新事件投回会话; 跑太久的后台命令, 模型可以按上下文主动终止.
+
+侧车里 `m7` 发起 `task-1` 后立刻返回 Started, 做完以后 `task-1-done` 以 `source="task"` 的 Trigger 回到分发队列, 又因为 `pr-7` 已被订阅而直通回 worker-2. 新输入在当前推理步结束后就能处理, 这就是原文说的全双工.
+
+> [!NOTE]
+> 原文 4.1 节用行内代码写了几个异步工具的名字, B 站接口返回里这些位置是空的, 真实名称 [不确定]. 原文说该机制已经在 DeepSeek Harness 里实现, 截至发文时还没默认开启.
+
+## 0x06 上下文按 Cache 管
+
+每条 Trigger 进上下文时, 都要决定带多少东西. 放多了挤窗口, 稀释注意力; 放少了模型得反复调工具去读, 步数变多.
+
+原文把窗口当 Cache 管, 叫 Inline & Spill: 近期会用的信息 Inline 进来, 超预算或低频的 Spill 出去, 窗内只留引用或摘要.
+
+Inline 按局部性分三步: 先放当前对象的 ID 和摘要; 再内联紧密关联对象的 ID; 再附时空相邻的内容, 比如内容前 50 字, IM 消息前后的相邻消息和被回复的那条, 评审评论所在讨论里的相邻评论.
+
+长内容设小上限, 超出部分截断并留续读入口.
+
+侧车 `Trigger.summary` 只取前 50 字, `ref_ids` 放关联 ID, 就是这一层的最小版.
+
+链式召回是在它上面再走一步: Trigger, Thread, Worker Session 都有唯一 ID, 注入时互相内联, 召回结果自己也按 Inline & Spill 带着下一跳的摘要和 ID.
+
+模型于是能顺着引用逐跳展开, 例如 当前消息 -> 所在 Thread -> 相关 Worker Session -> 该 Worker 关联的另一个评审 Thread. 它主要覆盖近期任务, 缓解 Router 长跑以后忘事.
+
+> [!TIP]
+> 3.3 节没写这一点, 但按它的定义, 链式召回每一跳都沿内联的 ID 走, 所以当前事件里至少得有一个关联 ID. 在 IM 里只说"上周那个方案", 不贴 PR 链接, 当前事件和旧任务之间就没有边可走. 吃亏的是跨信道, 不带链接去追问几周前任务的人.
+
+## 0x07 投机执行与按信道回话
+
+主动的另一半是投机执行: 根据环境信号先在后台试, 有价值才交付, 没价值就丢掉, 一声不吭.
+
+原文举了两个例子. 收到会议邀约时, 先核对日程冲突, 搜背景, 备好回复草稿, 等用户过目再发. DeepSeek Harness 内部用户群配了"静默复现并修复": 有人反馈问题, Agent 先在后台复现找修复, 确认是问题且找到简单修复才出声, 否则全程安静.
+
+回话这一步由 Router 统一出口, 按信道带宽定规矩. IM 这类即时信道只在要决策或验收时打扰人, 只问直接问题, 给短结论; 他们验证过的硬规定是单次回复不超过 100 词. GitHub, 邮件, 文档这类异步信道反过来, 按项目规范写全背景, 改动说明和验证结果.
+
+这条做得到, 靠的是双层架构已经把冗长推理和密集工具调用关在 Worker 里.
+
+## 0x08 常驻不倒: 存算分离与 Watchdog
+
+前面整条路要一直开着. 本地 Agent 默认把计算, 会话状态, 执行环境绑在同一台机器上, 机器一休眠 Agent 就停.
+
+第一步把 Agent Loop 的计算放进云端无状态容器, Session 这些持久状态放进数据库. 容器可以水平扩, 重启, 替换, 连续性由存储保证.
+
+第二步是执行环境. 在云端沙箱里重建一份真实环境很难: 未提交的修改, 私有凭据, 内网依赖, 特定硬件和工具链都要同步. 让用户整个搬到云上又太贵. 原文的做法是让环境留在原地, 端侧只跑一个轻量 daemon: 不存会话状态, 只执行命令, 返回结果.
+
+![计算, 状态, 执行环境各放哪: Agent Loop 在云端无状态容器, Session 在数据库, 执行环境留在用户机器由端侧 daemon 收命令回结果, Watchdog 重建计算容器 ##w800##](compute-state-env.png)
+
+三样东西拆开放以后, 云端的计算容器坏了可以直接换, 状态和用户机器上的环境都不跟着丢.
+
+这和 Anthropic 提的"脑手分离" (Decoupling the brain from the hands) 一致: harness 无状态, 会话日志在 harness 外面, 按需接执行环境. 区别在场景: Anthropic 那篇针对托管服务 (按需沙箱, 客户 VPC 内资源), 这里首先接会间歇离线的个人机器.
+
+方案支持 BYOM (Bring Your Own Machine), 也支持云托管机器; 设备重新上线, 云端自动补跑该在它上面执行的任务.
+
+> [!TIP]
+> 原文没把这件事和 DSH 现有的 Runtime 对起来, 我对了一下: 这个 daemon 有现成的接入点. [DSH Runtime 那篇讲的能力接缝](hxid:hx-3acd866f): 上层工具只依赖统一的文件服务和子进程服务, 两个 provider 一起换掉, 执行环境就整体迁到远处. 端侧 daemon 相当于一个新 provider, 面向模型的工具不用改.
+
+光分离还不够. 很多 Agent 异常出在模型原地打转或者跑偏, 进程好好活着, 存活探测和监控脚本都看不出来. 所以原文在主系统外面放了一个由定时消息驱动的独立 Agent Session, 叫 Watchdog.
+
+它处理接口报错和状态恢复失败, 也让模型判断每个 Worker 有没有实质进展, 方向有没有偏离总目标; 外部偶发故障就一直复查到恢复. 它自己有完整工具, 维护者可以直接问它故障原因, 或者让它在线改提示词, 调触发规则.
+
+> [!TIP]
+> Watchdog 修一个卡死的 Loop, 做法就是扔掉当前计算容器, 从持久状态重建. 计算和状态还在同一台机器上时, 重启计算会把状态一起丢掉, Watchdog 只能告警. 原文第 6 节以"除了第 5 节的存算分离, 还需要"开头, 也是把两者当成持久在线的两个条件 (这层依赖是我推的).
+
+## 0x09 代价与没解决的事
+
+下面按"谁来付"列一遍代价. 原文写了一部分, 剩下几条是我按它的实验条件推的:
+
+- 双层架构: 多会话的读缓存 token 更高; 收益在约 300 条消息的并发负载下测得, 日均一两个任务的按量付费用户拿不到对应收益.
+- Worker 隔离: 在 IM 里追问实现细节的评审者, 要等 Router 再召回或转问 Worker, 多一跳延迟.
+- 订阅直通: 在这组实验负载下不提高完成质量和速度, 只省 Router Session 的 token 和推理开销.
+- 批处理: 只在约 1 到约 40 条/分钟之间测过; Router 输出一变长, 收益就被吃掉.
+- 投机执行: 被丢弃的尝试照样花钱. 群里一串最后不是 bug 的讨论, 复现的 token 和 CI 费用由配置策略的维护者付.
+
+第 7 节所有数字都来自合成负载和简化环境, 编码工作被只耗时间的工具代替了, 不能当成真实编码任务的完成时间来用. 原文 13 张配图我没做文字识别, 细节以正文为准.
+
+原文第 8 节自己列了四个没解决的问题:
+
+- 扩展: Router 什么时候切, 切多细; Worker 什么时候直接通信. 针对 Router 的事件判别, 批量分派, 上下文召回做专项训练, 是系统和模型协同设计的方向; 跨月的长程记忆是主要瓶颈.
+- 协作: 以聊天窗口为中心被看作路径依赖, 交互可以放进 Issue, PR 这类领域界面; 中途介入, 接管, 实时协同怎么做还没定.
+- 边界: 组织怎么配 Super-agent, 等于怎么划上下文的共享与隔离; 隔离的实例之间要协同, 就是 A2A (不特指某个协议).
+- 安全: 事件驱动把不可信输入面放大了; 云端 Loop 一旦被入侵或被提示词注入攻破, 连着的所有端侧设备都有被控风险; 凭据进上下文就可能泄露, 得让 Agent 用凭据但碰不到凭据本身.
+
+我接下来想在侧车里加个计数: 跑满一天, 看有多少比例的 Trigger 根本没进模型.
+</script>
+<script id="app">
+(function(){
+"use strict";
+var NS='http://www.w3.org/2000/svg';
+var R=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var H=document.documentElement;
+
+/* ---------- diagram data (viewBox units) ---------- */
+var F={};
+F.f00={w:480,h:392,
+ nodes:[
+  {id:'lx',x:4,y:25,w:84,h:40,t:'连续',c:'pill pk'},
+  {id:'zd',x:4,y:107,w:84,h:40,t:'主动',c:'pill pk'},
+  {id:'gx',x:4,y:189,w:84,h:40,t:'高效',c:'pill pk'},
+  {id:'cj',x:4,y:300,w:84,h:40,t:'持久',c:'pill pk'},
+  {id:'m1',x:176,y:16,w:300,h:58,t:'双层架构',s:'借 序点, 分层调度'},
+  {id:'m2',x:176,y:90,w:300,h:74,t:'事件驱动',s:'借 Fast Path / Slow Path,\nCache 与局部性, 投机执行'},
+  {id:'m3',x:176,y:180,w:300,h:58,t:'面向人的交互',s:'借 全双工'},
+  {id:'m4',x:176,y:254,w:300,h:58,t:'计算/状态/环境分离',s:'借 存算分离'},
+  {id:'m5',x:176,y:328,w:300,h:58,t:'Watchdog',s:'借 外部 Control Loop'}],
+ edges:[{a:'lx',b:'m1'},{a:'lx',b:'m3'},{a:'zd',b:'m2'},{a:'gx',b:'m1'},{a:'gx',b:'m3'},{a:'cj',b:'m4'},{a:'cj',b:'m5'}]};
+
+F.f01={w:480,h:530,
+ lines:[{d:'M0 162 H480',c:'sep'},{d:'M0 356 H480',c:'sep'}],
+ texts:[{x:4,y:18,t:'要不要理它',c:'h'},{x:4,y:182,t:'交给谁',c:'h'},{x:4,y:376,t:'怎么做, 怎么回',c:'h'},
+  {x:200,y:288,t:'未订阅',c:'s'},{x:318,y:206,t:'直通',c:'s'},
+  {x:192,y:340,t:'batch=4',c:'g later',id:'bt4'}],
+ nodes:[
+  {id:'s0',x:4,y:30,w:98,h:34,t:'群聊消息',c:'pill',nb:1},
+  {id:'s1',x:108,y:30,w:134,h:34,t:'邮件与日程提醒',c:'pill',nb:1},
+  {id:'s2',x:248,y:30,w:124,h:34,t:'PR 评审评论',c:'pill',nb:1},
+  {id:'s3',x:378,y:30,w:98,h:34,t:'CI 结果',c:'pill',nb:1},
+  {id:'adm',x:170,y:100,w:140,h:40,t:'程序准入',c:'pk'},
+  {id:'drop',x:360,y:104,w:100,h:32,t:'丢弃',c:'ghost',nb:1},
+  {id:'dia',x:180,y:192,w:120,h:58,t:'已订阅?',shape:'dia'},
+  {id:'rt',x:30,y:270,w:150,h:50,t:'Router\n收件箱'},
+  {id:'wk',x:250,y:392,w:150,h:46,t:'Worker',c:'pk'},
+  {id:'bk',x:404,y:292,w:72,h:50,t:'后台',s:'task-1',c:'dash'},
+  {id:'rp',x:30,y:474,w:190,h:44,t:'Router 统一回复'}],
+ edges:[
+  {id:'e-s0',a:'s0',b:'adm',s:'bt',k:26},{id:'e-s1',a:'s1',b:'adm',s:'bt',k:22},{id:'e-s2',a:'s2',b:'adm',s:'bt',k:22},{id:'e-s3',a:'s3',b:'adm',s:'bt',k:26},
+  {id:'e-a2x',a:'adm',b:'drop',s:'rl',c:'dash',k:16},
+  {id:'e-a2d',a:'adm',b:'dia',s:'bt',c:'pk',k:20},
+  {id:'e-d2r',a:'dia',b:'rt',s:'lt',k:30},
+  {id:'e-d2w',a:'dia',b:'wk',s:'rt',c:'pk',k:70},
+  {id:'e-r2w',a:'rt',b:'wk',s:'bl',k:50},
+  {id:'e-w2o',a:'wk',b:'rp',s:'br',k:40},
+  {id:'e-w2b',a:'wk',b:'bk',s:'rb',c:'gd dash',k:24},
+  {id:'e-b2d',a:'bk',b:'dia',s:'tr',c:'gd dash',k:40}]};
+
+F.f02={w:480,h:316,
+ polys:[{p:'10,10 470,10 430,92 50,92',c:'band'},{p:'50,102 430,102 370,222 110,222',c:'band'},{p:'110,232 370,232 330,306 150,306',c:'band pk'}],
+ texts:[{x:240,y:40,t:'事件流',c:'b',a:'m'},{x:240,y:64,t:'高噪音, 低触发率',c:'s',a:'m'},
+  {x:240,y:126,t:'程序层',c:'b',a:'m'},{x:96,y:128,t:'确定性准入',c:'s'},
+  {x:240,y:264,t:'LLM',c:'b',a:'m'},{x:240,y:288,t:'要不要行动',c:'s',a:'m'}],
+ nodes:[
+  {id:'p1',x:92,y:140,w:116,h:32,t:'仅响应明确请求',c:'pill',nb:1},
+  {id:'p2',x:214,y:140,w:102,h:32,t:'作为候选事件',c:'pill pk',nb:1},
+  {id:'p3',x:322,y:140,w:72,h:32,t:'直接忽略',c:'pill ghost',nb:1}],
+ lines:[{d:'M330 156 H386',c:'x'},{d:'M265 172 C265 214 240 210 240 244',c:'pk'}],
+ dots:'rain'};
+
+F.f03={w:480,h:244,
+ texts:[{x:322,y:30,t:'仍然看得到所有事件',c:'s'},{x:240,y:68,t:'订阅',c:'s',a:'m'},{x:240,y:240,t:'多对多',c:'b',a:'m'}],
+ nodes:[
+  {id:'rt',x:170,y:6,w:140,h:36,t:'Router'},
+  {id:'t1',x:6,y:80,w:150,h:38,t:'同一个 PR',nb:1},
+  {id:'t2',x:6,y:134,w:150,h:38,t:'同一个 IM 话题',nb:1},
+  {id:'t3',x:6,y:188,w:150,h:38,t:'同一串往来邮件',nb:1},
+  {id:'w1',x:324,y:80,w:150,h:38,t:'worker-1',c:'pk',nb:1},
+  {id:'w2',x:324,y:134,w:150,h:38,t:'worker-2',c:'pk',nb:1},
+  {id:'w3',x:324,y:188,w:150,h:38,t:'worker-3',c:'pk',nb:1}],
+ edges:[{a:'t1',b:'w1',c:'pk'},{a:'t2',b:'w2',c:'pk'},{a:'t2',b:'w3',c:'pk'},{a:'t3',b:'w2',c:'pk'},
+  {a:'rt',b:'t1',s:'lt',c:'dash no',k:30},{a:'rt',b:'w1',s:'bt',c:'dash no',k:20}]};
+
+F.f04={w:480,h:128,
+ lines:[{d:'M24 40 H456',c:'both'}],
+ nodes:[{id:'dl',x:176,y:20,w:128,h:40,t:'双层架构',c:'pill pk'}],
+ texts:[{x:24,y:80,t:'一个 Session',c:'b'},{x:24,y:100,t:'上下文最连续',c:'s'},{x:24,y:120,t:'吞吐低',c:'s'},
+  {x:456,y:80,t:'每条事件新开一个 Session',c:'b',a:'e'},{x:456,y:100,t:'吞吐最高',c:'s',a:'e'},{x:456,y:120,t:'没有全局上下文',c:'s',a:'e'},
+  {x:240,y:13,t:'取中间',c:'s pk',a:'m'}]};
+
+F.f04b={w:480,h:134,
+ rects:[{x:10,y:34,w:260,h:56,c:'barp'}],
+ texts:[{x:10,y:24,t:'Prefill',c:'b'},{x:140,y:110,t:'并行',c:'s',a:'m'},{x:310,y:24,t:'解码',c:'b'},{x:395,y:110,t:'串行',c:'s',a:'m'},{x:240,y:130,t:'长输入, 短输出',c:'s pk',a:'m'}],
+ gen:'prefill'};
+
+F.f05={w:480,h:262,
+ rects:[{x:199.8,y:34,w:47.85,h:16,c:'barp'}],
+ lines:[{d:'M247.65 54 V232',c:'sep'},{d:'M20 118 H440',c:'sep'},{d:'M258 188 H372',c:'dash'},{d:'M20 236 H468',c:''}],
+ dots:[{x:199.8,y:42,r:5,c:'dotp'},{x:247.65,y:42,r:6,c:'dotg'},{x:447.75,y:118,r:6,c:'dotb'}],
+ texts:[{x:20,y:24,t:'Super-agent',c:'b'},{x:194,y:74,t:'p50 12.4',c:'s',a:'e'},{x:254,y:74,t:[['p95 ',''],['15.7','g cnt']],c:'s'},
+  {x:20,y:100,t:'单 Session · 中性提示',c:'b'},{x:442,y:144,t:'p95 29.5',c:'s',a:'e'},{x:20,y:144,t:'0 次委派',c:'s'},
+  {x:20,y:172,t:'单 Session · 优先委派提示',c:'b'},{x:20,y:212,t:'4 次委派',c:'s'},{x:258,y:212,t:'变快但仍慢于 Super-agent',c:'s'},
+  {x:468,y:256,t:'分钟',c:'s',a:'e'}]};
+
+F.f05b={w:480,h:180,
+ rects:[{x:10,y:32,w:300,h:26,c:'barb'},{x:10,y:106,w:76,h:26,c:'barp'},{x:110,y:146,w:190,h:26,c:'box dash'}],
+ lines:[{d:'M384 45 H318',c:''},{d:'M86 119 H466',c:'pk'},{d:'M48 132 C48 159 80 159 108 159',c:''},{d:'M300 159 C344 159 352 146 352 124',c:'gd'}],
+ texts:[{x:10,y:22,t:'同步 run()',c:'b'},{x:160,y:50,t:'阻塞',c:'s',a:'m'},{x:392,y:50,t:'新消息',c:'s'},
+  {x:10,y:96,t:'异步',c:'b'},{x:48,y:124,t:'Started',c:'s',a:'m'},{x:300,y:110,t:'循环不等',c:'s',a:'m'},
+  {x:205,y:164,t:'后台',c:'s',a:'m'},{x:362,y:154,t:'新事件',c:'s'}]};
+
+F.f06={w:480,h:298,
+ rects:[{x:10,y:26,w:330,h:264,c:'box'},{x:26,y:48,w:298,h:214,c:'box r3'},{x:56,y:96,w:238,h:132,c:'box r2'},{x:96,y:138,w:158,h:58,c:'box r1'}],
+ texts:[{x:14,y:18,t:'上下文',c:'h'},{x:175,y:72,t:[['时空相邻 · 内容前 ',''],['50','g cnt'],[' 字','']],c:'s',a:'m'},
+  {x:175,y:120,t:'紧密关联对象 ID',c:'s',a:'m'},{x:175,y:162,t:'当前对象',c:'b',a:'m'},{x:175,y:184,t:'ID 和摘要',c:'s',a:'m'},
+  {x:175,y:250,t:'引用或摘要',c:'s',a:'m'}],
+ lines:[{d:'M324 157 H392',c:'pk'}],
+ nodes:[{id:'sp',x:396,y:137,w:78,h:40,t:'Spill',c:'dash'}]};
+
+F.f06b={w:480,h:206,
+ nodes:[
+  {id:'h1',x:0,y:14,w:108,h:56,t:'当前消息',c:'pk'},
+  {id:'h2',x:124,y:14,w:108,h:56,t:'所在\nThread'},
+  {id:'h3',x:248,y:14,w:108,h:56,t:'相关 Worker\nSession'},
+  {id:'h4',x:372,y:14,w:108,h:56,t:'另一个评审\nThread'},
+  {id:'b1',x:30,y:128,w:150,h:40,t:'上周那个方案',c:'dash',nb:1},
+  {id:'b2',x:300,y:128,w:120,h:40,t:'旧任务',c:'dash',nb:1}],
+ edges:[{a:'h1',b:'h2',c:'pk',k:6},{a:'h2',b:'h3',c:'pk',k:6},{a:'h3',b:'h4',c:'pk',k:6}],
+ lines:[{d:'M184 148 H224',c:'dash no'},{d:'M256 148 H296',c:'dash'}],
+ texts:[{x:240,y:98,t:'链式召回',c:'s',a:'m'},{x:240,y:154,t:'×',c:'b',a:'m'},{x:240,y:196,t:'没有边可走',c:'s',a:'m'}]};
+
+F.f07={w:480,h:340,
+ lines:[{d:'M0 168 H480',c:'sep'}],
+ nodes:[
+  {id:'n1',x:0,y:52,w:110,h:44,t:'环境信号'},
+  {id:'n2',x:150,y:52,w:104,h:44,t:'后台试',c:'dash'},
+  {id:'n3',x:340,y:6,w:120,h:44,t:'交付',c:'pk'},
+  {id:'n4',x:340,y:92,w:120,h:52,t:'丢掉',s:'静默',c:'ghost'},
+  {id:'r',x:0,y:232,w:120,h:56,t:'Router\n统一出口'},
+  {id:'c1',x:190,y:184,w:286,h:66,t:'即时信道 · IM',top:1,c:'pk'},
+  {id:'c2',x:190,y:268,w:286,h:66,t:'异步信道',top:1}],
+ edges:[{a:'n1',b:'n2'},{a:'n2',b:'n3',c:'pk'},{a:'n2',b:'n4',c:'dash'},{a:'r',b:'c1',c:'pk'},{a:'r',b:'c2'}],
+ texts:[{x:286,y:24,t:'有价值',c:'s',a:'m'},{x:286,y:140,t:'没价值',c:'s',a:'m'},
+  {x:333,y:236,t:[['单次回复不超过 ',''],['100','g cnt'],[' 词','']],c:'s',a:'m'},
+  {x:333,y:320,t:'GitHub, 邮件, 文档',c:'s',a:'m'}]};
+
+F.f08={w:480,h:300,
+ rects:[{x:0,y:26,w:480,h:184,c:'box zone'}],
+ texts:[{x:74,y:18,t:'计算',c:'h',a:'m'},{x:240,y:18,t:'状态',c:'h',a:'m'},{x:406,y:18,t:'环境',c:'h',a:'m'},
+  {x:240,y:196,t:'执行命令, 返回结果',c:'s',a:'m'},{x:84,y:232,t:'重建',c:'s pk'}],
+ nodes:[
+  {id:'vm',x:4,y:34,w:140,h:96,t:'云端无状态容器',s:'Agent Loop',c:'vm'},
+  {id:'db',x:170,y:34,w:140,h:96,t:'数据库',s:'Session'},
+  {id:'um',x:336,y:34,w:140,h:96,t:'用户机器',s:'执行环境\n端侧 daemon'},
+  {id:'wd',x:4,y:248,w:140,h:44,t:'Watchdog',c:'dash'},
+  {id:'bm',x:300,y:248,w:176,h:44,t:'脑手分离 / BYOM',nb:1}],
+ edges:[{a:'vm',b:'db',c:'both'},{a:'vm',b:'um',s:'bb',oa:[30,0],k:56},{a:'wd',b:'vm',s:'tb',c:'rebuild',k:10}],
+ raw:[{d:'M60 40 L74 62 L62 80 L80 104 L70 128',c:'crack'}]};
+
+
+/* 0x01 narrow layout (<=600px): same ids, fewer columns, larger type */
+F.f01m={w:320,h:520,
+ lines:[{d:'M0 160 H320',c:'sep'},{d:'M0 362 H320',c:'sep'}],
+ texts:[{x:0,y:14,t:'要不要理它',c:'h'},{x:0,y:180,t:'交给谁',c:'h'},{x:0,y:382,t:'怎么做, 怎么回',c:'h'},
+  {x:4,y:236,t:'未订阅',c:'s'},{x:220,y:200,t:'直通',c:'s'},
+  {x:60,y:352,t:'batch=4',c:'g later',id:'bt4'}],
+ nodes:[
+  {id:'s0',x:0,y:24,w:74,h:46,t:'群聊消息',c:'pill',nb:1},
+  {id:'s1',x:82,y:24,w:78,h:46,t:'邮件与\n日程提醒',c:'pill',nb:1},
+  {id:'s2',x:168,y:24,w:74,h:46,t:'PR\n评审评论',c:'pill',nb:1},
+  {id:'s3',x:250,y:24,w:70,h:46,t:'CI 结果',c:'pill',nb:1},
+  {id:'adm',x:100,y:104,w:120,h:38,t:'程序准入',c:'pk'},
+  {id:'drop',x:246,y:108,w:72,h:30,t:'丢弃',c:'ghost',nb:1},
+  {id:'dia',x:110,y:188,w:100,h:54,t:'已订阅?',shape:'dia'},
+  {id:'rt',x:0,y:264,w:120,h:50,t:'Router\n收件箱'},
+  {id:'wk',x:150,y:392,w:120,h:44,t:'Worker',c:'pk'},
+  {id:'bk',x:262,y:282,w:58,h:48,t:'后台',s:'task-1',c:'dash'},
+  {id:'rp',x:0,y:472,w:170,h:42,t:'Router 统一回复'}],
+ edges:[
+  {id:'e-s0',a:'s0',b:'adm',s:'bt',k:18},{id:'e-s1',a:'s1',b:'adm',s:'bt',k:16},{id:'e-s2',a:'s2',b:'adm',s:'bt',k:16},{id:'e-s3',a:'s3',b:'adm',s:'bt',k:18},
+  {id:'e-a2x',a:'adm',b:'drop',s:'rl',c:'dash',k:10},
+  {id:'e-a2d',a:'adm',b:'dia',s:'bt',c:'pk',k:16},
+  {id:'e-d2r',a:'dia',b:'rt',s:'lt',k:26},
+  {id:'e-d2w',a:'dia',b:'wk',s:'rt',c:'pk',k:56},
+  {id:'e-r2w',a:'rt',b:'wk',s:'bl',k:40},
+  {id:'e-w2o',a:'wk',b:'rp',s:'br',k:30},
+  {id:'e-w2b',a:'wk',b:'bk',s:'rb',c:'gd dash',k:20},
+  {id:'e-b2d',a:'bk',b:'dia',s:'tr',c:'gd dash',k:30}]};
+if(window.matchMedia&&matchMedia('(max-width:600px)').matches)F.f01=F.f01m;
+
+/* ---------- bars / lists data ---------- */
+var BARS={
+ b03:[
+  {h:'读缓存 token',k:'<span>约 <b class="gold"><span class="cnt" data-to="37">37</span>%</b></span>',rows:[{l:'直通',w:2323/3177,v:'2323 万',c:'bl'},{l:'去掉直通',w:1,v:'3177 万'}]},
+  {h:'Router 决定数',e:'多了约 30%',rows:[{l:'直通',w:1/1.3,c:'bl'},{l:'去掉直通',w:1}]},
+  {h:'完成时间',e:'基本不变',rows:[{l:'直通',w:1,c:'bl'},{l:'去掉直通',w:1}]}],
+ b04:[
+  {h:'平均 batch',rows:[{l:'约 1 条/分钟',w:1/2.8,v:'1.0',c:'bl'},{l:'约 40 条/分钟',w:1,v:'2.8'}]},
+  {h:'单次请求',rows:[{l:'约 1 条/分钟',w:2.5/3.9,v:'2.5 秒',c:'bl'},{l:'约 40 条/分钟',w:1,v:'3.9 秒'}]},
+  {h:'每个决定',rows:[{l:'约 1 条/分钟',w:1,v:'6.4 秒',c:'bl'},{l:'约 40 条/分钟',w:1.6/6.4,v:'<span class="gold"><span class="cnt" data-to="1.6">1.6</span> 秒</span>',c:'gd'}]}]
+};
+var COSTS=[
+ ['双层架构','多会话的读缓存 token 更高; 收益在约 300 条消息的并发负载下测得, 日均一两个任务的按量付费用户拿不到对应收益.'],
+ ['Worker 隔离','在 IM 里追问实现细节的评审者, 要等 Router 再召回或转问 Worker, 多一跳延迟.'],
+ ['订阅直通','在这组实验负载下不提高完成质量和速度, 只省 Router Session 的 token 和推理开销.'],
+ ['批处理','只在约 1 到约 40 条/分钟之间测过; Router 输出一变长, 收益就被吃掉.'],
+ ['投机执行','被丢弃的尝试照样花钱. 群里一串最后不是 bug 的讨论, 复现的 token 和 CI 费用由配置策略的维护者付.']];
+var OPEN=[
+ ['扩展','跨月的长程记忆是主要瓶颈.'],
+ ['协作','中途介入, 接管, 实时协同怎么做还没定.'],
+ ['边界','隔离的实例之间要协同, 就是 A2A (不特指某个协议).'],
+ ['安全','事件驱动把不可信输入面放大了']];
+
+/* ---------- svg renderer ---------- */
+function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a){if(a[k]!=null)e.setAttribute(k,a[k]);}if(p)p.appendChild(e);return e;}
+var NV={l:[-1,0],r:[1,0],t:[0,-1],b:[0,1]};
+function anc(n,s){
+  if(n.shape==='dia'){var cx=n.x+n.w/2,cy=n.y+n.h/2;return{l:[n.x,cy],r:[n.x+n.w,cy],t:[cx,n.y],b:[cx,n.y+n.h]}[s];}
+  return{l:[n.x,n.y+n.h/2],r:[n.x+n.w,n.y+n.h/2],t:[n.x+n.w/2,n.y],b:[n.x+n.w/2,n.y+n.h]}[s];
+}
+function isPlain(c){return /\b(dash|sep|x)\b/.test(c||'');}
+function txt(T,g){
+  var a={x:T.x,y:T.y,'class':T.c||null,'text-anchor':T.a==='m'?'middle':T.a==='e'?'end':null,id:T.id||null};
+  var t=el('text',a,g);
+  if(Array.isArray(T.t)){T.t.forEach(function(p){var s=el('tspan',{'class':p[1]||null},t);s.textContent=p[0];if(/\bcnt\b/.test(p[1]))s.setAttribute('data-to',p[0]);});}
+  else t.textContent=T.t;
+  return t;
+}
+function line(L,g,i){
+  var c=L.c||'',plain=isPlain(c);
+  var p=el('path',{d:L.d,'class':'ln '+c+(plain?'':' draw'),pathLength:plain?null:1},g);
+  p.style.setProperty('--i',i||0);return p;
+}
+function draw(svg,S){
+  svg.setAttribute('viewBox','0 0 '+S.w+' '+S.h);
+  var gB=el('g',{'class':'bg'},svg),gE=el('g',{'class':'edges'},svg),gN=el('g',{'class':'nodes'},svg),gT=el('g',{'class':'labels'},svg);
+  var N={},ei=0;
+  (S.polys||[]).forEach(function(P){el('polygon',{points:P.p,'class':P.c},gB);});
+  (S.rects||[]).forEach(function(r){el('rect',{x:r.x,y:r.y,width:r.w,height:r.h,'class':r.c},gB);});
+  (S.lines||[]).forEach(function(L){line(L,gE,ei++);});
+  (S.nodes||[]).forEach(function(n){N[n.id]=n;});
+  (S.edges||[]).forEach(function(e){
+    var A=N[e.a],B=N[e.b],s=e.s||'rl',p=anc(A,s[0]).slice(),q=anc(B,s[1]).slice();
+    if(e.oa){p[0]+=e.oa[0];p[1]+=e.oa[1];}
+    var k=e.k||Math.max(20,Math.hypot(q[0]-p[0],q[1]-p[1])*.35),u=NV[s[0]],v=NV[s[1]];
+    var d='M'+p.join(' ')+' C'+(p[0]+u[0]*k)+' '+(p[1]+u[1]*k)+' '+(q[0]+v[0]*k)+' '+(q[1]+v[1]*k)+' '+q.join(' ');
+    var path=line({d:d,c:e.c},gE,ei++);
+    path.setAttribute('data-e',e.a+' '+e.b);
+    if(e.id)path.id=e.id;
+  });
+  (S.nodes||[]).forEach(function(n){
+    var g=el('g',{'class':'nd '+(n.c||''),'data-n':n.id},gN),cx=n.x+n.w/2;
+    if(n.shape==='dia'){var cy=n.y+n.h/2;el('polygon',{points:[n.x,cy,cx,n.y,n.x+n.w,cy,cx,n.y+n.h].join(' '),'class':'box '+(n.c||'')},g);}
+    else el('rect',{x:n.x,y:n.y,width:n.w,height:n.h,'class':'box '+(n.c||'')},g);
+    var L=n.t.split('\n'),S2=n.s?n.s.split('\n'):[],tot=L.length*19+S2.length*17;
+    var y0=n.top?n.y+8:n.y+n.h/2-tot/2;
+    L.forEach(function(t,j){var e=el('text',{x:cx,y:y0+j*19+14,'text-anchor':'middle','class':n.nb?null:'b'},g);e.textContent=t;});
+    S2.forEach(function(t,j){var e=el('text',{x:cx,y:y0+L.length*19+j*17+13,'text-anchor':'middle','class':'s'},g);e.textContent=t;});
+    g.addEventListener('mouseenter',function(){hot(svg,n.id,true);});
+    g.addEventListener('mouseleave',function(){hot(svg,n.id,false);});
+  });
+  (S.raw||[]).forEach(function(r){el('path',{d:r.d,'class':r.c},gN);});
+  (S.texts||[]).forEach(function(T){txt(T,gT);});
+  if(Array.isArray(S.dots))S.dots.forEach(function(d){el('circle',{cx:d.x,cy:d.y,r:d.r,'class':d.c},gT);});
+  if(S.dots==='rain'){for(var i=0;i<24;i++){var x=72+i*14.6,y=76+((i*37)%7);el('circle',{cx:x,cy:y,r:i%6===2?3.4:2.4,'class':i%6===2?'dotp':'dotf'},gB);}}
+  if(S.gen==='prefill'){
+    for(var j=0;j<9;j++){line({d:'M'+(32+j*26)+' 82 V46',c:'pk'},gE,ei++);}
+    for(var m=0;m<6;m++){el('rect',{x:310+m*28,y:40+m*8,width:18,height:22,'class':'barb'},gB);
+      if(m<5)line({d:'M'+(328+m*28)+' '+(51+m*8)+' H'+(337+m*28),c:'no'},gE,ei++);}
+  }
+}
+function hot(svg,id,on){
+  svg.querySelectorAll('[data-e]').forEach(function(p){if(p.getAttribute('data-e').split(' ').indexOf(id)>-1)p.classList.toggle('hot',on);});
+}
+
+/* ---------- html blocks ---------- */
+function bars(id,G){
+  var box=document.getElementById(id);if(!box)return;var h='',n=0;
+  G.forEach(function(g){
+    h+='<div class="bg"><h4>'+g.h+(g.e?' <em>'+g.e+'</em>':'')+(g.k?' <span class="kpi">'+g.k+'</span>':'')+'</h4>';
+    g.rows.forEach(function(r){h+='<div class="br"><span>'+r.l+'</span><span class="tr"><span class="fl '+(r.c||'')+'" style="--w:'+r.w.toFixed(4)+';--i:'+(n++)+'"></span></span><span class="v">'+(r.v||'')+'</span></div>';});
+    h+='</div>';
+  });
+  box.innerHTML=h;
+}
+function lists(){
+  var c=document.getElementById('costs'),o=document.getElementById('open');
+  c.innerHTML=COSTS.map(function(x){return '<div class="cost"><span class="pill pk">'+x[0]+'</span><span>'+x[1]+'</span></div>';}).join('');
+  o.innerHTML=OPEN.map(function(x){return '<div class="pc"><b>'+x[0]+'</b>'+x[1]+'</div>';}).join('');
+}
+
+/* ---------- markdown (source text) ---------- */
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function inl(s){
+  s=esc(s).replace(/`([^`]+)`/g,'<code>$1</code>');
+  return s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,function(m,t,u){
+    return /^(https?:\/\/|\.\/)/.test(u)?'<a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>':'<span class="ref">'+t+'</span>';});
+}
+function md(t){
+  var L=t.split('\n'),o=[],i=0,b,m;
+  while(i<L.length){
+    var l=L[i];
+    if(/^```/.test(l)){var info=l.slice(3).trim();b=[];i++;while(i<L.length&&!/^```/.test(L[i]))b.push(L[i++]);i++;
+      o.push('<figure>'+(info?'<figcaption>'+esc(info)+'</figcaption>':'')+'<pre><code>'+esc(b.join('\n'))+'</code></pre></figure>');continue;}
+    if(/^>/.test(l)){b=[];while(i<L.length&&/^>/.test(L[i]))b.push(L[i++].replace(/^> ?/,''));
+      m=/^\[!(NOTE|TIP)\]\s*$/.exec(b[0]);var k='note';if(m){k=m[1].toLowerCase();b.shift();}
+      o.push('<div class="co '+k+'">'+(m?'<b>'+m[1]+'</b>':'')+'<p>'+inl(b.join(' '))+'</p></div>');continue;}
+    if(/^- /.test(l)){b=[];while(i<L.length&&/^- /.test(L[i]))b.push('<li>'+inl(L[i++].slice(2))+'</li>');o.push('<ul>'+b.join('')+'</ul>');continue;}
+    m=/^!\[([^\]]*)\]\(([^)]*)\)\s*$/.exec(l);
+    if(m){o.push('<p class="cap">'+inl(m[1].replace(/\s*##w\d+##\s*/,''))+'</p>');i++;continue;}
+    if(!l.trim()){i++;continue;}
+    b=[];while(i<L.length&&L[i].trim()&&!/^(```|>|- |!\[)/.test(L[i]))b.push(L[i++]);
+    o.push('<p>'+inl(b.join(' '))+'</p>');
+  }
+  return o.join('');
+}
+var SRC=document.getElementById('src').textContent;
+var RUNLOG=[];
+(function(){
+  SRC.split(/^## /m).forEach(function(p){
+    if(!p.trim())return;var nl=p.indexOf('\n'),key=p.slice(0,4),body=p.slice(nl+1);
+    var box=document.querySelector('[data-raw="'+key+'"]');if(box)box.innerHTML=md(body);
+  });
+  var m=/```text[^\n]*\n([\s\S]*?)```/.exec(SRC);if(m)RUNLOG=m[1].replace(/\n$/,'').split('\n');
+})();
+
+/* ---------- build ---------- */
+Object.keys(F).forEach(function(id){var s=document.getElementById(id);if(s)draw(s,F[id]);});
+Object.keys(BARS).forEach(function(id){bars(id,BARS[id]);});
+lists();
+
+/* ---------- theme ---------- */
+var btns=document.querySelectorAll('.tgl button');
+function setT(t,save){H.setAttribute('data-theme',t);btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-t')===t));});
+  if(save){try{localStorage.setItem('hx-viz-theme',t);}catch(e){}}}
+setT(H.getAttribute('data-theme')||'light');
+btns.forEach(function(b){b.addEventListener('click',function(){setT(b.getAttribute('data-t'),true);});});
+if(window.matchMedia){var mq=matchMedia('(prefers-color-scheme: dark)');var onMq=function(e){var s=null;try{s=localStorage.getItem('hx-viz-theme');}catch(x){}if(!s)setT(e.matches?'dark':'light');};
+  if(mq.addEventListener)mq.addEventListener('change',onMq);}
+
+/* ---------- toc ---------- */
+var secs=[].slice.call(document.querySelectorAll('.sec[data-k]'));
+var toc=document.querySelector('.toc');
+secs.forEach(function(s){var a=document.createElement('a');a.href='#'+s.id;var h=s.querySelector('h2').cloneNode(true);var k=h.querySelector('.hx');k.remove();
+  a.innerHTML='<b>'+s.getAttribute('data-k')+'</b>'+esc(h.textContent.trim());toc.appendChild(a);s._a=a;});
+if('IntersectionObserver' in window){
+  var cur=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){secs.forEach(function(s){s._a.classList.toggle('cur',s===e.target);});}});},{rootMargin:'-35% 0px -60% 0px'});
+  secs.forEach(function(s){cur.observe(s);});
+}
+
+/* ---------- progress ---------- */
+var prog=document.getElementById('prog'),tick=false;
+function onScroll(){var d=document.documentElement,mx=d.scrollHeight-d.clientHeight;prog.style.transform='scaleX('+(mx>0?Math.min(1,d.scrollTop/mx):0)+')';tick=false;}
+addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(onScroll);}},{passive:true});onScroll();
+
+/* ---------- reveal + count ---------- */
+function count(e){
+  var s=e.getAttribute('data-to'),to=parseFloat(s),dp=(s.split('.')[1]||'').length;
+  if(R){e.textContent=s;return;}
+  var t0=0,D=1300;e.textContent=(0).toFixed(dp);
+  function f(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/D);p=1-Math.pow(1-p,3);e.textContent=(to*p).toFixed(dp);if(p<1)requestAnimationFrame(f);else e.textContent=s;}
+  setTimeout(function(){requestAnimationFrame(f);},250);
+}
+function reveal(s){s.classList.add('in');s.querySelectorAll('.cnt').forEach(count);}
+var blocks=[].slice.call(document.querySelectorAll('.hero,.sec'));
+blocks.forEach(function(s){s.querySelectorAll('.rv').forEach(function(r,i){r.style.setProperty('--i',i);});});
+if(R||!('IntersectionObserver' in window)){blocks.forEach(reveal);}
+else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.unobserve(e.target);reveal(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+  blocks.forEach(function(s){io.observe(s);});}
+
+/* ---------- details label ---------- */
+document.querySelectorAll('details.raw').forEach(function(d){var sm=d.querySelector('summary');
+  d.addEventListener('toggle',function(){sm.textContent=d.open?'收起':'展开原文';});});
+
+/* ---------- 0x01 replay ---------- */
+var f01=document.getElementById('f01'),busy=false;
+var dl=el('g',{'class':'dots'},f01);
+var C={drop:document.getElementById('c-drop'),direct:document.getElementById('c-direct'),router:document.getElementById('c-router'),batch:document.getElementById('c-batch')};
+var logBox=document.getElementById('log'),loopBox=document.getElementById('loop'),bt4=document.getElementById('bt4'),playBtn=document.getElementById('play');
+function wait(ms){return new Promise(function(r){setTimeout(r,R?0:ms);});}
+function inc(k){C[k].textContent=String(+C[k].textContent+1);}
+function log(i){if(RUNLOG[i]==null)return;var s=document.createElement('span');s.textContent=RUNLOG[i];logBox.appendChild(s);}
+function move(ids,dur,cls){
+  if(R)return Promise.resolve();
+  return new Promise(function(res){
+    var segs=ids.map(function(i){return document.getElementById('e-'+i);}),lens=segs.map(function(p){return p.getTotalLength();}),tot=lens.reduce(function(a,b){return a+b;},0);
+    var c=el('circle',{r:5.5,'class':'dot '+(cls||'')},dl),t0=0;
+    function f(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/dur),q=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,d=q*tot,k=0;
+      while(k<segs.length-1&&d>lens[k]){d-=lens[k];k++;}
+      var pt=segs[k].getPointAtLength(Math.min(d,lens[k]));c.setAttribute('cx',pt.x);c.setAttribute('cy',pt.y);
+      if(p<1)requestAnimationFrame(f);else{c.remove();res();}}
+    requestAnimationFrame(f);
+  });
+}
+function play(){
+  if(busy)return;busy=true;playBtn.disabled=true;
+  Object.keys(C).forEach(function(k){C[k].textContent='0';});logBox.textContent='';loopBox.classList.remove('on');bt4.classList.remove('on');
+  log(0);
+  var burst=[0,1,2,3,0].map(function(s,i){
+    return wait(i*140).then(function(){
+      if(i===4)return move(['s'+s,'a2x'],1100,'x').then(function(){inc('drop');});
+      return move(['s'+s,'a2d','d2r'],1500).then(function(){inc('router');});
+    });});
+  Promise.all(burst).then(function(){C.batch.textContent='4';bt4.classList.add('on');return wait(350);})
+  .then(function(){return Promise.all([0,1,2,3].map(function(i){return wait(i*110).then(function(){return move(['r2w'],800);});}));})
+  .then(function(){log(1);log(2);log(3);log(4);log(5);return wait(250);})
+  .then(function(){return move(['s0','a2d','d2w'],1400);}).then(function(){inc('direct');log(6);})
+  .then(function(){return move(['s2','a2d','d2w'],1400);}).then(function(){inc('direct');log(7);})
+  .then(function(){return move(['w2b'],700,'gd');})
+  .then(function(){return move(['b2d','d2w'],1400,'gd');}).then(function(){inc('direct');log(8);})
+  .then(function(){return move(['w2o'],700);})
+  .then(function(){for(var i=9;i<RUNLOG.length;i++)log(i);loopBox.classList.add('on');busy=false;playBtn.disabled=false;});
+}
+playBtn.addEventListener('click',play);
+})();
+</script>
+</body>
+</html>

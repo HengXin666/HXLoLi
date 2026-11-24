@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="zh-CN" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>把 Agent 的纠正变成确定性检查</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&amp;display=swap">
+<script>(function(){var d=document.documentElement,t;try{t=localStorage.getItem('hx-viz-theme')}catch(e){}d.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));d.className='';})();</script>
+<style>
+/* HX-TOKENS-BEGIN (inlined verbatim from hx-tokens.css) */
+:root {
+  --ifm-color-primary: #ff88ff;
+  --ifm-color-primary-dark: #ff61ff;
+  --ifm-color-primary-darker: #ff4dff;
+  --ifm-color-primary-darkest: #ff13ff;
+  --ifm-color-primary-light: #ffafff;
+  --ifm-color-primary-lighter: #ffc3ff;
+  --ifm-color-primary-lightest: #fffdff;
+  --ifm-background-color: #ffffff;
+}
+
+[data-theme='dark'] {
+  --ifm-background-color: #121212;
+}
+
+/*
+  === HXLoLi 全局主题令牌 (--hx-*) ===
+  番剧页 / susume 页 / 卡片共用的一套"可爱但克制"的视觉语言: 粉色主调 + 金色推荐 + 半透明层次.
+  组件里不要再写死 rgba(255,255,255,.x) 与圆角 / 曲线, 一律取这里, 亮暗主题各一份.
+  .agents/notes/implemented/feature/2026-11-06-anime-susume-neko-redesign.md
+*/
+:root {
+  --hx-accent: var(--ifm-color-primary);
+  --hx-accent-soft: rgba(255, 136, 255, 0.14);
+  --hx-accent-ring: rgba(255, 136, 255, 0.55);
+  --hx-gold: #e0a020;
+  --hx-gold-soft: rgba(255, 196, 64, 0.16);
+  --hx-susume-monosugoi: #f0a52a;
+  --hx-susume-loli: #ff6fd8;
+  --hx-susume-loligaaru: #c77dff;
+  --hx-susume-imouto: #4fa8ff;
+
+  --hx-surface-0: #ffffff;
+  --hx-surface-1: rgba(20, 10, 30, 0.035);
+  --hx-surface-2: rgba(20, 10, 30, 0.07);
+  --hx-surface-glass: rgba(255, 255, 255, 0.72);
+  --hx-border: rgba(20, 10, 30, 0.10);
+  --hx-border-strong: rgba(20, 10, 30, 0.18);
+  --hx-text: var(--ifm-font-color-base);
+  --hx-text-dim: rgba(20, 10, 30, 0.62);
+  --hx-text-faint: rgba(20, 10, 30, 0.42);
+
+  --hx-radius-sm: 8px;
+  --hx-radius-md: 12px;
+  --hx-radius-lg: 18px;
+  --hx-radius-xl: 24px;
+  --hx-radius-pill: 999px;
+
+  --hx-shadow-sm: 0 2px 8px rgba(40, 0, 50, 0.08);
+  --hx-shadow-md: 0 10px 28px rgba(40, 0, 50, 0.14);
+  --hx-shadow-lg: 0 22px 60px rgba(40, 0, 50, 0.22);
+
+  --hx-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --hx-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --hx-dur-fast: 0.16s;
+  --hx-dur-med: 0.32s;
+  --hx-dur-slow: 0.55s;
+
+  --hx-font-round: "M PLUS Rounded 1c", "Zen Maru Gothic", "PingFang SC", "Hiragino Maru Gothic ProN", "Microsoft YaHei", sans-serif;
+
+  /* 番剧类页面版式与动效令牌 (HX おすすめ Glass), 用法见 src/components/anime/ui/DESIGN.md */
+  --hx-container: 1200px;
+  --hx-gutter: clamp(16px, 3vw, 28px);
+  --hx-glass-blur: blur(14px) saturate(140%);
+  --hx-mesh:
+    radial-gradient(42% 60% at 12% 18%, rgba(255, 136, 255, 0.18), transparent 70%),
+    radial-gradient(38% 55% at 88% 8%, rgba(255, 196, 64, 0.14), transparent 70%),
+    radial-gradient(48% 60% at 62% 100%, rgba(79, 168, 255, 0.12), transparent 70%);
+  --hx-dots: radial-gradient(circle at 1px 1px, var(--hx-border) 1px, transparent 1.5px) 0 0 / 22px 22px;
+  --hx-focus: 0 0 0 3px var(--hx-accent-ring);
+  --hx-lift: translateY(-4px);
+  --hx-stagger: 40ms;
+  --hx-measure: 68ch;
+}
+
+[data-theme='dark'] {
+  --hx-accent-soft: rgba(255, 136, 255, 0.16);
+  --hx-gold: #ffc440;
+  --hx-gold-soft: rgba(255, 196, 64, 0.14);
+  --hx-susume-monosugoi: #ffb84d;
+  --hx-susume-loli: #ff88ff;
+  --hx-susume-loligaaru: #d4a5ff;
+  --hx-susume-imouto: #7cc4ff;
+
+  --hx-surface-0: #17151a;
+  --hx-surface-1: rgba(255, 255, 255, 0.035);
+  --hx-surface-2: rgba(255, 255, 255, 0.07);
+  --hx-surface-glass: rgba(24, 20, 28, 0.72);
+  --hx-border: rgba(255, 255, 255, 0.09);
+  --hx-border-strong: rgba(255, 255, 255, 0.18);
+  --hx-text-dim: rgba(255, 255, 255, 0.64);
+  --hx-text-faint: rgba(255, 255, 255, 0.42);
+
+  --hx-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --hx-shadow-md: 0 10px 28px rgba(0, 0, 0, 0.45);
+  --hx-shadow-lg: 0 22px 60px rgba(0, 0, 0, 0.55);
+
+  --hx-mesh:
+    radial-gradient(42% 60% at 12% 18%, rgba(255, 136, 255, 0.12), transparent 70%),
+    radial-gradient(38% 55% at 88% 8%, rgba(255, 196, 64, 0.08), transparent 70%),
+    radial-gradient(48% 60% at 62% 100%, rgba(124, 196, 255, 0.08), transparent 70%);
+}
+
+/* ===== Markdown 样式 ===== */
+
+/*
+  del/s 删除线内的链接必须显式补线.
+
+  HXLink 用 inline-block 做悬停下划线动画 (src/components/HXLink/index.tsx), 而 inline-block
+
+*/
+/* HX-TOKENS-END */
+
+/* HX-FALLBACK-BEGIN (requested fallbacks; only literals outside the token block) */
+:root{--ifm-font-color-base:#1c1e21}
+[data-theme=dark]{--ifm-font-color-base:#e3e3e3;}
+/* HX-FALLBACK-END */
+/* ===== end of inlined tokens (source file ends inside an open comment, closed above) ===== */
+/* HX-OWN-CSS-BEGIN */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--hx-font-round);color:var(--hx-text);background:var(--hx-surface-0,var(--ifm-background-color));line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;background:var(--hx-mesh);pointer-events:none;z-index:-2}
+body::after{content:"";position:fixed;inset:0;background:var(--hx-dots);opacity:.55;pointer-events:none;z-index:-1}
+a{color:inherit;text-decoration-color:var(--hx-accent);text-underline-offset:3px}
+:focus-visible{outline:none;box-shadow:var(--hx-focus);border-radius:var(--hx-radius-sm)}
+code,pre,.log{font-family:var(--hx-font-round)}
+code{background:var(--hx-surface-2);border-radius:var(--hx-radius-sm);padding:0 .35em;font-size:.9em}
+
+#prog{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--hx-accent);transform-origin:0 50%;transform:scaleX(0);z-index:60;pointer-events:none}
+.tgl{position:fixed;top:12px;right:12px;z-index:50;display:flex;gap:2px;padding:3px;border-radius:var(--hx-radius-pill);background:var(--hx-surface-glass);backdrop-filter:var(--hx-glass-blur);-webkit-backdrop-filter:var(--hx-glass-blur);border:1px solid var(--hx-border);box-shadow:var(--hx-shadow-sm)}
+.tgl button{font:inherit;font-size:.78rem;border:0;cursor:pointer;color:var(--hx-text-dim);background:transparent;padding:3px 12px;border-radius:var(--hx-radius-pill);transition:background var(--hx-dur-fast) var(--hx-ease-out),color var(--hx-dur-fast) var(--hx-ease-out)}
+.tgl button[aria-pressed="true"]{background:var(--hx-accent-soft);color:var(--hx-text);font-weight:700}
+
+.wrap{max-width:var(--hx-container);margin:0 auto;padding:60px var(--hx-gutter) 96px}
+.toc{display:none}
+@media (min-width:1100px){
+  .wrap{display:grid;grid-template-columns:176px minmax(0,1fr);gap:32px}
+  .toc{display:block;position:sticky;top:72px;align-self:start;padding:14px 10px;border-radius:var(--hx-radius-lg);background:var(--hx-surface-glass);backdrop-filter:var(--hx-glass-blur);-webkit-backdrop-filter:var(--hx-glass-blur);border:1px solid var(--hx-border);box-shadow:var(--hx-shadow-sm)}
+}
+.toc .th{font-size:.75rem;color:var(--hx-text-faint);padding:0 10px 6px;letter-spacing:.1em}
+.toc a{display:block;padding:4px 10px;margin:1px 0;border-radius:var(--hx-radius-pill);color:var(--hx-text-dim);text-decoration:none;font-size:.78rem;line-height:1.45;transition:background var(--hx-dur-fast) var(--hx-ease-out),color var(--hx-dur-fast) var(--hx-ease-out)}
+.toc a b{display:block;font-size:.7rem;color:var(--hx-text-faint);font-weight:700}
+.toc a:hover{background:var(--hx-surface-2)}
+.toc a.cur{background:var(--hx-accent-soft);color:var(--hx-text)}
+.toc a.cur b{color:var(--hx-text)}
+main{min-width:0}
+
+.card{background:var(--hx-surface-glass);backdrop-filter:var(--hx-glass-blur);-webkit-backdrop-filter:var(--hx-glass-blur);border:1px solid var(--hx-border);border-radius:var(--hx-radius-xl);box-shadow:var(--hx-shadow-sm);transition:box-shadow var(--hx-dur-med) var(--hx-ease-out)}
+.card:hover{box-shadow:var(--hx-shadow-md)}
+.hero{padding:clamp(20px,4vw,40px)}
+.hero h1{margin:0 0 14px;font-size:clamp(1.35rem,3.2vw,2rem);line-height:1.35;font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.pill{display:inline-flex;align-items:center;padding:2px 12px;border-radius:var(--hx-radius-pill);border:1px solid var(--hx-border);background:var(--hx-surface-1);font-size:.8rem;color:var(--hx-text-dim);transition:transform var(--hx-dur-fast) var(--hx-ease-spring),border-color var(--hx-dur-fast) var(--hx-ease-out)}
+.pill:hover{transform:var(--hx-lift);border-color:var(--hx-accent)}
+.pill.pk{background:var(--hx-accent-soft);border-color:var(--hx-accent-ring);color:var(--hx-text)}
+.meta{font-size:.82rem;color:var(--hx-text-faint);margin:0 0 18px}
+.open{font-size:clamp(1.02rem,2.2vw,1.2rem);margin:0;max-width:var(--hx-measure)}
+.gold{color:var(--hx-gold);font-weight:700;font-variant-numeric:tabular-nums}
+
+.sec{margin-top:28px;padding:clamp(16px,3vw,32px);scroll-margin-top:24px}
+.sec h2{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 18px;font-size:clamp(1.1rem,2.4vw,1.4rem);line-height:1.4}
+.hx{font-size:.75rem;padding:1px 10px;border-radius:var(--hx-radius-pill);background:var(--hx-accent-soft);border:1px solid var(--hx-accent-ring);letter-spacing:.06em;font-weight:700}
+.grid{display:grid;gap:22px}
+@media (min-width:900px){.grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start}.grid.wide{grid-template-columns:minmax(0,1fr)}}
+.say p{margin:0 0 14px;padding-left:14px;border-left:3px solid var(--hx-accent-soft);max-width:var(--hx-measure)}
+.say p:last-child{margin-bottom:0}
+.fig{min-width:0}
+.fig svg{display:block;width:100%;height:auto;overflow:visible}
+.fig .sub{font-size:.78rem;color:var(--hx-text-faint);margin:6px 0 0}
+.stack>*+*{margin-top:18px}
+.note{font-size:.8rem;color:var(--hx-text-dim);margin:14px 0 0;padding:8px 12px;border-radius:var(--hx-radius-md);background:var(--hx-surface-1);border:1px dashed var(--hx-border)}
+
+/* svg */
+svg text{font-family:var(--hx-font-round);fill:var(--hx-text);font-size:15px}
+svg text.s{font-size:13px;fill:var(--hx-text-dim)}
+svg text.h{font-size:12.5px;fill:var(--hx-text-faint);font-weight:700;letter-spacing:.06em}
+svg text.b,svg tspan.b{font-weight:700}
+svg text.g,svg tspan.g{fill:var(--hx-gold);font-weight:700}
+svg text.pk{fill:var(--hx-accent)}
+.box{fill:var(--hx-surface-glass);stroke:var(--hx-border-strong);stroke-width:1.2;rx:var(--hx-radius-md);ry:var(--hx-radius-md)}
+.box.pill{rx:var(--hx-radius-lg);ry:var(--hx-radius-lg)}
+.box.pk{fill:var(--hx-accent-soft);stroke:var(--hx-accent)}
+.box.bl{stroke:var(--hx-susume-imouto)}
+.box.dash{stroke-dasharray:5 4;fill:var(--hx-surface-1)}
+.box.ghost{stroke:var(--hx-border-strong);stroke-dasharray:3 4;fill:transparent}
+.box.zone{fill:transparent;stroke:var(--hx-border);stroke-dasharray:6 5}
+.box.r1{fill:var(--hx-accent-soft);stroke:var(--hx-accent)}
+.box.r2{fill:var(--hx-surface-1);stroke:var(--hx-accent-ring)}
+.box.r3{fill:var(--hx-surface-1);stroke:var(--hx-border-strong)}
+.band{fill:var(--hx-surface-1);stroke:var(--hx-border-strong);stroke-width:1.2}
+.band.pk{fill:var(--hx-accent-soft);stroke:var(--hx-accent)}
+.ln{fill:none;stroke:var(--hx-text-faint);stroke-width:1.6;marker-end:url(#ar);transition:stroke var(--hx-dur-fast) var(--hx-ease-out),stroke-width var(--hx-dur-fast) var(--hx-ease-out)}
+.ln.pk{stroke:var(--hx-accent);marker-end:url(#arp)}
+.ln.bl{stroke:var(--hx-susume-imouto);marker-end:url(#arb)}
+.ln.gd{stroke:var(--hx-gold);marker-end:url(#arg)}
+.ln.dash{stroke-dasharray:4 5}
+.ln.no{marker-end:none}
+.ln.both{marker-start:url(#ars)}
+.ln.sep{stroke:var(--hx-border);stroke-dasharray:3 6;marker-end:none}
+.ln.hot{stroke:var(--hx-accent);stroke-width:2.8;marker-end:url(#arp)}
+.ln.x{stroke:var(--hx-text-faint);marker-end:none}
+.mk{fill:var(--hx-text-faint)}.mkp{fill:var(--hx-accent)}.mkb{fill:var(--hx-susume-imouto)}.mkg{fill:var(--hx-gold)}
+.dotf{fill:var(--hx-text-faint)}
+.dotp{fill:var(--hx-accent)}
+.dotb{fill:var(--hx-susume-imouto)}
+.dotg{fill:var(--hx-gold)}
+.barp{fill:var(--hx-accent-soft);stroke:var(--hx-accent);stroke-width:1.2;rx:var(--hx-radius-sm);ry:var(--hx-radius-sm)}
+.barb{fill:var(--hx-surface-2);stroke:var(--hx-susume-imouto);stroke-width:1.2;rx:var(--hx-radius-sm);ry:var(--hx-radius-sm)}
+.nd{transform-box:fill-box;transform-origin:center;transition:transform var(--hx-dur-fast) var(--hx-ease-spring)}
+.nd:hover{transform:var(--hx-lift)}
+.draw{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset calc(var(--hx-dur-slow)*2) var(--hx-ease-out),stroke var(--hx-dur-fast) var(--hx-ease-out),stroke-width var(--hx-dur-fast) var(--hx-ease-out);transition-delay:calc(var(--hx-stagger)*var(--i,0) + var(--hx-dur-med)),0s,0s}
+.in .draw{stroke-dashoffset:0}
+.dot{fill:var(--hx-accent);stroke:var(--hx-surface-0);stroke-width:1.5}
+.dot.gd{fill:var(--hx-gold)}
+.dot.x{fill:var(--hx-text-faint)}
+.later{opacity:0;transition:opacity var(--hx-dur-med) var(--hx-ease-out)}
+.later.on{opacity:1}
+.vm .box{transition:none}
+.crack{fill:none;stroke:var(--hx-accent);stroke-width:2;opacity:0}
+.in .vm{animation:hxfail calc(var(--hx-dur-slow)*6) var(--hx-ease-out) calc(var(--hx-dur-slow)*2) 1 both}
+.in .crack{animation:hxcrack calc(var(--hx-dur-slow)*6) var(--hx-ease-out) calc(var(--hx-dur-slow)*2) 1 both}
+.in .rebuild{animation:hxpulse calc(var(--hx-dur-slow)*6) var(--hx-ease-out) calc(var(--hx-dur-slow)*2) 1 both}
+@keyframes hxfail{0%{opacity:1}25%{opacity:.25}60%{opacity:.25}100%{opacity:1}}
+@keyframes hxcrack{0%,15%{opacity:0}28%,58%{opacity:1}72%,100%{opacity:0}}
+@keyframes hxpulse{0%,50%{stroke:var(--hx-text-faint);stroke-width:1.6}62%,80%{stroke:var(--hx-accent);stroke-width:3}100%{stroke:var(--hx-text-faint);stroke-width:1.6}}
+
+/* bars */
+.bars{display:grid;gap:16px}
+.bg h4{margin:0 0 6px;font-size:.85rem;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.bg h4 em{font-style:normal;font-weight:400;color:var(--hx-text-dim);font-size:.8rem}
+.br{display:grid;grid-template-columns:7.2em minmax(0,1fr) max-content;gap:10px 12px;align-items:center;font-size:.8rem;color:var(--hx-text-dim);margin:4px 0}
+.tr{height:12px;border-radius:var(--hx-radius-pill);background:var(--hx-surface-2);overflow:hidden}
+.fl{display:block;height:100%;border-radius:var(--hx-radius-pill);background:var(--hx-accent);transform:scaleX(0);transform-origin:0 50%;transition:transform calc(var(--hx-dur-slow)*2.4) var(--hx-ease-out);transition-delay:calc(var(--hx-stagger)*var(--i,0) + var(--hx-dur-med))}
+.fl.bl{background:var(--hx-susume-imouto)}
+.fl.gd{background:var(--hx-gold)}
+.in .fl{transform:scaleX(var(--w))}
+.br>span:first-child{white-space:nowrap}
+.br .v{text-align:left;min-width:4.6em;padding-left:2px;position:relative;z-index:1;color:var(--hx-text);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.78rem;color:var(--hx-text-dim)}
+.legend i{display:inline-block;width:14px;height:8px;border-radius:var(--hx-radius-pill);margin-right:6px;vertical-align:middle;background:var(--hx-accent)}
+.legend i.bl{background:var(--hx-susume-imouto)}
+.kpi{display:inline-flex;align-items:baseline;gap:8px;padding:6px 14px;border-radius:var(--hx-radius-pill);background:var(--hx-gold-soft);font-size:.85rem}
+.kpi .gold{font-size:1.25rem}
+
+/* play */
+.ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 0}
+.btn{font:inherit;font-size:.85rem;font-weight:700;cursor:pointer;color:var(--hx-text);background:var(--hx-accent-soft);border:1px solid var(--hx-accent-ring);border-radius:var(--hx-radius-pill);padding:5px 18px;transition:transform var(--hx-dur-fast) var(--hx-ease-spring),box-shadow var(--hx-dur-fast) var(--hx-ease-out)}
+.btn:hover{transform:var(--hx-lift);box-shadow:var(--hx-shadow-sm)}
+.btn[disabled]{opacity:.5;cursor:default;transform:none}
+.cnt-row{display:flex;flex-wrap:wrap;gap:6px}
+.cnt-row .pill b{color:var(--hx-text);margin-left:4px;font-variant-numeric:tabular-nums}
+.cnt-row .pill.gk{background:var(--hx-gold-soft);color:var(--hx-text)}
+.cnt-row .pill.gk b{color:var(--hx-gold)}
+.log{margin:10px 0 0;padding:10px 14px;min-height:3.2em;border-radius:var(--hx-radius-md);background:var(--hx-surface-1);border:1px solid var(--hx-border);font-size:.76rem;line-height:1.7;white-space:pre-wrap;word-break:break-word;color:var(--hx-text-dim)}
+.log span{display:block;animation:hxin var(--hx-dur-med) var(--hx-ease-out) 1 both}
+@keyframes hxin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.loop{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;font-size:.78rem}
+.loop .pill{font-size:.75rem}
+.loop .ar{color:var(--hx-accent)}
+
+/* 0x09 */
+.costs{display:grid;gap:10px;margin-top:16px}
+.cost{display:grid;grid-template-columns:7.6em minmax(0,1fr);gap:12px;align-items:start;font-size:.88rem}
+.cost .pill{white-space:nowrap;margin-top:2px;justify-self:start}
+.nw{white-space:nowrap}
+.cards{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+.pc{padding:14px 16px;border-radius:var(--hx-radius-lg);border:1px solid var(--hx-border);background:var(--hx-surface-1);font-size:.85rem;transition:transform var(--hx-dur-fast) var(--hx-ease-spring),box-shadow var(--hx-dur-fast) var(--hx-ease-out)}
+.pc:hover{transform:var(--hx-lift);box-shadow:var(--hx-shadow-sm)}
+.pc b{display:block;margin-bottom:4px;font-size:.95rem}
+.close{margin:22px 0 0;padding:14px 18px;border-radius:var(--hx-radius-lg);background:var(--hx-accent-soft);font-weight:700;max-width:var(--hx-measure)}
+h3.mini{font-size:.9rem;margin:22px 0 10px;color:var(--hx-text-dim)}
+
+/* raw */
+details.raw{margin-top:22px;border-top:1px dashed var(--hx-border);padding-top:14px}
+details.raw summary{display:inline-flex;align-items:center;gap:6px;cursor:pointer;list-style:none;font-size:.8rem;font-weight:700;color:var(--hx-text-dim);padding:3px 14px;border-radius:var(--hx-radius-pill);border:1px solid var(--hx-border);background:var(--hx-surface-1);transition:transform var(--hx-dur-fast) var(--hx-ease-spring),color var(--hx-dur-fast) var(--hx-ease-out)}
+details.raw summary::-webkit-details-marker{display:none}
+details.raw summary::before{content:"";width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform var(--hx-dur-fast) var(--hx-ease-out)}
+details.raw[open] summary::before{transform:rotate(45deg)}
+details.raw summary:hover{transform:var(--hx-lift);color:var(--hx-text)}
+.md{font-size:.9rem;color:var(--hx-text);margin-top:12px;overflow-wrap:anywhere}
+.md p,.md ul{max-width:var(--hx-measure);margin:0 0 .9em}
+.md ul{padding-left:1.3em}
+.md li{margin:.2em 0}
+.md .co{border-radius:var(--hx-radius-md);padding:10px 14px;margin:0 0 .9em;max-width:var(--hx-measure)}
+.md .co p{margin:0}
+.md .co.note{background:var(--hx-accent-soft)}
+.md .co.tip{background:var(--hx-gold-soft)}
+.md .co>b{display:block;font-size:.72rem;letter-spacing:.1em;color:var(--hx-text-dim)}
+.md .cap{font-size:.8rem;color:var(--hx-text-dim);padding:8px 12px;border-left:3px solid var(--hx-border-strong)}
+.md figure{margin:0 0 .9em}
+.md figcaption{font-size:.72rem;color:var(--hx-text-faint);margin:0 0 4px}
+.md pre{margin:0;padding:12px 14px;border-radius:var(--hx-radius-md);background:var(--hx-surface-1);border:1px solid var(--hx-border);overflow-x:auto;font-size:.76rem;line-height:1.6}
+.md pre code{background:none;padding:0;font-size:inherit}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(12px);transition:opacity var(--hx-dur-slow) var(--hx-ease-out),transform var(--hx-dur-slow) var(--hx-ease-out);transition-delay:calc(var(--hx-stagger)*var(--i,0))}
+.in .rv{opacity:1;transform:none}
+.nojs .rv{opacity:1;transform:none}
+
+
+/* section rhythm: default text|fig, rev fig|text, wide full-width, bare no card */
+.sec.rev .fig,.sec.figfirst .fig{order:-1}
+@media (min-width:900px){
+  .sec.rev .grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+  .sec.wide .grid{grid-template-columns:minmax(0,1fr)}
+  .sec.wide .say{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px 22px}
+  .sec.wide .say p{margin:0}
+  .sec.wide .fig{width:100%;max-width:820px;margin-inline:auto}
+  .sec.wide .fig svg{max-width:560px;margin-inline:auto}
+}
+.sec.bare,.sec.bare:hover{background:none;border-color:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.sec.bare .say p{border-left-color:var(--hx-gold-soft)}
+@media (max-width:600px){
+  .sec{padding:16px 14px}
+  .cost{grid-template-columns:minmax(0,1fr);gap:4px}
+  .br{grid-template-columns:6.4em minmax(0,1fr) 4.2em;gap:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+  .draw{stroke-dashoffset:0}
+  .fl{transform:scaleX(var(--w))}
+  .crack{opacity:0}
+}
+.sec h2{margin-top:0}
+.kpis{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+/* HX-OWN-CSS-END */
+</style>
+</head>
+<body>
+<div id="prog" aria-hidden="true"></div>
+<div class="tgl" role="group" aria-label="深色 / 浅色"><button type="button" data-t="light">浅色</button><button type="button" data-t="dark">深色</button></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0 1 L10 5 L0 9 z"/></marker>
+<marker id="ars" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0 1 L10 5 L0 9 z"/></marker>
+<marker id="arp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkp" d="M0 1 L10 5 L0 9 z"/></marker>
+<marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkb" d="M0 1 L10 5 L0 9 z"/></marker>
+<marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkg" d="M0 1 L10 5 L0 9 z"/></marker>
+</defs></svg>
+
+<div class="wrap">
+<nav class="toc" aria-label="目录"><div class="th">目录</div></nav>
+<main>
+
+<header class="card hero sec0" id="top">
+  <h1 class="rv">把 Agent 的纠正变成确定性检查</h1>
+  <div class="tags rv"><span class="pill pk">AI Agent</span><span class="pill pk">Harness</span><span class="pill pk">工程实践</span></div>
+  <p class="meta rv">Heng_Xin · 2026-11-22</p>
+  <p class="open rv">同一套规则, 换个模型写出来的东西就不一样.</p>
+</header>
+
+<section class="card sec " id="s01" data-k="01">
+  <h2>一个月 3000 个 PR, 回滚率约 0.5%</h2>
+  <div class="grid"><div class="say rv"><p>她个人上个月往生产上线了 3,000 个 PR, 团队上线了 11,000 个.</p><p>速度这么猛, 被回滚的 PR 反而稳定在约 0.5%.</p><p>不是盲目信任 Agent, 是投入 Agent 的运行环境, 让人有底气相信它会做对.</p></div><div class="fig stack rv"><div class="bars" id="b1"></div><div class="kpis"><span class="kpi">回滚 <b class="gold">约 <span class="cnt" data-to="0.5">0.5</span>%</b></span><span class="kpi">花了 <b class="gold"><span class="cnt" data-to="6">6</span> 个月</b></span></div></div></div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="01"></div></details>
+</section>
+
+<section class="card sec wide figfirst" id="s02" data-k="02">
+  <h2>倒金字塔: 先改代码, 最后才写字</h2>
+  <div class="grid"><div class="say rv"><p>前两层是确定性的: 同一段代码, 换谁来跑结果都一样.</p><p>文字在最底下, 因为它最依赖读的人怎么理解</p></div><div class="fig rv"><svg id="f1" role="img" aria-label="倒金字塔"></svg></div></div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="02"></div></details>
+</section>
+
+<section class="card sec rev" id="s03" data-k="03">
+  <h2>每纠正一次, 先问能不能写成检查</h2>
+  <div class="grid"><div class="say rv"><p>纠正 Agent 时, 想想怎么把它变成确定性检查, 别再往规则或 AGENTS.md 里加一行</p><p>两条都走不通, 才写进文字</p><p>到某一天发现没什么可审了, 大多数 PR 直接让 Agent 自己合</p></div><div class="fig rv"><svg id="f2" role="img" aria-label="每纠正一次, 先问能不能写成检查"></svg></div></div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="03"></div></details>
+</section>
+
+<section class="card sec " id="s04" data-k="04">
+  <h2>代码库是下一个 Agent 的范本</h2>
+  <div class="grid"><div class="say rv"><p>Agent 写代码前会读现有代码.</p><p>临时变通、反模式、废弃代码都会被它当成「这里就是这么写的」照抄, 一处变十处.</p><p>所以立新规则时, 顺手把旧的反模式一起清掉</p></div><div class="fig stack rv"><svg id="f3" role="img" aria-label="照抄"></svg><div class="bars" id="b3"></div></div></div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="04"></div></details>
+</section>
+
+<section class="card sec rev" id="s05" data-k="05">
+  <h2>要分寸才能用好的东西, 关进框架里</h2>
+  <div class="grid"><div class="say rv"><p>凡是需要分寸感才能用好的东西, 往往导致垃圾代码.</p><p>在业务代码里直接禁掉, 只在自研框架 Dune 内部少数地方开放.</p><p>用依赖图和 lint 禁止互相导入</p></div><div class="fig rv"><svg id="f4" role="img" aria-label="关进框架里"></svg></div></div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="05"></div></details>
+</section>
+
+<section class="card sec bare" id="s06" data-k="06">
+  <h2>注释给了 Agent 一个找借口的地方</h2>
+  <div class="grid"><div class="say rv"><p>Agent 会把注释、文档、规则、skill 当成写辩解词的地方.</p><p>注释无法强制执行. 换成 lint, 报错直接让 Agent 去修根因</p></div><div class="fig rv"><svg id="f5" role="img" aria-label="注释 lint"></svg></div></div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="06"></div></details>
+</section>
+
+<section class="card sec wide figfirst" id="s07" data-k="07">
+  <h2>review 看的是验证产物</h2>
+  <div class="grid"><div class="say rv"><p>他们现在 review 主要看视频、截图、图表和形式化验证的结果, 少看代码本身</p><p>功能地图: 从用户视角列出所有功能</p><p>她引用的 Cindy Sridharan 是每天约 70%</p></div><div class="fig rv"><svg id="f6" role="img" aria-label="review 看的是验证产物"></svg></div></div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="07"></div></details>
+</section>
+
+<section class="card sec " id="s08" data-k="08">
+  <h2>先修内循环, 再搭外循环</h2>
+  <div class="grid"><div class="say rv"><p>编码内循环还在产垃圾时, 把它自动化只会产出更多垃圾, 然后往里砸更多 token</p><p>每切一个版本, 自动对整个构建做模糊测试, 像真实用户一样用, 每个 bug 自动提修复 PR 再自动合入.</p></div><div class="fig rv"><svg id="f7" role="img" aria-label="先修内循环, 再搭外循环"></svg></div></div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="08"></div></details>
+</section>
+
+<section class="card sec wide" id="s09" data-k="09">
+  <h2>放到我的仓库里看</h2>
+  <div class="grid"><div class="say rv"><p>按她的思路, 一条规则只有一个方向: 往上升档</p><p><code>.hx-voice.toml</code> 里 69 条坏表达, 带 <code>pattern</code> 能被 lint 拦的只有 21 条, 其余都是提醒.</p><p>45 篇 ai-docs 里 44 篇用 <code>## 0xNN</code> 作节标题, 而我手写的东西里一处都没有.</p></div><div class="fig stack rv"><svg id="f8" role="img" aria-label="往上升档"></svg><div class="bars" id="b8"></div></div></div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="09"></div></details>
+</section>
+
+<section class="card sec " id="s10" data-k="10">
+  <h2>什么时候不成立</h2>
+  <div class="costs rv" id="costs"></div>
+  <details class="raw"><summary>展开原文</summary><div class="md" data-raw="10"></div></details>
+</section>
+
+</main>
+</div>
+<script type="text/plain" id="src">
+
+
+# 把 Agent 的纠正变成确定性检查
+
+同一套规则, 换个模型写出来的东西就不一样. 我在 ai-docs 上反复碰到这事, 规则越写越长, 效果还是看模型心情
+
+Grok Bot 的 Lauren Tan (poteto) 在 AI Engineer Code Summit 讲了一场 [All Code Is Slop (Except Mine)](https://www.youtube.com/watch?v=O_zcc6Xl12g), 17 分钟. 她给的答案很短: 纠正写成文字, 每个模型理解不同; 写成检查, 谁来都一样
+
+&gt; [把 Agent 的纠正变成确定性检查 图解 #ppt ##w100%##](agent-checks-viz.html)
+
+## 一个月 3000 个 PR, 回滚率约 0.5%
+
+先看她拿出来的数. 她个人上个月往生产上线了 3,000 个 PR, 团队上线了 11,000 个. 10 月约 227 人至少提过一个 PR, 很多是没有完整上下文的路过贡献者
+
+速度这么猛, 被回滚的 PR 反而稳定在约 0.5%. 应用也没变慢, 启动、打字、切换对话都比刚上线时快
+
+她把这件事叫做信任. 不是盲目信任 Agent, 是投入 Agent 的运行环境, 让人有底气相信它会做对. 这一步她花了 6 个月
+
+## 倒金字塔: 先改代码, 最后才写字
+
+她用一个倒金字塔分配时间, 越靠上投入越多
+
+- **API 设计 / 架构 / 重构**: 让错的写法写不出来
+- **lint / 类型 / 编译器 / 测试**: 写出来了也过不去
+- **验证 (运行时 + 形式化)**: 查不变量, 也查 Agent 有没有理解意图
+- **规则 / skill / AGENTS.md**: 只留真要判断力的, 放一点就够
+
+前两层是确定性的: 同一段代码, 换谁来跑结果都一样. 文字在最底下, 因为它最依赖读的人怎么理解
+
+## 每纠正一次, 先问能不能写成检查
+
+这是整场最值得抄的一句. 原话: 纠正 Agent 时, 想想怎么把它变成确定性检查, 别再往规则或 AGENTS.md 里加一行
+
+做法有两条路. 能用 API 或架构把这一类问题整类消灭, 就走这条; 不行就写一条 lint, 报错信息直接告诉 Agent 该怎么改. 两条都走不通, 才写进文字
+
+她说做够次数之后, review 要盯的东西越来越少, 到某一天发现没什么可审了, 大多数 PR 直接让 Agent 自己合
+
+## 代码库是下一个 Agent 的范本
+
+2024 年她去上班, 审同事写的 3 个 PR; 现在是约 300 个. 每个工程师手下都是成百上千个 Agent
+
+Agent 写代码前会读现有代码. 临时变通、反模式、废弃代码都会被它当成「这里就是这么写的」照抄, 一处变十处. 她把代码库比作花园, 工程师的活越来越像除草
+
+所以立新规则时, 顺手把旧的反模式一起清掉. 只挡新的不清旧的, 下一个 Agent 照样能从旧代码里学坏
+
+## 要分寸才能用好的东西, 关进框架里
+
+她的经验: 凡是需要分寸感才能用好的东西, 往往导致垃圾代码. 例子是 React 的 `useEffect`, 有人开玩笑说得有博士学位才用得明白
+
+他们的做法是在业务代码里直接禁掉, 只在自研框架 Dune 内部少数地方开放. 这一整类问题从此不用在 review 里抓
+
+另一个例子是用目录传递边界. Agent 常把 Electron 主线程代码导入渲染线程, 导致卡顿. 他们设了 `electron-main` 和 `electron-renderer` 两个顶层目录, 用依赖图和 lint 禁止互相导入
+
+## 注释给了 Agent 一个找借口的地方
+
+Cursor 里 Agent 爱用 `setTimeout` / `requestAnimationFrame` 给架构冲突打补丁, 再写一大段注释解释为什么合理. 定时器蔓延到各处, 频繁 GC 把应用拖卡了
+
+她总结了两个问题. 一是 Agent 会把注释、文档、规则、skill 当成写辩解词的地方. 二是你随口纠正一句, 它会反应过度, 当成永不能破的铁律
+
+所以 Grok Bot 禁掉了 99% 的注释. 理由很直接: 注释无法强制执行. 「留句话提醒下一个 Agent」听着好心, 最后没法信任. 换成 lint, 报错直接让 Agent 去修根因
+
+## review 看的是验证产物
+
+他们现在 review 主要看视频、截图、图表和形式化验证的结果, 少看代码本身
+
+- **运行时验证**: Agent 自己把应用跑起来, 用 Chrome DevTools Protocol 调试
+- **功能地图**: 从用户视角列出所有功能, 你说「左侧栏那个东西」, Agent 不用猜
+- **自定义 CLI**: 驱动应用的操作封成 CLI, skill 每次复用, 省 token, CLI 也能测
+- **形式化**: TLA+ 检查跨设备通知流程, Lean 证明虚拟化库不闪烁, 仍在试验
+
+这些工具都不新, 以前是贵在难写难维护. Agent 把成本压下来了, 她说自己大部分 token 花在验证上, 她引用的 Cindy Sridharan 是每天约 70%
+
+## 先修内循环, 再搭外循环
+
+最后一个提醒: 编码内循环还在产垃圾时, 把它自动化只会产出更多垃圾, 然后往里砸更多 token
+
+底座打牢之后外循环才好搭. 她的例子是每切一个版本, 自动对整个构建做模糊测试, 像真实用户一样用, 每个 bug 自动提修复 PR 再自动合入. 能这么干, 是因为代码库够好, PR 默认就过关
+
+## 放到我的仓库里看
+
+对照之后发现, 代码侧我已经在这条路上了. `.agents/coding-rules.md` 本来就按执行方式分了三档: 自动拦截, 手动运行, 约定尚无 checker. 按她的思路, 一条规则只有一个方向: 往上升档
+
+- **最容易升档的约定**: hx-agent-code 的 scripts 只写 `.ts`, 一个扩展名检查就够
+- **手动档**: hx-make-skill 的校验还没有 hook 或 CI 接线, 接上就是自动档
+- **Agent Notes 的锚点注释**: 和「禁注释」不冲突. 她反对的是无法强制的注释, 我的锚点由 `verify.py` 核对配对, 是受检查的引用
+
+写作侧差得远. `.hx-voice.toml` 里 69 条坏表达, 带 `pattern` 能被 lint 拦的只有 21 条, 其余都是提醒. 这正是她说的「往 AGENTS.md 加一行」. 换模型就变, 毛病在这
+
+花园也一样. 45 篇 ai-docs 里 44 篇用 `## 0xNN` 作节标题, 而我手写的东西里一处都没有. 新模型写笔记会先读旧笔记, 它学到的是这 44 篇
+
+博客侧还有个限制: `HXLoLi/AGENTS.md` 禁止主动启动博客程序, 所以那边的验证只能靠构建产物和静态检查, 走不了运行时
+
+## 什么时候不成立
+
+- 3,000 / 11,000 / 约 0.5% / 70% 都是演讲自述, 没有公开数据可核对; 回滚率下降和这套做法的因果, 她也没给对照
+- 她的前提是代码有编译器、类型和测试兜底. 文字没有真值, 写作检查会误报, 只能拦一部分
+- 禁注释建立在有 lint 能替代上. 没有对应检查的地方直接删注释, 会丢信息
+- 形式化验证她自己说仍在试验, 不是银弹
+
+</script>
+<script id="app">
+(function(){
+"use strict";
+var NS='http://www.w3.org/2000/svg';
+var R=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var H=document.documentElement;
+var F={'f1': {'w': 480, 'h': 306, 'polys': [{'p': '10,8 470,8 446,70 34,70', 'c': 'band pk'}, {'p': '38,78 442,78 418,140 62,140', 'c': 'band pk'}, {'p': '66,148 414,148 390,210 90,210', 'c': 'band'}, {'p': '94,218 386,218 362,280 118,280', 'c': 'band'}], 'texts': [{'x': 240, 'y': 34, 't': 'API 设计 / 架构 / 重构', 'c': 'b', 'a': 'm'}, {'x': 240, 'y': 56, 't': '让错的写法写不出来', 'c': 's', 'a': 'm'}, {'x': 240, 'y': 104, 't': 'lint / 类型 / 编译器 / 测试', 'c': 'b', 'a': 'm'}, {'x': 240, 'y': 126, 't': '写出来了也过不去', 'c': 's', 'a': 'm'}, {'x': 240, 'y': 174, 't': '验证 (运行时 + 形式化)', 'c': 'b', 'a': 'm'}, {'x': 240, 'y': 196, 't': '查不变量', 'c': 's', 'a': 'm'}, {'x': 240, 'y': 244, 't': '规则 / skill / AGENTS.md', 'c': 'b', 'a': 'm'}, {'x': 240, 'y': 266, 't': '放一点就够', 'c': 's', 'a': 'm'}, {'x': 240, 'y': 300, 't': '前两层是确定性的 · 越靠上投入越多', 'c': 's pk', 'a': 'm'}]}, 'f2': {'w': 480, 'h': 372, 'nodes': [{'id': 'c', 'x': 150, 'y': 6, 'w': 180, 'h': 42, 't': '纠正 Agent', 'c': 'pk'}, {'id': 'a', 'x': 20, 'y': 96, 'w': 200, 'h': 58, 't': 'API 或架构', 's': '整类消灭', 'c': 'pk'}, {'id': 'l', 'x': 260, 'y': 96, 'w': 200, 'h': 58, 't': '写一条 lint', 's': '告诉 Agent 该怎么改', 'c': 'pk'}, {'id': 'w', 'x': 260, 'y': 206, 'w': 200, 'h': 46, 't': '写进文字', 'c': 'ghost'}, {'id': 'r', 'x': 40, 'y': 310, 'w': 400, 'h': 46, 't': 'review 要盯的东西越来越少'}], 'edges': [{'a': 'c', 'b': 'a', 's': 'bt', 'c': 'pk'}, {'a': 'c', 'b': 'l', 's': 'bt', 'c': 'pk'}, {'a': 'l', 'b': 'w', 's': 'bt', 'c': 'dash', 'k': 20}, {'a': 'a', 'b': 'r', 's': 'bt', 'c': 'gd', 'k': 60}, {'a': 'l', 'b': 'r', 's': 'lt', 'c': 'gd', 'k': 40}], 'texts': [{'x': 368, 'y': 186, 't': '不行', 'c': 's'}, {'x': 120, 'y': 76, 't': '能', 'c': 's', 'a': 'm'}]}, 'f3': {'w': 480, 'h': 236, 'rects': [{'x': 6, 'y': 30, 'w': 170, 'h': 196, 'c': 'box zone'}], 'texts': [{'x': 14, 'y': 20, 't': '现有代码', 'c': 'h'}, {'x': 300, 'y': 20, 't': '照抄', 'c': 'h', 'a': 'm'}, {'x': 240, 'y': 232, 't': '一处变十处', 'c': 's pk', 'a': 'm'}], 'nodes': [{'id': 'g1', 'x': 26, 'y': 48, 'w': 130, 'h': 36, 't': '临时变通', 'nb': 1}, {'id': 'wd', 'x': 26, 'y': 104, 'w': 130, 'h': 40, 't': '反模式', 'c': 'pk'}, {'id': 'g2', 'x': 26, 'y': 166, 'w': 130, 'h': 36, 't': '废弃代码', 'nb': 1}, {'id': 'a1', 'x': 324, 'y': 36, 'w': 140, 'h': 38, 't': 'Agent', 'c': 'pill', 'nb': 1}, {'id': 'a2', 'x': 324, 'y': 86, 'w': 140, 'h': 38, 't': 'Agent', 'c': 'pill', 'nb': 1}, {'id': 'a3', 'x': 324, 'y': 136, 'w': 140, 'h': 38, 't': 'Agent', 'c': 'pill', 'nb': 1}, {'id': 'a4', 'x': 324, 'y': 186, 'w': 140, 'h': 38, 't': 'Agent', 'c': 'pill', 'nb': 1}], 'edges': [{'a': 'wd', 'b': 'a1', 'c': 'pk'}, {'a': 'wd', 'b': 'a2', 'c': 'pk'}, {'a': 'wd', 'b': 'a3', 'c': 'pk'}, {'a': 'wd', 'b': 'a4', 'c': 'pk'}]}, 'f4': {'w': 480, 'h': 342, 'rects': [{'x': 6, 'y': 26, 'w': 468, 'h': 150, 'c': 'box zone'}], 'texts': [{'x': 14, 'y': 18, 't': '业务代码', 'c': 'h'}, {'x': 136, 'y': 112, 't': '禁掉', 'c': 's', 'a': 'm'}, {'x': 240, 'y': 336, 't': '禁止互相导入', 'c': 's pk', 'a': 'm'}], 'nodes': [{'id': 'ue', 'x': 46, 'y': 54, 'w': 180, 'h': 40, 't': 'useEffect', 'c': 'ghost', 'nb': 1}, {'id': 'dn', 'x': 270, 'y': 46, 'w': 190, 'h': 116, 't': 'Dune 内部', 's': '少数地方开放', 'c': 'pk', 'top': 1}, {'id': 'ue2', 'x': 300, 'y': 110, 'w': 130, 'h': 36, 't': 'useEffect', 'c': 'pill', 'nb': 1}, {'id': 'em', 'x': 16, 'y': 226, 'w': 186, 'h': 90, 't': 'electron-main', 'nb': 1}, {'id': 'er', 'x': 278, 'y': 226, 'w': 186, 'h': 90, 't': 'electron-renderer', 'nb': 1}], 'lines': [{'d': 'M58 74 H214', 'c': 'x'}, {'d': 'M206 271 H274', 'c': 'dash both'}, {'d': 'M230 258 L250 284 M250 258 L230 284', 'c': 'x'}]}, 'f5': {'w': 480, 'h': 250, 'texts': [{'x': 110, 'y': 20, 't': '注释', 'c': 'h', 'a': 'm'}, {'x': 370, 'y': 20, 't': 'lint', 'c': 'h', 'a': 'm'}], 'lines': [{'d': 'M240 8 V244', 'c': 'sep'}], 'nodes': [{'id': 'p1', 'x': 10, 'y': 34, 'w': 200, 'h': 40, 't': '打补丁', 'c': 'ghost'}, {'id': 'p2', 'x': 10, 'y': 112, 'w': 200, 'h': 46, 't': '写辩解词的地方', 'c': 'dash'}, {'id': 'p3', 'x': 10, 'y': 196, 'w': 200, 'h': 44, 't': '无法强制执行'}, {'id': 'q1', 'x': 270, 'y': 34, 'w': 200, 'h': 40, 't': '打补丁', 'c': 'ghost'}, {'id': 'q2', 'x': 270, 'y': 112, 'w': 200, 'h': 46, 't': '报错', 'c': 'pk'}, {'id': 'q3', 'x': 270, 'y': 196, 'w': 200, 'h': 44, 't': '去修根因', 'c': 'pk'}], 'edges': [{'a': 'p1', 'b': 'p2', 's': 'bt', 'c': 'dash'}, {'a': 'p2', 'b': 'p3', 's': 'bt', 'c': 'dash'}, {'a': 'q1', 'b': 'q2', 's': 'bt', 'c': 'pk'}, {'a': 'q2', 'b': 'q3', 's': 'bt', 'c': 'pk'}]}, 'f6': {'w': 480, 'h': 330, 'nodes': [{'id': 'fm', 'x': 6, 'y': 6, 'w': 150, 'h': 40, 't': '功能地图', 'c': 'pill', 'nb': 1}, {'id': 'ag', 'x': 6, 'y': 92, 'w': 150, 'h': 44, 't': 'Agent', 'c': 'pk'}, {'id': 'cli', 'x': 196, 'y': 92, 'w': 120, 'h': 44, 't': '自定义 CLI'}, {'id': 'app', 'x': 354, 'y': 92, 'w': 120, 'h': 44, 't': '应用', 's': 'CDP'}, {'id': 'v1', 'x': 6, 'y': 196, 'w': 104, 'h': 38, 't': '视频', 'c': 'pill', 'nb': 1}, {'id': 'v2', 'x': 124, 'y': 196, 'w': 104, 'h': 38, 't': '截图', 'c': 'pill', 'nb': 1}, {'id': 'v3', 'x': 242, 'y': 196, 'w': 104, 'h': 38, 't': '图表', 'c': 'pill', 'nb': 1}, {'id': 'v4', 'x': 360, 'y': 196, 'w': 114, 'h': 38, 't': '形式化验证', 'c': 'pill', 'nb': 1}, {'id': 'rv', 'x': 140, 'y': 280, 'w': 200, 'h': 44, 't': 'review', 'c': 'pk'}], 'edges': [{'a': 'fm', 'b': 'ag', 's': 'bt', 'c': 'dash'}, {'a': 'ag', 'b': 'cli'}, {'a': 'cli', 'b': 'app'}, {'a': 'app', 'b': 'v1', 's': 'bt', 'k': 30}, {'a': 'app', 'b': 'v2', 's': 'bt', 'k': 30}, {'a': 'app', 'b': 'v3', 's': 'bt', 'k': 30}, {'a': 'app', 'b': 'v4', 's': 'bt', 'k': 30}, {'a': 'v1', 'b': 'rv', 's': 'bt', 'c': 'pk'}, {'a': 'v2', 'b': 'rv', 's': 'bt', 'c': 'pk'}, {'a': 'v3', 'b': 'rv', 's': 'bt', 'c': 'pk'}, {'a': 'v4', 'b': 'rv', 's': 'bt', 'c': 'pk'}]}, 'f7': {'w': 480, 'h': 330, 'texts': [{'x': 6, 'y': 16, 't': '内循环还在产垃圾', 'c': 'h'}, {'x': 6, 'y': 132, 't': '底座打牢', 'c': 'h'}], 'lines': [{'d': 'M0 112 H480', 'c': 'sep'}], 'nodes': [{'id': 'i1', 'x': 6, 'y': 32, 'w': 130, 'h': 44, 't': '产垃圾', 'c': 'ghost'}, {'id': 'i2', 'x': 175, 'y': 32, 'w': 130, 'h': 44, 't': '自动化'}, {'id': 'i3', 'x': 344, 'y': 32, 'w': 130, 'h': 44, 't': '更多垃圾', 'c': 'dash'}, {'id': 'o1', 'x': 6, 'y': 150, 'w': 160, 'h': 44, 't': '切一个版本', 'c': 'pk'}, {'id': 'o2', 'x': 314, 'y': 150, 'w': 160, 'h': 44, 't': '模糊测试', 'c': 'pk'}, {'id': 'o3', 'x': 314, 'y': 264, 'w': 160, 'h': 44, 't': '自动提修复 PR', 'c': 'pk'}, {'id': 'o4', 'x': 6, 'y': 264, 'w': 160, 'h': 44, 't': '自动合入', 'c': 'pk'}], 'edges': [{'a': 'i1', 'b': 'i2', 'c': 'dash'}, {'a': 'i2', 'b': 'i3', 'c': 'dash'}, {'a': 'o1', 'b': 'o2', 'c': 'pk'}, {'a': 'o2', 'b': 'o3', 's': 'bt', 'c': 'pk'}, {'a': 'o3', 'b': 'o4', 's': 'lr', 'c': 'pk'}, {'a': 'o4', 'b': 'o1', 's': 'tb', 'c': 'gd dash'}]}, 'f8': {'w': 480, 'h': 300, 'nodes': [{'id': 't1', 'x': 6, 'y': 6, 'w': 200, 'h': 52, 't': '自动拦截', 'c': 'pk'}, {'id': 't2', 'x': 6, 'y': 120, 'w': 200, 'h': 52, 't': '手动运行'}, {'id': 't3', 'x': 6, 'y': 234, 'w': 200, 'h': 52, 't': '约定尚无 checker', 'c': 'ghost'}, {'id': 'n1', 'x': 260, 'y': 8, 'w': 214, 'h': 48, 't': 'verify.py', 's': '核对配对', 'nb': 1}, {'id': 'n2', 'x': 260, 'y': 122, 'w': 214, 'h': 48, 't': 'hx-make-skill', 's': 'hook 或 CI', 'nb': 1}, {'id': 'n3', 'x': 260, 'y': 236, 'w': 214, 'h': 48, 't': '.ts', 's': '扩展名检查', 'nb': 1}], 'edges': [{'a': 't3', 'b': 't2', 's': 'tb', 'c': 'pk', 'k': 20}, {'a': 't2', 'b': 't1', 's': 'tb', 'c': 'pk', 'k': 20}, {'a': 'n1', 'b': 't1', 's': 'lr', 'c': 'dash no', 'k': 10}, {'a': 'n2', 'b': 't2', 's': 'lr', 'c': 'dash no', 'k': 10}, {'a': 'n3', 'b': 't3', 's': 'lr', 'c': 'dash no', 'k': 10}], 'texts': [{'x': 114, 'y': 94, 't': '往上升档', 'c': 's pk'}, {'x': 114, 'y': 208, 't': '往上升档', 'c': 's pk'}]}};
+var BARS={'b1': [{'h': '上线 PR', 'e': '上个月', 'rows': [{'l': '她个人', 'w': 0.2727272727272727, 'v': '3,000', 'c': 'bl'}, {'l': '团队', 'w': 1, 'v': '11,000'}]}], 'b3': [{'h': '审同事写的 PR', 'rows': [{'l': '2024 年', 'w': 0.01, 'v': '3', 'c': 'bl'}, {'l': '现在', 'w': 1, 'v': '约 300'}]}], 'b8': [{'h': '.hx-voice.toml 坏表达', 'rows': [{'l': '带 pattern', 'w': 0.30434782608695654, 'v': '21', 'c': 'gd'}, {'l': '69 条', 'w': 1, 'v': '69'}]}, {'h': 'ai-docs 节标题', 'rows': [{'l': '0xNN', 'w': 0.9777777777777777, 'v': '44', 'c': 'bl'}, {'l': '45 篇', 'w': 1, 'v': '45'}]}]};
+var COSTS=[['自述', '3,000 / 11,000 / 约 0.5% / 70% 都是演讲自述, 没有公开数据可核对'], ['前提', '她的前提是代码有编译器、类型和测试兜底. 文字没有真值, 写作检查会误报, 只能拦一部分'], ['注释', '禁注释建立在有 lint 能替代上. 没有对应检查的地方直接删注释, 会丢信息'], ['形式化', '形式化验证她自己说仍在试验, 不是银弹']];
+/* ---------- svg renderer ---------- */
+function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a){if(a[k]!=null)e.setAttribute(k,a[k]);}if(p)p.appendChild(e);return e;}
+var NV={l:[-1,0],r:[1,0],t:[0,-1],b:[0,1]};
+function anc(n,s){
+  if(n.shape==='dia'){var cx=n.x+n.w/2,cy=n.y+n.h/2;return{l:[n.x,cy],r:[n.x+n.w,cy],t:[cx,n.y],b:[cx,n.y+n.h]}[s];}
+  return{l:[n.x,n.y+n.h/2],r:[n.x+n.w,n.y+n.h/2],t:[n.x+n.w/2,n.y],b:[n.x+n.w/2,n.y+n.h]}[s];
+}
+function isPlain(c){return /\b(dash|sep|x)\b/.test(c||'');}
+function txt(T,g){
+  var a={x:T.x,y:T.y,'class':T.c||null,'text-anchor':T.a==='m'?'middle':T.a==='e'?'end':null,id:T.id||null};
+  var t=el('text',a,g);
+  if(Array.isArray(T.t)){T.t.forEach(function(p){var s=el('tspan',{'class':p[1]||null},t);s.textContent=p[0];if(/\bcnt\b/.test(p[1]))s.setAttribute('data-to',p[0]);});}
+  else t.textContent=T.t;
+  return t;
+}
+function line(L,g,i){
+  var c=L.c||'',plain=isPlain(c);
+  var p=el('path',{d:L.d,'class':'ln '+c+(plain?'':' draw'),pathLength:plain?null:1},g);
+  p.style.setProperty('--i',i||0);return p;
+}
+function draw(svg,S){
+  svg.setAttribute('viewBox','0 0 '+S.w+' '+S.h);
+  var gB=el('g',{'class':'bg'},svg),gE=el('g',{'class':'edges'},svg),gN=el('g',{'class':'nodes'},svg),gT=el('g',{'class':'labels'},svg);
+  var N={},ei=0;
+  (S.polys||[]).forEach(function(P){el('polygon',{points:P.p,'class':P.c},gB);});
+  (S.rects||[]).forEach(function(r){el('rect',{x:r.x,y:r.y,width:r.w,height:r.h,'class':r.c},gB);});
+  (S.lines||[]).forEach(function(L){line(L,gE,ei++);});
+  (S.nodes||[]).forEach(function(n){N[n.id]=n;});
+  (S.edges||[]).forEach(function(e){
+    var A=N[e.a],B=N[e.b],s=e.s||'rl',p=anc(A,s[0]).slice(),q=anc(B,s[1]).slice();
+    if(e.oa){p[0]+=e.oa[0];p[1]+=e.oa[1];}
+    var k=e.k||Math.max(20,Math.hypot(q[0]-p[0],q[1]-p[1])*.35),u=NV[s[0]],v=NV[s[1]];
+    var d='M'+p.join(' ')+' C'+(p[0]+u[0]*k)+' '+(p[1]+u[1]*k)+' '+(q[0]+v[0]*k)+' '+(q[1]+v[1]*k)+' '+q.join(' ');
+    var path=line({d:d,c:e.c},gE,ei++);
+    path.setAttribute('data-e',e.a+' '+e.b);
+    if(e.id)path.id=e.id;
+  });
+  (S.nodes||[]).forEach(function(n){
+    var g=el('g',{'class':'nd '+(n.c||''),'data-n':n.id},gN),cx=n.x+n.w/2;
+    if(n.shape==='dia'){var cy=n.y+n.h/2;el('polygon',{points:[n.x,cy,cx,n.y,n.x+n.w,cy,cx,n.y+n.h].join(' '),'class':'box '+(n.c||'')},g);}
+    else el('rect',{x:n.x,y:n.y,width:n.w,height:n.h,'class':'box '+(n.c||'')},g);
+    var L=n.t.split('\n'),S2=n.s?n.s.split('\n'):[],tot=L.length*19+S2.length*17;
+    var y0=n.top?n.y+8:n.y+n.h/2-tot/2;
+    L.forEach(function(t,j){var e=el('text',{x:cx,y:y0+j*19+14,'text-anchor':'middle','class':n.nb?null:'b'},g);e.textContent=t;});
+    S2.forEach(function(t,j){var e=el('text',{x:cx,y:y0+L.length*19+j*17+13,'text-anchor':'middle','class':'s'},g);e.textContent=t;});
+    g.addEventListener('mouseenter',function(){hot(svg,n.id,true);});
+    g.addEventListener('mouseleave',function(){hot(svg,n.id,false);});
+  });
+  (S.raw||[]).forEach(function(r){el('path',{d:r.d,'class':r.c},gN);});
+  (S.texts||[]).forEach(function(T){txt(T,gT);});
+  if(Array.isArray(S.dots))S.dots.forEach(function(d){el('circle',{cx:d.x,cy:d.y,r:d.r,'class':d.c},gT);});
+  if(S.dots==='rain'){for(var i=0;i<24;i++){var x=72+i*14.6,y=76+((i*37)%7);el('circle',{cx:x,cy:y,r:i%6===2?3.4:2.4,'class':i%6===2?'dotp':'dotf'},gB);}}
+  if(S.gen==='prefill'){
+    for(var j=0;j<9;j++){line({d:'M'+(32+j*26)+' 82 V46',c:'pk'},gE,ei++);}
+    for(var m=0;m<6;m++){el('rect',{x:310+m*28,y:40+m*8,width:18,height:22,'class':'barb'},gB);
+      if(m<5)line({d:'M'+(328+m*28)+' '+(51+m*8)+' H'+(337+m*28),c:'no'},gE,ei++);}
+  }
+}
+function hot(svg,id,on){
+  svg.querySelectorAll('[data-e]').forEach(function(p){if(p.getAttribute('data-e').split(' ').indexOf(id)>-1)p.classList.toggle('hot',on);});
+}
+
+/* ---------- html blocks ---------- */
+function bars(id,G){
+  var box=document.getElementById(id);if(!box)return;var h='',n=0;
+  G.forEach(function(g){
+    h+='<div class="bg"><h4>'+g.h+(g.e?' <em>'+g.e+'</em>':'')+(g.k?' <span class="kpi">'+g.k+'</span>':'')+'</h4>';
+    g.rows.forEach(function(r){h+='<div class="br"><span>'+r.l+'</span><span class="tr"><span class="fl '+(r.c||'')+'" style="--w:'+r.w.toFixed(4)+';--i:'+(n++)+'"></span></span><span class="v">'+(r.v||'')+'</span></div>';});
+    h+='</div>';
+  });
+  box.innerHTML=h;
+}
+function lists(){
+  var c=document.getElementById('costs');if(!c)return;
+  c.innerHTML=COSTS.map(function(x){return '<div class="cost"><span class="pill pk">'+x[0]+'</span><span>'+x[1]+'</span></div>';}).join('');
+}
+
+/* ---------- markdown (source text) ---------- */
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function inl(s){
+  s=esc(s).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>');
+  return s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,function(m,t,u){
+    return /^(https?:\/\/|\.\/)/.test(u)?'<a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>':'<span class="ref">'+t+'</span>';});
+}
+function md(t){
+  var L=t.split('\n'),o=[],i=0,b,m;
+  while(i<L.length){
+    var l=L[i];
+    if(/^```/.test(l)){var info=l.slice(3).trim();b=[];i++;while(i<L.length&&!/^```/.test(L[i]))b.push(L[i++]);i++;
+      o.push('<figure>'+(info?'<figcaption>'+esc(info)+'</figcaption>':'')+'<pre><code>'+esc(b.join('\n'))+'</code></pre></figure>');continue;}
+    if(/^>/.test(l)){b=[];while(i<L.length&&/^>/.test(L[i]))b.push(L[i++].replace(/^> ?/,''));
+      m=/^\[!(NOTE|TIP)\]\s*$/.exec(b[0]);var k='note';if(m){k=m[1].toLowerCase();b.shift();}
+      o.push('<div class="co '+k+'">'+(m?'<b>'+m[1]+'</b>':'')+'<p>'+inl(b.join(' '))+'</p></div>');continue;}
+    if(/^- /.test(l)){b=[];while(i<L.length&&/^- /.test(L[i]))b.push('<li>'+inl(L[i++].slice(2))+'</li>');o.push('<ul>'+b.join('')+'</ul>');continue;}
+    m=/^!\[([^\]]*)\]\(([^)]*)\)\s*$/.exec(l);
+    if(m){o.push('<p class="cap">'+inl(m[1].replace(/\s*##w\d+##\s*/,''))+'</p>');i++;continue;}
+    if(!l.trim()){i++;continue;}
+    b=[];while(i<L.length&&L[i].trim()&&!/^(```|>|- |!\[)/.test(L[i]))b.push(L[i++]);
+    o.push('<p>'+inl(b.join(' '))+'</p>');
+  }
+  return o.join('');
+}
+var SRC=document.getElementById('src').textContent;
+(function(){
+  SRC.split(/^## /m).slice(1).forEach(function(p,i){
+    var nl=p.indexOf('\n'),key=(i<9?'0':'')+(i+1),body=p.slice(nl+1);
+    var box=document.querySelector('[data-raw="'+key+'"]');if(box)box.innerHTML=md(body);
+  });
+})();
+
+/* ---------- build ---------- */
+Object.keys(F).forEach(function(id){var s=document.getElementById(id);if(s)draw(s,F[id]);});
+Object.keys(BARS).forEach(function(id){bars(id,BARS[id]);});
+lists();
+
+/* ---------- theme ---------- */
+var btns=document.querySelectorAll('.tgl button');
+function setT(t,save){H.setAttribute('data-theme',t);btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-t')===t));});
+  if(save){try{localStorage.setItem('hx-viz-theme',t);}catch(e){}}}
+setT(H.getAttribute('data-theme')||'light');
+btns.forEach(function(b){b.addEventListener('click',function(){setT(b.getAttribute('data-t'),true);});});
+if(window.matchMedia){var mq=matchMedia('(prefers-color-scheme: dark)');var onMq=function(e){var s=null;try{s=localStorage.getItem('hx-viz-theme');}catch(x){}if(!s)setT(e.matches?'dark':'light');};
+  if(mq.addEventListener)mq.addEventListener('change',onMq);}
+
+/* ---------- toc ---------- */
+var secs=[].slice.call(document.querySelectorAll('.sec[data-k]'));
+var toc=document.querySelector('.toc');
+secs.forEach(function(s){var a=document.createElement('a');a.href='#'+s.id;var h=s.querySelector('h2').cloneNode(true);
+  a.innerHTML='<b>'+s.getAttribute('data-k')+'</b>'+esc(h.textContent.trim());toc.appendChild(a);s._a=a;});
+if('IntersectionObserver' in window){
+  var cur=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){secs.forEach(function(s){s._a.classList.toggle('cur',s===e.target);});}});},{rootMargin:'-35% 0px -60% 0px'});
+  secs.forEach(function(s){cur.observe(s);});
+}
+
+/* ---------- progress ---------- */
+var prog=document.getElementById('prog'),tick=false;
+function onScroll(){var d=document.documentElement,mx=d.scrollHeight-d.clientHeight;prog.style.transform='scaleX('+(mx>0?Math.min(1,d.scrollTop/mx):0)+')';tick=false;}
+addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(onScroll);}},{passive:true});onScroll();
+
+/* ---------- reveal + count ---------- */
+function count(e){
+  var s=e.getAttribute('data-to'),to=parseFloat(s),dp=(s.split('.')[1]||'').length;
+  if(R){e.textContent=s;return;}
+  var t0=0,D=1300;e.textContent=(0).toFixed(dp);
+  function f(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/D);p=1-Math.pow(1-p,3);e.textContent=(to*p).toFixed(dp);if(p<1)requestAnimationFrame(f);else e.textContent=s;}
+  setTimeout(function(){requestAnimationFrame(f);},250);
+}
+function reveal(s){s.classList.add('in');s.querySelectorAll('.cnt').forEach(count);}
+var blocks=[].slice.call(document.querySelectorAll('.hero,.sec'));
+blocks.forEach(function(s){s.querySelectorAll('.rv').forEach(function(r,i){r.style.setProperty('--i',i);});});
+if(R||!('IntersectionObserver' in window)){blocks.forEach(reveal);}
+else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.unobserve(e.target);reveal(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+  blocks.forEach(function(s){io.observe(s);});}
+
+/* ---------- details label ---------- */
+document.querySelectorAll('details.raw').forEach(function(d){var sm=d.querySelector('summary');
+  d.addEventListener('toggle',function(){sm.textContent=d.open?'收起':'展开原文';});});
+
+
+})();
+
+</script>
+</body>
+</html>
