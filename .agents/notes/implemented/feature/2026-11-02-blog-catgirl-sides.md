@@ -34,6 +34,8 @@ Decision-ID: blog-catgirl-sides
 
 ## Consequences
 
+- 页面展示的是 `scripts/catgirl-webp.sh` 从 PNG 母版生成的同名 WebP (2026-11-24, 见 image-cache-sw 记录); 新增立绘后要重跑脚本。
+
 cv 页与友链页 (`src/pages/anime/cv.tsx`, `src/pages/friends/index.tsx`) 随组件一起换成新立绘与 fixed 定位, 正文块样式不变; 旧的 `.neko` / `.neko-left` / `.neko-right` / `.neko-sticky` 类删除, `static/default-img/neko_*.png` 不再被引用, 本轮未删. 立绘出现的最小视口: 博客列表 1248px, cv / 友链 1328px, /anime/share 1568px (1440 宽屏上分享页没有立绘, 因为它的正文本来就是 1200 宽, 硬塞会压缩正文). 贴合效果的验证截图 `.agents/research/catgirl-fit-dark.png` / `-light.png` 是按 CSS 规则用 PIL 合成的模拟图 (1440x900, 沙箱没有浏览器能打开本机站点), 立绘外框一圈像素与页面底色的最大差值为 0 到 1 (8 bit); 真实浏览器截图待本机复核. 用户的 34 张半身素材未使用. `src/components/BlogWithCats/BlogWithCats.css` 是非 AST 资源, 需人工核对.
 
 ## Code

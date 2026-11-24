@@ -45,6 +45,15 @@ const NEKO_PAIRS: readonly NekoFullPair[] = [
  * 落位与槽位相反时自动水平镜像 (类名 neko-flip); noFlip 的图 (有文字 / 明显不对称的服饰) 不镜像, 该对整组跳过.
  * 2026-11-03 逐张量过 28 张 (.agents/research/catgirl-anchor.md): 全部与约定一致, 当前没有一张需要镜像.
  */
+/**
+ * 展示用文件: PNG 母版 (平均 470KB, 928px 宽) 换成同名 WebP (宽 760, 约 50KB), 由 scripts/catgirl-webp.sh 生成.
+ * manifest 仍写 .png, 尺寸 w/h 只用来定宽高比, 换图不影响布局.
+ * .agents/notes/implemented/feature/2026-11-24-image-cache-sw.md
+ */
+function shownFile (file: string): string {
+    return file.replace(/\.png$/i, '.webp');
+}
+
 interface NekoImg { file: string; w: number; h: number; fade: number; slug: string; anchor?: 'left' | 'right'; noFlip?: boolean }
 /** 一侧为 null = 单侧素材 (manifest 里另一侧还没生成, needsGen); 内置回落恒为双侧 */
 interface NekoPair { left: NekoImg | null; right: NekoImg | null; leftSlug?: string; rightSlug?: string }
@@ -733,7 +742,7 @@ function NekoPocket ({ source, variant, pageOff }: { source: 'page' | 'route'; v
     const idx = picked !== null && picked >= 0 ? picked : 0;
     const pair: NekoPair = assets?.pairs[idx] ?? NEKO_PAIRS[0];
     const img = slotImgs(pair).l ?? NEKO_PAIRS[0].left;
-    const src = useBaseUrl(`/img/catgirl/${img.file}`);
+    const src = useBaseUrl(`/img/catgirl/${shownFile(img.file)}`);
     const active = band && !pageOff && picked !== null && !noAsset && !imgError;
     // 页脚进入视口才考虑出现
     React.useEffect(() => {
@@ -834,8 +843,8 @@ function NekoStage ({ variant, source, contentWidth = 960, wall = GUTTER_DEFAULT
     const slots = slotImgs(pair);
     const fit = useWallFit(ref, variant === 'pair' ? 'pair' : 'gutter', variant === 'pair' ? { sides: 'both' } : wall,
         contentWidth, ready && measured, idx, !!slots.l, !!slots.r);
-    const left = useBaseUrl(`/img/catgirl/${slots.l?.file ?? ''}`);
-    const right = useBaseUrl(`/img/catgirl/${slots.r?.file ?? ''}`);
+    const left = useBaseUrl(`/img/catgirl/${shownFile(slots.l?.file ?? '')}`);
+    const right = useBaseUrl(`/img/catgirl/${shownFile(slots.r?.file ?? '')}`);
     const flipL = slots.flipL;
     const flipR = slots.flipR;
     // 镜像禁用只管双侧 (slotImgs 对单侧恒给 blocked = false)
