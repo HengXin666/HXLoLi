@@ -645,22 +645,68 @@ export default function AssLyrics(): React.ReactElement | null {
           return encodeURI(url);
         };
 
-        // 收集字体信息 (但不传给 JSO 构造函数 — 改为后台渐进式加载)
-        const fontRelativePaths: Array<{ name?: string; relativePath: string }> = [];
-        if (trackDetail?.assFontMap) {
-          for (const [fontName, fontUrl] of Object.entries(trackDetail.assFontMap)) {
-            // fontUrl 已经是绝对 CDN URL, 需要还原为相对路径供 reqMusicByCDN 使用
-            fontRelativePaths.push({ name: fontName, relativePath: fontUrl });
+        // ── 字体: 拿到 detail 就立刻开始下载, 和 ASS 下载并行, Worker 就绪后再写入 ──
+        // .agents/notes/implemented/feature/2026-11-24-music-player-v2.md
+        // 1. 绝对 CDN URL 还原成 /static/... 相对路径, 走多 CDN 竞速 (自建节点无 20MB 限制),
+        //    比直连 fastly 快一个量级; 竞速失败再走切片下载.
+        // 2. 按相对路径去重 (detail.fonts 里常常已经带了 NotoSansSC, 以前会再下一遍).
+        // 3. NotoSansSC (17MB 的通用 CJK 兜底) 等本曲专用字体全部结束后再下, 不抢带宽.
+        const toRel = (url: string): string => {
+          const i = url.indexOf('/static/');
+          if (i < 0 || !/^https?:\/\//.test(url)) return url;
+          const rel = url.slice(i);
+          try { return decodeURI(rel); } catch { return rel; }
+        };
+        const CJK_FALLBACK = '/static/music/fonts/NotoSansSC-Regular.ttf';
+        const fontSeen = new Set<string>();
+        const fontItems: Array<{ url: string; rel: string; fallback: boolean }> = [];
+        const addFont = (url: string): void => {
+          const rel = useLocal ? url : toRel(url);
+          const key = toRel(url);
+          if (fontSeen.has(key)) return;
+          fontSeen.add(key);
+          fontItems.push({ url, rel, fallback: key === CJK_FALLBACK });
+        };
+        for (const u of Object.values(trackDetail?.assFontMap ?? {})) addFont(u);
+        for (const u of trackDetail?.fonts ?? []) addFont(u);
+        addFont(useLocal ? toMusicLocalUrl(CJK_FALLBACK) : CJK_FALLBACK);
+
+        const fetchFont = async (item: { url: string; rel: string }): Promise<ArrayBuffer> => {
+          if (useLocal || !item.rel.startsWith('/')) {
+            const resp = await fetch(safeUrl(item.url), { mode: 'cors' });
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            return resp.arrayBuffer();
           }
-        }
-        if (trackDetail?.fonts) {
-          for (const fontUrl of trackDetail.fonts) {
-            fontRelativePaths.push({ relativePath: fontUrl });
+          const t0 = performance.now();
+          try {
+            const r = await reqMusicRace(item.rel);
+            const buf = await r.arrayBuffer();
+            console.log(`[JSO] 字体下载完成: ${item.rel} (${(buf.byteLength / 1024).toFixed(0)}KB, ${(performance.now() - t0).toFixed(0)}ms)`);
+            return buf;
+          } catch (raceErr) {
+            console.warn(`[JSO] 字体竞速失败, 改走切片下载: ${item.rel}`, raceErr);
+            const r = await reqMusicByCDN(item.rel);
+            const buf = await r.blob.arrayBuffer();
+            console.log(`[JSO] 字体切片下载完成: ${item.rel} (${(buf.byteLength / 1024).toFixed(0)}KB, ${(performance.now() - t0).toFixed(0)}ms)`);
+            return buf;
           }
-        }
-        // CJK fallback 字体也加入后台加载队列
-        const cjkRelativePath = '/static/music/fonts/NotoSansSC-Regular.ttf';
-        fontRelativePaths.push({ name: '__cjk_fallback__', relativePath: useLocal ? toMusicLocalUrl(cjkRelativePath) : cjkRelativePath });
+        };
+        const fetchFontRetry = async (item: { url: string; rel: string }): Promise<ArrayBuffer | null> => {
+          for (let attempt = 0; attempt < 2; attempt++) {
+            if (disposed) return null;
+            try { return await fetchFont(item); } catch (err) {
+              console.warn(`[JSO] 字体加载失败 (第${attempt + 1}次): ${item.rel}`, err);
+              await new Promise((r) => setTimeout(r, 1500));
+            }
+          }
+          return null;
+        };
+        const primaryFonts = fontItems.filter((f) => !f.fallback);
+        const fallbackFonts = fontItems.filter((f) => f.fallback);
+        const primaryJobs = primaryFonts.map((f) => fetchFontRetry(f).then((buf) => ({ f, buf })));
+        const primaryDone = Promise.all(primaryJobs);
+        const fallbackJobs = fallbackFonts.map((f) => primaryDone.then(() => fetchFontRetry(f)).then((buf) => ({ f, buf })));
+        if (fontItems.length) console.log(`[JSO] 开始后台加载 ${fontItems.length} 个字体 (专用 ${primaryFonts.length}, 兜底 ${fallbackFonts.length})`);
 
         // 加载 ASS 字幕内容 — 通过 ForgeEngine 切片并行下载 (最高优先级)
         console.log('[JSO] 正在加载 ASS 文件...');
@@ -779,78 +825,37 @@ export default function AssLyrics(): React.ReactElement | null {
             jso.setCurrentTime(currentTime);
             console.log(`[JSO] 开始渲染: time=${currentTime.toFixed(3)}, size=${pixelW}x${pixelH}`);
 
-            // ── 后台渐进式字体加载 ──
-            // 所有字体通过 reqMusicByCDN 并行下载 (turbo mode + 多CDN竞速)
-            // 每个下载完立即 writeFile 到 Worker FS, 100ms 防抖后 setTrack 热重载
-            if (fontRelativePaths.length > 0 && !disposed) {
-              let reloadTimer: ReturnType<typeof setTimeout> | null = null;
-              let loadedCount = 0;
-              const totalFonts = fontRelativePaths.length;
-
-              const scheduleReload = () => {
-                if (reloadTimer) clearTimeout(reloadTimer);
-                reloadTimer = setTimeout(() => {
-                  if (disposed || !rendererRef.current) return;
-                  console.log(`[JSO] 字体热重载 (${loadedCount}/${totalFonts} 已加载)`);
-                  rendererRef.current.setTrack(subContent);
-                }, 100);
+            // ── 字体写入 + 热重载 ──
+            // 每次 setTrack 都要重新解析整份 ASS (特效歌词常有几 MB), 所以不每到一个字体就重载:
+            // 本曲专用字体全部到齐后重载一次, 兜底字体到了再重载一次.
+            if (fontItems.length > 0 && !disposed) {
+              const write = (f: { rel: string }, buf: ArrayBuffer | null): boolean => {
+                if (!buf || disposed || !rendererRef.current) return false;
+                const fileName = f.rel.split('/').pop() || 'font.ttf';
+                rendererRef.current.writeFile(`/fonts/${fileName}`, new Uint8Array(buf));
+                return true;
               };
-
-              console.log(`[JSO] 开始后台加载 ${totalFonts} 个字体文件...`);
-
-              for (const fontItem of fontRelativePaths) {
-                if (disposed) break;
-
-                // 并行启动所有字体下载 (不 await, 全部火力全开)
-                (async () => {
-                  const MAX_FONT_RETRIES = 2;
-                  for (let attempt = 0; attempt <= MAX_FONT_RETRIES; attempt++) {
-                    try {
-                      if (disposed || !rendererRef.current) return;
-
-                      let fontData: ArrayBuffer;
-                      if (useLocal) {
-                        // 本地: 直接 fetch
-                        const resp = await fetch(safeUrl(fontItem.relativePath));
-                        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-                        fontData = await resp.arrayBuffer();
-                      } else if (fontItem.relativePath.startsWith('http://') || fontItem.relativePath.startsWith('https://')) {
-                        // 已经是绝对 CDN URL (musicDataLoader 已转换), 直接 fetch 不走 reqMusicRace
-                        // 避免 buildUrl 二次拼接导致 URL 错误
-                        const resp = await fetch(safeUrl(fontItem.relativePath), { mode: 'cors' });
-                        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-                        fontData = await resp.arrayBuffer();
-                        console.log(`[JSO] 字体下载完成 (直接): ${fontItem.relativePath} (${(fontData.byteLength / 1024).toFixed(0)}KB)`);
-                      } else {
-                        // 生产: reqMusicRace — 多 CDN 竞速下载 (相对路径)
-                        const result = await reqMusicRace(fontItem.relativePath);
-                        fontData = await result.arrayBuffer();
-                        console.log(`[JSO] 字体下载完成: ${fontItem.relativePath} (${(fontData.byteLength / 1024).toFixed(0)}KB, ${result.totalTime.toFixed(0)}ms)`);
-                      }
-
-                      if (disposed || !rendererRef.current) return;
-
-                      // 从 URL/路径中提取文件名作为 Worker FS 路径
-                      const urlPath = fontItem.relativePath;
-                      const fileName = urlPath.split('/').pop() || 'font.ttf';
-                      rendererRef.current.writeFile(`/fonts/${fileName}`, new Uint8Array(fontData));
-
-                      loadedCount++;
-                      scheduleReload();
-                      break; // 成功，退出重试循环
-                    } catch (fontErr) {
-                      if (attempt < MAX_FONT_RETRIES) {
-                        const delay = (attempt + 1) * 2000; // 2s, 4s 递增延迟
-                        console.warn(`[JSO] 字体加载失败 (第${attempt + 1}次, ${delay / 1000}s 后重试): ${fontItem.relativePath}`, fontErr);
-                        await new Promise(r => setTimeout(r, delay));
-                      } else {
-                        console.warn(`[JSO] 字体加载失败 (非致命, 已重试${MAX_FONT_RETRIES}次): ${fontItem.relativePath}`, fontErr);
-                        loadedCount++;
-                      }
-                    }
-                  }
-                })();
-              }
+              const reload = (why: string): void => {
+                if (disposed || !rendererRef.current) return;
+                console.log(`[JSO] 字体热重载 (${why})`);
+                rendererRef.current.setTrack(subContent);
+              };
+              // 每个到了就先写进 Worker FS (不重载); 全部到齐重载一次.
+              // 若 4s 后还有大字体没到, 先用已到的重载一次, 别让整首歌都在用内置字体.
+              let written = 0;
+              let reloadedEarly = false;
+              const early = setTimeout(() => {
+                if (written > 0 && written < primaryJobs.length) { reloadedEarly = true; reload(`先到的 ${written}/${primaryJobs.length}`); }
+              }, 4000);
+              primaryJobs.forEach((job) => { void job.then(({ f, buf }) => { if (write(f, buf)) written++; }); });
+              void Promise.all(primaryJobs).then(() => {
+                clearTimeout(early);
+                if (written > 0) reload(`专用字体 ${written}/${primaryJobs.length}${reloadedEarly ? ', 补齐' : ''}`);
+              });
+              void Promise.all(fallbackJobs).then((rs) => {
+                const n = rs.filter(({ f, buf }) => write(f, buf)).length;
+                if (n > 0) reload('兜底字体');
+              });
             }
           },
           onError: (error: any) => {

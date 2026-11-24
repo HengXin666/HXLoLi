@@ -72,7 +72,7 @@ function EqBars({ playing }: { playing: boolean }): React.ReactElement {
  * 横向拖动条: 进度和音量共用.
  * 拖动时只改本地值, 松手才提交 (live 时边拖边提交, 给音量用); 悬停显示该位置的值.
  */
-function Scrubber({ value, max, buffered = 0, onCommit, live = false, format, label, disabled = false }: {
+function Scrubber({ value, max, buffered = 0, onCommit, live = false, format, label, disabled = false, playing = false, loading = false }: {
     value: number;
     max: number;
     buffered?: number;
@@ -81,32 +81,59 @@ function Scrubber({ value, max, buffered = 0, onCommit, live = false, format, la
     format: (v: number) => string;
     label: string;
     disabled?: boolean;
+    /** 播放中: 两次 timeupdate 之间按真实时间外推, 让填充连续前进而不是 4Hz 跳格 */
+    playing?: boolean;
+    /** 加载中: 轨道上跑一条流光, 不可拖 */
+    loading?: boolean;
 }): React.ReactElement {
-    const ref = useRef<HTMLDivElement>(null);
+    const trackRef = useRef<HTMLSpanElement>(null);
+    const fillRef = useRef<HTMLSpanElement>(null);
+    const thumbRef = useRef<HTMLSpanElement>(null);
     const [drag, setDrag] = useState<number | null>(null);
     const [hover, setHover] = useState<number | null>(null);
     const safeMax = max > 0 && isFinite(max) ? max : 0;
     const shown = drag ?? value;
-    const ratio = safeMax ? Math.min(1, Math.max(0, shown / safeMax)) : 0;
-    const bufRatio = safeMax ? Math.min(1, Math.max(0, buffered / safeMax)) : 0;
+    const clamp01 = (x: number): number => Math.min(1, Math.max(0, x));
+    const ratio = safeMax ? clamp01(shown / safeMax) : 0;
+    const bufRatio = safeMax ? clamp01(buffered / safeMax) : 0;
+
+    // 外推: 记下最近一次 value 的到达时刻, rAF 里直接写 style, 不触发 React 重渲染
+    const anchor = useRef({ v: value, t: 0 });
+    useEffect(() => { anchor.current = { v: value, t: performance.now() }; }, [value]);
+    useEffect(() => {
+        if (!playing || drag !== null || !safeMax) return;
+        let raf = 0;
+        const tick = (): void => {
+            const { v, t } = anchor.current;
+            // 最多外推 1s, timeupdate 停了 (卡顿/缓冲) 就停在原地
+            const r = clamp01((v + Math.min(1, (performance.now() - t) / 1000)) / safeMax) * 100;
+            if (fillRef.current) fillRef.current.style.width = `${r}%`;
+            if (thumbRef.current) thumbRef.current.style.left = `${r}%`;
+            raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(raf);
+    }, [playing, drag, safeMax]);
 
     const valueAt = (clientX: number): number => {
-        const r = ref.current?.getBoundingClientRect();
+        const r = trackRef.current?.getBoundingClientRect();
         if (!r || r.width === 0) return 0;
-        return Math.min(1, Math.max(0, (clientX - r.left) / r.width)) * safeMax;
+        return clamp01((clientX - r.left) / r.width) * safeMax;
     };
+    const off = disabled || loading || !safeMax;
 
     const onPointerDown = (e: React.PointerEvent<HTMLDivElement>): void => {
-        if (disabled || !safeMax || e.button !== 0) return;
+        if (off || e.button !== 0) return;
+        e.preventDefault();
         e.currentTarget.setPointerCapture(e.pointerId);
         const v = valueAt(e.clientX);
         setDrag(v);
         if (live) onCommit(v);
     };
     const onPointerMove = (e: React.PointerEvent<HTMLDivElement>): void => {
-        if (!safeMax) return;
+        if (off) return;
         const v = valueAt(e.clientX);
-        setHover(v);
+        if (e.pointerType === 'mouse') setHover(v);
         if (drag !== null) {
             setDrag(v);
             if (live) onCommit(v);
@@ -116,24 +143,28 @@ function Scrubber({ value, max, buffered = 0, onCommit, live = false, format, la
         if (drag === null) return;
         const v = valueAt(e.clientX);
         setDrag(null);
+        if (e.pointerType !== 'mouse') setHover(null);
         onCommit(v);
     };
     const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
-        if (disabled || !safeMax) return;
+        if (off) return;
         const step = safeMax <= 1 ? 0.05 : 5;
-        if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); onCommit(Math.min(safeMax, value + step)); }
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); onCommit(Math.max(0, value - step)); }
+        const keys: Record<string, number> = { ArrowRight: step, ArrowUp: step, ArrowLeft: -step, ArrowDown: -step, PageUp: step * 6, PageDown: -step * 6 };
+        if (e.key in keys) { e.preventDefault(); onCommit(Math.min(safeMax, Math.max(0, value + keys[e.key]))); }
+        if (e.key === 'Home') { e.preventDefault(); onCommit(0); }
+        if (e.key === 'End' && safeMax > 1) { e.preventDefault(); onCommit(safeMax * 0.999); }
     };
 
     const tip = drag ?? hover;
+    const tipRatio = tip !== null && safeMax ? clamp01(tip / safeMax) : null;
     return (
         <div
-            ref={ref}
             className={styles.scrub}
             data-dragging={drag !== null || undefined}
-            data-disabled={disabled || !safeMax || undefined}
+            data-disabled={off || undefined}
+            data-loading={loading || undefined}
             role="slider"
-            tabIndex={disabled ? -1 : 0}
+            tabIndex={off ? -1 : 0}
             aria-label={label}
             aria-valuemin={0}
             aria-valuemax={safeMax}
@@ -142,18 +173,108 @@ function Scrubber({ value, max, buffered = 0, onCommit, live = false, format, la
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
-            onPointerCancel={() => setDrag(null)}
+            onPointerCancel={() => { setDrag(null); setHover(null); }}
             onPointerLeave={() => setHover(null)}
             onKeyDown={onKeyDown}
         >
-            <span className={styles.scrubTrack}>
-                <span className={styles.scrubBuf} style={{ width: `${bufRatio * 100}%` }} />
-                <span className={styles.scrubFill} style={{ width: `${ratio * 100}%` }} />
+            <span ref={trackRef} className={styles.scrubTrack}>
+                <span className={styles.scrubBar}>
+                    <span className={styles.scrubBuf} style={{ width: `${bufRatio * 100}%` }} />
+                    {tipRatio !== null && drag === null && (
+                        <span className={styles.scrubGhost} style={{ width: `${tipRatio * 100}%` }} />
+                    )}
+                    <span ref={fillRef} className={styles.scrubFill} style={{ width: `${ratio * 100}%` }} />
+                </span>
+                <span ref={thumbRef} className={styles.scrubThumb} style={{ left: `${ratio * 100}%` }} />
+                {tipRatio !== null && (
+                    <span className={styles.scrubTip} style={{ left: `${tipRatio * 100}%` }}>{format(tip as number)}</span>
+                )}
             </span>
-            <span className={styles.scrubThumb} style={{ left: `${ratio * 100}%` }} />
-            {tip !== null && safeMax > 0 && (
-                <span className={styles.scrubTip} style={{ left: `${Math.min(1, tip / safeMax) * 100}%` }}>{format(tip)}</span>
-            )}
+        </div>
+    );
+}
+
+/**
+ * 音量: 控制栏右端一个图标, 悬停 / 聚焦时向上弹出竖向小滑条, 和横向的进度条在形态上彻底区分.
+ * 点图标静音, 在图标上滚轮 ±5%.
+ */
+function VolumeControl({ volume, onChange, onToggleMute }: {
+    volume: number;
+    onChange: (v: number) => void;
+    onToggleMute: () => void;
+}): React.ReactElement {
+    const [open, setOpen] = useState(false);
+    const [drag, setDrag] = useState(false);
+    const railRef = useRef<HTMLSpanElement>(null);
+    const closeTimer = useRef<number | undefined>(undefined);
+    const Icon = volume === 0 ? FaVolumeMute : volume < 0.5 ? FaVolumeDown : FaVolumeUp;
+    const show = (): void => { window.clearTimeout(closeTimer.current); setOpen(true); };
+    const hide = (): void => { closeTimer.current = window.setTimeout(() => setOpen(false), 220); };
+    useEffect(() => () => window.clearTimeout(closeTimer.current), []);
+
+    const at = (clientY: number): number => {
+        const r = railRef.current?.getBoundingClientRect();
+        if (!r || r.height === 0) return volume;
+        return Math.min(1, Math.max(0, (r.bottom - clientY) / r.height));
+    };
+    const onWheel = (e: React.WheelEvent): void => {
+        e.preventDefault();
+        onChange(Math.min(1, Math.max(0, volume + (e.deltaY < 0 ? 0.05 : -0.05))));
+    };
+
+    return (
+        <div
+            className={styles.vol}
+            data-open={open || drag || undefined}
+            onPointerEnter={(e) => { if (e.pointerType === 'mouse') show(); }}
+            onPointerLeave={(e) => { if (e.pointerType === 'mouse' && !drag) hide(); }}
+            onFocus={show}
+            onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) hide(); }}
+        >
+            <div className={styles.volPop}>
+                <span className={styles.volNum}>{Math.round(volume * 100)}</span>
+                <div
+                    className={styles.volHit}
+                    role="slider"
+                    tabIndex={0}
+                    aria-label="音量"
+                    aria-orientation="vertical"
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-valuenow={Math.round(volume * 100)}
+                    onPointerDown={(e) => {
+                        if (e.button !== 0) return;
+                        e.preventDefault();
+                        e.currentTarget.setPointerCapture(e.pointerId);
+                        setDrag(true);
+                        onChange(at(e.clientY));
+                    }}
+                    onPointerMove={(e) => { if (drag) onChange(at(e.clientY)); }}
+                    onPointerUp={() => setDrag(false)}
+                    onPointerCancel={() => setDrag(false)}
+                    onWheel={onWheel}
+                    onKeyDown={(e) => {
+                        const d = e.key === 'ArrowUp' || e.key === 'ArrowRight' ? 0.05 : e.key === 'ArrowDown' || e.key === 'ArrowLeft' ? -0.05 : 0;
+                        if (d) { e.preventDefault(); onChange(Math.min(1, Math.max(0, volume + d))); }
+                    }}
+                >
+                    <span ref={railRef} className={styles.volRail}>
+                        <span className={styles.volFill} style={{ height: `${volume * 100}%` }} />
+                        <span className={styles.volKnob} style={{ bottom: `${volume * 100}%` }} />
+                    </span>
+                </div>
+            </div>
+            <button
+                type="button"
+                onClick={onToggleMute}
+                onWheel={onWheel}
+                className={styles.ctl}
+                data-on={volume === 0 || undefined}
+                title={volume === 0 ? '取消静音' : `音量 ${Math.round(volume * 100)} (点击静音, 滚轮调节)`}
+                aria-label={volume === 0 ? '取消静音' : '静音'}
+            >
+                <Icon size={15} />
+            </button>
         </div>
     );
 }
@@ -450,13 +571,13 @@ function MusicPanel(): React.ReactElement {
         window.dispatchEvent(new StorageEvent('storage', { key: LOCK_KEY, newValue: JSON.stringify(nextLocked) }));
     }, [lyricsLocked]);
 
-    const VolumeIcon = volume === 0 ? FaVolumeMute : volume < 0.5 ? FaVolumeDown : FaVolumeUp;
     const playingUrl = currentTrack?.audioWebUrl && !lossless ? currentTrack.audioWebUrl : currentTrack?.audioUrl;
     const fmt = formatOf(playingUrl);
     const sub = [currentTrack?.artist && currentTrack.artist !== 'Unknown' ? currentTrack.artist : '', currentTrack?.anime?.title ?? '']
         .filter(Boolean).join(' · ');
 
     const downloading = isLeader && audioStatus === 'downloading';
+    const [showRemain, setShowRemain] = useState(false);
     // 状态行: 只有 Leader 知道真实加载进度; Follower 只显示格式
     let status: React.ReactNode = null;
     if (isLeader && audioStatus === 'downloading') {
@@ -499,46 +620,59 @@ function MusicPanel(): React.ReactElement {
 
             {/* 进度 */}
             <div className={styles.progress}>
+                <span className={styles.time}>{formatTime(currentTime)}</span>
                 <Scrubber
-                    value={downloading ? downloadProgress : currentTime}
+                    value={downloading ? 0 : currentTime}
                     max={downloading ? 1 : duration}
-                    buffered={bufferedEnd}
+                    buffered={downloading ? downloadProgress : bufferedEnd}
                     onCommit={seek}
-                    format={downloading ? (v) => `${Math.round(v * 100)}%` : formatTime}
+                    format={formatTime}
                     label="播放进度"
-                    disabled={downloading}
+                    playing={isPlaying && !downloading && audioStatus !== 'loading'}
+                    loading={downloading || (isLeader && audioStatus === 'loading' && isPlaying)}
                 />
-                <div className={styles.times}>
-                    <span>{formatTime(currentTime)}</span>
-                    <span>{formatTime(duration)}</span>
-                </div>
-            </div>
-
-            {/* 控制 */}
-            <div className={styles.controls}>
-                <button type="button" onClick={cyclePlayMode} className={styles.ctl} title={PLAY_MODE_INFO[playMode].title} aria-label={PLAY_MODE_INFO[playMode].title}>
-                    {PLAY_MODE_INFO[playMode].icon}
-                </button>
-                <button type="button" onClick={prev} className={styles.ctl} title="上一曲" aria-label="上一曲">
-                    <FaStepBackward size={14} />
-                </button>
-                <button type="button" onClick={toggle} className={styles.ctlMain} title={isPlaying ? '暂停' : '播放'} aria-label={isPlaying ? '暂停' : '播放'}>
-                    {isPlaying ? <FaPause size={16} /> : <FaPlay size={16} style={{ marginLeft: 3 }} />}
-                </button>
-                <button type="button" onClick={next} className={styles.ctl} title="下一曲" aria-label="下一曲">
-                    <FaStepForward size={14} />
-                </button>
                 <button
                     type="button"
-                    onClick={toggleLyrics}
-                    className={styles.ctl}
-                    data-on={showLyrics || undefined}
-                    disabled={!lyric}
-                    title={!lyric ? '这首歌没有歌词' : showLyrics ? '隐藏歌词' : '显示歌词'}
-                    aria-label="歌词"
+                    className={styles.timeBtn}
+                    onClick={() => setShowRemain((v) => !v)}
+                    title={showRemain ? '显示总时长' : '显示剩余时间'}
                 >
-                    <span className={styles.ctlWord}>词</span>
+                    {showRemain && duration > 0 ? `-${formatTime(Math.max(0, duration - currentTime))}` : formatTime(duration)}
                 </button>
+            </div>
+
+            {/* 控制: 左 = 播放模式, 中 = 上一首 / 播放 / 下一首, 右 = 歌词开关 + 音量 */}
+            <div className={styles.controls}>
+                <div className={styles.ctlSide}>
+                    <button type="button" onClick={cyclePlayMode} className={styles.ctl} data-on={playMode !== 'list-loop' || undefined} title={PLAY_MODE_INFO[playMode].title} aria-label={PLAY_MODE_INFO[playMode].title}>
+                        {PLAY_MODE_INFO[playMode].icon}
+                    </button>
+                </div>
+                <div className={styles.ctlCenter}>
+                    <button type="button" onClick={prev} className={styles.ctl} title="上一曲" aria-label="上一曲">
+                        <FaStepBackward size={14} />
+                    </button>
+                    <button type="button" onClick={toggle} className={styles.ctlMain} title={isPlaying ? '暂停' : '播放'} aria-label={isPlaying ? '暂停' : '播放'}>
+                        {isPlaying ? <FaPause size={16} /> : <FaPlay size={16} style={{ marginLeft: 3 }} />}
+                    </button>
+                    <button type="button" onClick={next} className={styles.ctl} title="下一曲" aria-label="下一曲">
+                        <FaStepForward size={14} />
+                    </button>
+                </div>
+                <div className={`${styles.ctlSide} ${styles.ctlRight}`}>
+                    <button
+                        type="button"
+                        onClick={toggleLyrics}
+                        className={styles.ctl}
+                        data-on={showLyrics || undefined}
+                        disabled={!lyric}
+                        title={!lyric ? '这首歌没有歌词' : showLyrics ? '隐藏歌词' : '显示歌词'}
+                        aria-label="歌词"
+                    >
+                        <span className={styles.ctlWord}>词</span>
+                    </button>
+                    <VolumeControl volume={volume} onChange={commitVolume} onToggleMute={toggleMute} />
+                </div>
             </div>
 
             {/* 歌词: 多份时可切换; 显示中可锁定 / 复位悬浮窗 */}
@@ -579,15 +713,6 @@ function MusicPanel(): React.ReactElement {
                     )}
                 </div>
             )}
-
-            {/* 音量 */}
-            <div className={styles.volume}>
-                <button type="button" onClick={toggleMute} className={styles.mini} title={volume === 0 ? '取消静音' : '静音'} aria-label="静音">
-                    <VolumeIcon size={13} />
-                </button>
-                <Scrubber value={volume} max={1} onCommit={commitVolume} live format={(v) => `${Math.round(v * 100)}%`} label="音量" />
-                <span className={styles.volNum}>{Math.round(volume * 100)}</span>
-            </div>
 
             {pl.length >= 1 && <PlaylistTree playlist={pl} trackIndex={trackIndex} isPlaying={isPlaying} onPick={setTrack} />}
         </div>
