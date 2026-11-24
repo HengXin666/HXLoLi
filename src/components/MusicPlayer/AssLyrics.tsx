@@ -646,7 +646,6 @@ export default function AssLyrics(): React.ReactElement | null {
         };
 
         // ── 字体: 拿到 detail 就立刻开始下载, 和 ASS 下载并行, Worker 就绪后再写入 ──
-        // .agents/notes/implemented/feature/2026-11-24-music-player-v2.md
         // 1. 绝对 CDN URL 还原成 /static/... 相对路径, 走多 CDN 竞速 (自建节点无 20MB 限制),
         //    比直连 fastly 快一个量级; 竞速失败再走切片下载.
         // 2. 按相对路径去重 (detail.fonts 里常常已经带了 NotoSansSC, 以前会再下一遍).
