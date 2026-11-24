@@ -348,39 +348,96 @@ export function MusicNavbarButton(): React.ReactElement | null {
     );
 }
 
-interface TrackGroup {
+interface TrackItem { track: MusicTrack; index: number }
+
+/** 播放列表树的一个目录节点; key = 相对 static/music/ 的目录路径 */
+interface DirNode {
     key: string;
-    title: string;
+    name: string;
+    dirs: DirNode[];
+    items: TrackItem[];
+    count: number;
+    /** 目录自带封面 (playlist 的 dirCovers), 没有时为 undefined */
     cover?: string;
-    items: { track: MusicTrack; index: number }[];
+    /** 子树内前 4 张不同的歌曲封面, 用来拼图 */
+    covers: string[];
 }
 
-const OTHER_KEY = '\u0000other';
+const MUSIC_ROOT = '/static/music/';
 
-/** 按 anime.title 分组; 组序 = 组内第一首在原列表中的位置, "其它" (anime 为空) 放最后; 不改歌曲原顺序 */
-function groupByAnime(pl: readonly MusicTrack[]): TrackGroup[] {
-    const map = new Map<string, TrackGroup>();
-    pl.forEach((track, index) => {
-        const title = track.anime?.title;
-        const key = title ?? OTHER_KEY;
-        let g = map.get(key);
-        if (!g) {
-            g = { key, title: title ?? '其它', items: [] };
-            map.set(key, g);
-        }
-        if (!g.cover && track.coverUrl) g.cover = track.coverUrl;
-        g.items.push({ track, index });
-    });
-    const groups = [...map.values()];
-    const other = groups.findIndex((g) => g.key === OTHER_KEY);
-    if (other >= 0) groups.push(groups.splice(other, 1)[0]);
-    return groups;
+/** 歌曲所在目录的各级名字: "/static/music/番剧A/OST/x.flac" -> ["番剧A", "OST"] */
+function dirSegments(track: MusicTrack): string[] {
+    const raw = track.audioRelativePath ?? track.audioUrl ?? '';
+    const i = raw.indexOf(MUSIC_ROOT);
+    if (i < 0) return [];
+    const segs = raw.slice(i + MUSIC_ROOT.length).split('/').slice(0, -1).filter(Boolean);
+    return segs.map((x) => { try { return decodeURIComponent(x); } catch { return x; } });
 }
 
 /**
- * 播放列表树: 一级 = 番剧 (封面缩略图 / 番名 / 曲数 / 箭头), 二级 = 该番的歌 (原序号).
- * 默认只展开正在播放的组, 切到别的组的歌时自动展开那组; 只有一组时退化为平铺列表.
- * 有搜索词时平铺显示命中的歌 (标题 / 歌手 / 番名).
+ * 按音频所在目录建树, 层数不限. 目录顺序 = 目录内第一首在原列表的位置, 不改歌曲原顺序 (上一首 / 下一首仍按原列表).
+ * 只有一个子目录且自己没有歌的目录与子目录合并成 "A / B" 一行, 少点一层展开.
+ */
+function buildDirTree(pl: readonly MusicTrack[]): DirNode {
+    const root: DirNode = { key: '', name: '', dirs: [], items: [], count: 0, covers: [] };
+    const dirCovers = new Map<string, string>();
+    pl.forEach((track, index) => {
+        for (const [k, v] of Object.entries(track.dirCovers ?? {})) if (v && !dirCovers.has(k)) dirCovers.set(k, v);
+        let node = root;
+        for (const seg of dirSegments(track)) {
+            const key = node.key ? `${node.key}/${seg}` : seg;
+            let next = node.dirs.find((d) => d.key === key);
+            if (!next) {
+                next = { key, name: seg, dirs: [], items: [], count: 0, covers: [] };
+                node.dirs.push(next);
+            }
+            node = next;
+        }
+        node.items.push({ track, index });
+    });
+    const finish = (n: DirNode): DirNode => {
+        n.dirs = n.dirs.map(finish);
+        while (n !== root && n.items.length === 0 && n.dirs.length === 1) {
+            const only = n.dirs[0];
+            n = { ...only, name: `${n.name} / ${only.name}`, cover: only.cover ?? dirCovers.get(n.key) };
+        }
+        n.cover ??= dirCovers.get(n.key);
+        n.count = n.items.length + n.dirs.reduce((x, d) => x + d.count, 0);
+        const covers = new Set<string>();
+        for (const it of n.items) if (it.track.coverUrl) covers.add(it.track.coverUrl);
+        for (const d of n.dirs) for (const c of d.covers) covers.add(c);
+        n.covers = [...covers].slice(0, 4);
+        return n;
+    };
+    return finish(root);
+}
+
+/** 当前歌曲所在的各级目录 key (用于自动展开) */
+function ancestorKeys(track: MusicTrack | undefined): string[] {
+    if (!track) return [];
+    const segs = dirSegments(track);
+    return segs.map((_, i) => segs.slice(0, i + 1).join('/'));
+}
+
+/**
+ * 目录封面: 目录自带的 cover.* 优先; 否则用子树里的歌曲封面拼图, 张数决定版式不重复贴图:
+ * 1 张铺满, 2 张左右各半, 3 张左大右二, 4 张 2x2; 一张都没有画音符.
+ */
+function DirCover({ node }: { node: DirNode }): React.ReactElement {
+    if (node.cover) return <img className={styles.groupCover} src={node.cover} alt="" loading="lazy" decoding="async" />;
+    if (node.covers.length === 0) return <span className={styles.groupCover} aria-hidden="true">♪</span>;
+    if (node.covers.length === 1) return <img className={styles.groupCover} src={node.covers[0]} alt="" loading="lazy" decoding="async" />;
+    return (
+        <span className={`${styles.groupCover} ${styles.mosaic}`} data-n={node.covers.length} aria-hidden="true">
+            {node.covers.map((c, i) => <img key={i} src={c} alt="" loading="lazy" decoding="async" />)}
+        </span>
+    );
+}
+
+/**
+ * 播放列表树: 按音频所在目录分组 (层数不限), 目录行 = 封面 / 名字 / 曲数 / 箭头, 歌曲行带封面缩略图.
+ * 默认只展开正在播放的那首所在的各级目录, 切歌时自动展开新路径, 手动展开的保持.
+ * 有搜索词时平铺显示命中的歌 (标题 / 歌手 / 目录名); 没有子目录时退化为平铺列表.
  * .agents/notes/implemented/feature/2026-11-02-music-anime-tree.md
  */
 function PlaylistTree({ playlist, trackIndex, isPlaying, onPick }: {
@@ -389,14 +446,15 @@ function PlaylistTree({ playlist, trackIndex, isPlaying, onPick }: {
     isPlaying: boolean;
     onPick: (i: number) => void;
 }): React.ReactElement {
-    const groups = useMemo(() => groupByAnime(playlist), [playlist]);
-    const currentKey = playlist[trackIndex]?.anime?.title ?? OTHER_KEY;
-    const [open, setOpen] = useState<ReadonlySet<string>>(() => new Set([currentKey]));
+    const tree = useMemo(() => buildDirTree(playlist), [playlist]);
+    const currentPath = useMemo(() => ancestorKeys(playlist[trackIndex]), [playlist, trackIndex]);
+    const currentSet = useMemo(() => new Set(currentPath), [currentPath]);
+    const [open, setOpen] = useState<ReadonlySet<string>>(() => new Set(currentPath));
     const [query, setQuery] = useState('');
     const activeRef = useRef<HTMLButtonElement>(null);
     useEffect(() => {
-        setOpen((s) => (s.has(currentKey) ? s : new Set(s).add(currentKey)));
-    }, [currentKey]);
+        setOpen((s) => (currentPath.every((k) => s.has(k)) ? s : new Set([...s, ...currentPath])));
+    }, [currentPath]);
     // 打开面板时把正在播放的那首滚进视野
     useEffect(() => {
         activeRef.current?.scrollIntoView({ block: 'nearest' });
@@ -409,8 +467,10 @@ function PlaylistTree({ playlist, trackIndex, isPlaying, onPick }: {
     const q = query.trim().toLowerCase();
     const hits = useMemo(() => (q
         ? playlist.map((track, index) => ({ track, index }))
-            .filter(({ track }) => [track.title, track.artist, track.anime?.title ?? ''].some((t) => t.toLowerCase().includes(q)))
+            .filter(({ track }) => [track.title, track.artist, dirSegments(track).join('/')].some((t) => t.toLowerCase().includes(q)))
         : []), [playlist, q]);
+    // 合并过的目录 ("A / B") 的 key 是最深一级那层的路径, 同样在当前歌的祖先路径里
+    const holdsCurrent = (key: string): boolean => currentSet.has(key);
 
     const row = ({ track, index }: { track: MusicTrack; index: number }): React.ReactElement => {
         const active = index === trackIndex;
@@ -424,18 +484,48 @@ function PlaylistTree({ playlist, trackIndex, isPlaying, onPick }: {
                 onClick={() => onPick(index)}
             >
                 <span className={styles.rowIndex}>{active ? <EqBars playing={isPlaying} /> : index + 1}</span>
+                {track.coverUrl
+                    ? <img className={styles.rowCover} src={track.coverUrl} alt="" loading="lazy" decoding="async" />
+                    : <span className={styles.rowCover} aria-hidden="true" />}
                 <span className={styles.rowTitle}>{track.title}</span>
                 {(track.lyrics?.length ?? 0) > 0 && <span className={styles.rowTag} title="有歌词">词</span>}
                 {track.artist && track.artist !== 'Unknown' && <span className={styles.rowArtist}>{track.artist}</span>}
             </button>
         );
     };
-    const flat = groups.length <= 1;
+    const flat = tree.dirs.length === 0;
+    const renderDir = (node: DirNode, depth: number): React.ReactElement => {
+        const isOpen = open.has(node.key);
+        return (
+            <div key={node.key} className={styles.group} data-open={isOpen || undefined}>
+                <button
+                    type="button"
+                    className={styles.groupHead}
+                    data-playing={holdsCurrent(node.key) || undefined}
+                    aria-expanded={isOpen}
+                    title={node.key}
+                    onClick={() => flip(node.key)}
+                >
+                    <DirCover node={node} />
+                    <span className={styles.groupTitle}>{node.name}</span>
+                    <span className={styles.groupCount}>{node.count}</span>
+                    <span className={styles.groupChevron} aria-hidden="true">›</span>
+                </button>
+                <div className={styles.groupBody} inert={!isOpen}>
+                    <div className={styles.groupInner}>
+                        {node.dirs.map((d) => renderDir(d, depth + 1))}
+                        {node.items.map(row)}
+                    </div>
+                </div>
+            </div>
+        );
+    };
+    const topDirs = tree.dirs.length;
     return (
         <div className={styles.list}>
             <div className={styles.listHead}>
                 <span className={styles.label}>播放列表</span>
-                <span className={styles.listCount}>{flat ? `${playlist.length} 首` : `${groups.length} 部 · ${playlist.length} 首`}</span>
+                <span className={styles.listCount}>{flat ? `${playlist.length} 首` : `${topDirs} 个目录 · ${playlist.length} 首`}</span>
             </div>
             {playlist.length > 6 && (
                 <label className={styles.search}>
@@ -443,7 +533,7 @@ function PlaylistTree({ playlist, trackIndex, isPlaying, onPick }: {
                     <input
                         type="search"
                         value={query}
-                        placeholder="搜索歌名 / 歌手 / 番剧"
+                        placeholder="搜索歌名 / 歌手 / 目录"
                         onChange={(e) => setQuery(e.target.value)}
                         onKeyDown={(e) => e.stopPropagation()}
                     />
@@ -451,31 +541,8 @@ function PlaylistTree({ playlist, trackIndex, isPlaying, onPick }: {
             )}
             <div className={styles.listBody}>
                 {q ? (hits.length ? hits.map(row) : <div className={styles.empty}>没有匹配的歌</div>)
-                    : flat ? playlist.map((track, index) => row({ track, index })) : groups.map((g) => {
-                        const isOpen = open.has(g.key);
-                        const playing = g.key === currentKey;
-                        return (
-                            <div key={g.key} className={styles.group} data-open={isOpen || undefined}>
-                                <button
-                                    type="button"
-                                    className={styles.groupHead}
-                                    data-playing={playing || undefined}
-                                    aria-expanded={isOpen}
-                                    onClick={() => flip(g.key)}
-                                >
-                                    {g.cover
-                                        ? <img className={styles.groupCover} src={g.cover} alt="" loading="lazy" decoding="async" />
-                                        : <span className={styles.groupCover} aria-hidden="true">♪</span>}
-                                    <span className={styles.groupTitle}>{g.title}</span>
-                                    <span className={styles.groupCount}>{g.items.length}</span>
-                                    <span className={styles.groupChevron} aria-hidden="true">›</span>
-                                </button>
-                                <div className={styles.groupBody} inert={!isOpen}>
-                                    <div className={styles.groupInner}>{g.items.map(row)}</div>
-                                </div>
-                            </div>
-                        );
-                    })}
+                    : flat ? playlist.map((track, index) => row({ track, index }))
+                        : <>{tree.dirs.map((d) => renderDir(d, 0))}{tree.items.map(row)}</>}
             </div>
         </div>
     );

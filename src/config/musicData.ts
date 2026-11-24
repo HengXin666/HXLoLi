@@ -39,6 +39,11 @@ export interface MusicTrack {
     lyrics?: MusicLyric[];
     /** 番剧归属: HXLoLi-Music 的 static/music/<番剧名>/ 目录名, 原样; null = 不属于番剧 (播放器归到"其它"); 旧数据没有该字段 */
     anime?: { title: string } | null;
+    /**
+     * 目录封面 (可选, 音乐库以后导出): key = 相对 static/music/ 的目录路径 (如 "番剧A" 或 "番剧A/OST"),
+     * value = 图片地址 (加载后已转为绝对地址). 没有时播放列表用目录内前 4 首的封面拼图.
+     */
+    dirCovers?: Record<string, string>;
 }
 
 /** 一份歌词 */

@@ -120,6 +120,9 @@ export function loadPlaylist(): Promise<MusicTrack[]> {
                 assUrl: lyrics[0]?.assUrl,
                 assRelativePath: lyrics[0]?.assRelativePath,
                 coverUrl: resolveUrl(track.coverUrl, useLocal),
+                dirCovers: track.dirCovers
+                    ? Object.fromEntries(Object.entries(track.dirCovers).map(([k, v]) => [k, resolveUrl(v, useLocal)!]))
+                    : undefined,
                 lyrics,
             };
         });
