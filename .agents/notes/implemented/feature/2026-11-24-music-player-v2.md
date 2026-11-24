@@ -43,3 +43,12 @@ Decision-ID: music-player-v2
 - 大 FLAC 第一次要整首下完才开始播 (56MB 要等下载)。之后切片走 Service Worker 缓存。真正解决要等音乐库生成 `audioWebUrl`。
 - 音乐库要支持多歌词, `gen_music_playlist.py` 需要按 `歌名.标签.ass` 产出 `lyrics` 数组; 每份歌词的字体和边界框不同时, 另出 `static/info/<id>.<key>.json` 并在 `detailId` 里写明。
 - Follower Tab 看不到加载进度和缓冲段, 只显示 Leader 同步来的时间。
+
+## Revision 2026-11-25
+
+**歌词字体与 ASS 同时下载, 走多 CDN 竞速; 进度条和音量分开。**
+
+- 实测 (オンリー): ASS 9.5s 到, 特效字体到 70s 才齐。原因是字体要等 Worker 就绪才开始下, 绝对 URL 直连 fastly, NotoSansSC (17.8MB) 被 `assFontMap`/`fonts` 和兜底各下一次, 20MB 以上的字体被 403 且没有切片回退, 每到一个字体就 `setTrack` 重解析 3MB 的 ASS。
+- 现在拿到详细配置就开始下字体, 绝对 URL 还原成 `/static/...` 走 `reqMusicRace` (自建节点无 20MB 限制), 失败再走 `reqMusicByCDN`。按路径去重, NotoSansSC 等本曲字体结束后再下。热重载合成至多三次: 4s 时先用已到的, 本曲字体全齐, 兜底字体到。
+- 根治仍在音乐库: 按曲子集化字体为 woff2。
+- 面板: 进度条 24px 命中区, 悬停加粗, 缓冲段, rAF 外推, 键盘 Home/End/PageUp/PageDown, 点时长切剩余时间。音量从独立一行改成控制行右端的图标, 悬停弹出竖向滑条, 点击静音, 滚轮调节。
