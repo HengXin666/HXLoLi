@@ -11,7 +11,11 @@
 import type { MusicTrack } from '@site/src/config/musicData';
 import { create } from 'zustand';
 import { CrossTabMusicSync, type MusicCommand, type MusicState } from './crossTabSync';
+import { reqMusicByCDN } from '@site/src/utils/cdn/linkJsDelivr';
 import { loadPlaylist } from './musicDataLoader';
+
+/** 音频加载阶段: loading = 直链缓冲中; downloading = 直链被拒 (超过 20MB), 正在切片下载 */
+export type AudioStatus = 'idle' | 'loading' | 'downloading' | 'ready' | 'error';
 
 /** 播放模式 */
 export type PlayMode = 'list-loop' | 'single-loop' | 'shuffle';
@@ -47,6 +51,16 @@ interface MusicPlayerState {
      * Follower 用它来插值计算当前真实播放位置，避免 ASS 歌词一卡一卡
      */
     lastSyncTimestamp: number;
+    /** 音频加载阶段 (仅 Leader 准确) */
+    audioStatus: AudioStatus;
+    /** 切片下载进度 0-1 */
+    downloadProgress: number;
+    /** 当前位置所在的已缓冲区间终点 (秒, 仅 Leader) */
+    bufferedEnd: number;
+    /** 偏好无损: 有网页版音频时也播原始文件 */
+    lossless: boolean;
+    /** 每首歌选中的歌词 key (trackId -> key) */
+    lyricChoice: Record<string, string>;
 }
 
 interface MusicPlayerActions {
@@ -78,6 +92,10 @@ interface MusicPlayerActions {
     togglePanel: () => void;
     /** 关闭面板 */
     closePanel: () => void;
+    /** 选择某首歌的歌词 */
+    setLyric: (trackId: string, key: string) => void;
+    /** 切换无损偏好 (当前曲目有网页版时按新偏好重载, 保持进度) */
+    toggleLossless: () => void;
     /** 销毁播放器 */
     dispose: () => void;
     /**
@@ -95,6 +113,39 @@ let audio: HTMLAudioElement | null = null;
 let crossTab: CrossTabMusicSync | null = null;
 let rafId: number | null = null;
 let broadcastWorker: Worker | null = null;
+/** 每次 loadTrack 自增; 异步回调里比对, 过期的加载 (快速连切) 直接丢弃 */
+let loadToken = 0;
+/** 切片下载得到的 Blob URL, 换歌时回收 */
+let objectUrl: string | null = null;
+
+const LYRIC_KEY = 'hxloli-music-lyric';
+const LOSSLESS_KEY = 'hxloli-music-lossless';
+
+function loadLyricChoice(): Record<string, string> {
+    try {
+        const raw = localStorage.getItem(LYRIC_KEY);
+        const v = raw ? JSON.parse(raw) : null;
+        return v && typeof v === 'object' ? v as Record<string, string> : {};
+    } catch { return {}; }
+}
+
+function loadLossless(): boolean {
+    try { return localStorage.getItem(LOSSLESS_KEY) === 'true'; } catch { return false; }
+}
+
+/** 按 id 找回曲目索引; 找不到 (旧状态没存 id, 或那首歌被删了) 再用索引 */
+function resolveIndex(list: readonly MusicTrack[], trackId: string | undefined, trackIndex: number): number {
+    if (trackId) {
+        const i = list.findIndex((t) => t.id === trackId);
+        if (i >= 0) return i;
+    }
+    return trackIndex;
+}
+
+function mimeOf(path: string): string {
+    const ext = path.split('.').pop()?.toLowerCase() ?? '';
+    return ({ flac: 'audio/flac', mp3: 'audio/mpeg', m4a: 'audio/mp4', aac: 'audio/aac', ogg: 'audio/ogg', opus: 'audio/ogg', wav: 'audio/wav', webm: 'audio/webm' } as Record<string, string>)[ext] ?? 'application/octet-stream';
+}
 
 /**
  * Follower 端播放状态（用于 Follower RAF 循环判断）
@@ -115,6 +166,7 @@ function saveState(state: MusicPlayerState): void {
     try {
         const data: MusicState = {
             trackIndex: state.trackIndex,
+            trackId: state.playlist?.[state.trackIndex]?.id,
             currentTime: state.currentTime,
             duration: state.duration,
             isPlaying: state.isPlaying,
@@ -144,6 +196,7 @@ function saveSharedState(state: MusicPlayerState): void {
     try {
         const data: MusicState = {
             trackIndex: state.trackIndex,
+            trackId: state.playlist?.[state.trackIndex]?.id,
             currentTime: state.currentTime,
             duration: state.duration,
             isPlaying: state.isPlaying,
@@ -248,6 +301,15 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                 const duration = audio.duration || 0;
                 set({ currentTime, duration });
             }
+            if (audio) {
+                // 已缓冲到哪: 取包含当前位置的那段; 变化超过 0.5 秒才写, 避免每帧触发渲染
+                const b = audio.buffered;
+                let end = 0;
+                for (let i = 0; i < b.length; i++) {
+                    if (b.start(i) <= audio.currentTime + 0.5 && b.end(i) >= audio.currentTime) { end = b.end(i); break; }
+                }
+                if (Math.abs(end - get().bufferedEnd) > 0.5) set({ bufferedEnd: end });
+            }
             rafId = requestAnimationFrame(tick);
         };
         rafId = requestAnimationFrame(tick);
@@ -337,57 +399,113 @@ export const useMusicStore = create<MusicStore>((set, get) => {
         }
     }
 
-    /** 加载并播放指定曲目 (仅 Leader 调用) */
+    /**
+     * 加载并播放指定曲目 (仅 Leader 调用).
+     * 先播直链 (有网页版且没开无损时播网页版); 直链失败 (jsDelivr 对 20MB 以上文件回 403) 时
+     * 走 reqMusicByCDN 切片下载, 得到 Blob 再播. 每次调用带 token, 连切时旧的回调全部作废.
+     * .agents/notes/implemented/feature/2026-11-24-music-player-v2.md
+     */
     function loadTrack(index: number, autoPlay: boolean = false, seekTo?: number): void {
         if (!audio) return;
         const list = get().playlist;
         if (index < 0 || index >= list.length) return;
         const track = list[index];
+        const el = audio;
+        const token = ++loadToken;
+        const stale = (): boolean => token !== loadToken || audio !== el;
 
-        // 先暂停当前播放，避免 play() 的 AbortError
-        audio.pause();
+        el.pause();
+        set({
+            trackIndex: index, currentTime: seekTo ?? 0, duration: 0, isPlaying: autoPlay,
+            audioStatus: 'loading', downloadProgress: 0, bufferedEnd: 0,
+        });
+        updateMediaSession(track);
 
-        // 如果是 autoPlay，保持 isPlaying: true 避免 UI 闪烁为暂停状态
-        set({ trackIndex: index, currentTime: seekTo ?? 0, duration: 0, isPlaying: autoPlay });
-
-        audio.src = track.audioUrl;
-
-        const onCanPlay = () => {
-            if (!audio) return;
-            audio.removeEventListener('canplay', onCanPlay);
-            audio.removeEventListener('error', onError);
-
-            set({ duration: audio.duration || 0 });
-
-            if (seekTo !== undefined && seekTo > 0) {
-                audio.currentTime = seekTo;
-            }
-
-            if (autoPlay) {
-                audio.volume = get().volume;
-                const playPromise = audio.play();
-                if (playPromise) {
-                    playPromise.then(() => {
-                        set({ isPlaying: true });
-                        flushSharedState();
-                    }).catch(() => {
-                        set({ isPlaying: false });
-                        flushSharedState();
-                    });
+        const start = (src: string, viaSplit: boolean): void => {
+            if (stale()) return;
+            const onCanPlay = (): void => {
+                el.removeEventListener('canplay', onCanPlay);
+                el.removeEventListener('error', onError);
+                if (stale()) return;
+                set({ duration: el.duration || 0, audioStatus: 'ready' });
+                if (seekTo !== undefined && seekTo > 0) el.currentTime = seekTo;
+                if (autoPlay) {
+                    el.volume = get().volume;
+                    el.play().then(() => { if (!stale()) { set({ isPlaying: true }); flushSharedState(); } })
+                        .catch(() => { if (!stale()) { set({ isPlaying: false }); flushSharedState(); } });
                 }
+            };
+            const onError = (): void => {
+                el.removeEventListener('canplay', onCanPlay);
+                el.removeEventListener('error', onError);
+                if (stale()) return;
+                if (!viaSplit && track.audioRelativePath && /^https?:\/\//.test(src) && !/^https?:\/\/(localhost|127\.0\.0\.1)/.test(src)) {
+                    void downloadSplit();
+                    return;
+                }
+                console.error('[MusicPlayer] 加载音频失败:', src);
+                set({ isPlaying: false, audioStatus: 'error' });
+            };
+            el.addEventListener('canplay', onCanPlay);
+            el.addEventListener('error', onError);
+            const prevObject = objectUrl;
+            el.src = src;
+            if (prevObject && prevObject !== src) {
+                URL.revokeObjectURL(prevObject);
+                if (objectUrl === prevObject) objectUrl = null;
             }
         };
 
-        const onError = () => {
-            if (!audio) return;
-            audio.removeEventListener('canplay', onCanPlay);
-            audio.removeEventListener('error', onError);
-            console.error('[MusicPlayer] 加载音频失败:', track.audioUrl);
-            set({ isPlaying: false });
+        const downloadSplit = async (): Promise<void> => {
+            set({ audioStatus: 'downloading', downloadProgress: 0 });
+            try {
+                const path = track.audioRelativePath!;
+                const res = await reqMusicByCDN(path, (p) => {
+                    if (stale()) return;
+                    const pct = p.total > 0 ? p.loaded / p.total : p.percentage / 100;
+                    set({ downloadProgress: Math.max(0, Math.min(1, pct)) });
+                });
+                if (stale()) return;
+                const blob = res.blob.type.startsWith('audio/') ? res.blob : new Blob([res.blob], { type: mimeOf(path) });
+                const url = URL.createObjectURL(blob);
+                objectUrl = url;
+                set({ downloadProgress: 1 });
+                start(url, true);
+            } catch (err) {
+                if (stale()) return;
+                console.error('[MusicPlayer] 切片下载音频失败:', track.audioRelativePath, err);
+                set({ isPlaying: false, audioStatus: 'error' });
+            }
         };
 
-        audio.addEventListener('canplay', onCanPlay);
-        audio.addEventListener('error', onError);
+        const preferWeb = !!track.audioWebUrl && !loadLossless();
+        start(preferWeb ? track.audioWebUrl! : track.audioUrl, false);
+    }
+
+    /** 系统媒体控件 (锁屏 / 耳机按键 / 键盘媒体键) 显示的曲目信息 */
+    function updateMediaSession(track: MusicTrack): void {
+        if (typeof navigator === 'undefined' || !('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return;
+        try {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: track.title,
+                artist: track.artist && track.artist !== 'Unknown' ? track.artist : '',
+                album: track.anime?.title ?? '',
+                artwork: track.coverUrl ? [{ src: track.coverUrl }] : [],
+            });
+        } catch { /* ignore */ }
+    }
+
+    function bindMediaSession(): void {
+        if (typeof navigator === 'undefined' || !('mediaSession' in navigator)) return;
+        const ms = navigator.mediaSession;
+        const on = (action: MediaSessionAction, fn: MediaSessionActionHandler): void => {
+            try { ms.setActionHandler(action, fn); } catch { /* 不支持的 action */ }
+        };
+        on('play', () => executeCommand({ action: 'play' }));
+        on('pause', () => executeCommand({ action: 'pause' }));
+        on('previoustrack', () => executeCommand({ action: 'prev' }));
+        on('nexttrack', () => executeCommand({ action: 'next' }));
+        on('seekto', (d) => { if (typeof d.seekTime === 'number') executeCommand({ action: 'seek', time: d.seekTime }); });
     }
 
     /** 关键操作后立即同步共享状态（不等 interval） */
@@ -450,6 +568,9 @@ export const useMusicStore = create<MusicStore>((set, get) => {
             case 'setTrack':
                 loadTrack(cmd.trackIndex, true);
                 break;
+            case 'reload':
+                loadTrack(s.trackIndex, !audio.paused, audio.currentTime);
+                break;
             case 'setVolume':
                 audio.volume = cmd.volume;
                 set({ volume: cmd.volume });
@@ -473,6 +594,11 @@ export const useMusicStore = create<MusicStore>((set, get) => {
         lyricsFullscreen: false,
         panelExpanded: false,
         lastSyncTimestamp: 0,
+        audioStatus: 'idle',
+        downloadProgress: 0,
+        bufferedEnd: 0,
+        lossless: false,
+        lyricChoice: {},
 
         // ---- 动作 ----
         init: () => {
@@ -482,6 +608,13 @@ export const useMusicStore = create<MusicStore>((set, get) => {
             // 仅在浏览器环境中运行
             if (typeof window === 'undefined') return;
 
+            set({ lossless: loadLossless(), lyricChoice: loadLyricChoice() });
+            // 其它 Tab 改了歌词选择 / 无损偏好时同步过来 (歌词每个 Tab 各自渲染)
+            window.addEventListener('storage', (e) => {
+                if (e.key === LYRIC_KEY) set({ lyricChoice: loadLyricChoice() });
+                if (e.key === LOSSLESS_KEY) set({ lossless: loadLossless() });
+            });
+
             // 异步加载播放列表 (从 HXLoLi-Music 仓库 CDN)
             loadPlaylist().then(playlistData => {
                 set({ playlist: playlistData });
@@ -490,7 +623,7 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                 if (s.isLeader && playlistData.length > 0 && audio && !audio.src) {
                     const shared = loadSharedState();
                     const saved = loadState();
-                    const restoreTrack = shared?.trackIndex ?? saved?.trackIndex ?? 0;
+                    const restoreTrack = resolveIndex(playlistData, shared?.trackId ?? saved?.trackId, shared?.trackIndex ?? saved?.trackIndex ?? 0);
                     const restoreTime = shared?.currentTime ?? saved?.currentTime ?? 0;
                     const restorePlaying = shared?.isPlaying ?? saved?.isPlaying ?? false;
                     if (restoreTrack < playlistData.length) {
@@ -548,6 +681,7 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                     if (!audio) {
                         audio = new Audio();
                         audio.volume = get().volume;
+                        bindMediaSession();
 
                         // 监听播放结束 -> 根据播放模式决定下一曲
                         audio.addEventListener('ended', (e) => {
@@ -591,7 +725,7 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                     let restoreVolume: number;
 
                     if (hasSharedState) {
-                        restoreTrack = shared!.trackIndex;
+                        restoreTrack = resolveIndex(list, shared!.trackId, shared!.trackIndex);
                         restoreTime = shared!.currentTime;
                         restorePlaying = shared!.isPlaying;
                         restoreVolume = shared!.volume;
@@ -601,7 +735,7 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                             restoreTime = Math.min(restoreTime + elapsed, shared!.duration || Infinity);
                         }
                     } else if (saved) {
-                        restoreTrack = saved.trackIndex;
+                        restoreTrack = resolveIndex(list, saved.trackId, saved.trackIndex);
                         restoreTime = saved.currentTime;
                         restorePlaying = saved.isPlaying;
                         restoreVolume = saved.volume;
@@ -730,6 +864,18 @@ export const useMusicStore = create<MusicStore>((set, get) => {
             // 同步到 localStorage, 让 Leader 广播时也使用新状态
             saveSharedState(get());
         },
+        setLyric: (trackId: string, key: string) => {
+            const next = { ...get().lyricChoice, [trackId]: key };
+            set({ lyricChoice: next });
+            try { localStorage.setItem(LYRIC_KEY, JSON.stringify(next)); } catch { /* ignore */ }
+        },
+        toggleLossless: () => {
+            const next = !get().lossless;
+            set({ lossless: next });
+            try { localStorage.setItem(LOSSLESS_KEY, String(next)); } catch { /* ignore */ }
+            const s = get();
+            if (s.playlist[s.trackIndex]?.audioWebUrl) crossTab?.sendCommand({ action: 'reload' });
+        },
         toggleLyricsFullscreen: () => {
             set((s) => ({ lyricsFullscreen: !s.lyricsFullscreen }));
         },
@@ -746,6 +892,7 @@ export const useMusicStore = create<MusicStore>((set, get) => {
                 audio.src = '';
                 audio = null;
             }
+            if (objectUrl) { URL.revokeObjectURL(objectUrl); objectUrl = null; }
         },
     };
 });

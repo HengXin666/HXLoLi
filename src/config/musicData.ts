@@ -26,8 +26,33 @@ export interface MusicTrack {
     coverUrl?: string;
     /** ASS 歌词中使用的字体名列表 (用于 fallback 映射, 可选) */
     assFonts?: string[];
+    /** 音频文件的原始相对路径 (直链 403 时走切片下载用) */
+    audioRelativePath?: string;
+    /**
+     * 网页版音频 (可选, 音乐库为大于 20MB 的无损文件生成的 Opus / AAC 副本, 直链能流式播放).
+     * 有它时默认播它, 用户打开"无损"才播 audioUrl.
+     */
+    audioWebUrl?: string;
+    /**
+     * 多份歌词 (可选). 音乐库按 "歌名.标签.ass" 命名生成; 没有该字段时由 assUrl 派生出一份默认歌词.
+     */
+    lyrics?: MusicLyric[];
     /** 番剧归属: HXLoLi-Music 的 static/music/<番剧名>/ 目录名, 原样; null = 不属于番剧 (播放器归到"其它"); 旧数据没有该字段 */
     anime?: { title: string } | null;
+}
+
+/** 一份歌词 */
+export interface MusicLyric {
+    /** 歌词标识, 同一首歌内唯一 (默认歌词为 "default") */
+    key: string;
+    /** 展示名, 如 "中日双语" / "罗马音" */
+    label: string;
+    /** ASS 歌词 URL (已转为绝对地址) */
+    assUrl: string;
+    /** ASS 原始相对路径 (供 reqMusicByCDN 切片加载使用) */
+    assRelativePath?: string;
+    /** 详细配置 static/info/<detailId>.json 的 id; 缺省时用歌曲 id */
+    detailId?: string;
 }
 
 /** 歌曲详细配置 (按需加载, 从 static/info/{id}.json 获取) */

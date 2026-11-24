@@ -28,12 +28,16 @@ export type MusicCommand =
     | { action: 'prev' }
     | { action: 'seek'; time: number }
     | { action: 'setTrack'; trackIndex: number }
-    | { action: 'setVolume'; volume: number };
+    | { action: 'setVolume'; volume: number }
+    /** 按当前偏好 (无损 / 网页版) 重新加载当前曲目, 保持进度 */
+    | { action: 'reload' };
 
 /** 播放状态 */
 export interface MusicState {
     /** 当前播放的曲目索引 */
     trackIndex: number;
+    /** 当前曲目 id; 恢复时优先按 id 找, 播放列表增删歌曲后索引会错位 */
+    trackId?: string;
     /** 当前播放时间 (秒) */
     currentTime: number;
     /** 歌曲总时长 (秒) */

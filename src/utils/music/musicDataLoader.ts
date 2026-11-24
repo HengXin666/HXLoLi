@@ -4,7 +4,7 @@
  * 从 HXLoLi-Music 仓库通过 jsDelivr CDN 加载 playlist.json
  * 本地开发时优先从本地文件服务器 (serve.py) 加载, 自动 fallback 到 CDN
  */
-import type { MusicTrack, MusicTrackDetail } from '@site/src/config/musicData';
+import type { MusicLyric, MusicTrack, MusicTrackDetail } from '@site/src/config/musicData';
 import { isLocalDev, LOCAL_MUSIC_SERVER, toMusicCdnUrl, toMusicLocalUrl } from '@site/src/utils/cdn/linkJsDelivr';
 
 let cachedPlaylist: MusicTrack[] | null = null;
@@ -51,6 +51,42 @@ export async function shouldUseLocal(): Promise<boolean> {
 }
 
 /**
+ * 把 playlist.json 里的歌词字段规整成 MusicLyric[].
+ * - 新格式: lyrics: [{ key, label, assUrl, detailId? }] (assUrl 为相对路径)
+ * - 旧格式: 只有 assUrl, 派生一份 key 为 default 的歌词
+ */
+function normalizeLyrics(track: MusicTrack, useLocal: boolean): MusicLyric[] {
+    const raw = Array.isArray(track.lyrics) ? track.lyrics : [];
+    const out: MusicLyric[] = [];
+    const seen = new Set<string>();
+    for (const l of raw) {
+        if (!l || typeof l.assUrl !== 'string' || !l.assUrl) continue;
+        const key = typeof l.key === 'string' && l.key ? l.key : `l${out.length}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        out.push({
+            key,
+            label: typeof l.label === 'string' && l.label ? l.label : key,
+            assUrl: resolveUrl(l.assUrl, useLocal)!,
+            assRelativePath: l.assUrl,
+            detailId: typeof l.detailId === 'string' && l.detailId ? l.detailId : undefined,
+        });
+    }
+    if (out.length === 0 && track.assUrl) {
+        out.push({ key: 'default', label: '歌词', assUrl: resolveUrl(track.assUrl, useLocal)!, assRelativePath: track.assUrl });
+    }
+    return out;
+}
+
+/** 按用户的选择取当前歌词; 选的那份不存在时回落到第一份 */
+export function pickLyric(track: MusicTrack | null | undefined, choice: Record<string, string>): MusicLyric | null {
+    const list = track?.lyrics;
+    if (!track || !list || list.length === 0) return null;
+    const key = choice[track.id];
+    return list.find((l) => l.key === key) ?? list[0];
+}
+
+/**
  * 运行时加载播放列表 (仅元信息, 体积小)
  *
  * - 本地开发时: 优先从 localhost:9527 加载 (serve.py), 失败自动 fallback 到 CDN
@@ -73,14 +109,20 @@ export function loadPlaylist(): Promise<MusicTrack[]> {
         if (!resp.ok) throw new Error(`加载播放列表失败: ${resp.statusText}`);
         const data: MusicTrack[] = await resp.json();
 
-        // 将相对路径转为绝对路径 (本地或 CDN)
-        cachedPlaylist = data.map(track => ({
-            ...track,
-            audioUrl: resolveUrl(track.audioUrl, useLocal)!,
-            assUrl: resolveUrl(track.assUrl, useLocal),
-            assRelativePath: track.assUrl,  // 保留原始相对路径
-            coverUrl: resolveUrl(track.coverUrl, useLocal),
-        }));
+        // 将相对路径转为绝对路径 (本地或 CDN); 多份歌词统一到 lyrics 字段
+        cachedPlaylist = data.map(track => {
+            const lyrics = normalizeLyrics(track, useLocal);
+            return {
+                ...track,
+                audioUrl: resolveUrl(track.audioUrl, useLocal)!,
+                audioRelativePath: track.audioUrl,
+                audioWebUrl: resolveUrl(track.audioWebUrl, useLocal),
+                assUrl: lyrics[0]?.assUrl,
+                assRelativePath: lyrics[0]?.assRelativePath,
+                coverUrl: resolveUrl(track.coverUrl, useLocal),
+                lyrics,
+            };
+        });
         return cachedPlaylist;
     })();
 
@@ -134,3 +176,4 @@ export async function loadTrackDetail(trackId: string): Promise<MusicTrackDetail
         return null;
     }
 }
+ 

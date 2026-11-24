@@ -20,7 +20,7 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import type { MusicTrackDetail } from '@site/src/config/musicData';
 import { toMusicLocalUrl, reqMusicByCDN, reqMusicRace } from '@site/src/utils/cdn/linkJsDelivr';
-import { loadTrackDetail, shouldUseLocal } from '@site/src/utils/music/musicDataLoader';
+import { loadTrackDetail, pickLyric, shouldUseLocal } from '@site/src/utils/music/musicDataLoader';
 import { useMusicStore } from '@site/src/utils/music/musicStore';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -375,6 +375,9 @@ export default function AssLyrics(): React.ReactElement | null {
   const baseUrl = siteConfig.baseUrl;
 
   const currentTrack = pl[trackIndex] ?? null;
+  const lyricChoice = useMusicStore((s) => s.lyricChoice);
+  // 当前歌词: 一首歌可有多份 (MusicTrack.lyrics), 按用户选择取, 默认第一份
+  const lyric = pickLyric(currentTrack, lyricChoice);
 
   const containerRef = useRef<HTMLDivElement>(null);
   // 主渲染 canvas (SubtitlesOctopus Worker 渲染到此)
@@ -564,7 +567,7 @@ export default function AssLyrics(): React.ReactElement | null {
 
   // ========== 初始化 / 切换曲目时重建 SubtitlesOctopus 实例 ==========
   useEffect(() => {
-    if (!showLyrics || !currentTrack?.assUrl) {
+    if (!showLyrics || !currentTrack || !lyric) {
       if (rendererRef.current) {
         try { rendererRef.current.dispose(); } catch {}
         rendererRef.current = null;
@@ -622,10 +625,11 @@ export default function AssLyrics(): React.ReactElement | null {
         }
 
         // 按需加载歌曲详细配置
-        console.log(`[JSO] 加载歌曲详细配置: ${currentTrack.id}`);
+        const detailId = lyric.detailId ?? currentTrack.id;
+        console.log(`[JSO] 加载歌曲详细配置: ${detailId}`);
         let trackDetail: MusicTrackDetail | null = null;
         try {
-          trackDetail = await loadTrackDetail(currentTrack.id);
+          trackDetail = await loadTrackDetail(detailId);
         } catch (detailErr) {
           console.warn('[JSO] 加载详细配置失败, 继续使用基础模式:', detailErr);
         }
@@ -663,7 +667,7 @@ export default function AssLyrics(): React.ReactElement | null {
         let subContent: string;
         try {
           if (useLocal) {
-            const assUrlRaw = currentTrack.assUrl!;
+            const assUrlRaw = lyric.assUrl;
             const origin = typeof window !== 'undefined' ? window.location.origin : '';
             const subFullUrl = safeUrl(
               assUrlRaw.startsWith('http') ? assUrlRaw : `${origin}${assUrlRaw}`
@@ -673,7 +677,7 @@ export default function AssLyrics(): React.ReactElement | null {
             if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
             subContent = await resp.text();
           } else {
-            const relativePath = currentTrack.assRelativePath ?? currentTrack.assUrl!;
+            const relativePath = lyric.assRelativePath ?? lyric.assUrl;
             console.log('[JSO] reqMusicByCDN ASS:', relativePath);
             try {
               const result = await reqMusicByCDN(relativePath);
@@ -683,7 +687,7 @@ export default function AssLyrics(): React.ReactElement | null {
               // Range 下载失败 (常见于 CORS preflight 拦截 Range 头)
               // fallback: 直接 fetch CDN URL (不带 Range 头, 绕过 preflight)
               console.warn('[JSO] reqMusicByCDN (Range) 失败, fallback 到直接 fetch:', rangeErr);
-              const cdnUrl = currentTrack.assUrl!;
+              const cdnUrl = lyric.assUrl;
               const fetchUrl = cdnUrl.startsWith('http') ? cdnUrl : safeUrl(cdnUrl);
               console.log('[JSO] 直接 fetch ASS:', fetchUrl);
               const resp = await fetch(safeUrl(fetchUrl), { mode: 'cors' });
@@ -883,7 +887,7 @@ export default function AssLyrics(): React.ReactElement | null {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [showLyrics, currentTrack?.assUrl, baseUrl, lyricsFullscreen, rebuildToken, preprocessAss,
+    }, [showLyrics, lyric?.assUrl, lyric?.detailId, baseUrl, lyricsFullscreen, rebuildToken, preprocessAss,
         preprocessAss ? 0 : size.w, preprocessAss ? 0 : size.h]);
 
   // 全屏 resize 监听
@@ -944,7 +948,7 @@ export default function AssLyrics(): React.ReactElement | null {
     return () => { if (toolbarTimerRef.current) clearTimeout(toolbarTimerRef.current); };
   }, []);
 
-  if (!showLyrics || !currentTrack?.assUrl) return null;
+  if (!showLyrics || !currentTrack || !lyric) return null;
 
   // 工具栏
   const toolbarContent = (
