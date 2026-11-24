@@ -953,33 +953,12 @@
     }
 }
 
-/* 目录封面拼图: 按张数排版, 1px 缝隙用线色 */
-.mosaic {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 1px;
-    overflow: hidden;
-    background: var(--mp-line);
-}
-
-.mosaic img {
-    width: 100%;
-    height: 100%;
-    min-width: 0;
-    min-height: 0;
-    object-fit: cover;
-}
-
-.mosaic[data-n='2'] img {
-    grid-row: 1 / 3;
-}
-
-.mosaic[data-n='3'] img:first-child {
-    grid-row: 1 / 3;
-}
-
 .rowCover {
+    display: grid;
+    place-items: center;
     flex: none;
+    font-size: 10px;
+    color: var(--mp-faint);
     width: 20px;
     height: 20px;
     border-radius: 4px;

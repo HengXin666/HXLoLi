@@ -359,8 +359,10 @@ interface DirNode {
     count: number;
     /** 目录自带封面 (playlist 的 dirCovers), 没有时为 undefined */
     cover?: string;
-    /** 子树内前 4 张不同的歌曲封面, 用来拼图 */
-    covers: string[];
+    /** 子树内按原列表顺序第一首有封面的歌的封面 */
+    firstCover?: string;
+    /** firstCover 那首歌在原列表的位置 */
+    firstIndex?: number;
 }
 
 const MUSIC_ROOT = '/static/music/';
@@ -379,7 +381,7 @@ function dirSegments(track: MusicTrack): string[] {
  * 只有一个子目录且自己没有歌的目录与子目录合并成 "A / B" 一行, 少点一层展开.
  */
 function buildDirTree(pl: readonly MusicTrack[]): DirNode {
-    const root: DirNode = { key: '', name: '', dirs: [], items: [], count: 0, covers: [] };
+    const root: DirNode = { key: '', name: '', dirs: [], items: [], count: 0 };
     const dirCovers = new Map<string, string>();
     pl.forEach((track, index) => {
         for (const [k, v] of Object.entries(track.dirCovers ?? {})) if (v && !dirCovers.has(k)) dirCovers.set(k, v);
@@ -388,7 +390,7 @@ function buildDirTree(pl: readonly MusicTrack[]): DirNode {
             const key = node.key ? `${node.key}/${seg}` : seg;
             let next = node.dirs.find((d) => d.key === key);
             if (!next) {
-                next = { key, name: seg, dirs: [], items: [], count: 0, covers: [] };
+                next = { key, name: seg, dirs: [], items: [], count: 0 };
                 node.dirs.push(next);
             }
             node = next;
@@ -403,10 +405,12 @@ function buildDirTree(pl: readonly MusicTrack[]): DirNode {
         }
         n.cover ??= dirCovers.get(n.key);
         n.count = n.items.length + n.dirs.reduce((x, d) => x + d.count, 0);
-        const covers = new Set<string>();
-        for (const it of n.items) if (it.track.coverUrl) covers.add(it.track.coverUrl);
-        for (const d of n.dirs) for (const c of d.covers) covers.add(c);
-        n.covers = [...covers].slice(0, 4);
+        const first = [
+            ...n.items.map((it) => ({ index: it.index, cover: it.track.coverUrl })),
+            ...n.dirs.map((d) => ({ index: d.firstIndex ?? Infinity, cover: d.firstCover })),
+        ].filter((x) => x.cover).sort((a, b) => a.index - b.index)[0];
+        n.firstCover = first?.cover;
+        n.firstIndex = first?.index;
         return n;
     };
     return finish(root);
@@ -419,23 +423,23 @@ function ancestorKeys(track: MusicTrack | undefined): string[] {
     return segs.map((_, i) => segs.slice(0, i + 1).join('/'));
 }
 
-/**
- * 目录封面: 目录自带的 cover.* 优先; 否则用子树里的歌曲封面拼图, 张数决定版式不重复贴图:
- * 1 张铺满, 2 张左右各半, 3 张左大右二, 4 张 2x2; 一张都没有画音符.
- */
+/** 依次尝试候选图, 加载失败换下一张, 都失败画音符; 不展示裂图 */
+function CoverImg({ srcs, className }: { srcs: (string | undefined)[]; className: string }): React.ReactElement {
+    const list = useMemo(() => [...new Set(srcs.filter((x): x is string => !!x))], [srcs.join('\n')]); // eslint-disable-line react-hooks/exhaustive-deps
+    const [i, setI] = useState(0);
+    useEffect(() => setI(0), [list]);
+    const src = list[i];
+    if (!src) return <span className={className} aria-hidden="true">♪</span>;
+    return <img className={className} src={src} alt="" loading="lazy" decoding="async" onError={() => setI((x) => x + 1)} />;
+}
+
+/** 目录封面: 目录自带的 cover.* (dirCovers) 优先, 否则用目录里第一首有封面的歌的封面 */
 function DirCover({ node }: { node: DirNode }): React.ReactElement {
-    if (node.cover) return <img className={styles.groupCover} src={node.cover} alt="" loading="lazy" decoding="async" />;
-    if (node.covers.length === 0) return <span className={styles.groupCover} aria-hidden="true">♪</span>;
-    if (node.covers.length === 1) return <img className={styles.groupCover} src={node.covers[0]} alt="" loading="lazy" decoding="async" />;
-    return (
-        <span className={`${styles.groupCover} ${styles.mosaic}`} data-n={node.covers.length} aria-hidden="true">
-            {node.covers.map((c, i) => <img key={i} src={c} alt="" loading="lazy" decoding="async" />)}
-        </span>
-    );
+    return <CoverImg className={styles.groupCover} srcs={[node.cover, node.firstCover]} />;
 }
 
 /**
- * 播放列表树: 按音频所在目录分组 (层数不限), 目录行 = 封面 / 名字 / 曲数 / 箭头, 歌曲行带封面缩略图.
+ * 播放列表树: 按音频所在目录分组 (层数不限), 目录行 = 封面 / 名字 / 曲数 / 箭头, 歌曲行带封面缩略图 (加载失败不显示裂图).
  * 默认只展开正在播放的那首所在的各级目录, 切歌时自动展开新路径, 手动展开的保持.
  * 有搜索词时平铺显示命中的歌 (标题 / 歌手 / 目录名); 没有子目录时退化为平铺列表.
  * .agents/notes/implemented/feature/2026-11-02-music-anime-tree.md
@@ -484,9 +488,7 @@ function PlaylistTree({ playlist, trackIndex, isPlaying, onPick }: {
                 onClick={() => onPick(index)}
             >
                 <span className={styles.rowIndex}>{active ? <EqBars playing={isPlaying} /> : index + 1}</span>
-                {track.coverUrl
-                    ? <img className={styles.rowCover} src={track.coverUrl} alt="" loading="lazy" decoding="async" />
-                    : <span className={styles.rowCover} aria-hidden="true" />}
+                <CoverImg className={styles.rowCover} srcs={[track.coverUrl]} />
                 <span className={styles.rowTitle}>{track.title}</span>
                 {(track.lyrics?.length ?? 0) > 0 && <span className={styles.rowTag} title="有歌词">词</span>}
                 {track.artist && track.artist !== 'Unknown' && <span className={styles.rowArtist}>{track.artist}</span>}
