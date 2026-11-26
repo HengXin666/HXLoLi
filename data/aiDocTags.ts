@@ -62,6 +62,28 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "AI Agent"
     },
     {
+      "label": "理财",
+      "slug": "理财",
+      "permalink": "/knowledge-base/tags/理财",
+      "count": 9,
+      "description": "个人理财: 先后顺序, 资产配置, 投资纪律",
+      "parent": "生活杂谈",
+      "aliases": [
+        "投资理财"
+      ],
+      "root": "生活杂谈"
+    },
+    {
+      "label": "股票",
+      "slug": "股票",
+      "permalink": "/knowledge-base/tags/股票",
+      "count": 7,
+      "description": "股票投资的原理, 规则与风险",
+      "parent": "理财",
+      "aliases": [],
+      "root": "生活杂谈"
+    },
+    {
       "label": "Harness",
       "slug": "harness",
       "permalink": "/knowledge-base/tags/harness",
@@ -70,6 +92,18 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "parent": "AI Agent",
       "aliases": [],
       "root": "AI Agent"
+    },
+    {
+      "label": "选购指标",
+      "slug": "选购指标",
+      "permalink": "/knowledge-base/tags/选购指标",
+      "count": 5,
+      "description": "买东西时真正该看的指标",
+      "parent": "生活杂谈",
+      "aliases": [
+        "商品选购"
+      ],
+      "root": "生活杂谈"
     },
     {
       "label": "多智能体",
@@ -125,6 +159,16 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "parent": "AI Agent",
       "aliases": [],
       "root": "AI Agent"
+    },
+    {
+      "label": "手机",
+      "slug": "手机",
+      "permalink": "/knowledge-base/tags/手机",
+      "count": 4,
+      "description": "手机选购与横评",
+      "parent": "选购指标",
+      "aliases": [],
+      "root": "生活杂谈"
     },
     {
       "label": "特效风格",
@@ -217,6 +261,19 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "AI Agent"
     },
     {
+      "label": "指数基金",
+      "slug": "指数基金",
+      "permalink": "/knowledge-base/tags/指数基金",
+      "count": 3,
+      "description": "宽基指数基金, ETF, QDII 与定投",
+      "parent": "理财",
+      "aliases": [
+        "ETF",
+        "QDII"
+      ],
+      "root": "生活杂谈"
+    },
+    {
       "label": "Agent架构",
       "slug": "agent架构",
       "permalink": "/knowledge-base/tags/agent架构",
@@ -265,6 +322,16 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "逆向与风控"
     },
     {
+      "label": "港股",
+      "slug": "港股",
+      "permalink": "/knowledge-base/tags/港股",
+      "count": 2,
+      "description": "香港股市与港股通",
+      "parent": "股票",
+      "aliases": [],
+      "root": "生活杂谈"
+    },
+    {
       "label": "检测面建模",
       "slug": "检测面建模",
       "permalink": "/knowledge-base/tags/检测面建模",
@@ -276,6 +343,18 @@ export const aiDocTagIndex: AiDocTagIndex = {
         "风控"
       ],
       "root": "逆向与风控"
+    },
+    {
+      "label": "美股",
+      "slug": "美股",
+      "permalink": "/knowledge-base/tags/美股",
+      "count": 2,
+      "description": "美国股市与纳指, 标普等指数",
+      "parent": "股票",
+      "aliases": [
+        "纳指"
+      ],
+      "root": "生活杂谈"
     },
     {
       "label": "前端",
@@ -298,18 +377,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "编程语言"
     },
     {
-      "label": "选购指标",
-      "slug": "选购指标",
-      "permalink": "/knowledge-base/tags/选购指标",
-      "count": 2,
-      "description": "买东西时真正该看的指标",
-      "parent": "生活杂谈",
-      "aliases": [
-        "商品选购"
-      ],
-      "root": "生活杂谈"
-    },
-    {
       "label": "异步任务",
       "slug": "异步任务",
       "permalink": "/knowledge-base/tags/异步任务",
@@ -328,6 +395,16 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "parent": "前端",
       "aliases": [],
       "root": "编程语言"
+    },
+    {
+      "label": "A股",
+      "slug": "a股",
+      "permalink": "/knowledge-base/tags/a股",
+      "count": 2,
+      "description": "中国大陆股市的规则, 指数与费用",
+      "parent": "股票",
+      "aliases": [],
+      "root": "生活杂谈"
     },
     {
       "label": "Codex",
@@ -494,16 +571,6 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "root": "编程语言"
     },
     {
-      "label": "手机",
-      "slug": "手机",
-      "permalink": "/knowledge-base/tags/手机",
-      "count": 1,
-      "description": "",
-      "parent": "",
-      "aliases": [],
-      "root": ""
-    },
-    {
       "label": "数据面",
       "slug": "数据面",
       "permalink": "/knowledge-base/tags/数据面",
@@ -570,10 +637,10 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "slug": "折叠屏",
       "permalink": "/knowledge-base/tags/折叠屏",
       "count": 1,
-      "description": "",
-      "parent": "",
+      "description": "折叠屏手机的取舍",
+      "parent": "手机",
       "aliases": [],
-      "root": ""
+      "root": "生活杂谈"
     },
     {
       "label": "注意力",
@@ -688,10 +755,149 @@ export const aiDocTagIndex: AiDocTagIndex = {
   ],
   "docs": [
     {
-      "id": "生活/购物/手机选购指标",
+      "id": "生活/理财/大学生理财路线",
+      "title": "大学生理财路线: 从零到第一笔定投, 以及往后怎么看这件事",
+      "description": "<Lead why=\"前六篇讲完了规则, 证据和坑, 但读完最常见的状态是 '懂了, 然后呢'. 而大学阶段真正稀缺的, 不是本金, 是时间和习惯\" claim=\"对一个没有收入, 本金很少的学生, 最优解不是挑股票, 而是用最少的精力建立一套能用几十年的系统: 应急金, 低费率宽基, 小额自动定投, 每年再平衡一次.",
+      "permalink": "/knowledge-base/生活/理财/大学生理财路线",
+      "date": "2026-11-26",
+      "tags": [
+        "理财",
+        "指数基金"
+      ]
+    },
+    {
+      "id": "生活/理财/港股",
+      "title": "港股: 便宜不等于安全, 没有涨跌停的市场一天就能教做人",
+      "description": "<Lead why=\"港股上市的很多是你天天在用的中国公司, 估值看着比 A 股便宜, 2025 年恒指还涨了 27.77%. 于是 2026 年很多人觉得该上车了\" claim=\"港股是用港币交易的中国资产, 规则更像美股: T+0, 没有涨跌停, 每手股数各不相同. 它便宜有原因, 波动也比恒指本身大得多, 尤其是",
+      "permalink": "/knowledge-base/生活/理财/港股",
+      "date": "2026-11-26",
+      "tags": [
+        "理财",
+        "股票",
+        "港股"
+      ]
+    },
+    {
+      "id": "生活/理财/合规买海外股票",
+      "title": "大陆学生怎么合规买纳指, 美股, 港股: 2026 年只剩这几扇正门",
+      "description": "<Lead why=\"网上的教程还在教 '下个富途, 开个港卡, 换 5 万美元额度入金'. 2026 年这条路已经被堵死, 照做还可能踩外汇和税务的雷\" claim=\"大陆居民买海外资产的合法渠道只有三类: QDII 基金, 港股通, 跨境理财通. 对学生来说现实可行的是场外 QDII 小额定投. 场内 QDII E",
+      "permalink": "/knowledge-base/生活/理财/合规买海外股票",
+      "date": "2026-11-26",
+      "tags": [
+        "理财",
+        "指数基金",
+        "美股",
+        "港股"
+      ]
+    },
+    {
+      "id": "生活/理财/理财第一课",
+      "title": "理财第一课: 先把地基打好, 再弄懂股票到底在买什么",
+      "description": "<Lead why=\"刚开户的大学生最常见的路线是: 刷到一个涨停视频, 拿生活费冲进去, 跌了死扛, 急用钱时割在最低点\" claim=\"理财有先后顺序: 应急金, 还掉贵的债, 买基本保障, 最后才投资. 股票是公司的一小块所有权, 长期回报来自分红和利润增长, 短期涨跌主要是情绪\" use=\"拿到第一笔闲钱时, ",
+      "permalink": "/knowledge-base/生活/理财/理财第一课",
+      "date": "2026-11-26",
+      "tags": [
+        "理财",
+        "股票"
+      ]
+    },
+    {
+      "id": "生活/理财/量化交易",
+      "title": "量化和高频交易: 它们在 A 股赚的是谁的钱, 散户该怎么应对",
+      "description": "<Lead why=\"A 股一跌, 评论区就有人骂 '量化砸盘'. 可很少有人说得清量化到底在做什么, 它和高频是不是一回事, 散户到底是不是被它收割\" claim=\"量化是用模型挑股票, 程序化是用电脑下单, 高频是程序化里下单撤单最快最多的那一小撮. 它们赚的主要是追涨杀跌, 频繁交易留下的定价错误, 所以你持有得",
+      "permalink": "/knowledge-base/生活/理财/量化交易",
+      "date": "2026-11-26",
+      "tags": [
+        "理财",
+        "股票",
+        "A股"
+      ]
+    },
+    {
+      "id": "生活/理财/名词词典",
+      "title": "理财名词词典: 场内场外, 主板创业板, ETF 和 QDII, 一次讲成人话",
+      "description": "<Lead why=\"打开券商 App, 满屏都是场内, LOF, 主板, ST, IOPV. 每个词都不难, 难的是没人告诉你它们之间是什么关系\" claim=\"几乎所有名词都能挂到四个问题上: 在哪买 哪个市场, 哪个板块 , 买的是什么 股票还是基金, 跟哪个指数 , 按什么价买 成交价还是净值 , 用不用借钱 ",
+      "permalink": "/knowledge-base/生活/理财/名词词典",
+      "date": "2026-11-26",
+      "tags": [
+        "理财",
+        "股票",
+        "指数基金"
+      ]
+    },
+    {
+      "id": "生活/理财/纳指与美股",
+      "title": "纳指与美股: 过去十年涨得最猛的市场, 也是跌得最狠的那个",
+      "description": "<Lead why=\"身边人都在说 '闭眼买纳指', 2023 年一年涨了 53%. 但很少有人提, 它在 2000 年跌了七八成, 用了 15 年才回本\" claim=\"纳指 100 是一篮子美国最大的非金融公司, 前十大占了近一半, 本质是押注美国科技巨头. 它长期回报高, 是因为这些公司利润真的在涨, 而高回报的",
+      "permalink": "/knowledge-base/生活/理财/纳指与美股",
+      "date": "2026-11-26",
+      "tags": [
+        "理财",
+        "股票",
+        "美股"
+      ]
+    },
+    {
+      "id": "生活/理财/新手避坑",
+      "title": "新手避坑: 最大的坑一半是骗子, 一半是你自己",
+      "description": "<Lead why=\"虚假投资理财诈骗造成的损失约占全部电诈损失的四成. 没被骗的人, 也常常因为追涨杀跌, 把基金赚的钱亏掉一大半\" claim=\"外面的坑有固定剧本: 荐股群, 老师带单, 假 App, 配资, 都靠 '稳赚' 和 '内部消息' 引你入局. 里面的坑是人性: 怕亏, 自信, 跟风. 前者靠三查识破,",
+      "permalink": "/knowledge-base/生活/理财/新手避坑",
+      "date": "2026-11-26",
+      "tags": [
+        "理财",
+        "股票"
+      ]
+    },
+    {
+      "id": "生活/理财/A股入门",
+      "title": "A 股入门: 规则, 费用, 指数, 以及散户为什么大多亏钱",
+      "description": "<Lead why=\"A 股有一堆别的市场没有的规则: 当天买了不能卖, 一天最多涨跌 10%, 最低收 5 块佣金. 不懂这些就进场, 等于不看规则就上牌桌\" claim=\"A 股的规则和数据合在一起只说明一件事: 散户在择时和选股上整体是输的, 赢面在低成本地买下整个市场, 然后拿住\" use=\"开户前知道能买什么",
+      "permalink": "/knowledge-base/生活/理财/A股入门",
+      "date": "2026-11-26",
+      "tags": [
+        "理财",
+        "股票",
+        "A股"
+      ]
+    },
+    {
+      "id": "生活/购物/手机选购/芯片横评2026",
+      "title": "极客湾 2026 芯片横评: 只认零售机上的能效曲线",
+      "description": "<Lead why=\"四颗旗舰芯片发布会上都说自己最强, 首发评测的曲线也都好看, 买回来同一个游戏却有的凉有的烫\" claim=\"芯片强不强只看一件事: 零售机上, 在你常用的功耗段, 同功耗能跑出多少性能. 工程机能被调成任何形状, 跑分只是曲线上的一个点, 还可能刚好绕开芯片的坑\" use=\"看到一颗新芯片的宣传",
+      "permalink": "/knowledge-base/生活/购物/手机选购/芯片横评2026",
+      "date": "2026-11-25",
+      "tags": [
+        "选购指标",
+        "手机"
+      ]
+    },
+    {
+      "id": "生活/购物/手机选购/续航横评2026",
+      "title": "极客湾 2026 续航横评: 电池容量和快充瓦数都要打折看",
+      "description": "<Lead why=\"今年动不动就是 8000, 10000mAh 和 120W 快充, 换回来却发现续航没长多少, 充电也没快多少\" claim=\"盒子上的 mAh 和 W 都是上限. 能用的电要扣掉锁容, 充电速度要看前半程的平均功率, 续航还得乘上系统和芯片的能效\" use=\"看到新机的电池和快充参数, 知道该把",
+      "permalink": "/knowledge-base/生活/购物/手机选购/续航横评2026",
+      "date": "2026-11-25",
+      "tags": [
+        "选购指标",
+        "手机"
+      ]
+    },
+    {
+      "id": "生活/购物/手机选购/影像横评2026",
+      "title": "极客湾 2026 影像横评: 测试卡只量得出底子, 成片要看算法的取舍",
+      "description": "<Lead why=\"影像旗舰的宣传全是像素, 大底和分数, 买回来才发现长焦糊, 夜景脏, 或者颜色不是自己要的\" claim=\"实验室能量化的只有光学底子和传感器读出速度. 手机直出的照片里, AI 和厂商审美占了大头, 只能拿同一场景实拍去比, 而且比的是风格合不合你\" use=\"选影像机时知道哪些参数值得看, ",
+      "permalink": "/knowledge-base/生活/购物/手机选购/影像横评2026",
+      "date": "2026-11-25",
+      "tags": [
+        "选购指标",
+        "手机"
+      ]
+    },
+    {
+      "id": "生活/购物/手机选购/手机选购指标",
       "title": "手机选购指标: 直板和折叠屏怎么打分",
-      "description": "<Lead why=\"参数表上每台都写着旗舰芯片, 大电池, IP68, 到手后有的撑一天, 有的半小时就烫手掉帧\" claim=\"参数表写的是峰值和容量, 日常过的是持续表现. 先按门槛淘汰, 再在最在意的两项里比实测, 最后才看实付价\" use=\"看到任何一台新机, 知道该去哪查哪个数, 多少算及格, 不被发布会话",
-      "permalink": "/knowledge-base/生活/购物/手机选购指标",
+      "description": "<Lead why=\"参数表上每台都写着旗舰芯片, 大电池, IP68, 到手后有的撑一天, 有的半小时就烫手掉帧\"claim=\"参数表写的是峰值和容量, 日常过的是持续表现. 先按门槛淘汰, 再在最在意的两项里比实测, 最后才看实付价\"use=\"看到任何一台新机, 知道该去哪查哪个数, 多少算及格, 不被发布会话术带",
+      "permalink": "/knowledge-base/生活/购物/手机选购/手机选购指标",
       "date": "2026-11-23",
       "tags": [
         "选购指标",
@@ -702,7 +908,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/评测与验证/把Agent的纠正变成确定性检查",
       "title": "把 Agent 的纠正变成确定性检查",
-      "description": "<Lead why=\"同一套规则, 换个模型写出来的东西就不一样. 规则越写越长, 效果还是看模型心情\" claim=\"纠正写成文字, 每个模型理解不同; 写成检查, 谁来都一样\" use=\"拿到一条新纠正时, 知道先往哪里放: 架构, lint, 最后才是文字\" / 来源是 Grok Bot 的 Lauren Tan",
+      "description": "<Lead why=\"同一套规则, 换个模型写出来的东西就不一样. 规则越写越长, 效果还是看模型心情\"claim=\"纠正写成文字, 每个模型理解不同; 写成检查, 谁来都一样\"use=\"拿到一条新纠正时, 知道先往哪里放: 架构, lint, 最后才是文字\"/ 来源是 Grok Bot 的 Lauren Tan po",
       "permalink": "/knowledge-base/AI/评测与验证/把Agent的纠正变成确定性检查",
       "date": "2026-11-22",
       "tags": [
@@ -759,7 +965,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/Agent-Harness/oh-my-pi原生调试与代码审查",
       "title": "oh-my-pi 为什么好用: 把 LSP, 调试和编辑改成 Agent 能用的形状",
-      "description": "<Lead why=\"Agent 基本都能调 LSP, 用起来差距却很大. 差在哪, 看功能列表看不出来\" claim=\"LSP 是给坐在 IDE 前的人设计的. OMP 好用, 是把 Agent 打破的几个前提一个个补上了\" use=\"自己写 agent loop 时知道先做哪条: 写完文件当场拿到这次改动的诊断\" ",
+      "description": "<Lead why=\"Agent 基本都能调 LSP, 用起来差距却很大. 差在哪, 看功能列表看不出来\"claim=\"LSP 是给坐在 IDE 前的人设计的. OMP 好用, 是把 Agent 打破的几个前提一个个补上了\"use=\"自己写 agent loop 时知道先做哪条: 写完文件当场拿到这次改动的诊断\"/ 来",
       "permalink": "/knowledge-base/AI/Agent-Harness/oh-my-pi原生调试与代码审查",
       "date": "2026-10-10",
       "tags": [
@@ -911,7 +1117,7 @@ export const aiDocTagIndex: AiDocTagIndex = {
     {
       "id": "AI/记忆/obsidian-second-brain",
       "title": "obsidian-second-brain 怎么让 AI 自己维护知识库: 三个钩子加一套写给模型的规则",
-      "description": "<Lead why=\"让 AI 长期维护一个笔记库, 难的不是写, 是它每次开会话都忘了上次定下的规矩\" claim=\"它把最要紧的规矩做成了三个钩子, 每次必定执行. 剩下的写成给模型读的规则, 靠模型自觉\" use=\"给自己的知识库或 Agent 定规矩时, 分得清哪条该写成钩子, 哪条写成文字就够\" / 来源是 ",
+      "description": "<Lead why=\"让 AI 长期维护一个笔记库, 难的不是写, 是它每次开会话都忘了上次定下的规矩\"claim=\"它把最要紧的规矩做成了三个钩子, 每次必定执行. 剩下的写成给模型读的规则, 靠模型自觉\"use=\"给自己的知识库或 Agent 定规矩时, 分得清哪条该写成钩子, 哪条写成文字就够\"/ 来源是 obs",
       "permalink": "/knowledge-base/AI/记忆/obsidian-second-brain",
       "date": "2026-09-13",
       "tags": [
@@ -1259,5 +1465,5 @@ export const aiDocTagIndex: AiDocTagIndex = {
       "tags": []
     }
   ],
-  "generatedAt": "2026-11-23T14:24:44.834Z"
+  "generatedAt": "2026-11-26T15:15:59.716Z"
 };

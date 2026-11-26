@@ -323,6 +323,46 @@ desc = "通勤场景下的取舍"
 parent = "选购指标"
 aliases = []
 
+[tags."手机"]
+desc = "手机选购与横评"
+parent = "选购指标"
+aliases = []
+
+[tags."折叠屏"]
+desc = "折叠屏手机的取舍"
+parent = "手机"
+aliases = []
+
+[tags."理财"]
+desc = "个人理财: 先后顺序, 资产配置, 投资纪律"
+parent = "生活杂谈"
+aliases = ["投资理财"]
+
+[tags."股票"]
+desc = "股票投资的原理, 规则与风险"
+parent = "理财"
+aliases = []
+
+[tags."A股"]
+desc = "中国大陆股市的规则, 指数与费用"
+parent = "股票"
+aliases = []
+
+[tags."美股"]
+desc = "美国股市与纳指, 标普等指数"
+parent = "股票"
+aliases = ["纳指"]
+
+[tags."港股"]
+desc = "香港股市与港股通"
+parent = "股票"
+aliases = []
+
+[tags."指数基金"]
+desc = "宽基指数基金, ETF, QDII 与定投"
+parent = "理财"
+aliases = ["ETF", "QDII"]
+
 [tags."短视频"]  # 1 篇在用
 desc = "短视频的内容形态与影响"
 parent = "生活杂谈"
@@ -375,42 +415,50 @@ aliases = ["动效设计"]
 # >>> hx-tags:generated begin (由 hxloli_tags.py generate 重建, 请勿手改) >>>
 [generated]
 schema_version = 1
-source_digest = "sha256:8130cfac0f4064f9"
-generated_at = "2026-10-05T12:28:28Z"
-notes_scanned = 37
-tags_in_use = 55
+source_digest = "sha256:dd403848d47630e9"
+generated_at = "2026-11-26T13:26:04Z"
+notes_scanned = 56
+tags_in_use = 63
 
 [generated.usage]
-"AI Agent" = 16
-"工程实践" = 10
-"Harness" = 4
+"AI Agent" = 21
+"工程实践" = 13
+"Harness" = 7
+"理财" = 7
+"股票" = 5
+"选购指标" = 5
+"DSH" = 4
 "Skill" = 4
+"上下文工程" = 4
+"多智能体" = 4
 "字幕特效" = 4
+"手机" = 4
 "特效风格" = 4
 "记忆系统" = 4
+"评测" = 4
 "逆向与风控" = 4
+"Agent架构" = 3
 "AI工具" = 3
 "C++" = 3
-"DSH" = 3
 "Turnstile" = 3
-"多智能体" = 3
+"可复现性" = 3
 "技术选型" = 3
 "提示词工程" = 3
 "知识库" = 3
-"评测" = 3
-"Agent架构" = 2
 "Codex" = 2
 "MCP" = 2
 "Multica" = 2
 "Python" = 2
 "react" = 2
-"上下文工程" = 2
 "前端" = 2
 "协程" = 2
-"可复现性" = 2
 "异步任务" = 2
+"指数基金" = 2
 "检测面建模" = 2
+"港股" = 2
 "组件库" = 2
+"美股" = 2
+"A股" = 1
 "Bot Defense" = 1
 "KV Cache" = 1
 "LLM" = 1
@@ -419,6 +467,7 @@ tags_in_use = 55
 "凭证管理" = 1
 "前端动画" = 1
 "增量沉淀" = 1
+"折叠屏" = 1
 "数据面" = 1
 "检索" = 1
 "毛选方法论" = 1
@@ -433,7 +482,6 @@ tags_in_use = 55
 "自建部署" = 1
 "语言特性" = 1
 "逆向工程" = 1
-"选购指标" = 1
 "通勤" = 1
 "验证码求解" = 1
 

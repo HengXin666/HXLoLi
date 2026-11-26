@@ -59,45 +59,45 @@ export const latestBlogs: LatestDoc[] = [
 /** ai-docs/ (路由 /knowledge-base) 下最近的 AI 文章 */
 export const latestAiDocs: LatestDoc[] = [
   {
-    "title": "手机选购指标: 直板和折叠屏怎么打分",
-    "to": "/knowledge-base/生活/购物/手机选购指标/",
-    "date": "2026-11-23",
+    "title": "A 股入门: 规则, 费用, 指数, 以及散户为什么大多亏钱",
+    "to": "/knowledge-base/生活/理财/A股入门/",
+    "date": "2026-11-26",
     "category": "生活",
     "description": "<Lead"
   },
   {
-    "title": "把 Agent 的纠正变成确定性检查",
-    "to": "/knowledge-base/AI/评测与验证/把Agent的纠正变成确定性检查/",
-    "date": "2026-11-22",
-    "category": "AI",
+    "title": "新手避坑: 最大的坑一半是骗子, 一半是你自己",
+    "to": "/knowledge-base/生活/理财/新手避坑/",
+    "date": "2026-11-26",
+    "category": "生活",
     "description": "<Lead"
   },
   {
-    "title": "评测Harness为什么会逼出作弊与外包",
-    "to": "/knowledge-base/AI/评测与验证/评测Harness为什么会逼出作弊与外包/",
-    "date": "2026-11-08",
-    "category": "AI",
-    "description": "在 dsh / Claude Code 里, 从没见过 agent 作弊, 也没见它把活外包给别的模型. 试两下就收敛了."
+    "title": "纳指与美股: 过去十年涨得最猛的市场, 也是跌得最狠的那个",
+    "to": "/knowledge-base/生活/理财/纳指与美股/",
+    "date": "2026-11-26",
+    "category": "生活",
+    "description": "<Lead"
   },
   {
-    "title": "DeepSeek Harness Super-agent设计探索: 双层架构与事件驱动",
-    "to": "/knowledge-base/AI/Agent架构/Super-agent设计探索双层架构与事件驱动/",
-    "date": "2026-11-01",
-    "category": "AI",
-    "description": "原文给了一个数: 一个人通常只跟得住 3 到 5 个活跃 Session. 我整理它, 是想看清这个上限怎么从人身上挪回系统里."
+    "title": "理财名词词典: 场内场外, 主板创业板, ETF 和 QDII, 一次讲成人话",
+    "to": "/knowledge-base/生活/理财/名词词典/",
+    "date": "2026-11-26",
+    "category": "生活",
+    "description": "<Lead"
   },
   {
-    "title": "HX-AI-Review 通用 AI CR 方案",
-    "to": "/knowledge-base/AI/代码审查/HX-AI-Review通用AI-CR方案/",
-    "date": "2026-10-28",
-    "category": "AI",
-    "description": "本文是 HX-AI-Review 下一版 code 审查的实现规格. 以 hx-context-review 0.3.0 为起点, 首个落地版本是 v0.4. 文中 \"AI CR\" 默认指 code "
+    "title": "量化和高频交易: 它们在 A 股赚的是谁的钱, 散户该怎么应对",
+    "to": "/knowledge-base/生活/理财/量化交易/",
+    "date": "2026-11-26",
+    "category": "生活",
+    "description": "<Lead"
   },
   {
-    "title": "oh-my-pi 为什么好用: 把 LSP, 调试和编辑改成 Agent 能用的形状",
-    "to": "/knowledge-base/AI/Agent-Harness/oh-my-pi原生调试与代码审查/",
-    "date": "2026-10-10",
-    "category": "AI",
+    "title": "理财第一课: 先把地基打好, 再弄懂股票到底在买什么",
+    "to": "/knowledge-base/生活/理财/理财第一课/",
+    "date": "2026-11-26",
+    "category": "生活",
     "description": "<Lead"
   }
 ];

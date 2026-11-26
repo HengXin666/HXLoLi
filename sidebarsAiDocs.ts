@@ -594,9 +594,48 @@ const aiDocsSidebar = [
             }
           },
           {
-            "type": "doc",
-            "id": "生活/购物/手机选购指标/index",
-            "label": "手机选购指标",
+            "type": "category",
+            "label": "手机选购",
+            "collapsible": true,
+            "collapsed": true,
+            "items": [
+              {
+                "type": "doc",
+                "id": "生活/购物/手机选购/手机选购指标/index",
+                "label": "手机选购指标",
+                "customProps": {
+                  "icon": "icons/ai-smartphone.svg",
+                  "tags": []
+                }
+              },
+              {
+                "type": "doc",
+                "id": "生活/购物/手机选购/续航横评2026/index",
+                "label": "续航横评2026",
+                "customProps": {
+                  "icon": "icons/ai-smartphone.svg",
+                  "tags": []
+                }
+              },
+              {
+                "type": "doc",
+                "id": "生活/购物/手机选购/芯片横评2026/index",
+                "label": "芯片横评2026",
+                "customProps": {
+                  "icon": "icons/ai-smartphone.svg",
+                  "tags": []
+                }
+              },
+              {
+                "type": "doc",
+                "id": "生活/购物/手机选购/影像横评2026/index",
+                "label": "影像横评2026",
+                "customProps": {
+                  "icon": "icons/ai-smartphone.svg",
+                  "tags": []
+                }
+              }
+            ],
             "customProps": {
               "icon": "icons/ai-smartphone.svg",
               "tags": []
@@ -605,6 +644,99 @@ const aiDocsSidebar = [
         ],
         "customProps": {
           "icon": "icons/ai-shopping-bag.svg",
+          "tags": []
+        }
+      },
+      {
+        "type": "category",
+        "label": "理财",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "doc",
+            "id": "生活/理财/名词词典/index",
+            "label": "名词词典",
+            "customProps": {
+              "icon": "icons/ai-trending-up.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "生活/理财/理财第一课/index",
+            "label": "理财第一课",
+            "customProps": {
+              "icon": "icons/ai-trending-up.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "生活/理财/A股入门/index",
+            "label": "A股入门",
+            "customProps": {
+              "icon": "icons/ai-trending-up.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "生活/理财/量化交易/index",
+            "label": "量化交易",
+            "customProps": {
+              "icon": "icons/ai-trending-up.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "生活/理财/纳指与美股/index",
+            "label": "纳指与美股",
+            "customProps": {
+              "icon": "icons/ai-trending-up.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "生活/理财/港股/index",
+            "label": "港股",
+            "customProps": {
+              "icon": "icons/ai-trending-up.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "生活/理财/合规买海外股票/index",
+            "label": "合规买海外股票",
+            "customProps": {
+              "icon": "icons/ai-trending-up.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "生活/理财/新手避坑/index",
+            "label": "新手避坑",
+            "customProps": {
+              "icon": "icons/ai-shield-alert.svg",
+              "tags": []
+            }
+          },
+          {
+            "type": "doc",
+            "id": "生活/理财/大学生理财路线/index",
+            "label": "大学生理财路线",
+            "customProps": {
+              "icon": "icons/ai-list-checks.svg",
+              "tags": []
+            }
+          }
+        ],
+        "customProps": {
+          "icon": "icons/ai-trending-up.svg",
           "tags": []
         }
       }
