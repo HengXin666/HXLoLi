@@ -3,7 +3,7 @@
   "version": 3,
   "encryption": "RSA-OAEP(SHA-256) + AES-256-GCM",
   "note": "公钥加密, 只有持有 RSA 私钥的浏览器插件才能解密",
-  "generatedAt": "2026-11-26T17:47:26.964Z",
+  "generatedAt": "2026-11-26T18:12:35.261Z",
   "stats": {
     "docs": 3,
     "blog": 1,
