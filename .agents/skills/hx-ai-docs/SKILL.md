@@ -5,7 +5,7 @@ license: MIT
 disable-model-invocation: true
 metadata:
   author: Heng_Xin
-  version: "1.0"
+  version: "1.1"
 ---
 
 # hx-ai-docs
@@ -42,6 +42,7 @@ metadata:
 - **不编.** 机制和数字来自固定提交的源码或文档, 链接带提交号. 示意性的例子要写明是示意, 拿不准的标 [不确定]
 - **图是真结构.** 节点和边对应真实的模块, 调用, 时序. 没有结构可画就用 Compare 或 Flow, 都不合适就不配
 - **不放 Markdown 表格, 不写大段.** 一段不超过 100 字
+- **落位先看邻居.** 建目录前先 `ls` 目标分类. 同一主题会连着读的笔记 (含这次要写的) 到 2 篇以上, 就收进一个子目录, 例如 `001-购物/002-手机选购/` 下放指标篇和各期横评. 已有笔记跟着搬, 搬完跑 `hx_docs_id.py resolve --write` 和侧边栏重建. 判据见 `hx-note/entries/organize/impl/decision-matrix.md`. 新建一级或二级分类仍要用户同意
 - **要换整体写法先出样本.** 写法由用户定, 改之前先拿一节样稿给用户看
 
 ## 脚本
