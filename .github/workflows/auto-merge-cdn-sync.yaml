@@ -58,9 +58,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          # 标题经环境变量传入, 不直接拼进 shell (标题里的引号曾让合并失败, 见 #184)
+          PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
           echo "🏷️ 检测到子仓库 CDN 同步 PR #${PR_NUMBER}"
-          echo "📋 标题: ${{ github.event.pull_request.title }}"
+          echo "📋 标题: ${PR_TITLE}"
 
           # 审批 PR
           gh pr review "${PR_NUMBER}" \
@@ -74,7 +76,7 @@ jobs:
           gh pr merge "${PR_NUMBER}" \
             --repo "${{ github.repository }}" \
             --squash \
-            --subject "${{ github.event.pull_request.title }}" \
+            --subject "${PR_TITLE}" \
             --delete-branch
 
           echo "🎉 PR #${PR_NUMBER} 合并成功!"
