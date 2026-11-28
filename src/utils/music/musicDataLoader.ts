@@ -70,6 +70,7 @@ function normalizeLyrics(track: MusicTrack, useLocal: boolean): MusicLyric[] {
             assUrl: resolveUrl(l.assUrl, useLocal)!,
             assRelativePath: l.assUrl,
             detailId: typeof l.detailId === 'string' && l.detailId ? l.detailId : undefined,
+            desc: typeof l.desc === 'string' && l.desc ? l.desc : undefined,
         });
     }
     if (out.length === 0 && track.assUrl) {

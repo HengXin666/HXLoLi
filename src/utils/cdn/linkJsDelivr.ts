@@ -165,8 +165,9 @@ const musicEngine = createEngine(
     mappingPrefix: 'static',
     turboMode: true,
     turboConcurrentCDNs: 3,
-    // enablePreCompression 默认 true: 自动检测 info-zip.yaml
-    // → 对文本文件走 Range 并行下载 .gz + DecompressionStream 解压 (最优策略)
+    // hx-cdn-forge 2.3 的 enablePreCompression 默认是 false (以前这里的注释写成了默认 true),
+    // 不开就从不读 info-zip.yaml, 16MB 的 kfx 歌词按原文件下载; 开了走 .gz (约 1/10) + DecompressionStream 解压
+    enablePreCompression: true,
   },
 );
 

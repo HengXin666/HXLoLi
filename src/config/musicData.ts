@@ -52,6 +52,8 @@ export interface MusicLyric {
     key: string;
     /** 展示名, 如 "中日双语" / "罗马音" */
     label: string;
+    /** 这份歌词的风格说明 (ASS 里 "; lyric-desc:"), 悬停歌词按钮时显示 */
+    desc?: string;
     /** ASS 歌词 URL (已转为绝对地址) */
     assUrl: string;
     /** ASS 原始相对路径 (供 reqMusicByCDN 切片加载使用) */

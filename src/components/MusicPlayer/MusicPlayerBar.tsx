@@ -757,6 +757,7 @@ function MusicPanel(): React.ReactElement {
                                 aria-checked={l.key === lyric.key}
                                 className={styles.segItem}
                                 data-on={l.key === lyric.key || undefined}
+                                title={l.desc ? `${l.label}: ${l.desc}` : l.label}
                                 onClick={() => currentTrack && setLyric(currentTrack.id, l.key)}
                             >
                                 {l.label}
