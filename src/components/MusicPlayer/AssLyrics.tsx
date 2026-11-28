@@ -668,7 +668,10 @@ export default function AssLyrics(): React.ReactElement | null {
         };
         for (const u of Object.values(trackDetail?.assFontMap ?? {})) addFont(u);
         for (const u of trackDetail?.fonts ?? []) addFont(u);
-        addFont(useLocal ? toMusicLocalUrl(CJK_FALLBACK) : CJK_FALLBACK);
+        // 播放列表已带本曲的 NotoSansSC 子集 (static/cdn/subset/, 几百 KB) 时, 不再下 17MB 的完整版
+        const CJK_FALLBACK_NAME = CJK_FALLBACK.split('/').pop() as string;
+        const hasCjkSubset = fontItems.some((f) => f.rel.split('/').pop() === CJK_FALLBACK_NAME);
+        if (!hasCjkSubset) addFont(useLocal ? toMusicLocalUrl(CJK_FALLBACK) : CJK_FALLBACK);
 
         const fetchFont = async (item: { url: string; rel: string }): Promise<ArrayBuffer> => {
           if (useLocal || !item.rel.startsWith('/')) {
