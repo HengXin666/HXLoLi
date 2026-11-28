@@ -1,3 +1,3 @@
 // 由 HXLoLi-Music 仓库 GitHub Actions 自动发 PR 更新
 // Tag 格式: HX-{随机6位}-{时间戳}
-export const MUSIC_CDN_TAG = 'HX-20261128100820-uQkpo4';
+export const MUSIC_CDN_TAG = 'HX-20261128112224-f66QVF';
