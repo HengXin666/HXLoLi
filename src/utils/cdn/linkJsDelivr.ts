@@ -168,6 +168,9 @@ const musicEngine = createEngine(
     // hx-cdn-forge 2.3 的 enablePreCompression 默认是 false (以前这里的注释写成了默认 true),
     // 不开就从不读 info-zip.yaml, 16MB 的 kfx 歌词按原文件下载; 开了走 .gz (约 1/10) + DecompressionStream 解压
     enablePreCompression: true,
+    // 分块超时默认 30s: 一个连不上的节点 (jsdelivr-testing, zstatic 等) 会把整份 .gz 拖到 20s 以上才被拉黑.
+    // 歌词 .gz 每块不到 2MB, 8s 没回来就换节点 (work stealing)
+    chunkTimeout: 8000,
   },
 );
 
